@@ -1,0 +1,1056 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:"Noto Sans";
+
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button,
+i {
+    cursor: pointer;
+}
+
+.t{
+    transform: translateX();
+}
+
+:root {
+    --color1: #6FFF74;
+    --color2: #19CD1F;
+    --color3: #43B747;
+    --color4: #42b983;
+    --color5: #42b98341;
+    --babyColor1:#b0ddc241;
+    --bgColor1: #F9F9F9;
+    --bgColor2: #F3F3F3;
+    --main-gradient: linear-gradient(
+            to bottom right,
+            #6FFF74 10%,
+            #19CD1F 70%
+    );
+    --gradient2: linear-gradient(
+            to bottom right,
+            #65f16a 10%,
+            #3ae041 70%
+    );
+}
+
+::selection {
+    background-color: #b0ddc2; /* 드래그 배경색 */
+    color: #000; /* 드래그된 텍스트 색상 */
+}
+
+input[type="checkbox"] {
+    accent-color: #24c22b; /* 체크 표시 색상 (예: 토마토색) */
+    color:#fff;
+}
+
+/* header -------------------------------- */
+
+
+
+.headerwrap {
+    /*border:1px solid red;*/
+    border-bottom: 1px solid #ececec;
+    width: 98vw;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 60px 20px 60px; 
+
+}
+
+.headerwrap .logoImg {
+    cursor: pointer;
+}
+
+.headerBox {
+    margin: 0 auto;
+    width: 1050px;
+
+}
+
+
+.headerwrap .loginBox .text {
+    color:#1c1c1c;
+    width: 120px;
+    text-align: center;
+    font-family: "Gmarket Sans";
+}
+
+
+.headerwrap .loginBox .text2 {
+    border-left: 1px solid #ccc;
+}
+
+.footWrap {
+    margin: 0 auto;
+    width: 1050px;
+    height: 160px;
+    text-align: center;
+
+}
+.grayFoot {
+    margin: 0 auto;
+    width: 1050px;
+    height: 200px;
+    text-align: center;
+    background-color: var(--bgColor2);
+}
+
+
+.grayFoot .termsBox,
+.footWrap .termsBox {
+    height: 80px;
+
+}
+
+
+.grayFoot .add,
+.grayFoot .termsBox .terms,
+.footWrap .add,
+.footWrap .termsBox .terms {
+    width: auto;
+    height: 22px;
+    line-height: 22px;
+    font-size: 12px;
+    color:#5c5c5c;
+
+}
+
+
+.grayFoot .add,
+.footWrap .add {
+    padding-top: 60px;
+}
+
+.grayFoot .termsBox .terms,
+.footWrap .termsBox .terms {
+    padding: 0 10px;
+}
+
+
+.grayFoot .termsBox .border,
+.footWrap .termsBox .border {
+    height: 12px;
+    border-right: 1px solid #ccc;
+}
+
+.footBox {
+    height: 60px;
+}
+
+.footBox  img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+.footBox .copyright {
+    margin-left: 40px;
+    font-size: 14px;
+    color:#5c5c5c;
+}
+
+
+
+/* leftBox -------------------------------- */
+
+.merwrap {
+    display: flex;
+    width: 100%;
+}
+
+.merleft {
+    height: 100vh;
+    /*overflow-y: auto;  */
+    /*flex-shrink: 0;  */
+    width: 220px;
+}
+
+.merright {
+    flex-grow: 1;
+    width: 100%;
+    background-color: var(--bgColor2);
+}
+
+.leftBox {
+    width: 220px;
+    height: 100vh;
+    overflow-y: scroll;
+    background-color: var(--bgColor1);
+}
+
+.searchBox1 {
+    margin-top: 20px;
+    width: 200px;
+    height: 80px;
+}
+.searchBox1 select {
+    border:none;
+    background-color: transparent;
+    border-radius: 5px;
+    width: 160px;
+    height: 32px;
+    margin-left: 20px;
+
+}
+.searchBox1-1 {
+    position: relative;
+    margin: 0 auto;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 160px;
+    height: 32px;
+}
+
+
+.searchBox1-1 input{
+    margin-left: 0;
+    border:none;
+    background-color: transparent;
+    width: 130px;
+    height: 32px;
+}
+
+.searchBox1-1 input:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+
+.searchBox1-1 i {
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    right:10px;
+    color:#7c7c7c;
+    font-size: 16px;
+}
+
+.menuWrap {
+    width: 200px;
+}
+.menuBox .topmenu {
+    /*width:160px;*/
+    padding: 0px 20px;
+
+}
+.menuBox .topText {
+    width:100px;
+    height: 50px;
+    line-height: 50px;
+    text-align: left;
+    font-family: "Gmarket Sans";
+}
+
+.topmenu i {
+    color:#7c7c7c;
+}
+
+.hidden {
+    display: none;
+
+}
+
+.submenu {
+    display: none;
+}
+
+.submenu .subtext {
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    padding: 0px 20px;
+    color:#7c7c7c;
+}
+
+/* 로그인 페이지 -------------------------------- */
+
+.login {
+    width: 380px;
+    height: 750px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-flow: column;
+}
+
+.login .title {
+    margin-top: 100px;
+    height: 200px;
+    line-height: 200px;
+    font-family: "Gmarket Sans";
+    font-size: 22px;
+}
+
+.login .inputcon input {
+    border:1px solid #ececec;
+    width: 380px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.login button {
+    width: 380px;
+    height: 50px;
+    /*background-color: #42b983;*/
+    color:#fff;
+    font-size: 18px;
+    font-family: "Gmarket Sans";
+    border:none;
+    border-radius: 5px;
+    background-image: var(--main-gradient);
+}
+
+
+.login .autoLogin .checkType{
+    width:160px;
+    height: 50px;
+}
+
+
+.login .autoLogin .checkType > *{
+    margin-left: 10px;
+}
+/*.login > p {*/
+/*    width: 380px;*/
+/*    height: 60px;*/
+/*    font-size: 22px;*/
+/*    font-weight: bold;*/
+/*    margin-top: 60px;*/
+/*    margin-bottom: 60px;*/
+/*}*/
+
+/* merright -------------------------------- */
+
+
+.order_box28f .swich_boxli6,
+.dashBoard_boxowy .swich_boxli6 {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 78vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 20px;
+}
+
+.deli_wrapghj .swich_boxli6 {
+    width: 78vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 20px;
+
+}
+
+
+.order_box28f .swich_boxli6 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+
+
+.order_box28f .status {
+    margin-top: 10px;
+    margin-left: 40px;
+    font-family: "Gmarket Sans";
+    color:#5c5c5c;
+}
+
+
+.deli_wrapghj .status {
+    margin-left: 40px;
+    font-family: "Gmarket Sans";
+    color:#5c5c5c;
+
+}
+
+ .swich_boxli6 i{
+    margin-left: 20px;
+
+}
+ .swich_boxli6 .binder{
+    border-left: 2px solid #000;
+    width: 5px;
+    height: 18px;
+    margin-left: 20px;
+}
+
+/* deliInfo -------------------------------- */
+
+
+/* calendar -------------------------------- */
+
+
+#calendar {
+    margin: 0 !important;
+    margin-top: 60px !important;
+    margin-left: 20px !important;
+    padding: 0;
+    max-width: 90% !important;
+    max-height: 720px;
+}
+
+/*달력 안에 today*/
+#calendar .fc-day-today {
+    background-color: var(--babyColor1) !important;
+    color: black !important;
+}
+
+.fc-daygrid-day {
+    min-height: 80px; !important;/* 원하는 px로 고정 */
+}
+
+/* 기본 버튼 prev, next, today 색상 변경 */
+.fc-header-toolbar .fc-prev-button,
+.fc-header-toolbar .fc-next-button,
+.fc-header-toolbar .fc-today-button {
+    margin: 0 !important;
+    padding: 0 !important;
+    border:none !important;
+    width: 50px;
+    height: 32px;
+    line-height: 32px;
+    background-color: #ccc !important;  /* 연노랑 계열 배경색 */
+    color: #000 !important;               /* 글씨색 */
+}
+
+.fc-header-toolbar .fc-next-button {
+    margin-right: 10px !important;
+
+}
+
+.fc-header-toolbar .fc-today-button {
+    background-color: #ccc !important;
+    color: #000 !important;
+    width: auto;
+    padding: 0 20px !important;
+}
+
+
+.fc-event.fc-event-selected,
+.fc-event:focus {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+
+/* linkMalls -------------------------------- */
+
+.titleBox .headTitle {
+    padding: 40px 0 20px 40px ;
+    font-family: "Gmarket Sans";
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.areaBox {
+    border:1px solid #ccc;
+    border-radius: 10px;
+    width: 80vw;
+    /*width: 1400px;*/
+    height: auto;
+    padding: 20px 0;
+    margin-left: 20px;
+    background-color: #fff;
+    overflow: hidden;
+
+}
+
+
+/*.dashBoard_boxowy .areaBox .area5,*/
+/*.dashBoard_boxowy .areaBox .area3,*/
+/*.dashBoard_boxowy .areaBox .area2,*/
+/*.dashBoard_boxowy .areaBox .area1,*/
+
+/*.link_wrap5r6 .areaBox .area5,*/
+/*.link_wrap5r6 .areaBox .area3,*/
+/*.link_wrap5r6 .areaBox .area2,*/
+/*.link_wrap5r6 .areaBox .area1,*/
+
+/*.order_box28f .areaBox .area5,*/
+/*.order_box28f .areaBox .area3,*/
+/*.order_box28f .areaBox .area2,*/
+/*.order_box28f .areaBox .area1,*/
+
+/*.deli_wrapghj .areaBox .area5,*/
+/*.deli_wrapghj .areaBox .area3,*/
+/*.deli_wrapghj .areaBox .area2,*/
+/*.deli_wrapghj .areaBox .area1{*/
+
+ .areaBox .area5,
+ .areaBox .area3,
+ .areaBox .area2,
+ .areaBox .area1 {
+    padding: 10px 20px;
+
+}
+
+.order_box28f .areaBox .area4 {
+    border:1px solid #ccc;
+    /*padding:0 20px;*/
+    margin: 20px 20px 0 20px;
+}
+
+
+.areaBox .area2 .title,
+.areaBox .area1 .title {
+    min-width: 100px;
+    width: 100px;
+}
+
+.areaBox .area1 .period {
+    border:1px solid #ccc;
+    background-color: #fff;
+    min-width: 100px;
+    width: 100px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 14px;
+    color:#303030;
+}
+
+
+.areaBox .area2 .searchFilter,
+.areaBox .area2 .searchArea {
+    border:1px solid #ccc;
+    width: 160px;
+    height: 32px;
+    line-height: 32px;
+    margin-right: 10px;
+    font-size: 14px;
+    color:#303030;
+}
+
+.areaBox .area2 .searchArea {
+    width: 220px;
+}
+
+.areaBox .area1 .period:nth-child(2),
+.areaBox .area1 .period:nth-child(3),
+.areaBox .area1 .period:nth-child(4){
+    border-right: none;
+}
+
+.areaBox .area2 .right,
+.areaBox .area1 .right {
+    margin-right: 20px;
+    min-width: 240px;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.link_wrap5r6 .area3 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.areaBox .area1 .right {
+    flex-wrap: nowrap;
+}
+
+
+.areaBox .area1 .right .btnType1{
+    flex-shrink: 1;
+}
+
+.areaBox .area4 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+}
+
+.link_wrap5r6 .area4 {
+}
+
+
+
+.areaBox .area4 .order_boxfxp {
+
+    border-right: 3px solid #ccc;
+    /*border:2px solid red;*/
+    width: 640px;
+    min-width: 640px;
+    overflow: hidden;
+}
+
+.areaBox .area4 .order_boxe4z {
+    overflow-x: scroll;
+}
+
+.deli_box1od {
+}
+
+.areaBox .area4 .orderInfoTable {
+    border:1px solid #ccc;
+    border-collapse: collapse;
+    color:#303030;
+}
+
+.areaBox .area4 .linkMallsTable,
+.deliInfoTable {
+    border:1px solid #ccc;
+    border-collapse: collapse;
+    color:#303030;
+    width: 77vw;
+
+}
+
+.deliInfoTable {
+    margin-top: 20px;
+}
+
+.link_wrap5r6 .area4,
+.deli_wrapghj .area4 {
+    width: 77vw;
+    overflow-x: hidden;
+    margin-left: 20px;
+}
+
+.deli_wrapghj .titleBox {
+    width: 80vw;
+}
+
+.deli_wrapghj .deli_box2w9 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.deli_wrapghj .deli_box2w9 .status {
+    width: 620px;
+}
+
+
+.areaBox .area4 .orderInfoTable1 {
+}
+
+.areaBox .area4 .orderInfoTable2 {
+    overflow-x: scroll;
+}
+
+
+.deliInfoTable td,
+.areaBox .area4 .orderInfoTable td,
+.areaBox .area4 .linkMallsTable td {
+    min-width: 100px;
+    max-height: 32px;
+    overflow: hidden;
+    border:1px solid #ccc;
+    width: auto;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+}
+
+.deliInfoTable td:first-child{
+    min-width: 40px;
+    width: 40px;
+}
+
+.linkMallsTable .negative,
+.linkMallsTable .positive {
+    margin: 0 auto;
+    border-radius: 5px;
+    width: 40px;
+    min-width: 40px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+}
+
+
+
+.linkMallsTable .positive {
+    background-color: #6FFF74;
+}
+
+.linkMallsTable .negative {
+    background-color: #FF6F6F;
+    color:#fff;
+}
+
+
+.areaBox .area4 .orderInfoTable1 td:first-child {
+    min-width: 40px;
+    width: 40px;
+}
+
+.deliInfoTable thead .ltThead,
+.linkMallsTable thead .ltThead,
+.areaBox .area4 .orderInfoTable thead .ltThead {
+    background-color: #ececec81;
+}
+
+.areaBox .area4 .orderInfoTable2 thead .ltThead{
+    min-width: 120px;
+    width: 140px;
+
+}
+
+
+.areaBox .area4 .orderInfoTable thead td {
+    height: 32px;
+    max-height: 32px;
+}
+
+
+.areaBox .area5 {
+    padding: 0 20px;
+}
+
+.order_box28f .areaBox .area5 .countBox{
+    width: 240px;
+    height: 160px;
+}
+
+.order_box28f .areaBox .area5 .count{
+    padding: 5px 0;
+
+}
+
+
+.areaBox .area5 .number{
+    font-size: 18px;
+    text-align: right;
+    font-family: "Gmarket Sans";
+    font-weight: 500;
+
+}
+
+
+/* date picker -------------------------------- */
+.date_boxtc6 > *{
+    margin-right: 20px;
+}
+
+
+.date_boxtc6 {
+    margin-left: 20px;
+
+}
+
+.date_boxtc6 .dateLabel1,
+.date_boxtc6 .dateLabel2 {
+    position: relative;
+}
+
+.date_boxtc6 i {
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    left:10px;
+    color:#7c7c7c;
+}
+
+
+
+.date_boxtc6 .inputType160{
+    padding-left: 40px;
+
+}
+
+
+
+    /* dashboard -------------------------------- */
+
+#calendar {
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+.statusBox {
+    margin-left: 20px;
+    /*width: 1200px;*/
+}
+
+.statusBox .status {
+    margin-top: 20px;
+    margin-right: 20px;
+    border:1px solid #ccc;
+    border-radius: 10px;
+    width: 22%;
+    min-width: 240px;
+    height: 180px;
+    background-color: #fff;
+}
+
+.statusBox .status .upside{
+    border-bottom: 1px solid #ccc;
+    height: 40px;
+
+}
+
+.statusBox .status .aside{
+    padding: 0 20px;
+}
+
+
+.statusBox .status .downside{
+    margin-top: 10px;
+
+}
+
+.statusBox .status .aside .flexType3{
+    height: 28px;
+
+}
+
+.statusBox .status .now{
+    color:#5c5c5c;
+
+}
+
+.statusBox .status .category{
+    font-family: "Gmarket Sans";
+}
+
+.statusBox .status .right{
+    font-size: 14px;
+    color:#7c7c7c;
+}
+
+.statusBox .status .right .count{
+    font-size: 22px;
+    font-weight: bold;
+    color:#3c3c3c;
+    margin-right: 10px;
+}
+
+/* packing Info -------------------------------- */
+
+.packing_wraph1c .titleBox {
+    margin-bottom: 20px;
+}
+
+.packing_wraph1c .areaBox {
+    overflow: hidden;
+}
+
+.packing_wraph1c .area5  {
+    /*padding: 0;*/
+    /*margin: 0;*/
+    border-bottom: 1px solid #ccc;
+}
+
+.packing_wraph1c .area5 .title {
+}
+
+.packing_wraph1c .area5 .count {
+    margin-bottom: 10px;
+}
+
+.packing_wraph1c .area5 .countBox .title{
+    width: 120px;
+    margin-right: 20px;
+
+}
+
+.packing_boxfxp {
+    border:1px solid red;
+    margin: 0 20px;
+}
+
+.packing_boxfxp table{
+    width: 100%;
+    border:1px solid #ccc;
+    border-collapse: collapse;
+}
+
+.packing_boxfxp table td{
+    height: 32px;
+    min-height: 32px;
+    border:1px solid #ccc;
+    text-align: center;
+}
+
+.progress_boxatq .progress{
+
+}
+
+.progress_boxatq .squareType{
+
+}
+
+
+/* flexType1 -------------------------------- */
+
+.fontType1 {
+    font-family: "Gmarket Sans";
+}
+
+.fontType2 {
+    font-family:"Noto Sans";
+}
+
+.flexType1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.flexType2 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.flexType3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.flexType4 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+.flexType5 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+.flexType6 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+}
+
+.flexCol {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.flexStart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.ml40 {
+    margin-left: 40px;
+}
+
+
+.mr10 {
+    margin-right: 10px;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.mb40 {
+    margin-bottom: 40px;
+}
+
+
+.btnType1 {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    min-width: 80px;
+    width: auto;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 24px;
+    font-size: 16px;
+    text-align: center;
+    color:#303030;
+
+}
+.btnType2 {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    min-width: 80px;
+    width: auto;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 24px;
+    font-size: 16px;
+    text-align: center;
+
+}
+
+.squareType {
+    border: 1px solid var(--color1);
+    background-image: var(--gradient2);
+    color:#000;
+    border-radius: 10px;
+    min-width: 60px;
+    width: 60px;
+    height: 60px;
+    /*line-height: 32px;*/
+    /*padding: 0px 24px;*/
+    font-size: px;
+    text-align: center;
+    position: relative;
+}
+.squareType i {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    font-size: 34px;
+    color:#fff;
+}
+
+.inputType160 {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    min-width: 160px;
+    width: 160px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+
+}
+
+.inputType520 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    min-width: 160px;
+    width: 520px;
+    height: 44px;
+    /*line-height: 44px;*/
+    font-size: 14px;
+    padding-left: 10px;
+
+}
+

@@ -103,6 +103,25 @@ class CommonController extends BaseController
     }
 
 
+    public function packingStatus()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/packingStatus_View');
+    }
+
+
     public function GoodsList()
     {
         $util = new Utils;

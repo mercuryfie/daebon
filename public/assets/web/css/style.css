@@ -40,6 +40,11 @@ i {
             #65f16a 10%,
             #3ae041 70%
     );
+    --gradient3: linear-gradient(
+            to bottom right,
+            #ececec 10%,
+            #ccc 70%
+    );
 }
 
 ::selection {
@@ -168,16 +173,10 @@ input[type="checkbox"] {
     width: 100%;
 }
 
-.merleft {
-    height: 100vh;
-    /*overflow-y: auto;  */
-    /*flex-shrink: 0;  */
-    width: 220px;
-}
-
 .merright {
     flex-grow: 1;
     width: 100%;
+    height: auto;
     background-color: var(--bgColor2);
 }
 
@@ -451,7 +450,7 @@ input[type="checkbox"] {
 /* linkMalls -------------------------------- */
 
 .titleBox .headTitle {
-    padding: 40px 0 20px 40px ;
+    padding: 40px 0 20px 30px ;
     font-family: "Gmarket Sans";
     font-size: 22px;
     font-weight: 500;
@@ -837,21 +836,36 @@ input[type="checkbox"] {
 
 /* packing Info -------------------------------- */
 
+.packing_wraptrf .titleBox,
 .packing_wraph1c .titleBox {
     margin-bottom: 20px;
 }
 
+.packing_wraph1c .areaBox,
 .packing_wraph1c .areaBox {
     overflow: hidden;
 }
 
-.packing_wraph1c .area5  {
+.packing_wraptrf .area,
+.packing_wraph1c .area1 {
     /*padding: 0;*/
     /*margin: 0;*/
     border-bottom: 1px solid #ccc;
 }
 
-.packing_wraph1c .area5 .title {
+.packing_wraph1c .area1 .innerBox {
+    width: 320px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+
+}
+
+.packing_wraptrf .area .title,
+.packing_wraph1c .area .title {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-family: "Gmarket Sans";
+    font-size: 18px;
 }
 
 .packing_wraph1c .area5 .count {
@@ -861,11 +875,9 @@ input[type="checkbox"] {
 .packing_wraph1c .area5 .countBox .title{
     width: 120px;
     margin-right: 20px;
-
 }
 
 .packing_boxfxp {
-    border:1px solid red;
     margin: 0 20px;
 }
 
@@ -882,14 +894,54 @@ input[type="checkbox"] {
     text-align: center;
 }
 
+.packing_boxfxp .hoverGreen:hover {
+    color:var(--color4);
+}
+
+.progress_boxatq {
+
+    margin: 20px 0;
+}
 .progress_boxatq .progress{
-
+    padding: 0 20px;
 }
 
+.progress_boxatq .squareType2,
 .progress_boxatq .squareType{
+    margin-bottom: 10px;
 
 }
 
+.progress_boxatq .squareType i{
+    font-size: 22px;
+    color:#fff;
+}
+
+.progress_boxatq .angle {
+    padding: 0 20px;
+}
+
+.progress_boxatq .angle i {
+    font-size: 22px;
+    color:#ccc;
+}
+
+/* packingStatus -------------------------------- */
+
+.productCheck_boxarv {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.productCheck_boxarv .productCheck {
+    /*padding: 5px 0;*/
+}
+
+.productCheck_boxarv .category {
+    border:1px solid red;
+    width: 100px;
+    margin-right: 20px;
+}
 
 /* flexType1 -------------------------------- */
 
@@ -950,6 +1002,13 @@ input[type="checkbox"] {
     align-items: flex-start;
 }
 
+.flexCol2 {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .flexStart {
     display: flex;
     justify-content: flex-start;
@@ -1008,27 +1067,28 @@ input[type="checkbox"] {
 }
 
 .squareType {
-    border: 1px solid var(--color1);
-    background-image: var(--gradient2);
-    color:#000;
+    border: none;
+    background-image: var(--main-gradient);
     border-radius: 10px;
-    min-width: 60px;
-    width: 60px;
-    height: 60px;
-    /*line-height: 32px;*/
-    /*padding: 0px 24px;*/
-    font-size: px;
+    font-size: 22px;
+    width: 50px;
+    height: 50px;
     text-align: center;
     position: relative;
 }
-.squareType i {
-    position: absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%, -50%);
-    font-size: 34px;
+
+.squareType2 {
+    border: none;
+    background-image: var(--gradient3);
     color:#fff;
+    font-size: 22px;
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    position: relative;
 }
+
 
 .inputType160 {
     border: 1px solid #ccc;

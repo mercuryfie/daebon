@@ -21,6 +21,13 @@ $(document).ready(function() {
     });
 
 
+    $('.submenu').click(function(event){
+        event.stopPropagation();
+        let $clickedSubmenu = $(this).siblings('.submenu');
+        $clickedSubmenu.css('display', 'flex').removeClass('hidden').addClass('flexCol');
+    });
+
+
     $('[name="topmenu"]').hover(
         function() {
             $(this).css('background-color', '#ececec');

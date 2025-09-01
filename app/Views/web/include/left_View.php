@@ -60,24 +60,32 @@
             </div>
             <div class="menuBox" name="">
                 <div class="topmenu flexType3" name="topmenu">
-                    <a href="#" class="topText ">입출고 관리</a>
+                    <a href="#" class="topText ">품질 관리</a>
                     <i class="fa-solid fa-angle-down"></i>
                 </div>
                 <div class="submenu submenu1-1 " name="">
-                    <a href="#" onclick="" class="subtext">원재료 입고</a>
-                    <a href="#" onclick="" class="subtext">원재료 출고</a>
-                    <a href="#" onclick="" class="subtext">원재료 재고</a>
+                    <a href="#" onclick="" class="subtext">품질보고서</a>
+                    <a href="#" onclick="" class="subtext">주문보고서</a>
                 </div>
             </div>
             <div class="menuBox" name="">
                 <div class="topmenu flexType3" name="topmenu">
-                    <a href="#" class="topText ">입출고 관리</a>
+                    <a href="#" class="topText ">모니터링</a>
                     <i class="fa-solid fa-angle-down"></i>
                 </div>
                 <div class="submenu submenu1-1 " name="">
-                    <a href="#" onclick="" class="subtext">원재료 입고</a>
-                    <a href="#" onclick="" class="subtext">원재료 출고</a>
-                    <a href="#" onclick="" class="subtext">원재료 재고</a>
+                    <a href="#" onclick="" class="subtext">작업진행현황</a>
+                    <a href="#" onclick="" class="subtext">공정별 진행현황</a>
+                </div>
+            </div>
+            <div class="menuBox" name="">
+                <div class="topmenu flexType3" name="topmenu">
+                    <a href="#" class="topText ">사용자관리</a>
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+                <div class="submenu submenu1-1 " name="">
+                    <a href="#" onclick="" class="subtext">사용자정보</a>
+                    <a href="#" onclick="" class="subtext">공지사항</a>
                 </div>
             </div>
         </div>

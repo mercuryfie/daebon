@@ -31,62 +31,68 @@
         <div class="areaBox">
             <div class="area area5  ">
                 <p class='title'>작업상태</p>
-                <div class="progress_boxatq flexType2">
-                    <div class="progress flexCol2">
-                        <button class="squareType2">
-                            <i class="fa-regular fa-square-check"></i>
-                        </button>
-                        <p class="status">작업선택</p>
+                <div class="progress_boxatq flexType3">
+                    <div class="flexType2">
+                        <div class="progress flexCol2">
+                            <button class="squareType2">
+                                <i class="fa-regular fa-square-check"></i>
+                            </button>
+                            <p class="status">작업선택</p>
+                        </div>
+                        <div class="angle">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </div>
+                        <div class="progress flexCol2">
+                            <button class="squareType">
+                                <i class="fa-solid fa-print"></i>
+                            </button>
+                            <p class="status">상품확인</p>
+                        </div>
+                        <div class="angle">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </div>
+                        <div class="progress flexCol2">
+                            <button class="squareType2">
+                                <i class="fa-solid fa-print"></i>
+                            </button>
+                            <p class="status">수량확인</p>
+                        </div>
+                        <div class="angle">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </div>
+                        <div class="progress flexCol2">
+                            <button class="squareType2">
+                                <i class="fa-solid fa-receipt"></i>
+                            </button>
+                            <p class="status">송장출력</p>
+                        </div>
+                        <div class="angle">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </div>
+                        <div class="progress flexCol2">
+                            <button class="squareType2">
+                                <i class="fa-solid fa-box-open"></i>
+                            </button>
+                            <p class="status">포장</p>
+                        </div>
+                        <div class="angle">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </div>
+                        <div class="progress flexCol2">
+                            <button class="squareType2">
+                                <i class="fa-solid fa-cube"></i>
+                            </button>
+                            <p class="status">완료</p>
+                        </div>
                     </div>
-                    <div class="angle">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </div>
-                    <div class="progress flexCol2">
-                        <button class="squareType">
-                            <i class="fa-solid fa-print"></i>
-                        </button>
-                        <p class="status">상품확인</p>
-                    </div>
-                    <div class="angle">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </div>
-                    <div class="progress flexCol2">
-                        <button class="squareType2">
-                            <i class="fa-solid fa-print"></i>
-                        </button>
-                        <p class="status">수량확인</p>
-                    </div>
-                    <div class="angle">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </div>
-                    <div class="progress flexCol2">
-                        <button class="squareType2">
-                            <i class="fa-solid fa-receipt"></i>
-                        </button>
-                        <p class="status">송장출력</p>
-                    </div>
-                    <div class="angle">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </div>
-                    <div class="progress flexCol2">
-                        <button class="squareType2">
-                            <i class="fa-solid fa-box-open"></i>
-                        </button>
-                        <p class="status">포장</p>
-                    </div>
-                    <div class="angle">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </div>
-                    <div class="progress flexCol2">
-                        <button class="squareType2">
-                            <i class="fa-solid fa-cube"></i>
-                        </button>
-                        <p class="status">완료</p>
+                    <div class="right flexCol">
+                        <button type="button" class="btnType2">송장출력</button>
+                        <button type="button" class="btnType1">추가출력</button>
                     </div>
                 </div>
             </div>
             <div class="area area1">
-                <p class='title'>상품확인</p>
+                <p class='title'>상품정보/수량 확인</p>
                 <div class="productCheck_boxarv">
                     <div class="productCheck flexType2">
                         <p class="category">주소지</p>
@@ -101,9 +107,57 @@
                         <p class="data">총 10건</p>
                     </div>
                 </div>
+                <div class="imgBox_box2ck flexType2">
+                    <div class="noirLayer">
+                        <!--                        <div class="noir"></div>-->
+                        <img src="/assets/web/src/packing_1.png" alt="img">
+                    </div>
+                    <div class="noirLayer">
+                        <div class="noir"></div>
+                        <img src="/assets/web/src/packing_1.png" alt="img">
+                    </div>
+                    <div class="noirLayer">
+                        <div class="noir"></div>
+                        <img src="/assets/web/src/packing_1.png" alt="img">
+                    </div>
+                    <p class="count">2개</p>
+                    <button type="button" class="btn">확인</button>
+                </div>
             </div>
-            <div class="area">
-                <p class="title"></p>
+            <div class="area area3">
+                <p class="title">배송과정 촬영</p>
+                <div class="imgBox_boxdzu flexType2">
+                    <div class="planeLayer">
+                        <!--                        <div class="noir"></div>-->
+                        <img src="/assets/web/src/packing_1.png" alt="img">
+                    </div>
+                    <div class="planeLayer">
+                        <button type="button" class="closeBtn">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                        <img src="/assets/web/src/packing_1.png" alt="img">
+                    </div>
+                    <div class="dashedLayer">
+                        <p class="inputArea">+</p>
+                    </div>
+                    <div class="dashedLayer">
+                        <p class="inputArea">+</p>
+                    </div>
+<!--                    <div class="dashedLayer">-->
+<!--                        <button type="button" class="closeBtn">-->
+<!--                            <i class="fa-solid fa-xmark"></i>-->
+<!--                        </button>-->
+<!--                        <p class="inputArea"></p> -->
+<!--                    </div>-->
+<!--                    <div class="dashedLayer">-->
+<!--                        <button type="button" class="closeBtn">-->
+<!--                            <i class="fa-solid fa-xmark"></i>-->
+<!--                        </button>-->
+<!--                        <p class="inputArea"></p> -->
+<!--                    </div>-->
+                    <button type="button" class="btn">촬영</button>
+                </div>
+
             </div>
         </div>
     </div>

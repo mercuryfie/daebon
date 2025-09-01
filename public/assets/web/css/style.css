@@ -502,6 +502,7 @@ input[type="checkbox"] {
     border:1px solid #ccc;
     /*padding:0 20px;*/
     margin: 20px 20px 0 20px;
+    overflow: hidden;
 }
 
 
@@ -577,26 +578,57 @@ input[type="checkbox"] {
 
 }
 
-.link_wrap5r6 .area4 {
-}
-
-
 
 .areaBox .area4 .order_boxfxp {
 
-    border-right: 3px solid #ccc;
+    /*border-right: 3px solid #ccc;*/
     /*border:2px solid red;*/
-    width: 640px;
-    min-width: 640px;
-    overflow: hidden;
+    /*width: 640px;*/
+    /*overflow: hidden;*/
 }
 
+
+
 .areaBox .area4 .order_boxe4z {
+    width: auto;
     overflow-x: scroll;
 }
 
-.deli_box1od {
+.order_boxe4z .ltThead {
+    text-wrap: nowrap;
+    padding: 0 10px;
 }
+
+.goods_boxkfg {
+    width: 77vw;
+    margin-top: 20px;
+    margin-left: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.goods_boxkfg .left {
+    font-family: "Gmarket Sans";
+}
+
+.goods_boxkfg .title {
+    margin-right: 20px;
+}
+
+.goods_boxkfg .count {
+    margin-right: 10px;
+    font-size: 22px;
+    color: var(--color3);
+    font-weight: bold;
+}
+
+.goods_boxa1b {
+    /*border:1px solid #ccc;*/
+    margin: 0 20px;
+    overflow: hidden;
+}
+
 
 .areaBox .area4 .orderInfoTable {
     border:1px solid #ccc;
@@ -609,7 +641,7 @@ input[type="checkbox"] {
     border:1px solid #ccc;
     border-collapse: collapse;
     color:#303030;
-    width: 77vw;
+    /*width: 77vw;*/
 
 }
 
@@ -636,6 +668,7 @@ input[type="checkbox"] {
 }
 .deli_wrapghj .deli_box2w9 .status {
     width: 620px;
+    margin-left: 30px;
 }
 
 
@@ -709,6 +742,7 @@ input[type="checkbox"] {
 .areaBox .area4 .orderInfoTable thead td {
     height: 32px;
     max-height: 32px;
+    padding: 0 10px;
 }
 
 
@@ -853,6 +887,11 @@ input[type="checkbox"] {
     border-bottom: 1px solid #ccc;
 }
 
+
+.packing_wraptrf .area:last-child {
+    border-bottom: none;
+}
+
 .packing_wraph1c .area1 .innerBox {
     width: 320px;
     margin-left: 20px;
@@ -866,6 +905,7 @@ input[type="checkbox"] {
     margin-left: 20px;
     font-family: "Gmarket Sans";
     font-size: 18px;
+    width: 220px;
 }
 
 .packing_wraph1c .area5 .count {
@@ -926,11 +966,21 @@ input[type="checkbox"] {
     color:#ccc;
 }
 
+.progress_boxatq .right {
+    margin-right: 40px;
+}
+
+.progress_boxatq .right .btnType2{
+    margin-bottom: 10px;
+}
+
+
 /* packingStatus -------------------------------- */
 
 .productCheck_boxarv {
-    margin-top: 20px;
-    margin-left: 20px;
+    /*margin-top: 20px;*/
+    /*margin-left: 20px;*/
+    margin: 20px 0 20px 20px;
 }
 
 .productCheck_boxarv .productCheck {
@@ -938,11 +988,266 @@ input[type="checkbox"] {
 }
 
 .productCheck_boxarv .category {
-    border:1px solid red;
     width: 100px;
     margin-right: 20px;
 }
 
+.imgBox_box2ck {
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+
+}
+
+.imgBox_boxdzu > *,
+.imgBox_box2ck > * {
+    margin-right: 20px;
+}
+
+
+.imgBox_box2ck .noirLayer {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.imgBox_box2ck .noir {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 30;
+    background-color: #00000061;
+}
+
+.imgBox_boxdzu {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+
+}
+
+.imgBox_box2ck img {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 20;
+}
+
+
+.imgBox_box2ck .count {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    border:1px solid #ccc;
+    text-align: center;
+    line-height: 100px;
+    font-size: 22px;
+
+}
+
+.imgBox_boxdzu .btn,
+.imgBox_box2ck .btn {
+    border:none;
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    font-size: 22px;
+    background-image: var(--gradient3);
+
+}
+
+.imgBox_boxdzu .planeLayer {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+
+}
+.imgBox_boxdzu .dashedLayer {
+    border-radius: 10px;
+    border:1px dashed #ccc;
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+
+.imgBox_boxdzu .dashedLayer img,
+.imgBox_boxdzu .planeLayer img {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+
+
+}
+
+.imgBox_boxdzu .dashedLayer .inputArea {
+    color:#ccc;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    font-size: 22px;
+}
+
+
+.imgBox_boxdzu .planeLayer .closeBtn {
+    border:none;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    background-color: #00000041;
+    position: absolute;
+    top:8px;
+    right:8px;
+}
+
+.imgBox_boxdzu .closeBtn i {
+    color:#fff;
+}
+
+/* goods List -------------------------------- */
+
+
+.area_boxd2s .progress {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.area_boxd2s .progress .right {
+    margin-left: 20px;
+    color:#5c5c5c;
+}
+
+.area_boxd2s .progress .count {
+    color:#000;
+    font-size: 22px;
+    margin-right: 20px;
+    font-weight: 500;
+    /*font-size: ;*/
+}
+
+.area_boxmxh {
+    margin-top: 20px;
+}
+
+
+/* goods Register -------------------------------- */
+
+.area_boxm9k {
+    margin-bottom: 20px;
+}
+
+.area_boxm9k .outerBox {
+    padding: 0 20px 20px 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.area_boxm9k .title {
+    font-size: 18px;
+}
+
+.area_boxm9k .right {
+    border:1px solid #ccc;
+    border-radius: 5px;
+    width: 32px;
+    height: 32px;
+}
+.area_boxm9k .right i {
+    color:#ccc;
+}
+
+.area_boxm9k .copySelect {
+    border:1px solid #ccc;
+    border-radius: 5px;
+    margin: 20px 0 0 20px;
+    width: 60vw;
+    height: 44px;
+    color:#ccc;
+    padding: 0 20px;
+    font-size: 16px;
+}
+
+/* goods Register ---*/
+
+.area_box2qd .elementBox {
+    margin-top: 20px;
+}
+.area_box2qd .element {
+    padding-bottom:10px;
+}
+
+
+.area_box2qd .element .notmust,
+.area_box2qd .element .must {
+    margin-right: 20px;
+}
+
+.area_box2qd .element .title {
+    width: 160px;
+    margin-right: 20px;
+    font-size: 16px;
+}
+
+.area_box2qd .element .inputType360 {
+    margin-right: 20px;
+    font-size: 14px;
+}
+
+.area_box2qd .element .unit {
+    font-size: 14px;
+
+}
+
+.area_box2qd .element .inputType {
+    font-size: 14px;
+    width: 200px;
+    height: 32px;
+    margin-right: 20px;
+
+}
+
+.area_box2qd .element .selectType {
+    border:1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 140px;
+    height: 32px;
+    margin-right: 20px;
+
+}
+.area_box2qd .element .mached:first-child {
+    margin-top: 10px;
+}
+
+.area_box2qd .element .mached {
+    border-radius: 20px;
+    background-color: #ececec81;
+    width: 370px;
+    height: 28px;
+    font-size: 12px;
+    padding-left: 10px;
+    margin-bottom: 4px;
+
+}
+
+.area_box2qd .element .mached .code{
+    width: 200px;
+    margin-right: 20px;
+}
+.area_box2qd .element .mached .market{
+    width: 110px;
+    margin-right: 10px;
+}
 /* flexType1 -------------------------------- */
 
 .fontType1 {
@@ -1071,10 +1376,11 @@ input[type="checkbox"] {
     background-image: var(--main-gradient);
     border-radius: 10px;
     font-size: 22px;
-    width: 50px;
-    height: 50px;
+    width: 44px;
+    height: 44px;
     text-align: center;
     position: relative;
+    color:#fff;
 }
 
 .squareType2 {
@@ -1083,8 +1389,8 @@ input[type="checkbox"] {
     color:#fff;
     font-size: 22px;
     border-radius: 10px;
-    width: 50px;
-    height: 50px;
+    width: 44px;
+    height: 44px;
     text-align: center;
     position: relative;
 }
@@ -1098,6 +1404,35 @@ input[type="checkbox"] {
     height: 32px;
     line-height: 32px;
     font-size: 14px;
+
+}
+
+.must {
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+    background-color: red;
+}
+
+.inputType {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    padding:0 5px;
+
+}
+
+.inputType360 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    min-width: 360px;
+    width: 360px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 16px;
+    padding:0 5px;
 
 }
 

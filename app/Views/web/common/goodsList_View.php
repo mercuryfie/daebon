@@ -19,68 +19,58 @@
     </script>
 
     <section class="merright">
-        <div class="order_box28f">
+        <div class="goods_boxfv6">
             <div class="titleBox">
                 <p class="headTitle">
-                    주문관리 / 주문정보 goods list
+                    기준정보관관리 > 상품목록
                 </p>
             </div>
-            <div class="swich_boxli6 ">
-                <i class="fa-regular fa-calendar"></i>
-                <p class="binder"></p>
-                <i class="fa-solid fa-list"></i>
-            </div>
-            <div class="areaBox">
-                <div class="area5 flexType2 ">
-                    <div class="countBox ">
-                        <div class="count flexType3">
-                            <p class="title">전체주문</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">10</p>
-                                <p class="unit">건</p>
-                            </div>
-                        </div>
-                        <div class="count flexType3">
-                            <p class="title">발송</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">10</p>
-                                <p class="unit">건</p>
-                            </div>
-                        </div>
-                        <div class="count flexType3">
-                            <p class="title">발송완료</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">10</p>
-                                <p class="unit">건</p>
-                            </div>
-                        </div>
-                        <div class="count flexType3">
-                            <p class="title">취소</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">10000</p>
+            <div class="areaBox area_boxd2s">
+                <div class="flexType2">
+                    <div class="progress flexType2">
+                        <button class="squareType">
+                            <i class="fa-regular fa-square-check"></i>
+                        </button>
+                        <div class="right">
+                            <p class="status">전체</p>
+                            <div class="countBox flexType2">
+                                <p class="count">10</p>
                                 <p class="unit">건</p>
                             </div>
                         </div>
                     </div>
-                    <div class="countBox ml20">
-                        <div class="count flexType3">
-                            <p class="title">옥션</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">100</p>
+                    <div class="progress flexType2">
+                        <button class="squareType2">
+                            <i class="fa-solid fa-arrow-trend-down"></i>
+                        </button>
+                        <div class="right">
+                            <p class="status">재고 10개 이하</p>
+                            <div class="countBox flexType2">
+                                <p class="count">10</p>
                                 <p class="unit">건</p>
                             </div>
                         </div>
-                        <div class="count flexType3">
-                            <p class="title">지마켓</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">10</p>
+                    </div>
+                    <div class="progress flexType2">
+                        <button class="squareType2">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </button>
+                        <div class="right">
+                            <p class="status">주간 평균판매량</p>
+                            <div class="countBox flexType2">
+                                <p class="count">10</p>
                                 <p class="unit">건</p>
                             </div>
                         </div>
-                        <div class="count flexType3">
-                            <p class="title">농협몰</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">100</p>
+                    </div>
+                    <div class="progress flexType2">
+                        <button class="squareType2">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </button>
+                        <div class="right">
+                            <p class="status">월간 평균판매량</p>
+                            <div class="countBox flexType2">
+                                <p class="count">10</p>
                                 <p class="unit">건</p>
                             </div>
                         </div>
@@ -94,18 +84,15 @@
                         <a href="#" class="period">1개월</a>
                         <a href="#" class="period">3개월</a>
                     </div>
-                    <div class="right">
-                        <button type="button" class="btnType1">엑셀업로드</button>
-                        <button type="button" class="btnType1">엑셀다운로드</button>
-                    </div>
                 </div>
                 <div class="area2 flexType3">
                     <div class="left flexType2">
                         <p class="title">검색조건</p>
                         <select name="" id="" class="searchFilter ">
                             <option value="">전체</option>
-                            <option value="">정상수집</option>
-                            <option value="">오류</option>
+                            <option value="">상품준비중</option>
+                            <option value="">배송중</option>
+                            <option value="">배송완료</option>
                         </select>
                         <select name="" id="" class="searchFilter">
                             <option value="">주문번호</option>
@@ -117,276 +104,165 @@
                         <button type="button" class="btnType1">검색</button>
                     </div>
                     <div class="right">
-                        <button type="button" class="btnType2">주문등록</button>
+                        <button type="button" class="btnType2 " onclick="go_goodsRegister();">상품등록</button>
                     </div>
                 </div>
-                <div class="area4 ">
+            </div>
+            <div class="areaBox area_boxmxh ">
+                <div class="goods_boxkfg flexType3">
+                    <div class="left flexType2">
+                        <p class="title">상품목록</p>
+                        <p class="count">10</p>
+                        <p class="unit">건</p>
+                    </div>
+                    <div class="right">
+                        <button type="button" class="btnType1">엑셀다운로드</button>
+                    </div>
+                </div>
+                <div class="area4 goods_boxa1b flexType2">
                     <div class="order_boxfxp">
                         <table class="orderInfoTable orderInfoTable1 ">
                             <thead>
                             <tr>
                                 <td class="ltThead productNo checkCol"></td>
-                                <td class="ltThead productNo">주문번호</td>
-                                <td class="ltThead productNo">진행상태</td>
-                                <td class="ltThead productNo">판매자ID</td>
-                                <td class="ltThead productNo">구매자ID</td>
-
-                                <td class="ltThead productNo">주문번호</td>
-                                <td class="ltThead productNo">상품번호</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td class="ltTbody">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-
-
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                            </tr>
-                            <tr>
-                                <td class="ltTbody">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-
-
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                            </tr>
-                            <tr>
-                                <td class="ltTbody">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-
-
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                            </tr>
-                            <tr>
-                                <td class="ltTbody">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-
-
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                            </tr>
-                            <tr>
-                                <td class="ltTbody">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-
-
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="order_boxe4z">
-                        <table class="orderInfoTable orderInfoTable2 ">
-                            <thead>
-                            <tr>
+                                <td class="ltThead">상품번호</td>
                                 <td class="ltThead">상품명</td>
-                                <td class="ltThead">구매자명</td>
-                                <td class="ltThead">수신인명</td>
+                                <td class="ltThead  ">중량</td>
+                                <td class="ltThead">가격</td>
 
-                                <td class="ltThead">구매금액</td>
-                                <td class="ltThead">수량</td>
-                                <td class="ltThead">송장출력일</td>
                                 <td class="ltThead">등록일</td>
-                                <td class="ltThead">등록</td>
-                                <td class="ltThead">비고</td>
-                                <td class="ltThead">비고</td>
+                                <td class="ltThead">최근 30일간 판매량</td>
+                                <td class="ltThead">전년도 동월 판매량</td>
+                                <td class="ltThead">재고현황</td>
+                                <td class="ltThead">작업 중 수량</td>
+
+                                <td class="ltThead">간편작업지시</td>
                                 <td class="ltThead">비고</td>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
+                                <td class="ltTbody">
+                                    <input type="checkbox" name="" id="">
+                                </td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
+                                <td class="ltTbody">-</td>
+
 
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
+
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                             </tr>
                             <tr>
+                                <td class="ltTbody">
+                                    <input type="checkbox" name="" id="">
+                                </td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
+                                <td class="ltTbody">-</td>
+
 
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
+
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                             </tr>
                             <tr>
+                                <td class="ltTbody">
+                                    <input type="checkbox" name="" id="">
+                                </td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
+                                <td class="ltTbody">-</td>
+
 
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                            </tr>
-                            <tr>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
 
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                            </tr>
-                            <tr>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-<!--                    <table class="orderInfoTable ml20">-->
-<!--                        <thead>-->
-<!--                        <tr>-->
-<!--                            <td class="ltThead productNo"></td>-->
-<!--                            <td class="ltThead productNo">주문번호</td>-->
-<!--                            <td class="ltThead productNo">진행상태</td>-->
-<!--                            <td class="ltThead productNo">판매자ID</td>-->
-<!--                            <td class="ltThead productNo">구매자ID</td>-->
+<!--                    <div class="order_boxe4z">-->
+<!--                        <table class="orderInfoTable orderInfoTable2 ">-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                                <td class="ltThead">최근 30일간 판매량</td>-->
+<!--                                <td class="ltThead">전년도 동월 판매량</td>-->
+<!--                                <td class="ltThead">재고현황</td>-->
+<!--                                <td class="ltThead">작업 중 수량</td>-->
+<!--                                <td class="ltThead">간편작업지시</td>-->
+<!--                                <td class="ltThead">비고</td>-->
 <!---->
-<!--                            <td class="ltThead productNo">주문번호</td>-->
-<!--                            <td class="ltThead productNo">상품번호</td>-->
-<!--                            <td class="ltThead">상품명</td>-->
-<!--                            <td class="ltThead">구매자명</td>-->
-<!--                            <td class="ltThead">수신인명</td>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
 <!---->
-<!--                            <td class="ltThead">구매금액</td>-->
-<!--                            <td class="ltThead">수량</td>-->
-<!--                            <td class="ltThead">송장출력일</td>-->
-<!--                            <td class="ltThead">등록일</td>-->
-<!--                            <td class="ltThead">등록</td>-->
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        <tr>-->
-<!--                            <td class="ltTbody">-->
-<!--                                <input type="checkbox" name="" id="">-->
-<!--                            </td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
 <!---->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
 <!---->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
 <!---->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td class="ltTbody">-->
-<!--                                <input type="checkbox" name="" id="">-->
-<!--                            </td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                                <td class="ltTbody">-</td>-->
 <!---->
-<!---->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!---->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td class="ltTbody">-->
-<!--                                <input type="checkbox" name="" id="">-->
-<!--                            </td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!---->
-<!---->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!---->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                            <td class="ltTbody">-</td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
+<!--                                <td class="ltTbody">-</td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>

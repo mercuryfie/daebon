@@ -19,69 +19,100 @@
     </script>
 
     <section class="merright">
-        <div class="order_box28f">
+        <div class="goods_boxx7z">
             <div class="titleBox">
                 <p class="headTitle">
-                    주문관리 / 주문정보 goods register
+                    기준정보관리 / 상품등록
                 </p>
             </div>
-            <div class="swich_boxli6 ">
-                <i class="fa-regular fa-calendar"></i>
-                <p class="binder"></p>
-                <i class="fa-solid fa-list"></i>
-            </div>
-            <div class="areaBox">
-                <div class="area5 flexType2 ">
-                    <div class="countBox ">
-                        <div class="count flexType3">
-                            <p class="title">전체주문</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">10</p>
-                                <p class="unit">건</p>
-                            </div>
-                        </div>
-                        <div class="count flexType3">
-                            <p class="title">발송</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">10</p>
-                                <p class="unit">건</p>
-                            </div>
-                        </div>
-                        <div class="count flexType3">
-                            <p class="title">발송완료</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">10</p>
-                                <p class="unit">건</p>
-                            </div>
-                        </div>
-                        <div class="count flexType3">
-                            <p class="title">취소</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">10000</p>
-                                <p class="unit">건</p>
-                            </div>
-                        </div>
+            <div class="areaBox area_boxm9k">
+                <div class="outerBox flexType3">
+                    <p class="title">복사등록</p>
+                    <div class="right flexType1">
+                        <i class="fa-solid fa-angle-down"></i>
                     </div>
-                    <div class="countBox ml20">
-                        <div class="count flexType3">
-                            <p class="title">옥션</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">100</p>
-                                <p class="unit">건</p>
-                            </div>
+                </div>
+                <select name="" id="" class="copySelect">
+                    <option value="" disabled selected>복사할 항목을 선택하십시오. </option>
+                    <option value="">b</option>
+                    <option value="">c </option>
+                </select>
+            </div>
+            <div class="areaBox area_boxm9k">
+                <div class="outerBox flexType3">
+                    <p class="title">상품정보</p>
+                    <div class="right flexType1">
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                </div>
+                <div class="area5 flexType2 area_box2qd ">
+                    <div class="elementBox ">
+                        <div class="element flexType2">
+                            <p class="must"></p>
+                            <p class="title">대분류</p>
+                            <select name="" id="" class="inputType360">
+                                <option value="">원물볶음차</option>
+                                <option value="">원물볶음차</option>
+                                <option value="">원물볶음차</option>
+                            </select>
                         </div>
-                        <div class="count flexType3">
-                            <p class="title">지마켓</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">10</p>
-                                <p class="unit">건</p>
-                            </div>
+                        <div class="element flexType2">
+                            <p class="must"></p>
+                            <p class="title">상품명</p>
+                            <input type="search" class="inputType360" placeholder="상품명을 입력하세요." >
                         </div>
-                        <div class="count flexType3">
-                            <p class="title">농협몰</p>
-                            <div class="howmany flexType2">
-                                <p class="number mr10">100</p>
-                                <p class="unit">건</p>
+                        <div class="element flexType2">
+                            <p class="must"></p>
+                            <p class="title">가격</p>
+                            <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" >
+                            <p class="unit">원</p>
+                        </div>
+                        <div class="element flexType2">
+                            <p class="must"></p>
+                            <p class="title">중량</p>
+                            <input type="search" class="inputType360" placeholder="상품명을 입력하세요." >
+                            <p class="unit">g</p>
+                        </div>
+                        <div class="element flexType2">
+                            <p class="must"></p>
+                            <p class="title">판매여부</p>
+                            <select name="" id="" class="inputType360">
+                                <option value="">판매중</option>
+                                <option value="">판매종료</option>
+                            </select>
+                        </div>
+                        <div class="element flexCol">
+                            <div class="upside flexType2">
+                                <p class="must"></p>
+                                <p class="title">매칭코드</p>
+                                <input type="search" class="inputType" placeholder="상품명을 입력하세요." >
+                                <select name="" id="" class="selectType">
+                                    <option value="" disabled selected>선택</option>
+                                    <option value="">옥션</option>
+                                    <option value="">지마켓</option>
+                                </select>
+                                <button type="button" class="btnType1">코드추가</button>
+                            </div>
+                            <div class="downside flexType2">
+                                <p class="notmust"></p>
+                                <p class="title"></p>
+                                <div class="flexCol">
+                                    <div class="mached flexType2">
+                                        <p class="code">DX12341234</p>
+                                        <p class="market">11번가</p>
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </div>
+                                    <div class="mached flexType2">
+                                        <p class="code">DX12341234</p>
+                                        <p class="market">옥션</p>
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </div>
+                                    <div class="mached flexType2">
+                                        <p class="code">DX12341234</p>
+                                        <p class="market">지마켓</p>
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

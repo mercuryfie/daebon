@@ -17,6 +17,16 @@
     <!--###############-->
     <!--JS section-->
     <?= $this->include('/web/include/script_View'); ?>
+
+
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js"></script>
+    <!-- calendar ----------------------------  -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js"></script>
     <!--###############-->
 </head>
 <body>
@@ -24,21 +34,18 @@
 <?= $this->include('/web/include/global_View'); ?>
 
 <main>
-    <section class="merregister greenmain" >
-        <div class="merwrap">
-            <div class="merleft">
-                <?= $this->include('/web/include/left_View'); ?>
-            </div>
-
-            <div class="merright">
-                <?= $this->renderSection('content'); ?>
-                <?= $this->include('/web/include/grayFoot_View'); ?>
-            </div>
+    <div class="workpageWrap flexType4">
+        <div class="leftWrap ">
+            <?= $this->include('/web/include/left_View'); ?>
         </div>
-    </section>
-</main>
 
+        <div class="rightWrap">
+            <?= $this->renderSection('content'); ?>
+        </div>
+    </div>
+</main>
 <?php //= $this->include('/web/include/grayFoot_View'); ?>
+
 </body>
 </html>
 

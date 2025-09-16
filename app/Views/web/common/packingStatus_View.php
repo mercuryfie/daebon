@@ -1,7 +1,6 @@
 <?= $this->extend("/web/template/layout_workpage") ?>
 <?= $this->section("content") ?>
 
-<script src="<?=URL_COMMON_ASSETS?>/dashBoard_Do.js"> </script>
 
 <!-- FullCalendar CSS -->
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />

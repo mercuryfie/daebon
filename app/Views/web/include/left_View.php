@@ -19,51 +19,61 @@
 
     <div class="leftMenu merleft1-3">
         <div class="menuWrap ">
-            <div class="menuBox" name="">
+            <div class="menuBox" name="menuBox">
                 <div class="topmenu flexType3" name="topmenu">
-                    <a href="#" class="topText" onclick="go_dashboard();">주문 관리</a>
+                    <a href="#" class="topText" onclick="go_dashboard();">주문관리</a>
                     <i class="fa-solid fa-angle-down"></i>
                 </div>
-                <div class="submenu submenu1-1 " name="">
-                    <a href="#" class="subtext" onclick="go_linkMalls();">쇼핑몰 연동</a>
+                <div class="submenu submenu1-1 " name="submenu">
+                    <a href="#" class="subtext" onclick="go_linkMalls();">쇼핑몰연동</a>
                     <a href="#" class="subtext" onclick="go_orderInfo();">주문정보</a>
                     <a href="#" class="subtext" onclick="go_deliInfo();">배송정보</a>
                     <a href="#" class="subtext" onclick="go_packingInfo();">포장발송화면</a>
                 </div>
             </div>
-            <div class="menuBox" name="">
+            <div class="menuBox" name="menuBox">
                 <div class="topmenu flexType3" name="topmenu" onclick="">
-                    <a href="#" class="topText " onclick="">기준정보 관리</a>
+                    <a href="#" class="topText " onclick="">기준정보관리</a>
                     <i class="fa-solid fa-angle-down"></i>
                 </div>
-                <div class="submenu submenu1-1 " name="">
-                    <a href="#" class="subtext" onclick="">제품 목록</a>
-                    <a href="#" class="subtext" onclick="">제품 등록</a>
-                    <a href="#" class="subtext" onclick="">제품 마스터 관리</a>
-                    <a href="#" class="subtext" onclick="">제품 원재료 관리</a>
-                    <a href="#" class="subtext" onclick="go_goodsList();">상품 목록</a>
-                    <a href="#" class="subtext" onclick="go_goodsRegister();">상품 등록</a>
-                    <a href="#" class="subtext" onclick="">제품 원재료 관리</a>
-                    <a href="#" class="subtext" onclick="">기타정보 관리</a>
+                <div class="submenu submenu1-1 " name="submenu">
+                    <a href="#" class="subtext" onclick="go_atomList();">원자재목록</a>
+                    <a href="#" class="subtext" onclick="go_productsList();">제품목록</a>
+                    <a href="#" class="subtext" onclick="go_productsRegister();">제품등록</a>
+                    <a href="#" class="subtext" onclick="go_goodsList();">상품목록</a>
+                    <a href="#" class="subtext" onclick="go_goodsRegister();">상품등록</a>
+                    <a href="#" class="subtext" onclick="">제품 마스터관리</a>
+                    <a href="#" class="subtext" onclick="">기타정보관리</a>
                 </div>
             </div>
-            <div class="menuBox" name="">
+            <div class="menuBox" name="menuBox">
+                <div class="topmenu flexType3" name="topmenu" onclick="">
+                    <a href="#" class="topText " onclick="">생산 관리</a>
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+                <div class="submenu submenu1-1 " name="submenu">
+                    <a href="#" class="subtext" onclick="go_producingStatus();">생산목록</a>
+                    <a href="#" class="subtext" onclick="go_producingControl();">제품생산화면</a>
+                    <a href="#" class="subtext" onclick="go_producingDetail();">진행상태</a>
+                </div>
+            </div>
+            <div class="menuBox" name="menuBox">
                 <div class="topmenu flexType3" name="topmenu">
-                    <a href="#" class="topText ">입출고 관리</a>
+                    <a href="#" class="topText " onclick="">입출고관리</a>
                     <i class="fa-solid fa-angle-down"></i>
                 </div>
-                <div class="submenu submenu1-1 " name="">
-                    <a href="#" onclick="" class="subtext">원재료 입고</a>
-                    <a href="#" onclick="" class="subtext">원재료 출고</a>
-                    <a href="#" onclick="" class="subtext">원재료 재고</a>
+                <div class="submenu submenu1-1 " name="submenu">
+                    <a href="#" class="subtext" onclick="go_inOutStatus();" >입출고관리</a>
+                    <a href="#" class="subtext" onclick="go_atomList();" >원자재목록</a>
+                    <a href="#" class="subtext" onclick="go_atomRegister();" >원자재등록</a>
                 </div>
             </div>
-            <div class="menuBox" name="">
+            <div class="menuBox" name="menuBox">
                 <div class="topmenu flexType3" name="topmenu">
                     <a href="#" class="topText ">품질 관리</a>
                     <i class="fa-solid fa-angle-down"></i>
                 </div>
-                <div class="submenu submenu1-1 " name="">
+                <div class="submenu submenu1-1 " name="submenu">
                     <a href="#" onclick="" class="subtext">품질보고서</a>
                     <a href="#" onclick="" class="subtext">주문보고서</a>
                 </div>
@@ -73,17 +83,17 @@
                     <a href="#" class="topText ">모니터링</a>
                     <i class="fa-solid fa-angle-down"></i>
                 </div>
-                <div class="submenu submenu1-1 " name="">
+                <div class="submenu submenu1-1 " name="submenu">
                     <a href="#" onclick="" class="subtext">작업진행현황</a>
                     <a href="#" onclick="" class="subtext">공정별 진행현황</a>
                 </div>
             </div>
-            <div class="menuBox" name="">
+            <div class="menuBox" name="menuBox">
                 <div class="topmenu flexType3" name="topmenu">
                     <a href="#" class="topText ">사용자관리</a>
                     <i class="fa-solid fa-angle-down"></i>
                 </div>
-                <div class="submenu submenu1-1 " name="">
+                <div class="submenu submenu1-1 " name="submenu">
                     <a href="#" onclick="" class="subtext">사용자정보</a>
                     <a href="#" onclick="" class="subtext">공지사항</a>
                 </div>

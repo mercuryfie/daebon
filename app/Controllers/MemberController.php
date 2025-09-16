@@ -12,7 +12,7 @@ class MemberController extends BaseController
 
     use ResponseTrait;
 
-    public function Login()
+    public function login()
     {
         $util = new Utils;
 //        $sessinarr = $util->fnGetSessionData();
@@ -40,7 +40,7 @@ class MemberController extends BaseController
         return view('web/common/login_View', $main_data);
     }
 
-    public function LogOut()
+    public function logOut()
     {
         $session = service('session');
         $session->remove(SESSION_KEY);
@@ -50,7 +50,7 @@ class MemberController extends BaseController
         return $this->response->redirect('/');
     }
 
-    public function Login_Do()
+    public function login_Do()
     {
         $request = service('request');
         $userid = ($request->getPost('userid') == '') ? '' : $request->getPost('userid');

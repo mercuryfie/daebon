@@ -1,7 +1,7 @@
 
 
 <div class=" grayFoot">
-    <p class="add">서울특별시 강남구 테헤란로 152</p>
+    <p class="add">서울특별시 강남구 테헤란로 15ㅇㅇㅇ2</p>
     <div class="termsBox flexType1">
         <p class="terms">DAEBON EMS 이용약관</p>
         <p class="border"></p>

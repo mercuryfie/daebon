@@ -12,7 +12,7 @@ class CommonController extends BaseController
 
     use ResponseTrait;
 
-    public function DashBoard()
+    public function dashBoard()
     {
         $util = new Utils;
 //        $sessinarr = $util->fnGetSessionData();
@@ -122,7 +122,7 @@ class CommonController extends BaseController
     }
 
 
-    public function GoodsList()
+    public function goodsList()
     {
         $util = new Utils;
 //        $sessinarr = $util->fnGetSessionData();
@@ -141,7 +141,7 @@ class CommonController extends BaseController
     }
 
 
-    public function GoodsRegister()
+    public function goodsRegister()
     {
         $util = new Utils;
 //        $sessinarr = $util->fnGetSessionData();
@@ -158,4 +158,175 @@ class CommonController extends BaseController
 
         return view('web/common/GoodsRegister_View');
     }
+
+    public function productsList()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/productsList_View');
+    }
+
+    public function productsRegister()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/productsRegister_View');
+    }
+
+    public function productsAfterRegister()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/productsAfterRegister_View');
+    }
+
+
+
+    public function producingStatus()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/producingStatus_View');
+    }
+
+
+    public function producingControl()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/producingControl_View');
+    }
+
+
+    public function producingDetail()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/producingDetail_View');
+    }
+
+
+    public function inOutStatus()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/inOutStatus_View');
+    }
+
+
+    public function atomList()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/atomList_View');
+    }
+
+    public function atomRegister()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/atomRegister_View');
+    }
+
+
+
 }

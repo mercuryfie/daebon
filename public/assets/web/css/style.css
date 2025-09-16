@@ -103,11 +103,22 @@ input[type="checkbox"] {
     text-align: center;
 
 }
+
+
 .grayFoot {
-    margin: 0 auto;
+    border:1px solid red;
     width: 1050px;
     height: 200px;
     text-align: center;
+    /*position: absolute;*/
+    /*left:50%;*/
+    /*transform: translateX(-50%);*/
+    /*bottom: 0;*/
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+    bottom:-680px;
+    z-index: 0;
     background-color: var(--bgColor2);
 }
 
@@ -168,30 +179,42 @@ input[type="checkbox"] {
 
 /* leftBox -------------------------------- */
 
-.merwrap {
-    display: flex;
-    width: 100%;
-}
-
-.merright {
-    flex-grow: 1;
-    width: 100%;
-    height: auto;
-    background-color: var(--bgColor2);
-}
-
-.leftBox {
-    width: 220px;
+.workpageWrap {
+    width: 100vw;
     height: 100vh;
-    overflow-y: scroll;
+
+}
+
+
+.leftWrap {
+    min-width: 220px;
+    width: 220px;
+    overflow: hidden;
     background-color: var(--bgColor1);
 }
 
-.searchBox1 {
-    margin-top: 20px;
-    width: 200px;
-    height: 80px;
+.rightWrap {
+    /*flex-grow: 1;*/
+    /*padding-bottom: 100vh;*/
+    padding-bottom: 100px;
+    width: 100%;
+    background-color: var(--bgColor2);
+    position: relative;
 }
+.leftWrap,
+.rightWrap {
+    min-height: 140vh;
+    height: auto;
+    padding-bottom: 100px;
+
+}
+
+.searchBox1 {
+    padding: 20px 0;
+    width: 200px;
+    height: 100px;
+}
+
 .searchBox1 select {
     border:none;
     background-color: transparent;
@@ -238,6 +261,7 @@ input[type="checkbox"] {
 
 .menuWrap {
     width: 200px;
+    height: 120vh;
 }
 .menuBox .topmenu {
     /*width:160px;*/
@@ -469,6 +493,15 @@ input[type="checkbox"] {
 
 }
 
+.lastBox {
+    width: 80vw;
+    height: auto;
+    padding: 20px 0;
+    margin-left: 20px;
+    overflow: hidden;
+
+}
+
 
 /*.dashBoard_boxowy .areaBox .area5,*/
 /*.dashBoard_boxowy .areaBox .area3,*/
@@ -494,7 +527,7 @@ input[type="checkbox"] {
  .areaBox .area3,
  .areaBox .area2,
  .areaBox .area1 {
-    padding: 10px 20px;
+    padding: 10px 10px 10px 20px;
 
 }
 
@@ -803,7 +836,7 @@ input[type="checkbox"] {
 
 
 
-    /* dashboard -------------------------------- */
+/* dashboard -------------------------------- */
 
 #calendar {
     max-width: 900px;
@@ -1225,6 +1258,7 @@ input[type="checkbox"] {
     margin-right: 20px;
 
 }
+
 .area_box2qd .element .mached:first-child {
     margin-top: 10px;
 }
@@ -1235,10 +1269,15 @@ input[type="checkbox"] {
     width: 370px;
     height: 28px;
     font-size: 12px;
-    padding-left: 10px;
+    padding: 5px 0 5px 10px;
     margin-bottom: 4px;
 
 }
+
+.mach_boxd2g {
+
+}
+
 
 .area_box2qd .element .mached .code{
     width: 200px;
@@ -1248,6 +1287,511 @@ input[type="checkbox"] {
     width: 110px;
     margin-right: 10px;
 }
+
+.goods_boxt6r .element {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #ececec;
+}
+
+.goods_boxt6r:first-child {
+    padding-top: 20px;
+}
+
+.goods_boxt6r {
+    /*border:1px solid red;*/
+    padding: 10px 0 10px 0;
+    margin-bottom: 10px;
+    /*border-bottom: 1px dashed #ccc;*/
+    /*margin-bottom: 20px;*/
+
+}
+
+.cover_boxz7y {
+    /*border:1px solid red;*/
+    width: 480px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    /*border-bottom: 1px dashed #ececec;*/
+    /*margin-bottom: 20px;*/
+
+}
+
+.goods_boxt6r .option,
+.cover_boxz7y .option {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    padding:0 5px;
+    height: 32px;
+
+}
+
+.cover_boxz7y .option1,
+.cover_boxz7y .option2,
+.goods_boxt6r .option1,
+.goods_boxt6r .option2 {
+    width: 140px;
+    margin-right: 20px;
+    font-size: 14px;
+    padding: 0;
+
+}
+
+
+.goods_boxy8n {
+    border-bottom: 1px solid #ececec;
+
+}
+
+.goods_boxy8n .downside {
+    padding-bottom: 20px;
+
+}
+
+
+/* 제품추가 - --- */
+.goods_boxj3v {
+    border-bottom: 1px solid #ececec;
+    margin-bottom: 20px;
+}
+
+
+/*attach_boxp5s srart*/
+
+.attach_boxw0f,
+.attach_boxp5s  {
+    margin-top: 40px;
+
+}
+
+ .thum_boxn4e .photo-picker{
+    /*margin-top: 40px;*/
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 3px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #5c5c5c;
+}
+
+ .thum_boxn4e input{
+    display: none;
+}
+
+ .thum_boxn4e i{
+    /*position: absolute;*/
+    /*top:;*/
+    /*left:0;*/
+    color:#5c5c5c;
+    /*margin-top: 20px;*/
+}
+
+ .attach_boxp5s .thumBox {
+     border:1px solid #ccc;
+     border-radius: 5px;
+     width: 60px;
+     height: 60px;
+     overflow: hidden;
+     position: relative;
+
+ }
+
+.attach_boxp5s .thumBox .addedImg {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.disNone {
+    display: none;
+}
+
+.disBlock {
+    display: block;
+}
+
+.thum_arange .delete-btn {
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    position: absolute;
+    top:4px;
+    right: 3px;
+    background-color: #00000081;
+    color:#fff;
+
+}
+
+.thumBox .delete-btn {
+    /*width: 14px;*/
+    /*height: 14px;*/
+    /*font-size: 10px;*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*position: absolute;*/
+    /*top:4px;*/
+    /*right: 4px;*/
+    /*background-color: #00000081;*/
+    /*color:#fff;*/
+
+}
+
+/* attach_boxp5s end*/
+
+
+/* ck-editor start -------------------------------- */
+
+.infodetail {
+    width: 520px;
+    height: 260px;
+    /*overflow: hidden;*/
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    /*box-sizing: border-box;*/
+}
+
+.infockeditor .ck.ck-toolbar{
+    position: sticky;
+    top: 0;
+    left:0;
+    z-index: 10;
+    background: #fff;
+
+    width: 520px;
+    max-height: 200px;
+    box-sizing: border-box;
+}
+.ck-editor__editable {
+    position: absolute;
+    top:36px;
+    left:0px;
+    width: 520px;
+    height: 220px;
+    min-height: 220px;
+    max-height: 220px;
+    overflow: hidden;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    /*overflow-y: visible, hidden, clip, scroll, auto, */
+}
+
+.ck-caption {
+    display: none !important;
+}
+
+
+.main-container,
+.editor-container,
+.editor-container__editor {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ck.ck-editor {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ck.ck-toolbar {
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #fff;
+}
+
+.ck-editor__main {
+    flex: 1 1 0;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+/* ck-editor end -------------------------------- */
+
+/* productsList start -------------------------------- */
+
+.products_boxa1b .products_boxfxp {
+}
+
+.atom_boxa1b,
+.products_boxa1b {
+    padding: 0 20px;
+
+}
+
+.products_boxa1b .orderInfoTable1,
+.produce_boxfxp .orderInfoTable1,
+.atom_boxa1b .orderInfoTable1 {
+    width: 77vw;
+    text-wrap: nowrap;
+}
+
+.products_boxfxp .countInput {
+    border:1px solid #ccc;
+    border-radius: 2px;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    width: 100px;
+    height: 24px;
+
+}
+
+.products_boxfxp .submitBtn1 {
+    border:1px solid #ccc;
+    border-radius: 2px;
+    color:#5c5c5c;
+    background-color: transparent;
+    width: 40px;
+    height: 24px;
+
+
+}
+
+/* productsList end -------------------------------- */
+/* productsRegister start -------------------------------- */
+
+.products_boxc6m .element{
+    width: 720px;
+}
+
+.products_boxc7m .element{
+    width: 580px;
+}
+
+.selectMetirialBox  {
+    border-bottom: 1px dashed #ececec;
+    margin: 10px 0;
+}
+
+.products_boxc6m .inputBorder,
+.products_boxc6m .inputBorder {
+    width: 120px;
+    height: 32px;
+}
+
+.products_boxc6m .removeBtn {
+    /*margin: 0;*/
+    padding: 0;
+    width: 40px;
+    height: 32px;
+    text-align: center;
+    background-color: transparent;
+}
+
+.products_boxc6m .addBox {
+    margin-left: 20px;
+}
+
+
+
+
+
+/* productsRegister end -------------------------------- */
+/* productsAfterRegister start -------------------------------- */
+
+.proc_boxf9n .addBtn {
+    margin-left: 20px;
+}
+
+.roasting_boxe3x {
+    margin-top: 20px;
+}
+
+.roasting_boxe3x .title {
+    height: 100px;
+}
+.roasting_boxe3x textarea {
+    border-radius: 5px;
+    border:1px solid #ccc;
+    width: 360px;
+    height: 120px;
+    resize: none;
+    padding: 10px;
+}
+
+/* productsAfterRegister end -------------------------------- */
+/* producingControl start -------------------------------- */
+
+.produce_boxfxp .under {
+    text-decoration: underline;
+}
+
+.produce_boxfxp .under:hover {
+    color:var(--color4);
+}
+
+/* producingControl end -------------------------------- */
+/* producingDetail start -------------------------------- */
+
+.producing_boxr8j .flexType2 {
+    margin-left: 12px;
+    margin-top: 10px;
+
+}
+
+.producing_boxr8j .nowon {
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color2);
+    margin-right: 10px;
+    /*width: 2px;*/
+    /*height: 24px;*/
+    /*background-color: #42B983;*/
+}
+
+.producing_boxr8j .productSn,
+.producing_boxr8j .productName {
+    border-radius: 20px;
+    border:1px solid #6c6c6c;
+    padding:0 24px;
+    width: auto;
+    height: 32px;
+    line-height:32px;
+    /*background-color: #42B98321;*/
+    /*color: #42B983;*/
+    background-color: #ececec21;
+    color:#6c6c6c;
+
+}
+
+.area_boxg4q{
+    margin-bottom: 10px;
+}
+
+.area_boxg4q .titleBox {
+    margin-bottom: 20px;
+
+}
+
+.area_boxg4q .roastingBox {
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #ececec;
+    margin-bottom: 10px;
+    width: 820px;
+}
+
+
+.area_boxg4q .left {
+    margin-right: 20px;
+}
+
+.area_boxg4q .elementBox {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.area_boxg4q .element {
+    padding-bottom:10px;
+}
+
+.area_boxg4q .element .title {
+    width: 100px;
+    margin-right: 20px;
+    font-size: 16px;
+}
+
+
+.area_boxg4q .element .data {
+    border-radius: 5px;
+    border:1px solid #ccc;
+    color:#000;
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+    padding-left: 10px;
+
+}
+
+.area_boxg4q .element .data1 {
+    width: 180px;
+
+}
+
+.status_boxv2l {
+    width: 70vw;
+}
+
+.status_boxv2l .left {
+    margin-right: 80px;
+}
+
+.status_boxv2l .right .upside {
+}
+
+.status_boxv2l .right .title {
+    width: 180px;
+    text-align: center;
+    height: 32px;
+    line-height: 32px;
+}
+
+.status_boxv2l .right .data {
+    width: 180px;
+    text-align: center;
+    height: 32px;
+    line-height: 32px;
+}
+
+.status_boxv2l .right .ingBox {
+}
+
+.status_boxv2l .right .downside {
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #ececec;
+    margin-bottom: 10px;
+}
+
+.status_boxv2l .right .downside .ingName {
+    border-radius: 5px;
+    border:1px solid #ccc;
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.memo_boxb5h textarea{
+    resize: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 820px;
+    height: 120px;
+    padding: 5px;
+}
+
+.area_boxg4q .submitBox {
+    width: 820px;
+    margin: 20px 0px 20px 0;
+}
+
+/* producingDetail end -------------------------------- */
+/* inOutStatus start -------------------------------- */
+
+.inout_boxq0a .left {
+    width: 220px;
+}
+
+.inout_boxq0a .btnType1 {
+    text-wrap: nowrap;
+    margin-right: 10px;
+}
+
+/* inOutStatus end -------------------------------- */
+
 /* flexType1 -------------------------------- */
 
 .fontType1 {
@@ -1272,10 +1816,24 @@ input[type="checkbox"] {
     flex-wrap: nowrap;
 }
 
+.flexType2-1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
 .flexType3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: nowrap;
+}
+
+.flexType3-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     flex-wrap: nowrap;
 }
 
@@ -1328,9 +1886,22 @@ input[type="checkbox"] {
     margin-left: 40px;
 }
 
+.mt10 {
+    margin-top: 10px;
+}
+.mt20 {
+    margin-top: 20px;
+}
+.mt40 {
+    margin-top: 40px;
+}
 
 .mr10 {
     margin-right: 10px;
+}
+
+.ml10 {
+    margin-left: 10px;
 }
 
 .mb10 {
@@ -1341,6 +1912,27 @@ input[type="checkbox"] {
     margin-bottom: 40px;
 }
 
+.toastBox {
+    padding: 2px 40px;
+    border-radius: 40px;
+    background-color: #00000091;
+    width: auto;
+    height: 44px;
+    font-size: 16px;
+    color:#fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom:16%;
+    left:50%;
+    transform: translateX(-50%);
+    z-index: 32;
+}
+
+.borderRed {
+    border:1px solid red;
+}
 
 .btnType1 {
     border: 1px solid #ccc;
@@ -1356,6 +1948,7 @@ input[type="checkbox"] {
     color:#303030;
 
 }
+
 .btnType2 {
     border: 1px solid var(--color1);
     background-image: var(--main-gradient);
@@ -1369,6 +1962,25 @@ input[type="checkbox"] {
     font-size: 16px;
     text-align: center;
 
+}
+
+
+.btnType3 {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    color:#303030;
+}
+
+.btnType4{
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
 }
 
 .squareType {
@@ -1407,11 +2019,23 @@ input[type="checkbox"] {
 
 }
 
+.inputBorder {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
 .must {
     border-radius: 50%;
     width: 6px;
     height: 6px;
     background-color: red;
+}
+
+.notmust {
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
 }
 
 .inputType {

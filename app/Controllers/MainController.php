@@ -15,7 +15,7 @@ class MainController extends BaseController
 
     use ResponseTrait;
     
-    public function Main($skey=false){
+    public function main($skey=false){
         $util = New Utils;
 //        $sessinarr = $util->fnGetSessionData();
 

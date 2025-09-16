@@ -180,49 +180,94 @@ function go_main() {
 }
 
 function go_login() {
-    var url = "/Member/Login";
+    var url = "/member/login";
     $(location).attr("href", url);
 }
 
 
 function go_dashboard() {
-    var url = "/Order/DashBoard";
+    var url = "/order/dashBoard";
     $(location).attr("href", url);
 }
 
 function go_linkMalls() {
-    var url = "/Order/LinkMalls";
+    var url = "/order/linkMalls";
     $(location).attr("href", url);
 }
 
 function go_orderInfo() {
-    var url = "/Order/OrderInfo";
+    var url = "/order/orderInfo";
     $(location).attr("href", url);
 }
 
 function go_deliInfo() {
-    var url = "/Order/DeliInfo";
+    var url = "/order/deliInfo";
     $(location).attr("href", url);
 }
 
 function go_packingInfo() {
-    var url = "/Order/PackingInfo";
+    var url = "/order/packingInfo";
     $(location).attr("href", url);
 }
 
 function go_packingStatus() {
-    var url = "/Order/PackingStatus";
+    var url = "/order/packingStatus";
     $(location).attr("href", url);
 }
 
 function go_goodsList() {
-    var url = "/Goods/GoodsList";
+    var url = "/goods/goodsList";
     $(location).attr("href", url);
 }
 
 function go_goodsRegister() {
-    var url = "/Goods/GoodsRegister";
+    var url = "/goods/goodsRegister";
     $(location).attr("href", url);
 }
 
+function go_productsList() {
+    var url = "/goods/productsList";
+    $(location).attr("href", url);
+}
+
+function go_productsRegister() {
+    var url = "/goods/productsRegister";
+    $(location).attr("href", url);
+}
+
+
+function go_productsAfterRegister($mName) {
+    let url = "/goods/productsAfterRegister";
+    $(location).attr("href", url);
+}
+
+function go_producingStatus() {
+    let url = "/produce/producingStatus";
+    $(location).attr("href", url);
+}
+
+function go_producingControl() {
+    let url = "/produce/producingControl";
+    $(location).attr("href", url);
+}
+
+function go_producingDetail() {
+    let url = "/produce/producingDetail";
+    $(location).attr("href", url);
+}
+
+function go_inOutStatus() {
+    let url = "/inOut/inOutStatus";
+    $(location).attr("href", url);
+}
+
+function go_atomList() {
+    let url = "/inOut/atomList";
+    $(location).attr("href", url);
+}
+
+function go_atomRegister() {
+    let url = "/inOut/atomRegister";
+    $(location).attr("href", url);
+}
 

@@ -927,7 +927,6 @@ input[type="checkbox"] {
 
 .packing_wraph1c .area1 .innerBox {
     width: 320px;
-    margin-left: 20px;
     margin-bottom: 20px;
 
 }
@@ -935,7 +934,7 @@ input[type="checkbox"] {
 .packing_wraptrf .area .title,
 .packing_wraph1c .area .title {
     margin-top: 20px;
-    margin-left: 20px;
+    /*margin-left: 20px;*/
     font-family: "Gmarket Sans";
     font-size: 18px;
     width: 220px;
@@ -1725,6 +1724,8 @@ input[type="checkbox"] {
 }
 
 .status_boxv2l .left {
+    /*border:1px solid red;*/
+    margin-top: 30px;
     margin-right: 80px;
 }
 
@@ -1790,7 +1791,100 @@ input[type="checkbox"] {
     margin-right: 10px;
 }
 
+
 /* inOutStatus end -------------------------------- */
+/* ipgo pop start -------------------------------- */
+
+.ipgo_wrapdej,
+.out_wrapiaj {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000080;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 100;
+}
+
+.ipgo_conkol,
+.out_conrlo {
+    border-radius: 20px;
+    width: 520px;
+    height: 380px;
+    background-color: #fff;
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    z-index: 101;
+
+}
+
+
+
+.ipgo_conkol .padding_area,
+.out_conrlo .padding_area {
+    margin: 20px;
+    position: relative;
+    height: 340px;
+}
+
+.ipgo_conkol .fa-xmark,
+.out_conrlo .fa-xmark {
+    position: absolute;
+    top:0;
+    right:0;
+}
+
+
+.ipgo_conkol .padding_area .head_title,
+.out_conrlo .padding_area .head_title{
+    /*margin: 0 auto;*/
+    font-weight: 500;
+    font-size: 22px;
+    width: 480px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.ipgo_conkol .padding_area .area,
+.out_conrlo .padding_area .area {
+    margin-bottom: 10px;
+}
+
+.ipgo_conkol .padding_area .area .inputType220,
+.ipgo_conkol .padding_area .area .schInput,
+.out_conrlo .padding_area .area .inputType220,
+.out_conrlo .padding_area .area .schInput{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 220px;
+    height: 32px;
+    padding-left: 10px;
+}
+
+.ipgo_conkol .padding_area .area .category,
+.out_conrlo .padding_area .area .category {
+    color:#5c5c5c;
+    width: 100px;
+    margin-right: 20px;
+}
+
+.ipgo_conkol .padding_area .area2,
+.out_conrlo .padding_area .area3 {
+    margin-top: 40px;
+}
+
+.ipgo_conkol .padding_area .area5,
+.out_conrlo .padding_area .area5 {
+    position: absolute;
+    bottom:0;
+    /*right:0;*/
+    left:50%;
+    transform: translateX(-50%);
+}
+/* ipgo pop end -------------------------------- */
 
 /* flexType1 -------------------------------- */
 

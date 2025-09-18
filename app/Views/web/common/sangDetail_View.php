@@ -13,23 +13,9 @@
             <p class="headTitle">
                 생산관리 / 진행상태
             </p>
-<!--                <div class="flexType2">-->
-<!--                    <div class="flexType2 productSn">-->
-<!--                        <p class="nowon"></p>-->
-<!--                        <p class="">작업번호 : 12341234</p>-->
-<!--                    </div>-->
-<!--                    <div class="flexType2 productName">-->
-<!--                        <p class="nowon"></p>-->
-<!--                        <p class="">작업명 : 우엉차 티백 200g</p>-->
-<!--                    </div>-->
-<!--                </div>-->
         </div>
         <div class="areaBox area_boxg4q ">
             <div class="elementBox flexType2">
-<!--                    <div class="element flexType2">-->
-<!--                        <button type="button" class="btnType1 mr10">취소</button>-->
-<!--                        <button type="button" class="btnType2">시작</button>-->
-<!--                    </div>-->
                 <div class="element flexType2 left">
                     <p class="title">작업번호</p>
                     <p class="data data1">1234</p>
@@ -61,21 +47,41 @@
                 </div>
             </div>
         </div>
-        <div class="areaBox area_boxg4q ">
+        <div class="areaBox area_boxg4q sang_boxu9d">
             <div class="elementBox">
                 <div class="titleBox ">
                     <p class="subtitle fontType1">
                         1차공정
                     </p>
                 </div>
-                <div class="element flexType3 roastingBox">
+                <div class="element flexType2 prog_boxl1p">
                     <div class="left flexType2">
                         <p class="title">공정명</p>
                         <p class="data">재료배합</p>
                     </div>
-                    <div class="element flexType2 right">
-                        <button type="button" class="btnType1 mr10">취소</button>
-                        <button type="button" class="btnType2">시작</button>
+                    <div class="right prog_boxo6r">
+                        <div class="status_boxi3f flexType3">
+                            <p class="status start">시작</p>
+                            <p class="status end">완료</p>
+                        </div>
+                       <div class="prog_Box">
+                           <div class=" prog_background">
+                               <div class="stanbyBox flexType1">
+                                   <p class="stanby"></p>
+                               </div>
+                               <div class="stanbyBox2 flexType1">
+                                   <p class="stanby2"></p>
+                               </div>
+                           </div>
+                           <div class="prog_now" name="progNow">
+                               <div class="stanbyBox flexType1">
+                                   <p class="stanby"></p>
+                               </div>
+                               <div class="stanbyBox2 flexType1">
+                                   <p class="stanby2"></p>
+                               </div>
+                           </div>
+                       </div>
                     </div>
                 </div>
 
@@ -122,57 +128,8 @@
                     <textarea name="" id="" cols="" rows="" readonly placeholder="배합물의 상태를 확인한다. (건조도 확인, 용량 확인) "></textarea>
                 </div>
                 <div class="submitBox flexType5">
-                    <button type="button" class="btnType2">완료</button>
+                    <button type="button" class="btnType2" onclick="go_sangControl();">완료</button>
                 </div>
-<!--                    <div class="element flexType3-1 status_boxv2l">-->
-<!--                        <div class="left flexType2">-->
-<!--                            <p class="title">저울측정</p>-->
-<!--                            <p class="data">50</p>-->
-<!--                            <p class="ml10 unit">kg</p>-->
-<!--                        </div>-->
-<!--                        <div class="right">-->
-<!--                                <div class="ingBox">-->
-<!--                                    <div class="upside flexType2">-->
-<!--                                        <p class="title">재료명</p>-->
-<!--                                        <p class="title">투입량</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="downside flexType2">-->
-<!--                                        <p class="ingName mr10">우엉차</p>-->
-<!--                                        <div class=" flexType2">-->
-<!--                                            <p class="data">50</p>-->
-<!--                                            <p class="ml10 unit">kg</p>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="downside flexType2">-->
-<!--                                        <p class="ingName mr10">우엉차</p>-->
-<!--                                        <div class=" flexType2">-->
-<!--                                            <p class="data">50</p>-->
-<!--                                            <p class="ml10 unit">kg</p>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="downside flexType2">-->
-<!--                                        <p class="ingName mr10">우엉차</p>-->
-<!--                                        <div class=" flexType2">-->
-<!--                                            <p class="data">50</p>-->
-<!--                                            <p class="ml10 unit">kg</p>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="ingBox">-->
-<!--                                    <div class="upside flexType2">-->
-<!--                                        <p class="title">재료명</p>-->
-<!--                                        <p class="title">투입량</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="downside flexType2">-->
-<!--                                        <p class="ingName mr10">우엉차</p>-->
-<!--                                        <div class=" flexType2">-->
-<!--                                            <p class="data">50</p>-->
-<!--                                            <p class="ml10 unit">kg</p>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
             </div>
         </div>
     </div>

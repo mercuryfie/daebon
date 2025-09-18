@@ -2,7 +2,7 @@
 <?= $this->section("content") ?>
 
 <!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/productsRegister_Do.js?rnd=<?=rand();?>"> </script>
+<script src="<?=URL_COMMON_ASSETS?>/matiRegister_Do.js?rnd=<?=rand();?>"> </script>
 
 <!--    <script src="--><?php //=URL_MASTER_ASSETS?><!--/burkOrderForm_Do.js?rnd=--><?php //= rand(); ?><!--"></script>-->
 <script>
@@ -67,8 +67,8 @@
                         <p class="title">재료 결과명</p>
                         <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="metirialName" >
                     </div>
-                    <div class="hi" name="productsBox">
-                        <div class="element flexType3 selectMetirialBox" name="oneProducts">
+                    <div class="hi" name="matiBox">
+                        <div class="element flexType3 selectMetirialBox" name="oneMati">
                             <div class="left flexType2">
                                 <p class="must"></p>
                                 <p class="title">재료 선택</p>
@@ -80,9 +80,9 @@
                                 <input type="search" class="inputBorder mr10" placeholder="예:10000" >
                                 <p class="unit mr10">g</p>
                             </div>
-                            <button type="button" class="inputBorder removeBtn">제거</button>
+                            <button type="button" class="inputBorder removeBtn" name="removeMati" onclick="removeMati(this);">제거</button>
                         </div>
-                        <div class="element flexType3 selectMetirialBox" name="oneProducts">
+                        <div class="element flexType3 selectMetirialBox" name="oneMati">
                             <div class="left flexType2">
                                 <p class="notmust"></p>
                                 <p class="title">재료 선택</p>
@@ -94,9 +94,9 @@
                                 <input type="search" class="inputBorder mr10" placeholder="예:10000" >
                                 <p class="unit mr10">g</p>
                             </div>
-                            <button type="button" class="inputBorder removeBtn">제거</button>
+                            <button type="button" class="inputBorder removeBtn" name="removeMati" onclick="removeMati(this);">제거</button>
                         </div>
-                        <div class="element flexType3 selectMetirialBox" name="oneProducts">
+                        <div class="element flexType3 selectMetirialBox" name="oneMati">
                             <div class="left flexType2">
                                 <p class="notmust"></p>
                                 <p class="title">재료 선택</p>
@@ -108,11 +108,11 @@
                                 <input type="search" class="inputBorder mr10" placeholder="예:10000" >
                                 <p class="unit mr10">g</p>
                             </div>
-                            <button type="button" class="inputBorder removeBtn">제거</button>
+                            <button type="button" class="inputBorder removeBtn" name="removeMati" onclick="removeMati(this);">제거</button>
                         </div>
                     </div>
                     <div class="element addBox">
-                        <button type="button" class="btnType1" name="addProducts">재료추가</button>
+                        <button type="button" class="btnType1" name="addMati" onclick="">재료추가</button>
 
                     </div>
                 </div>
@@ -121,7 +121,7 @@
         </div>
         <div class="lastBox flexType6">
             <button type="button" class="btnType1 mr10">취소</button>
-            <button type="button" id="nextBtn" name="nextBtn" class="btnType2" >다음</button>
+            <button type="button" id="nextBtn" name="nextBtn" class="btnType2" onclick="go_manuRegister();">다음</button>
         </div>
     </div>
     </div>

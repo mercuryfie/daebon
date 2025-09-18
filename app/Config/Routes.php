@@ -28,12 +28,13 @@ $routes->GET('order/packingStatus', 'CommonController::packingStatus');
 $routes->GET('goods/goodsList', 'CommonController::goodsList');
 $routes->GET('goods/goodsRegister', 'CommonController::goodsRegister');
 $routes->GET('goods/productsList', 'CommonController::productsList');
-$routes->GET('goods/productsRegister', 'CommonController::productsRegister');
-$routes->GET('goods/productsAfterRegister', 'CommonController::productsAfterRegister');
+$routes->GET('goods/matiRegister', 'CommonController::matiRegister');
+$routes->GET('goods/manuRegister', 'CommonController::manuRegister');
 
-$routes->GET('produce/producingStatus', 'CommonController::producingStatus');
-$routes->GET('produce/producingControl', 'CommonController::producingControl');
-$routes->GET('produce/producingDetail', 'CommonController::producingDetail');
+$routes->GET('produce/sangStatus', 'CommonController::sangStatus');
+$routes->GET('produce/sangControl', 'CommonController::sangControl');
+$routes->GET('produce/sangDetail', 'CommonController::sangDetail');
+$routes->GET('produce/sangComplete', 'CommonController::sangComplete');
 
 $routes->GET('inOut/inOutStatus', 'CommonController::inOutStatus');
 $routes->GET('inOut/atomList', 'CommonController::atomList');

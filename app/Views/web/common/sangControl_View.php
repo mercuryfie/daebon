@@ -19,8 +19,7 @@
                        placeholder="작업지시서 번호를 입력하십시오" name="" id="">
             </div>
             <div class="areaBox area_boxmxh ">
-                <div class="goods_boxkfg ">
-                    <p class="form">생산지시서</p>
+                <div class="goods_boxkfg sang_boxs7c">
                     <div class="left flexType2">
                         <p class="title">생산목록</p>
                         <p class="count">10</p>
@@ -31,16 +30,16 @@
                     <div class="produce_boxfxp">
                         <table class="orderInfoTable orderInfoTable1 ">
                             <thead>
-                            <tr>
-                                <td class="ltThead productNo checkCol">순번</td>
-                                <td class="ltThead">등록일시</td>
-                                <td class="ltThead">작업번호</td>
-                                <td class="ltThead">작업명</td>
-                                <td class="ltThead">무게</td>
+                                <tr>
+                                    <td class="ltThead productNo checkCol">순번</td>
+                                    <td class="ltThead">등록일시</td>
+                                    <td class="ltThead">작업번호</td>
+                                    <td class="ltThead">작업명</td>
+                                    <td class="ltThead">무게</td>
 
-                                <td class="ltThead">상태</td>
-                                <td class="ltThead">작업자</td>
-                            </tr>
+                                    <td class="ltThead">상태</td>
+                                    <td class="ltThead">작업자</td>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr>
@@ -48,11 +47,11 @@
                                         1
                                     </td>
                                     <td class="ltTbody">2025.01.01</td>
-                                    <td class="ltTbody under">1234</td>
+                                    <td class="ltTbody under" onclick="go_sangDetail();">1234</td>
                                     <td class="ltTbody">허브차 200g</td>
                                     <td class="ltTbody">20kg</td>
 
-                                    <td class="ltTbody under">1차 공정 진행중 (1/3)</td>
+                                    <td class="ltTbody under" onclick="go_sangDetail();">1차 공정 진행중 (1/3)</td>
                                     <td class="ltTbody">홍길동</td>
 
                                 </tr>
@@ -61,11 +60,11 @@
                                         2
                                     </td>
                                     <td class="ltTbody">2025.01.01</td>
-                                    <td class="ltTbody under">1234</td>
+                                    <td class="ltTbody under" onclick="go_sangDetail();">1234</td>
                                     <td class="ltTbody">허브차 200g</td>
                                     <td class="ltTbody">20kg</td>
 
-                                    <td class="ltTbody under">1차 공정 진행중 (1/3)</td>
+                                    <td class="ltTbody under" onclick="go_sangDetail();">1차 공정 진행중 (1/3)</td>
                                     <td class="ltTbody">홍길동</td>
 
                                 </tr>

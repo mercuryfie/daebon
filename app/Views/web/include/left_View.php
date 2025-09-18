@@ -39,7 +39,7 @@
                 <div class="submenu submenu1-1 " name="submenu">
                     <a href="#" class="subtext" onclick="go_atomList();">원자재목록</a>
                     <a href="#" class="subtext" onclick="go_productsList();">제품목록</a>
-                    <a href="#" class="subtext" onclick="go_productsRegister();">제품등록</a>
+                    <a href="#" class="subtext" onclick="go_matiRegister();">제품등록</a>
                     <a href="#" class="subtext" onclick="go_goodsList();">상품목록</a>
                     <a href="#" class="subtext" onclick="go_goodsRegister();">상품등록</a>
                     <a href="#" class="subtext" onclick="">제품 마스터관리</a>
@@ -52,9 +52,9 @@
                     <i class="fa-solid fa-angle-down"></i>
                 </div>
                 <div class="submenu submenu1-1 " name="submenu">
-                    <a href="#" class="subtext" onclick="go_producingStatus();">생산목록</a>
-                    <a href="#" class="subtext" onclick="go_producingControl();">제품생산화면</a>
-                    <a href="#" class="subtext" onclick="go_producingDetail();">진행상태</a>
+                    <a href="#" class="subtext" onclick="go_sangStatus();">생산목록</a>
+                    <a href="#" class="subtext" onclick="go_sangControl();">제품생산화면</a>
+                    <a href="#" class="subtext" onclick="go_sangDetail();">진행상태</a>
                 </div>
             </div>
             <div class="menuBox" name="menuBox">

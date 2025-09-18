@@ -177,7 +177,7 @@ class CommonController extends BaseController
         return view('web/common/productsList_View');
     }
 
-    public function productsRegister()
+    public function matiRegister()
     {
         $util = new Utils;
 //        $sessinarr = $util->fnGetSessionData();
@@ -192,10 +192,10 @@ class CommonController extends BaseController
 //        print_r($main_data);
 //        return '';
 
-        return view('web/common/productsRegister_View');
+        return view('web/common/matiRegister_View');
     }
 
-    public function productsAfterRegister()
+    public function manuRegister()
     {
         $util = new Utils;
 //        $sessinarr = $util->fnGetSessionData();
@@ -210,31 +210,12 @@ class CommonController extends BaseController
 //        print_r($main_data);
 //        return '';
 
-        return view('web/common/productsAfterRegister_View');
-    }
-
-
-
-    public function producingStatus()
-    {
-        $util = new Utils;
-//        $sessinarr = $util->fnGetSessionData();
-
-
-        $metaarr = array(
-            'h_title' => '로그인',
-            'h_type' => 1
-        );
-
-        $form = new Form;
-//        print_r($main_data);
-//        return '';
-
-        return view('web/common/producingStatus_View');
+        return view('web/common/manuRegister_View');
     }
 
 
-    public function producingControl()
+
+    public function sangStatus()
     {
         $util = new Utils;
 //        $sessinarr = $util->fnGetSessionData();
@@ -249,11 +230,11 @@ class CommonController extends BaseController
 //        print_r($main_data);
 //        return '';
 
-        return view('web/common/producingControl_View');
+        return view('web/common/sangStatus_View');
     }
 
 
-    public function producingDetail()
+    public function sangControl()
     {
         $util = new Utils;
 //        $sessinarr = $util->fnGetSessionData();
@@ -268,7 +249,44 @@ class CommonController extends BaseController
 //        print_r($main_data);
 //        return '';
 
-        return view('web/common/producingDetail_View');
+        return view('web/common/sangControl_View');
+    }
+
+
+    public function sangDetail()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/sangDetail_View');
+    }
+
+    public function sangComplete()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/sangComplete_View');
     }
 
 

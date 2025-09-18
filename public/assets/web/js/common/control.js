@@ -230,29 +230,33 @@ function go_productsList() {
     $(location).attr("href", url);
 }
 
-function go_productsRegister() {
-    var url = "/goods/productsRegister";
+function go_matiRegister() {
+    var url = "/goods/matiRegister";
     $(location).attr("href", url);
 }
 
-
-function go_productsAfterRegister($mName) {
-    let url = "/goods/productsAfterRegister";
+function go_manuRegister($mName) {
+    let url = "/goods/manuRegister";
     $(location).attr("href", url);
 }
 
-function go_producingStatus() {
-    let url = "/produce/producingStatus";
+function go_sangStatus() {
+    let url = "/produce/sangStatus";
     $(location).attr("href", url);
 }
 
-function go_producingControl() {
-    let url = "/produce/producingControl";
+function go_sangControl() {
+    let url = "/produce/sangControl";
     $(location).attr("href", url);
 }
 
-function go_producingDetail() {
-    let url = "/produce/producingDetail";
+function go_sangDetail() {
+    let url = "/produce/sangDetail";
+    $(location).attr("href", url);
+}
+
+function go_sangComplete() {
+    let url = "/produce/sangComplete";
     $(location).attr("href", url);
 }
 

@@ -499,6 +499,8 @@ input[type="checkbox"] {
     padding: 20px 0;
     margin-left: 20px;
     overflow: hidden;
+    /*position: fixed;*/
+    /*right:5vw;*/
 
 }
 
@@ -803,6 +805,21 @@ input[type="checkbox"] {
 }
 
 
+/* producingStatus start -------------------------------- */
+
+.pro_tablefz7c .statusBtn {
+    /*padding: 0 10px;*/
+    color:#6c6c6c;
+    width: 80px;
+}
+
+
+.pro_tablefz7c .statusStandby {
+    color:#000;
+    width: 80px;
+}
+
+/* producingStatus end -------------------------------- */
 /* date picker -------------------------------- */
 .date_boxtc6 > *{
     margin-right: 20px;
@@ -1172,8 +1189,164 @@ input[type="checkbox"] {
     margin-top: 20px;
 }
 
+/* sangControl start -------------------------------- */
 
-/* goods Register -------------------------------- */
+
+
+/* sangControl end -------------------------------- */
+/* sangDetail start -------------------------------- */
+
+/*progress brackground */
+
+.prog_boxo6r {
+    margin-left: 90px;
+    width: 220px;
+    height: 80px;
+
+}
+
+.prog_boxo6r .prog_Box {
+    position: relative;
+    z-index: 30;
+    width: 200px;
+    height: 30px;
+}
+
+.prog_boxo6r .status_boxi3f {
+    margin-left: -10px;
+    margin-bottom: 10px;
+    width: 220px;
+    height: 30px;
+
+}
+
+
+.prog_boxo6r .prog_background {
+    border-top: 10px solid #ececec;
+    width: 200px;
+    height: 30px;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 50;
+}
+
+.prog_boxo6r .prog_background .stanbyBox {
+    border-radius: 50%;
+    position:absolute;
+    top: -16px;
+    left: -10px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--color1);
+    z-index: 52;
+
+}
+
+.prog_boxo6r .prog_background .stanbyBox .stanby {
+    /*font-size: 14px;*/
+    border:3px solid #fff;
+    font-weight: 500;
+    border-radius: 50%;
+    text-align: center;
+    width: 14px;
+    height: 14px;
+    z-index: 55;
+
+}
+
+.prog_boxo6r .prog_background .stanbyBox2 {
+    border-radius: 50%;
+    position:absolute;
+    top: -16px;
+    right: -10px;
+    width: 24px;
+    height: 24px;
+    background-color: #ececec;
+    z-index: 51;
+
+}
+
+.prog_boxo6r .prog_background .stanbyBox2 .stanby2 {
+    /*font-size: 14px;*/
+    border:3px solid #fff;
+    font-weight: 500;
+    border-radius: 50%;
+    text-align: center;
+    width: 14px;
+    height: 14px;
+    z-index: 55;
+
+}
+
+/* -- prog_now > prog1 start */
+/*progress brackground */
+.prog_boxo6r .prog_now {
+    display: none;
+    border-top: 10px solid var(--color1);
+    width: 200px;
+    height: 30px;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 60;
+}
+
+/*--*/
+
+
+.prog_boxo6r .prog_now .stanbyBox {
+    border-radius: 50%;
+    position:absolute;
+    top: -16px;
+    left: -10px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--color1);
+    z-index: 52;
+
+}
+
+.prog_boxo6r .prog_now .stanbyBox .stanby {
+    /*font-size: 14px;*/
+    border:3px solid #fff;
+    font-weight: 500;
+    border-radius: 50%;
+    text-align: center;
+    width: 14px;
+    height: 14px;
+    z-index: 55;
+
+}
+
+.prog_boxo6r .prog_now .stanbyBox2 {
+    border-radius: 50%;
+    position:absolute;
+    top: -16px;
+    right: -10px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--color1);
+    z-index: 51;
+
+}
+
+.prog_boxo6r .prog_now .stanbyBox2 .stanby2 {
+    /*font-size: 14px;*/
+    border:3px solid #fff;
+    font-weight: 500;
+    border-radius: 50%;
+    text-align: center;
+    width: 14px;
+    height: 14px;
+    z-index: 55;
+
+}
+
+/* -- prog_now > prog1 end */
+/* sangDetail end -------------------------------- */
+
+/* goods Register start -------------------------------- */
 
 .area_boxm9k {
     margin-bottom: 20px;
@@ -1301,18 +1474,13 @@ input[type="checkbox"] {
     /*border:1px solid red;*/
     padding: 10px 0 10px 0;
     margin-bottom: 10px;
-    /*border-bottom: 1px dashed #ccc;*/
-    /*margin-bottom: 20px;*/
 
 }
 
 .cover_boxz7y {
-    /*border:1px solid red;*/
     width: 480px;
     padding-bottom: 10px;
     margin-bottom: 10px;
-    /*border-bottom: 1px dashed #ececec;*/
-    /*margin-bottom: 20px;*/
 
 }
 
@@ -1676,12 +1844,6 @@ input[type="checkbox"] {
 
 }
 
-.area_boxg4q .roastingBox {
-    padding-bottom: 20px;
-    border-bottom: 1px dashed #ececec;
-    margin-bottom: 10px;
-    width: 820px;
-}
 
 
 .area_boxg4q .left {
@@ -1795,8 +1957,9 @@ input[type="checkbox"] {
 /* inOutStatus end -------------------------------- */
 /* ipgo pop start -------------------------------- */
 
-.ipgo_wrapdej,
-.out_wrapiaj {
+.ipgo_wrapdej,         /*입고처리*/
+.out_wrapiaj,           /*출고처리*/
+.order_wrapdej {    /*생산지시폼*/
     display: none;
     width: 100vw;
     height: 100vh;
@@ -1807,8 +1970,13 @@ input[type="checkbox"] {
     z-index: 100;
 }
 
+.ipgo_wrapdej {
+    display: block;
+}
+
 .ipgo_conkol,
-.out_conrlo {
+.out_conrlo,
+.order_conkol {
     border-radius: 20px;
     width: 520px;
     height: 380px;
@@ -1824,14 +1992,16 @@ input[type="checkbox"] {
 
 
 .ipgo_conkol .padding_area,
-.out_conrlo .padding_area {
+.out_conrlo .padding_area,
+.order_conkol .padding_area {
     margin: 20px;
     position: relative;
     height: 340px;
 }
 
 .ipgo_conkol .fa-xmark,
-.out_conrlo .fa-xmark {
+.out_conrlo .fa-xmark,
+.order_conkol .fa-xmark {
     position: absolute;
     top:0;
     right:0;
@@ -1839,7 +2009,8 @@ input[type="checkbox"] {
 
 
 .ipgo_conkol .padding_area .head_title,
-.out_conrlo .padding_area .head_title{
+.out_conrlo .padding_area .head_title,
+.order_conkol .padding_area .head_title{
     /*margin: 0 auto;*/
     font-weight: 500;
     font-size: 22px;
@@ -1849,35 +2020,50 @@ input[type="checkbox"] {
 }
 
 .ipgo_conkol .padding_area .area,
-.out_conrlo .padding_area .area {
+.out_conrlo .padding_area .area,
+.order_conkol .padding_area .area {
     margin-bottom: 10px;
 }
 
 .ipgo_conkol .padding_area .area .inputType220,
-.ipgo_conkol .padding_area .area .schInput,
 .out_conrlo .padding_area .area .inputType220,
-.out_conrlo .padding_area .area .schInput{
+.order_conkol .padding_area .area .inputType220 {
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 220px;
     height: 32px;
     padding-left: 10px;
+
+}
+
+.ipgo_conkol .padding_area .area .schInput,
+.out_conrlo .padding_area .area .schInput {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 350px;
+    height: 32px;
+    padding-left: 10px;
 }
 
 .ipgo_conkol .padding_area .area .category,
-.out_conrlo .padding_area .area .category {
+.out_conrlo .padding_area .area .category,
+.order_conkol .padding_area .area .category {
     color:#5c5c5c;
     width: 100px;
     margin-right: 20px;
 }
 
-.ipgo_conkol .padding_area .area2,
+.ipgo_conkol .padding_area .area1 {
+    margin-bottom: 20px;
+}
+
 .out_conrlo .padding_area .area3 {
     margin-top: 40px;
 }
 
 .ipgo_conkol .padding_area .area5,
-.out_conrlo .padding_area .area5 {
+.out_conrlo .padding_area .area5,
+.order_conkol .padding_area .area5 {
     position: absolute;
     bottom:0;
     /*right:0;*/

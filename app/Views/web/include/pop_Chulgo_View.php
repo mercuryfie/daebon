@@ -4,7 +4,7 @@
             <p class="head_title" id="">출고하기</p>
             <i class="fa-solid fa-xmark " id="Xbtn" name="Xbtn"></i>
             <div class="area area1 flexType2">
-                <input type="search" name="" id="" placeholder="바코드를 스캔하세요" class="inputType220 mr10">
+                <input type="search" name="" id="" placeholder="바코드를 스캔하세요" class="schInput mr10">
                 <button type="button" class="btnType1">검색</button>
             </div>
 <!--            <div class="area area2 flexType2">-->
@@ -17,6 +17,7 @@
                     <option value="">불량</option>
                 </select>
             </div>
+
             <div class="area area4 flexType2">
                 <p class="category">출고수량</p>
                 <input type="search" name="" id="" placeholder="예:10" class="inputType220 mr10">

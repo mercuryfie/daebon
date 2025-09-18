@@ -2,7 +2,7 @@
 <?= $this->section("content") ?>
 
 <!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/productsRegister_Do.js?rnd=<?=rand();?>"> </script>
+<script src="<?=URL_COMMON_ASSETS?>/matiRegister_Do.js?rnd=<?=rand();?>"> </script>
 
 <!--    <script src="--><?php //=URL_MASTER_ASSETS?><!--/burkOrderForm_Do.js?rnd=--><?php //= rand(); ?><!--"></script>-->
 <script>
@@ -130,7 +130,7 @@
             
         </div>
         <div class="lastBox flexType6">
-            <button type="button" class="btnType1 mr10">이전</button>
+            <button type="button" class="btnType1 mr10" onclick="go_matiRegister();">이전</button>
             <button type="button" id="nextBtn" name="nextBtn" class="btnType2">확인</button>
         </div>
     </div>

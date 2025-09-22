@@ -64,7 +64,7 @@
                                     <td class="ltTbody">허브차 200g</td>
                                     <td class="ltTbody">20kg</td>
 
-                                    <td class="ltTbody under" onclick="go_sangDetail();">1차 공정 진행중 (1/3)</td>
+                                    <td class="ltTbody under" onclick="go_sangComplete();">1차 공정 진행중 (2/3)</td>
                                     <td class="ltTbody">홍길동</td>
 
                                 </tr>

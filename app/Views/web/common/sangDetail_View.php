@@ -128,7 +128,7 @@
                     <textarea name="" id="" cols="" rows="" readonly placeholder="배합물의 상태를 확인한다. (건조도 확인, 용량 확인) "></textarea>
                 </div>
                 <div class="submitBox flexType5">
-                    <button type="button" class="btnType2" onclick="go_sangControl();">완료</button>
+                    <button type="button" class="btnType2" onclick="go_sangList();">확인</button>
                 </div>
             </div>
         </div>

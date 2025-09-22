@@ -1220,7 +1220,6 @@ input[type="checkbox"] {
 
 }
 
-
 .prog_boxo6r .prog_background {
     border-top: 10px solid #ececec;
     width: 200px;
@@ -1361,6 +1360,11 @@ input[type="checkbox"] {
     font-size: 18px;
 }
 
+.area_boxm9k .title2 {
+    font-size: 14px;
+    color:#5c5c5c;;
+}
+
 .area_boxm9k .right {
     border:1px solid #ccc;
     border-radius: 5px;
@@ -1398,7 +1402,7 @@ input[type="checkbox"] {
 }
 
 .area_box2qd .element .title {
-    width: 160px;
+    width: 140px;
     margin-right: 20px;
     font-size: 16px;
 }
@@ -1460,27 +1464,26 @@ input[type="checkbox"] {
     margin-right: 10px;
 }
 
-.goods_boxt6r .element {
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px dashed #ececec;
-}
+/*.goods_boxt6r .element {*/
+/*    padding-bottom: 10px;*/
+/*    margin-bottom: 10px; */
+/*}*/
 
-.goods_boxt6r:first-child {
-    padding-top: 20px;
-}
+/*.goods_boxt6r:first-child {*/
+/*    padding-top: 20px;*/
+/*}*/
 
 .goods_boxt6r {
     /*border:1px solid red;*/
-    padding: 10px 0 10px 0;
-    margin-bottom: 10px;
+    /*padding: 10px 0 10px 0;*/
+    /*margin-bottom: 10px;*/
 
 }
 
 .cover_boxz7y {
     width: 480px;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    /*padding-bottom: 10px;*/
+    /*margin-bottom: 10px;*/
 
 }
 
@@ -1508,7 +1511,7 @@ input[type="checkbox"] {
 
 
 .goods_boxy8n {
-    border-bottom: 1px solid #ececec;
+    /*border-bottom: 1px solid #ececec;*/
 
 }
 
@@ -1689,7 +1692,14 @@ input[type="checkbox"] {
 
 /* productsList start -------------------------------- */
 
-.products_boxa1b .products_boxfxp {
+.products_boxa1b .products_boxfxp .orderProduct{
+    padding: 0 10px;
+}
+
+.products_boxa1b .products_boxfxp .goodsName:hover{
+    /*text-decoration: underline;*/
+    color: var(--color4);
+    cursor: pointer;
 }
 
 .atom_boxa1b,
@@ -1734,19 +1744,42 @@ input[type="checkbox"] {
     width: 720px;
 }
 
+.products_boxc7m {
+    width: 720px;
+    height: 410px;
+    padding:10px;
+    background-color: #ececec41;
+    border-radius: 10px;
+    position: relative;
+
+}
+
 .products_boxc7m .element{
+
     width: 580px;
 }
 
+.products_boxc7m .removeRoasting  {
+    position: absolute;
+    top:10px;
+    right:10px;
+    font-size: 18px;
+}
+
+
+
 .selectMetirialBox  {
-    border-bottom: 1px dashed #ececec;
     margin: 10px 0;
 }
 
-.products_boxc6m .inputBorder,
 .products_boxc6m .inputBorder {
     width: 120px;
     height: 32px;
+}
+
+
+.products_boxc6m .inputBorder2 {
+    width: 230px;
 }
 
 .products_boxc6m .removeBtn {
@@ -1763,23 +1796,33 @@ input[type="checkbox"] {
 }
 
 
-
-
-
 /* productsRegister end -------------------------------- */
 /* productsAfterRegister start -------------------------------- */
+
+
+.proc_boxf9n .roasting_boxp9x {
+    width: 720px;
+    height: auto;
+    position: relative;
+}
 
 .proc_boxf9n .addBtn {
     margin-left: 20px;
 }
 
-.roasting_boxe3x {
-    margin-top: 20px;
+.products_boxc7m .roasting_boxe3x {
+    position: relative;
+    width:680px;
+    /*margin-top: 20px;*/
 }
 
 .roasting_boxe3x .title {
+    font-size: 16px;
+    margin-right: 20px;
+    width: 140px;
     height: 100px;
 }
+
 .roasting_boxe3x textarea {
     border-radius: 5px;
     border:1px solid #ccc;
@@ -1787,6 +1830,13 @@ input[type="checkbox"] {
     height: 120px;
     resize: none;
     padding: 10px;
+}
+
+.roasting_boxe3x .btnType2{
+    position: absolute;
+    top:0;
+    left:0;
+    text-wrap: nowrap;
 }
 
 /* productsAfterRegister end -------------------------------- */
@@ -1895,14 +1945,14 @@ input[type="checkbox"] {
 }
 
 .status_boxv2l .right .title {
-    width: 180px;
+    width: 120px;
     text-align: center;
     height: 32px;
     line-height: 32px;
 }
 
 .status_boxv2l .right .data {
-    width: 180px;
+    width: 120px;
     text-align: center;
     height: 32px;
     line-height: 32px;
@@ -1917,16 +1967,25 @@ input[type="checkbox"] {
     margin-bottom: 10px;
 }
 
+.status_boxv2l .right .downside .unit {
+    margin-right: 40px;
+}
+
 .status_boxv2l .right .downside .ingName {
     border-radius: 5px;
-    border:1px solid #ccc;
-    width: 180px;
+    border:1px solid #ececec;
+    width: 120px;
     height: 32px;
     line-height: 32px;
     text-align: center;
     margin-right: 20px;
 }
 
+.status_boxv2l .right .downside .data{
+    border:1px solid #ececec;
+    text-align: center;
+
+}
 .memo_boxb5h textarea{
     resize: none;
     border-radius: 5px;

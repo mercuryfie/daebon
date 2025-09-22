@@ -53,8 +53,9 @@
                 </div>
                 <div class="submenu submenu1-1 " name="submenu">
                     <a href="#" class="subtext" onclick="go_sangStatus();">생산목록</a>
-                    <a href="#" class="subtext" onclick="go_sangControl();">제품생산화면</a>
+                    <a href="#" class="subtext" onclick="go_sangList();">제품생산화면</a>
                     <a href="#" class="subtext" onclick="go_sangDetail();">진행상태</a>
+                    <a href="#" class="subtext" onclick="go_sangDetail2();">진행상태</a>
                 </div>
             </div>
             <div class="menuBox" name="menuBox">

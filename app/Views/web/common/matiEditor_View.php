@@ -2,9 +2,7 @@
 <?= $this->section("content") ?>
 
 <!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/matiRegister_Do.js?rnd=<?=rand();?>"> </script>
-
-<!--    <script src="--><?php //=URL_MASTER_ASSETS?><!--/burkOrderForm_Do.js?rnd=--><?php //= rand(); ?><!--"></script>-->
+<script src="<?=URL_COMMON_ASSETS?>/matiEditor_Do.js?rnd=<?=rand();?>"> </script>
 <script>
 </script>
 
@@ -12,7 +10,7 @@
     <div class="goods_boxx7z">
         <div class="titleBox">
             <p class="headTitle">
-                기준정보관리 / 제품등록
+                기준정보관리 / 제품수정
             </p>
         </div>
         <div class="areaBox area_boxm9k ">
@@ -123,8 +121,8 @@
             
         </div>
         <div class="lastBox flexType6">
-            <button type="button" class="btnType1 mr10">취소</button>
-            <button type="button" id="nextBtn" name="nextBtn" class="btnType2" onclick="go_manuRegister();">다음</button>
+            <button type="button" class="btnType1 mr10" onclick="go_productsList();">이전</button>
+            <button type="button" id="nextBtn" name="nextBtn" class="btnType2" onclick="go_manuEditor();">다음</button>
         </div>
     </div>
     </div>

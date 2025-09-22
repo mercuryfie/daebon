@@ -214,6 +214,43 @@ class CommonController extends BaseController
     }
 
 
+    public function matiEditor()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/matiEditor_View');
+    }
+
+    public function manuEditor()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/manuEditor_View');
+    }
+
+
 
     public function sangStatus()
     {
@@ -234,7 +271,7 @@ class CommonController extends BaseController
     }
 
 
-    public function sangControl()
+    public function sangList()
     {
         $util = new Utils;
 //        $sessinarr = $util->fnGetSessionData();
@@ -249,7 +286,7 @@ class CommonController extends BaseController
 //        print_r($main_data);
 //        return '';
 
-        return view('web/common/sangControl_View');
+        return view('web/common/sangList_View');
     }
 
 

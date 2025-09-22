@@ -240,13 +240,24 @@ function go_manuRegister($mName) {
     $(location).attr("href", url);
 }
 
+function go_matiEditor() {
+    var url = "/goods/matiEditor";
+    $(location).attr("href", url);
+}
+
+function go_manuEditor($mName) {
+    let url = "/goods/manuEditor";
+    $(location).attr("href", url);
+}
+
+
 function go_sangStatus() {
     let url = "/produce/sangStatus";
     $(location).attr("href", url);
 }
 
-function go_sangControl() {
-    let url = "/produce/sangControl";
+function go_sangList() {
+    let url = "/produce/sangList";
     $(location).attr("href", url);
 }
 

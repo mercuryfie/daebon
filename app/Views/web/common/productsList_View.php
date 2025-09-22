@@ -45,7 +45,7 @@
                         <button type="button" class="btnType1">검색</button>
                     </div>
                     <div class="right">
-                        <button type="button" class="btnType2 " onclick="go_productsRegister();">제품등록</button>
+                        <button type="button" class="btnType2 " onclick="go_matiRegister();">제품등록</button>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                                 <td class="ltThead">적정재고량</td>
                                 <td class="ltThead">재고현황</td>
                                 <td class="ltThead">작업 중 수량</td>
-                                <td class="ltThead">간편작업지시</td>
+                                <td class="ltThead orderProduct">간편작업지시</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -84,7 +84,9 @@
                                     <input type="checkbox" name="" id="">
                                 </td>
                                 <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
+                                <td class="ltTbody ">
+                                    <a href="#" onclick="go_matiEditor();" class="goodsName">우엉차</a>
+                                </td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
 
@@ -93,7 +95,7 @@
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">-</td>
-                                <td class="ltTbody">
+                                <td class="ltTbody orderProduct">
                                     <div class="flexType1">
                                         <input type="search" name="" id="" class="countInput mr10" placeholder="수량(예:10)">
                                         <button type="button" class="submitBtn1">확인</button>

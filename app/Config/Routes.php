@@ -14,7 +14,6 @@ $routes->GET('member/login','MemberController::login');
 $routes->POST('member/login_Do', 'MemberController::login_Do');
 $routes->GET('member/logOut','MemberController::logOut');
 
-
 /* work - Sample */
 $routes->GET('order/dashBoard', 'CommonController::dashBoard');
 $routes->GET('order/mainThum', 'CommonController::mainThum');
@@ -30,9 +29,11 @@ $routes->GET('goods/goodsRegister', 'CommonController::goodsRegister');
 $routes->GET('goods/productsList', 'CommonController::productsList');
 $routes->GET('goods/matiRegister', 'CommonController::matiRegister');
 $routes->GET('goods/manuRegister', 'CommonController::manuRegister');
+$routes->GET('goods/matiEditor', 'CommonController::matiEditor');
+$routes->GET('goods/manuEditor', 'CommonController::manuEditor');
 
 $routes->GET('produce/sangStatus', 'CommonController::sangStatus');
-$routes->GET('produce/sangControl', 'CommonController::sangControl');
+$routes->GET('produce/sangList', 'CommonController::sangList');
 $routes->GET('produce/sangDetail', 'CommonController::sangDetail');
 $routes->GET('produce/sangComplete', 'CommonController::sangComplete');
 

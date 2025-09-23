@@ -24,6 +24,19 @@
                     <p class="title">작업명</p>
                     <p class="data data1">우엉차티백 생산공정</p>
                 </div>
+
+<!--                    <div class="element flexType2">-->
+<!--                        <p class="title">작업명</p>-->
+<!--                        <input type="search" class="inputType360" placeholder="우엉차티백 생산공정" readonly>-->
+<!--                    </div>-->
+<!--                    <div class="element flexType2">-->
+<!--                        <p class="title">제품명</p>-->
+<!--                        <input type="search" class="inputType360" placeholder="우엉차티백" readonly>-->
+<!--                    </div>-->
+<!--                    <div class="element flexType2">-->
+<!--                        <p class="title">공정명</p>-->
+<!--                        <input type="search" class="inputType360" placeholder="재료배합" readonly>-->
+<!--                    </div>-->
             </div>
         </div>
         <div class="areaBox area_boxg4q ">
@@ -38,7 +51,7 @@
             <div class="elementBox">
                 <div class="titleBox ">
                     <p class="subtitle fontType1">
-                        1차공정
+                        2차공정
                     </p>
                 </div>
                 <div class="element flexType2 prog_boxl1p">
@@ -72,7 +85,7 @@
                     </div>
                 </div>
 
-                <div class="element flexType2-1 status_boxv2l">
+                <div class="element flexType2-1  status_boxv22">
                     <div class="left flexType2">
                         <p class="title">저울측정</p>
                         <p class="data">50</p>
@@ -82,38 +95,38 @@
                         <div class="ingBox">
                             <table class="weight_tablevufb">
                                 <thead>
-                                <tr>
-                                    <td class="title title1">재료명</td>
-                                    <td class="title">예상 입고량</td>
-                                    <td class="title">실제 입고량</td>
-                                    <td class="title">-</td>
-                                </tr>
+                                    <tr>
+                                        <td class="title">재료명</td>
+                                        <td class="title">예상 입고량</td>
+                                        <td class="title">실제 입고량</td>
+                                        <td class="title">-</td>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="weight title1">우엉차</td>
-                                    <td class="weight">50kg</td>
-                                    <td class="weight">50kg</td>
-                                    <td class="weight ">
-                                        <button type="button" class="wConfirm">확인</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="weight">우엉차</td>
-                                    <td class="weight">50kg</td>
-                                    <td class="weight">50kg</td>
-                                    <td class="weight ">
-                                        <button type="button" class="wConfirm">확인</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="weight">우엉차</td>
-                                    <td class="weight">50kg</td>
-                                    <td class="weight">50kg</td>
-                                    <td class="weight ">
-                                        <button type="button" class="wConfirm">확인</button>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td class="weight">우엉차</td>
+                                        <td class="weight">50kg</td>
+                                        <td class="weight">50kg</td>
+                                        <td class="weight ">
+                                            <button type="button" class="wConfirm">확인</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="weight">우엉차</td>
+                                        <td class="weight">50kg</td>
+                                        <td class="weight">50kg</td>
+                                        <td class="weight ">
+                                            <button type="button" class="wConfirm">확인</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="weight">우엉차</td>
+                                        <td class="weight">50kg</td>
+                                        <td class="weight">50kg</td>
+                                        <td class="weight ">
+                                            <button type="button" class="wConfirm">확인</button>
+                                        </td>
+                                    </tr>
 
                                 </tbody>
                             </table>

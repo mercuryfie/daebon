@@ -327,6 +327,43 @@ class CommonController extends BaseController
     }
 
 
+    public function sangDetail2()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/sangDetail2_View');
+    }
+
+    public function sangComplete2()
+    {
+        $util = new Utils;
+//        $sessinarr = $util->fnGetSessionData();
+
+
+        $metaarr = array(
+            'h_title' => '로그인',
+            'h_type' => 1
+        );
+
+        $form = new Form;
+//        print_r($main_data);
+//        return '';
+
+        return view('web/common/sangComplete2_View');
+    }
+
+
     public function inOutStatus()
     {
         $util = new Utils;

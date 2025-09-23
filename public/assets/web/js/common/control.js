@@ -271,6 +271,16 @@ function go_sangComplete() {
     $(location).attr("href", url);
 }
 
+function go_sangDetail2() {
+    let url = "/produce/sangDetail2";
+    $(location).attr("href", url);
+}
+
+function go_sangComplete2() {
+    let url = "/produce/sangComplete2";
+    $(location).attr("href", url);
+}
+
 function go_inOutStatus() {
     let url = "/inOut/inOutStatus";
     $(location).attr("href", url);

@@ -35,7 +35,9 @@ $routes->GET('goods/manuEditor', 'CommonController::manuEditor');
 $routes->GET('produce/sangStatus', 'CommonController::sangStatus');
 $routes->GET('produce/sangList', 'CommonController::sangList');
 $routes->GET('produce/sangDetail', 'CommonController::sangDetail');
+$routes->GET('produce/sangDetail2', 'CommonController::sangDetail2');
 $routes->GET('produce/sangComplete', 'CommonController::sangComplete');
+$routes->GET('produce/sangComplete2', 'CommonController::sangComplete2');
 
 $routes->GET('inOut/inOutStatus', 'CommonController::inOutStatus');
 $routes->GET('inOut/atomList', 'CommonController::atomList');

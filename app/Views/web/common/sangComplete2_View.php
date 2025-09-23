@@ -38,7 +38,7 @@
                 <div class="elementBox">
                     <div class="titleBox ">
                         <p class="subtitle fontType1">
-                            1차공정
+                            2차공정
                         </p>
                     </div>
                     <div class="element flexType2 prog_boxl1p">
@@ -72,7 +72,7 @@
                         </div>
                     </div>
 
-                    <div class="element flexType2-1 status_boxv2l">
+                    <div class="element flexType2-1 status_boxv22">
                         <div class="left flexType2">
                             <p class="title">저울측정</p>
                             <p class="data">50</p>

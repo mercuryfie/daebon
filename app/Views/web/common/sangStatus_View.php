@@ -2,7 +2,7 @@
 <?= $this->section("content") ?>
 
 
-<script src="<?=URL_COMMON_ASSETS?>/sangStatus_Do.js?rnd=<?=rand();?>"> </script>
+<script src="<?=URL_COMMON_ASSETS?>/producingControl_Do.js?rnd=<?=rand();?>"> </script>
     <!-- js ----------------------------  -->
 <!--    <script src="--><?php //=URL_MASTER_ASSETS?><!--/burkOrderForm_Do.js?rnd=--><?php //= rand(); ?><!--"></script>-->
     <script>
@@ -12,74 +12,84 @@
         <div class="goods_boxfv6">
             <div class="titleBox">
                 <p class="headTitle">
-                    생산관리 / 작업현황
+                    생산관리 / 생산현황
                 </p>
+                <input type="search"
+                       class="inputType520 ml20"
+                       placeholder="작업지시서 번호를 입력하십시오" name="" id="">
             </div>
             <div class="areaBox area_boxmxh ">
-                <div class="goods_boxkfg flexType3">
+                <div class="goods_boxkfg sang_boxs7c">
                     <div class="left flexType2">
-                        <p class="title">상품목록</p>
+                        <p class="title">생산목록</p>
                         <p class="count">10</p>
                         <p class="unit">건</p>
-                    </div>
-                    <div class="right">
-                        <button type="button" class="btnType1">엑셀다운로드</button>
                     </div>
                 </div>
                 <div class="area4 goods_boxa1b flexType2">
                     <div class="produce_boxfxp">
-                        <table class="orderInfoTable orderInfoTable1 pro_tablefz7c">
+                        <table class="orderInfoTable orderInfoTable1 ">
                             <thead>
-                            <tr>
-                                <td class="ltThead productNo checkCol"></td>
-                                <td class="ltThead">작업번호</td>
-                                <td class="ltThead">제품명</td>
-                                <td class="ltThead">-</td>
-                                <td class="ltThead">-</td>
+                                <tr>
+                                    <td class="ltThead productNo checkCol">순번</td>
+                                    <td class="ltThead">등록일시</td>
+                                    <td class="ltThead">작업번호</td>
+                                    <td class="ltThead">작업명</td>
+                                    <td class="ltThead">무게</td>
 
-                                <td class="ltThead">-</td>
-                                <td class="ltThead">작업상태</td>
-                            </tr>
+                                    <td class="ltThead">상태</td>
+                                    <td class="ltThead">작업자</td>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="ltTbody">
-                                        <input type="checkbox" name="" id="">
+                                        1
                                     </td>
-                                    <td class="ltTbody">-</td>
-                                    <td class="ltTbody">-</td>
-                                    <td class="ltTbody">-</td>
-                                    <td class="ltTbody">-</td>
+                                    <td class="ltTbody">2025.01.01</td>
+                                    <td class="ltTbody under" onclick="go_sangDetail();">1234</td>
+                                    <td class="ltTbody">허브차 200g</td>
+                                    <td class="ltTbody">20kg</td>
 
-                                    <td class="ltTbody">-</td>
-                                    <td class="ltTbody"><button type="button" class="btnType4 statusBtn statusStandby" name="sangStatus1" onclick="">생산대기</button></td>
-<!--                                    상태값이 생산대기일때만 class에 btnType4랑 statusStandby 추가 나머지 상태에서는 btnType3이랑 statusBtn 만 반영-->
+                                    <td class="ltTbody under" onclick="go_sangDetail();">1차 공정 진행중 (1/3)</td>
+                                    <td class="ltTbody">홍길동</td>
 
                                 </tr>
                                 <tr>
                                     <td class="ltTbody">
-                                        <input type="checkbox" name="" id="">
+                                        2
                                     </td>
-                                    <td class="ltTbody">-</td>
-                                    <td class="ltTbody">-</td>
-                                    <td class="ltTbody">-</td>
-                                    <td class="ltTbody">-</td>
+                                    <td class="ltTbody">2025.01.01</td>
+                                    <td class="ltTbody under" onclick="go_sangComplete();">1234</td>
+                                    <td class="ltTbody">허브차 200g</td>
+                                    <td class="ltTbody">20kg</td>
 
-                                    <td class="ltTbody">-</td>
-                                    <td class="ltTbody"><button type="button" class="btnType3 statusBtn" name="sangStatus1" onclick="">생산중</button></td>
+                                    <td class="ltTbody under" onclick="go_sangComplete();">1차 공정 완료 (3/3)</td>
+                                    <td class="ltTbody">홍길동</td>
 
                                 </tr>
-                                <tr>
-                                    <td class="ltTbody">
-                                        <input type="checkbox" name="" id="">
-                                    </td>
-                                    <td class="ltTbody">-</td>
-                                    <td class="ltTbody">-</td>
-                                    <td class="ltTbody">-</td>
-                                    <td class="ltTbody">-</td>
+                                <td class="ltTbody">
+                                    3
+                                </td>
+                                <td class="ltTbody">2025.01.01</td>
+                                <td class="ltTbody under" onclick="go_sangDetail2();">1234</td>
+                                <td class="ltTbody">허브차 200g</td>
+                                <td class="ltTbody">20kg</td>
 
-                                    <td class="ltTbody">-</td>
-                                    <td class="ltTbody"><button type="button" class="btnType3 statusBtn" name="sangStatus1" onclick="">생산완료</button></td>
+                                <td class="ltTbody under" onclick="go_sangDetail2();">2차 공정 진행중 (1/3)</td>
+                                <td class="ltTbody">홍길동</td>
+
+                                </tr>
+                                <td class="ltTbody">
+                                    4
+                                </td>
+                                <td class="ltTbody">2025.01.01</td>
+                                <td class="ltTbody under" onclick="go_sangComplete2();">1234</td>
+                                <td class="ltTbody">허브차 200g</td>
+                                <td class="ltTbody">20kg</td>
+
+                                <td class="ltTbody under" onclick="go_sangComplete2();">2차 공정 완료 (3/3)</td>
+                                <td class="ltTbody">홍길동</td>
 
                                 </tr>
                             </tbody>
@@ -90,5 +100,5 @@
         </div>
 
     </section>
-<?= $this->include('/web/include/pop_OrderForm_View'); ?>
+
 <?= $this->endSection() ?>

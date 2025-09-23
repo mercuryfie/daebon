@@ -1931,61 +1931,7 @@ input[type="checkbox"] {
 
 }
 
-.status_boxv2l {
-    width: 70vw;
-}
 
-.status_boxv2l .left {
-    /*border:1px solid red;*/
-    margin-top: 30px;
-    margin-right: 80px;
-}
-
-.status_boxv2l .right .upside {
-}
-
-.status_boxv2l .right .title {
-    width: 120px;
-    text-align: center;
-    height: 32px;
-    line-height: 32px;
-}
-
-.status_boxv2l .right .data {
-    width: 120px;
-    text-align: center;
-    height: 32px;
-    line-height: 32px;
-}
-
-.status_boxv2l .right .ingBox {
-}
-
-.status_boxv2l .right .downside {
-    padding-bottom: 10px;
-    border-bottom: 1px dashed #ececec;
-    margin-bottom: 10px;
-}
-
-.status_boxv2l .right .downside .unit {
-    margin-right: 40px;
-}
-
-.status_boxv2l .right .downside .ingName {
-    border-radius: 5px;
-    border:1px solid #ececec;
-    width: 120px;
-    height: 32px;
-    line-height: 32px;
-    text-align: center;
-    margin-right: 20px;
-}
-
-.status_boxv2l .right .downside .data{
-    border:1px solid #ececec;
-    text-align: center;
-
-}
 .memo_boxb5h textarea{
     resize: none;
     border-radius: 5px;
@@ -1999,6 +1945,102 @@ input[type="checkbox"] {
     width: 820px;
     margin: 20px 0px 20px 0;
 }
+
+/*2차 공정 상세 ----------------*/
+
+.status_boxv2l,
+.status_boxv22 {
+    margin-bottom: 20px;
+}
+
+.status_boxv2l .right,
+.status_boxv22 .right {
+    margin-left: 40px;
+    overflow: hidden;
+}
+
+.weight_tablevufb {
+    /*border:1px solid red;*/
+    width: 430px;
+    border-collapse:collapse;
+    text-align: center;
+    text-wrap: nowrap;
+}
+
+.weight_tablevufb .title,
+.weight_tablevufb .weight {
+    border:1px solid #ececec;
+    height: 32px;
+    line-height: 32px;
+}
+
+.weight_tablevufb .wConfirm {
+    border:1px solid #ececec;
+    border-radius: 5px;
+    width:60px;
+    height: 24px;
+    line-height: 24px;
+
+}
+
+
+/*.status_boxv22 .upside {*/
+/*    margin-left: 20px;*/
+/*    margin-bottom: 20px;*/
+
+/*}*/
+
+
+/*.status_boxv22 .upside .title1 {*/
+/*    border-radius: 5px;*/
+/*    background-color: #ececec40;*/
+/*    width: 80px;*/
+
+/*}*/
+
+/*.status_boxv22 .upside .title2,*/
+/*.status_boxv22 .upside .title3 {*/
+/*    border-radius: 5px;*/
+/*    background-color: #ececec40;*/
+/*    !*text-align: left;*!*/
+/*    width: 120px;*/
+/*}*/
+
+/*.status_boxv22 .weightBox1 {*/
+/*    margin-right: 30px;*/
+/*}*/
+
+/*.status_boxv22 .right {*/
+/*    width:480px;*/
+/*}*/
+
+/*.status_boxv22 .downside {*/
+/*    margin-left: 20px;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+
+/*.status_boxv22 .ingName,*/
+/*.status_boxv22 .weight {*/
+/*    !*border:1px solid red;*!*/
+/*    margin-right: 10px;*/
+/*    border:1px solid #ececec;*/
+/*    border-radius: 5px;*/
+/*    width: 80px;*/
+/*    height:32px;*/
+/*    line-height: 32px;*/
+/*    text-align: center;*/
+/*    font-size: 16px;*/
+/*    text-wrap: nowrap;*/
+/*}*/
+
+/*.status_boxv22 .ingName {*/
+/*    margin-right: 20px;*/
+/*}*/
+/*.status_boxv22 .btnType1 {*/
+/*    margin-left: 20px;*/
+
+/*}*/
 
 /* producingDetail end -------------------------------- */
 /* inOutStatus start -------------------------------- */

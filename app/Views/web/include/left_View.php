@@ -52,10 +52,9 @@
                     <i class="fa-solid fa-angle-down"></i>
                 </div>
                 <div class="submenu submenu1-1 " name="submenu">
-                    <a href="#" class="subtext" onclick="go_sangStatus();">생산목록</a>
-                    <a href="#" class="subtext" onclick="go_sangList();">제품생산화면</a>
-                    <a href="#" class="subtext" onclick="go_sangDetail();">진행상태</a>
-                    <a href="#" class="subtext" onclick="go_sangDetail2();">진행상태</a>
+                    <a href="#" class="subtext" onclick="go_sangList();">생산목록</a>
+                    <a href="#" class="subtext" onclick="go_sangStatus();">생산현황</a>
+                    <a href="#" class="subtext" onclick="go_sangDetail();">생산현황 상세</a>
                 </div>
             </div>
             <div class="menuBox" name="menuBox">

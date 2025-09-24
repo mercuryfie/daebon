@@ -1464,62 +1464,40 @@ input[type="checkbox"] {
     margin-right: 10px;
 }
 
-/*.goods_boxt6r .element {*/
-/*    padding-bottom: 10px;*/
-/*    margin-bottom: 10px; */
-/*}*/
-
-/*.goods_boxt6r:first-child {*/
-/*    padding-top: 20px;*/
-/*}*/
-
 .goods_boxt6r {
-    /*border:1px solid red;*/
-    /*padding: 10px 0 10px 0;*/
-    /*margin-bottom: 10px;*/
-
+    margin: 0;
 }
 
-.cover_boxz7y {
-    width: 480px;
-    /*padding-bottom: 10px;*/
-    /*margin-bottom: 10px;*/
+
+/* 제품추가>공정입력>공정명 start - --- */
+
+.el_boxc8s {
 
 }
-
-.goods_boxt6r .option,
-.cover_boxz7y .option {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    font-size: 16px;
-    padding:0 5px;
-    height: 32px;
-
+.el_boxc8s .el {
+    margin-bottom: 10px;
 }
 
-.cover_boxz7y .option1,
-.cover_boxz7y .option2,
-.goods_boxt6r .option1,
-.goods_boxt6r .option2 {
-    width: 140px;
+.el_boxc8s .must {
     margin-right: 20px;
-    font-size: 14px;
-    padding: 0;
-
 }
 
-
-.goods_boxy8n {
-    /*border-bottom: 1px solid #ececec;*/
-
+.el_boxc8s .title {
+    width: 80px;
+    margin-right: 20px;
 }
 
-.goods_boxy8n .downside {
-    padding-bottom: 20px;
-
+.cover_boxh1t {
+    margin-bottom: 10px;
+}
+.cover_boxh1t .must {
+    margin-right: 20px;
 }
 
+.cover_boxh1t .ttl { 
+    width: 80px;
+    margin-right: 20px;
+}
 
 /* 제품추가 - --- */
 .goods_boxj3v {
@@ -1745,18 +1723,60 @@ input[type="checkbox"] {
 }
 
 .products_boxc7m {
+    border:1px solid #ececec;
     width: 720px;
-    height: 410px;
+    height: 540px;
     padding:10px;
-    background-color: #ececec41;
+    /*background-color: #ececec41;*/
     border-radius: 10px;
     position: relative;
 
 }
 
-.products_boxc7m .element{
+.products_boxc7m .element2 {
+    margin-top: 20px;
+}
 
+.products_boxc7m .element{
     width: 580px;
+    margin-left: 40px;
+}
+
+.inputIng_boxn7g,
+.outputIng_boxh4z {
+    border-radius: 5px;
+    background-color: #ececec40;
+    margin-left: 120px;
+    width: 370px;
+    padding:10px;
+    margin-bottom: 10px;
+}
+
+.inputIng_boxn7g .qoute,
+.outputIng_boxh4z .qoute {
+    width: 10px;
+    height: 18px;
+    border-right: 4px solid #ccc;
+    margin-right: 10px;
+
+}
+
+.inputIng_boxn7g .element .title,
+.outputIng_boxh4z .element .title {
+    width:90px;
+    font-size: 14px;
+    margin: 0;
+    margin-right: 20px;
+}
+
+.inputIng_boxn7g .inputData,
+.outputIng_boxh4z .inputData {
+    border-radius: 5px;
+    border:1px solid #ececec;
+    width: 120px;
+    height: 32px;
+    line-height: 32px;
+    padding-left: 10px;
 }
 
 .products_boxc7m .removeRoasting  {
@@ -1796,6 +1816,7 @@ input[type="checkbox"] {
 }
 
 
+
 /* productsRegister end -------------------------------- */
 /* productsAfterRegister start -------------------------------- */
 
@@ -1810,32 +1831,83 @@ input[type="checkbox"] {
     margin-left: 20px;
 }
 
-.products_boxc7m .roasting_boxe3x {
-    position: relative;
-    width:680px;
-    /*margin-top: 20px;*/
+/*-- 제품등록>공정입력>부자재 start  ------------*/
+.cover_boxz7y {
+    margin-left: 20px;
+    width: 620px;
+    margin-bottom: 10px;
+
 }
 
-.roasting_boxe3x .title {
-    font-size: 16px;
+.cover_boxz7y .ttl {
+    width: 80px;
     margin-right: 20px;
-    width: 140px;
+}
+
+.cover_boxz7y .option {
+    width: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    padding:0 5px;
+    height: 32px;
+    margin-right: 10px;
+
+}
+
+.cover_boxz7y .option2,
+.cover_boxz7y .option1 {
+    width: 120px;
+}
+
+.cover_boxz7y .option2 {
+
+}
+
+.cover_boxz7y .firmedBox {
+    width: 380px;
+    margin-right: 10px;
+
+}
+
+.cover_boxz7y .addBtn {
+    margin: 0;
+    border-radius: 5px;
+    border:1px solid #ececec;
+    text-wrap: nowrap;
+    width: 80px;
+    height: 24px;
+}
+/*-- 제품등록>공정입력>부자재 end ------------*/
+
+/*-- 제품등록>공정입력>공정방법 ------------*/
+.products_boxc7m .roasting_boxe3x {
+    margin: 0;
+    margin-left: 20px;
+    width: 620px;
+}
+
+.roasting_boxe3x .ttl {
+    margin-right: 20px;
+    width: 80px;
     height: 100px;
 }
 
 .roasting_boxe3x textarea {
     border-radius: 5px;
     border:1px solid #ccc;
-    width: 360px;
+    width: 380px;
     height: 120px;
     resize: none;
     padding: 10px;
 }
 
-.roasting_boxe3x .btnType2{
-    position: absolute;
-    top:0;
-    left:0;
+.roasting_boxe3x .addBtn {
+    margin: 0;
+    border-radius: 5px;
+    border:1px solid #ececec;
+    width: 80px;
+    height: 26px;
     text-wrap: nowrap;
 }
 

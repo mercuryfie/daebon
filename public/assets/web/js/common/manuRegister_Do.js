@@ -36,3 +36,23 @@ function removeRoasting(btn) {
 
     console.log('hello');
 }
+
+
+function add_TBag(btn) {
+    let $tBagBox = $("div[name='tBagBox']");
+    let $firstTBag = $("div[name='oneTBag']").first();
+    let $copy = $firstTBag.clone();
+
+    $copy.find("select").val("");
+
+    $tBagBox.append($copy);
+    console.log('hello1110');
+}
+
+
+function removeTBag(btn) {
+    let thisTBag = btn.closest('[name="oneTBag"]');
+    if (thisTBag) thisTBag.remove();
+
+    console.log('hello');
+}

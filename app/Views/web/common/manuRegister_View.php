@@ -58,9 +58,6 @@
                 </div>
             </div>
             <div class="area5 area_box2qd proc_boxf9n">
-<!--                <div class="elementBox">-->
-<!--                    <p class="subTitle">공정 입력</p>-->
-<!--                </div>-->
                 <div class="roasting_boxp9x" name="roasting_boxp9x">
                     <div class="elementBox products_boxc7m" name="oneRoasting">
                         <i class="fa-solid fa-xmark removeRoasting" onclick="removeRoasting(this);"></i>
@@ -82,6 +79,7 @@
                                     <option value="">외포장</option>
                                     <option value="">보관/출고</option>
                                 </select>
+                                <button type="button" class="addBtn" name="addRoasting" onclick="add_manuBox(this);">공정추가</button>
                             </div>
                         </div>
                         <div class="inputIng_boxn7g">
@@ -117,36 +115,36 @@
                         </div>
 
                         <div class=" goods_boxt66" name="coverBox" id="" >
-                            <div class="cover_boxz7y  flexType2" name="oneCover" id="">
+                            <div class="cover_boxz7y  flexType4" name="oneCover" id="">
                                 <p class="ttl">부자재</p>
-                                <div class="flexType2">
-                                    <div class="left"></div>
-                                    <div class="firmedBox">
+                                <div class="tBogBox" name="tBagBox">
+                                    <div class="oneTBag" name="oneTBag">
                                         <select name="" id="" class="option option1">
-                                            <option value="">부자재</option>
-                                            <option value="">부자재</option>
-                                            <option value="">부자재</option>
+                                            <option value="">부자재1</option>
+                                            <option value="">부자재2</option>
+                                            <option value="">부자재3</option>
                                         </select>
                                         <select name="" id="" class="option option2">
-                                            <option value="">부자재 상세</option>
-                                            <option value="">부자재 상세</option>
-                                            <option value="">부자재 상세</option>
+                                            <option value="">부자재 상세3</option>
+                                            <option value="">부자재 상세4</option>
+                                            <option value="">부자재 상세5</option>
                                         </select>
                                         <select name="" id="" class="option option3">
                                             <option value="">1</option>
                                             <option value="">2</option>
                                             <option value="">3</option>
                                         </select>
+                                        <i class="fa-solid fa-xmark mr10" onclick="removeTBag(this);"></i>
+
                                     </div>
                                 </div>
-                                <button type="button" class="addBtn" name="addCover">부자재 추가</button>
+                                <button type="button" class="addBtn" name="addCover" onclick="add_TBag('this');">부자재 추가</button>
                             </div>
                         </div>
                         <div class="element flexType4 roasting_boxe3x">
                             <p class="ttl">공정방법</p>
                             <textarea class="mr10" name="" id="" cols="" rows="" placeholder="밀폐 다층식 3D 진동체 분말여과기를 이용하여 이물을 제거하는 과정"></textarea>
 
-                            <button type="button" class="addBtn" name="addRoasting" onclick="add_manuBox(this);">공정추가</button>
                         </div>
                     </div>
                 </div>

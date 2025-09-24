@@ -1494,9 +1494,19 @@ input[type="checkbox"] {
     margin-right: 20px;
 }
 
-.cover_boxh1t .ttl { 
+.cover_boxh1t .ttl {
     width: 80px;
     margin-right: 20px;
+}
+
+.cover_boxh1t .addBtn {
+    margin: 0;
+    border-radius: 5px;
+    border:1px solid #ececec;
+    width: 80px;
+    height: 26px;
+    text-wrap: nowrap;
+
 }
 
 /* 제품추가 - --- */
@@ -1725,7 +1735,7 @@ input[type="checkbox"] {
 .products_boxc7m {
     border:1px solid #ececec;
     width: 720px;
-    height: 540px;
+    height: auto;
     padding:10px;
     /*background-color: #ececec41;*/
     border-radius: 10px;
@@ -1821,14 +1831,23 @@ input[type="checkbox"] {
 /* productsAfterRegister start -------------------------------- */
 
 
-.proc_boxf9n .roasting_boxp9x {
+.proc_boxf9n .roasting_boxp9x { 
     width: 720px;
     height: auto;
     position: relative;
+    padding-bottom: 20px;
 }
 
 .proc_boxf9n .addBtn {
     margin-left: 20px;
+}
+
+
+.proc_boxf9n .roasting_boxp9x .elememtBox {
+    width: 720px;
+    height: auto;
+    padding-bottom: 20px;
+
 }
 
 /*-- 제품등록>공정입력>부자재 start  ------------*/
@@ -1838,9 +1857,14 @@ input[type="checkbox"] {
     margin-bottom: 10px;
 
 }
+.cover_boxz7y .oneTBag {
+    margin-bottom:10px;
+}
 
 .cover_boxz7y .ttl {
     width: 80px;
+    height: auto;
+    vertical-align: top;
     margin-right: 20px;
 }
 
@@ -1896,19 +1920,19 @@ input[type="checkbox"] {
 .roasting_boxe3x textarea {
     border-radius: 5px;
     border:1px solid #ccc;
-    width: 380px;
+    width: 370px;
     height: 120px;
     resize: none;
     padding: 10px;
 }
 
 .roasting_boxe3x .addBtn {
-    margin: 0;
-    border-radius: 5px;
-    border:1px solid #ececec;
-    width: 80px;
-    height: 26px;
-    text-wrap: nowrap;
+    /*margin: 0;*/
+    /*border-radius: 5px;*/
+    /*border:1px solid #ececec;*/
+    /*width: 80px;*/
+    /*height: 26px;*/
+    /*text-wrap: nowrap;*/
 }
 
 /* productsAfterRegister end -------------------------------- */

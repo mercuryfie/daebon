@@ -58,17 +58,14 @@
                     </div>
                 </div>
                 <div class="area5 area_box2qd proc_boxf9n">
-                    <!--                <div class="elementBox">-->
-                    <!--                    <p class="subTitle">공정 입력</p>-->
-                    <!--                </div>-->
                     <div class="roasting_boxp9x" name="roasting_boxp9x">
                         <div class="elementBox products_boxc7m" name="oneRoasting">
                             <i class="fa-solid fa-xmark removeRoasting" onclick="removeRoasting(this);"></i>
 
                             <div class="goods_boxt6r" name="" >
-                                <div class="cover_boxh1t element flexType2" name="">
+                                <div class="cover_boxh1t flexType2" name="">
                                     <p class="must"></p>
-                                    <p class="title">공정명</p>
+                                    <p class="ttl">공정명</p>
                                     <select name="" id="" class="inputType360">
                                         <option value="">계량</option>
                                         <option value="">세척</option>
@@ -82,65 +79,72 @@
                                         <option value="">외포장</option>
                                         <option value="">보관/출고</option>
                                     </select>
+                                    <button type="button" class="addBtn" name="addRoasting" onclick="add_manuBox(this);">공정추가</button>
                                 </div>
                             </div>
-                            <div class="element flexType2">
-                                <p class="must"></p>
-                                <p class="title">공정 결과명</p>
-                                <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="manufacturingName" >
+                            <div class="inputIng_boxn7g">
+                                <div class="flexType2">
+                                    <p class="qoute"></p>
+                                    <p class="subTytle">투입 재료</p>
+                                </div>
+                                <div class="element element2 flexType2">
+                                    <p class="title">투입 재료명</p>
+                                    <input type="search" class="inputData" placeholder="우엉차" name="metirialName" readonly >
+                                </div>
+                                <div class="element element3 flexType2">
+                                    <p class="title">총 투입량</p>
+                                    <input type="search" class="inputData" placeholder="1000" name=""  >
+                                    <p class="unit ml10">g</p>
+                                </div>
                             </div>
-                            <div class="element flexType2">
-                                <p class="must"></p>
-                                <p class="title">투입 재료명</p>
-                                <input type="search" class="inputType360" placeholder="우엉차" name="metirialName" readonly >
-                            </div>
-                            <div class="element flexType2">
-                                <p class="must"></p>
-                                <p class="title">총 투입량</p>
-                                <input type="search" class="inputType360" placeholder="1000" name=""  >
-                                <p class="unit">g</p>
-                            </div>
-                            <div class="element flexType2">
-                                <p class="must"></p>
-                                <p class="title">예상 산출량</p>
-                                <input type="search" class="inputType360" placeholder="1000" name=""  >
-                                <p class="unit">g</p>
-                            </div>
-                            <!--                    <div class="element addBox">-->
-                            <!--                        <button type="button" class="btnType1 addBtn" name="addRoasting">공정추가</button>-->
-                            <!--                    </div>-->
 
-                            <div class=" goods_boxt6r" name="" id="" >
-                                <div class="cover_boxz7y element flexType2" name="" id="">
-                                    <p class="notmust"></p>
-                                    <p class="title">부자재</p>
-                                    <select name="" id="" class="option option1">
-                                        <option value="">부자재</option>
-                                        <option value="">부자재</option>
-                                        <option value="">부자재</option>
-                                    </select>
-                                    <select name="" id="" class="option option2">
-                                        <option value="">부자재 상세</option>
-                                        <option value="">부자재 상세</option>
-                                        <option value="">부자재 상세</option>
-                                    </select>
-                                    <select name="" id="" class="option option3">
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
+                            <div class="outputIng_boxh4z">
+                                <div class="flexType2">
+                                    <p class="qoute"></p>
+                                    <p class="subTytle">산출 재료</p>
+                                </div>
+                                <div class="element element2 flexType2">
+                                    <p class="title">공정 결과명</p>
+                                    <input type="search" class="inputData" placeholder="계량 완료" name="manufacturingName" >
+                                </div>
+                                <div class="element element3 flexType2">
+                                    <p class="title">예상 산출량</p>
+                                    <input type="search" class="inputData" placeholder="1000" name=""  >
+                                    <p class="unit ml10">g</p>
                                 </div>
                             </div>
-                            <!--                    <div class="element addBox">-->
-                            <!--                        <button type="button" class="btnType1 addBtn" name="addTbag">부자재 추가</button>-->
-                            <!---->
-                            <!--                    </div>-->
+
+                            <div class=" goods_boxt66" name="coverBox" id="" >
+                                <div class="cover_boxz7y  flexType4" name="oneCover" id="">
+                                    <p class="ttl">부자재</p>
+                                    <div class="tBogBox" name="tBagBox">
+                                        <div class="oneTBag" name="oneTBag">
+                                            <select name="" id="" class="option option1">
+                                                <option value="">부자재1</option>
+                                                <option value="">부자재2</option>
+                                                <option value="">부자재3</option>
+                                            </select>
+                                            <select name="" id="" class="option option2">
+                                                <option value="">부자재 상세3</option>
+                                                <option value="">부자재 상세4</option>
+                                                <option value="">부자재 상세5</option>
+                                            </select>
+                                            <select name="" id="" class="option option3">
+                                                <option value="">1</option>
+                                                <option value="">2</option>
+                                                <option value="">3</option>
+                                            </select>
+                                            <i class="fa-solid fa-xmark mr10" onclick="removeTBag(this);"></i>
+
+                                        </div>
+                                    </div>
+                                    <button type="button" class="addBtn" name="addCover" onclick="add_TBag('this');">부자재 추가</button>
+                                </div>
+                            </div>
                             <div class="element flexType4 roasting_boxe3x">
-                                <p class="notmust"></p>
-                                <p class="title">공정방법</p>
+                                <p class="ttl">공정방법</p>
                                 <textarea class="mr10" name="" id="" cols="" rows="" placeholder="밀폐 다층식 3D 진동체 분말여과기를 이용하여 이물을 제거하는 과정"></textarea>
 
-                                <button type="button" class="btnType1" name="addRoasting" onclick="add_manuBox(this);">공정추가</button>
                             </div>
                         </div>
                     </div>
@@ -149,7 +153,7 @@
             </div>
             <div class="lastBox flexType6">
                 <button type="button" class="btnType1 mr10" onclick="go_matiEditor();">이전</button>
-                <button type="button" id="nextBtn" name="nextBtn" class="btnType2">확인</button>
+                <button type="button" id="okBtn" name="okBtn" class="btnType2">확인</button>
             </div>
         </div>
         </div>

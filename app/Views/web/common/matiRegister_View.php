@@ -15,7 +15,7 @@
                 기준정보관리 / 제품등록
             </p>
         </div>
-        <div class="areaBox area_boxm9k ">
+        <div class="areaBox area_boxm9k mati_boxm9k">
             <div class="outerBox flexType3">
                 <p class="title">제품정보</p>
                 <div class="right flexType1">
@@ -41,6 +41,7 @@
                             <option value="">생강</option>
                             <option value="">생강</option>
                         </select>
+                        <button type="button" class="btnType3" name="" onclick="">추가</button>
                     </div>
                     <div class="element flexType2">
                         <p class="must"></p>
@@ -131,4 +132,5 @@
 
 </section>
 
+<?= $this->include('/web/include/pop_AddCategory2_View'); ?>
 <?= $this->endSection() ?>

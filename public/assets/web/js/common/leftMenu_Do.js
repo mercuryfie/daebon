@@ -28,13 +28,13 @@ $(document).ready(function() {
 
         if ($clickedSubmenu.css('display') === 'none') {
             $('.submenu').not($clickedSubmenu).css('display', 'none').removeClass('flexCol').addClass('hidden');
-            $('.topmenu').not(this).find('i.fa-solid').removeClass('fa-angle-up').addClass('fa-angle-down');
+            $('.topmenu').not(this).find('i.fa-solid').removeClass('fa-angle-down').addClass('fa-angle-up');
 
             $clickedSubmenu.css('display', 'flex').removeClass('hidden').addClass('flexCol');
             $clickedIcon.removeClass('fa-angle-down').addClass('fa-angle-up');
 
         } else {
-            $clickedSubmenu.css('display', 'none').removeClass('flexCol').addClass('hidden');
+            $clickedSubmenu.css('display', 'flex').removeClass('hidden').addClass('flexCol');
             $clickedIcon.removeClass('fa-angle-up').addClass('fa-angle-down');
         }
     });

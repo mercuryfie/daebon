@@ -195,18 +195,18 @@ function go_linkMalls() {
     $(location).attr("href", url);
 }
 
-function go_orderInfo() {
-    var url = "/order/orderInfo";
+function go_orderList() {
+    var url = "/order/orderList";
     $(location).attr("href", url);
 }
 
-function go_deliInfo() {
-    var url = "/order/deliInfo";
+function go_deliList() {
+    var url = "/order/deliList";
     $(location).attr("href", url);
 }
 
-function go_packingInfo() {
-    var url = "/order/packingInfo";
+function go_packingList() {
+    var url = "/order/packingList";
     $(location).attr("href", url);
 }
 

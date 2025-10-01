@@ -26,9 +26,9 @@
                 </div>
                 <div class="submenu submenu1-1 " name="submenu">
                     <a href="#" class="subtext" onclick="go_linkMalls();">쇼핑몰연동</a>
-                    <a href="#" class="subtext" onclick="go_orderInfo();">주문정보</a>
-                    <a href="#" class="subtext" onclick="go_deliInfo();">배송정보</a>
-                    <a href="#" class="subtext" onclick="go_packingInfo();">포장발송화면</a>
+                    <a href="#" class="subtext" onclick="go_orderList();">주문목록</a>
+                    <a href="#" class="subtext" onclick="go_deliList();">배송목록</a>
+                    <a href="#" class="subtext" onclick="go_packingList();">포장발송화면</a>
                 </div>
             </div>
             <div class="menuBox" name="menuBox">

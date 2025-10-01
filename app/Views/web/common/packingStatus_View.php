@@ -28,9 +28,9 @@
                    placeholder="작업지시서 번호를 입력하십시오" name="" id="">
         </div>
         <div class="areaBox">
-            <div class="area area5  ">
-                <p class='title'>작업상태</p>
-                <div class="progress_boxatq flexType3">
+            <div class="area area5 flexType3-1 ">
+                <div class="progress_boxatq flexType2-1">
+                    <p class='title'>작업상태</p>
                     <div class="flexType2">
                         <div class="progress flexCol2">
                             <button class="squareType2">
@@ -84,15 +84,20 @@
                             <p class="status">완료</p>
                         </div>
                     </div>
-                    <div class="right flexCol">
-                        <button type="button" class="btnType2">송장출력</button>
-                        <button type="button" class="btnType1">추가출력</button>
-                    </div>
+
+                </div>
+                <div class="right flexType2">
+                    <button type="button" class="btnType2 mr10">송장출력</button>
+                    <button type="button" class="btnType1">추가출력</button>
                 </div>
             </div>
             <div class="area area1">
                 <p class='title'>상품정보/수량 확인</p>
                 <div class="productCheck_boxarv">
+                    <div class="productCheck flexType2">
+                        <p class="category">주문번호</p>
+                        <p class="data">12341234</p>
+                    </div>
                     <div class="productCheck flexType2">
                         <p class="category">주소지</p>
                         <p class="data">서울시 강남구</p>
@@ -107,24 +112,39 @@
                     </div>
                 </div>
                 <div class="imgBox_box2ck flexType2">
-                    <div class="noirLayer">
-                        <!--                        <div class="noir"></div>-->
-                        <img src="/assets/web/src/packing_1.png" alt="img">
+                    <div class="noirBox">
+                        <div class="noirLayer ">
+                            <!--                        <div class="noir"></div>-->
+                            <img src="/assets/web/src/packing_1.png" alt="img">
+                        </div>
+                        <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>
                     </div>
-                    <div class="noirLayer">
-                        <div class="noir"></div>
-                        <img src="/assets/web/src/packing_1.png" alt="img">
+                    <div class="noirBox">
+                        <div class="noirLayer">
+                            <div class="noir"></div>
+                            <img src="/assets/web/src/packing_1.png" alt="img">
+                        </div>
+                        <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>
                     </div>
-                    <div class="noirLayer">
-                        <div class="noir"></div>
-                        <img src="/assets/web/src/packing_1.png" alt="img">
+                    <div class="noirBox">
+                        <div class="noirLayer">
+                            <div class="noir"></div>
+                            <img src="/assets/web/src/packing_1.png" alt="img">
+                        </div>
+                        <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>
                     </div>
-                    <p class="count">2개</p>
-                    <button type="button" class="btn">확인</button>
+                    <div class="countBox">
+                        <p class="count">2개</p>
+
+                    </div>
+                    <div class="btnBox">
+                        <button type="button" class="btn">확인</button>
+
+                    </div>
                 </div>
             </div>
             <div class="area area3">
-                <p class="title">배송과정 촬영</p>
+                <p class="title">포장과정 촬영</p>
                 <div class="imgBox_boxdzu flexType2">
                     <div class="planeLayer">
                         <!--                        <div class="noir"></div>-->
@@ -154,7 +174,10 @@
 <!--                        </button>-->
 <!--                        <p class="inputArea"></p> -->
 <!--                    </div>-->
-                    <button type="button" class="btn">촬영</button>
+                    <div class="btnBox">
+                        <button type="button" class="btn">촬영</button>
+
+                    </div>
                 </div>
 
             </div>

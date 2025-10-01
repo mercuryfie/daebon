@@ -7,7 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 
-$routes->GET('/', 'MainController::main');
+$routes->GET('/', 'MemberController::login');
 
 /* Login */
 $routes->GET('member/login','MemberController::login');
@@ -19,9 +19,9 @@ $routes->GET('order/dashBoard', 'CommonController::dashBoard');
 $routes->GET('order/mainThum', 'CommonController::mainThum');
 
 $routes->GET('order/linkMalls', 'CommonController::linkMalls');
-$routes->GET('order/orderInfo', 'CommonController::orderInfo');
-$routes->GET('order/deliInfo', 'CommonController::deliInfo');
-$routes->GET('order/packingInfo', 'CommonController::packingInfo');
+$routes->GET('order/orderList', 'CommonController::orderList');
+$routes->GET('order/deliList', 'CommonController::deliList');
+$routes->GET('order/packingList', 'CommonController::packingList');
 $routes->GET('order/packingStatus', 'CommonController::packingStatus');
 
 $routes->GET('goods/goodsList', 'CommonController::goodsList');

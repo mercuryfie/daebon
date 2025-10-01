@@ -21,7 +21,7 @@
         <div class="deli_wrapghj">
             <div class="titleBox">
                 <p class="headTitle">
-                    주문관리 / 배송정보
+                    주문관리 / 배송목록
                 </p>
                 <div class="deli_box2w9 flexType3">
                     <p class="status">전체 주문 : 100 건 / 발송 : 10 건 / 발송완료 : 10 건</p>
@@ -57,12 +57,6 @@
                             <option value="">20개씩</option>
                             <option value="">50개씩</option>
                             <option value="">100개씩</option>
-                        </select>
-                        <select name="" id="" class="btnType1 mr10 ">
-                            <option value="">주문확인중</option>
-                            <option value="">배송준비중</option>
-                            <option value="">배송중</option>
-                            <option value="">배송완료</option>
                         </select>
                         <button type="button" class="btnType1">엑셀다운로드</button>
                     </div>

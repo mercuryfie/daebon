@@ -22,7 +22,7 @@
     <div class="packing_wraph1c">
         <div class="titleBox">
             <p class="headTitle">
-                포장발송화면 / 작업선택
+                포장발송화면
             </p>
             <input type="search"
                    class="inputType520 ml20"
@@ -32,70 +32,17 @@
             <div class="area1">
                 <div class="innerBox">
                     <div class="status flexType3">
-                        <p class="title">발송완료</p>
+                        <p class="title">대기</p>
                         <p class="title">20건</p>
                     </div>
                     <div class="status flexType3">
-                        <p class="title">발송완료</p>
+                        <p class="title">완료</p>
                         <p class="title">20건</p>
                     </div>
                 </div>
             </div>
             <div class="area area5  ">
-                <p class='title'>작업상태</p>
-                <div class="progress_boxatq flexType2">
-                    <div class="progress flexCol2">
-                        <button class="squareType">
-                            <i class="fa-regular fa-square-check"></i>
-                        </button>
-                        <p class="status">작업선택</p>
-                    </div>
-                    <div class="angle">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </div>
-                    <div class="progress flexCol2">
-                        <button class="squareType2">
-                            <i class="fa-solid fa-print"></i>
-                        </button>
-                        <p class="status">상품확인</p>
-                    </div>
-                    <div class="angle">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </div>
-                    <div class="progress flexCol2">
-                        <button class="squareType2">
-                            <i class="fa-solid fa-print"></i>
-                        </button>
-                        <p class="status">수량확인</p>
-                    </div>
-                    <div class="angle">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </div>
-                    <div class="progress flexCol2">
-                        <button class="squareType2">
-                            <i class="fa-solid fa-receipt"></i>
-                        </button>
-                        <p class="status">송장출력</p>
-                    </div>
-                    <div class="angle">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </div>
-                    <div class="progress flexCol2">
-                        <button class="squareType2">
-                            <i class="fa-solid fa-box-open"></i>
-                        </button>
-                        <p class="status">포장</p>
-                    </div>
-                    <div class="angle">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </div>
-                    <div class="progress flexCol2">
-                        <button class="squareType2">
-                            <i class="fa-solid fa-cube"></i>
-                        </button>
-                        <p class="status">완료</p>
-                    </div>
-                </div>
+                <p class='title mb10'>작업상태</p>
             </div>
             <div class="area4 packing_boxfxp">
                 <table class="">

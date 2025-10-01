@@ -388,9 +388,9 @@ input[type="checkbox"] {
 
 .order_box28f .status {
     margin-top: 10px;
-    margin-left: 40px;
+    margin-left: 10px;
     font-family: "Gmarket Sans";
-    color:#5c5c5c;
+    margin-bottom: 10px;
 }
 
 
@@ -486,7 +486,7 @@ input[type="checkbox"] {
     width: 80vw;
     /*width: 1400px;*/
     height: auto;
-    padding: 20px 0;
+    padding: 10px 0;
     margin-left: 20px;
     background-color: #fff;
     overflow: hidden;
@@ -671,12 +671,32 @@ input[type="checkbox"] {
     color:#303030;
 }
 
+.link_wrap5r6 .area3 {
+    margin-right: 20px;
+}
+
 .areaBox .area4 .linkMallsTable,
 .deliInfoTable {
     border:1px solid #ccc;
     border-collapse: collapse;
     color:#303030;
-    /*width: 77vw;*/
+    width: 77vw;
+
+}
+
+.linkMallsTable .col1,
+.linkMallsTable .col2 {
+    width: 40px;
+}
+
+
+.areaBox .area4 .linkMallsTable td {
+    overflow: hidden;
+    border:1px solid #ccc;
+    height: 32px;
+    line-height: 32px;
+    max-height: 32px;
+    text-align: center;
 
 }
 
@@ -711,13 +731,14 @@ input[type="checkbox"] {
 }
 
 .areaBox .area4 .orderInfoTable2 {
+    height: auto;
     overflow-x: scroll;
+    padding-bottom: 10px;
 }
 
 
 .deliInfoTable td,
-.areaBox .area4 .orderInfoTable td,
-.areaBox .area4 .linkMallsTable td {
+.areaBox .area4 .orderInfoTable td {
     min-width: 100px;
     max-height: 32px;
     overflow: hidden;
@@ -786,8 +807,8 @@ input[type="checkbox"] {
 }
 
 .order_box28f .areaBox .area5 .countBox{
-    width: 240px;
-    height: 160px;
+    width: 77vw;
+    /*height: 160px;*/
 }
 
 .order_box28f .areaBox .area5 .count{
@@ -795,6 +816,10 @@ input[type="checkbox"] {
 
 }
 
+.order_box28f .area1,
+.order_box28f .area2 {
+    margin-left: 10px;
+}
 
 .areaBox .area5 .number{
     font-size: 18px;
@@ -920,9 +945,13 @@ input[type="checkbox"] {
 
 /* packing Info -------------------------------- */
 
-.packing_wraptrf .titleBox,
-.packing_wraph1c .titleBox {
+.packing_wraptrf .titleBox {
     margin-bottom: 20px;
+}
+
+.packing_wraph1c .titleBox {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .packing_wraph1c .areaBox,
@@ -948,10 +977,24 @@ input[type="checkbox"] {
 
 }
 
-.packing_wraptrf .area .title,
+
+
+.packing_wraptrf .area .title {
+    margin-top: 10px;
+    font-family: "Gmarket Sans";
+    font-size: 18px;
+    width: 220px;
+}
+
+.packing_wraptrf .area5 .title {
+    margin-top: 0;
+    font-family: "Gmarket Sans";
+    font-size: 18px;
+    width: 120px;
+}
+
 .packing_wraph1c .area .title {
     margin-top: 20px;
-    /*margin-left: 20px;*/
     font-family: "Gmarket Sans";
     font-size: 18px;
     width: 220px;
@@ -967,13 +1010,14 @@ input[type="checkbox"] {
 }
 
 .packing_boxfxp {
-    margin: 0 20px;
+    padding: 0 20px;
 }
 
 .packing_boxfxp table{
     width: 100%;
     border:1px solid #ccc;
     border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
 .packing_boxfxp table td{
@@ -988,11 +1032,15 @@ input[type="checkbox"] {
 }
 
 .progress_boxatq {
-
     margin: 20px 0;
 }
+
 .progress_boxatq .progress{
     padding: 0 20px;
+}
+
+.progress_boxatq .progress .status{
+    text-wrap: nowrap;
 }
 
 .progress_boxatq .squareType2,
@@ -1015,12 +1063,10 @@ input[type="checkbox"] {
     color:#ccc;
 }
 
-.progress_boxatq .right {
+.packing_wraptrf .area5 .right {
+    text-wrap: nowrap;
+    margin-top: 20px;
     margin-right: 40px;
-}
-
-.progress_boxatq .right .btnType2{
-    margin-bottom: 10px;
 }
 
 
@@ -1054,6 +1100,13 @@ input[type="checkbox"] {
 }
 
 
+.imgBox_box2ck .noirBox {
+    width: 100px;
+    height: 120px;
+    overflow: hidden;
+
+}
+
 .imgBox_box2ck .noirLayer {
     border-radius: 10px;
     width: 100px;
@@ -1070,6 +1123,15 @@ input[type="checkbox"] {
     left:0;
     z-index: 30;
     background-color: #00000061;
+}
+
+
+.imgBox_box2ck .noirBox .ttl {
+    width: 90px;
+    font-size: 14px;
+    margin-left: 5px;
+    text-wrap: nowrap;
+    overflow: hidden;
 }
 
 .imgBox_boxdzu {
@@ -1090,6 +1152,12 @@ input[type="checkbox"] {
     z-index: 20;
 }
 
+.imgBox_box2ck .countBox {
+    width: 100px;
+    height: 120px;
+    overflow: hidden;
+
+}
 
 .imgBox_box2ck .count {
     border-radius: 10px;
@@ -1102,8 +1170,24 @@ input[type="checkbox"] {
 
 }
 
-.imgBox_boxdzu .btn,
-.imgBox_box2ck .btn {
+.imgBox_box2ck .btnBox  {
+    width: 100px;
+    height: 120px;
+    overflow: hidden;
+
+}
+
+.imgBox_box2ck .btnBox .btn  {
+    border:none;
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    font-size: 22px;
+    background-image: var(--gradient3);
+
+}
+
+.imgBox_boxdzu .btn  {
     border:none;
     border-radius: 10px;
     width: 100px;
@@ -1703,6 +1787,13 @@ input[type="checkbox"] {
     text-wrap: nowrap;
 }
 
+.order_box28f .orderInfoTable1 .status10:hover{
+    font-weight: 500;
+    color: var(--color4);
+
+
+}
+
 .products_boxfxp .countInput {
     border:1px solid #ccc;
     border-radius: 2px;
@@ -1825,7 +1916,10 @@ input[type="checkbox"] {
     margin-left: 20px;
 }
 
-
+.mati_boxm9k .area5 .btnType3 {
+    padding: 0 10px;
+    height:32px;
+}
 
 /* productsRegister end -------------------------------- */
 /* productsAfterRegister start -------------------------------- */
@@ -2154,6 +2248,9 @@ input[type="checkbox"] {
 /* inOutStatus end -------------------------------- */
 /* ipgo pop start -------------------------------- */
 
+.pQueue_wrapiaj, /*주문list 에서 각 항목 클릭 시, 포장발송화면으로 전송 */
+.upXlx_wrapiaj, /*주문list 에서 엑셀업로드*/
+.addOrder_wrapiaj, /*주문list 에서 포장대기에서 작업추가*/
 .ipgo_wrapdej,         /*입고처리*/
 .out_wrapiaj,           /*출고처리*/
 .order_wrapdej {    /*생산지시폼*/
@@ -2167,10 +2264,14 @@ input[type="checkbox"] {
     z-index: 100;
 }
 
+.pQueue_wrapiaj,
 .ipgo_wrapdej {
     display: block;
 }
 
+.pQueue_conrlo,
+.upXlx_conrlo,
+.addOrder_conrlo,
 .ipgo_conkol,
 .out_conrlo,
 .order_conkol {
@@ -2186,8 +2287,14 @@ input[type="checkbox"] {
 
 }
 
+.addOrder_conrlo {
+    width: 540px;
+    height: 480px;
+}
 
-
+.pQueue_wrapiaj .padding_area,
+.upXlx_wrapiaj .padding_area,
+.addOrder_wrapiaj .padding_area,
 .ipgo_conkol .padding_area,
 .out_conrlo .padding_area,
 .order_conkol .padding_area {
@@ -2196,15 +2303,22 @@ input[type="checkbox"] {
     height: 340px;
 }
 
+.pQueue_wrapiaj .fa-xmark,
+.upXlx_wrapiaj .fa-xmark,
+.addOrder_wrapiaj .fa-xmark,
 .ipgo_conkol .fa-xmark,
 .out_conrlo .fa-xmark,
 .order_conkol .fa-xmark {
     position: absolute;
     top:0;
     right:0;
+    font-size: 22px;
 }
 
 
+.pQueue_wrapiaj .padding_area .head_title,
+.upXlx_wrapiaj .padding_area .head_title,
+.addOrder_wrapiaj .padding_area .head_title,
 .ipgo_conkol .padding_area .head_title,
 .out_conrlo .padding_area .head_title,
 .order_conkol .padding_area .head_title{
@@ -2216,12 +2330,16 @@ input[type="checkbox"] {
     margin-bottom: 20px;
 }
 
+.pQueue_wrapiaj .padding_area .area,
+.upXlx_wrapiaj .padding_area .area,
+.addOrder_wrapiaj .padding_area .area,
 .ipgo_conkol .padding_area .area,
 .out_conrlo .padding_area .area,
 .order_conkol .padding_area .area {
     margin-bottom: 10px;
 }
 
+.pQueue_wrapiaj .padding_area .area .inputType220,
 .ipgo_conkol .padding_area .area .inputType220,
 .out_conrlo .padding_area .area .inputType220,
 .order_conkol .padding_area .area .inputType220 {
@@ -2242,6 +2360,7 @@ input[type="checkbox"] {
     padding-left: 10px;
 }
 
+.pQueue_conrlo .padding_area .area .category,
 .ipgo_conkol .padding_area .area .category,
 .out_conrlo .padding_area .area .category,
 .order_conkol .padding_area .area .category {
@@ -2250,14 +2369,24 @@ input[type="checkbox"] {
     margin-right: 20px;
 }
 
+
+.addOrder_wrapiaj .padding_area .area .category {
+    color:#5c5c5c;
+    width: 80px;
+    margin-right: 20px;
+
+}
+
 .ipgo_conkol .padding_area .area1 {
     margin-bottom: 20px;
 }
 
 .out_conrlo .padding_area .area3 {
     margin-top: 40px;
+
 }
 
+.upXlx_wrapiaj .padding_area .area5,
 .ipgo_conkol .padding_area .area5,
 .out_conrlo .padding_area .area5,
 .order_conkol .padding_area .area5 {
@@ -2267,7 +2396,91 @@ input[type="checkbox"] {
     left:50%;
     transform: translateX(-50%);
 }
+
+.addOrder_wrapiaj .inputType220 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 320px;
+    height: 32px;
+    padding-left: 10px;
+}
+
+.addOrder_wrapiaj .area7 .btnType3 {
+    padding: 0 10px;
+    height: 32px;
+}
+
 /* ipgo pop end -------------------------------- */
+/* pop upload exel start -------------------------------- */
+
+.upXlx_wrapiaj .area1 .category {
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    margin-right: 20px;
+}
+
+.upXlx_wrapiaj .area1  input[type="file"]::file-selector-button {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    width: 100px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 10px;
+    margin-right: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+/* pop upload exel end -------------------------------- */
+
+/* pop add packing queue start -------------------------------- */
+
+
+.pQueue_conrlo .area .data{
+    width:320px;
+    height: 32px;
+    line-height: 32px;
+    overflow: hidden;
+}
+
+.pQueue_conrlo .lastArea2 {
+    position: absolute;
+    top:40px;
+    left:50%;
+    transform: translateX(-50%);
+
+}
+
+.pQueue_conrlo .area4 .btnType3 {
+
+    height: 32px;
+    padding: 0 10px;
+    text-wrap: nowrap;
+}
+
+.pQueue_conrlo .lastArea .btnType3 {
+    width: auto;
+    height: 32px;
+
+    padding: 0 10px;
+    margin-right: 10px;
+    text-wrap: nowrap;
+}
+
+
+.pQueue_conrlo .lastArea {
+    position: absolute;
+    bottom:0;
+    left:50%;
+    transform: translateX(-50%);
+
+}
+
+/* pop add packing queue end -------------------------------- */
+
+
 
 /* flexType1 -------------------------------- */
 

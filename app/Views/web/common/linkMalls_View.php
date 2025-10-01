@@ -58,7 +58,7 @@
                         <option value="">구매자ID</option>
                     </select>
                     <input type="search" name="" id="" class="searchArea" placeholder="1324-1234">
-                    <button type="button" class="btnType2">검색</button>
+                    <button type="button" class="btnType1">검색</button>
 
                 </div>
                 <div class="area3">
@@ -69,9 +69,9 @@
                     <table class="linkMallsTable ">
                         <thead>
                             <tr>
-                                <td class="ltThead"></td>
-                                <td class="ltThead">번호</td>
-                                <td class="ltThead">쇼핑몰</td>
+                                <td class="ltThead col1"></td>
+                                <td class="ltThead col2">번호</td>
+<!--                                <td class="ltThead">쇼핑몰</td>-->
                                 <td class="ltThead">쇼핑몰명</td>
                                 <td class="ltThead">구매자명</td>
 
@@ -89,84 +89,17 @@
                                 <td class="ltTbody">
                                     <input type="checkbox" name="" id="">
                                 </td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
+                                <td class="ltTbody">1</td>
+                                <td class="ltTbody">옥션</td>
+                                <td class="ltTbody">홍길동</td>
+                                <td class="ltTbody">hongkd</td>
 
 
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
+                                <td class="ltTbody">2025. 01 01</td>
                                 <td class="ltTbody">
                                     <p class="positive">정상</p>
                                 </td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">
-                                    <p class="positive">정상</p>
-                                </td>
-
-                                <td class="ltTbody">-</td>
-                            </tr>
-                            <tr>
-                                <td class="ltTbody">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-
-
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">
-                                    <p class="positive">정상</p>
-                                </td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">
-                                    <p class="positive">정상</p>
-                                </td>
-
-                                <td class="ltTbody">-</td>
-                            </tr>
-                            <tr>
-                                <td class="ltTbody">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-
-
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">
-                                    <p class="negative">오류</p>
-                                </td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">
-                                    <p class="negative">오류</p>
-                                </td>
-
-                                <td class="ltTbody">-</td>
-                            </tr>
-                            <tr>
-                                <td class="ltTbody">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-
-
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">
-                                    <p class="negative">오류</p>
-                                </td>
-                                <td class="ltTbody">-</td>
+                                <td class="ltTbody">2025. 01 01</td>
                                 <td class="ltTbody">
                                     <p class="negative">오류</p>
                                 </td>

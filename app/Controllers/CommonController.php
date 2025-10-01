@@ -48,7 +48,7 @@ class CommonController extends BaseController
         return view('web/common/linkMalls_View');
     }
 
-    public function orderInfo()
+    public function orderList()
     {
         $util = new Utils;
 //        $sessinarr = $util->fnGetSessionData();
@@ -63,10 +63,10 @@ class CommonController extends BaseController
 //        print_r($main_data);
 //        return '';
 
-        return view('web/common/orderInfo_View');
+        return view('web/common/orderList_View');
     }
 
-    public function deliInfo()
+    public function deliList()
     {
         $util = new Utils;
 //        $sessinarr = $util->fnGetSessionData();
@@ -81,10 +81,10 @@ class CommonController extends BaseController
 //        print_r($main_data);
 //        return '';
 
-        return view('web/common/deliInfo_View');
+        return view('web/common/deliList_View');
     }
 
-    public function packingInfo()
+    public function packingList()
     {
         $util = new Utils;
 //        $sessinarr = $util->fnGetSessionData();
@@ -99,7 +99,7 @@ class CommonController extends BaseController
 //        print_r($main_data);
 //        return '';
 
-        return view('web/common/packingInfo_View');
+        return view('web/common/packingList_View');
     }
 
 

@@ -19,6 +19,16 @@ $(document).on('click', '.copied', function (e) {
     }
 });
 
+function fn_IsEmpty(arr){
+    let bool;
+    if (!arr || (Array.isArray(arr) && arr.length === 0) || (typeof arr === 'object' && Object.keys(arr).length === 0)) {
+        bool = true;
+    } else {
+        bool = false;
+    }
+    return bool;
+}
+
 
 function Load_API(url,dataarr){
     return new Promise(function(resolve, reject){
@@ -46,31 +56,80 @@ function Load_API(url,dataarr){
     });
 }
 
+function Load_API_Auth(url, dataarr){
+    return new Promise(function(resolve, reject){
+        console.log('call api=' + url);
+        console.log(JSON.stringify(dataarr));
+        const token = $('#token').val();
+        if(token==''){
+            alert('보안처리에 실패 하였습니다.\n다시 시도 하여주세요.');
+            $(location).attr("href", '/');
+        }else {
+            let retMap = new Map();
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: "JSON",
+                data: dataarr,
+                beforeSend: function (xhr) {
+                    if (token) {
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+                    }
+                },
+                success: function (response) {
+                    retMap.set('status', response.result);
+                    retMap.set('data', response.info);
+                    retMap.set('message', response.message);
+                    resolve(retMap);
+                },
+                error: function (request, status, error) {
+                    retMap.set('status', 'error');
+                    retMap.set('data', '');
+                    retMap.set('message', error);
+                    reject(retMap);
+                }
+            });
+        }
+    });
+}
+
+
 function Load_API_Form(url,f_data){
     return new Promise(function(resolve, reject){
         console.log('call form api=' + url);
-        let retMap = new Map();
-        $.ajax({
-            url: url,
-            type : 'POST',
-            data: f_data,
-            dataType: "JSON",
-            cache : false,
-            processData : false,
-            contentType : false,
-            success: function (response) {
-                retMap.set('status',response.result);
-                retMap.set('data',response.info);
-                retMap.set('message',response.message);
-                resolve(retMap);
-            },
-            error: function (request, status, error) {
-                retMap.set('status','error');
-                retMap.set('data','');
-                retMap.set('message',error);
-                reject(retMap);
-            }
-        });
+        const token = $('#token').val();
+        if(token==''){
+            alert('보안처리에 실패 하였습니다.\n다시 시도 하여주세요.');
+            $(location).attr("href", '/');
+        }else {
+            let retMap = new Map();
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: f_data,
+                dataType: "JSON",
+                cache: false,
+                processData: false,
+                contentType: false,
+                beforeSend: function (xhr) {
+                    if (token) {
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+                    }
+                },
+                success: function (response) {
+                    retMap.set('status', response.result);
+                    retMap.set('data', response.info);
+                    retMap.set('message', response.message);
+                    resolve(retMap);
+                },
+                error: function (request, status, error) {
+                    retMap.set('status', 'error');
+                    retMap.set('data', '');
+                    retMap.set('message', error);
+                    reject(retMap);
+                }
+            });
+        }
     });
 }
 
@@ -108,16 +167,14 @@ function number_format(num){
 }
 
 function start_spinner() {
-    let html = '<div class="spinnerBox" id="spinner">';
-    html += '<img src="/assets/web/src/spinner.gif" alt="img" class="spinner"/>';
-    html += '</div>';
-
-    $('body').prepend(html);
+    $('#spinnerBox').addClass('active');
+    $('#spinner').addClass('active');
 
 }
 
 function stop_spinner(){
-    $('#spinner').remove();
+    $('#spinnerBox').removeClass('active');
+    $('#spinner').removeClass('active');
 }
 
 function printWindow(id) {
@@ -184,115 +241,286 @@ function go_login() {
     $(location).attr("href", url);
 }
 
+function go_logout(){
+    var url = "/member/logout";
+    $(location).attr("href", url);
+}
 
 function go_dashboard() {
-    var url = "/order/dashBoard";
+    var url = "/order/dashboard";
     $(location).attr("href", url);
 }
 
 function go_linkMalls() {
-    var url = "/order/linkMalls";
+    var url = "/order/linkmalls";
     $(location).attr("href", url);
 }
 
 function go_orderList() {
-    var url = "/order/orderList";
+    var url = "/order/orderlist";
     $(location).attr("href", url);
 }
 
 function go_deliList() {
-    var url = "/order/deliList";
+    var url = "/order/deliverylist";
     $(location).attr("href", url);
 }
 
 function go_packingList() {
-    var url = "/order/packingList";
+    var url = "/order/packinglist";
+    $(location).attr("href", url);
+}
+
+function go_packingListStaff() {
+    var url = "/packing";
     $(location).attr("href", url);
 }
 
 function go_packingStatus() {
-    var url = "/order/packingStatus";
+    var url = "/order/packingstatus";
+    $(location).attr("href", url);
+}
+
+function go_packingStatusStaff() {
+    var url = "/packing/status";
     $(location).attr("href", url);
 }
 
 function go_goodsList() {
-    var url = "/goods/goodsList";
+    var url = "/goods/goodslist";
     $(location).attr("href", url);
 }
 
-function go_goodsRegister() {
-    var url = "/goods/goodsRegister";
+function go_goodsReg() {
+    var url = "/goods/goodsreg";
     $(location).attr("href", url);
 }
 
 function go_productsList() {
-    var url = "/goods/productsList";
+    var url = "/goods/productslist";
     $(location).attr("href", url);
 }
 
-function go_matiRegister() {
-    var url = "/goods/matiRegister";
+function go_productsReg() {
+    var url = "/goods/productsreg";
     $(location).attr("href", url);
 }
+
+function go_productsEditor() {
+    var url = "/goods/productseditor";
+    $(location).attr("href", url);
+}
+
 
 function go_manuRegister($mName) {
-    let url = "/goods/manuRegister";
-    $(location).attr("href", url);
-}
-
-function go_matiEditor() {
-    var url = "/goods/matiEditor";
+    let url = "/goods/manuregister";
     $(location).attr("href", url);
 }
 
 function go_manuEditor($mName) {
-    let url = "/goods/manuEditor";
+    let url = "/goods/manueditor";
     $(location).attr("href", url);
 }
 
 
-function go_sangStatus() {
-    let url = "/produce/sangStatus";
+function go_productionList() {
+    let url = "/produce/productionlist";
     $(location).attr("href", url);
 }
 
-function go_sangList() {
-    let url = "/produce/sangList";
+function go_productionListStaff() {
+    let url = "/product";
     $(location).attr("href", url);
 }
 
-function go_sangDetail() {
-    let url = "/produce/sangDetail";
+function go_productionStatus(code) {
+    let url = "/produce/productionstatus?cd=" + code;
     $(location).attr("href", url);
 }
 
-function go_sangComplete() {
-    let url = "/produce/sangComplete";
+function go_productionStatusStaff(code) {
+    let url = "/product/status?cd=" + code;
     $(location).attr("href", url);
 }
 
-function go_sangDetail2() {
-    let url = "/produce/sangDetail2";
+function go_categoryList() {
+    let url = "/goods/categorylist";
     $(location).attr("href", url);
 }
 
-function go_sangComplete2() {
-    let url = "/produce/sangComplete2";
+function add_category2() {
+    $('#addCat2_wrap').css('display','block');
+}
+
+function go_productionDetail() {
+    let url = "/produce/productiondetail";
     $(location).attr("href", url);
 }
 
-function go_inOutStatus() {
-    let url = "/inOut/inOutStatus";
+function go_productionDetailMono() {
+    let url = "/produce/productiondetailmono";
     $(location).attr("href", url);
 }
 
-function go_atomList() {
-    let url = "/inOut/atomList";
+
+function go_productionDetailStaff() {
+    let url = "/product/statusDetail";
     $(location).attr("href", url);
 }
 
-function go_atomRegister() {
-    let url = "/inOut/atomRegister";
+function go_productionDetailMonoStaff() {
+    let url = "/product/statusDetailMono";
     $(location).attr("href", url);
 }
 
+// function go_productionComplete() {
+//     let url = "/produce/productioncomplete";
+//     $(location).attr("href", url);
+// }
+//
+// function go_productionComplete2() {
+//     let url = "/produce/productioncomplete2";
+//     $(location).attr("href", url);
+// }
+
+function go_inoutStatus() {
+    let url = "/inout/inoutstatus";
+    $(location).attr("href", url);
+}
+
+function go_materialList() {
+    let url = "/inout/materiallist";
+    $(location).attr("href", url);
+}
+
+function go_materialReg() {
+    let url = "/inout/materialreg";
+    $(location).attr("href", url);
+}
+
+function go_popBarcodeLayer() {
+    let url = "/inout/popbarcodelayer";
+    $(location).attr("href", url);
+}
+
+function go_popBarcodeWindow() {
+    let url = "/inout/popbarcodewindow";
+    $(location).attr("href", url);
+}
+
+
+function go_productsMaster(){
+    let url = "/goods/productsmaster";
+    $(location).attr("href", url);
+}
+
+function go_goodsETC(){
+    let url = "/goods/goodsetc";
+    $(location).attr("href", url);
+}
+
+function go_qualityReport(){
+    let url = "/report/quality";
+    $(location).attr("href", url);
+}
+
+function go_orderReport(){
+    let url = "/report/order";
+    $(location).attr("href", url);
+}
+
+function go_workStatus(){
+    let url = "/monitor/workstatus";
+    $(location).attr("href", url);
+}
+
+function go_processStatus(){
+    let url = "/monitor/processstatus";
+    $(location).attr("href", url);
+}
+
+function go_userInfo(){
+    let url = "/info/user";
+    $(location).attr("href", url);
+}
+
+function go_notice(){
+    let url = "/info/notice";
+    $(location).attr("href", url);
+}
+
+
+// function pop_AddDeliForm() {
+//     let url = "/order/addDeliForm";
+//     $(location).attr("href", url);
+// }
+
+function pop_AddDeliForm() {
+    let url = "/order/adddeliform";
+    let width = 720;
+    let height = 980;
+
+    let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+
+    newWindow.onload = function() {
+        try {
+            let docHeight = newWindow.document.body.scrollHeight;
+            newWindow.resizeTo(width, docHeight + 450);
+        } catch(e) {
+            console.log("새 창 높이 조절 불가", e);
+        }
+    };
+}
+
+
+function pop_waybillForm() {
+    let url = "/order/waybill";
+    let width = 720;
+    let height = 980;
+
+    let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+
+    newWindow.onload = function() {
+        try {
+            let docHeight = newWindow.document.body.scrollHeight;
+            newWindow.resizeTo(width, docHeight + 450);
+        } catch(e) {
+            console.log("새 창 높이 조절 불가", e);
+        }
+    };
+}
+
+
+function pop_waybillFormStaff() {
+    let url = "/packing/waybillform";
+    let width = 720;
+    let height = 980;
+
+    let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+
+    newWindow.onload = function() {
+        try {
+            let docHeight = newWindow.document.body.scrollHeight;
+            newWindow.resizeTo(width, docHeight + 450);
+        } catch(e) {
+            console.log("새 창 높이 조절 불가", e);
+        }
+    };
+}
+
+function pop_OrderRoastForm(code) {
+    let url = "/produce/instructionform?cd=" + code;
+    let width = 920;
+    let height = 880;
+
+    let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+
+    newWindow.onload = function() {
+        try {
+            let docHeight = newWindow.document.body.scrollHeight;
+            newWindow.resizeTo(width, docHeight + 220);
+        } catch(e) {
+            console.log("새 창 높이 조절 불가", e);
+        }
+    };
+}

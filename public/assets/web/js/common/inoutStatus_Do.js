@@ -1,22 +1,52 @@
 
 $(document).ready(function() {
 
-    $('#ipgoBtn').click(function () {
-       $('#ipgo_wrapdej').css('display','block');
+    // $('#ipgoBtn').click(function () {
+    //    $('#ipgo_wrapdej').css('display','block');
+    // });
+
+    $('#barcodeWrap #Xbtn, #barcodeWrap #Xbtn2').click(function () {
+        $('#barcodeWrap').css('display','none');
     });
 
-    $('#ipgo_wrapdej #Xbtn, #ipgo_wrapdej #Xbtn2').click(function () {
-        $('#ipgo_wrapdej').css('display','none');
+    $('#ipgoWrap #Xbtn, #ipgoWrap #Xbtn2').click(function () {
+        $('#ipgoWrap').css('display','none');
     });
 
-    $('#chulgoBtn').click(function () {
-        $('#out_wraptt1').css('display','block');
+    $('#outWrap #Xbtn, #outWrap #Xbtn2').click(function () {
+        $('#outWrap').css('display','none');
     });
-
-    $('#out_wraptt1 #Xbtn, #out_wraptt1 #Xbtn2').click(function () {
-        $('#out_wraptt1').css('display','none');
-    });
-
 
 
 });
+
+function pop_barcodeWindow() {
+    let url = "/inout/popbarcodewindow";
+    let width = 430;
+    let height = 320;
+
+    let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+
+    newWindow.onload = function() {
+        try {
+            let docHeight = newWindow.document.body.scrollHeight;
+            newWindow.resizeTo(width, docHeight + 100);
+        } catch(e) {
+            console.log("새 창 높이 조절 불가", e);
+        }
+    };
+}
+
+function pop_barcodeLayer() {
+    $('#barcodeWrap').css('display','block');
+}
+
+function pop_ipgoView() {
+    $('#ipgoWrap').css('display','block');
+}
+
+function pop_chulgoView() {
+    $('#outWrap').css('display','block');
+}
+
+

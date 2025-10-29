@@ -33,7 +33,7 @@
               backgroundColor: hoverIndex === index ? '#ececec' : ''
             }"
           >
-            <a href="#" class="topText">{{ menu.title }}</a>
+            <a href="javascript:;" class="topText">{{ menu.title }}</a>
             <i
                 class="fa-solid"
                 :class="activeIndex === index ? 'fa-angle-up' : 'fa-angle-down'"
@@ -47,7 +47,7 @@
             <a
                 v-for="(sub, subIndex) in menu.sub"
                 :key="subIndex"
-                href="#"
+                href="javascript:;"
                 class="subtext"
                 @mouseover="subHover = `${index}-${subIndex}`"
                 @mouseleave="subHover = ''"

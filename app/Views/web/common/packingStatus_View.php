@@ -1,17 +1,5 @@
 <?= $this->extend("/web/template/layout_workpage") ?>
 <?= $this->section("content") ?>
-
-
-<!-- FullCalendar CSS -->
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
-
-<!-- FullCalendar JS -->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js"></script>
-
-<!-- calendar ----------------------------  -->
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js"></script>
 <!-- js ----------------------------  -->
 <!--    <script src="--><?php //=URL_MASTER_ASSETS?><!--/burkOrderForm_Do.js?rnd=--><?php //= rand(); ?><!--"></script>-->
 <script>
@@ -86,9 +74,9 @@
                     </div>
 
                 </div>
-                <div class="right flexType2">
-                    <button type="button" class="btnType2 mr10">송장출력</button>
-                    <button type="button" class="btnType1">추가출력</button>
+                <div class="right flexType2 printBox">
+                    <button type="button" class="btnType3 mr10" onclick="pop_waybillForm();">송장<br>출력</button>
+                    <button type="button" class="btnType3" onclick="pop_waybillForm();">추가<br>출력</button>
                 </div>
             </div>
             <div class="area area1">
@@ -178,6 +166,10 @@
                         <button type="button" class="btn">촬영</button>
 
                     </div>
+                </div>
+                <div class="lastBox flexType6 ">
+                    <button type="button" class="btnType2">확인</button>
+
                 </div>
 
             </div>

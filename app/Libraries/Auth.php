@@ -31,10 +31,7 @@ class Auth
         }else{
             $de_str = array();
         }
-
-
         return $de_str;
-
     }
 
     private function base64UrlEncode(string $data)

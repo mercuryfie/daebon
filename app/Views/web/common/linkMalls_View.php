@@ -1,37 +1,19 @@
 <?= $this->extend("/web/template/layout_workpage") ?>
 <?= $this->section("content") ?>
-
-    <script src="<?=URL_COMMON_ASSETS?>/dashBoard_Do.js"> </script>
-
-    <!-- FullCalendar CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
-
-    <!-- FullCalendar JS -->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js"></script>
-
-    <!-- calendar ----------------------------  -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js"></script>
-    <!-- js ----------------------------  -->
-<!--    <script src="--><?php //=URL_MASTER_ASSETS?><!--/burkOrderForm_Do.js?rnd=--><?php //= rand(); ?><!--"></script>-->
-    <script>
-    </script>
-
     <section class="merright">
         <div class="merright1-0 link_wrap5r6">
             <div class="titleBox">
                 <p class="headTitle">
-                    주문관리 / 쇼핑몰 연동
+                    쇼핑몰연동
                 </p>
             </div>
             <div class="areaBox ">
                 <div class="area1 flexType2">
                     <p class="title">기간</p>
-                    <a href="#" class="period">오늘</a>
-                    <a href="#" class="period">1주일</a>
-                    <a href="#" class="period">1개월</a>
-                    <a href="#" class="period">3개월</a>
+                    <a href="javascript:;" class="period">오늘</a>
+                    <a href="javascript:;" class="period">1주일</a>
+                    <a href="javascript:;" class="period">1개월</a>
+                    <a href="javascript:;" class="period">3개월</a>
                     <div class="date_boxtc6 flexType2">
                         <label for="date1" class="dateLabel1">
                             <input type="text" id="s_date" name="date1" class="inputType160 date1" placeholder="2025/01/01" >

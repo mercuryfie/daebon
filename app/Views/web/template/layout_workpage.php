@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?= $this->include('/web/include/meta_View'); ?>
+    <?= $this->include('/web/include/meta_View',$meta); ?>
     <!-- font1 ----------------------------  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,21 +39,24 @@
     <!--###############-->
 </head>
 <body>
-<?= $this->include('/web/include/header_View'); ?>
-<?= $this->include('/web/include/global_View'); ?>
+<?= $this->include('/web/include/header_View',$header); ?>
+<?= $this->include('/web/include/global_View',$header); ?>
 
 <main>
     <div class="workpageWrap flexType4">
         <div class="leftWrap ">
-            <?= $this->include('/web/include/left_View'); ?>
+            <?= $this->include('/web/include/left_View',$left); ?>
         </div>
 
         <div class="rightWrap">
             <?= $this->renderSection('content'); ?>
+<!--            --><?php //= $this->include('/web/include/foot_View',$footer); ?>
+            <?= $this->include('/web/include/grayFoot_View',$footer); ?>
         </div>
     </div>
 </main>
-<?php //= $this->include('/web/include/grayFoot_View'); ?>
+<?php //= $this->include('/web/include/grayFoot_View',$footer); ?>
+<?php //= $this->include('/web/include/foot_View',$footer); ?>
 
 </body>
 </html>

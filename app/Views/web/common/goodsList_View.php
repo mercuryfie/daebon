@@ -1,7 +1,6 @@
 <?= $this->extend("/web/template/layout_workpage") ?>
 <?= $this->section("content") ?>
 
-
 <script src="<?=URL_COMMON_ASSETS?>/goodsList_Do.js?rnd=<?=rand();?>"> </script>
     <!-- js ----------------------------  -->
 <!--    <script src="--><?php //=URL_MASTER_ASSETS?><!--/burkOrderForm_Do.js?rnd=--><?php //= rand(); ?><!--"></script>-->
@@ -12,7 +11,7 @@
         <div class="goods_boxfv6">
             <div class="titleBox">
                 <p class="headTitle">
-                    기준정보관관리 > 상품목록
+                    상품목록
                 </p>
             </div>
             <div class="areaBox area_boxd2s">
@@ -69,10 +68,10 @@
                 <div class="area1 flexType3">
                     <div class="left flexType2">
                         <p class="title">기간</p>
-                        <a href="#" class="period">오늘</a>
-                        <a href="#" class="period">1주일</a>
-                        <a href="#" class="period">1개월</a>
-                        <a href="#" class="period">3개월</a>
+                        <a href="javascript:;" class="period">오늘</a>
+                        <a href="javascript:;" class="period">1주일</a>
+                        <a href="javascript:;" class="period">1개월</a>
+                        <a href="javascript:;" class="period">3개월</a>
                     </div>
                 </div>
                 <div class="area2 flexType3">
@@ -94,7 +93,7 @@
                         <button type="button" class="btnType1">검색</button>
                     </div>
                     <div class="right">
-                        <button type="button" class="btnType2 " onclick="go_goodsRegister();">상품등록</button>
+                        <button type="button" class="btnType2 " onclick="go_goodsReg();">상품등록</button>
                     </div>
                 </div>
             </div>

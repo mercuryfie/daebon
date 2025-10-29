@@ -1,3 +1,5 @@
+
+<!--생산지시서 출력 전 layer pop up-->
 <div class="order_wrapdej" id="order_wrapdek"  name="" style="">
     <div class="order_conkol">
         <div class="padding_area">
@@ -19,7 +21,7 @@
             </div>
             <div class="area area5 mt20 flexType5">
                 <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>
-                <button type="button" class="btnType2">출력</button>
+                <button type="button" class="btnType2" onclick="pop_OrderRoastForm();">출력</button>
 
             </div>
         </div>

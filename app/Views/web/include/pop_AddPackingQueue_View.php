@@ -40,8 +40,8 @@
 <!--                </label>-->
 <!--            </div>-->
             <div class="area lastArea mt20 flexType5">
-                <button type="button" class="btnType3 ">배송고지서 출력</button>
-                <button type="button" class="btnType3">송장출력</button>
+                <button type="button" class="btnType3 " onclick="pop_AddDeliForm();">배송출고지시서 출력</button>
+                <button type="button" class="btnType3" onclick="pop_waybillForm();">송장출력</button>
 <!--                <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>-->
                 <button type="button" class="btnType2">확인</button>
 

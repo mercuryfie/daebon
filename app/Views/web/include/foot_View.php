@@ -13,7 +13,7 @@
 
     </div>
     <div class="footBox flexType1">
-        <img src="/assets/web/src/logo_origin.png" alt="img">
+        <img src="/assets/web/src/logo_origin2.png" alt="img">
         <p class="copyright">
             Copyright © Daebon Inc. All Rights Reserved
         </p>

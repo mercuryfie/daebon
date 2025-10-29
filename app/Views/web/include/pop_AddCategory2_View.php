@@ -1,41 +1,25 @@
 <div class="addCat2_wrapiaj" id="addCat2_wrap" name="" style="">
     <div class="addCat2_conrlo">
         <div class="padding_area">
-            <p class="head_title" id="">주문 등록</p>
+            <p class="head_title" id="">중분류 추가</p>
             <i class="fa-solid fa-xmark " id="Xbtn" name="Xbtn"></i>
-            <div class="area area3 flexType2">
-                <p class="category">상품선택</p>
-                <select name="" id="" class="inputType220">
-                    <option value="">우엉차20%</option>
-                    <option value="">우엉차20%</option>
-                    <option value="">우엉차20%</option>
+            <div class="area area1 flexType2">
+                <p class="category">대분류</p>
+                <select name="" id="" placeholder="원물볶음차" class="inputType220">
+                    <option value="">원물볶음차</option>
+                    <option value="">삼각티백차(25티백)</option>
+                    <option value="">삼각티백차(100티백)</option>
+                    <option value="">티플레이스(50티백)</option>
                 </select>
-            </div>
-            <div class="area area4 flexType2">
-                <p class="category">수량</p>
-                <input type="search" name="" id="" placeholder="예:10" class="inputType220 mr10">
-                <p class="unit">개</p>
-            </div>
-            <div class="area area4 flexType2">
-                <p class="category">수령인</p>
-                <input type="search" name="" id="" placeholder="예:10" class="inputType220 mr10">
+<!--                <input type="text" name="" id="" placeholder="원물볶음차" readonly class="inputType220 ">-->
             </div>
             <div class="area area6 flexType2">
-                <p class="category">연락처</p>
-                <input type="search" name="" id="" placeholder="예:10" class="inputType220 mr10">
+                <p class="category">중분류</p>
+                <input type="search" name="" id="" placeholder="우엉" class="inputType220 ">
 
             </div>
-            <div class="area area7 flexType2">
-                <p class="category">주소</p>
-                <input type="search" name="add1" id="" placeholder="예:10" class="inputType220 mr10">
-                <button type="button" class="btnType3" onclick="execDaumPostcode();">검색</button>
-            </div>
-            <div class="area area8 flexType2">
-                <p class="category">상세주소</p>
-                <input type="search" name="add2" id="" placeholder="예:10" class="inputType220 mr10">
-            </div>
         </div>
-        <div class="area area5 mt20 flexType1">
+        <div class="area lastArea mt20 flexType1">
             <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>
             <button type="button" class="btnType2">확인</button>
 

@@ -1,5 +1,4 @@
 $(function() {
-
     $(".area_boxm9k > .outerBox > .right > i").click(function() {
         var $icon = $(this);
         var $content = $icon.closest(".area_boxm9k").find(".area_box2qd");
@@ -15,24 +14,53 @@ $(function() {
         }
     });
 
-    $("button[name='addGoods']").click(function() {
-        var $copy = $("div[name='goodsBox'] > div[name='oneGoods']").first().clone();
-        // var $copy = $("div[name='oneGoods']").clone();
+    // $("button[name='addGoods']").click(function() {
+    //     var $copy = $("div[name='goodsBox'] > div[name='oneGoods']").first().clone();
+    //     // var $copy = $("div[name='oneGoods']").clone();
+    //
+    //     $copy.find("select").val("");
+    //     $copy.find("input").val("");
+    //
+    //     $("div[name='goodsBox']").append($copy);
+    // });
+    //
+    // $("button[name='addPackage']").click(function() {
+    //     var $copy = $("div[name='packageBox'] > div[name='onePackage']").first().clone();
+    //
+    //     $copy.find("select").val("");
+    //     $copy.find("input").val("");
+    //
+    //     $("div[name='packageBox']").append($copy);
+    // });
 
-        $copy.find("select").val("");
-        $copy.find("input").val("");
 
-        $("div[name='goodsBox']").append($copy);
+    /* 상품등록>제품등록 팝업 start  */
+
+    $('#addProductWrap #Xbtn, #addProductWrap #Xbtn2').click(function () {
+        $('#addProductWrap').css('display','none');
     });
 
-    $("button[name='addPackage']").click(function() {
-        var $copy = $("div[name='packageBox'] > div[name='onePackage']").first().clone();
+    $(document).on('click','button[name="addCover"]',function(){
+        const $parent = $('#cover_box');
+        const $node = $parent.find('.oneCover').first();
+        const $clone = $node.clone();
 
-        $copy.find("select").val("");
-        $copy.find("input").val("");
+        // const $firstCover = $clone.find('.oneCover').first();
+        // $clone.find('.oneCover').not(':first').remove();
+        // $firstCover.find('select').prop('selectedIndex', 0);
 
-        $("div[name='packageBox']").append($copy);
+        $clone.find('button[name="removeCover"]').css('display','block');
+        $clone.find('input').val('');
+        $clone.find('select').prop('selectedIndex', 0);
+        $parent.append($clone);
     });
+
+    $(document).on('click','button[name="removeCover"]',function(){
+        const oneCover = $(this).closest('[name="oneCover"]');
+        oneCover.remove();
+    });
+
+    /* 상품등록>제품등록 팝업 end  */
 
 
     $("div[name='mached'] > i").click(function() {
@@ -205,3 +233,7 @@ $(function() {
     }
 
 });
+
+function pop_addProduct() {
+    $('#addProductWrap').css('display','block');
+}

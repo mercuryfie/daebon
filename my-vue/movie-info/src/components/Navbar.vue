@@ -1,8 +1,8 @@
 <template>
   <nav>
-    <a href="#">Home</a>
-    <a href="#">Movies</a>
-    <a href="#">About</a>
+    <a href="javascript:;">Home</a>
+    <a href="javascript:;">Movies</a>
+    <a href="javascript:;">About</a>
   </nav>
 </template>
 

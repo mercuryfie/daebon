@@ -21,7 +21,7 @@
         <div class="deli_wrapghj">
             <div class="titleBox">
                 <p class="headTitle">
-                    주문관리 / 배송목록
+                    배송목록
                 </p>
                 <div class="deli_box2w9 flexType3">
                     <p class="status">전체 주문 : 100 건 / 발송 : 10 건 / 발송완료 : 10 건</p>
@@ -36,10 +36,10 @@
                 <div class="area1 flexType3">
                     <div class="left flexType2">
                         <p class="title">기간</p>
-                        <a href="#" class="period">오늘</a>
-                        <a href="#" class="period">1주일</a>
-                        <a href="#" class="period">1개월</a>
-                        <a href="#" class="period">3개월</a>
+                        <a href="javascript:;" class="period">오늘</a>
+                        <a href="javascript:;" class="period">1주일</a>
+                        <a href="javascript:;" class="period">1개월</a>
+                        <a href="javascript:;" class="period">3개월</a>
                         <div class="date_boxtc6 flexType2">
                             <label for="date1" class="dateLabel1">
                                 <input type="text" id="s_date" name="date1" class="inputType160 date1" placeholder="2025/01/01" >

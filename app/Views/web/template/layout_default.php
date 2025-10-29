@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?= $this->include('/web/include/meta_View');?>
+    <?= $this->include('/web/include/meta_View',$meta);?>
     <!-- font1 ----------------------------  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,13 +29,13 @@
     <!--###############-->
 </head>
 <body>
-<?= $this->include('/web/include/header_View'); ?>
-<?= $this->include('/web/include/global_View'); ?>
+<?= $this->include('/web/include/header_View',$header); ?>
+<?= $this->include('/web/include/global_View',$header); ?>
 
 <main> 
     <?= $this->renderSection('content') ?>
 </main>
-<?= $this->include('/web/include/foot_View');?>
+<?= $this->include('/web/include/foot_View',$footer);?>
 
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?= $this->extend("/web/template/layout_workpage") ?>
 <?= $this->section("content") ?>
 
-    <script src="<?=URL_COMMON_ASSETS?>/dashBoard_Do.js"> </script>
+    <script src="<?=URL_COMMON_ASSETS?>/dashBoard_Do.js?rnd=<?rand();?>"> </script>
 
     <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
@@ -20,14 +20,21 @@
 
     <section class="merright">
         <div class="dashBoard_boxowy">
+            <div class="refreshBox flexType2">
+                <p class="subtitle mr10">최근수집</p>
+                <div class="flexType2">
+                    <p class="mr10">12:12</p>
+                    <i class="fa-solid fa-rotate-right"></i>
+                </div>
+            </div>
             <div class="statusBox flexType2">
                 <div class="status">
                     <div class="aside upside flexType3">
                         <p class="category">주문</p>
-                        <div class="right flexType1">
-                            <p class="mr10">12:12</p>
-                            <i class="fa-solid fa-rotate-right"></i>
-                        </div>
+<!--                        <div class="right flexType1">-->
+<!--                            <p class="mr10">12:12</p>-->
+<!--                            <i class="fa-solid fa-rotate-right"></i>-->
+<!--                        </div>-->
                     </div>
                     <div class="aside downside">
                         <div class="flexType3">
@@ -64,10 +71,10 @@
                 <div class="status">
                     <div class="aside upside flexType3">
                         <p class="category">배송</p>
-                        <div class="right flexType1">
-                            <p class="mr10">12:12</p>
-                            <i class="fa-solid fa-rotate-right"></i>
-                        </div>
+<!--                        <div class="right flexType1">-->
+<!--                            <p class="mr10">12:12</p>-->
+<!--                            <i class="fa-solid fa-rotate-right"></i>-->
+<!--                        </div>-->
                     </div>
                     <div class="aside downside">
                         <div class="flexType3">
@@ -104,10 +111,10 @@
                 <div class="status">
                     <div class="aside upside flexType3">
                         <p class="category">클레임</p>
-                        <div class="right flexType1">
-                            <p class="mr10">12:12</p>
-                            <i class="fa-solid fa-rotate-right"></i>
-                        </div>
+<!--                        <div class="right flexType1">-->
+<!--                            <p class="mr10">12:12</p>-->
+<!--                            <i class="fa-solid fa-rotate-right"></i>-->
+<!--                        </div>-->
                     </div>
                     <div class="aside downside">
                         <div class="flexType3">
@@ -144,10 +151,10 @@
                 <div class="status">
                     <div class="aside upside flexType3">
                         <p class="category">정산</p>
-                        <div class="right flexType1">
-                            <p class="mr10">12:12</p>
-                            <i class="fa-solid fa-rotate-right"></i>
-                        </div>
+<!--                        <div class="right flexType1">-->
+<!--                            <p class="mr10">12:12</p>-->
+<!--                            <i class="fa-solid fa-rotate-right"></i>-->
+<!--                        </div>-->
                     </div>
                     <div class="aside downside">
                         <div class="flexType3">
@@ -172,7 +179,7 @@
             <div class="swich_boxli6 ">
                 <i class="fa-regular fa-calendar" onclick="go_dashboard();"></i>
                 <p class="binder"></p>
-                <i class="fa-solid fa-list" onclick="go_orderInfo();"></i>
+                <i class="fa-solid fa-list" onclick="go_orderList();"></i>
             </div>
             <div class="calBox">
                 <div id="calendar"></div>

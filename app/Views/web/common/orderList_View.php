@@ -35,9 +35,15 @@
             </div>
             <div class="areaBox">
                 <div class="area5 flexType2 ">
-                    <div class="countBox ">
-                        <p class="status status1">전체 주문: 16건, 작업중 16건, 발송완료 14건</p>
-                        <p class="status status2">옥션1: 000건,  옥션2 : 004건, 지마켓: 002건  농협몰:  010건, 취소: 000건 </p>
+                    <div class="countBox flexType3">
+                        <div class="left">
+                            <p class="status status1">전체 주문: 16건, 작업중 16건, 발송완료 14건</p>
+                            <p class="status status2">옥션1: 000건,  옥션2 : 004건, 지마켓: 002건  농협몰:  010건, 취소: 000건 </p>
+                        </div>
+                        <div class="right">
+                            <button type="button" class="btnType1 mr10" onclick="upload_Xlx();">엑셀업로드</button>
+                            <button type="button" class="btnType1">엑셀다운로드</button>
+                        </div>
 <!--                        <div class="count flexType3">-->
 <!--                            <p class="title">전체주문</p>-->
 <!--                            <div class="howmany flexType2">-->
@@ -94,27 +100,39 @@
                 <div class="area1 flexType3">
                     <div class="left flexType2">
                         <p class="title">기간</p>
-                        <a href="#" class="period">오늘</a>
-                        <a href="#" class="period">1주일</a>
-                        <a href="#" class="period">1개월</a>
-                        <a href="#" class="period">3개월</a>
+                        <a href="javascript:;" class="period">오늘</a>
+                        <a href="javascript:;" class="period">1주일</a>
+                        <a href="javascript:;" class="period">1개월</a>
+                        <a href="javascript:;" class="period">3개월</a>
                     </div>
-                    <div class="right">
-                        <button type="button" class="btnType1 mr10" onclick="upload_Xlx();">엑셀업로드</button>
-                        <button type="button" class="btnType1">엑셀다운로드</button>
+
+
+                    <div class="right flexType2 filter_boxa6m">
+                        <label for="filter" class="statusLabel flexType2">
+                            <input type="checkbox" name="filter" id="" class="status" checked>등록대기
+                        </label>
+                        <label for="filter" class="statusLabel flexType2">
+                            <input type="checkbox" name="filter" id="" class="status" checked>작업대기
+                        </label>
+                        <label for="filter" class="statusLabel flexType2">
+                            <input type="checkbox" name="filter" id="" class="status" checked>작업중
+                        </label>
+                        <label for="filter" class="statusLabel flexType2">
+                            <input type="checkbox" name="filter" id="" class="status" >완료
+                        </label>
                     </div>
                 </div>
                 <div class="area2 flexType3">
                     <div class="left flexType2">
                         <p class="title">검색조건</p>
-                        <select name="" id="" class="searchFilter ">
-                            <option value="">상태필터</option>
-                            <option value="">포장대기</option>
-                            <option value="">포장중</option>
-                            <option value="">포장완료</option>
-                        </select>
+<!--                        <select name="" id="" class="searchFilter ">-->
+<!--                            <option value="">상태필터</option>-->
+<!--                            <option value="">등록대기</option>-->
+<!--                            <option value="">작업대기</option>-->
+<!--                            <option value="">작업중</option>-->
+<!--                            <option value="">작업완료</option>-->
+<!--                        </select>-->
                         <select name="" id="" class="searchFilter">
-                            <option value="">검색조건</option>
                             <option value="">주문번호</option>
                             <option value="">상품번호</option>
                             <option value="">구매자명</option>
@@ -134,12 +152,11 @@
                             <tr>
                                 <td class="ltThead productNo checkCol"></td>
                                 <td class="ltThead productNo">주문번호</td>
-                                <td class="ltThead productNo">진행상태</td>
                                 <td class="ltThead productNo">판매자ID</td>
                                 <td class="ltThead productNo">구매자ID</td>
 
-                                <td class="ltThead productNo">주문번호</td>
                                 <td class="ltThead productNo">상품번호</td>
+                                <td class="ltThead productNo" onclick="">진행상태</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -148,36 +165,65 @@
                                     <input type="checkbox" name="" id="">
                                 </td>
                                 <td class="ltTbody">12341234</td>
-                                <td class="ltTbody status10" onclick="add_packingQueue();">포장대기</td>
                                 <td class="ltTbody">abcabc</td>
                                 <td class="ltTbody">abcabc</td>
 
                                 <td class="ltTbody">12341234</td>
+                                <td class="ltThead productNo" onclick="add_packingQueue();">
+                                    <button type="button" class="btnType4">등록대기</button>
+                                </td>
+                            <tr>
+                                <td class="ltTbody">
+                                    <input type="checkbox" name="" id="">
+                                </td>
                                 <td class="ltTbody">12341234</td>
+                                <td class="ltTbody">abcabc</td>
+                                <td class="ltTbody">abcabc</td>
+
+                                <td class="ltTbody">12341234</td>
+                                <td class="ltThead productNo" onclick="add_packingQueue();">
+                                    <button type="button" class="btnType3">작업대기</button>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="ltTbody">
                                     <input type="checkbox" name="" id="">
                                 </td>
                                 <td class="ltTbody">12341234</td>
-                                <td class="ltTbody status10" onclick="add_packingQueue();">포장대기</td>
                                 <td class="ltTbody">abcabc</td>
                                 <td class="ltTbody">abcabc</td>
 
                                 <td class="ltTbody">12341234</td>
-                                <td class="ltTbody">12341234</td>
+                                <td class="ltThead productNo" onclick="">
+                                    <button type="button" class="btnType3">작업중</button>
+                                </td>
+                            </tr>
                             </tr>
                             <tr>
                                 <td class="ltTbody">
                                     <input type="checkbox" name="" id="">
                                 </td>
                                 <td class="ltTbody">12341234</td>
-                                <td class="ltTbody status10" onclick="add_packingQueue();">포장대기</td>
                                 <td class="ltTbody">abcabc</td>
                                 <td class="ltTbody">abcabc</td>
 
                                 <td class="ltTbody">12341234</td>
+                                <td class="ltThead productNo" onclick="">
+                                    <button type="button" class="btnType3">작업중</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="ltTbody">
+                                    <input type="checkbox" name="" id="">
+                                </td>
                                 <td class="ltTbody">12341234</td>
+                                <td class="ltTbody">abcabc</td>
+                                <td class="ltTbody">abcabc</td>
+
+                                <td class="ltTbody">12341234</td>
+                                <td class="ltThead productNo" onclick="">
+                                    <button type="button" class="btnType3">작업중</button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -199,6 +245,30 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <tr>
+                                <td class="ltTbody">우엉차</td>
+                                <td class="ltTbody">홍길동</td>
+                                <td class="ltTbody">홍길동</td>
+                                <td class="ltTbody">10,000</td>
+                                <td class="ltTbody">10</td>
+
+                                <td class="ltTbody">2025.01.01</td>
+                                <td class="ltTbody">2025.01.01</td>
+                                <td class="ltTbody">엑셀</td>
+                                <td class="ltTbody">-</td>
+                            </tr>
+                            <tr>
+                                <td class="ltTbody">우엉차</td>
+                                <td class="ltTbody">홍길동</td>
+                                <td class="ltTbody">홍길동</td>
+                                <td class="ltTbody">10,000</td>
+                                <td class="ltTbody">10</td>
+
+                                <td class="ltTbody">2025.01.01</td>
+                                <td class="ltTbody">2025.01.01</td>
+                                <td class="ltTbody">엑셀</td>
+                                <td class="ltTbody">-</td>
+                            </tr>
                             <tr>
                                 <td class="ltTbody">우엉차</td>
                                 <td class="ltTbody">홍길동</td>

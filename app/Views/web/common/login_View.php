@@ -1,26 +1,29 @@
 <?= $this->extend('/web/template/layout_default') ?>
 <?= $this->section('content') ?>
 
-
-<!--<script src="--><?php //=URL_COMMON_ASSETS?><!--/login.js?rnd=--><?php //=rand();?><!--"></script>-->
-<!--<script src="--><?php //=URL_COMMON_ASSETS?><!--/login_Do.js?rnd=--><?php //=rand();?><!--"></script>-->
+<script src="<?=ASSETS_URL?>/js/common/login.js?rnd=<?=rand();?>"></script>
+<script src="<?=ASSETS_URL?>/js/common/login_Do.js?rnd=<?=rand();?>"></script>
 
 <section class="login">
     <p class="title ttl1">로그인</p>
     <div class="inputcon">
-        <input type="search" name="" id="" placeholder="  아이디" class="idinput">
+        <input type="text" name="userid" id="userid" placeholder="  아이디" class="idinput" />
     </div>
     <div class="inputcon">
-        <input type="search" name="" id="" placeholder="  패스워드" class="idinput">
+        <input type="password" name="passwd" id="passwd" placeholder="  패스워드" class="idinput" />
     </div>
-    <button type="submit" id="btn_login" onclick="go_dashboard();" class="">로그인</button>
+    <button type="submit" id="btn_login" name="btn_login" class="" data-rurl="<?= $main['rec_url']; ?>">로그인</button>
     <div class="autoLogin flexType1">
-        <label for="" class="checkType flexType1">
-            <input type="checkbox" name="saveid" id="saveid2" checked>
+        <label for="saveid" class="checkType flexType1">
+            <?if($main['saveid']==''){?>
+                <input type="checkbox" name="saveid" id="saveid">
+            <?}else{?>
+                <input type="checkbox" name="saveid" id="saveid" checked>
+            <?}?>
             <p class="text">아이디 저장</p>
         </label>
-        <label for="" class="checkType flexType1">
-        <input type="checkbox" name="autolg" id="autolg">
+        <label for="autolg" class="checkType flexType1">
+            <input type="checkbox" name="autolg" id="autolg">
             <p class="text">자동 로그인</p>
         </label>
     </div>

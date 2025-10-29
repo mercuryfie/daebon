@@ -9,33 +9,44 @@
 </script>
 
 <section class="merright">
-    <div class="goods_boxfv6">
+    <div class="goods_boxfv6 ">
         <div class="titleBox">
             <p class="headTitle">
-                입출고관리 / 입출고관리
+                입출고관리
             </p>
         </div>
-        <div class="areaBox area_boxmxh ">
-            <div class="goods_boxkfg flexType3 inout_boxq0a">
+        <div class="areaBox area_boxmxh inout_boxq0b">
+            <div class="goods_boxkfg  inout_boxq0a">
                 <div class="left ">
                     <div class="left2 flexType2">
-                        <p class="title">원자재목록</p>
+                        <p class="title">전체</p>
                         <p class="count">10</p>
                         <p class="unit">건</p>
                     </div>
-                    <div class="right2 flexType2">
-<!--                            <a href="#" class="btnType1">전체</a>-->
-<!--                            <a href="#" class="btnType1">원재료</a>-->
-<!--                            <a href="#" class="btnType1">부자재</a>-->
-                    </div>
                 </div>
-                <div class="right flexType5">
-                    <div class="left3">
-                        <button type="button" class="btnType1">엑셀다운로드</button>
+                <div class="right flexType3">
+                    <div class="left3 flexType1">
+                        <select name="" id="" class="btnType1 mr10">
+                            <option value="">기간</option>
+                            <option value="">3개월</option>
+                            <option value="">6개월</option>
+                            <option value="">1년</option>
+                            <option value="">전체</option>
+                        </select>
+                        <select name="" id="" class="btnType1 mr10">
+                            <option value="">전체</option>
+                            <option value="">원재료</option>
+                            <option value="">부자재</option>
+                        </select>
+                        <input type="search" placeholder="검색어를 입력하십시오." class="inputSearch" >
+                        <button type="button" class="btnType1">검색</button>
+
                     </div>
                     <div class="right3">
-                        <button type="button" class="btnType2" id="ipgoBtn">입고하기</button>
-                        <button type="button" class="btnType2" id="chulgoBtn">출고하기</button>
+                        <button type="button" class="btnType1">로그표시</button>
+                        <button type="button" class="btnType1">엑셀다운로드</button>
+                        <button type="button" class="btnType2" id="ipgoBtn" onclick="pop_ipgoView();" >입고하기</button>
+                        <button type="button" class="btnType2" id="chulgoBtn" onclick="pop_chulgoView();">출고하기</button>
 
                     </div>
                 </div>
@@ -53,9 +64,8 @@
 
                             <td class="ltThead">출고량</td>
                             <td class="ltThead">날짜</td>
-                            <td class="ltThead">-</td>
-                            <td class="ltThead">-</td>
-                            <td class="ltThead">-</td>
+                            <td class="ltThead">입고바코드</td>
+                            <td class="ltThead">입출고 메모</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -63,16 +73,19 @@
                             <td class="ltTbody">
                                 <input type="checkbox" name="" id="">
                             </td>
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
+                            <td class="ltTbody">원재료</td>
+                            <td class="ltTbody">허브(농산물)</td>
+                            <td class="ltTbody">45.000</td>
+                            <td class="ltTbody">45.000</td>
 
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
+                            <td class="ltTbody">45.000</td>
+                            <td class="ltTbody">2025.01.01</td>
+                            <td class="ltTbody">
+                                <button type="button" class="btnType3 " onclick="pop_barcodeWindow();">123412341234</button>
+<!--                                <a href="javascript:;" class="barcodeNo" onclick="pop_barcodeWindow();">123412341324</a>-->
+                            </td>
+                            <td class="ltTbody"><i class="fa-solid fa-pen memo"></i>주문번호 124 주문건 출고</td>
+
 
                         </tr>
                         </tbody>
@@ -83,6 +96,7 @@
     </div>
 
 </section>
+
 
 <?= $this->include('/web/include/pop_Ipgo_View'); ?>
 <?= $this->include('/web/include/pop_Chulgo_View'); ?>

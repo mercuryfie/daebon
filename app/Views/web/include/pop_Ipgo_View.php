@@ -1,4 +1,4 @@
-<div class="ipgo_wrapdej" id="ipgo_wrapdej"  name="" style="">
+<div class="ipgo_wrapdej" id="ipgoWrap"  name="" style="">
     <div class="ipgo_conkol">
         <div class="padding_area">
             <p class="head_title" id="">입고하기</p>
@@ -28,6 +28,10 @@
                 <input type="search" name="" id="" placeholder="예:10" class="inputType220 mr10">
                 <p class="unit">개</p>
 
+            </div>
+            <div class="area area6 flexType4">
+                <p class="category">입출고 메모</p>
+                <textarea name="" id="" cols="30" rows="10" class="content"></textarea>
             </div>
             <div class="area area5 mt20 flexType5">
                 <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>

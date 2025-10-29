@@ -1,11 +1,9 @@
-
-    <input type="hidden" id="tUid" name="tUid" value="" />
-    <input type="hidden" id="tUrl" name="tUrl" value="" />
+<?if($header['islogin']==true){?>
+    <input type="hidden" id="tUid" name="tUid" value="<?= $header['uid']?>" />
+    <input type="hidden" id="token" name="token" value="<?= $header['token']?>" />
+<?}else{?>
     <input type="hidden" id="tUid" name="tUid"  />
+    <input type="hidden" id="token" name="token"/>
+<?}?>
 
-<?//if($header['islogin']=='true'):?>
-<!--    <input type="hidden" id="tUid" name="tUid" value="--><?php //= $header['uid']?><!--" />-->
-<!--    <input type="hidden" id="tUrl" name="tUrl" value="--><?php //= $header['target']?><!--" />-->
-<?//else:?>
-<!--    <input type="hidden" id="tUid" name="tUid"  />-->
-<?//endif?>
+<div class="spinnerBox" id="spinnerBox"><img src="/assets/web/src/spinner.gif" alt="img" id="spinner" class="spinner" style="display: none;s"></div>

@@ -12,7 +12,7 @@
         <div class="goods_boxx7z">
             <div class="titleBox">
                 <p class="headTitle">
-                    기준정보관리 / 제품등록
+                    제품등록
                 </p>
             </div>
             <div class="areaBox area_boxm9k ">
@@ -152,7 +152,7 @@
 
             </div>
             <div class="lastBox flexType6">
-                <button type="button" class="btnType1 mr10" onclick="go_matiEditor();">이전</button>
+                <button type="button" class="btnType1 mr10" onclick="go_productsEditor();">이전</button>
                 <button type="button" id="okBtn" name="okBtn" class="btnType2">확인</button>
             </div>
         </div>

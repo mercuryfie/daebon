@@ -3,11 +3,10 @@
 namespace App\Controllers;
 
 
-use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\API\ResponseTrait;
 use App\Models;
-use App\Libraries\Utils;
 use App\Libraries\Form;
+use function PHPUnit\Framework\isEmpty;
 
 
 class MainController extends BaseController
@@ -15,15 +14,20 @@ class MainController extends BaseController
 
     use ResponseTrait;
     
-    public function main($skey=false){
-        $util = New Utils;
-//        $sessinarr = $util->fnGetSessionData();
+    public function main(){
+        $sessinarr = $this->GetSessionData();
 
-        $metaarr = array(
-            'h_title' => 'daebon',
-            'h_type' => 1
-        );
+        if($sessinarr['islogin']==true){
+            if($sessinarr['user']['grade']==AUTH_MASTER){
+                return redirect()->to('/order/dashboard');
+            }else if($sessinarr['user']['grade']==AUTH_PRODUCT){
+                return redirect()->to('/product');
+            }else if($sessinarr['user']['grade']==AUTH_PACKING) {
+                return redirect()->to('/packing');
+            }
+        }else{
+            return redirect()->to('/member/login');
+        }
 
-        return view('web/common/main_View',$metaarr);
     }
 }

@@ -4,8 +4,8 @@
       <!--      <img src="../assets/1.jpeg" alt="img">-->
       <img src="../assets/logo_daebon.png" alt="img">
       <div class="loginBox flexType5 ">
-        <a href="#" class="text text1">로그인</a>
-        <a href="#" class="text text2">도움말</a>
+        <a href="javascript:;" class="text text1">로그인</a>
+        <a href="javascript:;" class="text text2">도움말</a>
       </div>
     </div>
   </header>

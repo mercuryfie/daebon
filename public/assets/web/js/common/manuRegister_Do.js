@@ -15,6 +15,10 @@ $(function() {
         }
     });
 
+    $('#addCat2_wrap #Xbtn, #addCat2_wrap #Xbtn2').click(function () {
+        $('#addCat2_wrap').css('display','none');
+    });
+
 });
 
 function add_manuBox(btn) {

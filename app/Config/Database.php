@@ -24,12 +24,14 @@ class Database extends Config
      *
      * @var array<string, mixed>
      */
+
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'localhost',
-        'username'     => '',
-        'password'     => '',
-        'database'     => '',
+        //'hostname'     => '172.27.0.21',  /* ftp */
+        'hostname'     => '211.251.239.37',  /* local */
+        'username'     => 'daebon',
+        'password'     => 'djMedi!!999',
+        'database'     => 'daebon',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -43,7 +45,6 @@ class Database extends Config
         'failover'     => [],
         'port'         => 3306,
         'numberNative' => false,
-        'foundRows'    => false,
         'dateFormat'   => [
             'date'     => 'Y-m-d',
             'datetime' => 'Y-m-d H:i:s',

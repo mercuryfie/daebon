@@ -16,6 +16,110 @@ class GoodsController extends BaseController
         $this->Check_Auth($Auth);
     }
 
+    public function instructionForm()
+    {
+        $sessinarr = $this->GetSessionData();
+        $code  = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else if($code==''){
+            fn_Alert('잘못된 접근입니다.');
+        }else {
+            $metaarr = [
+                'h_title' => H_TITLE,
+                'h_type' => 1
+            ];
+
+            $produce_m = model('Produce_m');
+            $goods_m=model('Goods_m');
+            $info_arr = [];
+
+            $mRs = $goods_m->Load_Goods_Code($code);
+            if (fn_ArrayCnt($mRs) > 0) {
+                $d = $mRs[0];
+                $info_arr = [
+                    'gcode' => '',
+                    'gname' => $d['gname'],
+                    'writer' => '관리자',
+                    'category' => $d['category'],
+                    'catestr' => fnGetProductNameByCode($d['category']),
+                    'tquantity' => 0,
+                    'inventory' => $d['inventory'],
+                    'step_cnt' => $d['Cnt'],
+                    'quantity' => $d['quantity'],
+                    'step_now' => '대기',
+                    'indate' => $d['indate'],
+                ];
+            }
+
+            $mtRs = $goods_m->Load_Goods_Material($code);
+            $material_param = [];
+            if(fn_ArrayCnt($mtRs)>0){
+                foreach ($mtRs as $d){
+                    $t_arr = [
+                        'mcode' => $d['mtcode'],
+                        'capacity' => $d['capacity'],
+                        'mname' => $d['mtname'],
+                        'maker' => $d['fk_mkname'],
+                        'supply' => $d['fk_suname']
+                    ];
+
+                    array_push($material_param,$t_arr);
+                }
+            }
+
+            $pRs = $goods_m->Load_Goods_Process($code);
+            $step_info = [];
+            if(fn_ArrayCnt($pRs)>0){
+                $fields = ['a.*','b.mname'];
+                foreach($pRs as $a){
+                    $cRs = $goods_m->Load_Goods_Step_Material($a['fk_gcode'],$a['stepNum']);
+                    $step_material = '';
+                    if(fn_ArrayCnt($cRs)>0){
+                        foreach($cRs as $f){
+                            if($step_material==''){
+                                $step_material = $f['mtname'] . ':'. $f['capacity'].'개<br>';
+                            }else{
+                                $step_material .= $f['mtname'] . ':'. $f['capacity'].'개<br>';
+                            }
+                        }
+                    }
+
+                    $t_arr = fnGetProcessNameByCode($a['step_typ']);
+
+                    $a_arr = [
+                        'step_name' => $a['step_name'],
+                        'step_num' => $a['stepNum'],
+                        'input_material' => $a['input_material'],
+                        'output_material' => $a['output_material'],
+                        'p_method' => $a['p_method'],
+                        'material' => $step_material
+                    ];
+
+                    array_push($step_info,$a_arr);
+                }
+            }
+
+
+            $main_data = [
+                'info_arr' => $info_arr,
+                'material_arr' => $material_param,
+                'step_arr' => $step_info
+            ];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'body' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/include/pop_InstructionForm_View',$main_data);
+        }
+    }
+
     public function materialList()
     {
         $sessinarr = $this->GetSessionData();
@@ -24,7 +128,39 @@ class GoodsController extends BaseController
         }else{
 
             $metaarr = [
-                'h_title' => '원자재 목록',
+                'h_title' => '원자재목록',
+                'h_type' => 1
+            ];
+
+            $main_data = [
+                'material' => fnMake_Material_Type(),
+                'maker' => fnMake_Maker_option(),
+                'supply' => fnMake_Supply_option(),
+                'unit' => fnMake_Material_Unit()
+            ];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'main' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/materialList_View',$main_data);
+        }
+    }
+
+
+    public function pop_AddMatirial()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '원자재등록',
                 'h_type' => 1
             ];
 
@@ -39,7 +175,7 @@ class GoodsController extends BaseController
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/common/atomList_View',$main_data);
+            return view('web/include/pop_AddMatirial_View',$main_data);
         }
     }
 
@@ -50,42 +186,12 @@ class GoodsController extends BaseController
             return redirect()->to('/member/login');
         }else {
             $metaarr = [
-                'h_title' => '제품 목록',
-                'h_type' => 1
-            ];
-
-            $main_data = [];
-
-            $form = new Form;
-            $main_data = [
-                'meta' => $form->fnMake_Meta($metaarr),
-                'header' => $form->fnMake_Header($sessinarr),
-                'left' => $form->fnMake_Left(),
-                'main' => $main_data,
-                'footer' => $form->fnMake_Fooeter($sessinarr)
-            ];
-
-            return view('web/common/productsList_View',$main_data);
-        }
-    }
-
-    public function productsReg()
-    {
-        $sessinarr = $this->GetSessionData();
-        if($sessinarr['islogin']==false) {
-            return redirect()->to('/member/login');
-        }else {
-            $metaarr = [
-                'h_title' => '제품등록',
+                'h_title' => '제품목록',
                 'h_type' => 1
             ];
 
             $main_data = [
-                'category' => fnMake_Products_Type(''),
-                'material1' => fnMake_Material_option('',1),
-                'material2' => fnMake_Material_option('',2),
-                'process' => fnMake_Process_Type('')
-
+                'category' => fnMake_Products_Type('')
             ];
 
             $form = new Form;
@@ -93,38 +199,11 @@ class GoodsController extends BaseController
                 'meta' => $form->fnMake_Meta($metaarr),
                 'header' => $form->fnMake_Header($sessinarr),
                 'left' => $form->fnMake_Left(),
-                'main' => $main_data,
+                'body' => $main_data,
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/common/productsRegister_View', $main_data);
-        }
-    }
-
-
-    public function categoryList()
-    {
-        $sessinarr = $this->GetSessionData();
-        if($sessinarr['islogin']==false) {
-            return redirect()->to('/member/login');
-        }else {
-            $metaarr = [
-                'h_title' => '제품등록',
-                'h_type' => 1
-            ];
-
-            $main_data = [];
-
-            $form = new Form;
-            $main_data = [
-                'meta' => $form->fnMake_Meta($metaarr),
-                'header' => $form->fnMake_Header($sessinarr),
-                'left' => $form->fnMake_Left(),
-                'main' => $main_data,
-                'footer' => $form->fnMake_Fooeter($sessinarr)
-            ];
-
-            return view('web/common/categoryList_View', $main_data);
+            return view('web/common/productsDefaultList_View',$main_data);
         }
     }
 
@@ -135,7 +214,7 @@ class GoodsController extends BaseController
             return redirect()->to('/member/login');
         }else {
             $metaarr = [
-                'h_title' => '상품 목록',
+                'h_title' => '상품목록',
                 'h_type' => 1
             ];
 
@@ -161,18 +240,22 @@ class GoodsController extends BaseController
             return redirect()->to('/member/login');
         }else {
             $metaarr = [
-                'h_title' => '상품 등록',
+                'h_title' => '상품등록',
                 'h_type' => 1
             ];
 
-            $main_data = [];
+            $main_data = [
+                'category' => fnMake_Products_Type(''),
+                'material' => fnMake_Material_option('',2),
+                'excode' => opt_Excode('')
+            ];
 
             $form = new Form;
             $main_data = [
                 'meta' => $form->fnMake_Meta($metaarr),
                 'header' => $form->fnMake_Header($sessinarr),
                 'left' => $form->fnMake_Left(),
-                'main' => $main_data,
+                'body' => $main_data,
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
@@ -180,31 +263,100 @@ class GoodsController extends BaseController
         }
     }
 
-    public function productsMaster()
+    public function goodsEdit()
     {
         $sessinarr = $this->GetSessionData();
+        $pdcode  = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
+        }else if($pdcode==''){
+            alert('잘못된 접근입니다.');
         }else {
             $metaarr = [
-                'h_title' => '원자재 목록',
+                'h_title' => '상품수정',
                 'h_type' => 1
             ];
 
-            $main_data = [];
+            $main_data = [
+                'category' => fnMake_Products_Type(''),
+                'material' => fnMake_Material_option('',2),
+                'excode' => opt_Excode(''),
+                'pdcode' => $pdcode
+            ];
 
             $form = new Form;
             $main_data = [
                 'meta' => $form->fnMake_Meta($metaarr),
                 'header' => $form->fnMake_Header($sessinarr),
                 'left' => $form->fnMake_Left(),
-                'main' => $main_data,
+                'body' => $main_data,
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/common/productsMaster_View',$main_data);
+            return view('web/common/goodsEdit_View', $main_data);
         }
     }
+
+
+    public function productsMasterList()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '제품BOM목록',
+                'h_type' => 1
+            ];
+
+            $main_data = [
+                'category' => fnMake_Products_Type('')
+            ];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'body' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/productsMasterList_View',$main_data);
+        }
+    }
+
+
+
+    public function productsMasterReg()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '제품BOM등록',
+                'h_type' => 1
+            ];
+
+            $main_data = [
+
+            ];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'body' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/productsMasterReg_View',$main_data);
+        }
+    }
+
+
 
     public function goodsEtc()
     {
@@ -213,7 +365,7 @@ class GoodsController extends BaseController
             return redirect()->to('/member/login');
         }else {
             $metaarr = [
-                'h_title' => '원자재 목록',
+                'h_title' => '기타정보관리',
                 'h_type' => 1
             ];
 
@@ -232,83 +384,111 @@ class GoodsController extends BaseController
         }
     }
 
-    public function manuRegister()
-    {
-        $sessinarr = $this->GetSessionData();
-        if($sessinarr['islogin']==false) {
-            return redirect()->to('/member/login');
-        }else {
-            $metaarr = [
-                'h_title' => '원자재 목록',
-                'h_type' => 1
-            ];
-
-            $main_data = [];
-
-            $form = new Form;
-            $main_data = [
-                'meta' => $form->fnMake_Meta($metaarr),
-                'header' => $form->fnMake_Header($sessinarr),
-                'left' => $form->fnMake_Left(),
-                'main' => $main_data,
-                'footer' => $form->fnMake_Fooeter($sessinarr)
-            ];
-
-            return view('web/common/manuRegister_View',$main_data);
-        }
-    }
 
     public function productsEditor()
     {
         $sessinarr = $this->GetSessionData();
+        $code  = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
-        }else {
+        }else if($code=='') {
+            fn_Alert('잘못된 접근입니다.[Error101]');
+        }else{
             $metaarr = [
-                'h_title' => '원자재 목록',
+                'h_title' => '제품 BOM 수정',
                 'h_type' => 1
             ];
 
-            $main_data = [];
+            $good_m = model('Goods_m');
+            $gRs = $good_m->Load_Goods_Code($code);
+            if(fn_ArrayCnt($gRs)<=0){
+                fn_Alert('잘못된 접근입니다.[Error102]');
+            }else{
+                $goods_arr = [
+                    'code' => $gRs[0]['gcode'],
+                    'name' => $gRs[0]['gname'],
+                    'category' => $gRs[0]['category'],
+                    'cname' => fnGetProductNameByCode($gRs[0]['category']),
+                    'quantity' => $gRs[0]['quantity'],
+                    'inventory' => $gRs[0]['inventory']
+                ];
 
-            $form = new Form;
-            $main_data = [
-                'meta' => $form->fnMake_Meta($metaarr),
-                'header' => $form->fnMake_Header($sessinarr),
-                'left' => $form->fnMake_Left(),
-                'main' => $main_data,
-                'footer' => $form->fnMake_Fooeter($sessinarr)
-            ];
+                $pRs = $good_m->Load_Goods_Process($code);
+                if(fn_ArrayCnt($gRs)<=0) {
+                    fn_Alert('잘못된 접근입니다.[Error103]');
+                }else{
+                    $mRs = $good_m->Load_Goods_Material($code);
+                    if(fn_ArrayCnt($mRs)<=0) {
+                        fn_Alert('잘못된 접근입니다.[Error104]');
+                    }else{
+                        $material_arr = [];
+                        foreach ($mRs as $c){
+                            $c_arr = [
+                                'mtcode' => $c['fk_mtcode'],
+                                'mtname' => $c['mtname'],
+                                'cnt' => $c['capacity']
+                            ];
 
-            return view('web/common/productsEditor_View', $main_data);
+                            array_push($material_arr,$c_arr);
+                        }
+
+                        $process_arr = [];
+                        foreach ($pRs as $d){
+                            $material_step_arr = [];
+                            $cRs = $good_m->Load_Goods_Step_Material($code,$d['prcode']);
+                            if(fn_ArrayCnt($cRs)>0){
+                                foreach ($cRs as $a){
+                                    $m_arr = [
+                                        'code' => $a['fk_mtcode'],
+                                        'name' => $a['mtname'],
+                                        'cnt' =>  $a['capacity']
+                                    ];
+                                    array_push($material_step_arr,$m_arr);
+                                }
+                            }
+
+                            $t_arr = [
+                                'gcode' => $d['fk_gcode'],
+                                'prcode' => $d['prcode'],
+                                'stepNum' => $d['stepNum'],
+                                'step_typ' => $d['step_typ'],
+                                'step_name' => $d['step_name'],
+                                'input_material' => $d['input_material'],
+                                'output_material' => $d['output_material'],
+                                'method' => $d['p_method'],
+                                'material' => $material_step_arr
+                            ];
+
+                            array_push($process_arr,$t_arr);
+                        }
+
+                        $main_data = [
+                            'code' => $code,
+                            'goods_arr' => $goods_arr,
+                            'process_arr' => $process_arr,
+                            'material_arr' => $material_arr,
+                            'category' => fnMake_Products_Type($goods_arr['category']),
+                            'material1' => fnMake_Material_option('',1),
+                            'material2' => fnMake_Material_option('',2),
+                            'process' => fnMake_Process_Type('')
+                        ];
+
+                        $form = new Form;
+                        $main_data = [
+                            'meta' => $form->fnMake_Meta($metaarr),
+                            'header' => $form->fnMake_Header($sessinarr),
+                            'left' => $form->fnMake_Left(),
+                            'body' => $main_data,
+                            'footer' => $form->fnMake_Fooeter($sessinarr)
+                        ];
+
+                        return view('web/common/productsEditor_View', $main_data);
+                    }
+                }
+            }
         }
     }
 
-    public function manuEditor()
-    {
-        $sessinarr = $this->GetSessionData();
-        if($sessinarr['islogin']==false) {
-            return redirect()->to('/member/login');
-        }else {
-            $metaarr = [
-                'h_title' => '원자재 목록',
-                'h_type' => 1
-            ];
-
-            $main_data = [];
-
-            $form = new Form;
-            $main_data = [
-                'meta' => $form->fnMake_Meta($metaarr),
-                'header' => $form->fnMake_Header($sessinarr),
-                'left' => $form->fnMake_Left(),
-                'main' => $main_data,
-                'footer' => $form->fnMake_Fooeter($sessinarr)
-            ];
-
-            return view('web/common/manuEditor_View', $main_data);
-        }
-    }
 
 
 

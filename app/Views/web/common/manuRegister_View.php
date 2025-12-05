@@ -85,7 +85,6 @@
                                     <option value="">삼각티백/내외포장</option>
                                     <option value="">금속이물탐지</option>
                                     <option value="">외포장</option>
-                                    <option value="">보관/출고</option>
                                 </select>
                             </div>
                         </div>

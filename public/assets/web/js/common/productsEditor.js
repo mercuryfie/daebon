@@ -28,15 +28,6 @@ $(function() {
     });
 
 
-    $("button[name='nextBtn']").click(function() {
-        let $mName = $("input[name='metirialName']").val();
-        console.log($mName);
-        go_manuRegister($mName);
-        // var url = "/Goods/productsRegister";
-        // $(location).attr("href", url);
-    });
-
-
 });
 
 function addMate(button) {
@@ -66,12 +57,10 @@ function addMate(button) {
         </button> 
     `;
 
-    // matiBox에 새 요소 추가
     mateBox.appendChild(newMate);
 }
 
 function removeMate(button) {
-    // 버튼의 부모 요소(oneMati) 찾아서 제거
     const oneMate = button.closest('[name="oneMate"]');
     if (oneMate) {
         oneMate.remove();

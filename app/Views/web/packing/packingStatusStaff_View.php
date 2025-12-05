@@ -100,31 +100,45 @@
                         <p class="data">총 10건</p>
                     </div>
                 </div>
-                <div class="imgBox_box2ck flexType2">
+                <div class="imgBox_box2ck imgBox_box2cq flexType2">
                     <div class="noirBox">
                         <div class="noirLayer ">
                             <!--                        <div class="noir"></div>-->
+                            <div class="done flexType1">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div class="countBox">
+                                <p class="count">2개</p>
+                            </div>
                             <img src="/assets/web/src/packing_1.png" alt="img">
                         </div>
                         <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>
                     </div>
                     <div class="noirBox">
                         <div class="noirLayer">
-                            <div class="noir"></div>
+                            <div class="noir active"></div>
+                            <div class="done flexType1">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div class="countBox">
+                                <p class="count">2개</p>
+                            </div>
                             <img src="/assets/web/src/packing_1.png" alt="img">
                         </div>
                         <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>
                     </div>
                     <div class="noirBox">
                         <div class="noirLayer">
-                            <div class="noir"></div>
+                            <div class="noir active"></div>
+                            <div class="done flexType1 ">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div class="countBox">
+                                <p class="count">2개</p>
+                            </div>
                             <img src="/assets/web/src/packing_1.png" alt="img">
                         </div>
                         <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>
-                    </div>
-                    <div class="countBox">
-                        <p class="count">2개</p>
-
                     </div>
                     <div class="btnBox">
                         <button type="button" class="btn">확인</button>
@@ -168,9 +182,9 @@
 
                     </div>
                 </div>
-                <div class="lastBox flexType6 ">
+                <div class="lastBox flexType5 ">
                     <button type="button" class="btn80Type1 mr10" onclick="go_packingListStaff();">이전</button>
-                    <button type="button" class="btn80Type2">확인</button>
+                    <button type="button" class="btn80Type2">완료</button>
 
                 </div>
 

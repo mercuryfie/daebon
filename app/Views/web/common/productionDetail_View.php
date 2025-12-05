@@ -3,187 +3,119 @@
 
 
 <!-- js ----------------------------  -->
-<!--<script src="--><?php //=URL_COMMON_ASSETS?><!--/producingControl_Do.js?rnd=--><?php //=rand();?><!--"> </script>-->
+<script src="<?=URL_COMMON_ASSETS?>/productionDetail_Do.js?rnd=<?=rand();?>"> </script>
 <script>
 </script>
-
 <section class="merright">
     <div class="goods_boxfv6 ">
         <div class="titleBox producing_boxr8j">
             <p class="headTitle">
                 생산현황 상세
             </p>
+<!--            <button type="button" class="btnType1 mr10vw" onclick="go_productionList();">목록</button>-->
         </div>
-        <div class="areaBox area_boxg4q ">
-            <div class="elementBox flexType2">
-                <div class="element flexType2 left">
-                    <p class="title">작업번호</p>
-                    <p class="data data1">1234</p>
+        <div class="areaBox area_boxmxh mb10">
+            <div class="goods_boxkfg production_boxs7c flexType3">
+                <div class="left flexType2">
+                    <p class="title">지시서코드</p>
+                    <p class="count" id="gicode" name="gicode" data-cd="<?=$body['gicode'];?>" data-nd="<?=$body['material']['fk_prcode'];?>"><?=$body['gicode'];?></p>
                 </div>
-                <div class="element flexType2">
-                    <p class="title">작업명</p>
-                    <p class="data data1">우엉차티백 생산공정</p>
-                </div>
-            </div>
-        </div>
-        <div class="areaBox area_boxg4q ">
-            <div class="elementBox">
-                <div class="element flexType2">
-                    <p class="title">제품명</p>
-                    <p class="data">우엉차티백</p>
+                <div class="right">
+                    <button type="button" class="btnType1 mr10" name="vwReport" onclick="" data-cd="<?=$body['gicode'];?>" >품질보고서</button>
+                    <button type="button" class="btnType2" onclick="go_productionList();">목록</button>
                 </div>
             </div>
-        </div>
-        <div class="areaBox area_boxg4q sang_boxu9d">
-            <div class="elementBox">
-                <div class="element flexType2 prog_boxl1p">
-                    <div class="left flexType2">
-                        <p class="title">공정명</p>
-                        <p class="data">재료배합</p>
-                    </div>
-                    <div class="right prog_boxo6r">
-                        <div class="status_boxr5j flexType2">
-                            <label for="status" class="statusLabel flexType2">
-                                <input type="radio" class="status" name="status" id="" autofocus checked>대기
-                            </label>
-                            <label for="status" class="statusLabel flexType2">
-                                <input type="radio" class="status" name="status" id="" >작업중
-                            </label>
-                            <label for="status" class="statusLabel flexType2">
-                                <input type="radio" class="status" name="status" id="" >완료
-                            </label>
-                        </div>
+            <div class="area4 goods_boxa1b flexType2">
+                <div class="produce_boxfxp">
+                    <table class="orderInfoTable orderInfoTable1 ">
+                        <thead>
+                        <tr>
+                            <td class="ltThead productNo checkCol">번호</td>
+                            <td class="ltThead">지시날짜</td>
+                            <td class="ltThead">공정명</td>
+                            <td class="ltThead">상태</td>
+                            <td class="ltThead">작업자</td>
+                        </tr>
+                        </thead>
+                        <tbody id="tList" name="tList">
 
-<!--                        <div class="status_boxi3f flexType3">-->
-<!--                            <p class="status standby">대기</p>-->
-<!--                            <p class="status start">작업중</p>-->
-<!--                            <p class="status end">완료</p>-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<!--        <div class="areaBox area_boxg4q production_boxu9d p20" id="dList" name="dList">-->
+<!--            <div class="upside flexType4 mt10">-->
+<!--                <div class="left">-->
+<!--                    <div class="element flexType2">-->
+<!--                        <p class="title">제품명</p>-->
+<!--                        <p class="data inputType220">--><?php //=$body['info']['g_name'];?><!--</p>-->
+<!--                    </div>-->
+<!--                    <div class="element flexType2 mb40">-->
+<!--                        <p class="title">공정명</p>-->
+<!--                        <p class="data inputType220">--><?php //=$body['info']['p_name'];?><!--</p>-->
+<!--                    </div>-->
+<!--                    <div class="element flexType4 mt40">-->
+<!--                        <p class="title">부자재</p>-->
+<!--                        <div class="coverBox">-->
+<!--                            --><?//if(fn_ArrayCnt($body['info']['material'])>0){?>
+<!--                                --><?//foreach ($body['info']['material'] as $d){?>
+<!--                                    <p class="data data4 inputType220 mb10">--><?php //=$d['mtname'];?><!--[--><?php //=$d['capacity'];?><!--개]</p>-->
+<!--                                --><?//}?>
+<!--                            --><?//}else{?>
+<!--                                <p class="data data4 inputType220 mb10">없음<br>없음<br>없음<br>없음<br>없음<br>없음<br>없음<br>없음</p>-->
+<!--                            --><?//}?>
 <!--                        </div>-->
-<!--                       <div class="prog_Box">-->
-<!--                           <div class="prog_background flexType4">-->
-<!--                               <div class="standbyBox flexType2 ">-->
-<!--                                   <p class="line"></p>-->
-<!--                                   <i class="fa-solid fa-circle-check"></i>-->
-<!--                               </div>-->
-<!--                               <div class="standbyBox ">-->
-<!--                                   <p class="line"></p>-->
-<!--                                   <i class="fa-solid fa-circle-check"></i>-->
-<!--                               </div>-->
-<!--                               <div class="standbyBox">-->
-<!--                                   <p class="line"></p>-->
-<!--                                   <i class="fa-solid fa-circle-check"></i>-->
-<!--                               </div>-->
-<!--                               <div class="standbyBox">-->
-<!--                                   <i class="fa-solid fa-circle-check"></i>-->
-<!--                               </div>-->
-<!--                           </div>-->
-<!--                       </div>-->
-<!--                           <div class="prog_now flexType4" name="progNow">-->
-<!--                               <div class="standbyBox  ">-->
-<!--                                   <p class="line"></p>-->
-<!--                                   <i class="fa-solid fa-circle-check"></i>-->
-<!--                               </div>-->
-<!--                               <div class="standbyBox ">-->
-<!--                                   <p class="line"></p>-->
-<!--                                   <i class="fa-solid fa-circle-check"></i>-->
-<!--                               </div>-->
-<!--                               <div class="standbyBox">-->
-<!--                                   <p class="line"></p>-->
-<!--                                   <i class="fa-solid fa-circle-check"></i>-->
-<!--                               </div>-->
-<!--                               <div class="standbyBox">-->
-<!--                                   <i class="fa-solid fa-circle-check"></i>-->
-<!--                               </div>-->
-<!--                           </div>-->
-<!--                           <div class=" prog_background flexType3">-->
-<!--                               <div class="stanbyBox stanbyBox1 flexType1">-->
-<!--                                   <p class="stanby"></p>-->
-<!--                               </div>-->
-<!--                               <div class="stanbyBox stanbyBox2 flexType1">-->
-<!--                                   <p class="stanby"></p>-->
-<!--                               </div>-->
-<!--                               <div class="stanbyBox stanbyBox3 flexType1">-->
-<!--                                   <p class="stanby"></p>-->
-<!--                               </div>-->
-<!--                               <div class="stanbyBox stanbyBox4 flexType1">-->
-<!--                                   <p class="stanby"></p>-->
-<!--                               </div>-->
-<!--                           </div>-->
-<!--                           <div class="prog_now" name="progNow">-->
-<!--                               <div class="stanbyBox flexType1">-->
-<!--                                   <p class="stanby"></p>-->
-<!--                               </div>-->
-<!--                               <div class="stanbyBox2 flexType1">-->
-<!--                                   <p class="stanby2"></p>-->
-<!--                               </div>-->
-<!--                               <div class="stanbyBox2 flexType1">-->
-<!--                                   <p class="stanby2"></p>-->
-<!--                               </div>-->
-<!--                               <div class="stanbyBox2 flexType1">-->
-<!--                                   <p class="stanby2"></p>-->
-<!--                               </div>-->
-<!--                           </div>-->
-                    </div>
-                </div>
-
-                <div class="element flexType2-1 status_boxv2l">
-                    <div class="left flexType2">
-                        <p class="title">저울측정</p>
-                        <p class="data">50</p>
-<!--                        <p class="ml10 unit">kg</p>-->
-                    </div>
-                    <div class="right">
-                        <div class="ingBox">
-                            <table class="weight_tablevufb">
-                                <thead>
-                                <tr>
-                                    <td class="title title1">재료명</td>
-                                    <td class="title">예상 입고량</td>
-                                    <td class="title">실제 입고량</td>
-                                    <td class="title">-</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="weight title1">우엉차</td>
-                                    <td class="weight">50kg</td>
-                                    <td class="weight">50kg</td>
-                                    <td class="weight ">
-                                        <button type="button" class="wConfirm">확인</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="weight">우엉차</td>
-                                    <td class="weight">50kg</td>
-                                    <td class="weight">50kg</td>
-                                    <td class="weight ">
-                                        <button type="button" class="wConfirm">확인</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="weight">우엉차</td>
-                                    <td class="weight">50kg</td>
-                                    <td class="weight">50kg</td>
-                                    <td class="weight ">
-                                        <button type="button" class="wConfirm">확인</button>
-                                    </td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="elemment memo_boxb5h">
-                    <textarea name="" id="" cols="" rows="" readonly placeholder="배합물의 상태를 확인한다. (건조도 확인, 용량 확인) "></textarea>
-                </div>
-                <div class="submitBox flexType5">
-                    <button type="button" class="btnType2" onclick="go_productionStatus();">확인</button>
-                </div>
-            </div>
-        </div>
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="right">-->
+<!--                    <div class="element flexType2">-->
+<!--                        <p class="title">작업자</p>-->
+<!--                        <p class="data inputType220">--><?php //=$body['info']['worker']['name'];?><!--</p>-->
+<!--                    </div>-->
+<!--                    <div class="flexType2">-->
+<!--                        <div class="element flexType2 mr10">-->
+<!--                            <p class="title">작업시간</p>-->
+<!--                            <p class="data inputType220">--><?php //=$body['info']['worker']['actdate'];?><!--</p>-->
+<!--                        </div>-->
+<!--                        <div class="element flexType2 ">-->
+<!--                            <p class="mr10"> ~ </p>-->
+<!--                            <p class="data inputType220">--><?php //=$body['info']['worker']['actdate'];?><!--</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="table_boxqqq flexType4">-->
+<!--                        <div class="leftArea">-->
+<!--                            <p class="title">무게</p>-->
+<!---->
+<!--                        </div>-->
+<!--                        <table class="weight_tablevufb ">-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                                <td class="title">예상 입고량</td>-->
+<!--                                <td class="title">예상 출고량</td>-->
+<!--                                <td class="title">실제 출고량</td>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr>-->
+<!--                                <td class="weight">--><?php //=number_format($body['info']['input']);?><!--g</td>-->
+<!--                                <td class="weight">--><?php //=number_format($body['info']['output']);?><!--g</td>-->
+<!--                                <td class="weight" id="afterweight" data-val=""></td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!---->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="memo_boxb5h mt20 flexType4">-->
+<!--                <p class="title ">레시피</p>-->
+<!--                <textarea name="" id="" cols="" rows="" readonly placeholder="">--><?php //=$body['info']['method'];?><!--</textarea>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 
 </section>
 
+<?= $this->include('/web/include/pop_OrderForm_View'); ?>
 <?= $this->endSection() ?>

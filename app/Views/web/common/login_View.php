@@ -27,8 +27,7 @@
             <p class="text">자동 로그인</p>
         </label>
     </div>
-</section> 
-
+</section>
 <?= $this->endSection() ?>
 
 

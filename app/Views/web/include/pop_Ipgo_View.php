@@ -18,8 +18,8 @@
             <div class="area area3 flexType2">
                 <p class="category">실제 공급사</p>
                 <select name="" id="" class="inputType220">
-                    <option value="">농산물센터</option>
-                    <option value="">농산물센터</option>
+                    <option value="">자체</option>
+                    <option value="">OEM</option>
                     <option value="">농산물센터</option>
                 </select>
             </div>
@@ -27,7 +27,6 @@
                 <p class="category">입고수량</p>
                 <input type="search" name="" id="" placeholder="예:10" class="inputType220 mr10">
                 <p class="unit">개</p>
-
             </div>
             <div class="area area6 flexType4">
                 <p class="category">입출고 메모</p>

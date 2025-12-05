@@ -117,6 +117,10 @@ define("AUTH_PACKING",1102);
 define("AUTH_PRODUCT",1103);
 
 
+define("PROCESS_STEP1",'대기');
+define("PROCESS_STEP2",'진행중');
+define("PROCESS_STEP3",'완료');
+
 
 
 

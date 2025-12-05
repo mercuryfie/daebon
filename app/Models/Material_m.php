@@ -19,22 +19,13 @@ class Material_m extends Model
     }
 
 
-    public function Load_Goods_List($search,$fields=['ALL'])
-    {
-        $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_goods WHERE is_del=0 order by seq DESC;";
-        $bindparam = [
 
-        ];
-        $query = $this->db->query($sql,$bindparam);
-        return $query->getResultArray();
-    }
 
 
     public function Load_MaterialList_All($fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_material WHERE is_del=0 order by seq ASC;";
+        $sql = "SELECT {$separated_val} FROM tbl_material WHERE is_del=0 order by mtname ASC;";
         $query = $this->db->query($sql);
         return $query->getResultArray();
     }
@@ -53,7 +44,7 @@ class Material_m extends Model
     public function Load_Material_Info($code,$fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM vw_material_info WHERE is_del=0 AND mcode=:CODE:;";
+        $sql = "SELECT {$separated_val} FROM vw_material_info WHERE is_del=0 AND mtcode=:CODE:;";
         $bindparam = [
             'CODE' => $code
         ];
@@ -63,7 +54,7 @@ class Material_m extends Model
 
     public function Load_Material_MaxCode()
     {
-        $sql = "SELECT MAX(mcode) as MaxCode FROM vw_material_info;";
+        $sql = "SELECT MAX(mtcode) as MaxCode FROM vw_material_info;";
         $Query = $this->db->query($sql);
         $row = $Query->getRow();
         $MCode = ($row) ? $row->MaxCode : '';
@@ -73,14 +64,15 @@ class Material_m extends Model
     public function Load_Material_Search($search,$fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM vw_material_info ";
+        $sql = "SELECT {$separated_val} FROM vw_material_info WHERE is_del=:ISDEL: ";
         if($search!=''){
-            $sql .=  'WHERE mname like :SKEY: ';
-            $like = "%{$search}%";
+            $sql .=  'AND (mtcode LIKE :SKEY: OR mtname LIKE :SKEY:)';
+            $like =  "%{$search}%";
         }else{
             $like = '';
         }
         $bindparam = [
+            'ISDEL' => 0,
             'SKEY' => $like
         ];
         $query = $this->db->query($sql,$bindparam);
@@ -110,7 +102,7 @@ class Material_m extends Model
 
     public function Cnt_Goods_InstructionsBygCode($code,$status)
     {
-        $sql = "SELECT count(*) as Cnt FROM tbl_goods_instructions where fk_gcode=:FKGCODE: and is_complete=:ISCOMPLETE:;";
+        $sql = "SELECT count(*) as Cnt FROM tbl_instructions where fk_gcode=:FKGCODE: and is_complete=:ISCOMPLETE:;";
         $bindparam = [
             'FKGCODE' => $code,
             'ISCOMPLETE' => $status
@@ -135,7 +127,7 @@ class Material_m extends Model
     public function Update_Material_Info($code,$param){
         $this->db->transStart();
         $builder = $this->db->table('tbl_material');
-        $builder->where('mcode', $code);
+        $builder->where('mtcode', $code);
         $builder->update($param);
         $affected_rows = $this->db->affectedRows();
         $this->db->transComplete();

@@ -5,8 +5,13 @@ use CodeIgniter\I18n\Time;
 use Config\Services;
 use App\Libraries\Auth;
 
+/** 자리수에 맞춰서 0넣기 */
+function fn_padNumber($num, $targetLength) {
+    return str_pad($num, $targetLength, '0', STR_PAD_LEFT);
+}
+
 /**배열에 내가 원하는값이 있는지 체크**/
-function fnIsValueInArray($needle, $haystack, $key = null) {
+function fn_IsValueInArray($needle, $haystack, $key = null) {
     if ($key !== null) {
         foreach ($haystack as $item) {
             if (is_array($item) && isset($item[$key]) && $item[$key] === $needle) {

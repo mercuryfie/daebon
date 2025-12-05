@@ -25,6 +25,7 @@ class Form
                 'islogin' => true,
                 'uid' => $sessionarr['user']['uid'],
                 'userid' => $sessionarr['user']['userid'],
+                'name' => $sessionarr['user']['name'],
                 'grade' => $sessionarr['user']['grade'],
                 'token' => $sessionarr['user']['token']
             ];
@@ -56,7 +57,7 @@ class Form
             $high = fnMake_HignMenu_name($i);
             $menuKey = 'menu'.$i;
             $data = $m_arr[$menuKey];
-            $chkbool = fnIsValueInArray($currentUrl,$data,'url');
+            $chkbool = fn_IsValueInArray($currentUrl,$data,'url');
             $angle = $chkbool ? 'fa-angle-up' : 'fa-angle-down';
 
             $html .= "<div class='menuBox' name='menuBox'>
@@ -86,6 +87,7 @@ class Form
 
         $left = [
             'searchval' => isset($inputinfo['searchval']) ? $inputinfo['searchval'] : '',
+            'searchtyp' => isset($inputinfo['searchtyp']) ? $inputinfo['searchtyp'] : '',
             'html' => $html
         ];
 
@@ -97,7 +99,33 @@ class Form
 
     }
 
+    public function fnMake_Staff_Left($param=[])
+    {
+        $gicode = $param['gicode'];
+        $left = [];
+        if($gicode==''){
+            $left = [
+                'code' => ''
+            ];
+        }else{
+            $produce_m = model('Produce_m');
+            $info_arr = fn_LoadInstructionsInfo($produce_m,$gicode);
+            $process_arr = fn_LoadInstructionsProcess($produce_m,$gicode);
+            $prcode = (isset($param['prcode'])) ? $param['prcode'] : '';
 
+
+            $left = [
+                'gicode' => $gicode,
+                'i_info' => $info_arr,
+                'p_info' => $process_arr,
+                'prcode' => $prcode
+            ];
+        }
+
+
+        return $left;
+
+    }
 
 
 

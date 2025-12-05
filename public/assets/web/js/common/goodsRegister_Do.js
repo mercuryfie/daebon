@@ -1,73 +1,4 @@
-$(function() {
-    $(".area_boxm9k > .outerBox > .right > i").click(function() {
-        var $icon = $(this);
-        var $content = $icon.closest(".area_boxm9k").find(".area_box2qd");
-
-        // .area_box2qd 슬라이드 토글
-        $content.slideToggle(200);
-
-        // i 아이콘 클래스 변경
-        if ($icon.hasClass("fa-angle-down")) {
-            $icon.removeClass("fa-angle-down").addClass("fa-angle-up");
-        } else {
-            $icon.removeClass("fa-angle-up").addClass("fa-angle-down");
-        }
-    });
-
-    // $("button[name='addGoods']").click(function() {
-    //     var $copy = $("div[name='goodsBox'] > div[name='oneGoods']").first().clone();
-    //     // var $copy = $("div[name='oneGoods']").clone();
-    //
-    //     $copy.find("select").val("");
-    //     $copy.find("input").val("");
-    //
-    //     $("div[name='goodsBox']").append($copy);
-    // });
-    //
-    // $("button[name='addPackage']").click(function() {
-    //     var $copy = $("div[name='packageBox'] > div[name='onePackage']").first().clone();
-    //
-    //     $copy.find("select").val("");
-    //     $copy.find("input").val("");
-    //
-    //     $("div[name='packageBox']").append($copy);
-    // });
-
-
-    /* 상품등록>제품등록 팝업 start  */
-
-    $('#addProductWrap #Xbtn, #addProductWrap #Xbtn2').click(function () {
-        $('#addProductWrap').css('display','none');
-    });
-
-    $(document).on('click','button[name="addCover"]',function(){
-        const $parent = $('#cover_box');
-        const $node = $parent.find('.oneCover').first();
-        const $clone = $node.clone();
-
-        // const $firstCover = $clone.find('.oneCover').first();
-        // $clone.find('.oneCover').not(':first').remove();
-        // $firstCover.find('select').prop('selectedIndex', 0);
-
-        $clone.find('button[name="removeCover"]').css('display','block');
-        $clone.find('input').val('');
-        $clone.find('select').prop('selectedIndex', 0);
-        $parent.append($clone);
-    });
-
-    $(document).on('click','button[name="removeCover"]',function(){
-        const oneCover = $(this).closest('[name="oneCover"]');
-        oneCover.remove();
-    });
-
-    /* 상품등록>제품등록 팝업 end  */
-
-
-    $("div[name='mached'] > i").click(function() {
-        $(this).closest("div[name='mached']").css("display", "none");
-    });
-
-
+$(document).ready(function(){
     $('#attachImg').on('click', function(e) {
         let thumCount = $('[name="thumBox"]').length;
         if (thumCount >= 1) {
@@ -96,13 +27,14 @@ $(function() {
                         <div class="thumBox" name="thumBox">
                             <img src="` + e.target.result + `" alt="img" class="addedImg">
                             <button type="button" class="delete-btn">
-                                <i class="fa-solid fa-xmark"></i>
+                                <i class="fa-solid fa-xmark "></i>
                             </button>
                         </div>` );
                     $('#thumbArea').append($thumb);
                     $thumb.find('.delete-btn').on('click', function() {
                         $(this).closest('.thumBox').remove();
                         $('#attachImg').val('');
+                        Make_Toast('삭제하였습니다.');
                     });
                 };
                 reader.readAsDataURL(files[i]);
@@ -110,130 +42,501 @@ $(function() {
         }
     });
 
-    // ckeditor
-    ClassicEditor
-        .create(document.querySelector("#ckeditor"), {
-            removePlugins: ['ImageCaption'],
-            image: {
-                toolbar: [ 'imageStyle:full', 'imageStyle:side' ]
-            },
-            toolbar: {
-                // licenseKey: '<YOUR_LICENSE_KEY>',
-                label: 'Basic styles',
-                icon: 'text',
-                initialData: '<p></p>',
-                items:
-                    [
-                        "selectAll",
-                        "undo",
-                        "redo",
-                        "bold",
-                        "italic",
-                        "blockQuote",
-                        "|",
-                        //"todoList",
-                        //"paragraph",
-                        //"pasteFormat",
-                        "numberedList",
-                        "bulletedList",
-                        "uploadImage",
-                        "|",
-                        "link",
-                        // "ckfinder",
-                        // "heading",
-                        "imageStyle:full",
-                        "imageStyle:side",
-                        "indent",
-                        "outdent",
-                        "mediaEmbed"
-                    ]
+    $('#txt_product').on('focus',function(){
+        $(this).val('');
+        $(this).data('code','');
+        $('#goods_list').removeClass('active');
+        $('#goods_list').empty();
 
-            },
-            image: {
-                upload: {
-                    types: ['jpeg', 'png', 'gif']
-                }
-            },
-            ckfinder: {
-                uploadUrl: '/Api/Upload_file_editor'
-            },
-            codeBlock: {
-                languages: [
-                    { language: 'javascript', label: 'JavaScript' },
-                    { language: 'html', label: 'HTML' }
-                ]
-            },
-            language:'ko'
-        })
-        .then((editor) => {
+    });
 
-            //console.log('Editor initialized', editor);
-            theEditor = editor;
-
-            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-                return new MyUploadAdapter(loader);
-            };
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
-
-
-    class MyUploadAdapter {
-        constructor(loader) {
-            this.loader = loader;
-        }
-        upload() {
-            return this.loader.file
-                .then(file => new Promise((resolve, reject) => {
-                    this._initRequest();
-                    this._initListeners(resolve, reject, file);
-                    this._sendRequest(file);
-                }));
-        }
-        abort() {
-            if (this.xhr) { this.xhr.abort(); }
-        }
-        _initRequest() {
-            const xhr = this.xhr = new XMLHttpRequest();
-            xhr.open('POST', '/Api/Upload_file_editor', true);
-            xhr.responseType = 'json';
-        }
-
-        _initListeners(resolve, reject, file) {
-            const xhr = this.xhr;
-            const loader = this.loader;
-            const genericErrorText = `Couldn't upload file: ${ file.name }.`;
-            xhr.addEventListener('error', () => reject(genericErrorText));
-            xhr.addEventListener('abort', () => reject());
-            xhr.addEventListener('load', () => {
-                const response = xhr.response;
-                if (!response || response.error) {
-                    return reject(response && response.error ? response.error.message : genericErrorText);
-                }
-                resolve({
-                    default: response.url
-                });
-            });
-            if (xhr.upload) {
-                xhr.upload.addEventListener('progress', evt => {
-                    if (evt.lengthComputable) {
-                        loader.uploadTotal = evt.total;
-                        loader.uploaded = evt.loaded;
-                    }
-                });
+    $('#txt_product').on('keypress',async function(e){
+        if (e.which === 13) {
+            let skey = $(this).val();
+            if(skey==''){
+                Make_Toast('추가하실 제품명을 입력하세요.');
+                $(this).focus();
+            }else{
+                $('#goods_list').empty();
+                Find_Goods(skey);
             }
         }
-        _sendRequest(file) {
-            const data = new FormData();
-            data.append('upload', file);
-            this.xhr.send(data);
-        }
-    }
+    });
 
+    $('#addcode').on('click',function(){
+        let excode = $('#excode').val();
+        let extype = $('#extype option:selected').val();
+        let exname = $('#extype option:selected').text();
+
+        if(excode==''){
+            Make_Toast('매칭하실 코드를 입력하세요.');
+            $('#excode').focus();
+        }else if((extype=='') || (exname=='')) {
+            Make_Toast('매칭하실 쇼핑몰 선택하세요.');
+            $('#extype').focus();
+        }else {
+
+            let html = '';
+            html = `
+                <div class="mached flexType2" data-extype="${extype}" name="mached">
+                    <p class="code" name="m_code">${excode}</p>
+                    <p class="market" name="m_market">${exname}</p>
+                    <i class="fa-solid fa-xmark" name="mached_del"></i>
+                </div>
+            `;
+            $('#mached_list').append(html);
+            $('#excode').val('');
+            $('#extype').val('');
+        }
+    });
+
+    $(document).on('click', 'i[name="mached_del"]', function() {
+        $(this).closest('div[name="mached"]').remove();
+    });
+
+    $(document).on('click', 'i[name="add_product_del"]', function() {
+        $(this).closest('div[name="add_product_info"]').remove();
+    });
+
+    $('#addproduct').on('click',function(){
+        let gcode = $('#txt_product').data('code');
+        let gname = $('#txt_product').val();
+        let cnt = $('#txt_product_num').val();
+        if(gcode==''){
+            Make_Toast('추가하실 체품을 검색하세요.');
+            $('#txt_product').focus();
+        }else if(cnt==''){
+            Make_Toast('추가하실 체품 수량을 검색하세요.');
+            $('#txt_product_num').focus();
+        }else{
+            let html = `
+                <div class="productTag flexType3" name="add_product_info" id="" data-code="${gcode}">
+                    <p class="pname" name="gname">${gname}</p>
+                    <p class="count" name="gcnt" data-cnt="${cnt}">${cnt}개</p>
+                    <i class="fa-solid fa-xmark" name="add_product_del"></i>
+                </div>
+            `;
+            $('#goods_list').removeClass('active');
+            $('#add_list').append(html).addClass('active');
+            $('#txt_product').val('');
+            $('#txt_product').data('code','');
+            $('#txt_product_num').val('');
+        }
+    });
+
+    $(document).on('click','button[name="btn_search_goods"]',function(){
+        let code = $(this).data('code');
+        let text = $(this).text();
+
+        $('#txt_product').data('code', code);
+        $('#txt_product').val(text);
+        $('#goods_list').empty().removeClass('active');
+        $('#txt_product_num').focus();
+    });
+
+    $('#pPrice').on('focusout', function() {
+        const value = $(this).val().trim();
+        if (value === '') {
+            return;
+        }
+        const cleanValue = value.replace(/,/g, '').replace(/\s/g, '');
+        if (!/^\d+$/.test(cleanValue)) {
+            Make_Toast('가격은 숫자만 입력해주세요.\n예: 10000');
+            $(this).val('').focus();
+        } else {
+            $(this).val(parseInt(cleanValue).toLocaleString());
+        }
+    });
+
+    $('#pWeight').on('focusout', function() {
+        const value = $(this).val().trim();
+        if (value === '') {
+            return;
+        }
+        const cleanValue = value.replace(/,/g, '').replace(/\s/g, '');
+        if (!/^\d+$/.test(cleanValue)) {
+            Make_Toast('증량은 숫자만 입력해주세요.\n예: 10000');
+            $(this).val('').focus();
+        } else {
+            $(this).val(parseInt(cleanValue).toLocaleString());
+        }
+    });
+
+    $('#submitBtn').on('click',async function(){
+        let category = $('#category').val();
+        let pTitle = $('#pTitle').val();
+        let pPrice = $('#pPrice').val();
+        let pWeigth = $('#pWeight').val();
+        let sell_type = $('#sell_type').val();
+        let fileCount = $('#attachImg')[0].files.length;
+        let NewCode = generateNewCode(1);
+        if(category ==''){
+            Make_Toast('대분류를 선택하세요.');
+            $('#category').focus();
+        }else if(pTitle==''){
+            Make_Toast('상품명을 입력하세요');
+            $('#pTitle').focus();
+        }else if(pPrice==''){
+            Make_Toast('가격을 입력하세요.');
+            $('#pPrice').focus();
+        }else if(pWeigth==''){
+            Make_Toast('중량을 입력하세요.');
+            $('#pWeigth').focus();
+        }else if(pWeigth=='') {
+            Make_Toast('중량을 입력하세요.');
+            $('#pWeigth').focus();
+        }else if(sell_type=='') {
+            Make_Toast('판매여부를 선택하세요.');
+            $('#sell_type').focus();
+        }else if(fileCount===0){
+            Make_Toast('대표이미지를 선택하세요.');
+            $('#attachImg').focus();
+        }else {
+            const container2 = $('#add_list');
+            let goods_arr = [];
+            container2.find('div[name="add_product_info"]').each(function () {
+                let gcode = $(this).data('code');
+                let gcnt = $(this).find('p[name="gcnt"]').data('cnt');
+                let t_arr = {
+                    gcode: gcode,
+                    gcnt: gcnt
+                }
+                goods_arr.push(t_arr);
+            });
+            if (goods_arr.length === 0) {
+                Make_Toast('제품 추가 정보는 필수 사항입니다.');
+                $('#txt_product').focus();
+            }else {
+                let str_editor = theEditor.getData();
+                let product_arr = {
+                    pdcode: NewCode,
+                    pTitle: pTitle,
+                    pPrice: parseInt(pPrice.replace(/,/g, '')),
+                    pWeigth: parseInt(pWeigth.replace(/,/g, '')),
+                    sell_type: sell_type,
+                    category: category,
+                    str_editor: str_editor
+                };
+
+                let fname = await Upload_File(NewCode);
+                let file_arr = {fname: fname};
+
+                const container1 = $('#mached_list');
+                let maching_arr = [];
+                container1.find('div[name="mached"]').each(function () {
+                    let market_type = $(this).data('extype');
+                    let market_code = $(this).find('p[name="m_code"]').text();
+                    let t_arr = {
+                        m_code: market_code,
+                        m_type: market_type
+                    }
+                    maching_arr.push(t_arr);
+                });
+
+
+                const container3 = $('#cover_box');
+                let material_arr = [];
+                container3.find('div[name="oneTBag"]').each(function () {
+                    let acode = $(this).find('select[name="accessory"]').val();
+                    let acnt = $(this).find('input[name="accessory_cnt"]').val();
+                    if(acode!='') {
+                        let m_arr = {
+                            'acode': acode,
+                            'acnt': acnt
+                        };
+                        material_arr.push(m_arr);
+                    }
+                });
+
+
+                let return_arr = {
+                    info: product_arr,
+                    file: file_arr,
+                    macthing: maching_arr,
+                    goods: goods_arr,
+                    material: material_arr
+                };
+
+                let bool = await Reg_Data(return_arr);
+                if (bool === true) {
+                    go_goodsList();
+                } else {
+                    Make_Toast('상품등록에 실패 하였습니다.');
+                }
+            }
+        }
+    });
+
+    $('#txt_before').on('focus',function(){
+        $(this).val('');
+        $('#beforelist').removeClass('active');
+        $('#beforelist').empty();
+
+    });
+
+    $('#txt_before').on('keypress',async function(e){
+        if (e.which === 13) {
+            let skey = $(this).val();
+            if(skey==''){
+                Make_Toast('검색하실 상품명을 입력하세요.');
+                $(this).focus();
+            }else{
+                $('#beforelist').empty();
+                Load_Before(skey);
+            }
+        }
+    });
+
+    $(document).on('click', function(e) {
+        const beforeList = $('#beforelist');
+        if (!beforeList.hasClass('active')) {
+            return;
+        }
+        const copyBox = $('.copyBox');
+        if ($(e.target).closest(copyBox).length) {
+            return;
+        }
+        $('#txt_before').val('');
+        beforeList.removeClass('active').empty();
+    });
+
+    $(document).on('click','button[name="option_Before"]',function(){
+        let pdcode = $(this).data('code');
+        set_Data(pdcode);
+        $('#txt_before').val('');
+        $('#beforelist').removeClass('active').empty();
+    });
+
+    $('#btn_reload').on('click',function(){
+        location.reload();
+    });
 });
 
-function pop_addProduct() {
-    $('#addProductWrap').css('display','block');
+async function Load_Before(skey){
+    try {
+        start_spinner();
+        let dataarr = {"search" : skey};
+        let url = APIURL + '/Load_Product_List';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            let data = result.get('data');
+            let arr = (data && data.list) ? data.list : [];
+            let Cnt = arr.length;
+            if(Cnt > 0){
+                let html = '';
+                $.each(arr, function (index, el) {
+                    html = `<button class="copyOption active" type="button" name="option_Before" data-code="${el.pdcode}">${el.pdname}</button>`;
+                });
+
+                $('#beforelist').append(html);
+                $('#beforelist').addClass('active');
+            }else{
+                Make_Toast('검색된 상품이 없습니다.');
+            }
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+}
+
+
+async function Reg_Data(param){
+    let bool = false;
+    try {
+        start_spinner();
+        let dataarr = {"data" : param};
+        let url = APIURL + '/Insert_Product';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            bool = true;
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+    return bool;
+}
+
+async  function Upload_File(pdcode){
+    let fname = '';
+    try {
+        start_spinner();
+        let url = APIURL + '/Upload_file';
+        let key = 'attachImg';
+        let param = {
+            pdcode : pdcode,
+            upload_key : 'attachImg',
+            upload_type: 1
+        };
+        let result = await Load_FileUpload(url,key,param);
+        if (result.get('status') == 'ok') {
+            fname = result.get('data').fileName;
+        }else{
+            Make_Toast(result.get('message'));
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+    return fname;
+}
+
+
+async function Find_Goods(skey) {
+    let data = await Load_Data(skey);
+    let html = '';
+    if (!fn_IsEmpty(data)) {
+        $.each(data, function (index, el) {
+            html += `<button class="copyOption active" type="button" name="btn_search_goods" data-code="${el.gcode}">${el.gname}</button>`;
+        });
+        $('#goods_list').append(html);
+        $('#goods_list').addClass('active');
+    }else{
+        Make_Toast('검색된 제품이 없습니다.');
+        $('#txt_product').focus();
+    }
+}
+
+
+async function Load_Data(skey){
+    let data = [];
+    try {
+        start_spinner();
+        let dataarr = {"skey" : skey};
+        let url = APIURL + '/Search_Goods';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            data = result.get('data');
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+    return data;
+}
+
+
+async function set_Data(pdcode) {
+    let arr = await Before_Data_Load(pdcode);
+    console.log(arr);
+    let info = arr.info;
+    if (info && Object.keys(info).length > 0) {
+        $('#category').val(info.pdcategory);
+        $('#pTitle').val(info.pdname);
+        $('#pPrice').val(info.pdprice);
+        $('#pWeight').val(info.pdweigth);
+        $('#sell_type').val(info.is_sale);
+        theEditor.setData(info.content);
+    }
+
+    let match = arr.match;
+    if (match && Object.keys(match).length > 0) {
+        let html = '';
+        $.each(match, function (index, el) {
+            html += `
+                <div class="mached flexType2" data-extype="${el.ex_type}" name="mached">
+                    <p class="code" name="m_code">${el.fk_excode}</p>
+                    <p class="market" name="m_market">${getNameByCode(el.ex_type)}</p>
+                    <i class="fa-solid fa-xmark" name="mached_del"></i>
+                </div>
+            `;
+        });
+        $('#mached_list').empty();
+        $('#mached_list').append(html);
+    }
+    let goods = arr.goods;
+    if (goods && Object.keys(goods).length > 0) {
+        let html = '';
+        $.each(goods, function (index, el) {
+            html += `
+                <div class="productTag  flexType3" name="add_product_info" data-code="${el.fk_gcode}">
+                    <p class="pname" name="gname">${el.gname}</p>
+                    <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt}개</p>
+                    <i class="fa-solid fa-xmark" name="add_product_del"></i>
+                </div>
+            `;
+        });
+        $('#add_list').empty();
+        $('#add_list').append(html).addClass('active');
+    }
+
+    const originalOptions = $('#accessory').html();
+    console.log(originalOptions);
+    let maretial = arr.material;
+    if (maretial && Object.keys(maretial).length > 0) {
+        let html = '';
+
+        $.each(maretial, function (index, el) {
+            html += `
+               <div class="oneTBag mb10 flexType2" name="oneTBag">
+                    <select name="accessory" id="accessory_${el.seq}" class="option option1">
+                        ${Make_select(originalOptions,el.fk_mtcode)}
+                    </select>
+                    <input type="search" name="accessory_cnt" class="inputBorder inputBorder2 mr10" placeholder="예:10000" value="${el.cnt}">
+                    <button type="button" class="btnType3 addBtn mr10" name="addCover" >
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button type="button" class="btnType3 removeBtn" name="removeCover" style="">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            `;
+        });
+        $('#tBagBox').empty();
+        $('#tBagBox').append(html);
+    }
+}
+
+async function Before_Data_Load(pcode) {
+    let data = [];
+    try {
+        start_spinner();
+        let dataarr = {"code": pcode};
+        let url = APIURL + '/Load_Product_Info';
+        let result = await Load_API_Auth(url, dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        } else if(result.get('status') == 'ok') {
+            data = result.get('data').info;
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+    return data;
+}
+
+function Make_select(originalOptions,selectedValue ){
+    let parser = new DOMParser();
+    let doc = parser.parseFromString('<select>' + originalOptions + '</select>', 'text/html');
+    let optionElements = doc.querySelectorAll('option');
+    optionElements.forEach(option => {
+        if (option.value === selectedValue) {
+            option.setAttribute('selected', 'selected');
+        } else {
+            option.removeAttribute('selected');
+        }
+    });
+    let newOptionsHtml = Array.from(optionElements).map(opt => opt.outerHTML).join('');
+    return newOptionsHtml;
 }

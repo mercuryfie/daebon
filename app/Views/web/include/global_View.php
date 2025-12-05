@@ -6,4 +6,4 @@
     <input type="hidden" id="token" name="token"/>
 <?}?>
 
-<div class="spinnerBox" id="spinnerBox"><img src="/assets/web/src/spinner.gif" alt="img" id="spinner" class="spinner" style="display: none;s"></div>
+<div class="spinnerBox" id="spinnerBox"><img src="/assets/web/src/spinner.gif" alt="img" id="spinner" class="spinner" style=""></div>

@@ -15,7 +15,133 @@ class ReportController extends BaseController
         $this->Check_Auth($Auth);
     }
 
+
     public function qualityReport()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '생산목록',
+                'h_type' => 1
+            ];
+
+            $main_data = [];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'main' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/qualityReport_View', $main_data);
+        }
+    }
+
+
+    public function qualityReport3()
+    {
+        $sessinarr = $this->GetSessionData();
+        $gicode  = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
+        $nowcode  = ($this->request->getGet('nd') == '') ? '' : $this->request->getGet('nd');
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else if($gicode==''){
+            fn_Alert('잘못된 접근입니다.');
+        }else {
+            $metaarr = [
+                'h_title' => '생산현황 상세',
+                'h_type' => 1
+            ];
+
+            $produce_m = model('Produce_m');
+            $info = fn_LoadInstructionsInfo($produce_m,$gicode);
+            if(fn_ArrayCnt($info)<=0){
+                fn_Alert('존재하지 않는 지시서입니다.');
+            }else {
+                $nowchcode = $info['step_now'];
+                $process = fn_LoadInstructionsSingleProcess($produce_m,$gicode,$nowcode);
+                if(fn_ArrayCnt($process)<=0){
+                    fn_Alert('존재하지 않는 공정입니다.');
+                }else {
+
+                    if($process['status']=='0'){
+                        $worker = [
+                            'name' => '',
+                            'actdate' => ''
+                        ];
+                    }else if($process['status']=='1'){
+                        $worker = [
+                            'name' => $process['worker']['start']['name'],
+                            'actdate' => $process['worker']['start']['actdate']
+                        ];
+                    }else if($process['status']=='2'){
+                        $worker = [
+                            'name' => $process['worker']['end']['name'],
+                            'actdate' => $process['worker']['end']['actdate']
+                        ];
+                    }
+
+                    $p_arr = fnGetProcessNameByCode($process['step_typ']);
+                    if($p_arr['gubun']==1){
+                        $btn_name = $p_arr['name'] . '완료';
+                    }else{
+                        $btn_name = '시작';
+                    }
+
+                    $isnow = ($nowchcode==$nowcode) ? 'yes' : 'no';
+
+                    $data = [
+                        'g_name' => $info['gname'],
+                        'p_name' => $process['step_name'],
+                        'step_typ' => $process['step_typ'],
+                        'input' => $process['input_material'],
+                        'output' => $process['output_material'],
+                        'after' => $process['after_material'],
+                        'method' => $process['p_method'],
+                        'status' => $process['status'],
+                        'worker' => $worker,
+                        'material' => $process['material'],
+                        'step_val' => $p_arr,
+                        'btn_name' => $btn_name,
+                        'nowstep' => $nowchcode
+                    ];
+
+                    $left_data = [
+                        'session' => $sessinarr,
+                        'gicode' => $gicode,
+                        'nowstep' => $nowchcode,
+                        'nowcode' => $nowcode
+                    ];
+
+                    $main_data = [
+                        'gicode' => $gicode,
+                        'prcode' => $nowchcode,
+                        'isnow' => $isnow,
+                        'info' => $data,
+                        'material' => $process
+                    ];
+
+                    $form = new Form;
+                    $main_data = [
+                        'meta' => $form->fnMake_Meta($metaarr),
+                        'header' => $form->fnMake_Header($sessinarr),
+                        'left' => $form->fnMake_Left($left_data),
+                        'body' => $main_data,
+                        'footer' => $form->fnMake_Fooeter($sessinarr)
+                    ];
+
+                    return view('web/common/productionDetail_View', $main_data);
+                }
+            }
+        }
+    }
+
+    public function qualityReport2()
     {
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {

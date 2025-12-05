@@ -8,5 +8,6 @@ crossorigin="anonymous" referrerPolicy="no-referrer" />
 <script src="<?=URL_COMMON_ASSETS?>/slick.min.js"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/constants.js?rnd=<?echo(rand()); ?>"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/control.js?rnd=<?echo(rand()); ?>"> </script>
+<script src="<?=URL_COMMON_ASSETS?>/local_control.js?rnd=<?echo(rand()); ?>"> </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

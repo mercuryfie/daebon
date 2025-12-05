@@ -14,45 +14,49 @@ $routes->GET('/', 'MainController::main');
 $routes->GET('member/login','MemberController::logIn');
 $routes->GET('member/logout','MemberController::logOut');
 
-
-
 $routes->GET('order/adddeliform', 'OrderController::addDeliForm');
+
 
 $routes->GET('order/waybill', 'OrderController::waybillForm');
 $routes->GET('order/dashboard', 'OrderController::dashBoard');
 $routes->GET('order/mainthum', 'CommonController::mainThum');
 $routes->GET('order/linkmalls', 'OrderController::linkMalls');
+$routes->GET('order/linkmallslogs', 'OrderController::linkMallsLogs');
 $routes->GET('order/orderlist', 'OrderController::orderList');
+$routes->GET('order/orderregister', 'OrderController::orderRegister');
 $routes->GET('order/deliverylist', 'OrderController::deliveryList');
 $routes->GET('order/packinglist', 'OrderController::packingList');
 $routes->GET('order/packingstatus', 'OrderController::packingStatus');
 
-$routes->GET('goods/productsmaster', 'GoodsController::productsMaster');
+$routes->GET('goods/materiallist', 'GoodsController::materialList');
 $routes->GET('goods/goodsetc', 'GoodsController::goodsEtc');
 $routes->GET('goods/goodslist', 'GoodsController::goodsList');
 $routes->GET('goods/goodsreg', 'GoodsController::goodsReg');
+$routes->GET('goods/goodsedit', 'GoodsController::goodsEdit');
 $routes->GET('goods/productslist', 'GoodsController::productsList');
-$routes->GET('goods/productsreg', 'GoodsController::productsReg');
+//$routes->GET('goods/productsreg', 'GoodsController::productsReg');
+$routes->GET('goods/productsmasterlist', 'GoodsController::productsMasterList');
+$routes->GET('goods/productsmasterreg', 'GoodsController::productsMasterReg');
 $routes->GET('goods/productsreg2', 'GoodsController::productsReg2');
 $routes->GET('goods/productseditor', 'GoodsController::productsEditor');
-$routes->GET('goods/manuregister', 'GoodsController::manuRegister');
-$routes->GET('goods/manueditor', 'GoodsController::manuEditor');
-$routes->GET('goods/categorylist', 'GoodsController::categoryList');
+//$routes->GET('goods/manuregister', 'GoodsController::manuRegister');
+//$routes->GET('goods/manueditor', 'GoodsController::manuEditor');
+//$routes->GET('goods/categorylist', 'GoodsController::categoryList');
+$routes->GET('goods/instructionform', 'GoodsController::instructionForm');
 
 $routes->GET('produce/productionstatus', 'ProduceController::productionStatus');
 $routes->GET('produce/productionlist', 'ProduceController::productionList');
 $routes->GET('produce/productionliststaff', 'ProduceController::productionListStaff');
 $routes->GET('produce/productiondetail', 'ProduceController::productionDetail');
 $routes->GET('produce/productiondetailmono', 'ProduceController::productionDetailMono');
-//$routes->GET('produce/productioncomplete', 'ProduceController::productionComplete');
-//$routes->GET('produce/productioncomplete2', 'ProduceController::productionComplete2');
 $routes->GET('produce/instructionform', 'ProduceController::instructionForm');
+$routes->GET('produce/report', 'ProduceController::reportForm');
 
-$routes->GET('inout/inoutstatus', 'InoutController::inoutStatus');
-$routes->GET('inout/materiallist', 'InoutController::materialList');
-$routes->GET('inout/materialreg', 'InoutController::materialReg');
+$routes->GET('inout/material', 'InoutController::inOutMaterial');
+$routes->GET('inout/halfproduct', 'InoutController::inOutHalfproduct');
+//$routes->GET('inout/materialreg', 'InoutController::materialReg');
 $routes->GET('inout/popbarcodewindow', 'InoutController::popBarcodeWindow');
-$routes->GET('inout/popaddmatirial', 'InoutController::pop_AddMatirial');
+//$routes->GET('inout/popaddmatirial', 'InoutController::pop_AddMatirial');
 
 $routes->GET('report/quality', 'ReportController::qualityReport');
 $routes->GET('report/order', 'ReportController::orderReport');
@@ -71,10 +75,7 @@ $routes->GET('packing/waybillform', 'PackingController::waybillForm');
 
 /* Product */
 $routes->GET('product/', 'ProductController::main');
-$routes->GET('product/status', 'ProductController::productionStatus');
-$routes->GET('product/statusDetail', 'ProductController::statusDetail');
-$routes->GET('product/statusDetailMono', 'ProductController::statusDetailMono');
-
+$routes->GET('product/statusdetail', 'ProductController::statusDetail');
 
 /*API*/
 $routes->match(['GET', 'POST'], 'Api/Call_Cancels', 'ApiController::Call_Cancels');
@@ -86,5 +87,34 @@ $routes->match(['GET', 'POST'], 'Api/Mod_Material_Info', 'ApiController::Mod_Mat
 $routes->match(['GET', 'POST'], 'Api/Del_Material_Info', 'ApiController::Del_Material_Info');
 $routes->match(['GET', 'POST'], 'Api/Load_Goods_List', 'ApiController::Load_Goods_List');
 $routes->match(['GET', 'POST'], 'Api/Add_Goods_Info', 'ApiController::Add_Goods_Info');
-$routes->match(['GET', 'POST'], 'Api/Add_Goods_Instructions', 'ApiController::Add_Goods_Instructions');
+$routes->match(['GET', 'POST'], 'Api/Add_Instructions', 'ApiController::Add_Instructions');
 $routes->match(['GET', 'POST'], 'Api/Load_Produce_List', 'ApiController::Load_Produce_List');
+$routes->match(['GET', 'POST'], 'Api/Load_Goods_Info', 'ApiController::Load_Goods_Info');
+$routes->match(['GET', 'POST'], 'Api/mod_Goods_Info', 'ApiController::mod_Goods_Info');
+$routes->match(['GET', 'POST'], 'Api/Upload_File_Editor', 'ApiController::Upload_File_Editor');
+$routes->match(['GET', 'POST'], 'Api/Upload_file', 'ApiController::Upload_File');
+$routes->match(['GET', 'POST'], 'Api/Add_Goods', 'ApiController::Add_Goods');
+
+
+$routes->match(['GET', 'POST'], 'Api/Load_Instructions_Process', 'ApiProduceController::Load_Instructions_Process');
+$routes->match(['GET', 'POST'], 'Api/Load_Instructions_Info', 'ApiProduceController::Load_Instructions_Info');
+$routes->match(['GET', 'POST'], 'Api/Load_Instructions_NowStep', 'ApiProduceController::Load_Instructions_NowStep');
+$routes->match(['GET', 'POST'], 'Api/Process_Confirm', 'ApiProduceController::Process_Confirm');
+$routes->match(['GET', 'POST'], 'Api/Search_Goods', 'ApiProduceController::Search_Goods');
+
+$routes->match(['GET', 'POST'], 'Api/Insert_Product', 'ApiProductController::Insert_Product');
+$routes->match(['GET', 'POST'], 'Api/Load_Product_List', 'ApiProductController::Load_Product_List');
+$routes->match(['GET', 'POST'], 'Api/Load_Product_Info', 'ApiProductController::Load_Product_Info');
+$routes->match(['GET', 'POST'], 'Api/Edit_Product', 'ApiProductController::Edit_Product');
+$routes->match(['GET', 'POST'], 'Api/Load_Product_Detail', 'ApiProductController::Load_Product_Detail');
+
+$routes->match(['GET', 'POST'], 'Api/Insert_Order', 'ApiOrderController::Insert_Order');
+$routes->match(['GET', 'POST'], 'Api/Load_Order_Data', 'ApiOrderController::Load_Order_Data');
+
+
+$routes->match(['GET', 'POST'], 'Api/coupong_api_no1', 'ApiShopController::coupong_api_GetOrderPeriod');
+$routes->match(['GET', 'POST'], 'Api/coupong_api_no2', 'ApiShopController::coupong_api_getOrderInfo');
+$routes->match(['GET', 'POST'], 'Api/ESM_api_no2', 'ApiShopController::esm_api_GetOrderInfo');
+
+
+

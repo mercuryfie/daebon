@@ -1,16 +1,5 @@
 $(document).ready(function() {
 
-    $(document).on('click','button[name="addMaterial"]',function(){
-        const parent = $(this).closest('.rightSelectorBox');
-        const node = parent.find('.rightSelector').first();
-        const clone = node.clone();
-        clone.find('input[type="search"]')
-        clone.find('button[name="removeMaterial"]').css('display','flex');
-        clone.find('button[name="removeMaterial"]').addClass('flexType1');
-        clone.find('select').prop('selectedIndex', 0);
-        clone.find('input').val('');
-        parent.append(clone);
-    });
 
     $(document).on('click','#btn_confirm', async function () {
         let category = $('#category').val();
@@ -18,29 +7,31 @@ $(document).ready(function() {
         let goodsQuantity = $('#goodsQuantity').val();
         let goodsInventory = $('#goodsInventory').val();
 
-        if(category==''){
+        if (category == '') {
             $('#category').focus();
             Make_Toast('상품분류를 선택하세요.');
-        }else if(goodsName==''){
+        } else if (goodsName == '') {
             $('#goodsName').focus();
             Make_Toast('제품평을 입력하세요');
-        }else if(goodsQuantity==''){
+        } else if (goodsQuantity == '') {
             $('#goodsQuantity').focus();
             Make_Toast('기준수량을 입력하세요');
-        }else if(goodsInventory==''){
+        } else if (goodsInventory == '') {
             $('#goodsInventory').focus();
             Make_Toast('적정재고량을 입력하세요');
-        }else {
+        } else {
             const container = $('div[name="materialBox"]');
             let goods_material = [];
             container.find('div[name="oneMate"]').each(function () {
                 let selectVal = $(this).find('select[name="material_code"]').val();
-                let inputVal = $(this).find('input[name="material_cnt"]').val();
-                let t_arr = {
-                    'code': selectVal,
-                    'cnt': inputVal
+                if(selectVal!='') {
+                    let inputVal = $(this).find('input[name="material_cnt"]').val();
+                    let t_arr = {
+                        'code': selectVal,
+                        'cnt': inputVal
+                    }
+                    goods_material.push(t_arr);
                 }
-                goods_material.push(t_arr);
             });
             let goods_info = {
                 category: category,
@@ -53,34 +44,37 @@ $(document).ready(function() {
             const container1 = $('div[name="roastBox"]');
             let goods_step = [];
             container1.find('div[name="oneRoast"]').each(function () {
-                let stepNum = $(this).find('input[name="stepNum"]').val();
                 let ptype = $(this).find('select[name="ptype"]').val();
-                let pname = $(this).find('input[name="processname"]').val();
-                let minput = $(this).find('input[name="material_input"]').val();
-                let moutput = $(this).find('input[name="material_output"]').val();
-                let memo = $(this).find('textarea[name="step_memo"]').val();
-                let accessory = [];
-                $(this).find('div[name="oneTBag"]').each(function () {
-                    let acode = $(this).find('select[name="accessory"]').val();
-                    let acnt = $(this).find('input[name="accessory_cnt"]').val();
-                    let m_arr = {
-                        'acode': acode,
-                        'acnt': acnt
+                if(ptype!='') {
+                    let stepNum = $(this).find('input[name="stepNum"]').val();
+
+                    let pname = $(this).find('input[name="processname"]').val();
+                    let minput = $(this).find('input[name="material_input"]').val();
+                    let moutput = $(this).find('input[name="material_output"]').val();
+                    let memo = $(this).find('textarea[name="step_memo"]').val();
+                    let accessory = [];
+                    $(this).find('div[name="oneTBag"]').each(function () {
+                        let acode = $(this).find('select[name="accessory"]').val();
+                        let acnt = $(this).find('input[name="accessory_cnt"]').val();
+                        let m_arr = {
+                            'acode': acode,
+                            'acnt': acnt
+                        };
+                        accessory.push(m_arr);
+                    });
+
+                    let m2_arr = {
+                        stepNum: stepNum,
+                        ptype: ptype,
+                        pname: pname,
+                        minput: minput,
+                        moutput: moutput,
+                        memo: memo,
+                        accessory: accessory
                     };
-                    accessory.push(m_arr);
-                });
 
-                let m2_arr = {
-                    stepNum: stepNum,
-                    ptype: ptype,
-                    pname: pname,
-                    minput: minput,
-                    moutput: moutput,
-                    memo: memo,
-                    accessory: accessory
-                };
-
-                goods_step.push(m2_arr);
+                    goods_step.push(m2_arr);
+                }
             });
 
             let info_cnt = goods_info.length;
@@ -90,41 +84,14 @@ $(document).ready(function() {
             } else if (step_cnt <= 0) {
                 Make_Toast('제품지지서에는 최소한 1개이상의 공정이 필요합니다.');
             } else {
-                let main_arr = {
-                    goods_info: goods_info,
-                    goods_step: goods_step
-                }
-
-                let arr = await  Data_Load(goods_info,goods_step);
+                let arr = await  Input_product(goods_info,goods_step);
                 go_productsList();
             }
         }
     });
 
-    $(document).on('click','button[name="removeMaterial"]',function(){
-        const oneMate = $(this).closest('[name="oneMate"]');
-        oneMate.remove();
-    });
 
 
-      /* 제품등록>제품bom>공정입력>부자재추가> add cover start  */
-    $(document).on('click','button[name="addCover"]',function(){
-        const parent = $(this).closest('.tBagBox');
-        const node = parent.find('.oneTBag').first();
-        const clone = node.clone();
-        clone.find('button[name="removeCover"]').css('display','flex');
-        clone.find('button[name="removeCover"]').addClass('flexType1');
-        clone.find('select').prop('selectedIndex', 0);
-        clone.find('input').val('');
-        parent.append(clone);
-    });
-
-    $(document).on('click','button[name="removeCover"]',function(){
-        const oneTBagCon = $(this).closest('[name="oneTBag"]');
-        oneTBagCon.remove();
-    });
-
-    /* 제품등록>제품bom>공정입력>부자재추가> add cover end  */
     /* 제품등록>제품bom>공정 박스 start  */
 
     $(document).on('click','button[name="addRoasting"]',function(){
@@ -156,6 +123,7 @@ $(document).ready(function() {
         $('#stepCnt').val(nowStep);
         const oneRoast = $(this).closest('[name="oneRoast"]');
         oneRoast.remove();
+        resetStepNum();
     });
 
     /* 제품등록>제품bom>공정 박스 end  */
@@ -181,7 +149,7 @@ $(document).ready(function() {
 });
 
 
-async function Data_Load(info,step){
+async function Input_product(info,step){
     let arr = {};
     try {
         start_spinner();
@@ -201,6 +169,13 @@ async function Data_Load(info,step){
         stop_spinner();
     }
     return arr;
+}
+
+
+function resetStepNum() {
+    $('div[name="oneRoast"]').each(function(index) {
+        $(this).find('input[name="stepNum"]').val(index + 1);
+    });
 }
 
 

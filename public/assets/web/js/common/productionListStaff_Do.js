@@ -1,24 +1,60 @@
 $(document).ready(function() {
-    let search = '';
     const data = {
-        skey : search
+        stype : '',
+        page : $('#cpage').data('page')
     };
     Make_Html(data);
 
-    $('#order_wrapdek #Xbtn, #order_wrapdek #Xbtn2').click(function () {
-        $('#order_wrapdek').css('display','none');
+    $(document).on('click', function(e){
+        if (document.activeElement.id !== 'incode') {
+            $('#incode').focus();
+        }
     });
 
-    $(document).on('click','button[name="view_production"]',function(){
-        let code = $(this).data('code');
-        go_productionStatus(code);
+    $(document).on('click','button[name="searchType"]',function(){
+        let stype = $(this).data('val');
+        $('button[name="searchType"]').removeClass('active');
+        $(this).addClass('active');
+        $('#clist').empty();
+        const data = {stype:stype};
+        Make_Html(data);
+
     });
 
-    $(document).on('click','button[name="prnRoastForm"]',function() {
-        let code = $(this).data('code');
-        pop_OrderRoastForm(code);
+    $(document).on('keydown','#incode', async function(e){
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            let code = $(this).val();
+            go_productionDetailStaff(code);
+            // process_step(code);
+        }
     });
 
+    $(document).on('click','tr[name="view_detail"]',function(){
+        let iscomplete= $(this).data('iscomplete');
+        if(iscomplete!=2) {
+            let code = $(this).data('code');
+            // console.log(code);
+            // process_step(code);
+            go_productionDetailStaff(code);
+        }
+    });
+
+    $(document).on('click','#btn_reload',function(){
+        location.reload();
+    });
+
+    $(document).on('click','#cpage',function(){
+        let currentPage = parseInt($('#cpage').data('page'), 10);
+        let nextPage = currentPage + 1;
+        $('#cpage').data('page',nextPage);
+
+        const data = {
+            stype : '',
+            page : nextPage
+        };
+        Make_Html2(data);
+
+    });
 
 });
 
@@ -27,23 +63,71 @@ async function Make_Html(data){
     let html = '';
     if(!fn_IsEmpty(arr.list)){
         $.each(arr.list, function (index, el) {
+
+            let prog = '';
+            if (!fn_IsEmpty(el.stepNum)) {
+                prog = `(` + el.stepNum + `/` + el.processcnt + `)`;
+            }
             html += `
-                <tr class="" onclick="go_productionStatusStaff('${el.gcode}');"> 
-                    <td class="ltTbody  ">2025.01.01</td>
+                <tr class="" name="view_detail" data-code="${el.gicode}" data-iscomplete="${el.iscomplete}"> 
+                    <td class="ltTbody  ">${el.shortdate}</td>
+                    <td class="ltTbody  ">${el.gicode}</td>
                     <td class="ltTbody">${el.gname}</td>
-                    <td class="ltTbody">${el.gcode}</td>
-                    <td class="ltTbody">${el.quantity}</td>
-                    
-                    <td class="ltTbody">${el.step_cnt}</td>
-                    <td class="ltTbody">${el.step_now}</td> 
+                    <td class="ltTbody">${el.processname} ${prog}</td> 
+                    <td class="ltTbody">${number_format(el.quantity)}개</td>
+                      
+                    <td class="ltTbody">${el.processstr}</td> 
+                    <td class="ltTbody">${el.worker}</td> 
                 </tr>
             `;
         });
     }else{
-        html = '<tr><td class="ltThead" colspan="10">검색된 데이터가 없습니다.</td></tr>';
+        // Make_Toast('마지막입니다.');
+        html = '<tr><td class="ltThead" colspan="10" id="nomore" name="nomore">검색된 데이터가 없습니다.</td></tr>';
     }
     $('#clist').append(html);
-    $('#tcnt').html(arr.total);
+    let otcnt = parseInt($('#tcnt').data('val'), 10);
+    let tcnt = arr.total + otcnt
+    console.log(tcnt);
+    $('#tcnt').html(tcnt);
+    $('#tcnt').data('val',tcnt);
+}
+
+
+async function Make_Html2(data){
+    let arr = await Data_Load(data);
+    console.log(arr);
+    let html = '';
+    if(!fn_IsEmpty(arr.list)){
+        $.each(arr.list, function (index, el) {
+
+            let prog = '';
+            if (!fn_IsEmpty(el.stepNum)) {
+                prog = `(` + el.stepNum + `/` + el.processcnt + `)`;
+            }
+            html += `
+                <tr class="" name="view_detail" data-code="${el.gicode}" data-iscomplete="${el.iscomplete}"> 
+                    <td class="ltTbody  ">${el.shortdate}</td>
+                    <td class="ltTbody  ">${el.gicode}</td>
+                    <td class="ltTbody">${el.gname}</td>
+                    <td class="ltTbody">${el.processname} ${prog}</td> 
+                    <td class="ltTbody">${number_format(el.quantity)}개</td>
+                      
+                    <td class="ltTbody">${el.processstr}</td> 
+                    <td class="ltTbody">${el.worker}</td> 
+                </tr>
+            `;
+        });
+    }else{
+        Make_Toast('마지막입니다.');
+        // html = '<tr><td class="ltThead" colspan="10" id="nomore" name="nomore">검색된 데이터가 없습니다.</td></tr>';
+    }
+    $('#clist').append(html);
+    let otcnt = parseInt($('#tcnt').data('val'), 10);
+    let tcnt = arr.total + otcnt
+    console.log(tcnt);
+    $('#tcnt').html(tcnt);
+    $('#tcnt').data('val',tcnt);
 }
 
 
@@ -53,7 +137,7 @@ async function Data_Load(data){
     try {
         start_spinner();
         let dataarr = {"param" : data};
-        let url = APIURL + '/Load_Produce_List';
+        let url = APIURL + '/Load_Instructions_Info';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();
@@ -76,8 +160,3 @@ async function Data_Load(data){
     return r_arr;
 }
 
-
-
-function pop_OrderForm() {
-    $('#order_wrapdek').css('display','block');
-}

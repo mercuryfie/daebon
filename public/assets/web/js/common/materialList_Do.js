@@ -2,6 +2,64 @@ $(document).ready(function() {
 
     Load_Data('');
 
+
+    $('#addMate').click(function () {
+        $('#addMateWrap').css('display','block');
+    });
+
+    $('#addMateWrap #Xbtn, #addMateWrap #Xbtn2').click(function () {
+        $('#addMateWrap').css('display','none');
+    });
+
+    $("#mTable thead th").on("click", function () {
+        let table = $("#mTable");
+        let tbody = table.find("tbody");
+        let rows = tbody.find("tr").toArray();
+
+        let colIndex = $(this).data("col");
+
+        let ascending = $(this).data("asc");
+        if (ascending === undefined) {
+            ascending = true; // 첫 클릭은 오름차순
+        }
+
+        $("#mTable thead th .dIcon").removeClass("fa-angle-up").addClass("fa-angle-down");
+
+        // 현재 th만 스타일 적용 및 방향 반전
+        $(this).data("asc", !ascending);
+
+        // 아이콘 변경
+        let icon = $(this).find(".dIcon");
+        if (ascending) {
+            icon.removeClass("fa-angle-down").addClass("fa-angle-up");
+        } else {
+            icon.removeClass("fa-angle-up").addClass("fa-angle-down");
+        }
+
+        rows.sort(function (a, b) {
+            let A = $(a).children("td").eq(colIndex).text().trim();
+            let B = $(b).children("td").eq(colIndex).text().trim();
+
+            let numA = parseFloat(A.replace(/,/g, ''));
+            let numB = parseFloat(B.replace(/,/g, ''));
+
+            // 숫자 비교
+            if (!isNaN(numA) && !isNaN(numB)) {
+                return ascending ? (numB - numA) : (numA - numB);
+            }
+
+            // 문자열 비교
+            if (ascending) {
+                return A > B ? -1 : (A < B ? 1 : 0);
+            } else {
+                return A < B ? -1 : (A > B ? 1 : 0);
+            }
+        });
+
+        tbody.empty().append(rows);
+
+    });
+
     $(document).on('click','button[name="btn_pop"]',function(){
         let typ = $(this).data('type');
         console.log(typ);
@@ -78,10 +136,14 @@ $(document).ready(function() {
                         <tr id="tr_${el.code}">
                             <td class="ltThead col1">${el.typ_str}</td>
                             <td class="ltThead col2">
+                                <a href="javascript:;" class="materialName" onclick="mod_Material('${el.code}');">${el.code}</a>
+                            </td>
+                            <td class="ltThead col2">
                                 <a href="javascript:;" class="materialName" onclick="mod_Material('${el.code}');">${el.name}</a>
                             </td>
                             <td class="ltThead col3">${el.uname}</td>
                             <td class="ltThead col4">${el.stock}</td>
+                            <td class="ltThead col4">${el.stock}</td> 
                             <td class="ltThead col5">${el.avg}</td> 
                             <td class="ltThead col6">
                                 <button type="button" class="btnType3 trashBtn" id="del_${el.seq}" name="btn_del"  data-code="${el.code}"> 
@@ -137,6 +199,9 @@ $(document).ready(function() {
                     html =`
                         <tr id="tr_${el.code}">
                             <td class="ltThead col1">${el.typ_str}</td>
+                            <td class="ltThead col2">
+                                <a href="javascript:;" class="materialName" onclick="mod_Material('${el.code}');">${el.name}</a>
+                            </td>
                             <td class="ltThead col2">
                                 <a href="javascript:;" class="materialName" onclick="mod_Material('${el.code}');">${el.name}</a>
                             </td>
@@ -290,16 +355,19 @@ async function Load_Data(skey) {
             if (Cnt > 0) {
                 $.each(arr, function (index, el) {
                     html +=`
-                        <tr id="tr_${el.mcode}">
-                            <td class="ltThead col1">${el.typ_str}</td>
-                            <td class="ltThead col2">
-                                <a href="javascript:;" class="materialName" onclick="mod_Material('${el.mcode}');">${el.mname}</a>
+                        <tr id="tr_${el.mtcode}">
+                            <td class="ltTbody col1">${el.typ_str}</td>
+                            <td class="ltTbody col2">
+                                <a href="javascript:;" class="materialName" onclick="mod_Material('${el.mtcode}');">${el.mtcode}</a>
                             </td>
-                            <td class="ltThead col3">${el.uname}</td>
-                            <td class="ltThead col4">${el.stock}</td>
-                            <td class="ltThead col5">${el.avg}</td> 
-                            <td class="ltThead col6">
-                                <button type="button" class="btnType3 trashBtn" id="del_${el.seq}" name="btn_del"  data-code="${el.mcode}"> 
+                            <td class="ltTbody col2">
+                                <a href="javascript:;" class="materialName" onclick="mod_Material('${el.mtcode}');">${el.mtname}</a>
+                            </td>
+<!--                            <td class="ltThead col3">${el.uname}</td>-->
+                            <td class="ltTbody col4">${el.stock}</td>
+                            <td class="ltTbody col5">${el.avg}</td> 
+                            <td class="ltTbody col6">
+                                <button type="button" class="btnType3 trashBtn" id="del_${el.seq}" name="btn_del"  data-code="${el.mtcode}"> 
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </td>

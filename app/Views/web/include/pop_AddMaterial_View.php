@@ -5,7 +5,7 @@
             <i class="fa-solid fa-xmark " id="Xbtn" name="Xbtn"></i>
             <div class="area area1 flexType2">
                 <p class="category">구분</p>
-                <select name=division"" id="division" class="inputType220">
+                <select name="division" id="division" class="inputType220">
                     <option value="">선택하세요.</option>
                     <?=$main['material'];?>
                 </select>
@@ -30,13 +30,13 @@
                     <?=$main['supply'];?>
                 </select>
             </div>
-            <div class="area area6 flexType2">
-                <p class="category">입출고단위</p>
-                <select name="unit" id="unit" class="inputType220">
-                    <option value="">선택하세요.</option>
-                    <?=$main['unit'];?>
-                </select>
-            </div>
+<!--            <div class="area area6 flexType2">-->
+<!--                <p class="category">원자재단위</p>-->
+<!--                <select name="unit" id="unit" class="inputType220">-->
+<!--                    <option value="">선택하세요.</option>-->
+<!--                    --><?php //=$main['unit'];?>
+<!--                </select>-->
+<!--            </div>-->
             <div class="area area5 mt20 flexType5">
                 <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>
                 <button type="button" class="btnType2" id="btn_pop" name="btn_pop" data-type="" data-code="">확인</button>

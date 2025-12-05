@@ -1,7 +1,7 @@
 <?= $this->extend("/web/template/layout_workpage") ?>
 <?= $this->section("content") ?>
 <!-- js ----------------------------  -->
-<!--    <script src="--><?php //=URL_MASTER_ASSETS?><!--/burkOrderForm_Do.js?rnd=--><?php //= rand(); ?><!--"></script>-->
+<script src="<?=URL_COMMON_ASSETS?>/packingStatus_Do.js?rnd=<?= rand(); ?>"></script>
 <script>
 </script>
 
@@ -9,7 +9,7 @@
     <div class="packing_wraptrf">
         <div class="titleBox">
             <p class="headTitle">
-                포장발송화면 / 상품확인
+                포장작업화면
             </p>
             <input type="search"
                    class="inputType520 ml20"
@@ -101,8 +101,11 @@
                 </div>
                 <div class="imgBox_box2ck flexType2">
                     <div class="noirBox">
-                        <div class="noirLayer ">
+                        <div class="noirLayer noir2">
                             <!--                        <div class="noir"></div>-->
+                            <div class="done active flexType1">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
                             <img src="/assets/web/src/packing_1.png" alt="img">
                         </div>
                         <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>
@@ -110,6 +113,9 @@
                     <div class="noirBox">
                         <div class="noirLayer">
                             <div class="noir"></div>
+                            <div class="done flexType1">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
                             <img src="/assets/web/src/packing_1.png" alt="img">
                         </div>
                         <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>
@@ -117,6 +123,9 @@
                     <div class="noirBox">
                         <div class="noirLayer">
                             <div class="noir"></div>
+                            <div class="done flexType1">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
                             <img src="/assets/web/src/packing_1.png" alt="img">
                         </div>
                         <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>

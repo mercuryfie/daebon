@@ -8,6 +8,9 @@
 
 <section class="content">
     <div class="waybill_boxfxp flexType4">
+        <div class="bgBox">
+            <img src="/assets/web/src/waybill3.png" alt="img" class="waybillImg">
+        </div>
         <div class="left">
             <div class="left1">
                 <p class="text text1">35-남4</p>

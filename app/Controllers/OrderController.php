@@ -50,7 +50,7 @@ class OrderController extends BaseController
             return redirect()->to('/member/login');
         }else {
             $metaarr = [
-                'h_title' => '쇼핑몰 관리',
+                'h_title' => '쇼핑몰연동',
                 'h_type' => 1
             ];
 
@@ -66,6 +66,33 @@ class OrderController extends BaseController
             ];
 
             return view('web/common/linkMalls_View',$main_data);
+        }
+    }
+
+
+    public function linkMallsLogs()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '쇼핑몰연동-로그보기',
+                'h_type' => 1
+            ];
+
+            $main_data = [];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'main' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/linkMallsLogs_View',$main_data);
         }
     }
 
@@ -93,6 +120,35 @@ class OrderController extends BaseController
             ];
 
             return view('web/common/orderList_View',$main_data);
+        }
+    }
+
+
+    public function orderRegister()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '주문목록',
+                'h_type' => 1
+            ];
+
+            $main_data = [
+                'excode' => opt_Excode('')
+            ];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'body' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/orderRegister_View',$main_data);
         }
     }
 

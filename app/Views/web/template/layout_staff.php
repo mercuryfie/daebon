@@ -39,10 +39,6 @@
     <!--###############-->
     <style>
 
-        main {
-            background-color: red;
-        }
-
     </style>
 </head>
 
@@ -52,12 +48,7 @@
 
 <main>
     <div class="mainWrapStaff">
-        <div class="leftWrapStaff">
-            <p>hello</p>
-        </div>
-        <div class="rightWrapStaff">
-            <?= $this->renderSection('content'); ?>
-        </div>
+        <?= $this->renderSection('content'); ?>
 
     </div>
     <!--    <div class="workpageWrap flexType4">-->

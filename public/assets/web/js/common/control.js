@@ -2,6 +2,13 @@ $(document).on('click', '.copied', function (e) {
     e.stopPropagation();
     e.preventDefault();
 
+    $(document).on("mousedown", "#goMainImg", function(e) {
+        if (e.button === 1) { // middle click
+            window.open("/main", "_blank");
+            e.preventDefault(); // 기존 동작 방지
+        }
+    });
+
     // 중복 실행 방지
     if ($(this).data('copied')) return;
     $(this).data('copied', true);
@@ -18,6 +25,26 @@ $(document).on('click', '.copied', function (e) {
         dataCopy(text);
     }
 });
+
+function generateNewCode(typ) {
+
+    if(typ==1) {
+        let timeNow = new Date().toISOString().slice(0, 10).replace(/-/g, ''); // YYYYMMDD
+        let rnd = Math.floor(Math.random() * 9000) + 1000; // 10000~99999
+        return 'DBG' + timeNow + rnd;
+    }else if(typ==2){
+        let timeNow = new Date().toISOString().slice(0, 10).replace(/-/g, ''); // YYYYMMDD
+        let rnd = Math.floor(Math.random() * 90000) + 10000; // 10000~99999
+        return 'DR' + timeNow + rnd;
+    }
+}
+
+
+
+function fn_padNumber(num, targetLength) {
+    return String(num).padStart(targetLength, '0');
+}
+
 
 function fn_IsEmpty(arr){
     let bool;
@@ -55,6 +82,59 @@ function Load_API(url,dataarr){
         });
     });
 }
+
+function Load_FileUpload(url, fileInputId, extraData = {}) {
+    return new Promise(function(resolve, reject) {
+        console.log('call file upload api=' + url);
+
+        const fileInput = $(`#${fileInputId}`)[0];
+        const fileCount = fileInput.files.length;
+
+        if (fileCount === 0) {
+            let retMap = new Map();
+            retMap.set('status', 'error');
+            retMap.set('data', '');
+            retMap.set('message', '파일을 선택해주세요.');
+            reject(retMap);
+            return;
+        }
+
+        const formData = new FormData();
+        // 파일들 추가 (multiple 지원)
+        for(let i = 0; i < fileCount; i++) {
+            formData.append(fileInputId, fileInput.files[i]);
+        }
+
+        // 추가 데이터 넣기
+        for (let key in extraData) {
+            formData.append(key, extraData[key]);
+        }
+
+        let retMap = new Map();
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: "JSON",
+            data: formData,
+            processData: false,  // FormData라서 필수!
+            contentType: false,  // FormData라서 필수!
+            cache: false,
+            success: function (response) {
+                retMap.set('status', response.result);
+                retMap.set('data', response.info);
+                retMap.set('message', response.message);
+                resolve(retMap);
+            },
+            error: function (request, status, error) {
+                retMap.set('status', 'error');
+                retMap.set('data', '');
+                retMap.set('message', error);
+                reject(retMap);
+            }
+        });
+    });
+}
+
 
 function Load_API_Auth(url, dataarr){
     return new Promise(function(resolve, reject){
@@ -177,18 +257,66 @@ function stop_spinner(){
     $('#spinner').removeClass('active');
 }
 
+
 function printWindow(id) {
-    var init_body = document.body.innerHTML;
-    //인쇄하기 전 수행
-    window.onbeforeprint = function () {
-        document.body.innerHTML = document.getElementById(id).innerHTML;
-    }
-    //인쇄한 후 수행
-    window.onafterprint = function () {
-        document.body.innerHTML = init_body;
-    }
-    setTimeout(function(){window.print();}, 1000);
+    var printContent = document.getElementById(id).innerHTML;
+    var printWindow = window.open('', '', 'width=800,height=600');
+    var rnd = Math.floor(Math.random() * 10000);
+    printWindow.document.write('<html><head><title>Print</title>');
+    // 외부 CSS파일 링크 - 문법 오류 없이 닫기
+    printWindow.document.write("<link rel='stylesheet' href='/assets/web/css/style.css?rnd=" + rnd + "' />");
+    // 꼭 필요한 스타일 직접 삽입 (불안할 경우, 예: 테이블 border 등)
+    // printWindow.document.write('<style>@media print { table, th, td { border:1px solid black !important; } }</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(printContent);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.onload = function() {
+        printWindow.focus();
+        setTimeout(function() {
+            printWindow.print();
+            printWindow.close();
+        }, 500); // 딜레이 충분히 주세요 (300~1000ms 권장)
+    };
 }
+
+// function printWindow(id) {
+//     var printContent = document.getElementById(id).innerHTML;
+//     var printWindow = window.open('', '', 'width=800,height=600');
+//     printWindow.document.write('<html><head><title>Print</title>');
+//     var rnd = Math.floor(Math.random() * 10000);
+//     var cssstr = "<link rel='stylesheet' href='/assets/web/css/style.css?rnd=" + rnd  + '\'/>';
+//     printWindow.document.write(cssstr);
+//     printWindow.document.write('</head><body>');
+//     printWindow.document.write(printContent);
+//     printWindow.document.write('</body></html>');
+//     printWindow.document.close();
+//
+//     printWindow.onload = function() {
+//         printWindow.focus();
+//         printWindow.print();
+//         printWindow.close();
+//     };
+// }
+
+
+// function printWindow(id) {
+//     var init_body = document.body.innerHTML;
+//     //인쇄하기 전 수행
+//
+//     console.log(id);
+//
+//     console.log(document.getElementById(id).innerHTML);
+//
+//     window.onbeforeprint = function () {
+//         document.body.innerHTML = document.getElementById(id).innerHTML;
+//     }
+//     //인쇄한 후 수행
+//     window.onafterprint = function () {
+//         document.body.innerHTML = init_body;
+//     }
+//     setTimeout(function(){window.print();}, 1000);
+// }
 
 
 function Make_Toast(msg){
@@ -227,233 +355,6 @@ function div_close(id,reload){
 
 }
 
-function Join_attr_string(arr, sep){
-    return arr.filter(e => e).join(sep);
-}
-
-function go_main() {
-    var url = "/";
-    $(location).attr("href", url);
-}
-
-function go_login() {
-    var url = "/member/login";
-    $(location).attr("href", url);
-}
-
-function go_logout(){
-    var url = "/member/logout";
-    $(location).attr("href", url);
-}
-
-function go_dashboard() {
-    var url = "/order/dashboard";
-    $(location).attr("href", url);
-}
-
-function go_linkMalls() {
-    var url = "/order/linkmalls";
-    $(location).attr("href", url);
-}
-
-function go_orderList() {
-    var url = "/order/orderlist";
-    $(location).attr("href", url);
-}
-
-function go_deliList() {
-    var url = "/order/deliverylist";
-    $(location).attr("href", url);
-}
-
-function go_packingList() {
-    var url = "/order/packinglist";
-    $(location).attr("href", url);
-}
-
-function go_packingListStaff() {
-    var url = "/packing";
-    $(location).attr("href", url);
-}
-
-function go_packingStatus() {
-    var url = "/order/packingstatus";
-    $(location).attr("href", url);
-}
-
-function go_packingStatusStaff() {
-    var url = "/packing/status";
-    $(location).attr("href", url);
-}
-
-function go_goodsList() {
-    var url = "/goods/goodslist";
-    $(location).attr("href", url);
-}
-
-function go_goodsReg() {
-    var url = "/goods/goodsreg";
-    $(location).attr("href", url);
-}
-
-function go_productsList() {
-    var url = "/goods/productslist";
-    $(location).attr("href", url);
-}
-
-function go_productsReg() {
-    var url = "/goods/productsreg";
-    $(location).attr("href", url);
-}
-
-function go_productsEditor() {
-    var url = "/goods/productseditor";
-    $(location).attr("href", url);
-}
-
-
-function go_manuRegister($mName) {
-    let url = "/goods/manuregister";
-    $(location).attr("href", url);
-}
-
-function go_manuEditor($mName) {
-    let url = "/goods/manueditor";
-    $(location).attr("href", url);
-}
-
-
-function go_productionList() {
-    let url = "/produce/productionlist";
-    $(location).attr("href", url);
-}
-
-function go_productionListStaff() {
-    let url = "/product";
-    $(location).attr("href", url);
-}
-
-function go_productionStatus(code) {
-    let url = "/produce/productionstatus?cd=" + code;
-    $(location).attr("href", url);
-}
-
-function go_productionStatusStaff(code) {
-    let url = "/product/status?cd=" + code;
-    $(location).attr("href", url);
-}
-
-function go_categoryList() {
-    let url = "/goods/categorylist";
-    $(location).attr("href", url);
-}
-
-function add_category2() {
-    $('#addCat2_wrap').css('display','block');
-}
-
-function go_productionDetail() {
-    let url = "/produce/productiondetail";
-    $(location).attr("href", url);
-}
-
-function go_productionDetailMono() {
-    let url = "/produce/productiondetailmono";
-    $(location).attr("href", url);
-}
-
-
-function go_productionDetailStaff() {
-    let url = "/product/statusDetail";
-    $(location).attr("href", url);
-}
-
-function go_productionDetailMonoStaff() {
-    let url = "/product/statusDetailMono";
-    $(location).attr("href", url);
-}
-
-// function go_productionComplete() {
-//     let url = "/produce/productioncomplete";
-//     $(location).attr("href", url);
-// }
-//
-// function go_productionComplete2() {
-//     let url = "/produce/productioncomplete2";
-//     $(location).attr("href", url);
-// }
-
-function go_inoutStatus() {
-    let url = "/inout/inoutstatus";
-    $(location).attr("href", url);
-}
-
-function go_materialList() {
-    let url = "/inout/materiallist";
-    $(location).attr("href", url);
-}
-
-function go_materialReg() {
-    let url = "/inout/materialreg";
-    $(location).attr("href", url);
-}
-
-function go_popBarcodeLayer() {
-    let url = "/inout/popbarcodelayer";
-    $(location).attr("href", url);
-}
-
-function go_popBarcodeWindow() {
-    let url = "/inout/popbarcodewindow";
-    $(location).attr("href", url);
-}
-
-
-function go_productsMaster(){
-    let url = "/goods/productsmaster";
-    $(location).attr("href", url);
-}
-
-function go_goodsETC(){
-    let url = "/goods/goodsetc";
-    $(location).attr("href", url);
-}
-
-function go_qualityReport(){
-    let url = "/report/quality";
-    $(location).attr("href", url);
-}
-
-function go_orderReport(){
-    let url = "/report/order";
-    $(location).attr("href", url);
-}
-
-function go_workStatus(){
-    let url = "/monitor/workstatus";
-    $(location).attr("href", url);
-}
-
-function go_processStatus(){
-    let url = "/monitor/processstatus";
-    $(location).attr("href", url);
-}
-
-function go_userInfo(){
-    let url = "/info/user";
-    $(location).attr("href", url);
-}
-
-function go_notice(){
-    let url = "/info/notice";
-    $(location).attr("href", url);
-}
-
-
-// function pop_AddDeliForm() {
-//     let url = "/order/addDeliForm";
-//     $(location).attr("href", url);
-// }
 
 function pop_AddDeliForm() {
     let url = "/order/adddeliform";
@@ -508,9 +409,9 @@ function pop_waybillFormStaff() {
     };
 }
 
-function pop_OrderRoastForm(code) {
-    let url = "/produce/instructionform?cd=" + code;
-    let width = 920;
+function pop_OrderRoastForm(url) {
+
+    let width = 1080;
     let height = 880;
 
     let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);

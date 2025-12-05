@@ -13,116 +13,73 @@
                 품질보고서
             </p>
         </div>
-        <div class="areaBox area_boxm9k ">
-            <div class="outerBox flexType3">
-                <p class="title">제품정보</p>
-                <div class="right flexType1">
-                    <i class="fa-solid fa-angle-down"></i>
-                </div>
-            </div>
-            <div class="area5 area_box2qd ">
-                <div class="elementBox ">
-                    <div class="element flexType2">
-                        <p class="must"></p>
-                        <p class="title">대분류</p>
-                        <select name="" id="" class="inputType360">
-                            <option value="">원물볶음차</option>
-                            <option value="">원물볶음차</option>
-                            <option value="">원물볶음차</option>
-                        </select>
-                    </div>
-                    <div class="element flexType2">
-                        <p class="must"></p>
-                        <p class="title">중분류</p>
-                        <select name="" id="" class="inputType360">
-                            <option value="">생강</option>
-                            <option value="">생강</option>
-                            <option value="">생강</option>
-                        </select>
-                    </div>
-                    <div class="element flexType2">
-                        <p class="must"></p>
-                        <p class="title">상품명</p>
-                        <input type="search" class="inputType360" placeholder="상품명을 입력하세요." >
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="areaBox area_boxm9k ">
-            <div class="outerBox flexType3">
-                <div class="left flexType2">
-                    <p class="title mr10">제품 BOM</p>
-                    <p class="title2">재료 입력</p>
-                </div>
-                <div class="right flexType1">
-                    <i class="fa-solid fa-angle-down"></i>
-                </div>
-            </div>
-            <div class="area5 area_box2qd ">
-<!--                <div class="elementBox">-->
-<!--                    <p class="subTitle">재료 입력</p>-->
-<!--                </div>-->
-                <div class="elementBox products_boxc6m">
-                    <div class="element flexType2">
-                        <p class="must"></p>
-                        <p class="title">재료 결과명</p>
-                        <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="metirialName" >
-                    </div>
-                    <div class="hi" name="matiBox">
-                        <div class="element flexType3 selectMetirialBox" name="oneMati">
-                            <div class="left flexType2">
-                                <p class="must"></p>
-                                <p class="title">재료 선택</p>
-                                <select name="" id="" class="inputBorder mr10">
-                                    <option value="">우엉</option>
-                                    <option value="">우엉</option>
-                                    <option value="">우엉</option>
-                                </select>
-                                <input type="search" class="inputBorder inputBorder2 mr10" placeholder="예:10000" >
-                                <p class="unit mr10">g</p>
-                            </div>
-                            <button type="button" class="inputBorder removeBtn" name="removeMati" onclick="removeMati(this);">제거</button>
-                        </div>
-                        <div class="element flexType3 selectMetirialBox" name="oneMati">
-                            <div class="left flexType2">
-                                <p class="notmust"></p>
-                                <p class="title">재료 선택</p>
-                                <select name="" id="" class="inputBorder mr10">
-                                    <option value="">우엉</option>
-                                    <option value="">우엉</option>
-                                    <option value="">우엉</option>
-                                </select>
-                                <input type="search" class="inputBorder inputBorder2 mr10" placeholder="예:10000" >
-                                <p class="unit mr10">g</p>
-                            </div>
-                            <button type="button" class="inputBorder removeBtn" name="removeMati" onclick="removeMati(this);">제거</button>
-                        </div>
-                        <div class="element flexType3 selectMetirialBox" name="oneMati">
-                            <div class="left flexType2">
-                                <p class="notmust"></p>
-                                <p class="title">재료 선택</p>
-                                <select name="" id="" class="inputBorder mr10">
-                                    <option value="">우엉</option>
-                                    <option value="">우엉</option>
-                                    <option value="">우엉</option>
-                                </select>
-                                <input type="search" class="inputBorder inputBorder2 mr10" placeholder="예:10000" >
-                                <p class="unit mr10">g</p>
-                            </div>
-                            <button type="button" class="inputBorder removeBtn" name="removeMati" onclick="removeMati(this);">제거</button>
-                        </div>
-                    </div>
-                    <div class="element addBox">
-                        <button type="button" class="btnType1" name="addMati" onclick="add_matiBox(this);">재료추가</button>
 
-                    </div>
+
+        <div class="areaBox area_boxd2s">
+            <div class="area area1 flexType2">
+                <div class="left flexType2 dateBox">
+                    <!--                    <p class="title">기간</p>-->
+                    <a href="javascript:;" class="period">오늘</a>
+                    <a href="javascript:;" class="period">1주일</a>
+                    <a href="javascript:;" class="period">1개월</a>
+                    <a href="javascript:;" class="period">3개월</a>
+                </div>
+                <div class="date_boxtc6 flexType2">
+                    <label for="date1" class="dateLabel1">
+                        <input type="text" id="s_date" name="date1" class="inputType160 date1 datepicker" placeholder="2025/01/01" >
+                        <i class="fa-regular fa-calendar calicon" id="calicon1-1"></i>
+                    </label>
+                    <p class="wave">~</p>
+                    <label for="date2" class="dateLabel2">
+                        <input type="text" id="e_date" name="date2" class="inputType160 datepicker" placeholder="2025/12/31" >
+                        <i class="fa-regular fa-calendar calicon" id="calicon1-2"></i>
+                    </label>
                 </div>
             </div>
-            
+            <div class="area2 production_boxa6m">
+                <div class="left flexType2">
+                    <input type="search" name="" id="" class="searchArea" placeholder="지시코드 또는 제품명 검색">
+                    <button type="button" class="btnType1">검색</button>
+                </div>
+            </div>
         </div>
-        <div class="lastBox flexType6">
-            <button type="button" class="btnType1 mr10" onclick="go_productsList();">이전</button>
-            <button type="button" id="nextBtn" name="nextBtn" class="btnType2" onclick="go_manuEditor();">다음</button>
+        <div class="areaBox area_boxmxh ">
+            <div class="goods_boxkfg flexType3">
+                <div class="left flexType2">
+                    <p class="title">작업목록</p>
+                    <p class="count">10</p>
+                    <p class="unit">건</p>
+                </div>
+                <div class="right">
+                    <button type="button" class="btnType1">엑셀다운로드</button>
+                </div>
+            </div>
+            <div class="area4 goods_boxa1b flexType2">
+                <div class="produce_boxfxp">
+                    <table class="orderInfoTable orderInfoTable1 pro_tablefz7c">
+                        <thead>
+                        <tr name="view_detail" data-code="${el.gicode}">
+                            <td class="ltThead productNo checkCol"></td>
+                            <td class="ltThead">지시날짜</td>
+                            <td class="ltThead">완료날짜</td>
+                            <td class="ltThead">제품BOM명</td>
+                            <td class="ltThead">지시코드</td>
+                            <td class="ltThead">수량</td>
+                            <td class="ltThead">공정 수</td>
+
+                            <td class="ltThead">품질보고서</td>
+                        </tr>
+                        </thead>
+                        <tbody name="clist" id="clist">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </div>
 

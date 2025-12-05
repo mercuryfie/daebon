@@ -1,8 +1,9 @@
 $(function() {
 
-    $(".area_boxm9k > .outerBox > .right > i").click(function() {
-        var $icon = $(this);
-        var $content = $icon.closest(".area_boxm9k").find(".area_box2qd");
+    $(".area_boxm9k > .outerBox > .right > .foldBtn").click(function() {
+        let $foldBtn = $(this);
+        let $icon = $(this > 'i');
+        let $content = $foldBtn.closest(".area_boxm9k").find(".area_box2qd");
 
         // .area_box2qd 슬라이드 토글
         $content.slideToggle(200);
@@ -16,6 +17,8 @@ $(function() {
     });
 
 
+
+
     $("button[name='addRoasting']").click(function() {
         let $firstRoasting = $("div[name='oneRoasting']").first();
         let $copy = $firstRoasting.clone();
@@ -26,6 +29,66 @@ $(function() {
 
         $("div[name='roasting_boxp9x']").append($copy);
     });
+
+
+    $(document).on('click','button[name="addMaterial"]',function(){
+        const parent = $(this).closest('.rightSelectorBox');
+        const node = parent.find('.rightSelector').first();
+        const clone = node.clone();
+        clone.find('input[type="search"]')
+        clone.find('button[name="removeMaterial"]').css('display','flex');
+        clone.find('button[name="removeMaterial"]').addClass('flexType1');
+        clone.find('select').prop('selectedIndex', 0);
+        clone.find('input').val('');
+        parent.append(clone);
+    });
+
+
+    $(document).on('click','button[name="removeMaterial"]',function(){
+        const oneMate = $(this).closest('[name="oneMate"]');
+        const container = $(this).closest('[name="coverMaterial"]').find('div[name="materialBox"]');
+        let cnt = 0;
+        container.find('div[name="oneMate"]').each(function () {
+            cnt++;
+        });
+
+        if(cnt > 1){
+            oneMate.remove();
+        }else{
+            oneMate.find('select[name="material_code"]').val('');
+            oneMate.find('input[name="material_cnt"]').val('');
+        }
+    });
+
+    /* 제품등록>제품bom>공정입력>부자재추가> add cover start  */
+    $(document).on('click','button[name="addCover"]',function(){
+        const parent = $(this).closest('.tBagBox');
+        const node = parent.find('.oneTBag').first();
+        const clone = node.clone();
+        clone.find('button[name="removeCover"]').css('display','flex');
+        clone.find('button[name="removeCover"]').addClass('flexType1');
+        clone.find('select').prop('selectedIndex', 0);
+        clone.find('input').val('');
+        parent.append(clone);
+    });
+
+    $(document).on('click','button[name="removeCover"]',function(){
+        const oneTBagCon = $(this).closest('[name="oneTBag"]');
+        const container = $(this).closest('[name="coverBox"]').find('div[name="tBagBox"]');
+        let cnt = 0;
+        container.find('div[name="oneTBag"]').each(function () {
+            cnt++;
+        });
+        if(cnt > 1){
+            oneTBagCon.remove();
+        }else{
+            oneTBagCon.find('select[name="accessory"]').val('');
+            oneTBagCon.find('input[name="accessory_cnt"]').val('');
+        }
+    });
+
+
+    /* 제품등록>제품bom>공정입력>부자재추가> add cover end  */
 
 
     $("button[name='nextBtn']").click(function() {

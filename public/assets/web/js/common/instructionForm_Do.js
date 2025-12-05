@@ -1,15 +1,22 @@
 $(document).ready(function() {
     let pcode = $("#barcodeDiv").data("pcode");
     Prn_Barcode(pcode);
+
+    $(document).on('click','#btn_print',function(){
+        printWindow('frnbody');
+    });
+
+    $('#xBtn').click(function () {
+        window.close();
+    });
+
+
 });
 
 
 function Prn_Barcode(pcode) {
     console.log("cpcode=" + pcode);
-    if (pcode == "") {
-        alert("잘못된 접근입니다.");
-        window.close();
-    } else {
+    if (pcode != "") {
         $("#barcodeDiv").barcode(pcode, "code128", {
             barWidth: 2,
             barHeight: 40,
@@ -26,3 +33,5 @@ function Prn_Barcode(pcode) {
 
     }
 }
+
+// ㅇㅇ

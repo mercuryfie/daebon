@@ -1,7 +1,7 @@
 <?= $this->extend("/web/template/layout_workpage") ?>
 <?= $this->section("content") ?>
     <!-- js ----------------------------  -->
-    <script src="<?=URL_COMMON_ASSETS?>/productsEditor.js?rnd=<?=rand();?>"> </script>
+<!--    <script src="--><?php //=URL_COMMON_ASSETS?><!--/productsEditor.js?rnd=--><?php //=rand();?><!--"> </script>-->
     <script src="<?=URL_COMMON_ASSETS?>/productsEditor_Do.js?rnd=<?=rand();?>"> </script>
 
     <section class="merright">
@@ -24,55 +24,62 @@
                 </div>
                 <div class="area5 area_box2qd ">
                     <div class="elementBox products_boxc6m">
-                        <div class="element flexType2">
-                            <p class="must"></p>
-                            <p class="title">상품분류</p>
-                            <select name="category" id="category" class="inputType360">
-                                <option value="">선택하세요.</option>
-                                <?=$body['category'];?>
-                            </select>
-                        </div>
-                        <div class="element flexType2">
-                            <p class="must"></p>
+                        <div class="element element2 flexType2">
+                            <p class="notmust"></p>
                             <p class="title">제품명</p>
-                            <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="goodsName" id="goodsName" value="<?=$body['goods_arr']['name'];?>">
+                            <span class="data" name="txt_category" id="txt_category"><?=$body['goods_arr']['name'];?></span>
+                        </div>
+                        <div class="element element2 flexType2">
+                            <p class="notmust"></p>
+                            <p class="title">분류</p>
+                            <span class="data" name="txt_category" id="txt_category"><?=$body['goods_arr']['c_str'];?></span>
+                        </div>
+                        <div class="element element4 flexType2">
+                            <p class="notmust"></p>
+                            <p class="title">적정 재고량</p>
+                            <span class="data" name="txt_Inventory" id="txt_Inventory"><?=$body['goods_arr']['inventory'];?>개</span>
+                        </div>
+                        <div class="element element4 flexType2">
+                            <p class="notmust"></p>
+                            <p class="title">단위당 용량</p>
+                            <span class="data" name="txt_unitwight" id="txt_unitwight"><?=$body['goods_arr']['unitwight'];?>g</span>
                         </div>
                         <div class="element flexType2">
                             <p class="must"></p>
                             <p class="title">기본수량</p>
-                            <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="goodsQuantity" id="goodsQuantity" value="<?=$body['goods_arr']['quantity'];?>">
+                            <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="Quantity" id="Quantity" value="<?=$body['goods_arr']['quantity'];?>">개
                         </div>
-                        <div class="element flexType2">
-                            <p class="must"></p>
-                            <p class="title">적정재고량</p>
-                            <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="goodsInventory" id="goodsInventory" value="<?=$body['goods_arr']['inventory'];?>">
-                        </div>
-                        <div class="element flexType2 selectMetirialBox hide" >
-                            <div class="left flexType4" name="coverMaterial">
-                                <div class="cat flexType2">
-                                    <p class="must"></p>
-                                    <p class="title">재료선택</p>
-                                </div>
-                                <div class="rightSelectorBox flexCol" name="materialBox" >
-                            <?if(fn_ArrayCnt($body['material_arr']) > 0){?>
-                                <?for($i=0;$i<=(fn_ArrayCnt($body['material_arr'])-1);$i++){?>
-                                    <div class="rightSelector flexType2" name="oneMate">
-                                        <select name="material_code" class="inputBorder mr10">
-                                            <option value="">선택하세요.</option>
-                                            <?= fnMake_Material_option($body['material_arr'][$i]['mtcode'],1);?>
-                                        </select>
-                                        <input type="search" class="inputBorder inputBorder2 mr10" placeholder="예:10000" value="<?=$body['material_arr'][$i]['cnt'];?>" name="material_cnt">
-                                        <p class="unit mr10">g</p>
-                                        <button type="button" class="btnType3 addBtn mr10" name="addMaterial">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                        <button type="button" class="btnType3 removeBtn" name="removeMaterial">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
+                        <div class="element element5 flexType4 selectMetirialBox" >
+                            <div class="cat flexType2">
+                                <p class="must"></p>
+                                <p class="title">원자재 선택</p>
+                            </div>
+
+                            <div class="searchMate_boxx21  flexCol " name="">
+                                <div class="copyArea copyArea1 flexType2 mr10">
+                                    <div class="keyIn flexType2">
+                                        <input type="search" class="copySearch" id="txt_product" name="txt_product" placeholder="원자재명 입력후 엔터" data-code="">
+                                        <button class="copyDropdown " type="button" id="btn_product" name="btn_product"> <i class="fas fa-caret-down"></i></button>
                                     </div>
-                                <?}?>
-                            <?}?>
+                                    <input type="number" placeholder="무게입력" class="count mr10 only-number" id="txt_product_num" name="txt_product_num" />
+                                    <button class="copyAdd btnType3" type="button" id="addproduct" name="addproduct" data-mtcode="" data-mtname="">추가</button>
                                 </div>
+                                <div class="flexCol">
+                                    <div class="copyArea copyArea3 tagBox" name="add_material" id="add_material">
+                                <?if(fn_ArrayCnt($body['material_arr'])>0){?>
+                                    <?foreach ($body['material_arr'] as $d){?>
+                                        <div class="productTag  flexType3" name="add_product_info" data-code="<?=$d['mtcode'];?>">
+                                            <div class="flexType2">
+                                                <p class="pname" name="mtname"><?=$d['mtname'];?></p>
+                                                <p class="count" name="mtcnt" data-cnt="<?=$d['cnt'];?>"><?=number_format($d['cnt']);?>g</p>
+                                            </div>
+                                            <i class="fa-solid fa-xmark" name="add_product_del"></i>
+                                        </div>
+                                    <?}?>
+                                <?}?>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -199,7 +206,7 @@
                 </div>
             </div>
             <div class="lastBox flexType6">
-                <button type="button" class="btnType1 mr10">취소</button>
+                <button type="button" class="btnType1 mr10" id="btn_cancel" name="btn_cancel">취소</button>
                 <button type="button" id="btn_confirm" name="btn_confirm" class="btnType2" >확인</button>
             </div>
         </div>

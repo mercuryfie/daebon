@@ -185,11 +185,6 @@ async function Make_Html(skey){
     $.each(arr.list, function (index, el) {
         html += `
             <tr>
-                <td class="ltTbody">
-                    <input type="checkbox" name="chkseq" value="${el.seq}" >
-                </td>
-<!--                <td class="ltTbody detailTd "> </td>-->
-                
                 <td class="ltTbody detailTd"><div class="flexType2  "><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdcode}</a><a href="javascript:;" class="detail_fo1 flexType1 ml10" onclick="pop_GoodsDetail('${el.pdcode}');"><i class="fa-solid fa-info"></i></a></div></td>
                 <td class="ltTbody"><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdname}</a></td>
                 <td class="ltTbody">${el.cname}</td>

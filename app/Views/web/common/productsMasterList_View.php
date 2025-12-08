@@ -2,7 +2,6 @@
 <?= $this->section("content") ?>
 
 <!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/productsMasterList.js?rnd=<?=rand();?>"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/productsMasterList_Do.js?rnd=<?=rand();?>"> </script>
 
 <script>

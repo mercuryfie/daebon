@@ -12,7 +12,7 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('click','#btn_confirm',async function(){
+    $('#btn_confirm').on('click',async function(){
         let gicode = $('#gicode').val();
         let prcode = $('#prcode').val();
         let gubun = $('#gubun').val();
@@ -36,7 +36,7 @@ $(document).ready(function() {
             };
 
             let arr = await Process_Confirm(data);
-            go_productionListStaff();
+            //go_productionListStaff();
         }
 
     });
@@ -70,10 +70,6 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('click','#btn_confirm',function(){
-        let typ = $(this).data('type');
-        console.log(typ);
-    });
 
     $(document).on('click','#btn_act',function(){
         let act = $(this).data('act');

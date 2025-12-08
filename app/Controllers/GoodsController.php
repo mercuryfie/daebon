@@ -340,7 +340,8 @@ class GoodsController extends BaseController
             ];
 
             $main_data = [
-
+                'category' => fnMake_Process_Type(''),
+                'material' => fnMake_Material_option('',2)
             ];
 
             $form = new Form;
@@ -358,7 +359,7 @@ class GoodsController extends BaseController
 
 
 
-    public function goodsEtc()
+    public function etcInfo()
     {
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
@@ -380,7 +381,7 @@ class GoodsController extends BaseController
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/common/goodsEtc_View',$main_data);
+            return view('web/common/etcInfo_View',$main_data);
         }
     }
 
@@ -406,11 +407,13 @@ class GoodsController extends BaseController
             }else{
                 $goods_arr = [
                     'code' => $gRs[0]['gcode'],
-                    'name' => $gRs[0]['gname'],
+                    'name' => $gRs[0]['gsname'],
                     'category' => $gRs[0]['category'],
+                    'c_str' => fnGetProductNameByCode($gRs[0]['category']),
                     'cname' => fnGetProductNameByCode($gRs[0]['category']),
                     'quantity' => $gRs[0]['quantity'],
-                    'inventory' => $gRs[0]['inventory']
+                    'inventory' => number_format($gRs[0]['inventory']),
+                    'unitwight' => $gRs[0]['unit_wight']
                 ];
 
                 $pRs = $good_m->Load_Goods_Process($code);

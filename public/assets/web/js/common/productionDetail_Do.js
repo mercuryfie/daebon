@@ -1,19 +1,4 @@
 $(document).ready(function() {
-    let gicode = $('#gicode').data('cd');
-    let nd = $('#gicode').data('nd');
-    const skey = {
-        skey : gicode
-    };
-
-    Make_Html(gicode,skey);
-    // Make_Detail(gicode,skey);
-
-    // let pcode = $("#barcodeDiv").data("pcode");
-    // Prn_Barcode(pcode);
-
-    // $(document).on('click','#btn_print',function(){
-    //     printWindow('frnbody');
-    // });
 
     $('#xBtn').click(function () {
         window.close();

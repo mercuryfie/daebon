@@ -11,6 +11,24 @@ $(document).ready(function() {
         $('#addMateWrap').css('display','none');
     });
 
+    $("#maker").on("change", function() {
+        if ($(this).val() === "bySelf") {
+            $("#maker").hide();
+            $("#makeCom").show().focus();
+        } else {
+            $("#makeCom").hide();
+        }
+    });
+
+    $("#supply").on("change", function() {
+        if ($(this).val() === "bySelf") {
+            $("#supply").hide();
+            $("#suppCom").show().focus();
+        } else {
+            $("#suppCom").hide();
+        }
+    });
+
     $("#mTable thead th").on("click", function () {
         let table = $("#mTable");
         let tbody = table.find("tbody");
@@ -141,8 +159,10 @@ $(document).ready(function() {
                             <td class="ltThead col2">
                                 <a href="javascript:;" class="materialName" onclick="mod_Material('${el.code}');">${el.name}</a>
                             </td>
-                            <td class="ltThead col3">${el.uname}</td>
+                            <td class="ltThead col3">${el.uname}dd</td>
                             <td class="ltThead col4">${el.stock}</td>
+                            <td class="ltThead col4">${el.stock}</td> 
+                            <td class="ltThead col4">${el.stock}</td> 
                             <td class="ltThead col4">${el.stock}</td> 
                             <td class="ltThead col5">${el.avg}</td> 
                             <td class="ltThead col6">

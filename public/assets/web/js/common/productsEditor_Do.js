@@ -1,4 +1,33 @@
 $(function() {
+
+
+    $(".area_boxm9k > .outerBox > .right > i").click(function() {
+        var $icon = $(this);
+        var $content = $icon.closest(".area_boxm9k").find(".area_box2qd");
+
+        // .area_box2qd 슬라이드 토글
+        $content.slideToggle(200);
+
+        // i 아이콘 클래스 변경
+        if ($icon.hasClass("fa-angle-down")) {
+            $icon.removeClass("fa-angle-down").addClass("fa-angle-up");
+        } else {
+            $icon.removeClass("fa-angle-up").addClass("fa-angle-down");
+        }
+    });
+
+
+    $("button[name='addRoasting']").click(function() {
+        let $firstRoasting = $("div[name='oneRoasting']").first();
+        let $copy = $firstRoasting.clone();
+
+        // $copy.find(".must").removeClass("must").addClass("notmust");
+        $copy.find("select").val("");
+        $copy.find("input").val("");
+
+        $("div[name='roasting_boxp9x']").append($copy);
+    });
+
     $(document).on('click','button[name="addMaterial"]',function(){
         const parent = $(this).closest('.rightSelectorBox');
         const node = parent.find('.rightSelector').first();
@@ -94,52 +123,33 @@ $(function() {
     });
 
     $(document).on('click','#btn_confirm', async function () {
-        console.log('start');
+        console.log('test');
         let gcode = $('#gcode').val();
-        let category = $('#category').val();
-        let goodsName = $('#goodsName').val();
-        let goodsQuantity = $('#goodsQuantity').val();
-        let goodsInventory = $('#goodsInventory').val();
+        let Quantity = $('#Quantity').val();
 
-        if(category==''){
-            $('#category').focus();
-            Make_Toast('상품분류를 선택하세요.');
-        }else if(goodsName==''){
-            $('#goodsName').focus();
-            Make_Toast('제품평을 입력하세요');
-        }else if(goodsQuantity==''){
-            $('#goodsQuantity').focus();
-            Make_Toast('기준수량을 입력하세요');
-        }else if(goodsInventory==''){
-            $('#goodsInventory').focus();
-            Make_Toast('적정재고량을 입력하세요');
+        if(gcode==''){
+            Make_Toast('잘못된 접근입니다.');
+        }else if(Quantity==''){
+            $('#Quantity').focus();
+            Make_Toast('기본수량을 입력하세요');
         }else {
-            const container = $('div[name="materialBox"]');
+            const container2 = $('#add_material');
             let goods_material = [];
-            container.find('div[name="oneMate"]').each(function () {
-                let selectVal = $(this).find('select[name="material_code"]').val();
-                if(selectVal!='')
-                {
-                    let inputVal = $(this).find('input[name="material_cnt"]').val();
-                    let t_arr = {
-                        'code': selectVal,
-                        'cnt': inputVal
-                    }
-                    goods_material.push(t_arr);
-                }
-            });
-            let material_cnt = goods_material.length;
-            if(material_cnt<=0){
-                Make_Toast('재료는 1개 이상은 입력되어야 합니다.');
-            }else {
-
-
-                let goods_info = {
+            container2.find('div[name="add_product_info"]').each(function () {
+                let gcode = $(this).data('code');
+                let gcnt = $(this).find('p[name="mtcnt"]').data('cnt');
+                let t_arr = {
                     gcode: gcode,
-                    category: category,
-                    name: goodsName,
-                    quantity: goodsQuantity,
-                    inventory: goodsInventory,
+                    gcnt: gcnt
+                }
+                goods_material.push(t_arr);
+            });
+            if(goods_material.length<=0){
+                Make_Toast('원자재는 1개 이상은 입력되어야 합니다.');
+            }else{
+                let goods_info = {
+                    gcode : gcode,
+                    quantity: Quantity,
                     material: goods_material
                 };
 
@@ -189,13 +199,124 @@ $(function() {
                     Make_Toast('제품지지서에는 최소한 1개이상의 공정이 필요합니다.');
                 } else {
                     let arr = await  Update_product(goods_info,goods_step);
-                    go_productsList();
+                    go_productsMasterList();
                 }
             }
         }
     });
 
+    $('#txt_product').on('keydown', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            e.preventDefault(); // 폼 submit 등 기본 동작 방지
+            doMaterialSearch();
+        }
+    });
+
+    $('#btn_product').on('click', function () {
+        doMaterialSearch();
+    });
+
+    $(document).on('click','button[name="btn_material"]',function(){
+        let mtcode = $(this).data('mtcode');
+        let mtname = $(this).data('mtname');
+        if((mtcode=='') || (mtname=='')){
+            Make_Toast('잘못된 접근입니다.');
+        }else{
+            $('#addproduct').data('mtcode',mtcode);
+            $('#addproduct').data('mtname',mtname);
+            $('#product_list').removeClass('active');
+            $('#txt_product_num').val('').focus();
+        }
+    });
+
+    $('#txt_product_num').on('keydown', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            e.preventDefault(); // 폼 submit 등 기본 동작 방지
+            let mtcode = $('#addproduct').data('mtcode');
+            let mtname = $('#addproduct').data('mtname');
+            Set_Material(mtcode,mtname);
+        }
+    });
+
+    $('#addproduct').on('click',function(){
+        let mtcode = $(this).data('mtcode');
+        let mtname = $(this).data('mtname');
+        Set_Material(mtcode,mtname);
+    });
+
+    $('#btn_cancel').on('click',function(){
+        go_productsMasterList();
+    });
+
+    $(document).on('click','i[name="add_product_del"]',function(){
+        $(this).closest('div[name="add_product_info"]').remove();
+    });
 });
+
+function Set_Material(mtcode,mtname){
+    let mtcnt = $('#txt_product_num').val();
+    if((mtcode=='') || (mtname=='') || (mtcnt=='')) {
+        Make_Toast('잘못된 접근입니다.');
+    }else {
+        let html = `
+                <div class="productTag  flexType3" name="add_product_info" data-code="${mtcode}">
+                    <div class="flexType2">
+                        <p class="pname" name="mtname">${mtname}</p>
+                        <p class="count" name="mtcnt" data-cnt="${mtcnt}">${number_format(mtcnt)}g</p>
+                    </div>
+                    <i class="fa-solid fa-xmark" name="add_product_del"></i>
+                </div>
+            `;
+        $('#add_material').append(html);
+        $('#addproduct').data('mtcode','');
+        $('#addproduct').data('mtname','');
+        $('#txt_product').val('');
+        $('#txt_product_num').val('');
+    }
+}
+
+
+function doMaterialSearch(){
+    let skey = $('#txt_product').val();
+    if(skey==''){
+        Make_Toast('제품코드 또는 제품명을 입력하세요');
+    }else{
+        Material_Data_Load(skey);
+    }
+}
+
+async function Material_Data_Load(skey){
+    try {
+        start_spinner();
+        let dataarr = {"key" : skey};
+        let url = APIURL + '/Load_MaterialList';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            let data = result.get('data');
+            let html = '';
+            arr = (data && data.list) ? data.list : [];
+            console.log(arr);
+            if(arr.length > 0){
+                $.each(arr, function (index, el) {
+                    html += `
+                        <button class="copyOption active" data-mtcode="${el.mtcode}" data-mtname="${el.mtname}"  name="btn_material">${el.mtname}</button>
+                    `;
+                });
+                console.log(html);
+                $('#add_material').append(html);
+                $('#add_material').addClass('active');
+            }
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+}
 
 async function Update_product(info,step){
     let arr = {};

@@ -214,11 +214,10 @@ class ApiProduceController extends BaseController
                             $stepNew = $stepnow+1;
                             $nextprcode = fn_Load_Process_Code($produce_m,$gicode,$stepNew);
 
-
-
                             $param = ['semi_code' => $newpscode];
                             $Cnt = $produce_m->Update_Instructions_Process($gicode, $nextprcode, $param);
                             $param = ['step_now'=>$stepNew,'step_sub_now' => 0];
+                            //$param = ['step_sub_now' => 2];
                             $Cnt = $produce_m->Update_Instructions_Info($gicode,$param);
 
                             $result = 'ok';

@@ -35,17 +35,39 @@ class Goods_m extends Model
         return $query->getResultArray();
     }
 
-
-    public function Load_Goods_List($search, $fields = ['ALL'])
+    public function Load_Goods_Default($search, $fields = ['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_goods ";
+        $sql = "SELECT {$separated_val} FROM tbl_goods_info ";
         if($search===''){
             $searchword = '';
             $wheresql = "WHERE is_del=:ISDEL: ";
         }else{
             $searchword = "%{$search}%";
-            $wheresql = "WHERE is_del=:ISDEL: AND (gcode LIKE :SEARCH: OR gname LIKE :SEARCH:) ";
+            $wheresql = "WHERE is_del=:ISDEL: AND (gscode LIKE :SEARCH: OR gsname LIKE :SEARCH:) ";
+        }
+        $wsql = $sql . $wheresql . 'order by seq DESC;';
+        $bindparam = [
+            'ISDEL' => 0,
+            'SEARCH' => $searchword
+        ];
+
+        $query = $this->db->query($wsql, $bindparam);
+        return $query->getResultArray();
+    }
+
+
+
+    public function Load_Goods_List($search, $fields = ['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM vw_goods ";
+        if($search===''){
+            $searchword = '';
+            $wheresql = "WHERE is_del=:ISDEL: ";
+        }else{
+            $searchword = "%{$search}%";
+            $wheresql = "WHERE is_del=:ISDEL: AND (gcode LIKE :SEARCH: OR gsname LIKE :SEARCH:) ";
         }
         $wsql = $sql . $wheresql . 'order by seq DESC;';
         $bindparam = [
@@ -192,6 +214,25 @@ class Goods_m extends Model
         return $insertID;
     }
 
+    public function Insert_ProductDefault_Info($param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_goods_info');
+        $builder->insert($param);
+        $insertID = $this->db->insertID();
+        $this->db->transComplete();
+
+        return $insertID;
+    }
+
+    public function Delete_Goods_Data($gcode)
+    {
+        $sql = "call DelGoods(:GCODE:);";
+        $bindparam = [
+            'GCODE' => $gcode
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
 
     public function Update_Goods_Info($gcode,$param){
         $this->db->transStart();
@@ -203,6 +244,43 @@ class Goods_m extends Model
 
         return $affected_rows;
     }
+
+    public function Update_ProductDefault_Info($gscode,$param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_goods_info');
+        $builder->where('gscode',$gscode);
+        $builder->update($param);
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+    public function Delete_Goods_Info($gcode){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_goods');
+        $builder->where('gcode',$gcode);
+        $builder->delete();
+
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+    public function Delete_ProductDefault_Info($gscode){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_goods_info');
+        $builder->where('gscode',$gscode);
+        $builder->delete();
+
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+
 
     public function Insert_Instructions($param){
         $this->db->transStart();
@@ -240,6 +318,8 @@ class Goods_m extends Model
 
         return $affected;
     }
+
+
 
 
 }

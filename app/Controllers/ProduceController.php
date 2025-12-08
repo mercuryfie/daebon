@@ -144,71 +144,75 @@ class ProduceController extends BaseController
             ];
 
             $produce_m = model('Produce_m');
-            $stepInfo = fn_GetInstructions_Step($produce_m,$gicode,$uid);
-
-
-            if($stepInfo['prcode']==''){
-                fn_Alert('잘못된 접근입니다.');
-            }else if(fn_ArrayCnt($stepInfo['info'])<=0){
-                fn_Alert('존재하지 않는 지시서입니다.');
-            }else if(fn_ArrayCnt($stepInfo['data'])<=0){
+            $stepInfo = $produce_m->Load_Instructions_Process($gicode);
+            if (fn_ArrayCnt($stepInfo) === 0) {
                 fn_Alert('존재하지 않는 공정입니다.');
-            }else if($stepInfo['info']['is_complete']=='2'){
-                fn_Alert('이미 완료된 지시서입니다.');
-            }else if($stepInfo['data']['status']==2) {
-                fn_Alert('이미 완료된 공정입니다.');
             }else{
-                $nowprcode = $stepInfo['prcode'];
-                $info = $stepInfo['info'];
-                $process = $stepInfo['data'];
-
-                if($process['p_type']['gubun']==1){//단일고정
-                    $btn_name = $process['p_type']['name'].'완료';
-                }else {//복합공정
-                    if ($info['step_sub_now']==0) {
-                        $btn_name = '작업시작';
-                    } else if ($info['step_sub_now']==1) {
-                        $btn_name = '작업완료';
+                $data_arr = [];
+                foreach($stepInfo as $d){
+                    $gicod = $d['fk_gicode'];
+                    $prcode = $d['fk_prcode'];
+                    if($d['status']==0){
+                        $s_str = '다음공정대기중';
+                    }else if($d['status']==1){
+                        $s_str = '공정진행중';
+                    }else if($d['status']==2){
+                        $s_str = '공정완료';
                     }
+                    $worker = fn_LoadInstructionsWorker($produce_m,$d['fk_gicode'],$d['fk_prcode']);
+                    if($worker['start']['uid']==''){
+                        $start = '';
+                    }else{
+                        $start = $worker['start']['name'].'['.$worker['start']['actdate'].']';
+                    }
+                    if($worker['end']['uid']==''){
+                        $end = '';
+                    }else{
+                        $end = $worker['end']['name'].'['.$worker['end']['actdate'].']';
+                    }
+
+                    if($d['step_typ']=='P001'){
+                        $end_p = ($d['output_material']=='') ? '0g' : $d['output_material'].'g';
+                        $guess = $end_p;
+                        $end =  ($d['end_weight']=='') ? '0g' : $d['end_weight'].'g';
+                        $real = $end;
+                    }else{
+                        $start_p = ($d['input_material']=='') ? '0g' : $d['input_material'].'g';
+                        $end_p = ($d['output_material']=='') ? '0g' : $d['output_material'].'g';
+                        $guess = $start_p.' / '.$end_p;
+                        $start = ($d['start_weight']=='') ? '0g' : $d['start_weight'].'g';
+                        $end =  ($d['end_weight']=='') ? '0g' : $d['end_weight'].'g';
+                        $real = $start.' / '.$end;
+                    }
+
+
+
+
+                    $t_arr = [
+                        'indate' => fn_Short_Date($d['indate']),
+                        'gicode' => $gicod,
+                        'prcode' => $prcode,
+                        'stepNum' => $d['stepNum'],
+                        'step_name' => $d['step_name'],
+                        'guess' => $guess,
+                        'real' => $real,
+                        'status' => $s_str,
+                        'start' => $start,
+                        'end' => $end
+                    ];
+
+                    array_push($data_arr,$t_arr);
                 }
-
-                $data = [
-                    'g_name' => $info['gname'],
-                    'step_now' => $info['step_now'],
-                    'step_sub_now' => $info['step_sub_now'],
-                    'p_name' => $process['step_name'],
-                    'step_typ' => $process['step_typ'],
-                    'input' => $process['input_material'],
-                    'output' => $process['output_material'],
-                    'semi_code' => $process['semi_code'],
-                    'start_weight' => $process['start_weight'],
-                    'end_weight' => $process['end_weight'],
-                    'method' => $process['p_method'],
-                    'status' => $process['status'],
-                    'worker' => $process['worker_arr'],
-                    'material' => $process['material'],
-                    'gubun' => $process['p_type']['gubun'],
-                    'btn_name' => $btn_name
-                ];
-
-                $left_data = [
-                    'session' => $sessinarr,
-                    'gicode' => $gicode,
-                    'prcode' => $nowprcode
-                ];
-
                 $main_data = [
                     'gicode' => $gicode,
-                    'prcode' => $nowprcode,
-                    'info' => $data,
-                    'material' => $process
+                    'prcode' => $prcode,
+                    'info' => $data_arr
                 ];
-
                 $form = new Form;
                 $main_data = [
                     'meta' => $form->fnMake_Meta($metaarr),
                     'header' => $form->fnMake_Header($sessinarr),
-                    'left' => $form->fnMake_Left($left_data),
+                    'left' => $form->fnMake_Left(),
                     'body' => $main_data,
                     'footer' => $form->fnMake_Fooeter($sessinarr)
                 ];

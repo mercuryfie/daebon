@@ -17,6 +17,15 @@ $(document).ready(function() {
         $('#outWrap').css('display','none');
     });
 
+    $("#supply").on("change", function() {
+        if ($(this).val() === "bySelf") {
+            $("#supply").hide();
+            $("#suppCom").show().focus();
+        } else {
+            $("#suppCom").hide();
+        }
+    });
+
 
 });
 

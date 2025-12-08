@@ -43,7 +43,47 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on('click','button[name="btn_step_del"]',function(){
+        let code = $(this).data('code');
+        if(code==''){
+            Make_Toast('삭제하실 BOM을 선택하세요');
+        }else if(window.confirm('삭제 하시겠습니까?')==true){
+            console.log(code);
+            Del_Goods(code);
+        }
+    });
+
 });
+
+async function Del_Goods(code){
+    try {
+        start_spinner();
+        let dataarr = {"code" : code};
+        let url = APIURL + '/Delete_Goods_List';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            let cid = result.get('data').id;
+            if(cid==''){
+                Make_Toast('삭제에 실패 하였습니다.Error(114)');
+            }else{
+                $('#list_' + cid).remove();
+                if($('#clist tr').length==0){
+                    let html = '<tr><td class="ltThead" colspan="10">검색된 데이터가 없습니다.</td></tr>';
+                    $('#clist').append(html);
+                }
+            }
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+}
+
 
 function doSearch() {
     let skey = $('#txt_search').val();
@@ -76,18 +116,19 @@ async function Make_instructions(code,cnt){
 
 async function Make_Html(skey){
     let arr = await Data_Load(skey);
+    console.log(arr);
     let html = '';
     if(!fn_IsEmpty(arr.list)){
         $.each(arr.list, function (index, el) {
             html += `
-                <tr>
-                    <td class="ltTbody"> <a href="javascript:;" class="goodsName underline2">${el.gcode}</a></td> 
+                <tr id="list_${el.gcode}">
+                    <td class="ltTbody"> <a href="javascript:;" onclick="go_productsEditor('${el.gcode}');" class="goodsName underline2">${el.gcode}</a></td> 
                     <td class="ltTbody ">
                         <a href="javascript:;" onclick="go_productsEditor('${el.gcode}');" class="goodsName underline2 ">${el.gname}</a>
                     </td>
                     <td class="ltTbody">${number_format(el.quantity)}개</td>
                     <td class="ltTbody">${number_format(el.completecnt)}건</td>  
-                    <td class="ltTbody">${number_format(el.quantity)}단계</td> 
+                    <td class="ltTbody">${number_format(el.stepCnt)}단계</td> 
                     <td class="ltTbody orderProduct">
                         <div class="flexType1">
                             <input type="search" name="quantity" class="countInput mr10" placeholder="수량(예:10)" data-code="${el.gcode}">
@@ -100,7 +141,7 @@ async function Make_Html(skey){
                         </button>
                     </td>
                     <td class="ltTbody">
-                        <button type="button" class="btnType3 trashBtn" id="del_${arr.seq}" name="btn_del"  data-code="${el.mtcode}"> 
+                        <button type="button" class="btnType3 trashBtn" name="btn_step_del"  data-code="${el.gcode}"> 
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>

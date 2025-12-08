@@ -4746,9 +4746,8 @@ input[type="radio"] {
 }
 
 /* 440 길이가 조금 더 긴 팝업 white area 수정 */
+.addMate_conkol,
 .gdsDetail_conkol,
-.out_conrlo,
-.ipgo_conkol,
 .addOrder_conrlo {
     width: 540px;
     height: 480px;
@@ -4757,6 +4756,14 @@ input[type="radio"] {
 .addProduct_conrlo {
     width: 620px;
     height: 780px;
+
+}
+
+
+.out_conrlo,
+.ipgo_conkol {
+    width: 540px;
+    height: 620px;
 
 }
 
@@ -4903,11 +4910,7 @@ input[type="radio"] {
     transform: translateX(-50%);
 }
 
-.addMate_conkol .padding_area .area .inputType220,
-.out_conrlo .padding_area .area3 .inputType220,
-.out_conrlo .padding_area .area4 .inputType220,
-.ipgo_conkol .padding_area .area3 .inputType220,
-.ipgo_conkol .padding_area .area4 .inputType220 {
+.addMate_conkol .padding_area .area .inputType220 {
     width: 320px;
 }
 
@@ -4917,13 +4920,19 @@ input[type="radio"] {
 
 
 /* 440 길이가 조금 더 긴 팝업 padding area 수정 */
-.gdsDetail_conkol .padding_area,
-.out_conrlo .padding_area,
-.ipgo_conkol .padding_area {
+.addMate_conkol .padding_area,
+.gdsDetail_conkol .padding_area {
+
     height: 440px;
 }
 
+
 /* ddProduct 620 길이가 조금 더 긴 팝업 padding area 수정 */
+.ipgo_conkol .padding_area,
+.out_conrlo .padding_area {
+    height: 560px;
+}
+
 .addProduct_conrlo .padding_area {
     height: 620px;
 }
@@ -4944,7 +4953,7 @@ input[type="radio"] {
     border:1px solid #ccc;
     border-radius: 5px;
     width: 320px;
-    height: 120px;
+    height: 80px;
     padding: 5px;
 
 }

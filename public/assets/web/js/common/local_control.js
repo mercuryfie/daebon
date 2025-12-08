@@ -1,4 +1,10 @@
 
+function fnGetProductNameByCode(code) {
+    const product = productsArr.find(p => p.code === code);
+    return product ? product.name : null;
+}
+
+
 function getNameByCode(code) {
     const arr = List_ExCode();
     return arr[code] || null;  // code가 없으면 null 반환
@@ -240,9 +246,10 @@ function go_productsMasterList(){
     $(location).attr("href", url);
 }
 
-function go_goodsETC(){
-    let url = "/goods/goodsetc";
-    $(location).attr("href", url);
+function go_etcInfo(){
+    alert('페이지 준비중입니다. ');
+    // let url = "/goods/etcinfo";
+    // $(location).attr("href", url);
 }
 
 function go_qualityReport(){

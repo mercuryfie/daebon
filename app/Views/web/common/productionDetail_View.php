@@ -18,7 +18,7 @@
             <div class="goods_boxkfg production_boxs7c flexType3">
                 <div class="left flexType2">
                     <p class="title">지시서코드</p>
-                    <p class="count" id="gicode" name="gicode" data-cd="<?=$body['gicode'];?>" data-nd="<?=$body['material']['fk_prcode'];?>"><?=$body['gicode'];?></p>
+                    <p class="count" id="gicode" name="gicode" data-cd="<?=$body['gicode'];?>" ></p>
                 </div>
                 <div class="right">
                     <button type="button" class="btnType1 mr10" name="vwReport" onclick="" data-cd="<?=$body['gicode'];?>" >품질보고서</button>
@@ -30,92 +30,40 @@
                     <table class="orderInfoTable orderInfoTable1 ">
                         <thead>
                         <tr>
-                            <td class="ltThead productNo checkCol">번호</td>
+                            <td class="ltThead productNo checkCol">공정번호</td>
                             <td class="ltThead">지시날짜</td>
                             <td class="ltThead">공정명</td>
+                            <td class="ltThead">예상측정량(시작/종료)</td>
+                            <td class="ltThead">실측정량</td>
                             <td class="ltThead">상태</td>
-                            <td class="ltThead">작업자</td>
+                            <td class="ltThead">시작작업자</td>
+                            <td class="ltThead">완료작업자</td>
                         </tr>
                         </thead>
                         <tbody id="tList" name="tList">
-
+                        <?if(fn_ArrayCnt($body['info']) > 0){?>
+                            <?foreach ($body['info'] as $d){?>
+                                <tr class="" name="view_detail" data-nd="<?=$d['gicode']?>">
+                                    <td class="ltTbody numbering"><?=$d['stepNum']?></td>
+                                    <td class="ltTbody  "><?=$d['indate']?></td>
+                                    <td class="ltTbody  "><?=$d['step_name']?></td>
+                                    <td class="ltTbody  "><?=$d['guess']?></td>
+                                    <td class="ltTbody  "><?=$d['real']?></td>
+                                    <td class="ltTbody  "><?=$d['status']?></td>
+                                    <td class="ltTbody  "><?=$d['start']?></td>
+                                    <td class="ltTbody  "><?=$d['end']?></td>
+                                </tr>
+                            <?}?>
+                        <?}?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-<!--        <div class="areaBox area_boxg4q production_boxu9d p20" id="dList" name="dList">-->
-<!--            <div class="upside flexType4 mt10">-->
-<!--                <div class="left">-->
-<!--                    <div class="element flexType2">-->
-<!--                        <p class="title">제품명</p>-->
-<!--                        <p class="data inputType220">--><?php //=$body['info']['g_name'];?><!--</p>-->
-<!--                    </div>-->
-<!--                    <div class="element flexType2 mb40">-->
-<!--                        <p class="title">공정명</p>-->
-<!--                        <p class="data inputType220">--><?php //=$body['info']['p_name'];?><!--</p>-->
-<!--                    </div>-->
-<!--                    <div class="element flexType4 mt40">-->
-<!--                        <p class="title">부자재</p>-->
-<!--                        <div class="coverBox">-->
-<!--                            --><?//if(fn_ArrayCnt($body['info']['material'])>0){?>
-<!--                                --><?//foreach ($body['info']['material'] as $d){?>
-<!--                                    <p class="data data4 inputType220 mb10">--><?php //=$d['mtname'];?><!--[--><?php //=$d['capacity'];?><!--개]</p>-->
-<!--                                --><?//}?>
-<!--                            --><?//}else{?>
-<!--                                <p class="data data4 inputType220 mb10">없음<br>없음<br>없음<br>없음<br>없음<br>없음<br>없음<br>없음</p>-->
-<!--                            --><?//}?>
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="right">-->
-<!--                    <div class="element flexType2">-->
-<!--                        <p class="title">작업자</p>-->
-<!--                        <p class="data inputType220">--><?php //=$body['info']['worker']['name'];?><!--</p>-->
-<!--                    </div>-->
-<!--                    <div class="flexType2">-->
-<!--                        <div class="element flexType2 mr10">-->
-<!--                            <p class="title">작업시간</p>-->
-<!--                            <p class="data inputType220">--><?php //=$body['info']['worker']['actdate'];?><!--</p>-->
-<!--                        </div>-->
-<!--                        <div class="element flexType2 ">-->
-<!--                            <p class="mr10"> ~ </p>-->
-<!--                            <p class="data inputType220">--><?php //=$body['info']['worker']['actdate'];?><!--</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="table_boxqqq flexType4">-->
-<!--                        <div class="leftArea">-->
-<!--                            <p class="title">무게</p>-->
-<!---->
-<!--                        </div>-->
-<!--                        <table class="weight_tablevufb ">-->
-<!--                            <thead>-->
-<!--                            <tr>-->
-<!--                                <td class="title">예상 입고량</td>-->
-<!--                                <td class="title">예상 출고량</td>-->
-<!--                                <td class="title">실제 출고량</td>-->
-<!--                            </tr>-->
-<!--                            </thead>-->
-<!--                            <tbody>-->
-<!--                            <tr>-->
-<!--                                <td class="weight">--><?php //=number_format($body['info']['input']);?><!--g</td>-->
-<!--                                <td class="weight">--><?php //=number_format($body['info']['output']);?><!--g</td>-->
-<!--                                <td class="weight" id="afterweight" data-val=""></td>-->
-<!--                            </tr>-->
-<!--                            </tbody>-->
-<!--                        </table>-->
-<!--                    </div>-->
-<!---->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="memo_boxb5h mt20 flexType4">-->
-<!--                <p class="title ">레시피</p>-->
-<!--                <textarea name="" id="" cols="" rows="" readonly placeholder="">--><?php //=$body['info']['method'];?><!--</textarea>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
 
 </section>
 
 <?= $this->include('/web/include/pop_OrderForm_View'); ?>
 <?= $this->endSection() ?>
+

@@ -45,6 +45,7 @@
                             <td class="ltThead">제품명</td>
                             <td class="ltThead">구분</td>
                             <td class="ltThead">적정수량</td>
+                            <td class="ltThead">단위용량</td>
                             <td class="ltThead">총재고량</td>
 
                             <td class="ltThead">입고량</td>

@@ -399,7 +399,7 @@ async function Find_Goods(skey) {
     let html = '';
     if (!fn_IsEmpty(data)) {
         $.each(data, function (index, el) {
-            html += `<button class="copyOption active" type="button" name="btn_search_goods" data-code="${el.gcode}">${el.gname}</button>`;
+            html += `<button class="copyOption active" type="button" name="btn_search_goods" data-code="${el.gscode}">${el.gsname}</button>`;
         });
         $('#goods_list').append(html);
         $('#goods_list').addClass('active');
@@ -414,13 +414,13 @@ async function Load_Data(skey){
     let data = [];
     try {
         start_spinner();
-        let dataarr = {"skey" : skey};
-        let url = APIURL + '/Search_Goods';
+        let dataarr = {"search" : skey};
+        let url = APIURL + '/Load_Product';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {
-            data = result.get('data');
+            data = result.get('data').list;
         }else{
             Make_Toast(result.get('message') + "[" + result.get('status') + "]");
         }

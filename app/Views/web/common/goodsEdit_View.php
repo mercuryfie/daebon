@@ -170,5 +170,4 @@
 
 </section>
 
-<?= $this->include('/web/include/pop_AddProduct_View'); ?>
 <?= $this->endSection() ?>

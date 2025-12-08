@@ -33,10 +33,7 @@ class ApiController extends BaseController
         }else{
             $gcode = $info['gcode'];
             $info_parma = [
-                'gname' => $info['name'],
-                'category' => $info['category'],
-                'quantity' => $info['quantity'],
-                'inventory' => $info['inventory'],
+                'quantity' => $info['quantity']
             ];
 
             $material_param = [];
@@ -44,8 +41,8 @@ class ApiController extends BaseController
                 foreach($info['material'] as $d){
                     $mp_arr= [
                         'fk_gcode' => $gcode,
-                        'fk_mtcode' => $d['code'],
-                        'capacity' => $d['cnt']
+                        'fk_mtcode' => $d['gcode'],
+                        'capacity' => $d['gcnt']
                     ];
 
                     array_push($material_param,$mp_arr);
@@ -326,10 +323,11 @@ class ApiController extends BaseController
                     'gicode' => $gicode,
                     'fk_gcode' => $code,
                     'icnt' => $cnt,
-                    'gname' => $d['gname'],
+                    'gname' => $d['gsname'],
                     'category' => $d['category'],
                     'quantity' => $d['quantity'],
-                    'inventory' => $d['inventory']
+                    'inventory' => $d['inventory'],
+                    'unit_wight' => $d['unit_wight']
                 ];
             }
 
@@ -461,13 +459,11 @@ class ApiController extends BaseController
             $data = [];
             $message = '필수 입력값이 누락되었습니다.';
         }else{
-            $newcode = fnMake_Code(2);
-            $info_parma = [
+            $newcode = fnMake_Code(11);
+            $info_param = [
                 'gcode' => $newcode,
-                'gname' => $info['name'],
-                'category' => $info['category'],
-                'quantity' => $info['quantity'],
-                'inventory' => $info['inventory'],
+                'fk_gscode' => $info['gscode'],
+                'quantity' => $info['quantity']
             ];
 
             $material_param = [];
@@ -475,8 +471,8 @@ class ApiController extends BaseController
                 foreach($info['material'] as $d){
                     $mp_arr= [
                         'fk_gcode' => $newcode,
-                        'fk_mtcode' => $d['code'],
-                        'capacity' => $d['cnt']
+                        'fk_mtcode' => $d['gcode'],
+                        'capacity' => $d['gcnt']
                     ];
 
                     array_push($material_param,$mp_arr);
@@ -517,7 +513,6 @@ class ApiController extends BaseController
                 }
             }
 
-
             $goods_m = model('Goods_m');
             $Cnt = $goods_m->Insert_Goods_Process($step_info);
             if(($Cnt<=0) || (fn_ArrayCnt($material_param) <= 0)){
@@ -526,12 +521,12 @@ class ApiController extends BaseController
                 $message = '데이터 등록에 실패 하였습니다.';
             }else{
                 $Cnt = $goods_m->Insert_Goods_Material($material_param);
-                if(($Cnt<=0) || (fn_ArrayCnt($info_parma) <= 0)){
+                if(($Cnt<=0) || (fn_ArrayCnt($info_param) <= 0)){
                     $result = 'Error006';
                     $data = [];
                     $message = '데이터 등록에 실패 하였습니다.';
                 }else{
-                    $Cnt = $goods_m->Insert_Goods_Info($info_parma);
+                    $Cnt = $goods_m->Insert_Goods_Info($info_param);
 
                     if(fn_ArrayCnt($step_marerial)>0){
                         $Cnt = $goods_m->Insert_Goods_Step_Material($step_marerial);
@@ -558,7 +553,89 @@ class ApiController extends BaseController
 
     }
 
-    public function Add_Goods(){
+    public function Delete_Product(){
+        $sessinarr = $this->GetSessionData();
+        $code = ($this->request->getPost('code')=='') ?'':$this->request->getPost('code');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else if($code===''){
+            $result = 'Error003';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else{
+            $goods_m = model('Goods_m');
+            $Cnt = $goods_m->Delete_ProductDefault_Info($code);
+            if($Cnt > 0){
+                $result = 'ok';
+                $data = [];
+                $message = '';
+            }else{
+                $result = 'Error004';
+                $data = [];
+                $message = '등록에 실패 하였습니다.';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Edit_Product(){
+        $sessinarr = $this->GetSessionData();
+        $data = $this->request->getPost('data') ?? [];
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else if(fn_ArrayCnt($data)<=0){
+            $result = 'Error003';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else{
+            $gscode = $data['gscode'];
+            $param = [
+                'gsname' => $data['gsname'],
+                'category' => $data['category'],
+                'inventory' => $data['inventory'],
+                'unit_wight' => $data['unit_wight']
+            ];
+            $goods_m = model('Goods_m');
+            $Cnt = $goods_m->Update_ProductDefault_Info($gscode,$param);
+            if($Cnt > 0){
+                $result = 'ok';
+                $data = [];
+                $message = '';
+            }else{
+                $result = 'Error004';
+                $data = [];
+                $message = '수정에 실패 하였습니다.';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
+    public function Add_Product(){
         $sessinarr = $this->GetSessionData();
         $data = $this->request->getPost('data') ?? [];
         if($sessinarr['islogin']==false) {
@@ -576,14 +653,14 @@ class ApiController extends BaseController
         }else{
             $newCode = fnMake_Code(2);
             $param = [
-                'gcode' =>$newCode,
-                'gname' => $data['gname'],
+                'gscode' =>$newCode,
+                'gsname' => $data['gsname'],
                 'category' => $data['category'],
-                'quantity' => $data['quantity'],
-                'inventory' => $data['inventory']
+                'inventory' => $data['inventory'],
+                'unit_wight' => $data['unit_wight']
             ];
             $goods_m = model('Goods_m');
-            $NewSeq = $goods_m->Insert_Goods_Info($param);
+            $NewSeq = $goods_m->Insert_ProductDefault_Info($param);
             if($NewSeq > 0){
                 $material_m = model('Material_m');
                 $cRs = $material_m->Load_Goods_statistics($newCode,0);
@@ -617,6 +694,46 @@ class ApiController extends BaseController
                 $result = 'Error004';
                 $data = [];
                 $message = '등록에 실패 하였습니다.';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Delete_Goods_List()
+    {
+        $sessinarr = $this->GetSessionData();
+        $code  = ($this->request->getPost('code') == '') ? '' : $this->request->getPost('code');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else if($code==''){
+            $result = 'Error003';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else{
+            $good_m = model('Goods_m');
+            $dRs = $good_m->Delete_Goods_Data($code);
+            if($dRs[0]['status']===0){
+                $result = 'Error004';
+                $data = [];
+                $message = 'BOM 삭제에 실패 하였습니다.';
+            }else{
+                $i_arr = ['id' => $code];
+
+                $result = 'ok';
+                $data = $i_arr;
+                $message = '';
             }
         }
 
@@ -667,12 +784,85 @@ class ApiController extends BaseController
                     $t_arr = [
                         'seq' => $d['seq'],
                         'gcode' => $d['gcode'],
-                        'gname' => $d['gname'],
+                        'gname' => $d['gsname'],
                         'category' => $d['category'],
                         'c_str' => fnGetProductNameByCode($d['category']),
                         'quantity' => $d['quantity'],
                         'inventory' => $d['inventory'],
                         'completecnt' => $material_m->Cnt_Goods_InstructionsBygCode($d['gcode'],0),
+                        'stepCnt' => $d['Cnt'],
+                        'avg' => $c_arr
+
+                    ];
+                    array_push($m_arr,$t_arr);
+                }
+                $i_arr = [
+                    'list' => $m_arr,
+                    'tcnt' => fn_ArrayCnt($m_arr)
+                ];
+
+                $result = 'ok';
+                $data = $i_arr;
+                $message = '';
+            }else{
+                $result = 'ok';
+                $data = [];
+                $message = '';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Load_Product()
+    {
+        $sessinarr = $this->GetSessionData();
+        $search  = ($this->request->getPost('search') == '') ? '' : $this->request->getPost('search');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $good_m = model('Goods_m');
+            $mRs = $good_m->Load_Goods_Default($search);
+            if(fn_ArrayCnt($mRs)>0){
+                $material_m = model('Material_m');
+                $m_arr = [];
+                foreach ($mRs as $d) {
+
+                    $cRs = $material_m->Load_Goods_statistics($d['gscode'],0);
+                    if(fn_ArrayCnt($cRs)>0){
+                        $c_arr = [
+                            'total' => ($cRs[0]['tg_input'] - $cRs[0]['tg_output']),
+                            'input' => $cRs[0]['tg_input'],
+                            'output' => $cRs[0]['tg_output'],
+                            'avg'=>  $cRs[0]['avg_g_output']
+                        ];
+                    }else{
+                        $c_arr = [
+                            'input' => 0,
+                            'output' => 0,
+                            'avg'=>  0
+                        ];
+                    }
+
+                    $t_arr = [
+                        'seq' => $d['seq'],
+                        'gscode' => $d['gscode'],
+                        'gsname' => $d['gsname'],
+                        'category' => $d['category'],
+                        'c_str' => fnGetProductNameByCode($d['category']),
+                        'inventory' => $d['inventory'],
+                        'unit_wight' => $d['unit_wight'],
                         'avg' => $c_arr
 
                     ];

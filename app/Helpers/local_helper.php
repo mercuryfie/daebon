@@ -173,7 +173,7 @@ function fn_GetInstructions_Step($model,$gicode,$workeruid){
         $iscomplete = $cRs[0]['is_complete'];
         $stepnow = $cRs[0]['step_now'];
         $stepsubnow = $cRs[0]['step_sub_now'];
-        if ($iscomplete==2) {//완료됨
+        if ($iscomplete==2) {//완전완료됨
             $nowprcode = 'complete';
         }else if($stepnow == 0) {//시작안함
             $aRs = $model->Load_Instructions_NowProcess($gicode, 1);
@@ -182,7 +182,7 @@ function fn_GetInstructions_Step($model,$gicode,$workeruid){
                 $Cnt = fn_Input_ProcessWorker($model, $gicode, $nowprcode, $workeruid, 1);
                 $param = ['status' => 1];
                 $Cnt = $model->Update_Instructions_Process($gicode, $nowprcode, $param);
-                $param = ['is_complete' => 1, 'step_now' => 1, 'step_sub_now' => 0];
+                $param = ['is_complete' => 0, 'step_now' => 1, 'step_sub_now' => 0];
                 $Cnt = $model->Update_Instructions_Info($gicode, $param);
                 $data = $aRs[0];
             }
@@ -320,7 +320,7 @@ function fn_Load_NowStep($model,$param){
             }else if($a['status']==2) {
                 $p_step = $a['step_name'];;
                 $stepNum = $a['stepNum'];
-                $p_str = '공정대기중';
+                $p_str = '다음공정대기중';
                 $worker = $a['worker'];
             }
         }
@@ -342,7 +342,7 @@ function fn_Load_NowStep($model,$param){
             } else if ($a['status'] == 2) {
                 $p_step = $a['step_name'];;
                 $stepNum = $a['stepNum'];
-                $p_str = '공정대기중';
+                $p_str = '다음공정대기중';
                 $worker = $a['worker'];
             }
         }
@@ -659,7 +659,7 @@ function fnMake_Code($typ,$max=''){
             $incrementedNumber = str_pad((int)$numberPart + 1, strlen($numberPart), '0', STR_PAD_LEFT);
             $newCode = $prefix . $incrementedNumber;
         }
-    }else if($typ==2){//BOM 코드
+    }else if($typ==2){//제품코드
         $timeNow = date("Ymd");
         $rnd = mt_rand(10000, 99999);
         $newCode = 'DB'. $timeNow.$rnd;
@@ -695,6 +695,10 @@ function fnMake_Code($typ,$max=''){
         $timeNow = date("Ymd");
         $rnd = mt_rand(10000, 99999);
         $newCode = 'DR'. $timeNow.$rnd;
+    }else if($typ==11){//BOM코드
+        $timeNow = date("Ymd");
+        $rnd = mt_rand(1000, 9999);
+        $newCode = 'DBM'. $timeNow.$rnd;
     }
 
     return $newCode;
@@ -722,9 +726,7 @@ function fnMake_Material_Unit($cval=''){
     $t_arr = [
         ['typ' => 'g', 'name' => 'g'],
         ['typ' => 'box', 'name' => 'box'],
-        ['typ' => 'ea', 'name' => 'ea'],
-        ['typ' => '파우치', 'name' => '파우치'],
-        ['typ' => '티백', 'name' => '티백']
+        ['typ' => 'ea', 'name' => 'ea']
     ];
 
     foreach ($t_arr as $d) {
@@ -803,7 +805,7 @@ function fnMake_Menu_name() {
         ['url' => '/goods/goodslist','name' => '상품목록', 'link' => 'go_goodsList();'],
         ['url' => '/goods/productsmasterlist','name' => '제품BOM목록', 'link' => 'go_productsMasterList();'],
         
-        ['url' => '/goods/goodsetc','name' => '기타정보관리', 'link' => 'go_goodsETC();'],
+        ['url' => '/goods/goodsetc','name' => '기타정보관리', 'link' => 'go_etcInfo();'],
     ];
 
     static $menus3 = [

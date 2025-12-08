@@ -73,12 +73,13 @@ class ProductController extends BaseController
             }else if($stepInfo['info']['is_complete']=='2'){
                 fn_Alert('이미 완료된 지시서입니다.');
             }else if($stepInfo['data']['status']==2) {
-                fn_Alert('이미 완료된 공정입니다.');
+                //fn_Alert('이미 완료된 공정입니다.');
             }else{
                 $nowprcode = $stepInfo['prcode'];
                 $info = $stepInfo['info'];
                 $process = $stepInfo['data'];
 
+                $btn_name = '';
                 if($process['p_type']['gubun']==1){//단일고정
                     $btn_name = $process['p_type']['name'].'완료';
                 }else {//복합공정
@@ -91,7 +92,7 @@ class ProductController extends BaseController
 
                 $data = [
                     'g_name' => $info['gname'],
-                    'step_now' => $info['step_now'],
+                    'step_now' => ($info['step_now'] + 1),
                     'step_sub_now' => $info['step_sub_now'],
                     'p_name' => $process['step_name'],
                     'step_typ' => $process['step_typ'],

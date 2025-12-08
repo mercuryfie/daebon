@@ -2,7 +2,7 @@
 <?= $this->section("content") ?>
 
 
-<script src="<?=URL_COMMON_ASSETS?>/inoutStatus_Do.js?rnd=<?=rand();?>"> </script>
+<script src="<?=URL_COMMON_ASSETS?>/inoutMaterial_Do.js?rnd=<?=rand();?>"> </script>
     <!-- js ----------------------------  -->
 <!--    <script src="--><?php //=URL_MASTER_ASSETS?><!--/burkOrderForm_Do.js?rnd=--><?php //= rand(); ?><!--"></script>-->
 <script>

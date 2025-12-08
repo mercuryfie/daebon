@@ -12,7 +12,7 @@
             <div class="areaBox area_boxd2s">
                 <div class="area2 flexType3">
                     <div class="left flexType2">
-                        <input type="search" name="mkey" id="mkey" class="searchArea" placeholder="원재료 또는 부자재 검색">
+                        <input type="search" name="mkey" id="mkey" class="searchArea" placeholder="통합 검색">
                         <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>
                     </div>
                     <div class="right">

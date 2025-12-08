@@ -36,8 +36,6 @@
                     <table class="orderInfoTable orderInfoTable1 goods_tablexo1 ">
                         <thead>
                         <tr>
-                            <th class="ltThead productNo checkCol th1">-</th>
-<!--                            <th class="ltThead th2">상세</th>-->
                             <td class="ltThead">상품코드</td>
                             <td class="ltThead">상품명</td>
                             <td class="ltThead">카테고리</td>

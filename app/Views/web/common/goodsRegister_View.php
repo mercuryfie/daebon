@@ -119,25 +119,6 @@
                                 </div>
                                 <div class="copyArea copyArea2" id="goods_list">
                                 </div>
-
-                                <!--                            <div class="copyArea copyArea3 tagBox" name="add_list" id="add_list">-->
-                                <!--                                <div class="productTag  flexType3" name="add_product_info" data-code="${el.fk_gcode}">-->
-                                <!--                                    <p class="pname" name="gname">${el.gname}</p>-->
-                                <!--                                    <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt}개</p>-->
-                                <!--                                    <i class="fa-solid fa-xmark" name="add_product_del"></i>-->
-                                <!--                                </div>-->
-                                <!--                                <div class="productTag  flexType3" name="add_product_info" data-code="${el.fk_gcode}">-->
-                                <!--                                    <p class="pname" name="gname">${el.gname}</p>-->
-                                <!--                                    <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt}개</p>-->
-                                <!--                                    <i class="fa-solid fa-xmark" name="add_product_del"></i>-->
-                                <!--                                </div>-->
-                                <!--                                <div class="productTag  flexType3" name="add_product_info" data-code="${el.fk_gcode}">-->
-                                <!--                                    <p class="pname" name="gname">${el.gname}</p>-->
-                                <!--                                    <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt}개</p>-->
-                                <!--                                    <i class="fa-solid fa-xmark" name="add_product_del"></i>-->
-                                <!--                                </div>-->
-                                <!--                            </div>-->
-
                             </div>
                             <div class="tagBox copyArea3" id="add_list" name="add_list">
                             </div>
@@ -212,6 +193,4 @@
         </div>
 
 </section>
-
-<?= $this->include('/web/include/pop_AddProduct_View'); ?>
 <?= $this->endSection() ?>

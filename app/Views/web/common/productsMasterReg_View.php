@@ -2,7 +2,6 @@
 <?= $this->section("content") ?>
 
 <!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/productsMasterReg.js?rnd=<?=rand();?>"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/productsMasterReg_Do.js?rnd=<?=rand();?>"> </script>
 
 <script>
@@ -10,6 +9,8 @@
 
 <section class="merright">
     <input type="hidden" name="stepCnt" id="stepCnt" value="1"/>
+    <input type="hidden" name="gscode" id="gscode" value=""/>
+    <input type="hidden" name="gname" id="gname" value=""/>
     <div class="">
         <div class="titleBox">
             <p class="headTitle">
@@ -32,42 +33,33 @@
                         <p class="title">제품검색</p>
                         <div class="searchBox searchProducts_box291 area_box2qd">
                             <div class="copyArea copyArea1 flexType3">
-                                <input type="search" class="copySearch" id="txt_before" name="txt_before" placeholder="제품명+엔터" onfocus="">
-                                <button class="copyDropdown" type="button" id="btn_before" name="btn_before"> <i class="fas fa-caret-down"></i></button>
+                                <input type="search" class="copySearch" id="txt_search" name="txt_search" placeholder="제품코드 또는 제품명 입력후 엔터" onfocus="">
+                                <button class="copyDropdown" type="button" id="btn_search" name="btn_search"> <i class="fas fa-caret-down"></i></button>
                             </div>
-                            <div class="copyArea copyArea2  mr10 flexCol" id="beforelist" name="beforelist">
-                                <button class="copyOption">pomme</button>
+                            <div class="copyArea copyArea2  mr10 flexCol" id="glist" name="glist">
                             </div>
                         </div>
 
                     </div>
                     <div class="element element2 flexType2">
-                        <p class="must"></p>
-                        <p class="title">제품분류</p>
-                        <span class="data" name="goodsCat" id="goodsCat">pname</span>
-                        <!--                        <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="goodsName" id="goodsName">-->
-                    </div>
-                    <div class="element element2 flexType2">
-                        <p class="must"></p>
-                        <p class="title">제품명</p>
-                        <span class="data" name="goodsName" id="goodsName">pname</span>
-<!--                        <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="goodsName" id="goodsName">-->
+                        <p class="notmust"></p>
+                        <p class="title">분류</p>
+                        <span class="data" name="txt_category" id="txt_category"></span>
                     </div>
                     <div class="element element4 flexType2">
-                        <p class="must"></p>
+                        <p class="notmust"></p>
                         <p class="title">적정 재고량</p>
-                        <span class="data" name="goodsInventory" id="goodsInventory">pname</span>
-<!--                        <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="goodsInventory" id="goodsInventory">-->
+                        <span class="data" name="txt_Inventory" id="txt_Inventory"></span>
+                    </div>
+                    <div class="element element4 flexType2">
+                        <p class="notmust"></p>
+                        <p class="title">단위당 용량</p>
+                        <span class="data" name="txt_unitwight" id="txt_unitwight"></span>
                     </div>
                     <div class="element element6 flexType2 selectMetirialBox " >
                         <p class="must"></p>
                         <p class="title">기본수량</p>
-                        <input type="search" class="inputType2 quantityIn mr10" placeholder="숫자만 입력 (예:10000)" name="defQuantity" id="defQuantity">
-                        <select name="" id="" class="inputType2 selUnit">
-                            <option value="">g</option>
-                            <option value="">개</option>
-                            <option value="">Box</option>
-                        </select>
+                        <input type="search" class="inputType2 quantityIn mr10 only-number" placeholder="숫자만 입력 (예:10000)" name="Quantity" id="Quantity">g
                     </div>
                     <div clas
                     <div class="element element5 flexType4 selectMetirialBox" >
@@ -80,57 +72,20 @@
                             <div class="copyArea copyArea1 flexType2 mr10">
                                 <div class="keyIn flexType2">
                                     <input type="search" class="copySearch" id="txt_product" name="txt_product" placeholder="원자재명 입력후 엔터" data-code="">
-                                    <button class="copyDropdown " type="button" id="find_gcode" name="find_gcode"> <i class="fas fa-caret-down"></i></button>
+                                    <button class="copyDropdown " type="button" id="btn_product" name="btn_product"> <i class="fas fa-caret-down"></i></button>
                                 </div>
-                                <input type="number" placeholder="숫자만입력" class="count mr10" id="txt_product_num" name="txt_product_num" />
-                                <button class="copyAdd btnType3" type="button" id="addproduct" name="addproduct">추가</button>
+                                <input type="number" placeholder="무게입력" class="count mr10 only-number" id="txt_product_num" name="txt_product_num" />
+                                <button class="copyAdd btnType3" type="button" id="addproduct" name="addproduct" data-mtcode="" data-mtname="">추가</button>
                             </div>
                             <div class="flexCol">
-                                <div class="copyArea copyArea2" id="goods_list">
+                                <div class="copyArea copyArea2" id="product_list" name="product_list">
+
                                 </div>
-                                <div class="copyArea copyArea3 tagBox" name="add_list" id="add_list">
-                                    <div class="productTag  flexType3" name="add_product_info" data-code="${el.fk_gcode}">
-                                        <div class="flexType2">
-                                            <p class="pname" name="gname">우엉</p>
-                                            <p class="count" name="gcnt" data-cnt="${el.cnt}">1개</p>
-                                        </div>
-                                        <i class="fa-solid fa-xmark" name="add_product_del"></i>
-                                    </div>
-                                    <div class="productTag  flexType3" name="add_product_info" data-code="${el.fk_gcode}">
-                                        <div class="flexType2">
-                                            <p class="pname" name="gname">우엉</p>
-                                            <p class="count" name="gcnt" data-cnt="${el.cnt}">1개</p>
-                                        </div>
-                                        <i class="fa-solid fa-xmark" name="add_product_del"></i>
-                                    </div>
-                                    <div class="productTag  flexType3" name="add_product_info" data-code="${el.fk_gcode}">
-                                        <div class="flexType2">
-                                            <p class="pname" name="gname">우엉</p>
-                                            <p class="count" name="gcnt" data-cnt="${el.cnt}">1개</p>
-                                        </div>
-                                        <i class="fa-solid fa-xmark" name="add_product_del"></i>
-                                    </div>
+                                <div class="copyArea copyArea3 tagBox" name="add_material" id="add_material">
                                 </div>
                             </div>
 
                         </div>
-<!--                        <div class="tagBox " id="add_list" name="add_list">-->
-<!--                            <div class="productTag  flexType3" name="add_product_info" data-code="${el.fk_gcode}">-->
-<!--                                <p class="pname" name="gname">${el.gname}dd</p>-->
-<!--                                <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt}개dd</p>-->
-<!--                                <i class="fa-solid fa-xmark" name="add_product_del"></i>-->
-<!--                            </div>-->
-<!--                            <div class="productTag  flexType3" name="add_product_info" data-code="${el.fk_gcode}">-->
-<!--                                <p class="pname" name="gname">${el.gname}</p>-->
-<!--                                <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt}개</p>-->
-<!--                                <i class="fa-solid fa-xmark" name="add_product_del"></i>-->
-<!--                            </div>-->
-<!--                            <div class="productTag  flexType3" name="add_product_info" data-code="${el.fk_gcode}">-->
-<!--                                <p class="pname" name="gname">${el.gname}</p>-->
-<!--                                <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt}개</p>-->
-<!--                                <i class="fa-solid fa-xmark" name="add_product_del"></i>-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -158,6 +113,7 @@
                                 <p class="ttl">공정타입</p>
                                 <select name="ptype" class="inputType">
                                     <option value="">선택하세요.</option>
+                                    <?=$body['category'];?>
                                 </select>
                             </div>
                             <div class="cover_boxh1t flexType2">
@@ -202,6 +158,7 @@
                                     <div class="oneTBag flexType2" name="oneTBag">
                                         <select name="accessory" class="option option1">
                                             <option value="">선택하세요.</option>
+                                            <?=$body['material'];?>
                                         </select>
                                         <input type="search" class="inputBorder inputBorder2 mr10" placeholder="예:10000" name="accessory_cnt">
                                         <button type="button" class="btnType3 addBtn mr10" name="addCover">

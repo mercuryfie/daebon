@@ -16,17 +16,12 @@
             </div>
             <div class="area area3 flexType2">
                 <p class="category">적정수량</p>
-                <input type="search" name="inventory" id="inventory" placeholder="숫자만 가능" class="inputType220 mr10 only-number">
+                <input type="search" name="inventory" id="inventory" placeholder="숫자만 가능" class="inputType220 mr10 only-number">개
 
             </div>
             <div class="area area4 flexType2">
-                <p class="category">단위</p>
-                <select name="" id="" class="inputType2 selUnit">
-                    <option value="">g</option>
-                    <option value="">개</option>
-                    <option value="">Box</option>
-                </select>
-
+                <p class="category">단위용량</p>
+                <input type="search" name="unit_wight" id="unit_wight" placeholder="숫자만 가능" class="inputType220 mr10 only-number">g
             </div>
             <div class="area area5 mt20 flexType5">
                 <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>

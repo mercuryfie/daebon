@@ -62,7 +62,7 @@ class Form
 
             $html .= "<div class='menuBox' name='menuBox'>
                         <div class='topmenu flexType3' name='topmenu'>
-                            <a href='javascript:;' class='topText'>" . $high . "</a>
+                            <a href='javascript:void(0);' class='topText'>" . $high . "</a>
                             <i class='fa-solid " . $angle . "'></i>
                         </div>";
 
@@ -75,9 +75,9 @@ class Form
             $sHtml = '';
             foreach ($data as $d){
                 if($currentUrl===$d['url']){
-                    $sHtml .= "<a href='javascript:;' class='subtext active' onclick='" . $d['link'] . "'>" . $d['name'] . "</a>";
+                    $sHtml .= "<a href='javascript:void(0);' class='subtext active' onclick='" . $d['link'] . "'>" . $d['name'] . "</a>";
                 }else{
-                    $sHtml .= "<a href='javascript:;' class='subtext' onclick='" . $d['link'] . "'>" . $d['name'] . "</a>";
+                    $sHtml .= "<a href='javascript:void(0);' class='subtext' onclick='" . $d['link'] . "'>" . $d['name'] . "</a>";
                 }
 
             }

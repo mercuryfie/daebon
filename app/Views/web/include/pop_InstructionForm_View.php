@@ -7,7 +7,7 @@
         <table class="odRoast_Table" >
             <thead>
                 <tr class="headCol">
-                    <td class="keyCol" colspan="8">생산작업지시서</td>
+                    <td class="keyCol" colspan="7">생산작업지시서</td>
                 </tr>
                 <tr class="">
                     <td class="keyCol barcodeBox" colspan="4" rowspan="2">
@@ -51,7 +51,7 @@
                     <td class="row subTitle" colspan="7"></td>
                 </tr>
                 <tr>
-                    <td class="row row1 ttl">공정명</td>
+                    <td class="row row1 ttl stepName">공정명</td>
                     <td class="row row2 ttl">총투입량</td>
                     <td class="row row2 ttl">예상산출량</td>
                     <td class="row row3 ttl" colspan="2">가이드</td>
@@ -61,7 +61,7 @@
                 </tr>
            <?foreach ($body['step_arr'] as $d){?>
                 <tr>
-                    <td class="row row1"><?=$d['step_name'];?></td>
+                    <td class="row row1 stepName"><?=$d['step_name'];?></td>
                     <td class="row row2"><?=number_format($d['input_material']);?>g</td>
                     <td class="row row2"><?=number_format($d['output_material']);?>g</td>
                     <td class="row row3 " colspan="2">

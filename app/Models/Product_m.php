@@ -112,7 +112,8 @@ class Product_m extends Model
 
     public function Load_Product_sub($code,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val},(SELECT gname FROM tbl_goods WHERE a.fk_gcode=gcode) AS gname FROM tbl_product_goods a WHERE a.fK_pdcode=:PDCODE: ORDER BY a.seq ASC";
+        //$sql = "SELECT {$separated_val},(SELECT gsname FROM tbl_goods_info WHERE gscode=a.fk_gcode) AS gname FROM tbl_product_goods a WHERE a.fK_pdcode=:PDCODE: ORDER BY a.seq ASC";
+        $sql = "SELECT {$separated_val} FROM tbl_product_goods a,tbl_goods_info b WHERE a.fk_gcode=b.gscode AND a.fK_pdcode=:PDCODE: ORDER BY a.seq ASC";
         $bindparam = [
             'PDCODE'=> $code,
         ];

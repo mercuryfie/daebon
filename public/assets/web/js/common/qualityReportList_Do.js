@@ -7,20 +7,11 @@ $(document).ready(function() {
 
     Make_Html(data);
 
-    $('#order_wrapdek #Xbtn, #order_wrapdek #Xbtn2').click(function () {
-        $('#order_wrapdek').css('display','none');
-    });
-
-    $(document).on('click','button[name="view_production"]',function(){
-        let code = $(this).data('code');
-        let nd = $(this).data('nd');
-        go_productionDetail(code,nd);
-    });
 
     $(document).on('click','button[name="vwReport"]',function() {
         let code = $(this).data('code');
-        let url = "/produce/report?cd=" + code;
-        pop_OrderRoastForm(url);
+        let url = "/report/q_form?cd=" + code;
+        pop_qualityReportForm(url);
     });
 
     $(document).on('click','#cpage',function(){
@@ -117,7 +108,7 @@ async function Make_Html(data){
                     <td class="ltTbody">${el.gname}</td>
                     <td class="ltTbody">${el.gicode}</td>
                     <td class="ltTbody">${number_format(el.quantity)}개</td>
-                    <td class="ltTbody">(${el.stepNum}/${el.processcnt})</td>  
+                    <td class="ltTbody">(${el.stepnow}/${el.processcnt})</td>  
                     <td class="ltTbody">
                         <button type="button" class="btnType3 statusBtn statusStandby" name="vwReport" data-code="${el.gicode}" >
                             <i class="fa-solid fa-scroll"></i>
@@ -164,9 +155,6 @@ async function Data_Load(data){
 
 
 
-function pop_OrderForm() {
-    $('#order_wrapdek').css('display','block');
-}
 
 
 function formatDate(d) {

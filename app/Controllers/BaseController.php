@@ -49,6 +49,125 @@ abstract class BaseController extends Controller
         $this->request = service('request');
     }
 
+    public function fn_SetInstructions_Step($model,$gicode,$workeruid){
+        $nowprcode = '';
+        $data = [];
+        $cRs = $model->Load_Instructions_Info($gicode);
+        if(fn_ArrayCnt($cRs)>0) {
+            $iscomplete = $cRs[0]['is_complete'];
+            $stepnow = $cRs[0]['step_now'];
+            $stepsubnow = $cRs[0]['step_sub_now'];
+            $mType = Return_Member_Type($workeruid);
+            $gubun = Return_Prodcess_Gubun($model,$gicode,$stepnow);
+            if($iscomplete==0) {//완료 안됨
+                //현재 prcode 로드
+                $stepnow = ($stepnow==0) ? 1 : $stepnow;
+                $aRs = $model->Load_Instructions_NowProcess($gicode, $stepnow);
+                if(fn_ArrayCnt($aRs) == 0){
+                    $nowprcode = 'error';
+                }else {
+                    $nowprcode = $aRs[0]['fk_prcode'];
+                    $gicode = $aRs[0]['fk_gicode'];
+                    if (($mType == AUTH_PRODUCT) && ($stepsubnow == 0)) {
+                        $Cnt = fn_Input_ProcessWorker($model, $gicode, $nowprcode, $workeruid, 1);
+                    }
+                    //새로운 프로세스 저장
+                    $param = ['step_now'=>$stepnow,'step_sub_now' => 1];
+                    $Cnt = $model->Update_Instructions_Info($gicode, $param);
+                    $param = ['status' => 1];
+                    $Cnt = $model->Update_Instructions_Process($gicode,$nowprcode,$param);
+                }
+            }else if($iscomplete==1) {//공정완료됨
+                if($gubun==1) {
+                    //단일공정일경우 다음프로세스로 넘긴다 로그인계정이 작업자일경우 작업자 등록까지 진행
+                    $newStep = $stepnow + 1;
+                    $aRs = $model->Load_Instructions_NowProcess($gicode, $newStep);
+                    if (fn_ArrayCnt($aRs) == 0) {
+                        $nowprcode = 'error';
+                    } else {
+                        $nowprcode = $aRs[0]['fk_prcode'];
+                        $gicode = $aRs[0]['fk_gicode'];
+                        //작업자 등록
+                        if (($mType == AUTH_PRODUCT) && ($stepsubnow == 2)) {
+                            $Cnt = fn_Input_ProcessWorker($model, $gicode, $nowprcode, $workeruid, 1);
+                        }
+                        //새로운 프로세스 저장
+                        $param = ['step_now' => $newStep, 'step_sub_now' => 1, 'is_complete' => 0];
+                        $Cnt = $model->Update_Instructions_Info($gicode, $param);
+                        $param = ['status' => 1];
+                        $Cnt = $model->Update_Instructions_Process($gicode,$nowprcode,$param);
+                    }
+                }else if($gubun==2) {
+                    //복합공정일경우 현재 step_sub_now 가 0일경우 신규, 1일경우 복합공정 시작 2일경우 복합공정 완료
+                    if($stepsubnow==0) {
+                        //현재 prcode 로드
+                        $aRs = $model->Load_Instructions_NowProcess($gicode, $stepnow);
+                        if(fn_ArrayCnt($aRs) == 0){
+                            $nowprcode = 'error';
+                        }else {
+                            $nowprcode = $aRs[0]['fk_prcode'];
+                            //새로운 프로세스 저장
+                            $param = ['step_sub_now' => 1, 'is_complete' => 0];
+                            $Cnt = $model->Update_Instructions_Info($gicode, $param);
+                        }
+                    }else if($stepsubnow==1){
+                        $aRs = $model->Load_Instructions_NowProcess($gicode, $stepnow);
+                        $nowprcode = (fn_ArrayCnt($aRs) === 0) ? 'error' : $aRs[0]['fk_prcode'];
+                    }else if($stepsubnow==2){
+                        $newStep = $stepnow + 1;
+                        $aRs = $model->Load_Instructions_NowProcess($gicode, $newStep);
+                        if (fn_ArrayCnt($aRs) == 0) {
+                            $nowprcode = 'error';
+                        } else {
+                            $nowprcode = $aRs[0]['fk_prcode'];
+                            $gicode = $aRs[0]['fk_gicode'];
+                            if (($mType == AUTH_PRODUCT) && ($stepsubnow==2)){
+                                $Cnt = fn_Input_ProcessWorker($model, $gicode, $nowprcode, $workeruid, 1);
+                            }
+                            //새로운 프로세스 저장
+                            $param = ['step_now' => $newStep, 'step_sub_now' => 1, 'is_complete' => 0];
+                            $Cnt = $model->Update_Instructions_Info($gicode, $param);
+
+                            $param = ['status' => 1];
+                            $Cnt = $model->Update_Instructions_Process($gicode,$nowprcode,$param);
+
+                        }
+                    }
+                }
+            }else if ($iscomplete==2) {//완전완료됨
+                $nowprcode = 'complete';
+            }
+        }
+
+
+        if(($nowprcode=='error') || ($nowprcode=='')) {
+            $r_arr = [
+                'status' => 'error',
+                'prcode' =>'',
+                'info' => [],
+                'process' => []
+            ];
+        }else if($nowprcode=='complete'){
+            $r_arr = [
+                'status' => 'complete',
+                'prcode' =>'',
+                'info' => [],
+                'process' => []
+            ];
+        }else{
+            $info = fn_LoadInstructionsInfo($model,$gicode);
+            $process = fn_LoadInstructionsSingleProcess($model,$gicode,$nowprcode);
+            $r_arr = [
+                'status' => 'ok',
+                'prcode' => $nowprcode,
+                'info' => $info,
+                'process' => $process
+            ];
+        }
+
+        return $r_arr;
+    }
+
 
     public function GetSessionData()
     {

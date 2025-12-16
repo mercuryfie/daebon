@@ -11,7 +11,7 @@
     <div class="goods_boxfv6 packing_boxfxp">
         <div class="titleBox">
             <p class="headTitle">
-                포장목록ㅇㅇ
+                포장목록
             </p>
         </div>
         <div class="areaBox area_boxd2s">
@@ -177,6 +177,10 @@
                 <!--                            </tbody>-->
                 <!--                        </table>-->
                 <!--                    </div>-->
+            </div>
+            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
             </div>
         </div>
     </div>

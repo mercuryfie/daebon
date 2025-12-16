@@ -11,13 +11,13 @@
     <input type="hidden" name="stepCnt" id="stepCnt" value="1"/>
     <input type="hidden" name="gscode" id="gscode" value=""/>
     <input type="hidden" name="gname" id="gname" value=""/>
-    <div class="">
+    <div class="mas_box23f">
         <div class="titleBox">
             <p class="headTitle">
                 제품BOM등록
             </p>
         </div>
-        <div class="areaBox area_boxm9k mas_box23f">
+        <div class="areaBox area_boxm9k ">
             <div class="outerBox flexType3 ">
                 <div class="left flexType2">
                     <p class="title mr10">제품정보</p>
@@ -59,19 +59,19 @@
                     <div class="element element6 flexType2 selectMetirialBox " >
                         <p class="must"></p>
                         <p class="title">기본수량</p>
-                        <input type="search" class="inputType2 quantityIn mr10 only-number" placeholder="숫자만 입력 (예:10000)" name="Quantity" id="Quantity">g
+                        <input type="search" class="inputType2 quantityIn mr10 only-number" placeholder="숫자만 입력 (예:10000)" name="Quantity" id="Quantity">
+                        <p class="msg fontType3">한 번 생산 시 만들어지는 수량입니다. </p>
                     </div>
-                    <div clas
                     <div class="element element5 flexType4 selectMetirialBox" >
                         <div class="cat flexType2">
                             <p class="must"></p>
-                            <p class="title">원자재 선택</p>
+                            <p class="title">원재료 선택</p>
                         </div>
 
                         <div class="searchMate_boxx21  flexCol " name="">
                             <div class="copyArea copyArea1 flexType2 mr10">
                                 <div class="keyIn flexType2">
-                                    <input type="search" class="copySearch" id="txt_product" name="txt_product" placeholder="원자재명 입력후 엔터" data-code="">
+                                    <input type="search" class="copySearch" id="txt_product" name="txt_product" placeholder="입력후 엔터" data-code="">
                                     <button class="copyDropdown " type="button" id="btn_product" name="btn_product"> <i class="fas fa-caret-down"></i></button>
                                 </div>
                                 <input type="number" placeholder="무게입력" class="count mr10 only-number" id="txt_product_num" name="txt_product_num" />
@@ -186,7 +186,7 @@
             </div>
         </div>
         <div class="lastBox flexType5">
-            <button type="button" class="btnType1 mr10">취소</button>
+            <button type="button" class="btnType1 mr10" onclick="go_productsMasterList();">취소</button>
             <button type="button" id="btn_confirm" name="btn_confirm" class="btnType2" >확인</button>
         </div>
     </div>

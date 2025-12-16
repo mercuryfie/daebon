@@ -21,7 +21,7 @@ class Common_m extends Model
     public function Load_Maker($fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_maker WHERE is_del=:ISDEL: order by seq ASC;";
+        $sql = "SELECT {$separated_val} FROM tbl_maker WHERE is_del=:ISDEL: order by name ASC;";
         $bindparam = [
             'ISDEL' => 0
         ];
@@ -32,7 +32,7 @@ class Common_m extends Model
     public function Load_Supply($fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_supplier WHERE is_del=:ISDEL: order by seq ASC;";
+        $sql = "SELECT {$separated_val} FROM tbl_supplier WHERE is_del=:ISDEL: order by name ASC;";
         $bindparam = [
             'ISDEL' => 0
         ];

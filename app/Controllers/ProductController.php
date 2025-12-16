@@ -63,37 +63,41 @@ class ProductController extends BaseController
             ];
 
             $produce_m = model('Produce_m');
-            $stepInfo = fn_GetInstructions_Step($produce_m,$gicode,$uid);
-            if($stepInfo['prcode']==''){
+            $data = $this->fn_SetInstructions_Step($produce_m,$gicode,$uid);
+            if($data['status']=='') {
                 fn_Alert('잘못된 접근입니다.');
-            }else if(fn_ArrayCnt($stepInfo['info'])<=0){
-                fn_Alert('존재하지 않는 지시서입니다.');
-            }else if(fn_ArrayCnt($stepInfo['data'])<=0){
-                fn_Alert('존재하지 않는 공정입니다.');
-            }else if($stepInfo['info']['is_complete']=='2'){
-                fn_Alert('이미 완료된 지시서입니다.');
-            }else if($stepInfo['data']['status']==2) {
-                //fn_Alert('이미 완료된 공정입니다.');
-            }else{
-                $nowprcode = $stepInfo['prcode'];
-                $info = $stepInfo['info'];
-                $process = $stepInfo['data'];
+            }else if($data['status']=='error'){
+                fn_Alert('존재하지 않는 지시서 입니다.');
+            }else if($data['status']=='ok'){
+                $info = $data['info'];
+                $process = $data['process'];
+                $nowprcode = $data['prcode'];
 
-                $btn_name = '';
-                if($process['p_type']['gubun']==1){//단일고정
-                    $btn_name = $process['p_type']['name'].'완료';
+                $p_type = $process['p_type'];
+                if($p_type['gubun']==1){//단일고정
+                    //$btn_name = $process['p_type']['name'].'완료';
+                    $b_type = 2;
                 }else {//복합공정
-                    if ($info['step_sub_now']==0) {
-                        $btn_name = '작업시작';
-                    } else if ($info['step_sub_now']==1) {
-                        $btn_name = '작업완료';
+                    if(($info['step_sub_now']==0) && ($info['is_complete']==0)) {
+                        //$btn_name = $process['p_type']['name'] . ' 측정';
+                        $b_type = 0;
+                    }else if (($info['step_sub_now']==1) && ($info['is_complete']==0)) {
+                        //$btn_name = $process['p_type']['name'] . ' 시작';
+                        $b_type = 1;
+                    } else if (($info['step_sub_now']==1) && ($info['is_complete']==1)) {
+                        //$btn_name = $process['p_type']['name']. ' 완료';
+                        $b_type = 2;
+                    } else if ($info['step_sub_now']==2) {
+                        //$btn_name = '작업완료';
+                        $b_type = 3;
                     }
                 }
 
                 $data = [
                     'g_name' => $info['gname'],
-                    'step_now' => ($info['step_now'] + 1),
+                    'step_now' => $info['step_now'],
                     'step_sub_now' => $info['step_sub_now'],
+                    'unit_wight' => $info['unit_wight'],
                     'p_name' => $process['step_name'],
                     'step_typ' => $process['step_typ'],
                     'input' => $process['input_material'],
@@ -103,10 +107,10 @@ class ProductController extends BaseController
                     'end_weight' => $process['end_weight'],
                     'method' => $process['p_method'],
                     'status' => $process['status'],
-                    'worker' => $process['worker_arr'],
+                    'worker' => $process['worker'],
                     'material' => $process['material'],
-                    'gubun' => $process['p_type']['gubun'],
-                    'btn_name' => $btn_name
+                    'ptype' => $p_type,
+                    'btype' => $b_type
                 ];
 
                 $left_data = [

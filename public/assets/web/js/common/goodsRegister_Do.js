@@ -310,6 +310,38 @@ $(document).ready(function(){
     $('#btn_reload').on('click',function(){
         location.reload();
     });
+
+    $(document).on('click','button[name="addCover"]',function(){
+        const parent = $(this).closest('.tBagBox');
+        const node = parent.find('.oneTBag').first();
+        const clone = node.clone();
+        clone.find('button[name="removeCover"]').css('display','flex');
+        clone.find('button[name="removeCover"]').addClass('flexType1');
+        clone.find('select').prop('selectedIndex', 0);
+        clone.find('input').val('');
+        parent.append(clone);
+    });
+
+
+    $(document).on('click','button[name="removeCover"]',function(){
+        const oneTBagCon = $(this).closest('[name="oneTBag"]');
+        const container = $(this).closest('[name="coverBox"]').find('div[name="tBagBox"]');
+        let cnt = 0;
+        container.find('div[name="oneTBag"]').each(function () {
+            cnt++;
+        });
+        if(cnt > 1){
+            oneTBagCon.remove();
+        }else{
+            oneTBagCon.find('select[name="accessory"]').val('');
+            oneTBagCon.find('input[name="accessory_cnt"]').val('');
+        }
+    });
+
+
+    initCkEditor('#ckeditor');
+
+
 });
 
 async function Load_Before(skey){
@@ -467,7 +499,7 @@ async function set_Data(pdcode) {
         $.each(goods, function (index, el) {
             html += `
                 <div class="productTag  flexType3" name="add_product_info" data-code="${el.fk_gcode}">
-                    <p class="pname" name="gname">${el.gname}</p>
+                    <p class="pname" name="gname">${el.gsname}</p>
                     <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt}개</p>
                     <i class="fa-solid fa-xmark" name="add_product_del"></i>
                 </div>

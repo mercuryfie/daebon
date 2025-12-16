@@ -29,7 +29,7 @@ $routes->GET('order/packinglist', 'OrderController::packingList');
 $routes->GET('order/packingstatus', 'OrderController::packingStatus');
 
 $routes->GET('goods/materiallist', 'GoodsController::materialList');
-$routes->GET('goods/etcinfo', 'GoodsController::etcInfo');
+$routes->GET('goods/otherinfo', 'GoodsController::otherInfo');
 $routes->GET('goods/goodslist', 'GoodsController::goodsList');
 $routes->GET('goods/goodsreg', 'GoodsController::goodsReg');
 $routes->GET('goods/goodsedit', 'GoodsController::goodsEdit');
@@ -46,7 +46,7 @@ $routes->GET('produce/productionliststaff', 'ProduceController::productionListSt
 $routes->GET('produce/productiondetail', 'ProduceController::productionDetail');
 $routes->GET('produce/productiondetailmono', 'ProduceController::productionDetailMono');
 $routes->GET('produce/instructionform', 'ProduceController::instructionForm');
-$routes->GET('produce/report', 'ProduceController::reportForm');
+//$routes->GET('produce/report', 'ProduceController::reportForm');
 
 $routes->GET('inout/material', 'InoutController::inOutMaterial');
 $routes->GET('inout/halfproduct', 'InoutController::inOutHalfproduct');
@@ -55,7 +55,9 @@ $routes->GET('inout/popbarcodewindow', 'InoutController::popBarcodeWindow');
 //$routes->GET('inout/popaddmatirial', 'InoutController::pop_AddMatirial');
 
 $routes->GET('report/quality', 'ReportController::qualityReport');
+$routes->GET('report/q_form', 'ReportController::qualityReportForm');
 $routes->GET('report/order', 'ReportController::orderReport');
+$routes->GET('report/o_form', 'ReportController::orderReportForm');
 
 $routes->GET('monitor/workstatus', 'MonitorController::workStatus');
 $routes->GET('monitor/processstatus', 'MonitorController::processStatus');
@@ -90,10 +92,18 @@ $routes->match(['GET', 'POST'], 'Api/mod_Goods_Info', 'ApiController::mod_Goods_
 $routes->match(['GET', 'POST'], 'Api/Upload_File_Editor', 'ApiController::Upload_File_Editor');
 $routes->match(['GET', 'POST'], 'Api/Upload_file', 'ApiController::Upload_File');
 $routes->match(['GET', 'POST'], 'Api/Add_Product', 'ApiController::Add_Product');
-$routes->match(['GET', 'POST'], 'Api/Edit_Product', 'ApiController::Edit_Product');
 $routes->match(['GET', 'POST'], 'Api/Delete_Product', 'ApiController::Delete_Product');
 $routes->match(['GET', 'POST'], 'Api/Load_Product', 'ApiController::Load_Product');
 $routes->match(['GET', 'POST'], 'Api/Delete_Goods_List', 'ApiController::Delete_Goods_List');
+$routes->match(['GET', 'POST'], 'Api/Load_Maker', 'ApiController::Load_Maker');
+$routes->match(['GET', 'POST'], 'Api/Load_Maker2', 'ApiController::Load_Maker2');
+$routes->match(['GET', 'POST'], 'Api/Add_Maker_Info', 'ApiController::Add_Maker_Info');
+$routes->match(['GET', 'POST'], 'Api/Mod_Maker_Info', 'ApiController::Mod_Maker_Info');
+$routes->match(['GET', 'POST'], 'Api/Del_Maker_Info', 'ApiController::Del_Maker_Info');
+$routes->match(['GET', 'POST'], 'Api/Load_Supplier', 'ApiController::Load_Supplier');
+$routes->match(['GET', 'POST'], 'Api/Add_Supplier_Info', 'ApiController::Add_Supplier_Info');
+$routes->match(['GET', 'POST'], 'Api/Mod_Supplier_Info', 'ApiController::Mod_Supplier_Info');
+$routes->match(['GET', 'POST'], 'Api/Del_Supplier_Info', 'ApiController::Del_Supplier_Info');
 
 
 $routes->match(['GET', 'POST'], 'Api/Load_Instructions_Process', 'ApiProduceController::Load_Instructions_Process');
@@ -101,6 +111,7 @@ $routes->match(['GET', 'POST'], 'Api/Load_Instructions_Info', 'ApiProduceControl
 $routes->match(['GET', 'POST'], 'Api/Load_Instructions_NowStep', 'ApiProduceController::Load_Instructions_NowStep');
 $routes->match(['GET', 'POST'], 'Api/Process_Confirm', 'ApiProduceController::Process_Confirm');
 $routes->match(['GET', 'POST'], 'Api/Search_Goods', 'ApiProduceController::Search_Goods');
+$routes->match(['GET', 'POST'], 'Api/Check_instruction', 'ApiProduceController::Check_instruction');
 
 $routes->match(['GET', 'POST'], 'Api/Insert_Product', 'ApiProductController::Insert_Product');
 $routes->match(['GET', 'POST'], 'Api/Load_Product_List', 'ApiProductController::Load_Product_List');

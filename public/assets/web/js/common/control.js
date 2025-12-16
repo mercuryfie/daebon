@@ -409,9 +409,26 @@ function pop_waybillFormStaff() {
     };
 }
 
+function pop_qualityReportForm(url) {
+
+    let width = 1400;
+    let height = 780;
+
+    let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+
+    newWindow.onload = function() {
+        try {
+            let docHeight = newWindow.document.body.scrollHeight;
+            newWindow.resizeTo(width, docHeight );
+        } catch(e) {
+            console.log("새 창 높이 조절 불가", e);
+        }
+    };
+}
+
 function pop_OrderRoastForm(url) {
 
-    let width = 1080;
+    let width = 1200;
     let height = 880;
 
     let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);

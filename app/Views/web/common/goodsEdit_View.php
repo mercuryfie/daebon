@@ -11,10 +11,11 @@
 
 <script>
 </script>
+<?php //print_r($body)?>
 
 <section class="merright">
     <input type="hidden" id="pdcode" name="pdcode" value="<?=$body['pdcode'];?>" />
-    <div class="goods_boxx7z">
+    <div class="goods_boxx7z ge_boxvn2">
         <div class="titleBox">
             <p class="headTitle">
                 상품수정
@@ -24,7 +25,7 @@
             <div class="outerBox flexType3">
                 <p class="title">상품정보</p>
                 <div class="right flexType1">
-                    <i class="fa-solid fa-angle-down"></i>
+                    <button type="button" class="btnType3 foldBtn"><i class="fa-solid fa-angle-down"></i></button>
                 </div>
             </div>
             <div class="area5 flexType2 area_box2qd ">
@@ -77,16 +78,18 @@
                         <div class="downside flexType2">
                             <p class="notmust"></p>
                             <p class="title"></p>
-                            <div class="flexCol mach_boxd2g mt10" id="mached_list">
+                            <div class="flexCol mach_boxd2g " id="mached_list">
                             </div>
                         </div>
                     </div>
-                    <div class="element goods_boxj3v flexType4">
-                        <div class="left flexType2">
+                    <div class="element element7 goods_boxj3v ">
+<!--                        <div class="left flexType2">-->
+<!--                            <p class="notmust"></p>-->
+<!--                            <p class="title">제품추가</p>-->
+<!--                        </div>-->
+                        <div class="copyBox flexType2">
                             <p class="notmust"></p>
                             <p class="title">제품추가</p>
-                        </div>
-                        <div class="copyBox ">
                             <div class="copyArea copyArea1 flexType2 mr10">
                                 <div class="left">
                                     <input type="search" class="copySearch" id="txt_product" name="txt_product" placeholder="제품명 입력후 엔터" data-code="">
@@ -97,14 +100,23 @@
                             </div>
                             <div class="copyArea copyArea2 " id="goods_list">
                             </div>
-                            <div class="copyArea copyArea3" name="add_list" id="add_list">
+<!--                            <div class="copyArea copyArea3" name="add_list" id="add_list">-->
+<!--                            </div>-->
+                        </div>
+                        <div class="downside flexType2">
+                            <p class="notmust"></p>
+                            <p class="title "></p>
+                            <div class="p_tagBox" name="add_list" id="add_list">
                             </div>
                         </div>
                     </div>
-                    <div class="goods_boxt6r cover_boxh1t" name="coverBox" id="cover_box" >
-                        <div class="element flexType4 oneCover" name="oneCover" id="">
+                    <div class="element element8 cover_boxh1t flexType4">
+<!--                    <div class="goods_boxt6r cover_boxh1t"   >-->
+                        <div class="left flexType2">
                             <p class="notmust"></p>
                             <p class="title">부자재</p>
+                        </div>
+                        <div class="right flexType4 " name="" id="">
                             <div class="tBagBox " name="tBagBox" id="tBagBox">
                                 <div class="oneTBag mb10 flexType2" name="oneTBag">
                                     <select name="accessory" id="accessory" class="option option1">
@@ -129,7 +141,7 @@
             <div class="outerBox flexType3">
                 <p class="title">상세정보</p>
                 <div class="right flexType1">
-                    <i class="fa-solid fa-angle-down"></i>
+                    <button type="button" class="btnType3 foldBtn"><i class="fa-solid fa-angle-down"></i></button>
                 </div>
             </div>
             <div class="area5  area_box2qd   ">

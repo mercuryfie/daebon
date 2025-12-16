@@ -2,6 +2,22 @@ $(document).ready(function(){
     Make_Html();
 
 
+    $(".area_boxm9k > .outerBox > .right > .foldBtn").click(function() {
+        let $foldBtn = $(this);
+        let $icon = $(this > 'i');
+        let $content = $foldBtn.closest(".area_boxm9k").find(".area_box2qd");
+
+        // .area_box2qd 슬라이드 토글
+        $content.slideToggle(200);
+
+        // i 아이콘 클래스 변경
+        if ($icon.hasClass("fa-angle-down")) {
+            $icon.removeClass("fa-angle-down").addClass("fa-angle-up");
+        } else {
+            $icon.removeClass("fa-angle-up").addClass("fa-angle-down");
+        }
+    });
+
     $('#txt_product').on('focus',function(){
         $(this).val('');
         $(this).data('code','');
@@ -259,6 +275,37 @@ $(document).ready(function(){
         go_goodsList();
     });
 
+
+    $(document).on('click','button[name="addCover"]',function(){
+        const parent = $(this).closest('.tBagBox');
+        const node = parent.find('.oneTBag').first();
+        const clone = node.clone();
+        clone.find('button[name="removeCover"]').css('display','flex');
+        clone.find('button[name="removeCover"]').addClass('flexType1');
+        clone.find('select').prop('selectedIndex', 0);
+        clone.find('input').val('');
+        parent.append(clone);
+    });
+
+
+    $(document).on('click','button[name="removeCover"]',function(){
+        const oneTBagCon = $(this).closest('[name="oneTBag"]');
+        const container = $(this).closest('[name="coverBox"]').find('div[name="tBagBox"]');
+        let cnt = 0;
+        container.find('div[name="oneTBag"]').each(function () {
+            cnt++;
+        });
+        if(cnt > 1){
+            oneTBagCon.remove();
+        }else{
+            oneTBagCon.find('select[name="accessory"]').val('');
+            oneTBagCon.find('input[name="accessory_cnt"]').val('');
+        }
+    });
+
+
+    initCkEditor('#ckeditor');
+
 });
 
 
@@ -330,13 +377,14 @@ async function Make_Html() {
         $('#mached_list').empty();
         $('#mached_list').append(html);
     }
+
     let goods = arr.goods;
     if (goods && Object.keys(goods).length > 0) {
         let html = '';
         $.each(goods, function (index, el) {
             html += `
                 <div class="productTag flexType3" name="add_product_info" data-code="${el.fk_gcode}">
-                    <p class="pname" name="gname">${el.gname}</p>
+                    <p class="pname" name="gname">${el.gsname}</p>
                     <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt}개</p>
                     <i class="fa-solid fa-xmark" name="add_product_del"></i>
                 </div>
@@ -368,9 +416,14 @@ async function Make_Html() {
                 </div>
             `;
         });
-        $('#tBagBox').empty();
+        // $('#tBagBox').empty();
         $('#tBagBox').append(html);
     }
+
+
+
+
+
 }
 
 function Make_select(originalOptions,selectedValue ){

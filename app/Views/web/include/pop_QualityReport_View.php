@@ -6,12 +6,12 @@
 <script>
 </script>
 
-<section class="merright instruction_boxqqq">
-    <div class="odRoast_boxfxp" id="frnbody">
-        <table class="odRoast_Table" >
+<section class="merright q_report_box22 ">
+    <div class=" q_report_box23d" id="frnbody">
+        <table class=" q_report_table" >
             <thead>
                 <tr class="headCol">
-                    <td class="keyCol" colspan="8">품질보고서</td>
+                    <td class="keyCol" colspan="7">품질보고서</td>
                 </tr>
                 <tr class="">
                     <td class="keyCol barcodeBox" colspan="4" rowspan="2">
@@ -36,14 +36,14 @@
                     <td class="keyCol" colspan="2" ><?=number_format($body['info_arr']['inventory'])?>개</td>
                 </tr>
                 <tr>
-                    <td class="row row2 ttl" >원료명</td>
+                    <td class="row row2 ttl" colspan="">원재료명</td>
                     <td class="row row3 ttl" colspan="2">입고량</td>
                     <td class="row row4 ttl">단위</td>
                     <td class="row row5 ttl" colspan="3">비고</td>
                 </tr>
             <?foreach ($body['material_arr'] as $d){?>
                 <tr>
-                    <td class="row row2"><?=$d['mtname'];?></td>
+                    <td class="row row2" colspan=""><?=$d['mtname'];?></td>
                     <td class="row row3" colspan="2"><?= number_format($d['capacity']);?></td>
                     <td class="row row4">g</td>
                     <td class="row row5" colspan="3"><?=$d['maker'];?> / <?=$d['supply'];?></td>
@@ -55,9 +55,9 @@
                     <td class="row subTitle" colspan="7"></td>
                 </tr>
                 <tr>
-                    <td class="row row1 ttl">공정명</td>
-                    <td class="row row2 ttl">예상투입/예상산출</td>
-                    <td class="row row2 ttl">실제투입/실제산출</td>
+                    <td class="row row1 ttl  " colspan="">공정명</td>
+                    <td class="row row2 ttl">예상투입<br>예상산출</td>
+                    <td class="row row2 ttl">실제투입<br>실제산출</td>
                     <td class="row row3 ttl" colspan="2">가이드</td>
                     <td class="row row4 ttl">부자재</td>
 
@@ -65,9 +65,9 @@
                 </tr>
            <?foreach ($body['step_arr'] as $d){?>
                 <tr>
-                    <td class="row row1"><?=$d['step_name'];?></td>
-                    <td class="row row2"><?=number_format($d['input_material']);?>g/<?=number_format($d['output_material']);?>g</td>
-                    <td class="row row2"><?=number_format($d['input_material']);?>g/<?=number_format($d['output_material']);?>g</td>
+                    <td class="row row1 rName"><?=$d['step_name'];?></td>
+                    <td class="row row2"><?=number_format($d['input_material']);?>g<br><?=number_format($d['output_material']);?>g</td>
+                    <td class="row row2"><?=number_format($d['input_material']);?>g<br><?=number_format($d['output_material']);?>g</td>
                     <td class="row row3 " colspan="2">
                         <p class="desc">
                             <?=$d['p_method'];?>
@@ -95,13 +95,15 @@
                 <tr class="signArea">
                     <td class="row row1" colspan="" rowspan="">작업완료일시</td>
                     <td class="row row3 " colspan="2"></td>
-                    <td class="row row4" colspan="2">이름</td>
-                    <td class="row row5" colspan="2">사인</td>
+                    <td class="row row4" colspan="">이름</td>
+                    <td class="row row4" colspan=""></td>
+                    <td class="row row5" colspan="">사인</td>
+                    <td class="row row4" colspan=""></td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="btnBox flexType2 mt20">
+    <div class="btnBox flexType1 mt20">
         <button type="button" class="btnType1 mr10 " id="xBtn">닫기</button>
         <button type="button" class="btnType1" id="btn_print">출력</button>
     </div>

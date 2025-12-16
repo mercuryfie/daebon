@@ -16,72 +16,52 @@ $(document).ready(function() {
 
     $(document).on('click','button[name="vwReport"]',function() {
         let code = $('#gicode').data('cd');
-        let url = "/produce/report?cd=" + code;
-        pop_OrderRoastForm(url);
+        console.log('dawn1715',code);
+        // let code = $('#gicode').data('cd');
+        let url = "/report/q_form?cd=" + code;
+        // let url = "/report/quality?cd=" + code;
+        pop_qualityReportForm(url);
     });
 
-    // $(document).on('click','button[name="vwReport"]',function() {
-    //     let code = $(this).data('code');
-    //     let url = "/produce/report?cd=" + code;
-    //     pop_OrderRoastForm(url);
-    // });
+    let gicode = $('#gicode').val();
+    Make_Html(gicode);
 
 });
 
 
-
-async function process_step(code){
-    let prcode = await Load_Step(code);
-    go_productionDetailStaff(code,prcode);
-}
-
-async function Load_Step(code){
-    let prcode = '';
-    try {
-        start_spinner();
-        let dataarr = {"code" : code};
-        let url = APIURL + '/Load_Instructions_NowStep';
-        let result = await Load_API_Auth(url,dataarr);
-        if (result.get('status') == 'NoLogin') {
-            go_login();
-        }else if(result.get('status') == 'ok') {
-            let data = result.get('data');
-            prcode = data.prcode;
-        }else{
-            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
-        }
-        stop_spinner();
-    } catch (error) {
-        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
-        stop_spinner();
-    }
-    return prcode;
-}
-
-let counter = 0;
-function getNumber() {
-    return ++counter;
-}
-
-async function Make_Html(data,skey){
-    let arr = await Data_Load(data,skey);
+async function Make_Html(code){
+    let arr = await Data_Load(code);
     let html = '';
+    let stepnow = $('#stepnow').val();
     if(!fn_IsEmpty(arr.list)){
         $.each(arr.list, function (index, el) {
-            let i = getNumber();
-            let worker = '';
-            if (el.worker) {
-                worker = `${el.worker}`;
-            } else {
-                worker = `-`;
+            let method = fnGetProcessNameByCode(el.step_typ);
+            let gubun = method['gubun'];
+            let guess ='';
+            let t_str = '';
+            let real = '-';
+            let status = '-';
+            let worker = '-';
+            if(gubun==1){
+                guess = number_format(el.input) + 'g';
+                t_str = number_format(el.end) + 'g';
+            }else{
+                guess = number_format(el.input) + 'g / ' + number_format(el.output);
+                t_str = number_format(el.start) + 'g / ' + number_format(el.end);
+            }
+            if(Number(stepnow) >= Number(el.step_num)){
+                status = el.status;
+                worker = el.worker;
+                real = t_str;
             }
 
             html += `
-                <tr class="" name="view_detail" data-nd="${el.gicode}"> 
-                    <td class="ltTbody numbering">${i}</td>
-                    <td class="ltTbody  ">${el.shortdate}</td> 
+                <tr class="" data-nd="${el.prcode}"> 
+                    <td class="ltTbody numbering">${el.step_num}</td>
                     <td class="ltTbody  ">${el.step_name}</td>  
-                    <td class="ltTbody  ">${el.status}</td>    
+                    <td class="ltTbody  ">${guess}</td>
+                    <td class="ltTbody  ">${real}</td>
+                    <td class="ltTbody  ">${status}</td>    
                     <td class="ltTbody  ">${worker}</td>  
                 </tr>
             `;
@@ -95,11 +75,11 @@ async function Make_Html(data,skey){
 
 
 
-async function Data_Load(data,skey){
+async function Data_Load(code){
     let r_arr = {};
     try {
         start_spinner();
-        let dataarr = {"code" : data, "skey" :skey};
+        let dataarr = {"code" : code};
         let url = APIURL + '/Load_Instructions_Process';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {

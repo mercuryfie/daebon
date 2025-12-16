@@ -6,10 +6,9 @@
 <section class="mainContentStaff mainContentStaff2">
     <input type="hidden" id="gicode" name="gicode" value="<?=$body['gicode'];?>" />
     <input type="hidden" id="prcode" name="prcode" value="<?=$body['prcode'];?>" />
-    <input type="hidden" id="gubun" name="gubun" value="<?=$body['info']['gubun'];?>" />
-    <input type="hidden" id="status" name="status" value="<?=$body['info']['status'];?>" />
-    <input type="hidden" id="stepnow" name="stepnow" value="<?=$body['info']['step_now'];?>" />
-    <input type="hidden" id="stepsub" name="stepsub" value="<?=$body['info']['step_sub_now'];?>" />
+    <input type="hidden" id="gubun" name="gubun" value="<?=$body['info']['ptype']['gubun'];?>" />
+    <input type="hidden" id="ptyp" name="ptyp" value="<?=$body['info']['ptype']['typ'];?>" />
+    <input type="hidden" id="unit_wight" name="unit_wight" value="<?=$body['info']['unit_wight'];?>" />
     <div class="goods_boxfv6 ">
         <div class="area area1 flexType3">
             <div class="detailTitleBox producing_boxr8j">
@@ -18,21 +17,17 @@
                 </p>
                 <input type="search" class="inputType520 " placeholder="무게를 측정하세요." name="incode" id="incode" autofocus>
             </div>
-            <div class="trackBox flexType3">
-                <div class="line"></div>
-                <div class="track flexCol2">
-                    <p class="step <?if($body['info']['status']==0) echo('active');?>">step1</p>
-                    <p class="text">대기</p>
-                </div>
-                <div class="track flexCol2">
-                    <p class="step <?if($body['info']['status']==1) echo('active');?>">step2</p>
-                    <p class="text">작업중</p>
-                </div>
-                <div class="track flexCol2">
-                    <p class="step <?if($body['info']['status']==2) echo('active');?>">step3</p>
-                    <p class="text">완료</p>
-                </div>
+        <?if($body['info']['btype']==1){?>
+            <div class="trackBox flexType1">
+                <img src="/assets/web/src/light.png" alt="img" class="lightImg mr10">
+                <p class="status">작업시작등록</p>
             </div>
+        <?}else{?>
+            <div class="trackBox flexType1 active">
+                <img src="/assets/web/src/light.png" alt="img" class="lightImg mr10">
+                <p class="status">작업완료등록</p>
+            </div>
+        <?}?>
         </div>
         <div class="areaBoxStaff areaBoxStaff2 area_boxg4q production_boxu10">
             <div class="upside flexType4 mt10 ml10">
@@ -84,7 +79,11 @@
                         <table class="weight_tablevufb ">
                             <thead>
                             <tr>
+                                <?if($body['info']['ptype']['typ']==1){?>
                                 <td class="title">실제무게</td>
+                                <?}else if($body['info']['ptype']['typ']==2){?>
+                                <td class="title">실제무게 / 갯수</td>
+                                <?}?>
                                 <td class="title">저울잠금</td>
                             </tr>
                             </thead>
@@ -119,7 +118,11 @@
             <div class="submitBox flexType5-1 ">
                 <div class="right flexType2">
                     <button type="button" class="btn80Type1 mr10" onclick="go_productionListStaff();">이전</button>
-                    <button type="button" class="btn80Type3 active" id="btn_confirm"><?=$body['info']['btn_name'];?></button>
+                    <?if($body['info']['btype']==1){?>
+                    <button type="button" class="btn80Type3 active" id="btn_confirm">시작</button>
+                    <?}else{?>
+                    <button type="button" class="btn80Type3 active" id="btn_confirm">완료</button>
+                    <?}?>
                 </div>
             </div>
         </div>

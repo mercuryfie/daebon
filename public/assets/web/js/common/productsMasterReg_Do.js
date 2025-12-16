@@ -287,6 +287,7 @@ $(document).ready(function() {
         }else{
             $('#addproduct').data('mtcode',mtcode);
             $('#addproduct').data('mtname',mtname);
+            $('#txt_product').val(mtname);
             $('#product_list').empty().removeClass('active');
             $('#txt_product_num').val('').focus();
         }
@@ -328,6 +329,8 @@ $(document).ready(function() {
     });
 
 });
+let isSearching = false;
+let isMaterial = false;
 
 function Set_Material(mtcode,mtname){
     let mtcnt = $('#txt_product_num').val();
@@ -367,20 +370,32 @@ function form_ini(){
 function doMaterialSearch(){
     let skey = $('#txt_product').val();
     if(skey==''){
-        Make_Toast('제품코드 또는 제품명을 입력하세요');
+        Make_Toast('원재료명을 입력하세요.');
     }else{
-        Material_Data_Load(skey);
+        if (isMaterial) return;  // 연타 방지
+        isMaterial = true;
+        Material_Data_Load(skey).finally(() => {
+            // Make_Html 완료 후 복구
+            isMaterial = false;
+        });
     }
 }
 
-function doSearch(){
+
+function doSearch() {
     let skey = $('#txt_search').val();
     if(skey==''){
         Make_Toast('제품코드 또는 제품명을 입력하세요');
     }else{
-        Data_Load(skey);
-    }
+        if (isSearching) return;  // 연타 방지
+        isSearching = true;
+        Data_Load(skey).finally(() => {
+            // Make_Html 완료 후 복구
+            isSearching = false;
+        });
+   }
 }
+
 
 async function Material_Data_Load(skey){
     try {
@@ -401,10 +416,12 @@ async function Material_Data_Load(skey){
                         <button class="copyOption active" data-mtcode="${el.mtcode}" data-mtname="${el.mtname}"  name="btn_material">${el.mtname}</button>
                     `;
                 });
-                console.log(html);
                 $('#product_list').empty();
                 $('#product_list').append(html);
                 $('#product_list').addClass('active');
+            }else{
+                $('#product_list').empty().removeClass('active');
+                Make_Toast('검색된 제품이 없습니다. ');
             }
         }else{
             Make_Toast(result.get('message') + "[" + result.get('status') + "]");
@@ -439,8 +456,12 @@ async function Data_Load(skey){
                 $('#glist').empty();
                 $('#glist').append(html);
                 $('#glist').addClass('active');
+            }else{
+                $('#glist').empty().removeClass('active');
+                Make_Toast('검색된 제품이 없습니다.');
             }
         }else{
+
             Make_Toast(result.get('message') + "[" + result.get('status') + "]");
         }
         stop_spinner();

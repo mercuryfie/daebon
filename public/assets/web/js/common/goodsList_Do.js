@@ -89,6 +89,8 @@ $(document).ready(function() {
 
 });
 
+let isSearching = false;
+
 function ini_pop(){
     $('#matchlist').empty();
     $('#goodslist').empty();
@@ -122,7 +124,7 @@ async function pop_GoodsDetail(pdcode) {
             $.each(goods, function (index, el) {
                 html += ` 
                     <tr>
-                        <td class="ltTbody">${el.gname}</td>
+                        <td class="ltTbody">${el.gsname}</td>
                         <td class="ltTbody">${el.cnt}개</td>
                     </tr>
                 `;
@@ -151,8 +153,12 @@ async function pop_GoodsDetail(pdcode) {
 
 function doSearch() {
     let skey = $('#txt_search').val();
-    $('#tList').empty();
-    Make_Html(skey);
+    if (isSearching) return;  // 연타 방지
+    isSearching = true;
+    Make_Html(skey).finally(() => {
+        // Make_Html 완료 후 복구
+        isSearching = false;
+    });
 }
 
 async function Load_Detail(pdcode){
@@ -180,24 +186,34 @@ async function Load_Detail(pdcode){
 
 
 async function Make_Html(skey){
-    let arr = await Load_Data(skey);
+    let data = await Load_Data(skey);
+    let arr = (data && data.list) ? data.list : [];
+    console.log(arr);
     let html = '';
-    $.each(arr.list, function (index, el) {
-        html += `
-            <tr>
-                <td class="ltTbody detailTd"><div class="flexType2  "><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdcode}</a><a href="javascript:;" class="detail_fo1 flexType1 ml10" onclick="pop_GoodsDetail('${el.pdcode}');"><i class="fa-solid fa-info"></i></a></div></td>
-                <td class="ltTbody"><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdname}</a></td>
-                <td class="ltTbody">${el.cname}</td>
-                <td class="ltTbody">${number_format(el.pdWeigth)}g</td>
-                <td class="ltTbody">${number_format(el.pdprice)}원</td>
-                <td class="ltTbody">${el.mCnt}개</td>
-                <td class="ltTbody">${el.gCnt}개</td>
-                <td class="ltTbody">${el.indate}</td>
-            </tr>
-        `;
-    });
-    $('#tList').append(html);
-    $('#tcnt').html(arr.tcnt);
+    if(arr.length > 0) {
+        $.each(arr, function (index, el) {
+            html += `
+                <tr>
+                    <td class="ltTbody detailTd"><div class="flexType2  "><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdcode}</a><a href="javascript:;" class="detail_fo1 flexType1 ml10" onclick="pop_GoodsDetail('${el.pdcode}');"><i class="fa-solid fa-info"></i></a></div></td>
+                    <td class="ltTbody"><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdname}</a></td>
+                    <td class="ltTbody">${el.cname}</td>
+                    <td class="ltTbody">${number_format(el.pdWeigth)}g</td>
+                    <td class="ltTbody">${number_format(el.pdprice)}원</td>
+                    <td class="ltTbody">${el.mCnt}개</td>
+                    <td class="ltTbody">${el.gCnt}개</td>
+                    <td class="ltTbody">${el.indate}</td>
+                </tr>
+            `;
+        });
+        $('#tList').empty();
+        $('#tList').append(html);
+        $('#tcnt').html(data.tcnt);
+    }else{
+        html = '<tr><td class="ltThead" colspan="8">검색된 데이터가 없습니다.</td></tr>';
+        $('#tList').empty();
+        $('#tList').append(html);
+        $('#tcnt').html(data.tcnt);
+    }
 }
 
 async function Load_Data(skey){
@@ -224,10 +240,6 @@ async function Load_Data(skey){
     }
     return data;
 }
-
-
-
-
 
 
 function formatDate(d) {

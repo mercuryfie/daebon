@@ -2,7 +2,7 @@
 <?= $this->section("content") ?>
 
 <!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/goodsRegister.js?rnd=<?=rand();?>"> </script>
+<!--<script src="--><?php //=URL_COMMON_ASSETS?><!--/goodsRegister.js?rnd=--><?php //=rand();?><!--"> </script>-->
 <script src="<?=URL_COMMON_ASSETS?>/goodsRegister_Do.js?rnd=<?=rand();?>"> </script>
 <!-- ckeditor ----------------------------  -->
 <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"> </script>
@@ -79,9 +79,9 @@
                         <p class="must"></p>
                         <p class="title">판매여부</p>
                         <select name="sell_type" id="sell_type" class="inputType360">
-                            <option value="0">판매대기</option>
-                            <option value="1">판매중</option>
-                            <option value="2">판매종료</option>
+                            <option value="0" >판매대기</option>
+                            <option value="1" selected>판매중</option>
+                            <option value="2" >판매종료</option>
                         </select>
                     </div>
                     <div class="element element6 flexCol  ">
@@ -98,7 +98,7 @@
                         <div class="downside flexType2">
                             <p class="notmust"></p>
                             <p class="title"></p>
-                            <div class="flexCol mach_boxd2g mt10" id="mached_list">
+                            <div class="flexCol mach_boxd2g " id="mached_list">
                             </div>
                         </div>
                     </div>
@@ -142,6 +142,8 @@
                                     <button type="button" class="btnType3 removeBtn" name="removeCover" style="">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
+                                </div>
+                                <div class="tagBox smTagBox" id="sm_tag_list" name="sm_tag_list">
                                 </div>
                             </div>
                         </div>

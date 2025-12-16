@@ -28,7 +28,7 @@
                 <div class="flexCol">
                     <select name="" id="supply" class="inputType220" >
                         <option value="">자체</option>
-                        <option value="bySelf">직접입력</option>
+<!--                        <option value="bySelf">직접입력</option>-->
                         <option value="">OEM</option>
                         <option value="">농산물센터</option>
                     </select>

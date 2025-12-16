@@ -40,8 +40,8 @@ class ApiProduceController extends BaseController
                 $i_arr = [];
                 foreach ($cRs as $d){
                     $t_arr =[
-                        'gcode' => $d['gcode'],
-                        'gname' => $d['gname']
+                        'gcode' => $d['gscode'],
+                        'gname' => $d['gsname']
                     ];
                     array_push($i_arr,$t_arr);
                 }
@@ -111,11 +111,14 @@ class ApiProduceController extends BaseController
                     $a_arr = [
                         'prcode' => $a['fk_prcode'],
                         'indate' => $a['indate'],
+                        'step_typ' => $a['step_typ'],
                         'shortdate' => fn_Short_Date($a['indate']),
                         'step_name' => $a['step_name'],
                         'step_num' => $a['stepNum'],
                         'input' => $a['input_material'],
                         'output' => $a['output_material'],
+                        'start' => $a['start_weight'],
+                        'end' => $a['end_weight'],
                         'method' => $a['p_method'],
                         'worker' => $a['worker'],
                         'status' => $status_str,
@@ -145,6 +148,40 @@ class ApiProduceController extends BaseController
 
     }
 
+    public function Check_instruction(){
+        $sessinarr = $this->GetSessionData();
+        $gicode  = ($this->request->getPost('code') == '') ? '' : $this->request->getPost('code');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else if($gicode==''){
+            $result = 'Error003';
+            $data = [];
+            $message = '필수 입력값이 누락되었습니다.';
+        }else{
+            $Cnt = 0;
+            $produce_m = model('Produce_m');
+            $cRs = $produce_m->Load_Instructions_Info($gicode);
+            $Cnt = (fn_ArrayCnt($cRs)===0) ? 0 : 1;
+            $i_arr = ['Cnt' => $Cnt];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
 
     public function Process_Confirm()
     {
@@ -164,119 +201,130 @@ class ApiProduceController extends BaseController
             $message = '필수 입력값이 누락되었습니다.';
         }else{
             $uid = $sessinarr['user']['uid'];
-            $gicode = $data['gicode'];
-            $prcode = $data['prcode'];
-            $gubun = $data['gubun'];
-            $status = $data['status'];
-            $weight = $data['weight'];
-            $stepnow = $data['stepnow'];
-            $stepsub = $data['stepsub'];
-
             $produce_m=model('Produce_m');
-            $process = fn_LoadInstructionsSingleProcess($produce_m,$gicode,$prcode);
-            if(fn_ArrayCnt($process)<=0){
-                $result = 'Error006';
+            $cRs = $produce_m->Load_Instructions_Info($data['gicode']);
+            if(fn_ArrayCnt($cRs)===0){
+                $result = 'Error010';
                 $data = [];
-                $message = '존재하지 않는 공정입니다.';
-            }else if($process['status']==2){
-                $result = 'Error007';
-                $data = [];
-                $message = '이미 완료된 공정입니다.';
+                $message = '존재하지 않는 지시서 입니다.';
             }else{
-                $pscode = $process['semi_code'];
-                if($gubun=='1'){//단일 공정
-                    $param=['end_weight' => $weight,'status' => 2];
-                    $Cnt = $produce_m->Update_Instructions_Process($gicode,$prcode,$param);
-                    if($Cnt<=0){
-                        $result = 'Error005';
-                        $data = [];
-                        $message = '공정 완료처리에 실패하였습니다.';
-                    }else{
-                        if($pscode!=''){
-                            //사용반제품출고
-                            fn_OutPut_SemiProduct($produce_m,$gicode,$prcode,$pscode);
-                        }
-                        $Cnt = fn_Input_ProcessWorker($produce_m,$gicode,$prcode,$uid,2);
-                        if(fn_Check_CompleteProcess($produce_m,$gicode)){//전체완료다
-                            $param = ['is_complete' => 2,'step_sub_now' => 2];
-                            $Cnt = $produce_m->Update_Instructions_Info($gicode,$param);
-                            //완제품입고
-                            fn_Input_FinalProduct($produce_m,$gicode,$weight);
+                $gicode = $data['gicode'];
+                $prcode = $data['prcode'];
+                $gubun = $data['gubun'];
+                $weight = $data['weight'];
+                $stepnow = $cRs[0]['step_now'];
+                $stepsub = $cRs[0]['step_sub_now'];
+                $iscomplete = $cRs[0]['is_complete'];
 
-                            $result = 'ok';
-                            $data = [];
-                            $message = '';
-                        }else{
-                            //반제품입고
-                            $r_arr = fn_Input_SemiProduct($produce_m,$gicode,$prcode,$weight);
-                            $newpscode = $r_arr['pscode'];
 
-                            $stepNew = $stepnow+1;
-                            $nextprcode = fn_Load_Process_Code($produce_m,$gicode,$stepNew);
-
-                            $param = ['semi_code' => $newpscode];
-                            $Cnt = $produce_m->Update_Instructions_Process($gicode, $nextprcode, $param);
-                            $param = ['step_now'=>$stepNew,'step_sub_now' => 0];
-                            //$param = ['step_sub_now' => 2];
-                            $Cnt = $produce_m->Update_Instructions_Info($gicode,$param);
-
-                            $result = 'ok';
-                            $data = [];
-                            $message = '';
-                        }
-                    }
+                $process = fn_LoadInstructionsSingleProcess($produce_m,$gicode,$prcode);
+                if(fn_ArrayCnt($process)<=0){
+                    $result = 'Error006';
+                    $data = [];
+                    $message = '존재하지 않는 공정입니다.';
+                }else if($process['status']==2){
+                    $result = 'Error007';
+                    $data = [];
+                    $message = '이미 완료된 공정입니다.';
                 }else{
-                    if($stepsub==1){//복합공정 시작
-                        if($pscode!=''){
-                            //사용반제품출고
-                            fn_OutPut_SemiProduct($produce_m,$gicode,$prcode,$pscode);
-                        }
-                        $param = ['step_sub_now' => 1];
-                        $Cnt = $produce_m->Update_Instructions_Info($gicode,$param);
-                        $Cnt = fn_Input_ProcessWorker($produce_m,$gicode,$prcode,$uid,1);
-                        $param=['status' => 1,'start_weight' => $weight];
+                    $pscode = $process['semi_code'];
+                    if($gubun=='1'){//단일 공정
+                        $param=['end_weight' => $weight,'status' => 2];
                         $Cnt = $produce_m->Update_Instructions_Process($gicode,$prcode,$param);
                         if($Cnt<=0){
                             $result = 'Error005';
                             $data = [];
-                            $message = '공정 시작처리에 실패하였습니다.';
+                            $message = '공정 완료처리에 실패하였습니다.';
                         }else{
-                            $result = 'ok';
-                            $data = [];
-                            $message = '';
-                        }
-                    }else if($stepsub==2){//복합공정 완료처리
-                        $param=['end_weight' => $weight,'status' => 2];
-                        $Cnt = $produce_m->Update_Instructions_Process($gicode,$prcode,$param);
-                        if($Cnt<=0) {
-                            $result = 'Error005';
-                            $data = [];
-                            $message = '공정 시작처리에 실패하였습니다.';
-                        }else {
+                            if($pscode!=''){
+                                //사용반제품출고
+                                fn_OutPut_SemiProduct($produce_m,$gicode,$prcode,$pscode);
+                            }
                             $Cnt = fn_Input_ProcessWorker($produce_m,$gicode,$prcode,$uid,2);
                             if(fn_Check_CompleteProcess($produce_m,$gicode)){//전체완료다
                                 $param = ['is_complete' => 2,'step_sub_now' => 2];
-                                $Cnt = $produce_m->Update_Instructions_Info($gicode, $param);
+                                $Cnt = $produce_m->Update_Instructions_Info($gicode,$param);
                                 //완제품입고
-                                fn_Input_FinalProduct($produce_m, $gicode, $weight);
+                                fn_Input_FinalProduct($produce_m,$gicode,$weight);
+
                                 $result = 'ok';
                                 $data = [];
                                 $message = '';
-                            } else {
+                            }else{
                                 //반제품입고
-                                $r_arr = fn_Input_SemiProduct($produce_m, $gicode, $prcode, $weight);
+                                $r_arr = fn_Input_SemiProduct($produce_m,$gicode,$prcode,$weight);
                                 $newpscode = $r_arr['pscode'];
 
-                                $stepNum = $stepnow+1;
-                                $nextprcode = fn_Load_Process_Code($produce_m,$gicode,$stepNum);
+                                $stepNew = $stepnow + 1;
+                                $nextprcode = fn_Load_Process_Code($produce_m,$gicode,$stepNew);
+
+                                //다음 프로세스에 반제품 등록
                                 $param = ['semi_code' => $newpscode];
                                 $Cnt = $produce_m->Update_Instructions_Process($gicode, $nextprcode, $param);
-                                $param = ['step_now'=>$stepNum,'step_sub_now' => 0];
+                                //현재 프로세스 완료 처리
+                                $param = ['status' => 2];
+                                $Cnt = $produce_m->Update_Instructions_Process($gicode, $stepnow, $param);
+                                //info에 현재 단계 상태 등록
+                                $param = ['step_sub_now' => 2,'is_complete' => 1];
                                 $Cnt = $produce_m->Update_Instructions_Info($gicode,$param);
 
                                 $result = 'ok';
                                 $data = [];
                                 $message = '';
+                            }
+                        }
+                    }else {
+                        if (($stepsub == 1) && ($iscomplete==0)) {//복합공정 시작
+                            if ($pscode != '') {
+                                //사용반제품출고
+                                fn_OutPut_SemiProduct($produce_m, $gicode, $prcode, $pscode);
+                            }
+                            $param = ['step_sub_now' => 1,'is_complete' => 1];
+                            $Cnt = $produce_m->Update_Instructions_Info($gicode, $param);
+                            $param = ['status' => 1, 'start_weight' => $weight];
+                            $Cnt = $produce_m->Update_Instructions_Process($gicode, $prcode, $param);
+                            if ($Cnt <= 0) {
+                                $result = 'Error005';
+                                $data = [];
+                                $message = '공정 시작처리에 실패하였습니다.';
+                            } else {
+                                $result = 'ok';
+                                $data = [];
+                                $message = '';
+                            }
+                        } else if (($stepsub == 1) && ($iscomplete==1)) {//복합공정 완료처리
+                            $param = ['end_weight' => $weight, 'status' => 2];
+                            $Cnt = $produce_m->Update_Instructions_Process($gicode, $prcode, $param);
+                            if ($Cnt <= 0) {
+                                $result = 'Error005';
+                                $data = [];
+                                $message = '공정 시작처리에 실패하였습니다.';
+                            } else {
+                                $Cnt = fn_Input_ProcessWorker($produce_m, $gicode, $prcode, $uid, 2);
+                                if (fn_Check_CompleteProcess($produce_m, $gicode)) {//전체완료다
+                                    $param = ['is_complete' => 2, 'step_sub_now' => 2];
+                                    $Cnt = $produce_m->Update_Instructions_Info($gicode, $param);
+                                    //완제품입고
+                                    fn_Input_FinalProduct($produce_m, $gicode, $weight);
+                                    $result = 'ok';
+                                    $data = [];
+                                    $message = '';
+                                } else {
+                                    //반제품입고
+                                    $r_arr = fn_Input_SemiProduct($produce_m, $gicode, $prcode, $weight);
+                                    $newpscode = $r_arr['pscode'];
+
+                                    $stepNum = $stepnow + 1;
+                                    $nextprcode = fn_Load_Process_Code($produce_m, $gicode, $stepNum);
+                                    $param = ['semi_code' => $newpscode];
+                                    $Cnt = $produce_m->Update_Instructions_Process($gicode, $nextprcode, $param);
+                                    $param = ['step_sub_now' => 2,'is_complete' => 1];
+                                    $Cnt = $produce_m->Update_Instructions_Info($gicode, $param);
+
+                                    $result = 'ok';
+                                    $data = [];
+                                    $message = '';
+                                }
                             }
                         }
                     }
@@ -373,10 +421,12 @@ class ApiProduceController extends BaseController
             }else{
                 foreach ($iRs as $d){
                     $param = [
-                        'iscomplete' => $d['is_complete'],
                         'gicode' => $d['gicode'],
                         'prcode' => $d['nowprcode'],
-                        'stepnow' => $d['step_now']
+                        'step_now' => $d['step_now'],
+                        'step_sub_now' => $d['step_sub_now'],
+                        'is_complete' => $d['is_complete'],
+                        'nowprcode' => $d['nowprcode']
                     ];
                     $p_arr = fn_Load_NowStep($produce_m,$param);
 

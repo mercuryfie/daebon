@@ -1,5 +1,33 @@
 <?php
 
+function Return_Prodcess_Gubun($model,$gicode,$stepnow){
+    $gubun = '';
+    $bRs = $model->Load_Instructions_NowProcess($gicode, $stepnow);
+    $steptype = (fn_ArrayCnt($bRs)>0) ? $bRs[0]['step_typ'] : '';
+    if($steptype!=''){
+        $t_arr = fnGetProcessNameByCode($steptype);
+        $gubun = (fn_ArrayCnt($t_arr)>0) ? $t_arr['gubun'] : '';
+    }
+    return $gubun;
+}
+
+function Return_Member_Type($uid){
+    $type = '';
+    $member_m = model('Member_m');
+    $mRs = $member_m->Load_UserInfo_Uid($uid);
+    if(fn_ArrayCnt($mRs)>0) {
+        if ($mRs[0]['grade'] == 1101) {
+            $type = AUTH_MASTER;
+        } else if ($mRs[0]['grade'] == 1102) {
+            $type = AUTH_PACKING;
+        } else if ($mRs[0]['grade'] == 1103) {
+            $type = AUTH_PRODUCT;
+        }
+    }
+
+    return $type;
+}
+
 function getOrderStatusName($step) {
     switch($step) {
         case 0:
@@ -165,115 +193,6 @@ function fn_GetInstructions_NowStep($model,$gicode){
     return $nowprcode;
 }
 
-function fn_GetInstructions_Step($model,$gicode,$workeruid){
-    $nowprcode = '';
-    $data = [];
-    $cRs = $model->Load_Instructions_Info($gicode);
-    if(fn_ArrayCnt($cRs)>0) {
-        $iscomplete = $cRs[0]['is_complete'];
-        $stepnow = $cRs[0]['step_now'];
-        $stepsubnow = $cRs[0]['step_sub_now'];
-        if ($iscomplete==2) {//완전완료됨
-            $nowprcode = 'complete';
-        }else if($stepnow == 0) {//시작안함
-            $aRs = $model->Load_Instructions_NowProcess($gicode, 1);
-            if (fn_ArrayCnt($aRs) > 0) {
-                $nowprcode = $aRs[0]['fk_prcode'];
-                $Cnt = fn_Input_ProcessWorker($model, $gicode, $nowprcode, $workeruid, 1);
-                $param = ['status' => 1];
-                $Cnt = $model->Update_Instructions_Process($gicode, $nowprcode, $param);
-                $param = ['is_complete' => 0, 'step_now' => 1, 'step_sub_now' => 0];
-                $Cnt = $model->Update_Instructions_Info($gicode, $param);
-                $data = $aRs[0];
-            }
-        }else{
-            if ($stepsubnow == 0) {
-                $aRs = $model->Load_Instructions_NowProcess($gicode, $stepnow);
-                if (fn_ArrayCnt($aRs) > 0) {
-                    $nowprcode = $aRs[0]['fk_prcode'];
-                    $data = $aRs[0];
-                }
-            }else if ($stepsubnow == 1) {
-                $aRs = $model->Load_Instructions_NowProcess($gicode, $stepnow);
-                if (fn_ArrayCnt($aRs) > 0) {
-                    $nowprcode = $aRs[0]['fk_prcode'];
-                    $data = $aRs[0];
-                }
-            }else if ($stepsubnow == 2) {//시작했는데 종료됬음
-                $stepnow = $stepnow + 1;
-                $aRs = $model->Load_Instructions_NowProcess($gicode, $stepnow);
-                if (fn_ArrayCnt($aRs) > 0) {
-                    $nowprcode = $aRs[0]['fk_prcode'];
-                    $Cnt = fn_Input_ProcessWorker($model, $gicode, $nowprcode, $workeruid, 1);
-                    $param = ['status' => 1];
-                    $Cnt = $model->Update_Instructions_Process($gicode, $nowprcode, $param);
-                    $param = ['step_now' => $stepnow, 'step_sub_now' => 0];
-                    $Cnt = $model->Update_Instructions_Info($gicode, $param);
-                    $data = $aRs[0];
-                }
-            }
-        }
-    }
-
-    if(fn_ArrayCnt($cRs)>0){
-        if(($nowprcode!='') || ($nowprcode!='complete')) {
-            $w_arr = fn_LoadInstructionsWorker($model, $gicode, $nowprcode);
-            if ($data['status'] == '0') {
-                $worker = [
-                    'name' => '',
-                    'actdate' => ''
-                ];
-            }else if ($data['status'] == '1') {
-                $worker = [
-                    'name' => $w_arr['start']['name'],
-                    'actdate' => $w_arr['start']['actdate']
-                ];
-            } else if ($data['status'] == '2') {
-                $worker = [
-                    'name' => $w_arr['end']['name'],
-                    'actdate' => $w_arr['end']['actdate']
-                ];
-            }
-            $data['worker_arr'] = $worker;
-            $p_arr = fnGetProcessNameByCode($data['step_typ']);
-            $data['p_type'] = $p_arr;
-        }else{
-            $data['worker_arr'] = [];
-            $data['p_type'] = [];
-        }
-
-
-
-        $info = $cRs[0];
-
-        $mRs = $model->Load_Instructions_Step_Material($gicode,$stepnow);
-        $step_material = [];
-        if(fn_ArrayCnt($mRs)>0){
-            foreach($mRs as $f){
-                $t_arr = [
-                    'mtname' => $f['mtname'],
-                    'capacity' => $f['capacity']
-                ];
-                array_push($step_material,$t_arr);
-            }
-
-            $data['material'] = $step_material;
-        }else{
-            $data['material'] = [];
-        }
-
-
-
-    }
-
-    $r_arr = [
-        'prcode' =>$nowprcode,
-        'info' => $info,
-        'data' => $data
-    ];
-
-    return $r_arr;
-}
 
 function fn_getPrcodeByStepNum(array $step_info, $stepNum) {
     foreach ($step_info as $item) {
@@ -284,121 +203,27 @@ function fn_getPrcodeByStepNum(array $step_info, $stepNum) {
     return null;
 }
 
-function fn_Load_NowStep($model,$param){
-    $iscomplete = $param['iscomplete'];
-    $gicode = $param['gicode'];
-    $nowprcode = $param['prcode'];
-    $stepnow = $param['stepnow'];
-
-    $prcode = '';
-    $stepNum = '';
-    $p_step = '';
-    $p_str = '';
-    $worker = '';
-
-    if($iscomplete==2){
-        $prcode = '';
-        $p_step = '-';
-        $p_str = '완료';
-        $worker = '';
-        $stepNum = '';
-    }else if($stepnow>0){
-        $cRs = $model->Load_Instructions_Process_Info($gicode, $nowprcode);
-        if(fn_ArrayCnt($cRs)>0){
-            $a = $cRs[0];
-            $prcode = $a['fk_prcode'];
-            if($a['status']==0) {
-                $p_step = $a['step_name'];
-                $stepNum = $a['stepNum'];
-                $p_str = '공정대기중';
-                $worker = '';
-            }else if($a['status']==1){
-                $p_step = $a['step_name'];;
-                $stepNum = $a['stepNum'];
-                $p_str = '공정진행중';
-                $worker = $a['worker'];
-            }else if($a['status']==2) {
-                $p_step = $a['step_name'];;
-                $stepNum = $a['stepNum'];
-                $p_str = '다음공정대기중';
-                $worker = $a['worker'];
-            }
+function fn_LoadInstructionsWorker($model,$gicode,$prcode,$status){
+    $retarr = ['uid' => '', 'name' => '', 'actdate' => ''];
+    if($status==1) {
+        $pRs = $model->Load_Instructions_Worker($gicode, $prcode, 1);
+        if (fn_ArrayCnt($pRs) > 0) {
+            $retarr = [
+                'uid' => $pRs[0]['uid'],
+                'name' => $pRs[0]['name'],
+                'actdate' => $pRs[0]['actdate']
+            ];
         }
-    }else{
-        $cRs = $model->Load_Instructions_NowProcess($gicode,1);
-        if (fn_ArrayCnt($cRs) > 0) {
-            $a = $cRs[0];
-            $prcode = $a['fk_prcode'];
-            if ($a['status'] == 0) {
-                $p_step = $a['step_name'];
-                $stepNum = $a['stepNum'];
-                $p_str = '공정대기중';
-                $worker = '';
-            } else if ($a['status'] == 1) {
-                $p_step = $a['step_name'];;
-                $stepNum = $a['stepNum'];
-                $p_str = '공정진행중';
-                $worker = $a['worker'];
-            } else if ($a['status'] == 2) {
-                $p_step = $a['step_name'];;
-                $stepNum = $a['stepNum'];
-                $p_str = '다음공정대기중';
-                $worker = $a['worker'];
-            }
+    }else if($status==2) {
+        $rRs = $model->Load_Instructions_Worker($gicode, $prcode, 2);
+        if (fn_ArrayCnt($rRs) > 0) {
+            $retarr = [
+                'uid' => $rRs[0]['uid'],
+                'name' => $rRs[0]['name'],
+                'actdate' => $rRs[0]['actdate']
+            ];
         }
     }
-    $r_arr = [
-        'prcode'=> $prcode,
-        'stepNum'=> $stepNum,
-        'step' => $p_step,
-        'str' => $p_str,
-        'worker' => $worker
-
-    ];
-
-    return $r_arr;
-}
-
-
-
-function fn_LoadInstructionsWorker($model,$gicode,$prcode){
-    $retarr = [];
-    $start_arr = [];
-    $pRs = $model->Load_Instructions_Worker($gicode,$prcode,1);
-    if(fn_ArrayCnt($pRs)>0){
-        $start_arr = [
-            'uid' => $pRs[0]['uid'],
-            'name' => $pRs[0]['name'],
-            'actdate' => $pRs[0]['actdate']
-        ];
-    }else{
-        $start_arr = [
-            'uid' => '',
-            'name' => '',
-            'actdate' => ''
-        ];
-    }
-
-    $end_arr = [];
-    $rRs = $model->Load_Instructions_Worker($gicode,$prcode,2);
-    if(fn_ArrayCnt($rRs)>0){
-        $end_arr = [
-            'uid' => $pRs[0]['uid'],
-            'name' => $pRs[0]['name'],
-            'actdate' => $pRs[0]['actdate']
-        ];
-    }else{
-        $end_arr = [
-            'uid' => '',
-            'name' => '',
-            'actdate' => ''
-        ];
-    }
-
-    $retarr = [
-        'start' => $start_arr,
-        'end' => $end_arr
-    ];
     return $retarr;
 }
 
@@ -437,7 +262,8 @@ function fn_LoadInstructionsSingleProcess($model,$gicode,$prcode){
             'indate' => $d['indate'],
             'shortdate' => fn_Short_Date($d['indate']),
             'material' => $step_material,
-            'worker' => fn_LoadInstructionsWorker($model,$gicode,$prcode)
+            'p_type' => fnGetProcessNameByCode($d['step_typ']),
+            'worker' => fn_LoadInstructionsWorker($model,$gicode,$prcode,$d['status'])
         ];
     }
     return $retarr;
@@ -478,13 +304,96 @@ function fn_LoadInstructionsProcess($model,$gicode){
                 'indate' => $d['indate'],
                 'shortdate' => fn_Short_Date($d['indate']),
                 'material' => $step_material,
-                'worker' => fn_LoadInstructionsWorker($model,$gicode,$d['fk_prcode'])
+                'worker' => fn_LoadInstructionsWorker($model,$gicode,$d['fk_prcode'],$d['status'])
             ];
 
             array_push($retarr,$a_arr);
         }
     }
     return $retarr;
+}
+
+
+function fn_Load_NowStep($model,$param){
+    $gicode = $param['gicode'];
+    $stepnow = $param['step_now'];
+    $step_sub_now = $param['step_sub_now'];
+    $is_complete = $param['is_complete'];
+
+    $prcode = '';
+    $stepNum = '';
+    $p_step = '';
+    $p_str = '';
+    $worker = '';
+
+
+    if($is_complete==0) {
+        $stepnow = ($stepnow==0) ? 1 : $stepnow;
+        $gubun = Return_Prodcess_Gubun($model,$gicode,$stepnow);
+        $cRs = $model->Load_Instructions_NowProcess($gicode, $stepnow);
+        if (fn_ArrayCnt($cRs) > 0) {
+            $a = $cRs[0];
+            $p_str = '작업대기중';
+            $prcode = $a['fk_prcode'];
+            $p_step = $a['step_name'];
+            $stepNum = $a['stepNum'];
+            $worker = '';
+        }
+    }else if($is_complete==1){
+        $gubun = Return_Prodcess_Gubun($model,$gicode,$stepnow);
+        if($gubun==1){
+            $nextStep = $stepnow+1;
+            $gubun = Return_Prodcess_Gubun($model,$gicode,$nextStep);
+            $cRs = $model->Load_Instructions_NowProcess($gicode, $nextStep);
+            if(fn_ArrayCnt($cRs)>0){
+                $a = $cRs[0];
+                $prcode = $a['fk_prcode'];
+                $p_step = $a['step_name'];
+                $stepNum = $a['stepNum'];
+                $worker = '';
+                $p_str = ($gubun==1) ? '작업대기중' : '작업시작등록대기중';
+            }
+        }else if($gubun==2){
+            if (($step_sub_now == 0) && ($is_complete == 0)) {
+                $p_str = '작업시작등록대기중';
+                $cRs = $model->Load_Instructions_NowProcess($gicode, $stepnow);
+            } else if (($step_sub_now == 1) && ($is_complete == 0)) {
+                $p_str = '작업시작등록대기중';
+                $cRs = $model->Load_Instructions_NowProcess($gicode, $stepnow);
+            } else if (($step_sub_now == 1) && ($is_complete == 1)) {
+                $p_str = '작업완료등록대기중';
+                $cRs = $model->Load_Instructions_NowProcess($gicode, $stepnow);
+            } else if (($step_sub_now == 2) && ($is_complete == 1)) {
+                $p_str = '작업시작등록대기중';
+                $nextStep = $stepnow+1;
+                $cRs = $model->Load_Instructions_NowProcess($gicode, $nextStep);
+            }
+            if(fn_ArrayCnt($cRs)>0) {
+                $a = $cRs[0];
+                $prcode = $a['fk_prcode'];
+                $p_step = $a['step_name'];
+                $stepNum = $a['stepNum'];
+                $worker = $a['worker'];
+            }
+
+        }
+    }else if($is_complete==2){
+        $prcode = '';
+        $p_step = '-';
+        $stepNum = '';
+        $p_str = '완료';
+        $worker = '';
+    }
+    $r_arr = [
+        'prcode'=> $prcode,
+        'stepNum'=> $stepNum,
+        'step' => $p_step,
+        'str' => $p_str,
+        'worker' => $worker
+
+    ];
+
+    return $r_arr;
 }
 
 function fn_LoadInstructionsMaterial($model,$code){
@@ -514,10 +423,12 @@ function fn_LoadInstructionsInfo($model,$gicode){
     if(fn_ArrayCnt($pRs)>0){
         $d = $pRs[0];
         $param = [
-            'iscomplete' => $d['is_complete'],
             'gicode' => $d['gicode'],
             'prcode' => $d['nowprcode'],
-            'stepnow' => $d['step_now']
+            'step_now' => $d['step_now'],
+            'step_sub_now' => $d['step_sub_now'],
+            'is_complete' => $d['is_complete'],
+            'nowprcode' => $d['nowprcode']
         ];
         $p_arr = fn_Load_NowStep($model,$param);
 
@@ -531,8 +442,11 @@ function fn_LoadInstructionsInfo($model,$gicode){
             'icnt' => $d['icnt'],
             'quantity' => $d['quantity'],
             'inventory' => $d['inventory'],
+            'unit_wight' => $d['unit_wight'],
             'step_cnt' => $d['Cnt'],
             'step_now' => $d['step_now'],
+            'step_sub_now' => $d['step_sub_now'],
+            'is_complete' => $d['is_complete'],
             'indate' => $d['indate'],
             'processname' => $p_arr['step'],
             'processstr' => $p_arr['str']
@@ -577,16 +491,16 @@ function fnMake_Process_Type($cval){
 
 function fnProcess_Arr(){
     $t_arr = [
-        ['code' => 'P001', 'name' => '계량' , 'typ' => 1, 'gubun'=> 1],
-        ['code' => 'P002', 'name' => '세척' , 'typ' => 1, 'gubun'=> 2],
-        ['code' => 'P003', 'name' => '건조' , 'typ' => 1, 'gubun'=> 2],
-        ['code' => 'P004', 'name' => '이물검사' , 'typ' => 1, 'gubun'=> 2],
-        ['code' => 'P005', 'name' => '파쇄(조분쇄)' , 'typ' => 1, 'gubun'=> 2],
-        ['code' => 'P006', 'name' => '로스팅' , 'typ' => 1, 'gubun'=> 2],
-        ['code' => 'P007', 'name' => '전동진동채(이물제거)' , 'typ' => 1, 'gubun'=> 2],
-        ['code' => 'P008', 'name' => '삼각티백/내외포장' , 'typ' => 1, 'gubun'=> 2],
-        ['code' => 'P009', 'name' => '금속이물탐지' , 'typ' => 1, 'gubun'=> 2],
-        ['code' => 'P010', 'name' => '외포장' , 'typ' => 1, 'gubun'=> 2]
+        ['code' => 'P001', 'typ' => 1, 'gubun'=> 1, 'name' => '계량'],
+        ['code' => 'P002', 'typ' => 1, 'gubun'=> 2, 'name' => '세척'],
+        ['code' => 'P003', 'typ' => 1, 'gubun'=> 2, 'name' => '건조'],
+        ['code' => 'P004', 'typ' => 1, 'gubun'=> 2, 'name' => '이물검사'],
+        ['code' => 'P005', 'typ' => 1, 'gubun'=> 2, 'name' => '파쇄(조분쇄)'],
+        ['code' => 'P006', 'typ' => 1, 'gubun'=> 2, 'name' => '로스팅'],
+        ['code' => 'P007', 'typ' => 1, 'gubun'=> 2, 'name' => '전동진동채(이물제거)'],
+        ['code' => 'P008', 'typ' => 2, 'gubun'=> 2, 'name' => '삼각티백/내외포장'],
+        ['code' => 'P009', 'typ' => 1, 'gubun'=> 2, 'name' => '금속이물탐지'],
+        ['code' => 'P010', 'typ' => 2, 'gubun'=> 2, 'name' => '외포장']
     ];
 
     return $t_arr;
@@ -695,10 +609,19 @@ function fnMake_Code($typ,$max=''){
         $timeNow = date("Ymd");
         $rnd = mt_rand(10000, 99999);
         $newCode = 'DR'. $timeNow.$rnd;
-    }else if($typ==11){//BOM코드
+    } else if($typ==11){//BOM코드
         $timeNow = date("Ymd");
         $rnd = mt_rand(1000, 9999);
         $newCode = 'DBM'. $timeNow.$rnd;
+    } else if($typ==12){//제조사코드
+        $timeNow = date("Ymd");
+        $rnd = mt_rand(10000, 99999);
+        $newCode = 'MA'. $timeNow.$rnd;
+
+    } else if($typ==13){//공급사코드
+        $timeNow = date("Ymd");
+        $rnd = mt_rand(10000, 99999);
+        $newCode = 'SU'. $timeNow.$rnd;
     }
 
     return $newCode;
@@ -805,7 +728,7 @@ function fnMake_Menu_name() {
         ['url' => '/goods/goodslist','name' => '상품목록', 'link' => 'go_goodsList();'],
         ['url' => '/goods/productsmasterlist','name' => '제품BOM목록', 'link' => 'go_productsMasterList();'],
         
-        ['url' => '/goods/goodsetc','name' => '기타정보관리', 'link' => 'go_etcInfo();'],
+        ['url' => '/goods/otherinfo','name' => '기타정보관리', 'link' => 'go_otherInfo_Maker();'],
     ];
 
     static $menus3 = [

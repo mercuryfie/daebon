@@ -5,9 +5,7 @@
     <section class="merright">
         <div class="goods_boxfv6">
             <div class="titleBox">
-                <p class="headTitle">
-                    원자재 목록
-                </p>
+                <p class="headTitle">원자재목록</p>
             </div>
             <div class="areaBox area_boxd2s">
                 <div class="area2 flexType3">
@@ -16,7 +14,7 @@
                         <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>
                     </div>
                     <div class="right">
-                        <button type="button" class="btnType2 " id="adddata" name="adddata" onclick="add_Material();">자재등록</button>
+                        <button type="button" class="btnType2" id="adddata" name="adddata" onclick="add_Material();">자재등록</button>
                     </div>
                 </div>
             </div>
@@ -38,11 +36,11 @@
                             <thead>
                             <tr>
                                 <th class="ltThead" data-col="0">종류</th>
-                                <th class="ltThead" data-col="1">원자재코드</th>
+                                <th class="ltThead" data-col="1"><div class="flexType1"><p class="cname mr10">원자재코드</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                                 <th class="ltThead " data-col="2"  ><div class="flexType1"><p class="cname mr10">이름</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
 <!--                                <td class="ltThead  ">단위</td>-->
-                                <th class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">한달평균사용</p><i class="fa-solid fa-angle-down dIcon"></i></div> </th>
-                                <th class="ltThead" data-col="4"><div class="flexType1"><p class="cname mr10">적정재고</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
+                                <th class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">한달평균사용</p></div> </th>
+                                <th class="ltThead" data-col="4"><div class="flexType1"><p class="cname mr10">적정재고</p></div></th>
                                 <th class="ltThead" data-col="5"><div class="flexType1"><p class="cname mr10">현재재고</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                                 <th class="ltThead" data-col="6"><div class="flexType1"><p class="cname mr10">재고율</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                                 <th class="ltThead" data-col="7">삭제</th>
@@ -52,6 +50,10 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                    <p class="more mr10">더보기</p>
+                    <i class="fa-solid fa-angle-down"></i>
                 </div>
             </div>
         </div>

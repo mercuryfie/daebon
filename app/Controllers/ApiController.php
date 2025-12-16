@@ -1094,6 +1094,503 @@ class ApiController extends BaseController
         return $this->respond($return);
     }
 
+
+    public function Load_Maker(){
+        $search  = ($this->request->getPost('param') == '') ? [] : $this->request->getPost('param');
+
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)){
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $skey = array_key_exists('skey', $search) ? $search['skey'] : '';
+            $page = array_key_exists('page', $search) ? $search['page'] : 1;
+            $limit = 15;
+            $offset = ($page - 1) * $limit;
+            $param = [
+                'skey' => $skey,
+                'limit' => $limit,
+                'offset' => $offset,
+            ];
+
+            $material_m = model('Material_m');
+//            $mRs = $material_m->Load_Maker_All($param);
+            $mRs = ($skey=='') ? $material_m->Load_Maker_All($param) : $material_m->Load_Maker_Search($param);
+            $m_arr = [];
+            foreach ($mRs as $d){
+                $t_arr['seq'] = $d['seq'];
+                $t_arr['code'] = $d['code'];
+                $t_arr['name'] = $d['name'];
+                array_push($m_arr,$t_arr);
+            }
+
+            $i_arr = [
+                'list' => $m_arr,
+                'tCnt' => fn_ArrayCnt($m_arr)
+            ];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
+//    public function Load_Maker(){
+//        $skey  = ($this->request->getPost('key') == '') ? '' : $this->request->getPost('key');
+//
+//        $sessinarr = $this->GetSessionData();
+//        if($sessinarr['islogin']==false) {
+//            $result = 'NoLogin';
+//            $data = [];
+//            $message = '로그인이 필요합니다.';
+//        }else if(!Check_Token($sessinarr)){
+//            $result = 'Error002';
+//            $data = [];
+//            $message = '잘못된 토큰입니다.';
+//        }else{
+////            $skey = array_key_exists('skey', $search) ? $search['skey'] : '';
+////            $page = array_key_exists('page', $search) ? $search['page'] : 1;
+////            $limit = 15;
+////            $offset = ($page - 1) * $limit;
+////            $param = [
+////                'limit' => $limit,
+////                'offset' => $offset,
+////                'stype' => $skey
+////            ];
+//
+//            $material_m = model('Material_m');
+//            $mRs = ($skey=='') ? $material_m->Load_Maker_All() : $material_m->Load_Maker_Search($skey);
+//            $m_arr = [];
+//            foreach ($mRs as $d){
+//                $t_arr['seq'] = $d['seq'];
+//                $t_arr['code'] = $d['code'];
+//                $t_arr['name'] = $d['name'];
+//                array_push($m_arr,$t_arr);
+//            }
+//
+//            $i_arr = [
+//                'list' => $m_arr,
+//                'tCnt' => fn_ArrayCnt($m_arr)
+//            ];
+//
+//            $result = 'ok';
+//            $data = $i_arr;
+//            $message = '';
+//        }
+//
+//        $return = [
+//            'result' => $result,
+//            'info' => $data,
+//            'message' => $message
+//        ];
+//        return $this->respond($return);
+//    }
+
+
+    public function Add_Maker_Info(){
+        $data  = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
+        $sessinarr = $this->GetSessionData();
+        if(fn_ArrayCnt($data)<=0){
+            $result = 'Error001';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $material_m = model('Material_m');
+            $NewCode = fnMake_Code(12);
+            $param = [
+                'code' => $NewCode,
+                'name' => $data['name'],
+            ];
+            $Cnt = $material_m->Insert_Maker_Info($param);
+            if($Cnt > 0){
+                $mRs = $material_m->Load_Maker_Search($NewCode);
+                if(fn_ArrayCnt($mRs)<=0){
+                    $result = 'Error003';
+                    $data = [];
+                    $message = '존재하지 않는 원자재 입니다. ';
+                }else {
+                    $d = $mRs[0];
+                    $m_arr = [
+                        'seq' => $d['seq'],
+                        'code' => $d['code'],
+                        'name' => $d['name'],
+                    ];
+
+                    $i_arr = [
+                        'list' => $m_arr
+                    ];
+
+                    $result = 'ok';
+                    $data = $i_arr;
+                    $message = '';
+                }
+            }else{
+                $result = 'Error004';
+                $data = [];
+                $message = '존재하지 않는 원자재 입니다. ';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Mod_Maker_Info(){
+
+        $search  = ($this->request->getPost('param') == '') ? [] : $this->request->getPost('param');
+
+//        $data  = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
+        $sessinarr = $this->GetSessionData();
+        if(fn_ArrayCnt($data)<=0){
+            $result = 'Error001';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $code = $data['code'];
+            $material_m = model('Material_m');
+            $mRs = $material_m->Load_Maker_Search($code);
+            if(fn_ArrayCnt($mRs)>0){
+                $param = [
+                    'name' => $data['name'],
+                ];
+
+                $Cnt = $material_m->Update_Maker_Info($code,$param);
+                if($Cnt > 0){
+                    $mRs = $material_m->Load_Maker_Search($code);
+                    if(fn_ArrayCnt($mRs)<=0){
+                        $result = 'Error003';
+                        $data = [];
+                        $message = '존재하지 않는 원자재 입니다. ';
+                    }else {
+                        $d = $mRs[0];
+                        $m_arr = [
+                            'code' => $d['code'],
+                            'name' => $d['name'],
+                        ];
+
+                        $i_arr = [
+                            'list' => $m_arr
+                        ];
+
+                        $result = 'ok';
+                        $data = $i_arr;
+                        $message = '';
+                    }
+                }else{
+                    $result = 'Error004';
+                    $data = [];
+                    $message = '정보 수정에 실패하였습니다.';
+                }
+            }else{
+                $result = 'Error005';
+                $data = [];
+                $message = '존재하지 않는 제조사 입니다. ';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Del_Maker_Info(){
+        $code  = ($this->request->getPost('code') == '') ? '' : $this->request->getPost('code');
+        $sessinarr = $this->GetSessionData();
+        if(fn_ArrayCnt($code)==''){
+            $result = 'Error001';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $material_m = model('Material_m');
+            $mRs = $material_m->Load_Maker_Search($code);
+            if(fn_ArrayCnt($mRs)>0){
+                $Cnt = $material_m->Delete_Maker($code);
+                if($Cnt > 0){
+                    $result = 'ok';
+                    $data = [];
+                    $message = '';
+                }else{
+                    $result = 'Error004';
+                    $data = [];
+                    $message = '정보 수정에 실패하였습니다.';
+                }
+            }else{
+                $result = 'Error005';
+                $data = [];
+                $message = '존재하지 않는 제조사 입니다. ';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
+    public function Load_Supplier(){
+        $skey  = ($this->request->getPost('key') == '') ? '' : $this->request->getPost('key');
+
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)){
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $material_m = model('Material_m');
+            $mRs = ($skey=='') ? $material_m->Load_Supplier_All() : $material_m->Load_Supplier_Search($skey);
+            $m_arr = [];
+            foreach ($mRs as $d){
+                $t_arr['seq'] = $d['seq'];
+                $t_arr['code'] = $d['code'];
+                $t_arr['name'] = $d['name'];
+                array_push($m_arr,$t_arr);
+            }
+
+            $i_arr = [
+                'list' => $m_arr,
+                'tCnt' => fn_ArrayCnt($m_arr)
+            ];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Add_Supplier_Info(){
+        $data  = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
+        $sessinarr = $this->GetSessionData();
+        if(fn_ArrayCnt($data)<=0){
+            $result = 'Error001';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $material_m = model('Material_m');
+            $NewCode = fnMake_Code(12);
+            $param = [
+                'code' => $NewCode,
+                'name' => $data['name'],
+            ];
+            $Cnt = $material_m->Insert_Supplier_Info($param);
+            if($Cnt > 0){
+                $mRs = $material_m->Load_Supplier_Search($NewCode);
+                if(fn_ArrayCnt($mRs)<=0){
+                    $result = 'Error003';
+                    $data = [];
+                    $message = '존재하지 않는 원자재 입니다. ';
+                }else {
+                    $d = $mRs[0];
+                    $m_arr = [
+                        'seq' => $d['seq'],
+                        'code' => $d['code'],
+                        'name' => $d['name'],
+                    ];
+
+                    $i_arr = [
+                        'list' => $m_arr
+                    ];
+
+                    $result = 'ok';
+                    $data = $i_arr;
+                    $message = '';
+                }
+            }else{
+                $result = 'Error004';
+                $data = [];
+                $message = '존재하지 않는 원자재 입니다. ';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
+    public function Mod_Supplier_Info(){
+        $data  = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
+        $sessinarr = $this->GetSessionData();
+        if(fn_ArrayCnt($data)<=0){
+            $result = 'Error001';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $code = $data['code'];
+            $material_m = model('Material_m');
+            $mRs = $material_m->Load_Supplier_Search($code);
+            if(fn_ArrayCnt($mRs)>0){
+                $param = [
+                    'name' => $data['name'],
+                ];
+
+                $Cnt = $material_m->Update_Supplier_Info($code,$param);
+                if($Cnt > 0){
+                    $mRs = $material_m->Load_Supplier_Search($code);
+                    if(fn_ArrayCnt($mRs)<=0){
+                        $result = 'Error003';
+                        $data = [];
+                        $message = '존재하지 않는 공급사 입니다. ';
+                    }else {
+                        $d = $mRs[0];
+                        $m_arr = [
+                            'code' => $d['code'],
+                            'name' => $d['name'],
+                        ];
+
+                        $i_arr = [
+                            'list' => $m_arr
+                        ];
+
+                        $result = 'ok';
+                        $data = $i_arr;
+                        $message = '';
+                    }
+                }else{
+                    $result = 'Error004';
+                    $data = [];
+                    $message = '정보 수정에 실패하였습니다.';
+                }
+            }else{
+                $result = 'Error005';
+                $data = [];
+                $message = '존재하지 않는 공급사 입니다. ';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
+
+    public function Del_Supplier_Info(){
+        $code  = ($this->request->getPost('code') == '') ? '' : $this->request->getPost('code');
+        $sessinarr = $this->GetSessionData();
+        if(fn_ArrayCnt($code)==''){
+            $result = 'Error001';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $material_m = model('Material_m');
+            $mRs = $material_m->Load_Supplier_Search($code);
+            if(fn_ArrayCnt($mRs)>0){
+                $param = [
+                    'is_del' => 1
+                ];
+                $Cnt = $material_m->Delete_Supplier($code,$param);
+                if($Cnt > 0){
+                    $result = 'ok';
+                    $data = [];
+                    $message = '';
+                }else{
+                    $result = 'Error004';
+                    $data = [];
+                    $message = '정보 수정에 실패하였습니다.';
+                }
+            }else{
+                $result = 'Error005';
+                $data = [];
+                $message = '존재하지 않는 제조사 입니다. ';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
     public function Load_Material_Info(){
         $mcode  = ($this->request->getPost('code') == '') ? 1 : $this->request->getPost('code');
         $sessinarr = $this->GetSessionData();
@@ -1146,6 +1643,7 @@ class ApiController extends BaseController
         ];
         return $this->respond($return);
     }
+
 
     public function Add_Material_Info(){
         $data  = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');

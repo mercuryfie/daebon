@@ -39,7 +39,7 @@ class GoodsController extends BaseController
                 $d = $mRs[0];
                 $info_arr = [
                     'gcode' => '',
-                    'gname' => $d['gname'],
+                    'gname' => $d['gsname'],
                     'writer' => '관리자',
                     'category' => $d['category'],
                     'catestr' => fnGetProductNameByCode($d['category']),
@@ -359,14 +359,37 @@ class GoodsController extends BaseController
 
 
 
-    public function etcInfo()
+    public function otherInfo()
     {
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
         }else {
+//            $metaarr = [
+//                'h_title' => '기타정보관리',
+//                'h_type' => 1
+//            ];
+
+            $good_m = model('Goods_m');
+//            $m_arr = $good_m->Load_Maker_All();
+
+
+
+            $tp = $this->request->getGet('tp');
+
+            if($tp == 1) {
+                $h_title = '제조사관리';
+                $view_name = 'web/common/otherInfo_Maker_View';
+            } else if($tp == 2) {
+                $h_title = '공급처관리';
+                $view_name = 'web/common/otherInfo_Supplier_View';
+            } else {
+                $h_title = '제조사관리';
+                $view_name = 'web/common/otherInfo_Maker_View';
+            }
+
             $metaarr = [
-                'h_title' => '기타정보관리',
+                'h_title' => $h_title,
                 'h_type' => 1
             ];
 
@@ -381,7 +404,7 @@ class GoodsController extends BaseController
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/common/etcInfo_View',$main_data);
+            return view($view_name, $main_data);
         }
     }
 

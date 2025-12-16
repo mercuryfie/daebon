@@ -1,4 +1,34 @@
 
+function fnProcess_Arr() {
+    return [
+        { code: 'P001', typ: 1, gubun: 1, name: '계량' },
+        { code: 'P002', typ: 1, gubun: 2, name: '세척' },
+        { code: 'P003', typ: 1, gubun: 2, name: '건조' },
+        { code: 'P004', typ: 1, gubun: 2, name: '이물검사' },
+        { code: 'P005', typ: 1, gubun: 2, name: '파쇄(조분쇄)' },
+        { code: 'P006', typ: 1, gubun: 2, name: '로스팅' },
+        { code: 'P007', typ: 1, gubun: 2, name: '전동진동채(이물제거)' },
+        { code: 'P008', typ: 2, gubun: 2, name: '삼각티백/내외포장' },
+        { code: 'P009', typ: 1, gubun: 2, name: '금속이물탐지' },
+        { code: 'P010', typ: 2, gubun: 2, name: '외포장' }
+    ];
+}
+
+function fnGetProcessNameByCode(code) {
+    const products = fnProcess_Arr();
+
+    const p = products.find(item => item.code === code); // 못 찾으면 undefined [web:24][web:31]
+    if (!p) {
+        return null;
+    }
+
+    return {
+        name: p.name,
+        typ: p.typ,
+        gubun: p.gubun
+    };
+}
+
 function fnGetProductNameByCode(code) {
     const product = productsArr.find(p => p.code === code);
     return product ? product.name : null;
@@ -246,11 +276,22 @@ function go_productsMasterList(){
     $(location).attr("href", url);
 }
 
-function go_etcInfo(){
-    alert('페이지 준비중입니다. ');
-    // let url = "/goods/etcinfo";
-    // $(location).attr("href", url);
+function go_otherInfo_Maker(){
+    // alert('페이지 준비중입니다. ');
+    let url = "/goods/otherinfo?tp=" + 1;
+    $(location).attr("href", url);
 }
+
+function go_otherInfo_Supplier(){
+    // alert('페이지 준비중입니다. ');
+    let url = "/goods/otherinfo?tp=" + 2;
+    $(location).attr("href", url);
+}
+
+// function go_productionDetail(code) {
+//     let url = "/produce/productiondetail?cd=" + code;
+//     $(location).attr("href", url);
+// }
 
 function go_qualityReport(){
     let url = "/report/quality";

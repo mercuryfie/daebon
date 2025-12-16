@@ -55,6 +55,8 @@ $(document).ready(function() {
 
 });
 
+let isSearching = false;
+
 async function Del_Goods(code){
     try {
         start_spinner();
@@ -86,9 +88,20 @@ async function Del_Goods(code){
 
 
 function doSearch() {
+    if (isSearching) return;  // 연타 방지
+
+    isSearching = true;
+    let btn = $('#btn_search');
+    btn.prop('disabled', true).text('검색중...');
+
     let skey = $('#txt_search').val();
     $('#clist').empty();
-    Make_Html(skey);
+
+    Make_Html(skey).finally(() => {
+        // Make_Html 완료 후 복구
+        isSearching = false;
+        btn.prop('disabled', false).text('검색');
+    });
 }
 
 async function Make_instructions(code,cnt){

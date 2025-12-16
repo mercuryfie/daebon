@@ -101,13 +101,13 @@
 <!--                            <option value="">작업중</option>-->
 <!--                            <option value="">작업완료</option>-->
 <!--                        </select>-->
-                    <select name="" id="" class="searchFilter">
-                        <option value="">주문번호</option>
-                        <option value="">상품번호</option>
-                        <option value="">구매자명</option>
-                        <option value="">구매자ID</option>
-                    </select>
-                    <input type="search" name="" id="" class="searchArea" placeholder="1324-1234">
+<!--                    <select name="" id="" class="searchFilter">-->
+<!--                        <option value="">주문번호</option>-->
+<!--                        <option value="">상품번호</option>-->
+<!--                        <option value="">구매자명</option>-->
+<!--                        <option value="">구매자ID</option>-->
+<!--                    </select>-->
+                    <input type="search" name="" id="" class="searchArea" placeholder="통합 검색">
                     <button type="button" class="btnType1">검색</button>
                 </div>
                 <div class="right flexType2 filter_boxa6m">
@@ -142,21 +142,21 @@
             <div class="area4 order_boxfxp">
                 <div class="table_scroll">
                     <table class="order_tabledj1 ">
-                        <thead>
+                        <thead class="tbl_head">
                         <tr>
-                            <td class="ltThead fixedCol checkCol td40">-<div class="resize-handle"></div></td>
-                            <td class="ltThead fixedCol" onclick="">진행상태</td>
-                            <td class="ltThead fixedCol">등록</td>
-                            <td class="ltThead fixedCol">주문번호<div class="resize-handle"></div></td>
-                            <td class="ltThead fixedCol">상품번호</td>
+                            <td class="ltThead fixedCol checkCol td40">-</td>
+                            <td class="ltThead fixedCol" onclick=""><div class="inner1"><p class="text">진행상태</p></div></td>
+                            <td class="ltThead fixedCol"><div class="inner1"><p class="text">등록</p></div></td>
+                            <td class="ltThead fixedCol"><div class="inner2"><p class="text">주문번호</p></div></td>
+                            <td class="ltThead fixedCol"><div class="inner2 last_inner"><p class="text">상품번호</p></div></td>
+
                             <td class="ltThead scrollableCol">판매자ID<div class="resize-handle"></div></td>
                             <td class="ltThead scrollableCol">구매자ID</td>
-
                             <td class="ltThead scrollableCol">상품명</td>
                             <td class="ltThead scrollableCol">구매자명</td>
                             <td class="ltThead scrollableCol">수신인명</td>
-                            <td class="ltThead scrollableCol">구매금액</td>
 
+                            <td class="ltThead scrollableCol">구매금액</td>
                             <td class="ltThead scrollableCol">수량</td>
                             <td class="ltThead scrollableCol">송장출력일</td>
                             <td class="ltThead scrollableCol">등록일</td>
@@ -238,10 +238,15 @@
                     </table>
                 </div>
             </div>
+<!--            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">-->
+<!--                <p class="more mr10">더보기</p>-->
+<!--                <i class="fa-solid fa-angle-down"></i>-->
+<!--            </div>-->
         </div>
     </div>
 </section>
 
+<?= $this->include('/web/include/pop_AddOrder_View'); ?>
 <?= $this->include('/web/include/pop_AddPackingQueue_View'); ?>
 <?= $this->include('/web/include/pop_UploadXlx_View'); ?>
 <?php //= $this->include('/web/include/pop_AddOrder_View'); ?>

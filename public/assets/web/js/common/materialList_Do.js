@@ -129,13 +129,13 @@ $(document).ready(function() {
                 Make_Toast('구분을 선택하세요');
             }else if(mname==''){
                 $('#mname').focus();
-                Make_Toast('원자재명을 입력하세요.');
+                Make_Toast('원재료명을 입력하세요.');
             }else if(maker==''){
                 $('#maker').focus();
                 Make_Toast('제조사를 선택하세요.');
             }else if(supply==''){
                 $('#supply').focus();
-                Make_Toast('제조사를 선택하세요.');
+                Make_Toast('공급사를 선택하세요.');
             }else if(unit==''){
                 $('#unit').focus();
                 Make_Toast('단위를 선택하세요.');
@@ -193,13 +193,13 @@ $(document).ready(function() {
                 Make_Toast('구분을 선택하세요');
             }else if(mname==''){
                 $('#mname').focus();
-                Make_Toast('원자재명을 입력하세요.');
+                Make_Toast('부자재명을 입력하세요.');
             }else if(maker==''){
                 $('#maker').focus();
                 Make_Toast('제조사를 선택하세요.');
             }else if(supply==''){
                 $('#supply').focus();
-                Make_Toast('제조사를 선택하세요.');
+                Make_Toast('공급사를 선택하세요.');
             }else if(unit==''){
                 $('#unit').focus();
                 Make_Toast('단위를 선택하세요.');
@@ -385,7 +385,9 @@ async function Load_Data(skey) {
                             </td>
 <!--                            <td class="ltThead col3">${el.uname}</td>-->
                             <td class="ltTbody col4">${el.stock}</td>
-                            <td class="ltTbody col5">${el.avg}</td> 
+                            <td class="ltTbody col5">${el.avg}</td>  
+                            <td class="ltTbody col5">${el.stock}</td> 
+                            <td class="ltTbody col5">${el.stock}</td> 
                             <td class="ltTbody col6">
                                 <button type="button" class="btnType3 trashBtn" id="del_${el.seq}" name="btn_del"  data-code="${el.mtcode}"> 
                                     <i class="fa-solid fa-trash"></i>
@@ -400,6 +402,9 @@ async function Load_Data(skey) {
                         <td class="ltTbody">-</td>
                         <td class="ltTbody">-</td>
                         <td class="ltTbody">-</td>
+                        <td class="ltTbody">-</td>
+                        <td class="ltTbody">-</td>
+                        
                         <td class="ltTbody">-</td>
                         <td class="ltTbody">-</td>
                         <td class="ltTbody">-</td>

@@ -95,12 +95,10 @@ async function Make_Html(param){
                     <td class="ltTbody td40 fixedCol">
                         <input type="checkbox" name="chkorder" value="${el.orcode}">
                     </td>
-                    <td class="ltTbody productNo fixedCol" name="packingStep">
-                        ${subhtml}
-                    </td>
-                    <td class="ltTbody fixedCol">엑셀</td>
-                    <td class="ltTbody fixedCol underline2" data-copy="copy">${el.orcode}</td>
-                    <td class="ltTbody fixedCol underline2">${el.spcode}</td>
+                    <td class="ltTbody productNo fixedCol" name="packingStep"><div class="inner1"><p class="text">${subhtml}</p></div></td>
+                    <td class="ltTbody fixedCol"><div class="inner1"><p class="text">엑셀</p></div></td>
+                    <td class="ltTbody fixedCol underline2" data-copy="copy"><div class="inner2"><p class="text">${el.orcode}</p></div></td>
+                    <td class="ltTbody fixedCol underline2"><div class="inner2 last_inner"><p class="text">${el.spcode}</p></div></td>
                     <td class="ltTbody scrollableCol underline2">daebonddd1234</td>
                     <td class="ltTbody scrollableCol underline2">daebonddd1234</td>  
                      

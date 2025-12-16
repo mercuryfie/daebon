@@ -16,9 +16,6 @@ $(document).ready(function() {
         let gicode = $('#gicode').val();
         let prcode = $('#prcode').val();
         let gubun = $('#gubun').val();
-        let status = $('#status').val();
-        let stepnow = $('#stepnow').val();
-        let stepsub = $('#stepsub').val();
         let weight = $('#afterweight').data('val');
 
         if(weight==''){
@@ -29,16 +26,12 @@ $(document).ready(function() {
                 gicode: gicode,
                 prcode: prcode,
                 gubun: gubun,
-                weight: weight,
-                status: status,
-                stepnow : stepnow,
-                stepsub: Number(stepsub)+1
+                weight: weight
             };
 
             let arr = await Process_Confirm(data);
-            //go_productionListStaff();
+            go_productionListStaff();
         }
-
     });
 
 
@@ -55,7 +48,18 @@ $(document).ready(function() {
                     if (gram == 0) {
                         Make_Toast('무게값이 잘못되었습니다.');
                     } else {
-                        let gstr = gram + 'g';
+
+                        let unit_wight = $('#unit_wight').val();
+                        let ptyp = $('#ptyp').val();
+                        let gstr = '';
+                        if(ptyp==1){
+                            gstr = gram + 'g';
+                        }else if(ptyp==2) {
+                            let gCnt = (gram/unit_wight);
+                            gCnt = Math.round(gCnt);
+                            gstr = gram + 'g / ' + gCnt + 'ea';
+                        }
+
                         $('#afterweight').data('val', gram);
                         $('#afterweight').text(gstr);
 

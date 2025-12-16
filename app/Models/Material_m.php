@@ -18,9 +18,81 @@ class Material_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Load_Maker_All($param,$fields=['ALL'])
+    {
+        $skey = $param['skey'];
+        $limit = $param['limit'];
+        $offset = $param['offset'];
 
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_maker WHERE is_del=0 order by name ASC limit :LIMIT: offset :OFFSET: ";
 
+        $bindparam = [
+            'SKEY' => $skey,
+            'LIMIT' => $limit,
+            'OFFSET' => $offset
+        ];
 
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+//    public function Load_Maker_All($fields=['ALL'])
+//    {
+//        $separated_val = fn_Make_Fields($fields);
+//        $sql = "SELECT {$separated_val} FROM tbl_maker WHERE is_del=0 order by name ASC;";
+//        $query = $this->db->query($sql);
+//        return $query->getResultArray();
+//    }
+
+    public function Load_Maker_Search($param,$fields=['ALL'])
+    {
+        $skey = $param['skey'];
+        $limit = $param['limit'];
+        $offset = $param['offset'];
+
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_maker WHERE is_del=0 order by name ASC limit :LIMIT: offset :OFFSET:";
+        if($skey!=''){
+            $sql .=  'AND (code LIKE :SKEY: OR name LIKE :SKEY:)';
+            $like =  "%{$skey}%";
+        }else{
+            $like = '';
+        }
+        $bindparam = [
+            'SKEY' => $skey,
+            'LIMIT' => $limit,
+            'OFFSET' => $offset
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Load_Supplier_All($fields=['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_supplier WHERE is_del=0 order by name ASC;";
+        $query = $this->db->query($sql);
+        return $query->getResultArray();
+    }
+
+    public function Load_Supplier_Search($search,$fields=['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_supplier WHERE is_del=:ISDEL: ";
+        if($search!=''){
+            $sql .=  'AND (code LIKE :SKEY: OR name LIKE :SKEY:)';
+            $like =  "%{$search}%";
+        }else{
+            $like = '';
+        }
+        $bindparam = [
+            'ISDEL' => 0,
+            'SKEY' => $like
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
 
     public function Load_MaterialList_All($fields=['ALL'])
     {
@@ -113,7 +185,73 @@ class Material_m extends Model
         return $MCode;
     }
 
+    public function Insert_Maker_Info($param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_maker');
+        $builder->insert($param);
+        $insertID = $this->db->insertID();
+        $this->db->transComplete();
 
+        return $insertID;
+    }
+
+    public function Insert_Supplier_Info($param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_supplier');
+        $builder->insert($param);
+        $insertID = $this->db->insertID();
+        $this->db->transComplete();
+
+        return $insertID;
+    }
+
+
+    public function Update_Maker_Info($code,$param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_maker');
+        $builder->where('code', $code);
+        $builder->update($param);
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+    public function Update_Supplier_Info($code,$param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_supplier');
+        $builder->where('code', $code);
+        $builder->update($param);
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+    public function Delete_Maker($code){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_maker');
+        $builder->set('is_del', 1);
+        $builder->where('code', $code);
+        $builder->update();
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+
+    public function Delete_Supplier($seq){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_supplier');
+        $builder->set('is_del', 1);
+        $builder->where('seq', $seq);
+        $builder->update();
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
 
     public function Insert_Material_Info($param){
         $this->db->transStart();
@@ -124,6 +262,7 @@ class Material_m extends Model
 
         return $insertID;
     }
+
     public function Update_Material_Info($code,$param){
         $this->db->transStart();
         $builder = $this->db->table('tbl_material');

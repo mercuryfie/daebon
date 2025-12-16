@@ -20,6 +20,7 @@
                     <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>
                 </div>
                 <div class="right">
+                    <button type="button" class="btnType1 mr10" onclick="pop_UploadXlx();">엑셀등록</button>
                     <button type="button" class="btnType2 " onclick="add_Products();">제품등록</button>
                 </div>
             </div>
@@ -27,7 +28,7 @@
         <div class="areaBox area_boxmxh areaHidden  ">
             <div class="goods_boxkfg flexType3">
                 <div class="left flexType2">
-                    <p class="title">제품목록</p>
+                    <p class="title">총</p>
                     <p class="count" id="tcnt" name="tcnt">0</p>
                     <p class="unit">건</p>
                 </div>
@@ -59,9 +60,14 @@
                     </table>
                 </div>
             </div>
+            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </div>
 
 </section>
+<?= $this->include('/web/include/pop_UploadXlx_View'); ?>
 <?= $this->include('/web/include/pop_AddProducts_View'); ?>
 <?= $this->endSection() ?>

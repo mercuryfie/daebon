@@ -1,9 +1,14 @@
 $(document).ready(function() {
     Make_Html('');
 
+    $('#uploadExel #Xbtn, #uploadExel #Xbtn2').click(function () {
+        $('#uploadExel').css('display','none');
+    });
+
     $('#btn_search').on('click', function () {
         doSearch();
     });
+
 
     $('#txt_search').on('keydown', function (e) {
         if (e.key === 'Enter' || e.keyCode === 13) {
@@ -100,8 +105,8 @@ $(document).ready(function() {
             Data_Delete(code);
         }
     });
-
 });
+let isSearching = false;
 
 async function Data_Delete(code){
     try {
@@ -198,7 +203,6 @@ async function Data_Add(param){
     }
 }
 
-
 function add_Products() {
     let title = '제품등록';
     let poptype = '1';
@@ -226,9 +230,25 @@ function form_ini(){
 }
 
 function doSearch() {
+    if (isSearching) return;  // 연타 방지
+
+    isSearching = true;
+    let btn = $('#btn_search');
+    btn.prop('disabled', true).text('검색중...');
+
     let skey = $('#txt_search').val();
     $('#clist').empty();
-    Make_Html(skey);
+
+    Make_Html(skey).finally(() => {
+        // Make_Html 완료 후 복구
+        isSearching = false;
+        btn.prop('disabled', false).text('검색');
+    });
+}
+
+function pop_UploadXlx() {
+
+    $('#uploadExel').css('display','block');
 }
 
 function Edit_Products(code,name,cat,inven,unit_wight){

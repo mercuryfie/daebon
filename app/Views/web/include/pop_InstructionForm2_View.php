@@ -7,7 +7,7 @@
         <table class="odRoast_Table">
             <thead>
                 <tr class="headCol">
-                    <td class="keyCol " colspan="8">생산작업지시서</td>
+                    <td class="keyCol " colspan="7">생산작업지시서</td>
                 </tr>
                 <tr class="">
                     <td class="keyCol barcodeBox" colspan="4" rowspan="2">
@@ -54,7 +54,7 @@
                     <td class="row row1 ttl stepName">공정명</td>
                     <td class="row row2 ttl">총투입량</td>
                     <td class="row row2 ttl">예상산출량</td>
-                    <td class="row row3 ttl" colspan="2">가이드</td>
+                    <td class="row row3 ttl guide" colspan="2">가이드</td>
                     <td class="row row4 ttl">부자재</td>
 
                     <td class="row row6 ttl">검사확인</td>

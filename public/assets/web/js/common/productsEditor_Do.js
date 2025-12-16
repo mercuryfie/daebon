@@ -1,7 +1,7 @@
 $(function() {
 
 
-    $(".area_boxm9k > .outerBox > .right > i").click(function() {
+    $(".area_boxm9k > .outerBox > .right i").click(function() {
         var $icon = $(this);
         var $content = $icon.closest(".area_boxm9k").find(".area_box2qd");
 
@@ -18,14 +18,15 @@ $(function() {
 
 
     $("button[name='addRoasting']").click(function() {
-        let $firstRoasting = $("div[name='oneRoasting']").first();
+        let $firstRoasting = $("div[name='oneRoast']").first();
         let $copy = $firstRoasting.clone();
 
         // $copy.find(".must").removeClass("must").addClass("notmust");
         $copy.find("select").val("");
         $copy.find("input").val("");
+        $copy.find("textarea").val("");
 
-        $("div[name='roasting_boxp9x']").append($copy);
+        $("div[name='roastBox']").append($copy);
     });
 
     $(document).on('click','button[name="addMaterial"]',function(){
@@ -205,6 +206,15 @@ $(function() {
         }
     });
 
+    // $(document).on('click', function(e) {
+    //     let $addMaterial = $('#add_material');
+    //
+    //     if ($addMaterial.is(':visible') &&
+    //         !$(e.target).closest('#add_material').length) {
+    //         $addMaterial.hide();
+    //     }
+    // });
+
     $('#txt_product').on('keydown', function (e) {
         if (e.key === 'Enter' || e.keyCode === 13) {
             e.preventDefault(); // 폼 submit 등 기본 동작 방지
@@ -224,7 +234,8 @@ $(function() {
         }else{
             $('#addproduct').data('mtcode',mtcode);
             $('#addproduct').data('mtname',mtname);
-            $('#product_list').removeClass('active');
+            $('#txt_product').val(mtname);
+            $('#add_material').removeClass('active');
             $('#txt_product_num').val('').focus();
         }
     });
@@ -267,7 +278,7 @@ function Set_Material(mtcode,mtname){
                     <i class="fa-solid fa-xmark" name="add_product_del"></i>
                 </div>
             `;
-        $('#add_material').append(html);
+        $('#tag_meterial').append(html);
         $('#addproduct').data('mtcode','');
         $('#addproduct').data('mtname','');
         $('#txt_product').val('');

@@ -21,9 +21,9 @@ class Goods_m extends Model
     public function Search_Goods_Info($skey,$fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_goods ";
+        $sql = "SELECT {$separated_val} FROM tbl_goods_info ";
         if($skey!=''){
-            $sql .=  'WHERE is_del=0 AND gname like :SKEY: ';
+            $sql .=  'WHERE is_del=0 AND gsname like :SKEY: ';
             $like = "%{$skey}%";
         }else{
             $like = '';

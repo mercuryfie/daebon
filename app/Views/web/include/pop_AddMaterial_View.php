@@ -20,7 +20,7 @@
                 <p class="category">제조사</p>
                 <select name="maker" id="maker" class="inputType220 ">
                     <option value="">선택하세요.</option>
-                    <option value="bySelf">직접입력</option>
+<!--                    <option value="bySelf">직접입력</option>-->
                     <?=$main['maker'];?>
                 </select>
                 <input type="search" name="makeCom" id="makeCom" placeholder="회사이름"
@@ -30,7 +30,7 @@
                 <p class="category">공급사</p>
                 <select name="supply" id="supply" class="inputType220 ">
                     <option value="">선택하세요.</option>
-                    <option value="bySelf">직접입력</option>
+<!--                    <option value="bySelf">직접입력</option>-->
                     <?=$main['supply'];?>
                 </select>
                 <input type="search" name="suppCom" id="suppCom" placeholder="회사이름"

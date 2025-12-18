@@ -91,11 +91,12 @@ $routes->match(['GET', 'POST'], 'Api/Load_Goods_Info', 'ApiController::Load_Good
 $routes->match(['GET', 'POST'], 'Api/mod_Goods_Info', 'ApiController::mod_Goods_Info');
 $routes->match(['GET', 'POST'], 'Api/Upload_File_Editor', 'ApiController::Upload_File_Editor');
 $routes->match(['GET', 'POST'], 'Api/Upload_file', 'ApiController::Upload_File');
-$routes->match(['GET', 'POST'], 'Api/Add_Product', 'ApiController::Add_Product');
-$routes->match(['GET', 'POST'], 'Api/Delete_Product', 'ApiController::Delete_Product');
+$routes->match(['GET', 'POST'], 'Api/Add_Goods', 'ApiController::Add_Goods');
+$routes->match(['GET', 'POST'], 'Api/Delete_Goods', 'ApiController::Delete_Goods');
 $routes->match(['GET', 'POST'], 'Api/Load_Product', 'ApiController::Load_Product');
 $routes->match(['GET', 'POST'], 'Api/Delete_Goods_List', 'ApiController::Delete_Goods_List');
 $routes->match(['GET', 'POST'], 'Api/Load_Maker', 'ApiController::Load_Maker');
+$routes->match(['GET', 'POST'], 'Api/Load_Maker_Each', 'ApiController::Load_Maker_Each');
 $routes->match(['GET', 'POST'], 'Api/Load_Maker2', 'ApiController::Load_Maker2');
 $routes->match(['GET', 'POST'], 'Api/Add_Maker_Info', 'ApiController::Add_Maker_Info');
 $routes->match(['GET', 'POST'], 'Api/Mod_Maker_Info', 'ApiController::Mod_Maker_Info');
@@ -104,7 +105,7 @@ $routes->match(['GET', 'POST'], 'Api/Load_Supplier', 'ApiController::Load_Suppli
 $routes->match(['GET', 'POST'], 'Api/Add_Supplier_Info', 'ApiController::Add_Supplier_Info');
 $routes->match(['GET', 'POST'], 'Api/Mod_Supplier_Info', 'ApiController::Mod_Supplier_Info');
 $routes->match(['GET', 'POST'], 'Api/Del_Supplier_Info', 'ApiController::Del_Supplier_Info');
-
+$routes->match(['GET', 'POST'], 'Api/Edit_Goods', 'ApiController::Edit_Goods');
 
 $routes->match(['GET', 'POST'], 'Api/Load_Instructions_Process', 'ApiProduceController::Load_Instructions_Process');
 $routes->match(['GET', 'POST'], 'Api/Load_Instructions_Info', 'ApiProduceController::Load_Instructions_Info');

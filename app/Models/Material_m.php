@@ -18,6 +18,18 @@ class Material_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Cnt_Maker_All()
+    {
+        $sql = "SELECT count(*) as Cnt FROM tbl_maker where is_del=:ISDEL:;";
+        $bindparam = [ 'ISDEL' => 0 ];
+        $Query = $this->db->query($sql,$bindparam);
+        $row = $Query->getRow();
+        $MCode = ($row) ? $row->Cnt : '';
+        return $MCode;
+    }
+
+
+
     public function Load_Maker_All($param,$fields=['ALL'])
     {
         $skey = $param['skey'];
@@ -45,14 +57,26 @@ class Material_m extends Model
 //        return $query->getResultArray();
 //    }
 
+
+    public function Load_Maker_Each ($code,$fields=['ALL'])
+    {
+
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_maker WHERE code=:CODE: AND is_del=0";
+
+        $bindparam = [
+            'CODE' => $code,
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
     public function Load_Maker_Search($param,$fields=['ALL'])
     {
         $skey = $param['skey'];
-        $limit = $param['limit'];
-        $offset = $param['offset'];
 
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_maker WHERE is_del=0 order by name ASC limit :LIMIT: offset :OFFSET:";
+        $sql = "SELECT {$separated_val} FROM tbl_maker WHERE is_del=0 order by name ASC";
         if($skey!=''){
             $sql .=  'AND (code LIKE :SKEY: OR name LIKE :SKEY:)';
             $like =  "%{$skey}%";
@@ -61,8 +85,6 @@ class Material_m extends Model
         }
         $bindparam = [
             'SKEY' => $skey,
-            'LIMIT' => $limit,
-            'OFFSET' => $offset
         ];
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
@@ -73,6 +95,19 @@ class Material_m extends Model
         $separated_val = fn_Make_Fields($fields);
         $sql = "SELECT {$separated_val} FROM tbl_supplier WHERE is_del=0 order by name ASC;";
         $query = $this->db->query($sql);
+        return $query->getResultArray();
+    }
+
+    public function Load_Supplier_Each ($code,$fields=['ALL'])
+    {
+
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_supplier WHERE code=:CODE: AND is_del=0";
+
+        $bindparam = [
+            'CODE' => $code,
+        ];
+        $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
     }
 
@@ -205,7 +240,6 @@ class Material_m extends Model
         return $insertID;
     }
 
-
     public function Update_Maker_Info($code,$param){
         $this->db->transStart();
         $builder = $this->db->table('tbl_maker');
@@ -241,11 +275,11 @@ class Material_m extends Model
     }
 
 
-    public function Delete_Supplier($seq){
+    public function Delete_Supplier($code){
         $this->db->transStart();
         $builder = $this->db->table('tbl_supplier');
         $builder->set('is_del', 1);
-        $builder->where('seq', $seq);
+        $builder->where('code', $code);
         $builder->update();
         $affected_rows = $this->db->affectedRows();
         $this->db->transComplete();

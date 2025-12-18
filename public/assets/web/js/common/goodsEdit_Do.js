@@ -1,21 +1,22 @@
 $(document).ready(function(){
     Make_Html();
 
-
     $(".area_boxm9k > .outerBox > .right > .foldBtn").click(function() {
-        let $foldBtn = $(this);
-        let $icon = $(this > 'i');
-        let $content = $foldBtn.closest(".area_boxm9k").find(".area_box2qd");
+        // let $area = $(this);
+        const $btn = $(this);
+        const $icon = $btn.find("i");
+        const $content = $btn.closest(".area_boxm9k").find(".area_box2qd");
 
         // .area_box2qd 슬라이드 토글
-        $content.slideToggle(200);
-
-        // i 아이콘 클래스 변경
-        if ($icon.hasClass("fa-angle-down")) {
-            $icon.removeClass("fa-angle-down").addClass("fa-angle-up");
-        } else {
-            $icon.removeClass("fa-angle-up").addClass("fa-angle-down");
-        }
+        // $content.slideToggle(200);
+        $content.slideToggle(200, function () {
+            // 토글 후 상태 기준으로 아이콘 변경
+            if ($content.is(":visible")) {
+                $icon.removeClass("fa-angle-up").addClass("fa-angle-down");
+            } else {
+                $icon.removeClass("fa-angle-down").addClass("fa-angle-up");
+            }
+        });
     });
 
     $('#txt_product').on('focus',function(){
@@ -84,30 +85,6 @@ $(document).ready(function(){
         }
     });
 
-    $('#addproduct').on('click',function(){
-        let gcode = $('#txt_product').data('code');
-        let gname = $('#txt_product').val();
-        let cnt = $('#txt_product_num').val();
-        if(gcode==''){
-            Make_Toast('추가하실 체품을 검색하세요.');
-            $('#txt_product').focus();
-        }else if(cnt==''){
-            Make_Toast('추가하실 체품 수량을 검색하세요.');
-            $('#txt_product_num').focus();
-        }else{
-            let html = `
-                <div class="productTag flexType3" name="add_product_info" data-code="${gcode}">
-                    <p class="pname" name="gname">${gname}</p>
-                    <p class="count" name="gcnt" data-cnt="${cnt}">${cnt}개</p>
-                    <i class="fa-solid fa-xmark" name="add_product_del"></i>
-                </div>
-            `;
-            $('#add_list').append(html);
-            $('#txt_product').val('');
-            $('#txt_product').data('code','');
-            $('#txt_product_num').val('');
-        }
-    });
 
     $('#addcode').on('click',function(){
         let excode = $('#excode').val();
@@ -136,12 +113,68 @@ $(document).ready(function(){
         }
     });
 
+    $('#addproduct').on('click',function(){
+        let gcode = $('#txt_product').data('code');
+        let gname = $('#txt_product').val();
+        let cnt = $('#txt_product_num').val();
+        if(gcode==''){
+            Make_Toast('추가하실 체품을 검색하세요.');
+            $('#txt_product').focus();
+        }else if(cnt==''){
+            Make_Toast('추가하실 체품 수량을 검색하세요.');
+            $('#txt_product_num').focus();
+        }else{
+            let html = `
+                <div class="productTag flexType3" name="add_product_info" data-code="${gcode}">
+                    <p class="pname" name="gname">${gname}</p>
+                    <p class="count" name="gcnt" data-cnt="${cnt}">${cnt}개</p>
+                    <i class="fa-solid fa-xmark" name="add_product_del"></i>
+                </div>
+            `;
+            $('#add_list').append(html);
+            $('#txt_product').val('');
+            $('#txt_product').data('code','');
+            $('#txt_product_num').val('');
+        }
+    });
+
+
+    $('#add_pouch').on('click',function(){
+        // let gcode = $('#txt_cover').data('code');
+        let p_code = $('#pouch_name').val();
+        let p_name = $('#pouch_name option:selected').text();
+        let p_cnt = $('#pouch_cnt').val();
+        if(p_code==''){
+            Make_Toast('부자재를 선택하세요.');
+            $('#pouch_name').focus();
+        }else if(p_cnt==''){
+            Make_Toast('부자재 수량을 입력하세요.');
+            $('#pouch_cnt').focus();
+        }else{
+            let html = `
+                <div class="pouchTag flexType2" name="add_pouch_info" id="" data-code="${p_code}">
+                    <p class="pname" name="p_name" data-code="${p_code}">${p_name}</p>
+                    <p class="count" name="p_cnt" data-cnt="${p_cnt}">${p_cnt}</p>
+                    <p class="unit" name="">개</p>
+                    <i class="fa-solid fa-xmark" name="add_pouch_del"></i>
+                </div>
+            `;
+            $('#pouch_list').append(html).addClass('active');
+            $('#pouch_name').val('');
+            $('#pouch_cnt').val('');
+        }
+    });
+
     $(document).on('click', 'i[name="mached_del"]', function () {
         $(this).closest('div[name="mached"]').remove();
     });
 
     $(document).on('click', 'i[name="add_product_del"]', function() {
         $(this).closest('div[name="add_product_info"]').remove();
+    });
+
+    $(document).on('click', 'i[name="add_pouch_del"]', function() {
+        $(this).closest('div[name="add_pouch_info"]').remove();
     });
 
     $(document).on('click', '.delete-btn', function () {
@@ -180,9 +213,6 @@ $(document).ready(function(){
             Make_Toast('가격을 입력하세요.');
             $('#pPrice').focus();
         }else if(pWeigth==''){
-            Make_Toast('중량을 입력하세요.');
-            $('#pWeigth').focus();
-        }else if(pWeigth=='') {
             Make_Toast('중량을 입력하세요.');
             $('#pWeigth').focus();
         }else if(sell_type=='') {
@@ -237,17 +267,17 @@ $(document).ready(function(){
                 });
 
 
-                const container3 = $('#cover_box');
-                let material_arr = [];
-                container3.find('div[name="oneTBag"]').each(function () {
-                    let acode = $(this).find('select[name="accessory"]').val();
-                    let acnt = $(this).find('input[name="accessory_cnt"]').val();
-                    if(acode!='') {
-                        let m_arr = {
-                            'acode': acode,
-                            'acnt': acnt
+                const container3 = $('#pouch_list');
+                let pouch_arr = [];
+                container3.find('div[name="add_pouch_info"]').each(function () {
+                    let pcode = $(this).find('p[name="p_name"]').data('code');
+                    let pcnt = $(this).find('p[name="p_cnt"]').text();
+                    if(pcode!='') {
+                        let p_arr = {
+                            pcode: pcode,
+                            pcnt: pcnt
                         };
-                        material_arr.push(m_arr);
+                        pouch_arr.push(p_arr);
                     }
                 });
 
@@ -256,7 +286,7 @@ $(document).ready(function(){
                     file: file_arr,
                     macthing: maching_arr,
                     goods: goods_arr,
-                    material: material_arr
+                    material: pouch_arr
                 };
 
                 console.log(return_arr);
@@ -394,30 +424,25 @@ async function Make_Html() {
         $('#add_list').append(html);
     }
 
-    const originalOptions = $('#accessory').html();
-    console.log(originalOptions);
-    let maretial = arr.material;
-    if (maretial && Object.keys(maretial).length > 0) {
+    // let goods = arr.goods;
+    // const pouch_options = $('#pouch_name').html();
+    // console.log(pouch_options);
+    let pouch = arr.material;
+    if (pouch && Object.keys(pouch).length > 0) {
         let html = '';
 
-        $.each(maretial, function (index, el) {
+        $.each(pouch, function (index, el) {
             html += `
-               <div class="oneTBag mb10 flexType2" name="oneTBag">
-                    <select name="accessory" id="accessory_${el.seq}" class="option option1">
-                        ${Make_select(originalOptions,el.fk_mtcode)}
-                    </select>
-                    <input type="search" name="accessory_cnt" class="inputBorder inputBorder2 mr10" placeholder="예:10000" value="${el.cnt}">
-                    <button type="button" class="btnType3 addBtn mr10" name="addCover" >
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                    <button type="button" class="btnType3 removeBtn" name="removeCover" style="">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </div>
+               <div class="pouchTag flexType2" name="add_pouch_info" id="" data-code="${el.fk_mtcode}">
+                    <p class="pname" name="p_name" data-code="${el.fk_mtcode}">${el.mtname}</p>
+                    <p class="count" name="p_cnt" data-cnt="${el.cnt}">${el.cnt}</p>
+                    <p class="unit" name="">개</p>
+                    <i class="fa-solid fa-xmark" name="add_pouch_del"></i>
+               </div>
             `;
         });
-        // $('#tBagBox').empty();
-        $('#tBagBox').append(html);
+        $('#pouch_list').empty();
+        $('#pouch_list').append(html);
     }
 
 

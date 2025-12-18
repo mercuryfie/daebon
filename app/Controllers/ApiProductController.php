@@ -148,17 +148,17 @@ class ApiProductController extends BaseController
 
             if (fn_ArrayCnt($material)>0) {
                 $Cnt = $product_m->Delete_Product_Material($pdcode);
-                $material_arr = [];
+                $pouch_arr = [];
                 foreach ($material as $d) {
                     $t_arr = [
                         'fk_pdcode' => $pdcode,
-                        'fk_mtcode' => $d['acode'],
-                        'cnt' => $d['acnt']
+                        'fk_mtcode' => $d['pcode'],
+                        'cnt' => $d['pcnt']
                     ];
 
-                    array_push($material_arr, $t_arr);
+                    array_push($pouch_arr, $t_arr);
                 }
-                $Cnt = $product_m->Insert_Product_Material($material_arr);
+                $Cnt = $product_m->Insert_Product_Material($pouch_arr);
             }else{
                 $Cnt = $product_m->Delete_Product_Material($pdcode);
             }
@@ -230,6 +230,7 @@ class ApiProductController extends BaseController
             'info' => $data,
             'message' => $message
         ];
+
         return $this->respond($return);
 
     }
@@ -286,7 +287,6 @@ class ApiProductController extends BaseController
 
     }
 
-
     public function Insert_Product(){
         $sessinarr = $this->GetSessionData();
         $data = $this->request->getPost('data') ?? [];
@@ -304,10 +304,10 @@ class ApiProductController extends BaseController
             $message = '잘못된 토큰입니다.';
         }else{
             $info = $data['info'];
-            $file = $data['file'];
-            $match = $data['macthing'] ?? [];
+            $file = $data['file'] ?? [];
             $goods = $data['goods'] ?? [];
-            $material = $data['material'] ?? [];
+            $match = $data['macthing'] ?? [];
+            $material = $data['pouch'] ?? [];
 
             $product_m = model('Product_m');
 
@@ -382,8 +382,8 @@ class ApiProductController extends BaseController
                             foreach ($material as $d) {
                                 $t_arr = [
                                     'fk_pdcode' => $pdcode,
-                                    'fk_mtcode' => $d['acode'],
-                                    'cnt' => $d['acnt']
+                                    'fk_mtcode' => $d['pcode'],
+                                    'cnt' => $d['pcnt']
                                 ];
 
                                 array_push($material_arr, $t_arr);
@@ -421,7 +421,8 @@ class ApiProductController extends BaseController
             $message = '잘못된 접근입니다.';
         } else {
             $allow = $request->getPost('allow');
-            $fn_code = $request->getPost('hn_code');
+//            $fn_code = $request->getPost('hn_code');
+            $fn_code = $request->getPost('fname');
             $typ = $request->getPost('typ');
             $method = $request->getPost('method');
             $allowed_extensions = explode(',', $allow);

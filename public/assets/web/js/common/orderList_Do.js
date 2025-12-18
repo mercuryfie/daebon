@@ -85,8 +85,8 @@ async function Make_Html(param){
             }else if(el.orstep==1) {
                 subhtml = `<button type="button" class="btnType3">결제확인중</button> `;
             }else if(el.orstep==2){
-                subhtml = `<button type="button" class="btnType3" onclick="add_packingQueue();">제품확인</button>`;
-            }else if(el.orstep==2){
+                subhtml = `<button type="button" class="btnType3" onclick="add_packingQueue();">등록대기</button>`;
+            }else if(el.orstep==3){
                 subhtml = `<button type="button" class="btnType3">제품확인</button>`;
             }
 
@@ -134,9 +134,7 @@ function formatDate(d) {
     const month = ('0' + (d.getMonth() + 1)).slice(-2);
     const day = ('0' + d.getDate()).slice(-2);
     return `${year}/${month}/${day}`;
-}
-
-
+} 
 
 async function Load_Data(param){
     let data = {};

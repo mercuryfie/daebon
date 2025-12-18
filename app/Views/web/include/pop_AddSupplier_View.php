@@ -3,14 +3,19 @@
         <div class="padding_area">
             <p class="head_title" id="p_title" name="p_title"></p>
             <i class="fa-solid fa-xmark " id="Xbtn" name="Xbtn"></i>
-            <div class="area area1 flexType2 mb10">
+            <div class="area area1 flexType2 mb10" id="code_box">
                 <p class="category">공급사코드</p>
                 <p class="data" id="mcode"></p>
 
             </div>
-            <div class="area area2 flexType2">
+            <div class="area area2 flexType2 mb10">
                 <p class="category">공급사</p>
                 <input type="search" name="mname" id="mname" placeholder="회사이름" class="inputType220 mr10">
+
+            </div>
+            <div class="area area2 flexType2">
+                <p class="category">위치</p>
+                <input type="search" name="lname" id="lname" placeholder="지역이름" class="inputType220 mr10">
 
             </div>
 

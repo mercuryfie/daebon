@@ -109,18 +109,18 @@
                         <input type="hidden" name="stepNum" value="<?=$body['process_arr'][$i]['stepNum'];?>" />
                         <i class="fa-solid fa-xmark removeRoasting" name="removeThisRoast" <?if($i!=0) echo('style="display: block;"'); ?>></i>
                         <div class="goods_boxt6r  " name="" >
-                            <div class="cover_boxh1t flexType2" name="">
-                                <p class="must"></p>
-                                <p class="ttl">공정타입</p>
-                                <select name="ptype" class="inputType">
+                            <div class="bomType_boxh1t flexType2" name="">
+                                <p class="must mr10"></p>
+                                <p class="title">공정타입</p>
+                                <select name="ptype" class="inputType typeIn">
                                     <option value="">선택하세요.</option>
                                     <?= fnMake_Process_Type($body['process_arr'][$i]['step_typ']);?>
                                 </select>
                             </div>
-                            <div class="cover_boxh1t flexType2">
-                                <p class="must"></p>
-                                <p class="ttl">공정 결과명</p>
-                                <input type="search" class="inputType" name="processname" placeholder="공정 결과명" value="<?=$body['process_arr'][$i]['step_name'];?>">
+                            <div class="bomType_boxh1t flexType2">
+                                <p class="must mr10"></p>
+                                <p class="title">공정결과명</p>
+                                <input type="search" class="inputType nameIn" name="processname" placeholder="공정 결과명" value="<?=$body['process_arr'][$i]['step_name'];?>">
 
                             </div>
                         </div>

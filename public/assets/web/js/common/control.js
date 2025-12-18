@@ -9,6 +9,10 @@ $(document).on('click', '.copied', function (e) {
         }
     });
 
+    $('button[name="refreshBtn"]').click(function () {
+        location.reload();
+    });
+
     // 중복 실행 방지
     if ($(this).data('copied')) return;
     $(this).data('copied', true);

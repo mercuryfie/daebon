@@ -12,8 +12,6 @@ class ApiController extends BaseController
 {
     use ResponseTrait;
 
-
-
     public function mod_Goods_Info(){
         $sessinarr = $this->GetSessionData();
         $info  = ($this->request->getPost('info') == '') ? [] : $this->request->getPost('info');
@@ -553,7 +551,7 @@ class ApiController extends BaseController
 
     }
 
-    public function Delete_Product(){
+    public function Delete_Goods(){
         $sessinarr = $this->GetSessionData();
         $code = ($this->request->getPost('code')=='') ?'':$this->request->getPost('code');
         if($sessinarr['islogin']==false) {
@@ -590,7 +588,7 @@ class ApiController extends BaseController
         return $this->respond($return);
     }
 
-    public function Edit_Product(){
+    public function Edit_Goods(){
         $sessinarr = $this->GetSessionData();
         $data = $this->request->getPost('data') ?? [];
         if($sessinarr['islogin']==false) {
@@ -635,7 +633,7 @@ class ApiController extends BaseController
     }
 
 
-    public function Add_Product(){
+    public function Add_Goods(){
         $sessinarr = $this->GetSessionData();
         $data = $this->request->getPost('data') ?? [];
         if($sessinarr['islogin']==false) {
@@ -1096,7 +1094,7 @@ class ApiController extends BaseController
 
 
     public function Load_Maker(){
-        $search  = ($this->request->getPost('param') == '') ? [] : $this->request->getPost('param');
+        $param  = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
 
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
@@ -1108,8 +1106,8 @@ class ApiController extends BaseController
             $data = [];
             $message = '잘못된 토큰입니다.';
         }else{
-            $skey = array_key_exists('skey', $search) ? $search['skey'] : '';
-            $page = array_key_exists('page', $search) ? $search['page'] : 1;
+            $skey = array_key_exists('skey', $param) ? $param['skey'] : '';
+            $page = array_key_exists('page', $param) ? $param['page'] : 1;
             $limit = 15;
             $offset = ($page - 1) * $limit;
             $param = [
@@ -1126,6 +1124,53 @@ class ApiController extends BaseController
                 $t_arr['seq'] = $d['seq'];
                 $t_arr['code'] = $d['code'];
                 $t_arr['name'] = $d['name'];
+                $t_arr['location'] = $d['location'];
+                array_push($m_arr,$t_arr);
+            }
+
+            $t_cnt = $material_m->Cnt_Maker_All();
+
+            $i_arr = [
+                'list' => $m_arr,
+                'tCnt' => $t_cnt
+            ];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
+    public function Load_Maker_Each(){
+        $code  = ($this->request->getPost('code') == '') ? [] : $this->request->getPost('code');
+
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)){
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+
+            $material_m = model('Material_m');
+            $mRs = $material_m->Load_Maker_Each($code);
+            $m_arr = [];
+            foreach ($mRs as $d){
+                $t_arr['seq'] = $d['seq'];
+                $t_arr['code'] = $d['code'];
+                $t_arr['name'] = $d['name'];
+                $t_arr['location'] = $d['location'];
                 array_push($m_arr,$t_arr);
             }
 
@@ -1146,59 +1191,6 @@ class ApiController extends BaseController
         ];
         return $this->respond($return);
     }
-
-
-//    public function Load_Maker(){
-//        $skey  = ($this->request->getPost('key') == '') ? '' : $this->request->getPost('key');
-//
-//        $sessinarr = $this->GetSessionData();
-//        if($sessinarr['islogin']==false) {
-//            $result = 'NoLogin';
-//            $data = [];
-//            $message = '로그인이 필요합니다.';
-//        }else if(!Check_Token($sessinarr)){
-//            $result = 'Error002';
-//            $data = [];
-//            $message = '잘못된 토큰입니다.';
-//        }else{
-////            $skey = array_key_exists('skey', $search) ? $search['skey'] : '';
-////            $page = array_key_exists('page', $search) ? $search['page'] : 1;
-////            $limit = 15;
-////            $offset = ($page - 1) * $limit;
-////            $param = [
-////                'limit' => $limit,
-////                'offset' => $offset,
-////                'stype' => $skey
-////            ];
-//
-//            $material_m = model('Material_m');
-//            $mRs = ($skey=='') ? $material_m->Load_Maker_All() : $material_m->Load_Maker_Search($skey);
-//            $m_arr = [];
-//            foreach ($mRs as $d){
-//                $t_arr['seq'] = $d['seq'];
-//                $t_arr['code'] = $d['code'];
-//                $t_arr['name'] = $d['name'];
-//                array_push($m_arr,$t_arr);
-//            }
-//
-//            $i_arr = [
-//                'list' => $m_arr,
-//                'tCnt' => fn_ArrayCnt($m_arr)
-//            ];
-//
-//            $result = 'ok';
-//            $data = $i_arr;
-//            $message = '';
-//        }
-//
-//        $return = [
-//            'result' => $result,
-//            'info' => $data,
-//            'message' => $message
-//        ];
-//        return $this->respond($return);
-//    }
-
 
     public function Add_Maker_Info(){
         $data  = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
@@ -1221,20 +1213,22 @@ class ApiController extends BaseController
             $param = [
                 'code' => $NewCode,
                 'name' => $data['name'],
+                'location' => $data['location'],
             ];
             $Cnt = $material_m->Insert_Maker_Info($param);
             if($Cnt > 0){
-                $mRs = $material_m->Load_Maker_Search($NewCode);
+                $mRs = $material_m->Load_Maker_Each($NewCode);
                 if(fn_ArrayCnt($mRs)<=0){
                     $result = 'Error003';
                     $data = [];
-                    $message = '존재하지 않는 원자재 입니다. ';
+                    $message = '존재하지 않는 제조사 입니다. ';
                 }else {
                     $d = $mRs[0];
                     $m_arr = [
                         'seq' => $d['seq'],
                         'code' => $d['code'],
                         'name' => $d['name'],
+                        'location' => $d['location'],
                     ];
 
                     $i_arr = [
@@ -1262,9 +1256,7 @@ class ApiController extends BaseController
 
     public function Mod_Maker_Info(){
 
-        $search  = ($this->request->getPost('param') == '') ? [] : $this->request->getPost('param');
-
-//        $data  = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
+        $data  = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
         $sessinarr = $this->GetSessionData();
         if(fn_ArrayCnt($data)<=0){
             $result = 'Error001';
@@ -1280,16 +1272,18 @@ class ApiController extends BaseController
             $message = '잘못된 토큰입니다.';
         }else{
             $code = $data['code'];
-            $material_m = model('Material_m');
-            $mRs = $material_m->Load_Maker_Search($code);
-            if(fn_ArrayCnt($mRs)>0){
-                $param = [
-                    'name' => $data['name'],
-                ];
 
+            $param = [
+                'name' => $data['name'],
+                'location' => $data['location'],
+            ];
+
+            $material_m = model('Material_m');
+            $mRs = $material_m->Load_Maker_Each($code);
+            if(fn_ArrayCnt($mRs)>0){
                 $Cnt = $material_m->Update_Maker_Info($code,$param);
                 if($Cnt > 0){
-                    $mRs = $material_m->Load_Maker_Search($code);
+                    $mRs = $material_m->Load_Maker_Each($code);
                     if(fn_ArrayCnt($mRs)<=0){
                         $result = 'Error003';
                         $data = [];
@@ -1299,6 +1293,7 @@ class ApiController extends BaseController
                         $m_arr = [
                             'code' => $d['code'],
                             'name' => $d['name'],
+                            'location' => $d['location'],
                         ];
 
                         $i_arr = [
@@ -1346,7 +1341,7 @@ class ApiController extends BaseController
             $message = '잘못된 토큰입니다.';
         }else{
             $material_m = model('Material_m');
-            $mRs = $material_m->Load_Maker_Search($code);
+            $mRs = $material_m->Load_Maker_Each($code);
             if(fn_ArrayCnt($mRs)>0){
                 $Cnt = $material_m->Delete_Maker($code);
                 if($Cnt > 0){
@@ -1394,6 +1389,7 @@ class ApiController extends BaseController
                 $t_arr['seq'] = $d['seq'];
                 $t_arr['code'] = $d['code'];
                 $t_arr['name'] = $d['name'];
+                $t_arr['location'] = $d['location'];
                 array_push($m_arr,$t_arr);
             }
 
@@ -1436,20 +1432,22 @@ class ApiController extends BaseController
             $param = [
                 'code' => $NewCode,
                 'name' => $data['name'],
+                'location' => $data['location'],
             ];
             $Cnt = $material_m->Insert_Supplier_Info($param);
             if($Cnt > 0){
-                $mRs = $material_m->Load_Supplier_Search($NewCode);
+                $mRs = $material_m->Load_Supplier_Each($NewCode);
                 if(fn_ArrayCnt($mRs)<=0){
                     $result = 'Error003';
                     $data = [];
-                    $message = '존재하지 않는 원자재 입니다. ';
+                    $message = '존재하지 않는 공급사 입니다. ';
                 }else {
                     $d = $mRs[0];
                     $m_arr = [
                         'seq' => $d['seq'],
                         'code' => $d['code'],
                         'name' => $d['name'],
+                        'location' => $d['location'],
                     ];
 
                     $i_arr = [
@@ -1494,15 +1492,16 @@ class ApiController extends BaseController
         }else{
             $code = $data['code'];
             $material_m = model('Material_m');
-            $mRs = $material_m->Load_Supplier_Search($code);
+            $mRs = $material_m->Load_Supplier_Each($code);
             if(fn_ArrayCnt($mRs)>0){
                 $param = [
                     'name' => $data['name'],
+                    'location' => $data['location'],
                 ];
 
                 $Cnt = $material_m->Update_Supplier_Info($code,$param);
                 if($Cnt > 0){
-                    $mRs = $material_m->Load_Supplier_Search($code);
+                    $mRs = $material_m->Load_Supplier_Each($code);
                     if(fn_ArrayCnt($mRs)<=0){
                         $result = 'Error003';
                         $data = [];
@@ -1512,6 +1511,7 @@ class ApiController extends BaseController
                         $m_arr = [
                             'code' => $d['code'],
                             'name' => $d['name'],
+                            'location' => $d['location'],
                         ];
 
                         $i_arr = [
@@ -1561,12 +1561,9 @@ class ApiController extends BaseController
             $message = '잘못된 토큰입니다.';
         }else{
             $material_m = model('Material_m');
-            $mRs = $material_m->Load_Supplier_Search($code);
+            $mRs = $material_m->Load_Supplier_Each($code);
             if(fn_ArrayCnt($mRs)>0){
-                $param = [
-                    'is_del' => 1
-                ];
-                $Cnt = $material_m->Delete_Supplier($code,$param);
+                $Cnt = $material_m->Delete_Supplier($code);
                 if($Cnt > 0){
                     $result = 'ok';
                     $data = [];

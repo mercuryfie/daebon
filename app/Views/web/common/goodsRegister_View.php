@@ -24,7 +24,6 @@
             <div class="outerBox flexType3">
                 <p class="title">복사등록</p>
                 <div class="right flexType1">
-
                     <button type="button" class="btnType3 refBtn mr10" id="btn_reload" name="btn_reload">
                         <i class="fa-solid fa-arrow-rotate-right"></i>
                     </button>
@@ -34,7 +33,7 @@
             </div>
             <div class="copyBox area_box2qd">
                 <div class="copyArea copyArea1 flexType3">
-                    <input type="search" class="copySearch" id="txt_before" name="txt_before" placeholder="이전 상품명을 입력하시고 엔터를 누르세요" onfocus="">
+                    <input type="search" class="copySearch " id="txt_before" name="txt_before" placeholder="이전 상품명을 입력하시고 엔터를 누르세요" onfocus="">
                     <button class="copyDropdown" type="button" id="btn_before" name="btn_before"> <i class="fas fa-caret-down"></i></button>
                 </div>
                 <div class="copyArea copyArea2  mr10 flexCol" id="beforelist" name="beforelist">
@@ -75,6 +74,7 @@
                         <input type="search" id="pWeight" name="pWeight"  class="inputType360" placeholder="중량을 입력하세요." >
                         <p class="unit">g</p>
                     </div>
+
                     <div class="element flexType2">
                         <p class="must"></p>
                         <p class="title">판매여부</p>
@@ -102,13 +102,14 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="element goods_boxj3v flexType4">
                         <div class="left flexType2">
                             <p class="must"></p>
                             <p class="title">제품추가</p>
                         </div>
                         <div class="flexCol">
-                            <div class="copyBox ">
+                            <div class=" copyBox ">
                                 <div class="copyArea copyArea1 flexType2 mr10">
                                     <div class="left">
                                         <input type="search" class="copySearch" id="txt_product" name="txt_product" placeholder="제품명 입력후 엔터" data-code="">
@@ -125,27 +126,21 @@
                         </div>
 
                     </div>
-                    <div class="goods_boxt6r cover_boxh1t" name="coverBox" id="cover_box" >
-                        <div class="element flexType4 oneCover" name="oneCover" id="">
-                            <p class="notmust"></p>
+
+                    <div class="element cover_boxj3v ">
+                        <div class="left flexType2">
+                            <p class="notmust "></p>
                             <p class="title">부자재</p>
-                            <div class="tBagBox " name="tBagBox">
-                                <div class="oneTBag mb10 flexType2" name="oneTBag">
-                                    <select name="accessory" class="option option1">
-                                        <option value="">선택</option>
-                                        <?=$body['material'];?>
-                                    </select>
-                                    <input type="search" name="accessory_cnt" class="inputBorder inputBorder2 mr10" placeholder="예:10000">
-                                    <button type="button" class="btnType3 addBtn mr10" name="addCover" >
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                    <button type="button" class="btnType3 removeBtn" name="removeCover" style="">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </div>
-                                <div class="tagBox smTagBox" id="sm_tag_list" name="sm_tag_list">
-                                </div>
+                            <div class="pouchBox mb10 flexType2" name="pouch_box" id="pouch_box">
+                                <select class="inputBorder coverIn" id="pouch_name" name="" data-code="">
+                                    <option value="">선택</option>
+                                    <?=$body['material'];?>
+                                </select>
+                                <input type="search" id="pouch_cnt" name="pouch_cnt" class="inputBorder cntIn mr10" placeholder="숫자만입력">
+                                <button class="addBtn inputBorder" type="button" id="add_pouch" name="add_pouch">추가</button>
                             </div>
+                        </div>
+                        <div class="tagBox" id="pouch_list" name="pouch_list">
                         </div>
                     </div>
                 </div>
@@ -189,7 +184,7 @@
             </div>
         </div>
         <div class="lastBox flexType5">
-            <button type="button" class="btnType1 mr10">취소</button>
+            <button type="button" class="btnType1 mr10" onclick="go_goodsList();">취소</button>
             <button type="button" id="submitBtn" name="submitBtn" class="btnType2">등록</button>
         </div>
         </div>

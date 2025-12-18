@@ -34,7 +34,10 @@
                     <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>
                 </div>
                 <div class="flexType2">
-                    <button class="btnType2" id="addMaker" name="addMaker" onclick="add_Maker();">제조사 등록</button>
+                    <button type="button" class="btnType1 mr10">엑셀업로드</button>
+                    <button type="button" class="btnType1 mr10">엑셀다운로드</button>
+                    <button class="btnType2 " id="addMaker" name="addMaker" onclick="add_Maker();">제조사 등록</button>
+
                 </div>
 
             </div>
@@ -42,7 +45,7 @@
                 <div class="elBox">
                     <div class="element element1 flexType2">
                         <p class="text ttl mr10">총</p>
-                        <p class="text data" id="tcnt"></p>
+                        <p class="text data fontType4 mr10" id="tcnt" data-cnt="0"></p>
                         <p class="text unit">건</p>
                     </div>
                     <div class="element element2">
@@ -51,6 +54,7 @@
                             <tr>
                                 <th>제조사코드</th>
                                 <th>제조사</th>
+                                <th>위치</th>
                                 <th>삭제</th>
                             </tr>
                             </thead>

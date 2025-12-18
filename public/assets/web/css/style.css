@@ -497,6 +497,10 @@ input[type="radio"] {
 .leftBoxStaff .topMenu .title {
     font-size: 24px;
     font-family: "Gmarket Sans";
+    width: 220px;
+    height: 60px;
+    overflow: hidden;
+    text-wrap: auto;
     /*font-family: "chakra Petch";*/
 
 }
@@ -2316,6 +2320,17 @@ input[type="radio"] {
 .oinfo_box23e .area1 {
     border-bottom: 1px solid #ccc;
 }
+
+.oinfo_box23e .area2 .refreshBtn {
+    padding: 0 10px;
+    height: 32px;
+
+}
+
+.oinfo_box23e .area2 .refreshBtn i {
+    color: #5c5c5c;
+}
+
 .oinfo_box23e .area1 .tab {
     /*margin-right: 10px;*/
     border:none;
@@ -2399,13 +2414,13 @@ input[type="radio"] {
 
 .goods_boxj3v .copyBox,
 .goods_boxx7z .area1 .copyBox .copyArea1 .copySearch {
-    border:1px solid blue;
     /*padding-left: 10px;*/
-    /*border:none;*/
+    border:none;
     width: 620px;
     height: 38px;
 
 }
+
 
 
 .goods_boxj3v .copyBox .copyArea1 .copyDropdown,
@@ -2502,7 +2517,7 @@ input[type="radio"] {
     display: none;
     position: absolute;
     top:31px;
-    left:182px;
+    left:0px;
     border-radius: 0 0 5px 5px;
     border:1px solid #ccc;
     background-color: #fff;
@@ -2513,7 +2528,7 @@ input[type="radio"] {
 }
 
 .goods_boxj3v .copyBox .copyArea2 .copyOption {
-    display: none;
+    /*display: none;*/
     width: 200px;
     min-height: 32px;
     border: none;
@@ -2531,26 +2546,11 @@ input[type="radio"] {
 }
 
 
-.goods_boxj3v .downside {
-    padding-top: 10px;
-    background-color: #fff;
-    /*width: auto;*/
-    width: 620px;
-    height: auto;
-    border:1px solid red;
-
-}
-
-.goods_boxj3v .downside .p_tagBox{
-    border:1px solid red;
-
-}
-
 .goods_boxj3v .copyArea3 .productTag:first-child {
-    /*margin-top: 10px;*/
+    margin-top: 10px;
 }
 
-.goods_boxj3v .downside .productTag {
+.goods_boxj3v .copyArea3 .productTag {
     border-radius: 20px;
     background-color: #ececec81;
     padding: 0px 10px;
@@ -2565,7 +2565,7 @@ input[type="radio"] {
 
 }
 
-.goods_boxj3v .downside .productTag .pname{
+.goods_boxj3v .copyArea3 .productTag .pname{
     width: auto;
     min-width: 180px;
     max-width: 180px;
@@ -2576,14 +2576,14 @@ input[type="radio"] {
     text-wrap: nowrap;
 }
 
-.goods_boxj3v .downside .productTag .count{
+.goods_boxj3v .copyArea3 .productTag .count{
     width: 120px;
     height: 28px;
     line-height: 28px;
 
 }
 
-.goods_boxj3v .downside .productTag i{
+.goods_boxj3v .copyArea3 .productTag i{
     height: 28px;
     line-height: 28px;
     font-size: 12px;
@@ -2593,17 +2593,102 @@ input[type="radio"] {
 /* goods register > add product end  -------------------------------- */
 /* goods editor > add cover start  -------------------------------- */
 
-.ge_boxvn2 .element8 {
-    border:1px solid red;
-    width: 620px;
-    min-height: 320px;
-    height: auto;
+.cover_boxj3v {
+    width: 780px;
 }
 
-.ge_boxvn2 .element8 .right {
-    border:1px solid red;
+
+.cover_boxj3v .notmust {
+    margin-right: 20px;
+}
+
+.cover_boxj3v .title {
+    width: 140px;
+    margin-right: 20px;
+}
+
+.cover_boxj3v  .pouchBox .coverIn{
+    border:1px solid #ccc;
+    width: 200px;
+    height: 32px;
+    margin-right: 20px;
+}
 
 
+.cover_boxj3v .pouchBox .cntIn{
+    border:1px solid #ccc;
+    width: 140px;
+    height: 32px;
+    margin-right: 20px;
+
+}
+
+.cover_boxj3v .pouchBox .addBtn {
+    padding: 0 10px;
+    height: 32px;
+    background-color: #fff;
+    text-wrap: nowrap;
+
+}
+
+
+.cover_boxj3v .tagBox {
+    width: 380px;
+    height: auto;
+    margin-left: 185px;
+}
+
+.cover_boxj3v .tagBox .pouchTag:first-child {
+    margin-top: 10px;
+}
+
+.cover_boxj3v .tagBox .pouchTag {
+    border-radius: 20px;
+    background-color: #ececec81;
+    padding: 0px 10px;
+    width: 370px;
+    /*max-width: 370px;*/
+    overflow: hidden;
+    height: 28px;
+    font-size: 14px;
+    margin-bottom: 4px;
+    position: relative;
+
+}
+
+.cover_boxj3v .tagBox .pouchTag .pname{
+    width: auto;
+    min-width: 180px;
+    max-width: 180px;
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 40px;
+    text-wrap: nowrap;
+}
+
+.cover_boxj3v .tagBox .pouchTag .count,
+.cover_boxj3v .tagBox .pouchTag .unit{
+    width: auto;
+
+    /*max-width: 140px;*/
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+
+}
+
+
+
+.cover_boxj3v .tagBox .pouchTag i{
+
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+    position: absolute;
+    top:50%;
+    right:10px;
+    transform: translateY(-50%);
 }
 
 /* goods editor > add cover end  -------------------------------- */
@@ -3140,6 +3225,25 @@ input[type="radio"] {
 
 .goods_boxt6r {
     margin: 0;
+}
+
+.goods_boxt6r .bomType_boxh1t {
+    margin-bottom: 10px;
+
+}
+
+.goods_boxt6r .title {
+    width: 80px;
+    margin-right: 20px;
+    font-size: 16px;
+
+}
+
+.bomType_boxh1t .typeIn,
+.bomType_boxh1t .nameIn {
+    width: 380px;
+    height: 32px;
+
 }
 
 .goods_boxk8u {
@@ -5430,6 +5534,12 @@ input[type="radio"] {
     color: #5c5c5c;
 }
 
+.fontType4 {
+    font-size: 18px;
+    color: var(--color4);
+    font-weight: 500;
+}
+
 .flexType1 {
     display: flex;
     justify-content: center;
@@ -5512,6 +5622,10 @@ input[type="radio"] {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+.bn {
+    border:none;
 }
 
 .ml20 {

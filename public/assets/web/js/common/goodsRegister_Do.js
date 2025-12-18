@@ -1,4 +1,23 @@
 $(document).ready(function(){
+
+    $(".area_boxm9k > .outerBox > .right > .foldBtn").click(function() {
+        // let $area = $(this);
+        const $btn = $(this);
+        const $icon = $btn.find("i");
+        const $content = $btn.closest(".area_boxm9k").find(".area_box2qd");
+
+        // .area_box2qd 슬라이드 토글
+        // $content.slideToggle(200);
+        $content.slideToggle(200, function () {
+            // 토글 후 상태 기준으로 아이콘 변경
+            if ($content.is(":visible")) {
+                $icon.removeClass("fa-angle-up").addClass("fa-angle-down");
+            } else {
+                $icon.removeClass("fa-angle-down").addClass("fa-angle-up");
+            }
+        });
+    });
+
     $('#attachImg').on('click', function(e) {
         let thumCount = $('[name="thumBox"]').length;
         if (thumCount >= 1) {
@@ -98,15 +117,19 @@ $(document).ready(function(){
         $(this).closest('div[name="add_product_info"]').remove();
     });
 
+    $(document).on('click', 'i[name="add_pouch_del"]', function() {
+        $(this).closest('div[name="add_pouch_info"]').remove();
+    });
+
     $('#addproduct').on('click',function(){
         let gcode = $('#txt_product').data('code');
         let gname = $('#txt_product').val();
         let cnt = $('#txt_product_num').val();
         if(gcode==''){
-            Make_Toast('추가하실 체품을 검색하세요.');
+            Make_Toast('추가하실 제품을 검색하세요.');
             $('#txt_product').focus();
         }else if(cnt==''){
-            Make_Toast('추가하실 체품 수량을 검색하세요.');
+            Make_Toast('추가하실 제품 수량을 검색하세요.');
             $('#txt_product_num').focus();
         }else{
             let html = `
@@ -121,6 +144,33 @@ $(document).ready(function(){
             $('#txt_product').val('');
             $('#txt_product').data('code','');
             $('#txt_product_num').val('');
+        }
+    });
+
+
+    $('#add_pouch').on('click',function(){
+        // let gcode = $('#txt_cover').data('code');
+        let p_code = $('#pouch_name').val();
+        let p_name = $('#pouch_name option:selected').text();
+        let p_cnt = $('#pouch_cnt').val();
+        if(p_code==''){
+            Make_Toast('부자재를 선택하세요.');
+            $('#pouch_name').focus();
+        }else if(p_cnt==''){
+            Make_Toast('부자재 수량을 입력하세요.');
+            $('#pouch_cnt').focus();
+        }else{
+            let html = `
+                <div class="pouchTag flexType2" name="add_pouch_info" id="" data-code="${p_code}">
+                    <p class="pname" name="p_name" data-code="${p_code}">${p_name}</p>
+                    <p class="count" name="p_cnt" data-cnt="${p_cnt}">${p_cnt}</p>
+                    <p class="unit" name="">개</p>
+                    <i class="fa-solid fa-xmark" name="add_pouch_del"></i>
+                </div>
+            `;
+            $('#pouch_list').append(html).addClass('active');
+            $('#pouch_name').val('');
+            $('#pouch_cnt').val('');
         }
     });
 
@@ -182,9 +232,6 @@ $(document).ready(function(){
         }else if(pWeigth==''){
             Make_Toast('중량을 입력하세요.');
             $('#pWeigth').focus();
-        }else if(pWeigth=='') {
-            Make_Toast('중량을 입력하세요.');
-            $('#pWeigth').focus();
         }else if(sell_type=='') {
             Make_Toast('판매여부를 선택하세요.');
             $('#sell_type').focus();
@@ -203,6 +250,7 @@ $(document).ready(function(){
                 }
                 goods_arr.push(t_arr);
             });
+
             if (goods_arr.length === 0) {
                 Make_Toast('제품 추가 정보는 필수 사항입니다.');
                 $('#txt_product').focus();
@@ -218,8 +266,6 @@ $(document).ready(function(){
                     str_editor: str_editor
                 };
 
-                let fname = await Upload_File(NewCode);
-                let file_arr = {fname: fname};
 
                 const container1 = $('#mached_list');
                 let maching_arr = [];
@@ -233,28 +279,29 @@ $(document).ready(function(){
                     maching_arr.push(t_arr);
                 });
 
-
-                const container3 = $('#cover_box');
-                let material_arr = [];
-                container3.find('div[name="oneTBag"]').each(function () {
-                    let acode = $(this).find('select[name="accessory"]').val();
-                    let acnt = $(this).find('input[name="accessory_cnt"]').val();
-                    if(acode!='') {
-                        let m_arr = {
-                            'acode': acode,
-                            'acnt': acnt
-                        };
-                        material_arr.push(m_arr);
-                    }
+                const container3 = $('#pouch_list');
+                let pouch_arr = [];
+                container3.find('div[name="add_pouch_info"]').each(function () {
+                    let pcode = $(this).find('p[name="p_name"]').data('code');
+                    let pcnt = $(this).find('p[name="p_cnt"]').data('cnt');
+                    let p_arr = {
+                        pcode: pcode,
+                        pcnt: pcnt
+                    };
+                    pouch_arr.push(p_arr);
                 });
+
+                let fname = await Upload_File(NewCode);
+                let file_arr = {fname: fname};
+
 
 
                 let return_arr = {
                     info: product_arr,
                     file: file_arr,
-                    macthing: maching_arr,
                     goods: goods_arr,
-                    material: material_arr
+                    macthing: maching_arr,
+                    pouch: pouch_arr
                 };
 
                 let bool = await Reg_Data(return_arr);
@@ -311,16 +358,7 @@ $(document).ready(function(){
         location.reload();
     });
 
-    $(document).on('click','button[name="addCover"]',function(){
-        const parent = $(this).closest('.tBagBox');
-        const node = parent.find('.oneTBag').first();
-        const clone = node.clone();
-        clone.find('button[name="removeCover"]').css('display','flex');
-        clone.find('button[name="removeCover"]').addClass('flexType1');
-        clone.find('select').prop('selectedIndex', 0);
-        clone.find('input').val('');
-        parent.append(clone);
-    });
+
 
 
     $(document).on('click','button[name="removeCover"]',function(){
@@ -333,14 +371,12 @@ $(document).ready(function(){
         if(cnt > 1){
             oneTBagCon.remove();
         }else{
-            oneTBagCon.find('select[name="accessory"]').val('');
-            oneTBagCon.find('input[name="accessory_cnt"]').val('');
+            oneTBagCon.find('select[name="pouch_name"]').val('');
+            oneTBagCon.find('input[name="pouch_cnt"]').val('');
         }
     });
 
-
     initCkEditor('#ckeditor');
-
 
 });
 
@@ -356,6 +392,8 @@ async function Load_Before(skey){
             let data = result.get('data');
             let arr = (data && data.list) ? data.list : [];
             let Cnt = arr.length;
+            console.log('dawn1223',arr);
+            console.log('dawn1223',Cnt);
             if(Cnt > 0){
                 let html = '';
                 $.each(arr, function (index, el) {
@@ -419,7 +457,7 @@ async  function Upload_File(pdcode){
         }
         stop_spinner();
     } catch (error) {
-        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : Upload_File ' + error + '}');
         stop_spinner();
     }
     return fname;
@@ -509,30 +547,22 @@ async function set_Data(pdcode) {
         $('#add_list').append(html).addClass('active');
     }
 
-    const originalOptions = $('#accessory').html();
-    console.log(originalOptions);
-    let maretial = arr.material;
-    if (maretial && Object.keys(maretial).length > 0) {
+    let pouch = arr.material;
+    if (pouch && Object.keys(pouch).length > 0) {
         let html = '';
 
-        $.each(maretial, function (index, el) {
-            html += `
-               <div class="oneTBag mb10 flexType2" name="oneTBag">
-                    <select name="accessory" id="accessory_${el.seq}" class="option option1">
-                        ${Make_select(originalOptions,el.fk_mtcode)}
-                    </select>
-                    <input type="search" name="accessory_cnt" class="inputBorder inputBorder2 mr10" placeholder="예:10000" value="${el.cnt}">
-                    <button type="button" class="btnType3 addBtn mr10" name="addCover" >
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                    <button type="button" class="btnType3 removeBtn" name="removeCover" style="">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </div>
+        $.each(pouch, function (index, el) {
+            html += ` 
+                <div class="pouchTag  flexType2" name="add_pouch_info" data-code="${el.fk_mtcode}">
+                    <p class="pname" name="p_name" data-code="${el.fk_mtcode}">${el.mtname}</p>
+                    <p class="count" name="p_cnt" data-cnt="${el.cnt}">${el.cnt}개</p>
+                    <i class="fa-solid fa-xmark" name="add_pouch_del"></i>
+                </div> 
             `;
         });
-        $('#tBagBox').empty();
-        $('#tBagBox').append(html);
+
+        $('#pouch_list').empty();
+        $('#pouch_list').append(html);
     }
 }
 

@@ -55,7 +55,7 @@ $(document).ready(function() {
                 Make_Toast('제품명을 입력하세요.');
                 $('#gname').focus();
             }else if(inventory=='') {
-                Make_Toast('적정수량을 입력하세요.');
+                Make_Toast('텍스트를 입력하세요.');
                 $('#inventory').focus();
             }else if(unit_wight=='') {
                 Make_Toast('단위용량을 입력하세요.');
@@ -79,7 +79,7 @@ $(document).ready(function() {
                 Make_Toast('제품명을 입력하세요.');
                 $('#gname').focus();
             }else if(inventory=='') {
-                Make_Toast('적정수량을 입력하세요.');
+                Make_Toast('텍스트를 입력하세요.');
                 $('#inventory').focus();
             }else if(unit_wight=='') {
                 Make_Toast('단위용량을 입력하세요.');
@@ -112,7 +112,7 @@ async function Data_Delete(code){
     try {
         start_spinner();
         let dataarr = {"code" : code};
-        let url = APIURL + '/Delete_Product';
+        let url = APIURL + '/Delete_Goods';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();
@@ -132,13 +132,13 @@ async function Data_Edit(param){
     try {
         start_spinner();
         let dataarr = {"data" : param};
-        let url = APIURL + '/Edit_Product';
+        let url = APIURL + '/Edit_Goods';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {
            let container = $('#list_' + param['gscode']);
-           let html = `<a href="javascript:;" onclick="Edit_Products('${param['gscode']}','${param['gsname']}','${param['category']}','${param['inventory']}');" class="goodsName" name="gname">${param['gsname']}</a>`;
+           let html = `<a href="javascript:;" onclick="Edit_Products('${param['gscode']}','${param['gsname']}','${param['category']}','${param['inventory']}','${param['unit_wight']}');" class="goodsName" name="gname">${param['gsname']}</a>`;
             container.find('[name="gnode"').html(html);
             container.find('[name="c_str"').text(fnGetProductNameByCode(param['category']));
             container.find('[name="inventory"').text(number_format(param['inventory'])+'개');
@@ -160,7 +160,7 @@ async function Data_Add(param){
     try {
         start_spinner();
         let dataarr = {"data" : param};
-        let url = APIURL + '/Add_Product';
+        let url = APIURL + '/Add_Goods';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();

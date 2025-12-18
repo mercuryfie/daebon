@@ -3,11 +3,12 @@
 <script src="<?=URL_COMMON_ASSETS?>/jquery-barcode.js"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/instructionForm_Do.js?rnd=<?=rand();?>"> </script>
 <section class="merright instruction_boxqqq">
+    <?php print_r($body)?>
     <div class="odRoast_boxfxp" id="frnbody">
         <table class="odRoast_Table" >
             <thead>
                 <tr class="headCol">
-                    <td class="keyCol" colspan="7">생산작업지시서</td>
+                    <td class="keyCol" colspan="7">생산작업지시서dd</td>
                 </tr>
                 <tr class="">
                     <td class="keyCol barcodeBox" colspan="4" rowspan="2">
@@ -39,7 +40,7 @@
                 </tr>
             <?foreach ($body['material_arr'] as $d){?>
                 <tr>
-                    <td class="row row2"><?=$d['mname'];?></td>
+                    <td class="row row2"><?=$d['mtname'];?></td>
                     <td class="row row3" colspan="2"><?= number_format($d['capacity']);?></td>
                     <td class="row row4">g</td>
                     <td class="row row5" colspan="3"><?=$d['maker'];?> / <?=$d['supply'];?></td>
@@ -97,7 +98,7 @@
             </tbody>
         </table>
     </div>
-    <div class="btnBox flexType2 mt20">
+    <div class="btnBox flexType1 mt20">
         <button type="button" class="btnType1 mr10 " id="xBtn">닫기</button>
         <button type="button" class="btnType1" id="btn_print">출력</button>
     </div>

@@ -60,7 +60,6 @@ function getOrderStatusName($step) {
 
 function List_ExCode() {
     return [
-        'type0' => '자체',
         'type1' => '쿠팡',
         'type2' => '옥션',
         'type3' => '지마켓'
@@ -517,7 +516,7 @@ function fnMake_Material_option($cval,$typ)
             if ($cval == $d['mtcode']) {
                 $html .= "<option value='{$d['mtcode']}' selected>{$d['mtname']}</option>";
             } else {
-                $html .= "<option value='{$d['mtcode']}'>{$d['mtname']}</option>";
+                $html .= "<option value='{$d['mtcode']}' >{$d['mtname']}</option>";
             }
         }
     }else{

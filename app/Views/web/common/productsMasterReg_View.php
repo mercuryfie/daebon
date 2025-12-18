@@ -107,19 +107,18 @@
                         <input type="hidden" name="stepNum" value="1" />
                         <i class="fa-solid fa-xmark removeRoasting" name="removeThisRoast"></i>
                         <div class="goods_boxt6r  " name="" >
-
-                            <div class="cover_boxh1t flexType2" name="">
-                                <p class="must"></p>
-                                <p class="ttl">공정타입</p>
-                                <select name="ptype" class="inputType">
+                            <div class="bomType_boxh1t flexType2" name="">
+                                <p class="must mr10"></p>
+                                <p class="title">공정타입</p>
+                                <select name="ptype" class="inputType typeIn">
                                     <option value="">선택하세요.</option>
                                     <?=$body['category'];?>
                                 </select>
                             </div>
-                            <div class="cover_boxh1t flexType2">
-                                <p class="must"></p>
-                                <p class="ttl">공정 결과명</p>
-                                <input type="search" class="inputType" name="processname" placeholder="공정 결과명">
+                            <div class="bomType_boxh1t flexType2">
+                                <p class="must mr10"></p>
+                                <p class="title">공정결과명</p>
+                                <input type="search" class="inputType nameIn" name="processname" placeholder="공정결과명">
 
                             </div>
                         </div>

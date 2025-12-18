@@ -34,6 +34,8 @@
                     <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>
                 </div>
                 <div class="flexType2">
+                    <button type="button" class="btnType1 mr10">엑셀업로드</button>
+                    <button type="button" class="btnType1 mr10">엑셀다운로드</button>
                     <button class="btnType2" id="addSupplier" name="addSupplier" onclick="add_Supplier();">공급사 등록</button>
                 </div>
 
@@ -42,7 +44,7 @@
                 <div class="elBox">
                     <div class="element element1 flexType2">
                         <p class="text ttl mr10">총</p>
-                        <p class="text data" id="tcnt"></p>
+                        <p class="text data fontType4 mr10" id="tcnt"></p>
                         <p class="text unit">건</p>
                     </div>
                     <div class="element element2">
@@ -51,6 +53,7 @@
                             <tr>
                                 <th>공급사코드</th>
                                 <th>공급사</th>
+                                <th>위치</th>
                                 <th>삭제</th>
                             </tr>
                             </thead>

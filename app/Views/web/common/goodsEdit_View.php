@@ -1,7 +1,6 @@
 <?= $this->extend("/web/template/layout_workpage") ?>
 <?= $this->section("content") ?>
 <!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/goodsRegister.js?rnd=<?=rand();?>"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/goodsEdit_Do.js?rnd=<?=rand();?>"> </script>
 <!-- ckeditor ----------------------------  -->
 <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"> </script>
@@ -75,65 +74,72 @@
                             </select>
                             <button type="button" class="addMatch btnType3" name="addcode" id="addcode">추가</button>
                         </div>
-                        <div class="downside flexType2">
+                        <div class="downside flexType4">
                             <p class="notmust"></p>
                             <p class="title"></p>
                             <div class="flexCol mach_boxd2g " id="mached_list">
                             </div>
                         </div>
                     </div>
-                    <div class="element element7 goods_boxj3v ">
+                    <div class="element element7 goods_boxj3v flexType4">
+                        <div class="left flexType2">
+                            <p class="must"></p>
+                            <p class="title">제품추가</p>
+                        </div>
+                        <div class="flexCol">
+                            <div class="copyBox">
+                                <div class="copyArea copyArea1 flexType2 mr10">
+                                    <div class="left">
+                                        <input type="search" class="copySearch" id="txt_product" name="txt_product" placeholder="제품명 입력후 엔터" data-code="">
+                                        <button class="copyDropdown" type="button" id="find_gcode" name="find_gcode"> <i class="fas fa-caret-down"></i></button>
+                                    </div>
+                                    <input type="number" placeholder="숫자만입력" class="count" id="txt_product_num" name="txt_product_num" />
+                                    <button class="copyAdd btnType3 ml20" type="button" id="addproduct" name="addproduct">추가</button>
+                                </div>
+                                <div class="copyArea copyArea2 " id="goods_list">
+                                </div>
+                            </div>
+                            <div class="tagBox copyArea3" id="add_list" name="add_list">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element cover_boxj3v ">
+                        <div class="left flexType2">
+                            <p class="notmust "></p>
+                            <p class="title">부자재</p>
+                            <div class="pouchBox mb10 flexType2" name="pouch_box" id="pouch_box">
+                                <select class="inputBorder coverIn" id="pouch_name" name="pouch_name" data-code="">
+                                    <option value="">선택</option>
+                                    <?=$body['material'];?>
+                                </select>
+                                <input type="search" id="pouch_cnt" name="pouch_cnt" class="inputBorder cntIn mr10" placeholder="예:10000">
+                                <button class="addBtn inputBorder" type="button" id="add_pouch" name="add_pouch">추가</button>
+                            </div>
+                        </div>
+                        <div class="tagBox" id="pouch_list" name="pouch_list">
+                        </div>
+                    </div>
+<!--                    <div class="element element8  cover_boxj3v flexType4"> -->
 <!--                        <div class="left flexType2">-->
 <!--                            <p class="notmust"></p>-->
-<!--                            <p class="title">제품추가</p>-->
+<!--                            <p class="title">부자재</p>-->
 <!--                        </div>-->
-                        <div class="copyBox flexType2">
-                            <p class="notmust"></p>
-                            <p class="title">제품추가</p>
-                            <div class="copyArea copyArea1 flexType2 mr10">
-                                <div class="left">
-                                    <input type="search" class="copySearch" id="txt_product" name="txt_product" placeholder="제품명 입력후 엔터" data-code="">
-                                    <button class="copyDropdown" type="button" id="find_gcode" name="find_gcode"> <i class="fas fa-caret-down"></i></button>
-                                </div>
-                                <input type="number" placeholder="숫자만입력" class="count" id="txt_product_num" name="txt_product_num" />
-                                <button class="copyAdd btnType3 ml20" type="button" id="addproduct" name="addproduct">추가</button>
-                            </div>
-                            <div class="copyArea copyArea2 " id="goods_list">
-                            </div>
-<!--                            <div class="copyArea copyArea3" name="add_list" id="add_list">-->
+<!--                        <div class="right flexType4 " name="" id="">-->
+<!--                            <div class="tBagBox " name="tBagBox" id="tBagBox">-->
+<!--                                <div class="oneTBag mb10 flexType2" name="oneTBag">-->
+<!--                                    <select name="accessory" id="accessory" class="inputBorder coverIn">-->
+<!--                                        <option value="">선택</option>-->
+<!--                                        --><?php //=$body['material'];?>
+<!--                                    </select>-->
+<!--                                    <input type="search" name="accessory_cnt" class="inputBorder inputBorder2 mr10 cntIn" placeholder="예:10000">-->
+<!--                                    <button class="addBtn inputBorder" type="button" id="addCover" name="addCover">추가</button>-->
+<!--                                </div>-->
 <!--                            </div>-->
-                        </div>
-                        <div class="downside flexType2">
-                            <p class="notmust"></p>
-                            <p class="title "></p>
-                            <div class="p_tagBox" name="add_list" id="add_list">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="element element8 cover_boxh1t flexType4">
-<!--                    <div class="goods_boxt6r cover_boxh1t"   >-->
-                        <div class="left flexType2">
-                            <p class="notmust"></p>
-                            <p class="title">부자재</p>
-                        </div>
-                        <div class="right flexType4 " name="" id="">
-                            <div class="tBagBox " name="tBagBox" id="tBagBox">
-                                <div class="oneTBag mb10 flexType2" name="oneTBag">
-                                    <select name="accessory" id="accessory" class="option option1">
-                                        <option value="">선택</option>
-                                        <?=$body['material'];?>
-                                    </select>
-                                    <input type="search" name="accessory_cnt" class="inputBorder inputBorder2 mr10" placeholder="예:10000">
-                                    <button type="button" class="btnType3 addBtn mr10" name="addCover" >
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                    <button type="button" class="btnType3 removeBtn" name="removeCover" style="">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!--                            <div class="tagBox" id="cover_list" name="cover_list">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -175,10 +181,10 @@
             </div>
         </div>
         <div class="lastBox flexType5">
-            <button type="button" class="btnType1 mr10" id="btn_cancel" name="btn_cancel">취소</button>
+            <button type="button" class="btnType1 mr10" id="btn_cancel" name="btn_cancel" onclick="go_goodsList();">취소</button>
             <button type="button" id="submitBtn" name="submitBtn" class="btnType2">수정</button>
         </div>
-        </div>
+    </div>
 
 </section>
 

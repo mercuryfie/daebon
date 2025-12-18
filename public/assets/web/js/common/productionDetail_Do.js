@@ -16,10 +16,7 @@ $(document).ready(function() {
 
     $(document).on('click','button[name="vwReport"]',function() {
         let code = $('#gicode').data('cd');
-        console.log('dawn1715',code);
-        // let code = $('#gicode').data('cd');
         let url = "/report/q_form?cd=" + code;
-        // let url = "/report/quality?cd=" + code;
         pop_qualityReportForm(url);
     });
 

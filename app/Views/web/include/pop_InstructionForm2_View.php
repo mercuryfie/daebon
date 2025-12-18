@@ -3,11 +3,12 @@
 <script src="<?=URL_COMMON_ASSETS?>/jquery-barcode.js"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/instructionForm_Do.js?rnd=<?=rand();?>"> </script>
 <section class="merright instruction_boxqqq">
+    <?php print_r($body)?>
     <div class="odRoast_boxfxp"  id="frnbody">
         <table class="odRoast_Table">
             <thead>
                 <tr class="headCol">
-                    <td class="keyCol " colspan="7">생산작업지시서</td>
+                    <td class="keyCol " colspan="7">생산작업지시서ss</td>
                 </tr>
                 <tr class="">
                     <td class="keyCol barcodeBox" colspan="4" rowspan="2">

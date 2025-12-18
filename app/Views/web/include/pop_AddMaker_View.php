@@ -8,9 +8,14 @@
                 <p class="data" id="mcode"></p>
 
             </div>
-            <div class="area area2 flexType2">
+            <div class="area area2 mb10 flexType2">
                 <p class="category">제조사</p>
                 <input type="search" name="mname" id="mname" placeholder="회사이름" class="inputType220 mr10">
+
+            </div>
+            <div class="area area3 flexType2">
+                <p class="category">위치</p>
+                <input type="search" name="lname" id="lname" placeholder="지역이름" class="inputType220 mr10">
 
             </div>
 

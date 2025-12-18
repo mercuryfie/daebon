@@ -123,6 +123,21 @@ $(function() {
         resetStepNum();
     });
 
+    $(document).on('change','select[name="ptype"]',function(){
+        let pname = $('#txt_category').text();
+        if(pname==''){
+            Make_Toast('제품을 검색하세요.');
+        }else{
+            let stxt = $(this).find('option:selected').text();
+            let new_pname = pname + ' - ' + stxt;
+            let styp = $(this).find('option:selected').data('type');
+            let unit = (styp=='1') ? 'g' : 'ea';
+            $(this).parent().parent().parent().find('[name="unit_input"]').html(unit);
+            $(this).parent().parent().parent().find('[name="unit_output"]').html(unit);
+            $(this).parent().parent().find('[name="processname"]').val(new_pname);
+        }
+    });
+
     $(document).on('click','#btn_confirm', async function () {
         console.log('test');
         let gcode = $('#gcode').val();

@@ -41,13 +41,11 @@ $(document).ready(function() {
 
     $(document).on('click','button[name="btn_del"]',async function(){
         let code = $(this).data('code');
-        console.log('dawn1052',code);
         if(window.confirm('삭제하시겠습니까?')==true){
             let bool = await Del_Data(code);
             if(bool==true) {
                 $('#tr_' + code).remove();
-                // location.reload();
-                Make_Toast('삭제 하였습니다.');
+                Make_Toast('삭제하였습니다.');
             }
         }
 
@@ -58,6 +56,7 @@ $(document).ready(function() {
 
         if(typ==1){
             let name = $('#mname').val();
+            let location = $('#lname').val();
 
             if(name==''){
                 $('#mname').focus();
@@ -65,6 +64,7 @@ $(document).ready(function() {
             }else{
                 const data = {
                     name : name,
+                    location : location,
                 };
                 let html = '';
                 let el = await Add_Data(data);
@@ -76,6 +76,9 @@ $(document).ready(function() {
                             </td>
                             <td class="ltThead col2">
                                 <a href="javascript:;" class="materialName" onclick="mod_Supplier('${el.code}');">${el.name}</a>
+                            </td> 
+                            <td class="ltThead col2">
+                                <p class="materialName" onclick="">${el.location}</p>
                             </td> 
                             <td class="ltThead col6">
                                 <button type="button" class="btnType3 removeBtn" id="del_${el.seq}" name="btn_del"  data-code="${el.code}" onclick="Del_Data('${el.code}');"> 
@@ -92,6 +95,7 @@ $(document).ready(function() {
         }else if(typ==2){
             let code = $(this).data('code');
             let name = $('#mname').val();
+            let location = $('#lname').val();
 
             if(name==''){
                 $('#mname').focus();
@@ -100,11 +104,11 @@ $(document).ready(function() {
                 const data = {
                     code : code,
                     name : name,
+                    location : location,
                 };
                 let html = '';
                 let el = await Mod_Data(data);
                 if(!fn_IsEmpty(el)){
-                    $('#tr_' + code).remove();
                     html =`
                         <tr id="tr_${el.code}"> 
                             <td class="ltThead col2">
@@ -112,6 +116,9 @@ $(document).ready(function() {
                             </td>
                             <td class="ltThead col2">
                                 <a href="javascript:;" class="materialName" onclick="mod_Supplier('${el.code}');">${el.name}</a>
+                            </td> 
+                            <td class="ltThead col2">
+                                <p class="materialName" onclick="">${el.location}</p>
                             </td> 
                             <td class="ltThead col6">
                                 <button type="button" class="btnType3 removeBtn" id="del_${el.seq}" name="btn_del" data-code="${el.code}"> 
@@ -121,6 +128,7 @@ $(document).ready(function() {
                         </tr>
                     `;
 
+                    $('#tr_' + code).remove();
                     $('#sList').prepend(html);
                     $('#addSupplierWrap').css('display','none');
                 }
@@ -153,6 +161,9 @@ async function Load_Data(skey) {
                             <td class="ltHead col3">
                                 <a href="javascript:;" class="materialName" onclick="mod_Supplier('${el.code}');">${el.name}</a>
                             </td>  
+                            <td class="ltHead col3">
+                                <p class="materialName" onclick="">${el.location}</p>
+                            </td>  
                             <td class="ltThead col3">
                                 <button type="button" class="btnType3 removeBtn" name="btn_del"  id="del_${el.seq}" data-code="${el.code}">
                                     <i class="fa-solid fa-trash"></i>
@@ -166,10 +177,11 @@ async function Load_Data(skey) {
                     <tr>
                         <td class="ltTbody">-</td>
                         <td class="ltTbody">-</td> 
-                        <td class="ltTbody">-</td> 
+                        <td class="ltTbody">-</td>  
                         <td class="ltTbody">-</td>  
                     </tr>
                 `;
+                $('#cpage').hide();
             }
             $('#sList').empty();
             $('#sList').append(html);
@@ -194,6 +206,7 @@ function add_Supplier() {
     $('#btn_pop').data('code','');
     $('#btn_pop').html(poptext);
     $('#btn_pop').data('type',poptype);
+    $('#code_box').hide();
 
     $('#addSupplierWrap').css('display','block');
 }
@@ -207,10 +220,11 @@ async function mod_Supplier(code) {
         $('#p_title').html(title);
         $('#mcode').html(arr[0].code);
         $('#mname').val(arr[0].name);
+        $('#lname').val(arr[0].location);
         $('#btn_pop').data('code',code);
         $('#btn_pop').html(poptext);
         $('#btn_pop').data('type',poptype);
-        //
+        $('#code_box').show();
         $('#addSupplierWrap').css('display','block');
     } else {
         console.log('bello');
@@ -234,7 +248,7 @@ async function Add_Data(data){
         }
         stop_spinner();
     } catch (error) {
-        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여 주세요.\n[ERROR : ' + error + '}');
         stop_spinner();
     }
     return arr;
@@ -259,7 +273,7 @@ async function Mod_Data(data){
         }
         stop_spinner();
     } catch (error) {
-        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여 주세요.\n[ERROR : ' + error + '}');
         stop_spinner();
     }
     return arr;
@@ -270,7 +284,7 @@ async function Del_Data(code){
     try {
         start_spinner();
         let dataarr = {"code" : code};
-        let url = APIURL + '/Del_Maker_Info';
+        let url = APIURL + '/Del_Supplier_Info';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();
@@ -281,7 +295,7 @@ async function Del_Data(code){
         }
         stop_spinner();
     } catch (error) {
-        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여 주세요.\n[ERROR : ' + error + '}');
         stop_spinner();
     }
     return bool;
@@ -292,7 +306,6 @@ async function Load_Pop(code){
     try {
         start_spinner();
         let dataarr = {"key" : code};
-        console.log('dawn2',dataarr)
         let url = APIURL + '/Load_Supplier';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
@@ -305,7 +318,7 @@ async function Load_Pop(code){
         }
         stop_spinner();
     } catch (error) {
-        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여 주세요.\n[ERROR : ' + error + '}');
         stop_spinner();
     }
     return arr;

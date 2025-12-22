@@ -1,0 +1,6094 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:"Noto Sans";
+    /*text-wrap: nowrap;*/
+
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button,
+i {
+    cursor: pointer;
+}
+
+
+input[type="search"] {
+    outline: none;
+}
+
+:root {
+    --color1: #6FFF74;
+    --color2: #19CD1F;
+    --color3: #43B747;
+    --color4: #42b983;
+    --color5: #42b98341;
+    --color6: #b0ddc260;
+    --color7: #5EFF5B20;
+    --color8: #5EFF5B80;
+    --color9: #FB622BFF;
+    --babyColor1:#b0ddc241;
+    --bgColor1: #F9F9F9;
+    --bgColor2: #F3F3F3;
+    --main-gradient: linear-gradient(
+            to bottom right,
+            #6FFF74 10%,
+            #19CD1F 70%
+    );
+    --gradient2: linear-gradient(
+            to bottom right,
+            #65f16a 10%,
+            #3ae041 70%
+    );
+    --gradient3: linear-gradient(
+            to bottom right,
+            #ececec 10%,
+            #ccc 70%
+    );
+}
+
+::selection {
+    background-color: #b0ddc2; /* 드래그 배경색 */
+    color: #000; /* 드래그된 텍스트 색상 */
+}
+
+input[type="checkbox"] {
+    accent-color: #24c22b; /* 체크 표시 색상 (예: 토마토색) */
+    color:#fff;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    accent-color: #24c22b;
+    margin-right: 10px;
+}
+
+/* header -------------------------------- */
+
+
+
+.headerWrapStaff,
+.headerwrap {
+    /*border:1px solid red;*/
+    border-bottom: 1px solid #ececec;
+    width: 98vw;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 60px 20px 60px;
+
+}
+
+.headerWrapStaff {
+    border:none;
+    width: 100vw;
+    background-color: #1c1c1c;
+    color:#fff;
+    position: fixed;
+    top:0;
+    z-index: 33;
+
+}
+
+.headerWrapStaff .logoImg,
+.headerwrap .logoImg {
+    cursor: pointer;
+}
+
+.headerBox {
+    margin: 0 auto;
+    width: 1050px;
+
+}
+
+/* table td start*/
+
+.orderInfoTable .trashBtn {
+    height: 24px;
+    padding: 0 10px;
+    font-size: 14px;
+    color:#5c5c5c;
+}
+
+.deliInfoTable td,
+.areaBox .area4 .orderInfoTable td {
+    /*min-width: 100px;*/
+    max-height: 32px;
+    overflow: hidden;
+    border:1px solid #ccc;
+    width: auto;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    padding: 0 10px;
+    text-wrap: nowrap;
+}
+
+/* table td end */
+
+/*.headerWrapStaff .loginBox {*/
+/*    height: 44px;*/
+/*    overflow: hidden;*/
+/*}*/
+.headerWrapStaff .loginBox .text,
+.headerwrap .loginBox .text {
+    color:#1c1c1c;
+    width: 120px;
+    text-align: center;
+    font-family: "Gmarket Sans";
+}
+
+.headerWrapStaff .loginBox .text {
+    color:#fff;
+}
+
+.headerWrapStaff .loginBox .text2 {
+    border-left: 1px solid #ccc;
+
+}
+.headerwrap .loginBox .text2 {
+    border-left: 1px solid #ccc;
+}
+
+.footWrap {
+    padding-top: 60px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    width: calc(100vw - 220px);
+    height: 320px;
+    text-align: center;
+    /*position: fixed;*/
+    /*bottom:0;*/
+
+}
+
+
+.grayFoot {
+    padding-top: 60px;
+    padding-bottom: 20px;
+    width: 100%;
+    height: 320px;
+    text-align: center;
+    background-color: var(--bgColor2);
+
+}
+
+
+.grayFoot .termsBox,
+.footWrap .termsBox {
+    height: 80px;
+
+}
+
+
+.grayFoot .add,
+.grayFoot .termsBox .terms,
+.footWrap .add,
+.footWrap .termsBox .terms {
+    width: auto;
+    height: 22px;
+    line-height: 22px;
+    font-size: 12px;
+    color:#5c5c5c;
+
+}
+
+
+.grayFoot .add,
+.footWrap .add {
+    /*padding-top: 60px;*/
+}
+
+.grayFoot .termsBox .terms,
+.footWrap .termsBox .terms {
+    padding: 0 10px;
+}
+
+
+.grayFoot .termsBox .border,
+.footWrap .termsBox .border {
+    height: 12px;
+    border-right: 1px solid #ccc;
+}
+
+.footBox {
+    height: 60px;
+}
+
+.footBox  img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+.footBox .copyright {
+    margin-left: 40px;
+    font-size: 14px;
+    color:#5c5c5c;
+}
+
+
+
+/* leftBox -------------------------------- */
+
+.workpageWrap {
+    width: 100vw;
+    /*min-height: 100vh;*/
+    height: auto;
+    /*background-color: var(--bgColor1);*/
+    /*background-color: red;*/
+
+}
+
+.leftBox {
+    height: auto;
+
+}
+
+.mainWrap {
+    background-color: #ccc;
+    margin: 0 auto;
+    width:1920px;
+    height: auto;
+
+}
+
+.mainWrapStaff {
+    width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    padding-bottom: 100px;
+    background-color: #2c2c2c;
+    color:#fff;
+    overflow: hidden;
+}
+
+.leftWrap {
+    min-width: 220px;
+    width: 220px;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #fafafa;
+    border-right: 1px solid #e0e0e0;
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+}
+
+.rightWrap {
+    padding-bottom: 100px;
+    background-color: var(--bgColor2);
+    width: calc(100vw - 220px);
+    height: 100vh;
+    overflow-y: scroll ;
+    overflow-x: hidden;
+    position: fixed;
+    left:220px;
+    top: 60px;
+}
+
+.mainWrapStaff .leftWrapStaff{
+    width: 320px;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /*background: #fafafa;*/
+    /*border-right: 1px solid #e0e0e0;*/
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    /*border: 1px solid #fff;*/
+    border-right: 1px solid #6c6c6c;
+    background-color: #2c2c2c;
+}
+
+.mainWrapStaff .rightWrapStaff{
+    width: calc(100vw - 320px);
+    border-right: 1px solid #5c5c5c;
+    background-color: #2c2c2c;
+
+    padding-bottom: 100px;
+    height: 100vh;
+    overflow-y: scroll ;
+    overflow-x: hidden;
+    position: fixed;
+    left:320px;
+    top: 60px;
+    /*right:0;*/
+}
+
+.merright {
+    padding-bottom: 100px;
+}
+
+.searchBox1 {
+    padding: 20px 0;
+    width: 200px;
+    height: 100px;
+}
+
+.searchBox1 select {
+    border:none;
+    background-color: transparent;
+    border-radius: 5px;
+    width: 160px;
+    height: 32px;
+    margin-left: 20px;
+
+}
+.searchBox1-1 {
+    position: relative;
+    margin: 0 auto;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 160px;
+    height: 32px;
+}
+
+
+.searchBox1-1 input{
+    margin-left: 0;
+    border:none;
+    background-color: transparent;
+    width: 130px;
+    height: 32px;
+}
+
+.searchBox1-1 input:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+
+.searchBox1-1 i {
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    right:10px;
+    color:#7c7c7c;
+    font-size: 16px;
+}
+
+.menuWrap {
+    width: 200px;
+    height: 120vh;
+}
+.menuBox .topmenu {
+    /*width:160px;*/
+    padding: 0px 20px;
+
+}
+.menuBox .topText {
+    width:100px;
+    height: 50px;
+    line-height: 50px;
+    text-align: left;
+    font-family: "Gmarket Sans";
+}
+
+.topmenu i {
+    color:#7c7c7c;
+}
+
+.submenu {
+    display: none;
+}
+
+.submenu .subtext {
+    margin-left: 20px;
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    padding: 0px 20px;
+    color:#7c7c7c;
+}
+
+.submenu .subtext.active {
+    color: var(--color4);
+}
+
+
+/* leftBoxStaff start  -------------------------------- */
+
+.leftBoxStaff {
+}
+
+.leftBoxStaff .menuWrap0{
+    padding-top: 10px;
+    padding-left: 10px;
+    width: 320px;
+    height: auto;
+    min-height: 160px;
+
+}
+
+.leftBoxStaff .boxd0q {
+    margin-bottom: 5px;
+}
+
+
+.leftBoxStaff .boxd0q .title {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100px;
+    font-size: 18px;
+
+}
+
+.leftBoxStaff .boxd0q .data {
+    width: 210px;
+    padding-right: 10px;
+    overflow: hidden;
+    height: 22px;
+    font-size: 18px;
+}
+
+.leftBoxStaff .menuWrap {
+    width: 320px;
+    height: 80px;
+
+}
+
+.leftBoxStaff .menuWrap.active {
+
+}
+
+.leftBoxStaff .topMenu {
+    width: 320px;
+    height: 80px;
+    padding: 0 10px;
+
+    /*background-color: #4c4c4c;*/
+}
+
+.leftBoxStaff .topMenu.active {
+    background:transparent;
+    border: 2px inset #2c2c2c;
+    box-shadow:
+            inset -2px -2px 4px #2c2c2c;
+}
+
+.leftBoxStaff .topMenu.active2 {
+    border-left: 10px ridge #6FFF7480;
+    /*border-left: 10px outset #ffffff;*/
+    padding-left: 0;
+}
+
+.leftBoxStaff .topMenu .count,
+.leftBoxStaff .topMenu h1 {
+    margin-left: 10px;
+    margin-right: 20px;
+    /*font-family: "chakra Petch";*/
+    color:#fff;
+    font-family: "Gmarket Sans";
+}
+
+.leftBoxStaff .topMenu .title {
+    font-size: 24px;
+    font-family: "Gmarket Sans";
+    width: 220px;
+    height: 60px;
+    overflow: hidden;
+    text-wrap: auto;
+    /*font-family: "chakra Petch";*/
+
+}
+
+.progDone {
+    border-bottom: 1px solid #6c6c6c;
+    background-color: #A2A2A220;
+    color:#ccc;
+}
+
+.progNow {
+    border-bottom: 1px solid var(--color1);
+    background-color: var(--color8);
+    color:#000;
+
+}
+
+.leftBoxStaff .progNow h1,
+.leftBoxStaff .progNow .count{
+    color:#000;
+}
+
+.progQueue {
+    border-bottom: 1px solid var(--color5);
+    background-color: var(--color7);
+    color:#ccc;
+}
+
+/* leftBoxStaff end -------------------------------- */
+
+/* 로그인 페이지 -------------------------------- */
+
+.login {
+    width: 380px;
+    height: 750px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-flow: column;
+}
+
+.login .title {
+    margin-top: 100px;
+    height: 200px;
+    line-height: 200px;
+    font-family: "Gmarket Sans";
+    font-size: 22px;
+}
+
+.login .inputcon input {
+    border-radius: 5px;
+    border:1px solid #ccc;
+    width: 380px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.login button {
+    width: 380px;
+    height: 50px;
+    /*background-color: #42b983;*/
+    color:#fff;
+    font-size: 18px;
+    font-family: "Gmarket Sans";
+    border:none;
+    border-radius: 5px;
+    background-image: var(--main-gradient);
+}
+
+
+.login .autoLogin .checkType{
+    width:160px;
+    height: 50px;
+}
+
+
+.login .autoLogin .checkType > *{
+    margin-left: 10px;
+}
+/*.login > p {*/
+/*    width: 380px;*/
+/*    height: 60px;*/
+/*    font-size: 22px;*/
+/*    font-weight: bold;*/
+/*    margin-top: 60px;*/
+/*    margin-bottom: 60px;*/
+/*}*/
+
+/* dashboard status -------------------------------- */
+
+.dashBoard_boxowy {
+}
+
+.dashBoard_boxowy .refreshBox {
+    margin-top: 20px;
+    margin-left: 20px;
+    width:77vw;
+    height: 32px;
+    overflow: hidden;
+}
+
+
+.dashBoard_boxowy .refreshBox .left{
+    margin-right: 40px;
+}
+
+.dashBoard_boxowy .refreshBox .subtitle{
+    width: 60px;
+    margin-right: 40px;
+}
+
+.dashBoard_boxowy .refreshBox .swich_boxli6 i{
+    font-weight: bold;
+    font-size: 18px;
+
+}
+/* merright -------------------------------- */
+
+.merright {
+    height: auto;
+}
+
+.order_box28f .swich_boxli6 {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    width: 78vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 20px;
+}
+
+.deli_wrapghj .swich_boxli6 {
+    width: 78vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 20px;
+
+}
+
+.status_boxi3f .progress {
+    margin-top: 10px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+
+}
+
+
+.status_boxi3f .progress .right {
+    margin-left: 10px;
+    color:#5c5c5c;
+}
+
+.status_boxi3f .right .refBtn {
+    width: auto;
+    padding: 0 10px;
+}
+
+.status_boxi3f .progress .count {
+    color:#000;
+    font-size: 22px;
+    margin-right: 20px;
+    font-weight: 500;
+    /*font-size: ;*/
+}
+
+
+
+.areaBox .performStatusBox {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.areaBox .performStatusBox .performStatus {
+    text-wrap: nowrap;
+    margin-bottom: 5px;
+    font-size: 14px;
+    /*font-family: "Gmarket Sans";*/
+
+}
+
+.swich_boxli6 i{
+    margin-left: 20px;
+
+}
+.swich_boxli6 .binder{
+    border-left: 2px solid #000;
+    width: 5px;
+    height: 18px;
+    margin-left: 20px;
+}
+
+/* deliInfo -------------------------------- */
+
+
+/* calendar -------------------------------- */
+
+
+#calendar {
+    margin: 0 !important;
+    margin-top: 40px !important;
+    margin-left: 20px !important;
+    padding: 0;
+    max-width: 90% !important;
+    max-height: 720px;
+}
+
+/*달력 안에 today*/
+#calendar .fc-day-today {
+    background-color: var(--babyColor1) !important;
+    color: black !important;
+}
+
+.fc-daygrid-day {
+    min-height: 80px; !important;/* 원하는 px로 고정 */
+}
+
+/* 기본 버튼 prev, next, today 색상 변경 */
+.fc-header-toolbar .fc-prev-button,
+.fc-header-toolbar .fc-next-button,
+.fc-header-toolbar .fc-today-button {
+    margin: 0 !important;
+    padding: 0 !important;
+    border:none !important;
+    width: 50px;
+    height: 32px;
+    line-height: 32px;
+    background-color: #ccc !important;  /* 연노랑 계열 배경색 */
+    color: #000 !important;               /* 글씨색 */
+}
+
+.fc-header-toolbar .fc-next-button {
+    margin-right: 10px !important;
+
+}
+
+.fc-header-toolbar .fc-today-button {
+    background-color: #ccc !important;
+    color: #000 !important;
+    width: auto;
+    padding: 0 20px !important;
+}
+
+
+.fc-event.fc-event-selected,
+.fc-event:focus {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* orderRegister start -------------------------------- */
+/* orderRegister element1 start -------------------------------- */
+/* 주문등록 > 주문정보 */
+.orderReg_boxx7x .areaBox .area1{
+    border-bottom: 1px solid #ccc;
+    height: 60px;
+
+}
+
+/* 주문등록 > 주문정보 > 마켓 start */
+
+.orderReg_boxx7x .element11 .mkSelect {
+    width: 220px;
+    height: 32px;
+    margin-right: 10px;
+    font-size: 14px;
+
+}
+
+.orderReg_boxx7x .element11 .odCodeIn {
+    width: 220px;
+    height: 32px;
+    font-size: 14px;
+
+}
+
+.fs14 {
+    font-size: 14px;
+}
+
+/* 주문등록 > 주문정보 > 마켓 end */
+
+.orderReg_boxx7x .element1 {
+    height: auto;
+}
+
+.orderReg_boxx7x .element1 .copyBox {
+    position: relative;
+    text-wrap: nowrap;
+    width:420px;
+    height: 32px;
+
+}
+
+
+.orderReg_boxx7x .element1 .copyBox .copyArea1{
+    /*position: absolute;*/
+    /*top:0;*/
+    /*left:0;*/
+    /*border-radius: 5px;*/
+    width: 560px;
+    height: 34px;
+}
+
+.orderReg_boxx7x .element1 .copyBox .copyArea1 .left{
+    border:1px solid #ccc;
+    border-radius: 5px;
+    width: 220px;
+    height: 34px;
+
+}
+
+
+.orderReg_boxx7x .element1 .copyBox .copyArea1 .copySearch{
+    border:none;
+
+    /*padding-left: 10px;*/
+    width: 188px;
+    height: 30px;
+}
+
+.orderReg_boxx7x .element1 .copyBox .copyArea1 .copyDropdown{
+    width:30px;
+    height: 30px;
+    border: none;
+    background-color: #fff;
+    color: #5c5c5c;
+
+}
+
+.orderReg_boxx7x .element2 .schBtn,
+.orderReg_boxx7x .element1 .copyBox .copyArea1 .copyAdd {
+    padding: 0 10px;
+    font-size: 14px;
+    height: 32px;
+
+}
+
+
+.orderReg_boxx7x .element1 .copyBox .copyArea1 .count{
+    border-radius: 5px;
+    border:1px solid #ccc;
+    width: 125px;
+    height: 32px;
+    margin-right: 10px;
+
+}
+
+
+.orderReg_boxx7x .element1 .tagBox {
+    margin-top: 10px;
+}
+
+.orderReg_boxx7x .element1 .productTag {
+    border-radius: 20px;
+    background-color: #ececec81;
+    padding: 0px 10px;
+    /*width: 120px;*/
+    /*width:120px;*/
+    /*min-width: 120px;*/
+    max-width: 370px;
+    overflow: hidden;
+    height: 28px;
+    font-size: 14px;
+    margin-bottom: 4px;
+
+}
+
+.orderReg_boxx7x .element1 .productTag .gname{
+    /*width: auto;*/
+    min-width: 180px;
+    max-width: 180px;
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 40px;
+    text-wrap: nowrap;
+}
+
+.orderReg_boxx7x .element1 .productTag .count{
+    width: 80px;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 10px;
+
+}
+
+.orderReg_boxx7x .element1 .productTag i{
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+}
+
+.orderReg_boxx7x .element1 .productTag i {
+
+}
+
+
+.orderReg_boxx7x .element1 .copyBox .copyArea2 {
+    display: none;
+    position: absolute;
+    top:30px;
+    left:0px;
+    border-radius: 0 0 5px 5px;
+    border:1px solid #ccc;
+    background-color: #fff;
+    width:220px;
+    height: 220px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.orderReg_boxx7x .element1 .copyBox .copyArea2 .copyOption {
+    width: 560px;
+    min-height: 40px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    color: #5c5c5c;
+    text-align: left;
+    padding-left: 10px;
+}
+
+
+.orderReg_boxx7x .element1 .copyBox .copyArea2.active,
+.orderReg_boxx7x .element1 .copyBox .copyArea2 .copyOption.active {
+    display: block;
+
+}
+
+.orderReg_boxx7x .element1 .copyBox .copyArea2 > button:hover {
+    text-decoration: underline;
+}
+
+/* orderRegister element1 end -------------------------------- */
+/* orderRegister element2 start -------------------------------- */
+
+
+.orderReg_boxx7x .element2 .postIn {
+    margin: 0;
+    width: 80px;
+    height:32px;
+    margin-right: 10px;
+    font-size: 14px;
+
+}
+
+
+.orderReg_boxx7x .element2 .add1In {
+    width: 80px;
+    height:32px;
+
+}
+
+/* orderRegister element2 end -------------------------------- */
+/* orderRegister end -------------------------------- */
+/* productsMaster_View start -------------------------------- */
+/* productsEditor_View 제품BOM수정 > 원자재 선택 관련start -------------------------------- */
+
+.mas_box23f .element1 {
+    height: auto;
+}
+
+.mas_box23f .element1 .searchProducts_box291 {
+    position: relative;
+    text-wrap: nowrap;
+    width:430px;
+    height: 32px;
+
+}
+
+.mas_box23f .element1 .searchProducts_box291 .copyArea1{
+    width:360px;
+    height: 34px;
+    background-color: #fff;
+    margin-right: 10px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+}
+
+.mas_box23f .element .data {
+    font-size: 14px;
+}
+
+
+.mas_box23f .element1 .searchProducts_box291 .copyArea1 .copySearch{
+    border:none;
+
+    /*padding-left: 10px;*/
+    width: 320px;
+    height: 28px;
+}
+
+.mas_box23f .element1 .searchProducts_box291 .copyArea1 .copyDropdown{
+    width:30px;
+    height: 30px;
+    border: none;
+    background-color: #fff;
+    color: #5c5c5c;
+
+}
+
+.mas_box23f .searchProducts_box291 .copyArea2 {
+    display: none;
+    position: absolute;
+    top:30px;
+    left:0px;
+    border-radius: 0 0 5px 5px;
+    border:1px solid #ccc;
+    background-color: #fff;
+    width: 360px;
+    height: 180px;
+    z-index: 33;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.mas_box23f .searchProducts_box291 .copyArea2 .copyOption {
+    display: none;
+    width: 360px;
+    min-height: 32px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    color: #5c5c5c;
+    text-align: left;
+    padding-left: 10px;
+
+}
+
+.mas_box23f .searchProducts_box291 .copyArea2.active,
+.mas_box23f .searchProducts_box291 .copyArea2 .copyOption.active {
+    display: block;
+}
+
+
+/* 제품BOM등록> 원자재 선택 start */
+/* AND 제품BOM정> 원자재 선택 start */
+
+.masModi_box23f .element6,
+.mas_box23f .element5 {
+    height: auto;
+}
+
+.masModi_box23f .element6 .searchMate_boxx21,
+.mas_box23f .element5 .searchMate_boxx21 {
+    position: relative;
+    text-wrap: nowrap;
+    width:370px;
+    height: auto;
+
+}
+
+
+.masModi_box23f .element6 .searchMate_boxx21 .copyArea1,
+.mas_box23f .element5 .searchMate_boxx21 .copyArea1{
+    width:600px;
+    height: 34px;
+    background-color: #fff;
+}
+
+.masModi_box23f .element6 .searchMate_boxx21 .copyArea1 .keyIn,
+.mas_box23f .element5 .searchMate_boxx21 .copyArea1 .keyIn{
+    width:200px;
+    height: 34px;
+    border-radius: 5px;
+    border:1px solid #ccc;
+    margin-right: 10px;
+
+}
+
+.masModi_box23f .element6 .searchMate_boxx21 .copyArea1 .copySearch,
+.mas_box23f .element5 .searchMate_boxx21 .copyArea1 .copySearch{
+    border:none;
+    width: 170px;
+    height: 24px;
+}
+
+.masModi_box23f .element6 .searchMate_boxx21 .copyArea1 .copyDropdown,
+.mas_box23f .element5 .searchMate_boxx21 .copyArea1 .copyDropdown{
+    width:24px;
+    height: 24px;
+    border: none;
+    background-color: #fff;
+    color: #5c5c5c;
+
+}
+
+
+.masModi_box23f .element6 .searchMate_boxx21 .copyArea1 .count,
+.mas_box23f .element5 .searchMate_boxx21 .copyArea1 .count {
+    border-radius: 5px;
+    border:1px solid #ccc;
+    width: 140px;
+    height: 32px;
+
+}
+
+.masModi_box23f .element6 .searchMate_boxx21 .copyArea1 .copyAdd,
+.mas_box23f .element5 .searchMate_boxx21 .copyArea1 .copyAdd {
+    padding: 0 10px;
+    font-size: 14px;
+    height: 32px;
+
+}
+
+.masModi_box23f .searchMate_boxx21 .copyArea2,
+.mas_box23f .searchMate_boxx21 .copyArea2 {
+    display: none;
+    margin-right: 10px;
+    border-radius: 0 0 5px 5px;
+    border:1px solid #ccc;
+    background-color: #fff;
+    width: 200px;
+    height: 180px;
+    position: absolute;
+    top:30px;
+    left:0px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    z-index: 33;
+}
+
+
+
+.masModi_box23f .searchMate_boxx21 .copyArea2 .copyOption,
+.mas_box23f .searchMate_boxx21 .copyArea2 .copyOption {
+    /*display: none;*/
+    width: 180px;
+    min-height: 32px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    color: #5c5c5c;
+    text-align: left;
+    padding-left: 10px;
+
+}
+.masModi_box23f .searchMate_boxx21 .copyArea2.active,
+.masModi_box23f .searchMate_boxx21 .copyArea2 .copyOption.active,
+
+.mas_box23f .searchMate_boxx21 .copyArea2.active,
+.mas_box23f .searchMate_boxx21 .copyArea2 .copyOption.active {
+    display: block;
+}
+
+
+.masModi_box23f .searchMate_boxx21 .copyArea3,
+.mas_box23f .searchMate_boxx21 .copyArea3 {
+    margin-top: 10px;
+}
+
+.masModi_box23f .searchMate_boxx21 .copyArea3 .productTag,
+.mas_box23f .searchMate_boxx21 .copyArea3 .productTag {
+    border-radius: 20px;
+    background-color: #ececec81;
+    padding: 0px 10px;
+    max-width: 340px;
+    overflow: hidden;
+    height: 28px;
+    font-size: 14px;
+    margin-bottom: 4px;
+
+}
+
+
+.masModi_box23f .element6 .tagBox,
+.mas_box23f .element5 .tagBox {
+    margin-top: 10px;
+}
+
+.masModi_box23f .element6 .tagBox .productTag,
+.mas_box23f .element5 .tagBox .productTag {
+    border-radius: 20px;
+    background-color: #ececec81;
+    padding: 0px 10px;
+    /*width: 120px;*/
+    width:340px;
+    /*min-width: 120px;*/
+    max-width: 340px;
+    overflow: hidden;
+    height: 28px;
+    font-size: 14px;
+    margin-bottom: 4px;
+
+}
+
+.masModi_box23f .copyArea3 .productTag .pname,
+.mas_box23f .copyArea3 .productTag .pname{
+    /*width: auto;*/
+    width: 180px;
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 20px;
+    text-wrap: nowrap;
+}
+
+.masModi_box23f .copyArea3 .productTag .count,
+.mas_box23f .copyArea3 .productTag .count{
+    width: 80px;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 10px;
+
+}
+
+.masModi_box23f .copyArea3 .productTag i,
+.mas_box23f .copyArea3 .productTag i{
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+}
+
+
+
+/* end */
+
+.orderReg_boxx7x .element1 .tagBox {
+    margin-top: 10px;
+}
+
+.orderReg_boxx7x .element1 .productTag {
+    border-radius: 20px;
+    background-color: #ececec81;
+    padding: 0px 10px;
+    /*width: 120px;*/
+    /*width:120px;*/
+    /*min-width: 120px;*/
+    max-width: 370px;
+    overflow: hidden;
+    height: 28px;
+    font-size: 14px;
+    margin-bottom: 4px;
+
+}
+
+.orderReg_boxx7x .element1 .productTag .gname{
+    /*width: auto;*/
+    min-width: 180px;
+    max-width: 180px;
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 40px;
+    text-wrap: nowrap;
+}
+
+.orderReg_boxx7x .element1 .productTag .count{
+    width: 80px;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 10px;
+
+}
+
+.orderReg_boxx7x .element1 .productTag i{
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+}
+
+.orderReg_boxx7x .element1 .productTag i {
+
+}
+
+
+.orderReg_boxx7x .element1 .copyBox .copyArea2 {
+    display: none;
+    position: absolute;
+    top:30px;
+    left:0px;
+    border-radius: 0 0 5px 5px;
+    border:1px solid #ccc;
+    background-color: #fff;
+    width:220px;
+    height: 220px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.orderReg_boxx7x .element1 .copyBox .copyArea2 .copyOption {
+    width: 560px;
+    min-height: 40px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    color: #5c5c5c;
+    text-align: left;
+    padding-left: 10px;
+}
+
+
+.orderReg_boxx7x .element1 .copyBox .copyArea2.active,
+.orderReg_boxx7x .element1 .copyBox .copyArea2 .copyOption.active {
+    display: block;
+
+}
+
+.orderReg_boxx7x .element1 .copyBox .copyArea2 > button:hover {
+    text-decoration: underline;
+}
+
+
+/* productsMaster_View end -------------------------------- */
+
+.orderReg_boxx7x .findBox{
+    border:1px solid #ccc;
+    background-color: #fff;
+    position: absolute;
+    top:30px;
+    left:185px;
+    width: 360px;
+    height: 220px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.orderReg_boxx7x .findBox.hidden{
+    display: none;
+}
+
+.orderReg_boxx7x .findBox .data {
+    border-bottom: 1px solid #ccc;
+    width: 360px;
+    height: 32px;
+    line-height: 32px;
+    padding-left: 10px;
+
+}
+
+/* orderRegister end -------------------------------- */
+
+
+/* linkMalls -------------------------------- */
+
+.titleBox .headTitle {
+    padding: 40px 0 20px 30px ;
+    font-family: "Gmarket Sans";
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.mainContentStaff .titleBox .headTitle {
+    padding: 80px 0 0px 20px ;
+    font-family: "Gmarket Sans";
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.areaBox {
+    border:1px solid #ccc;
+    border-radius: 10px;
+    width: 80vw;
+    /*width: 1400px;*/
+    height: auto;
+    padding: 10px 0;
+    /*padding-right: 20px;*/
+    margin-left: 20px;
+    background-color: #fff;
+    /*overflow: hidden;*/
+
+}
+
+.areaHidden {
+    overflow: hidden;
+}
+
+.lastBox {
+    width: 80vw;
+    height: auto;
+    padding: 20px 0;
+    margin-left: 20px;
+    overflow: hidden;
+    /*position: fixed;*/
+    /*right:5vw;*/
+
+}
+
+
+.areaBox .area5,
+.areaBox .area3,
+.areaBox .area2,
+.areaBox .area1 {
+    padding: 10px 0px 10px 20px;
+    width: 77vw;
+
+}
+
+.order_box28f .areaBox2 .right {
+    width:auto;
+    height: 32px;
+    overflow:hidden;
+}
+
+
+.order_box28f .areaBox .area4 {
+    /*border:1px solid #ccc;*/
+    /*padding:0 20px;*/
+    margin: 20px 20px 0 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+
+.areaBox .area2 .title,
+.areaBox .area1 .title {
+    min-width: 100px;
+    width: 100px;
+}
+
+.areaBox .area1 .period {
+    border:1px solid #ccc;
+    background-color: #fff;
+    min-width: 100px;
+    width: 100px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 14px;
+    color:#303030;
+}
+
+.areaBox .area1 .period.active {
+    background-color: var(--bgColor2);
+
+}
+
+.areaBox .area2 .searchFilter,
+.areaBox .area2 .searchArea {
+    border:1px solid #ccc;
+    width: 160px;
+    height: 32px;
+    line-height: 32px;
+    margin-right: 10px;
+    font-size: 14px;
+    color:#303030;
+}
+
+.areaBox .area2 .searchArea {
+    width: 220px;
+}
+
+.areaBox .area1 .period:nth-child(1),
+.areaBox .area1 .period:nth-child(2),
+.areaBox .area1 .period:nth-child(3){
+    border-right: none;
+}
+
+.areaBox .area2 .right,
+.areaBox .area1 .right {
+    min-width: 240px;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.link_wrap5r6 .area3 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.areaBox .area1 .right {
+    flex-wrap: nowrap;
+}
+
+
+.areaBox .area1 .right .btnType1{
+    flex-shrink: 1;
+}
+
+.areaBox .area4 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+}
+
+
+.areaBox .area4 .order_boxfxp .btnType3,
+.areaBox .area4 .order_boxfxp .btnType4 {
+    padding: 0 10px;
+    width: auto;
+}
+
+.goods_tablexo1 th.th1,
+.goods_tablexo1 th.th2 {
+    border: 1px solid #ccc;
+    padding: 0 5px;
+    width: 40px;
+    font-weight: normal;
+    text-wrap: nowrap;
+}
+
+.areaBox .area4 .orderInfoTable .ltTbody.detailTd {
+    width: 20px;
+    min-width: 20px;
+    text-wrap: nowrap;
+    padding: 0 10px;
+}
+
+.order_boxfxp .detail_fo1 {
+    border-radius: 50%;
+    border:1px solid #5c5c5c;
+    width: 22px;
+    height: 22px;
+}
+
+.order_boxfxp .detail_fo1 i {
+    color: #5c5c5c;
+    font-size: 12px;
+}
+
+
+.areaBox .area4 .order_boxe4z {
+    width: auto;
+    overflow-x: scroll;
+}
+
+.order_box28f .area4.order_boxfxp {
+    /*border:1px solid red;*/
+    /*border-bottom: 1px solid #ccc;*/
+    border: 1px solid #ddd;
+    overflow: hidden;
+    width: 77vw;
+    background-color: #fff;
+    height:auto;
+    min-height: 560px;
+    /*overflow-x: scroll;*/
+    position: relative;
+}
+
+.order_box28f .order_boxfxp .table_scroll {
+    overflow-x: auto;
+    overflow-y: visible;
+    height: auto;
+    min-height: 560px;
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 {
+    width: 77vw;
+    /*width: 100%;*/
+    /*height: auto;*/
+    /*min-height: 560px;*/
+    border-collapse: collapse;
+    /*border-spacing: 0;*/
+    text-wrap: nowrap;
+    /*table-layout: fixed;*/
+    overflow-x: scroll;
+    position: sticky;
+    top:0;
+    z-index: 40;
+
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 .tbl_head{
+    position: sticky;
+    top:0;
+    z-index: 10;
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 td {
+    /*border:1px solid #ccc;*/
+    /*padding: 10px;*/
+    /*min-width: 200px;*/
+    /*border-right: 1px solid #ddd;*/
+    border-top:1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    /*border:none;*/
+    /*padding: 0 10px;*/
+    text-align: center;
+    background-color: #fff;
+    white-space: nowrap;
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 .ltThead {
+    background-color: #ececec;
+    /*background-color: red;*/
+    font-weight: normal;
+    /*position: relative;*/
+    width: auto;
+    min-width: 100px;
+    /*border-top: 1px solid #ddd;*/
+    /*border-left: 1px solid #ddd;*/
+
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 td.fixedCol {
+    position: sticky;
+    z-index: 10;
+    /*border:1px solid #ccc !important;*/
+    /*color: red;*/
+    /*position: relative;*/
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 .inner1 {
+    padding: 0 10px;
+    /*border:1px solid red;*/
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    border-left:1px solid #ccc;
+
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 .inner2 {
+    padding: 0 10px;
+    /*border:1px solid red;*/
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 40px;
+    border-left:1px solid #ccc;
+
+}
+
+
+.order_box28f .order_boxfxp .order_tabledj1 .inner2.last_inner {
+    /*border-right: 0.2px solid #5c5c5c;*/
+    box-shadow: 2px 0 6px -1px rgba(0, 0, 0, 0.25);
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 .inner2.last_inner::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    border-right: 1px solid #5c5c5c;
+    width: 159px;
+    height: inherit;
+
+}
+
+
+/* 각 고정 컬럼의 left 위치 - 총 570px */
+
+.order_box28f .order_boxfxp .order_tabledj1 td.fixedCol:nth-child(1) {
+    left: 0;
+    width: 40px;
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 td.fixedCol:nth-child(2) {
+    left: 40px;
+    width: 100px;
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 td.fixedCol:nth-child(3) {
+    left: 140px;
+    width: 100px;
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 td.fixedCol:nth-child(4) {
+    /*border:1px solid mediumpurple;*/
+    left: 240px;
+    width: 160px;
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 td.fixedCol:nth-child(5) {
+    left: 400px;
+    width: 160px;
+    /*border-right: 1px solid #8c8c8c;*/
+}
+
+
+/* 스크롤 가능한 컬럼 - 너비 줄임 */
+.order_box28f .order_boxfxp .order_tabledj1 tbody td.scrollableCol {
+    padding: 0 10px;
+    min-width: 100px;
+}
+
+
+
+/* 리사이즈 핸들 */
+.resize-handle {
+    position: absolute;
+    top: 0;
+    right: -3px;
+    width: 6px;
+    height: 100%;
+    cursor: col-resize;
+    z-index: 100;
+}
+
+.resize-handle:hover,
+.resize-handle.resizing {
+    background-color: #4CAF50;
+}
+
+/* 드래그 중 선택 방지 */
+.no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+/* 테이블 전체 왼쪽 보더 */
+.order_tabledj1 td:first-child {
+    /*border-left: 1px solid #ddd;*/
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 td.td40 {
+    font-weight: normal;
+    /*border:1px solid #ccc;*/
+    min-width: 40px;
+    max-width: 40px;
+    width: 40px;
+}
+
+
+/* order_tabledj1 길이조절 end */
+
+
+.order_box28f .order_boxfxp .btnType3 {
+    padding: 0 10px;
+    border:none;
+    background-color: #ececec60;
+    font-size: 14px;
+    height:24px;
+    text-wrap: nowrap;
+}
+
+.order_box28f .order_boxfxp .btnType4 {
+    background-color: var(--color1);
+    background-image: none;
+    padding: 0 10px;
+    border:none;
+    font-size: 14px;
+    height:24px;
+    text-wrap: nowrap;
+}
+
+.order_box28f .order_boxfxp .btnType3 {
+    cursor: text ;
+}
+
+.order_box28f .order_boxfxp .btnType4:hover {
+    text-decoration: underline;
+
+}
+
+.order_box28f .area4 .order_boxfxp table {
+    /*width:540px;*/
+    border:1px solid green;
+    width: 77vw;
+}
+
+.order_box28f .area4 .order_boxe4z {
+    /*width: 38vw;*/
+    background-color: #fff;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    width:780px;
+}
+
+.order_box28f .area4 .order_boxe4z table {
+    width:780px;
+}
+
+
+.order_boxe4z .ltThead {
+    text-wrap: nowrap;
+    padding: 0 10px;
+}
+
+.goods_boxkfg {
+    width: 77vw;
+    margin-top: 20px;
+    margin-left: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.goods_boxkfg .left {
+    font-family: "Gmarket Sans";
+}
+
+.goods_boxkfg .title {
+    margin-right: 20px;
+    text-wrap: nowrap;
+}
+
+.goods_boxkfg .count {
+    margin-right: 10px;
+    font-size: 22px;
+    color: var(--color3);
+    font-weight: bold;
+}
+
+.goods_boxa1b {
+    /*border:1px solid #ccc;*/
+    margin: 0 20px;
+    overflow: hidden;
+}
+
+
+/*linkMallsLog start*/
+
+.linkLog_wrap5r6 .selMall {
+    width: 180px;
+    height: 32px;
+    color:#5c5c5c;
+    font-size: 14px;
+
+}
+
+.linkLog_wrap5r6 .area4 {
+    margin-top: 20px;
+    margin-left: 20px;
+
+}
+
+/*linkMallsLog end */
+
+.mainContentStaff .goods_boxa1b {
+    margin: 0;
+
+}
+
+.goods_boxa1b .btnType3 {
+    padding: 0 10px;
+}
+
+
+.cat_boxa1b .catTable,
+.areaBox .area4 .orderInfoTable {
+    border:1px solid #ccc;
+    border-collapse: collapse;
+    color:#303030;
+}
+
+
+.cat_boxa1b .catTable {
+    width: 77vw;
+    margin-left: 20px;
+}
+
+
+.cat_boxa1b .catTable .keyCol1 {
+    width: 10%;
+}
+
+.cat_boxa1b .catTable .keyCol2 {
+    width: 10%;
+}
+
+.cat_boxa1b .catTable .keyCol {
+    background-color: #ececec60;
+}
+
+.link_wrap5r6 .area3 {
+    margin-right: 20px;
+}
+
+.goods_boxkfg .searchFilter,
+.deli_wrapghj .area2 .searchFilter,
+.link_wrap5r6 .area3 .searchFilter{
+    border:1px solid #ccc;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-right: 10px;
+    width: 100px;
+    height: 32px;
+    font-size: 16px;
+
+
+}
+
+.areaBox .area4 .linkMallsTable,
+.deliInfoTable {
+    border:1px solid #ccc;
+    border-collapse: collapse;
+    color:#303030;
+    width: 77vw;
+
+}
+
+.linkMallsTable .col1,
+.linkMallsTable .col2 {
+    width: 40px;
+}
+
+
+.cat_boxa1b .catTable td,
+.areaBox .area4 .linkMallsTable td {
+    overflow: hidden;
+    border:1px solid #ccc;
+    height: 32px;
+    line-height: 32px;
+    max-height: 32px;
+    text-align: center;
+    padding: 0 10px;
+    text-wrap: nowrap;
+
+}
+
+
+.deliInfoTable {
+    margin-top: 20px;
+}
+
+.link_wrap5r6 .area4,
+.deli_wrapghj .area4 {
+    width: 77vw;
+    overflow-x: hidden;
+    margin-left: 20px;
+}
+
+.deli_wrapghj .titleBox {
+    width: 80vw;
+}
+
+.deli_wrapghj .deli_box2w9 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.deli_wrapghj .deli_box2w9 .status {
+    width: 620px;
+    margin-left: 30px;
+    text-wrap: nowrap;
+}
+
+
+.areaBox .area4 .orderInfoTable1 {
+    width: 75vw;
+}
+
+.areaBox .area4 .orderInfoTable2 {
+    height: auto;
+    overflow-x: scroll;
+    padding-bottom: 10px;
+}
+
+
+.deliInfoTable td:first-child{
+    min-width: 40px;
+    width: 40px;
+}
+
+.linkMallsTable .negative,
+.linkMallsTable .positive {
+    margin: 0 auto;
+    border-radius: 5px;
+    width: 40px;
+    min-width: 40px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+}
+
+
+
+.linkMallsTable .positive {
+    background-color: #6FFF74;
+}
+
+.linkMallsTable .negative {
+    background-color: #FF6F6F;
+    color:#fff;
+}
+
+
+.areaBox .area4 .orderInfoTable1 td:first-child {
+    min-width: 40px;
+    width: 40px;
+}
+
+.deliInfoTable thead .ltThead,
+.linkMallsTable thead .ltThead,
+.areaBox .area4 .orderInfoTable thead .ltThead {
+    background-color: #ececec81;
+    text-wrap: nowrap;
+}
+
+.areaBox .area4 .orderInfoTable2 thead .ltThead{
+    min-width: 120px;
+    width: 140px;
+
+}
+
+
+.areaBox .area4 .orderInfoTable thead td {
+    height: 32px;
+    max-height: 32px;
+    padding: 0 10px;
+}
+
+
+.areaBox .area5 {
+    padding: 0 20px;
+}
+
+.order_box28f .areaBox .area5 .countBox{
+    width: 77vw;
+    /*height: 160px;*/
+}
+
+.order_box28f .areaBox .area5 .countBox .right{
+    height: 32px;
+    overflow: hidden;
+}
+
+.order_box28f .areaBox .area5 .count{
+    padding: 5px 0;
+
+}
+
+
+.order_box28f .area1,
+.order_box28f .area2 {
+    margin-left: 10px;
+}
+
+.areaBox .area5 .number{
+    font-size: 18px;
+    text-align: right;
+    font-family: "Gmarket Sans";
+    font-weight: 500;
+
+}
+
+
+/* producingStatus start -------------------------------- */
+
+.pro_tablefz7c .statusBtn {
+    /*padding: 0 10px;*/
+    color:#6c6c6c;
+    width: 80px;
+}
+
+
+.pro_tablefz7c .statusStandby {
+    color:#000;
+    width: 80px;
+}
+
+.pro_tablefz7c .statusBtn {
+    width: auto;
+    padding: 0 10px;
+    color:#5c5c5c;
+}
+
+/* producingStatus end -------------------------------- */
+/* date picker -------------------------------- */
+.date_boxtc6 > *{
+    margin-right: 20px;
+}
+
+
+.date_boxtc6 {
+    margin-left: 20px;
+
+}
+
+.date_boxtc6 .dateLabel1,
+.date_boxtc6 .dateLabel2 {
+    position: relative;
+}
+
+.date_boxtc6 i {
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    left:10px;
+    color:#7c7c7c;
+}
+
+
+
+.date_boxtc6 .inputType160{
+    padding-left: 40px;
+
+}
+
+
+
+/* dashboard -------------------------------- */
+
+#calendar {
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+.statusBox {
+    margin-left: 20px;
+    /*width: 1200px;*/
+}
+
+.statusBox .status {
+    margin-top: 10px;
+    margin-right: 20px;
+    border:1px solid #ccc;
+    border-radius: 10px;
+    width: 22%;
+    min-width: 240px;
+    height: 180px;
+    background-color: #fff;
+}
+
+.statusBox .status .upside{
+    border-bottom: 1px solid #ccc;
+    height: 40px;
+
+}
+
+.statusBox .status .aside{
+    padding: 0 20px;
+}
+
+
+.statusBox .status .downside{
+    margin-top: 10px;
+
+}
+
+.statusBox .status .aside .flexType3{
+    height: 28px;
+
+}
+
+.statusBox .status .now{
+    color:#5c5c5c;
+
+}
+
+.statusBox .status .category{
+    font-family: "Gmarket Sans";
+}
+
+.statusBox .status .right{
+    font-size: 14px;
+    color:#7c7c7c;
+}
+
+.statusBox .status .right .count{
+    font-size: 22px;
+    font-weight: bold;
+    color:#3c3c3c;
+    margin-right: 10px;
+}
+
+/* packing Info -------------------------------- */
+
+/*.packing_wraptrf .titleBox {*/
+/*    border:1px solid red;*/
+/*    margin-top: 100px;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+
+.mainWrapStaff .packingWrapStaff .titleBox {
+    margin-top: 80px;
+
+}
+
+.mainWrapStaff .packingWrapStaff .titleBox input {
+    margin-bottom: 20px;
+}
+
+.packing_wraptrf .area,
+.packing_wraph1c .area1 {
+    /*padding: 0;*/
+    /*margin: 0;*/
+    border-bottom: 1px solid #ccc;
+}
+
+.packingWrapStaff .area,
+.packingWrapStaff .area1 {
+    border-bottom: 1px solid #5c5c5c;
+}
+
+.packing_wraptrf .area:last-child {
+    border-bottom: none;
+}
+
+.packing_wraph1c .area1 .innerBox {
+    width: 320px;
+    margin-bottom: 20px;
+
+}
+
+
+
+.packing_wraptrf .area .title {
+    margin-top: 10px;
+    font-family: "Gmarket Sans";
+    font-size: 18px;
+    width: 220px;
+}
+
+.packing_wraptrf .area5 .title {
+    margin-top: 0;
+    font-family: "Gmarket Sans";
+    font-size: 18px;
+    width: 120px;
+}
+
+.packing_wraptrf .area3 .lastBox {
+    width: 77vw;
+    padding-right: 40px;
+
+}
+
+.packing_wraptrf .area5 .printBox .btnType3{
+    width: 80px;
+    height: 80px;
+}
+
+.packing_boxfxp {
+    padding: 0 20px;
+}
+
+.packing_boxfxp table{
+    width: 100%;
+    border:1px solid #ccc;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.packing_boxfxp table td{
+    height: 32px;
+    min-height: 32px;
+    border:1px solid #ccc;
+    text-align: center;
+}
+
+.packing_boxfxp .hoverGreen:hover {
+    color:var(--color4);
+}
+
+.progress_boxatq {
+    margin: 20px 0;
+}
+
+.progress_boxatq .progress{
+    padding: 0 20px;
+}
+
+.progress_boxatq .progress .status{
+    text-wrap: nowrap;
+}
+
+.progress_boxatq .squareType2,
+.progress_boxatq .squareType{
+    margin-bottom: 10px;
+
+}
+
+.area_boxd2s .right{
+    margin-left: 10px;
+}
+
+.area_boxd2s .right .btnType3{
+    padding: 0 10px;
+}
+
+.progress_boxatq .squareType i{
+    font-size: 22px;
+    color:#fff;
+}
+
+.progress_boxatq .angle {
+    padding: 0 20px;
+}
+
+.progress_boxatq .angle i {
+    font-size: 22px;
+    color:#ccc;
+}
+
+.packing_wraptrf .area5 .right {
+    text-wrap: nowrap;
+    margin-top: 20px;
+    margin-right: 40px;
+}
+
+/* goods register lastBox start  -------------------------------- */
+
+.oinfo_box23e .lastBox .btnType1,
+.mas_box23f .lastBox .btnType1,
+.masModi_box23f .lastBox .btnType1,
+.orderReg_boxx7x .lastBox .btnType1,
+.goods_boxx7z .lastBox .btnType1 {
+    width: 180px;
+    height: 40px;
+
+}
+
+.oinfo_box23e .lastBox .btnType2,
+.mas_box23f .lastBox .btnType2,
+.masModi_box23f .lastBox .btnType2,
+.orderReg_boxx7x .lastBox .btnType2,
+.goods_boxx7z .lastBox .btnType2 {
+    width: 180px;
+    height: 40px;
+
+}
+
+/* goods register lastBox end  -------------------------------- */
+/* otherInfo_View start  -------------------------------- */
+
+.oinfo_box23e .area1 {
+    border-bottom: 1px solid #ccc;
+}
+
+.oinfo_box23e .area2 .refreshBtn {
+    padding: 0 10px;
+    height: 32px;
+
+}
+
+.oinfo_box23e .area2 .refreshBtn i {
+    color: #5c5c5c;
+}
+
+.oinfo_box23e .area1 .tab {
+    /*margin-right: 10px;*/
+    border:none;
+    border-bottom: 2px solid transparent;
+    background-color: transparent;
+    /*background-color: red;*/
+    width: auto;
+    padding: 0 15px;
+    font-size: 14px;
+    color:#9c9c9c;
+    height: 35px;
+    line-height: 35px;
+}
+
+.oinfo_box23e .area1 .tab.active {
+    /*box-sizing: content-box;*/
+    /*background-color: var(--color6);*/
+    /*background-color: #ececec20;*/
+    /*height: 35px;*/
+    /*line-height: 35px;*/
+    color:var(--color4);
+    font-weight: 500;
+    border-bottom: 2px solid var(--color4);
+
+}
+
+.oinfo_box23e .fac_tablexx9{
+    border-collapse: collapse;
+    /*width: auto;*/
+    height: auto;
+    text-align: center;
+    width: 75vw;
+
+}
+
+.oinfo_box23e .fac_tablexx9 th {
+    font-weight: normal;
+}
+
+.oinfo_box23e .fac_tablexx9 th,
+.oinfo_box23e .fac_tablexx9 td {
+    border:1px solid #ccc;
+    padding: 0 10px;
+    height: 32px;
+}
+
+.oinfo_box23e .area3 .ttl {
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.oinfo_box23e .fac_tablexx9 .removeBtn {
+    padding: 0 10px;
+    font-size: 14px;
+    color: #5c5c5c;
+}
+
+.oinfo_box23e .fac_tablexx9 td:nth-child(2),
+.oinfo_box23e .fac_tablexx9 td:nth-child(3) {
+
+}
+
+
+/* otherInfo_View end  -------------------------------- */
+/* goods copy register start  -------------------------------- */
+
+
+.goods_boxj3v .copyBox,
+.goods_boxx7z .area1 .copyBox {
+    position: relative;
+}
+
+.goods_boxx7z .area1 .copyBox .copyArea1 {
+    margin: 10px;
+    border-radius: 5px;
+    border:1px solid #ccc;
+    width: 560px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.goods_boxj3v .copyBox,
+.goods_boxx7z .area1 .copyBox .copyArea1 .copySearch {
+    /*padding-left: 10px;*/
+    border:none;
+    width: 620px;
+    height: 38px;
+
+}
+
+
+
+.goods_boxj3v .copyBox .copyArea1 .copyDropdown,
+.goods_boxx7z .area1 .copyBox .copyArea1 .copyDropdown {
+    width:38px;
+    height: 38px;
+    border: none;
+    background-color: #fff;
+    color: #5c5c5c;
+}
+
+
+.goods_boxx7z .copyArea2 {
+    /*display: none;*/
+}
+
+.goods_boxx7z .copyArea2.active {
+    /*display: none;*/
+    position: absolute;
+    top:38px;
+    left:10px;
+    border-radius: 0 0 5px 5px;
+    border:1px solid #ccc;
+    background-color: #fff;
+    width:560px;
+    height: 220px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.goods_boxx7z .copyArea2 .copyOption.active {
+    width: 560px;
+    min-height: 40px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    color: #5c5c5c;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.goods_boxj3v .copyBox .copyArea > button:hover,
+.goods_boxx7z .area1 .copyBox .copyArea > button:hover {
+    text-decoration: underline;
+}
+
+/* goods register > add product start  -------------------------------- */
+
+.goods_boxj3v .copyBox .copyArea1 .left {
+    border-radius: 5px;
+    border:1px solid #ccc;
+    width: 200px;
+    height: 32px;
+    overflow: hidden;
+    margin-right: 20px;
+
+}
+
+.goods_boxj3v .copyBox .copyArea1 .copySearch {
+    padding-left: 10px;
+    border:none;
+    width: 160px;
+    height: 30px;
+
+}
+
+.goods_boxj3v .copyBox .copyArea1 .copyDropdown,
+.goods_boxx7z .area1 .copyBox .copyArea1 .copyDropdown {
+    width:32px;
+    height: 32px;
+    border: none;
+    background-color: #fff;
+    color: #5c5c5c;
+}
+
+.goods_boxj3v .copyBox .copyArea1 .count {
+    border-radius: 5px;
+    border:1px solid #ccc;
+    width: 140px;
+    height: 32px;
+    padding-left: 10px;
+
+}
+
+.area_box2qd .element6 .addMatch,
+.goods_boxj3v .copyBox .copyArea1 .copyAdd {
+    padding: 0 10px;
+    font-size: 14px;
+    height: 32px;
+
+}
+
+.goods_boxj3v .copyBox .copyArea2 {
+    display: none;
+    position: absolute;
+    top:31px;
+    left:0px;
+    border-radius: 0 0 5px 5px;
+    border:1px solid #ccc;
+    background-color: #fff;
+    width: 200px;
+    height: 220px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.goods_boxj3v .copyBox .copyArea2 .copyOption {
+    /*display: none;*/
+    width: 200px;
+    min-height: 32px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    color: #5c5c5c;
+    text-align: left;
+    padding-left: 10px;
+
+}
+
+.goods_boxj3v .copyBox .copyArea2.active,
+.goods_boxj3v .copyBox .copyArea2 .copyOption.active {
+    display: block;
+}
+
+
+.goods_boxj3v .copyArea3 .productTag:first-child {
+    margin-top: 10px;
+}
+
+.goods_boxj3v .copyArea3 .productTag {
+    border-radius: 20px;
+    background-color: #ececec81;
+    padding: 0px 10px;
+    /*width: 120px;*/
+    /*width:120px;*/
+    /*min-width: 120px;*/
+    max-width: 370px;
+    overflow: hidden;
+    height: 28px;
+    font-size: 14px;
+    margin-bottom: 4px;
+
+}
+
+.goods_boxj3v .copyArea3 .productTag .pname{
+    width: auto;
+    min-width: 180px;
+    max-width: 180px;
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 40px;
+    text-wrap: nowrap;
+}
+
+.goods_boxj3v .copyArea3 .productTag .count{
+    width: 120px;
+    height: 28px;
+    line-height: 28px;
+
+}
+
+.goods_boxj3v .copyArea3 .productTag i{
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+}
+
+
+/* goods register > add product end  -------------------------------- */
+/* goods editor > add cover start  -------------------------------- */
+
+.cover_boxj3v {
+    width: 780px;
+}
+
+
+.cover_boxj3v .notmust {
+    margin-right: 20px;
+}
+
+.cover_boxj3v .title {
+    width: 140px;
+    margin-right: 20px;
+}
+
+.cover_boxj3v  .pouchBox .coverIn{
+    border:1px solid #ccc;
+    width: 200px;
+    height: 32px;
+    margin-right: 20px;
+}
+
+
+.cover_boxj3v .pouchBox .cntIn{
+    border:1px solid #ccc;
+    width: 140px;
+    height: 32px;
+    margin-right: 20px;
+
+}
+
+.cover_boxj3v .pouchBox .addBtn {
+    padding: 0 10px;
+    height: 32px;
+    background-color: #fff;
+    text-wrap: nowrap;
+
+}
+
+
+.cover_boxj3v .tagBox {
+    width: 380px;
+    height: auto;
+    margin-left: 185px;
+}
+
+.cover_boxj3v .tagBox .pouchTag:first-child {
+    margin-top: 10px;
+}
+
+.cover_boxj3v .tagBox .pouchTag {
+    border-radius: 20px;
+    background-color: #ececec81;
+    padding: 0px 10px;
+    width: 370px;
+    /*max-width: 370px;*/
+    overflow: hidden;
+    height: 28px;
+    font-size: 14px;
+    margin-bottom: 4px;
+    position: relative;
+
+}
+
+.cover_boxj3v .tagBox .pouchTag .pname{
+    width: auto;
+    min-width: 180px;
+    max-width: 180px;
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 40px;
+    text-wrap: nowrap;
+}
+
+.cover_boxj3v .tagBox .pouchTag .count,
+.cover_boxj3v .tagBox .pouchTag .unit{
+    width: auto;
+
+    /*max-width: 140px;*/
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+
+}
+
+
+
+.cover_boxj3v .tagBox .pouchTag i{
+
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+    position: absolute;
+    top:50%;
+    right:10px;
+    transform: translateY(-50%);
+}
+
+/* goods editor > add cover end  -------------------------------- */
+
+/* packingStatus -------------------------------- */
+
+.productCheck_boxarv {
+    /*margin-top: 20px;*/
+    /*margin-left: 20px;*/
+    margin: 20px 0 20px 20px;
+}
+
+.productCheck_boxarv .productCheck {
+    /*padding: 5px 0;*/
+}
+
+.productCheck_boxarv .category {
+    width: 100px;
+    margin-right: 20px;
+}
+
+.imgBox_box2ck {
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+
+}
+
+.imgBox_boxdzu > *,
+.imgBox_box2ck > * {
+    margin-right: 20px;
+}
+
+
+.imgBox_box2ck .noirBox {
+    width: 100px;
+    height: 120px;
+    overflow: hidden;
+
+}
+
+.imgBox_box2ck .noirLayer {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.imgBox_box2ck .noirBox .done i {
+    font-size: 32px;
+}
+
+.imgBox_box2ck .noirBox .noir.active {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 30;
+    background-color: #00000090;
+}
+
+.imgBox_box2cq .noirLayer .done.active,
+.imgBox_box2ck .noirLayer .done.active {
+    border:1px solid red;
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 33;
+    background-color: var(--color8);
+
+
+}
+
+.imgBox_box2cq .noirLayer .done.active i {
+    color:#000;
+}
+
+.imgBox_box2ck .noirBox .ttl {
+    width: 90px;
+    font-size: 14px;
+    margin-left: 5px;
+    text-wrap: nowrap;
+    overflow: hidden;
+}
+
+.imgBox_boxdzu {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+
+}
+
+.imgBox_box2ck img {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    position: absolute;
+    top:0;
+    left:0;
+    /*z-index: 20;*/
+}
+
+.imgBox_box2ck .countBox {
+    width: 100px;
+    height: 100px;
+    /*overflow: hidden;*/
+
+}
+
+
+
+.imgBox_box2ck .countBox .count {
+    border-radius: 10px;
+    background-color: #00000080;
+    width: 100px;
+    height: 100px;
+    border:1px solid #ccc;
+    text-align: center;
+    line-height: 100px;
+    font-size: 22px;
+    position: absolute;
+    top:0px;
+    left:0;
+    z-index: 22;
+
+}
+
+.mainContentStaff .imgBox_box2ck .count {
+    border:1px solid #5c5c5c;
+}
+
+.imgBox_box2ck .btnBox  {
+    width: 100px;
+    height: 120px;
+    overflow: hidden;
+
+}
+
+.imgBox_box2ck .btnBox .btn  {
+    border:none;
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    font-size: 22px;
+    background-image: var(--gradient3);
+
+}
+
+.imgBox_boxdzu .btn  {
+    border:none;
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    font-size: 22px;
+    background-image: var(--gradient3);
+
+}
+
+.imgBox_boxdzu .planeLayer {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+
+}
+.imgBox_boxdzu .dashedLayer {
+    border-radius: 10px;
+    border:1px dashed #ccc;
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.mainContentStaff .imgBox_boxdzu .dashedLayer {
+    border:1px dashed #5c5c5c;
+
+}
+
+.imgBox_boxdzu .dashedLayer img,
+.imgBox_boxdzu .planeLayer img {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+
+
+}
+
+.imgBox_boxdzu .dashedLayer .inputArea {
+    color:#ccc;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    font-size: 22px;
+}
+
+
+.imgBox_boxdzu .planeLayer .closeBtn {
+    border:none;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    background-color: #00000041;
+    position: absolute;
+    top:8px;
+    right:8px;
+}
+
+.imgBox_boxdzu .closeBtn i {
+    color:#fff;
+}
+
+/* goods List -------------------------------- */
+
+
+.area_boxmxh {
+    margin-top: 20px;
+    padding-bottom: 100px;
+}
+
+.goods_boxfv6 .area_boxmxh {
+    padding-bottom: 40px;
+}
+
+.area_boxmxh .lastArea {
+    margin: 20px 0;
+}
+
+/* production detail > statusLabel start -------------------------------- */
+
+.status_boxr5j .statusLabel {
+    width: auto;
+    margin-right: 10px;
+    text-wrap: nowrap;
+
+
+}
+
+.status_boxr5j .status {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+}
+
+
+/* production detail > statusLabel end -------------------------------- */
+/* production list > filterBox start -------------------------------- */
+
+
+.filter_boxa6m .statusLabel {
+    width: auto;
+    margin-right: 20px;
+    text-wrap: nowrap;
+
+
+}
+
+.filter_boxa6m .status {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+}
+
+/* production list > filterBox end -------------------------------- */
+/* sangDetail start -------------------------------- */
+
+/*progress brackground */
+
+.prog_boxo7r {
+    margin-left: 70px;
+    width: 220px;
+    height: 32px;
+}
+
+.prog_boxo6r .statusLabel,
+.prog_boxo7r .statusLabel {
+    margin-right: 20px;
+    /*width: 16px;*/
+    /*height: 16px;*/
+}
+
+.prog_boxo6r .status,
+.prog_boxo7r .status {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+}
+
+.prog_boxo6r {
+    margin-left: 70px;
+    /*margin-bottom: 20px;*/
+    width: 240px;
+    height: 32px;
+
+}
+
+.prog_boxo6r .prog_Box {
+    position: relative;
+
+}
+
+.prog_boxo6r .prog_Box .prog_background {
+    /*position: relative;*/
+    /*z-index: 30;*/
+    width: 240px;
+    height: 40px;
+    border:1px solid blue;
+    overflow: hidden;
+
+}
+
+
+.prog_boxo6r .prog_Box .standbyBox {
+    border:1px solid yellowgreen;
+    position: absolute;
+    bottom:0px;
+    lefT:0;
+    width: 25%;
+    height: 20px;
+}
+
+.prog_boxo6r .prog_background .standbyBox .line {
+    border:1px solid #ccc;
+    width: 60px;
+    height: 2px;
+    /*position: absolute;*/
+    /*bottom:0px;*/
+}
+
+.prog_boxo6r .prog_background .standbyBox i{
+    color:#ccc;
+    background-color: #fff;
+    position: absolute;
+    bottom:-8px;
+    z-index: 60;
+}
+
+.prog_boxo6r .prog_now .standbyBox .line {
+    border:1px solid var(--color1);
+    width: 60px;
+    height: 2px;
+    position: absolute;
+    bottom:0px;
+}
+
+.prog_boxo6r .prog_now .standbyBox i{
+    color:var(--color1);
+    background-color: #fff;
+    position: absolute;
+    bottom:-8px;
+    z-index: 60;
+}
+
+
+.prog_boxo6r .status_boxi3f {
+    margin-left: -10px;
+    /*margin-bottom: 10px;*/
+    width: 240px;
+    height: 30px;
+
+}
+
+.prog_boxo6r .status_boxi3f .status{
+    border:1px solid red;
+    width: 60px;
+    text-align: center;
+    /*text-align: left;*/
+    /*margin-left: -10px;*/
+}
+
+/* -- prog_now > prog1 end */
+/* sangDetail end -------------------------------- */
+
+/* goods Register start -------------------------------- */
+
+.area_boxm9k {
+    margin-bottom: 20px;
+    height: auto;
+}
+
+.area_boxm9k .ddBtn {
+
+    width: 32px;
+    height: 32px;
+}
+
+.area_boxm9k .outerBox {
+    padding: 0 20px 20px 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.area_boxm9k .title {
+    font-size: 18px;
+}
+
+.area_boxm9k .title2 {
+    font-size: 14px;
+    color:#5c5c5c;;
+}
+
+.area_boxm9k .right {
+    /*border:1px solid #ccc;*/
+    border-radius: 5px;
+    width: auto;
+    height: 32px;
+}
+
+.area_boxm9k .right .refBtn,
+.area_boxm9k .right .foldBtn {
+    width: 32px;
+    height: 32px;
+    /*text-wrap: ;*/
+
+}
+
+.area_boxm9k .right i {
+    color:#5c5c5c;
+}
+
+.area_boxm9k .copySelect {
+    border:1px solid #ccc;
+    border-radius: 5px;
+    margin: 20px 0 0 20px;
+    width: 560px;
+    height: 44px;
+    color:#ccc;
+    padding: 0 20px;
+    font-size: 16px;
+}
+
+
+.area_boxm9k .outerBox .btnType1 {
+    width: auto;
+    height: 32px;
+    padding: 0 10px;
+    /*margin: 0;*/
+    /*border-radius: 5px;*/
+    /*border:1px solid #ececec;*/
+    /*width: 80px;*/
+    /*height: 26px;*/
+    /*text-wrap: nowrap;*/
+
+}
+
+/* goods Register ---*/
+
+.area_box2qd .elementBox {
+    margin-top: 20px;
+}
+.area_box2qd .element {
+    padding-bottom:10px;
+}
+
+
+.area_box2qd .element .notmust,
+.area_box2qd .element .must {
+    margin-right: 20px;
+}
+
+.area_box2qd .element .title {
+    width: 140px;
+    margin-right: 20px;
+    font-size: 16px;
+}
+
+.area_box2qd .element .inputType360 {
+    margin-right: 20px;
+    font-size: 14px;
+}
+
+
+.orderReg_boxx7x .element2 .inputType360 {
+    margin-right: 10px;
+
+}
+
+.area_box2qd .element .unit {
+    font-size: 14px;
+
+}
+
+.area_box2qd .element .inputType {
+    font-size: 14px;
+    width: 200px;
+    height: 32px;
+    margin-right: 20px;
+
+}
+
+.area_box2qd .element .selectType {
+    border:1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 140px;
+    height: 32px;
+    margin-right: 20px;
+
+}
+
+.area_box2qd .element .mached:first-child {
+    margin-top: 10px;
+}
+
+.area_box2qd .element .mached {
+    border-radius: 20px;
+    background-color: #ececec81;
+    width: 370px;
+    height: 28px;
+    font-size: 12px;
+    padding: 5px 0 5px 10px;
+    margin-bottom: 4px;
+
+}
+
+.mach_boxd2g {
+
+}
+
+
+.area_box2qd .element .mached .code{
+    width: 200px;
+    margin-right: 20px;
+}
+.area_box2qd .element .mached .market{
+    width: 110px;
+    margin-right: 10px;
+}
+
+.goods_boxt6r {
+    margin: 0;
+}
+
+.goods_boxt6r .bomType_boxh1t {
+    margin-bottom: 10px;
+
+}
+
+.goods_boxt6r .title {
+    width: 80px;
+    margin-right: 20px;
+    font-size: 16px;
+
+}
+
+.bomType_boxh1t .typeIn,
+.bomType_boxh1t .nameIn {
+    width: 380px;
+    height: 32px;
+
+}
+
+.goods_boxk8u {
+    background-color: #ececec40;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width:620px;
+
+}
+
+.goods_boxk8u .elCount {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* 제품추가>공정입력>공정명 start - --- */
+
+.el_boxc8s {
+
+}
+.el_boxc8s .el {
+    margin-bottom: 10px;
+}
+
+.goods_boxkfg .btnType3,
+.el_boxc8s .cat2 .btnType3 {
+    padding: 0 10px;
+    height: 32px;
+}
+
+.el_boxc8s .must {
+    margin-right: 20px;
+}
+
+.el_boxc8s .title {
+    width: 80px;
+    margin-right: 20px;
+}
+
+
+/*attach_boxp5s srart*/
+
+.attach_boxw0f,
+.attach_boxp5s  {
+    margin-top: 40px;
+
+}
+
+.thum_boxn4e .photo-picker{
+    /*margin-top: 40px;*/
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 3px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #5c5c5c;
+}
+
+.thum_boxn4e input{
+    display: none;
+}
+
+.thum_boxn4e i{
+    /*position: absolute;*/
+    /*top:;*/
+    /*left:0;*/
+    color:#5c5c5c;
+    /*margin-top: 20px;*/
+}
+
+.attach_boxp5s .thumBox {
+    border:1px solid #ccc;
+    border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    position: relative;
+
+}
+
+.attach_boxp5s .thumBox .addedImg {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+
+/* goods editor addedImg end*/
+
+.disNone {
+    display: none;
+}
+
+.disBlock {
+    display: block;
+}
+
+.thum_arange .delete-btn {
+    border:none;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    position: absolute;
+    top:4px;
+    right: 3px;
+    background-color: #00000081;
+    color:#fff;
+
+}
+
+/* attach_boxp5s end*/
+
+
+/* ck-editor start -------------------------------- */
+
+.infodetail {
+    width: 520px;
+    height: 260px;
+    /*overflow: hidden;*/
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    /*box-sizing: border-box;*/
+}
+
+.infockeditor .ck.ck-toolbar{
+    position: sticky;
+    top: 0;
+    left:0;
+    z-index: 10;
+    background: #fff;
+
+    width: 520px;
+    max-height: 200px;
+    box-sizing: border-box;
+}
+.ck-editor__editable {
+    position: absolute;
+    top:36px;
+    left:0px;
+    width: 520px;
+    height: 220px;
+    min-height: 220px;
+    max-height: 220px;
+    overflow: hidden;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    /*overflow-y: visible, hidden, clip, scroll, auto, */
+}
+
+.ck-caption {
+    display: none !important;
+}
+
+
+.main-container,
+.editor-container,
+.editor-container__editor {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ck.ck-editor {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ck.ck-toolbar {
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #fff;
+}
+
+.ck-editor__main {
+    flex: 1 1 0;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+/* ck-editor end -------------------------------- */
+
+/* productsDefaultList start -------------------------------- */
+
+
+.products_boxfxp .printBtn {
+    padding: 0 10px;
+    color:#5c5c5c;
+    font-size: 16px;
+}
+
+.products_boxa1b .products_boxfxp .orderProduct{
+    padding: 0 10px;
+}
+
+.products_boxa1b .products_boxfxp .goodsName:hover{
+    /*text-decoration: underline;*/
+    color: var(--color4);
+    cursor: pointer;
+}
+
+.atom_boxa1b,
+.products_boxa1b {
+    padding: 0 20px;
+
+}
+
+.products_boxa1b .orderInfoTable1,
+.produce_boxfxp .orderInfoTable1,
+.atom_boxa1b .orderInfoTable1 {
+    width: 77vw;
+    text-wrap: nowrap;
+}
+
+.materialListTable {
+    width: 77vw;
+}
+
+.materialListTable th {
+    border:1px solid #ccc;
+    height: 32px;
+    font-weight: normal;
+}
+
+.urgent {
+    background-color: #F53C3620;
+}
+
+.produce_boxfxp tbody {
+    height: auto;
+    max-height: 120px;
+    overflow: hidden;
+}
+
+.products_boxfxp .btnType3 {
+    padding: 0 10px;
+    font-size: 14px;
+    text-align: center;
+    color:#5c5c5c;
+    height: 22px;
+}
+
+/* 제품목록 table width control start */
+
+.products_boxfv6 .areaBox .area4 .prodDef_tablejf2 {
+
+}
+
+.products_boxfv6 .areaBox .area4 .prodDef_tablejf2 td:nth-child(1){
+    width: 16%;
+
+}
+
+.products_boxfv6 .areaBox .area4 .prodDef_tablejf2 td:nth-child(3){
+    width: 10%;
+
+}
+
+.products_boxfv6 .areaBox .area4 .prodDef_tablejf2 td:nth-child(10){
+    width: 5%;
+
+}
+/* end */
+
+
+/* 제품마스터관리> table width control start */
+
+.products_boxfv6 .areaBox .area4 .prodMas_tabledo1 {
+
+}
+
+.products_boxfv6 .areaBox .area4 .prodMas_tabledo1 td:nth-child(1){
+    width: 15%;
+
+}
+
+.products_boxfv6 .areaBox .area4 .prodMas_tabledo1 td:nth-child(2){
+    width: 30%;
+
+}
+
+.products_boxfv6 .areaBox .area4 .prodMas_tabledo1 td:nth-child(3){
+    width: 10%;
+
+}
+
+.products_boxfv6 .areaBox .area4 .prodMas_tabledo1 td:nth-child(4){
+    width: 10%;
+
+}
+
+.products_boxfv6 .areaBox .area4 .prodMas_tabledo1 td:nth-child(10){
+    width: 5%;
+
+}
+/* end */
+
+.atom_boxa1b .materialName:hover {
+    color: var(--color4);
+}
+
+.materialListTable .trashBtn {
+    width: auto;
+    padding: 0 10px;
+}
+
+.materialListTable .trashBtn i{
+    color: #5c5c5c;
+    font-size: 14px;
+    /*color:red;*/
+}
+
+
+.order_box28f {
+    padding-bottom: 20px;
+
+}
+
+.order_box28f .orderInfoTable1 .status10:hover{
+    font-weight: 500;
+    color: var(--color4);
+
+
+}
+
+.products_boxfxp .countInput {
+    border:1px solid #ccc;
+    border-radius: 2px;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    width: 100px;
+    height: 24px;
+
+}
+
+.products_boxfxp .submitBtn1 {
+    border:1px solid #ccc;
+    border-radius: 5px;
+    color:#5c5c5c;
+    background-color: transparent;
+    width: auto;
+    padding: 0 10px;
+    height: 24px;
+
+
+}
+
+/* productsList end -------------------------------- */
+/* productsRegister start -------------------------------- */
+
+.products_boxfxp {
+    border:1px solid #ccc;
+    width: 77vw;
+    overflow: scroll;
+    /*overflow: hidden;*/
+
+}
+
+.products_boxfv6 .products_boxfxp,
+.packing_boxfxp .products_boxfxp {
+    border: none;
+    overflow:hidden;
+}
+
+
+.products_boxc6m .element{
+    width: 720px;
+}
+
+.products_boxc6m .element6 {
+    font-size: 14px;
+}
+
+.products_boxc6m .element6 .quantityIn {
+    width: 200px;
+    height: 32px;
+    font-size: 14px;
+
+}
+
+.products_boxc6m .element6 .selUnit {
+    width: 60px;
+    height: 32px;
+    font-size: 14px;
+
+}
+
+.products_boxc6m .element6 .quantityIn {
+
+}
+
+
+.products_boxc7m {
+    border:1px solid #ececec;
+    border-radius: 10px;
+    width: 620px;
+    height: auto;
+    padding:10px;
+    /*background-color: #ececec41;*/
+    position: relative;
+
+}
+
+
+.inputIng_boxn7g,
+.outputIng_boxh4z {
+    border-radius: 5px;
+    background-color: #ececec40;
+    margin-left: 120px;
+    width: 380px;
+    height: auto;
+    padding:10px;
+    margin-bottom: 10px;
+}
+
+.inputIng_boxn7g .inputIng_boxn88 {
+    /*height: 80px;*/
+
+}
+
+
+.outputIng_boxh4z .left,
+.inputIng_boxn7g .inputIng_boxn88 .left{
+    width: 100px;
+}
+
+.outputIng_boxh4z .right,
+.inputIng_boxn7g .inputIng_boxn88 .right{
+    border:none;
+    width: 270px;
+}
+
+
+
+.inputIng_boxn7g .qoute,
+.outputIng_boxh4z .qoute {
+    width: 10px;
+    height: 18px;
+    border-right: 4px solid #ccc;
+    margin-right: 10px;
+
+}
+
+.inputIng_boxn7g .element .title,
+.outputIng_boxh4z .element .title {
+    width:100px;
+    font-size: 14px;
+    margin: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-wrap: nowrap;
+
+}
+
+.inputIng_boxn7g .inputData,
+.outputIng_boxh4z .inputData {
+    border-radius: 5px;
+    border:1px solid #ececec;
+    width: 120px;
+    height: 32px;
+    line-height: 32px;
+    padding-left: 10px;
+}
+
+.products_boxc7m .removeRoasting  {
+    position: absolute;
+    top:10px;
+    right:10px;
+    font-size: 18px;
+    display: none;
+}
+
+
+
+.selectMetirialBox  {
+}
+
+.selectMetirialBox .rightSelector{
+    width:520px;
+    height: auto;
+    min-height: 44px;
+
+}
+
+.selectMetirialBox .removeBtn,
+.selectMetirialBox .addBtn {
+    color: #5c5c5c;
+    padding: 0 10px;
+    height:32px;
+}
+
+.products_boxc6m .inputBorder {
+    width: 120px;
+    height: 32px;
+}
+
+
+.products_boxc6m .inputBorder2 {
+    width: 230px;
+}
+
+.products_boxc6m .removeBtn {
+    /*margin: 0;*/
+    padding: 0;
+    width: 40px;
+    height: 32px;
+    text-align: center;
+    background-color: transparent;
+}
+
+.products_boxc6m .addBox {
+    margin-left: 20px;
+}
+
+.mati_boxm9k .area5 .btnType3 {
+    padding: 0 10px;
+    height:32px;
+}
+
+.hide {
+    display: none;
+}
+
+/* productsRegister end -------------------------------- */
+/* productsAfterRegister start -------------------------------- */
+
+
+.proc_boxf9n .roasting_boxp9x {
+    width: auto;
+    height: auto;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.proc_boxf9n .addBtn {
+    margin-left: 20px;
+}
+
+
+.proc_boxf9n .roasting_boxp9x .elememtBox {
+    width: 620px;
+    height: auto;
+    padding-bottom: 20px;
+
+}
+
+.roasting_boxp9x .addRoastBox {
+    display: flex;
+    align-items: flex-end;
+    /*justify-content:;*/
+}
+
+/*-- 제품등록>공정입력>부자재 start  ------------*/
+.cover_boxz7y {
+    margin-left: 20px;
+    width: 620px;
+    margin-bottom: 10px;
+
+}
+
+.cover_boxz7y .oneTBag {
+    margin-bottom:10px;
+}
+
+.cover_boxz7y .ttl {
+    width: 80px;
+    height: auto;
+    vertical-align: top;
+    margin-right: 20px;
+}
+
+.cover_boxz7y .option {
+    width: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    padding:0 5px;
+    height: 32px;
+    margin-right: 10px;
+
+}
+
+.cover_boxz7y .option2,
+.cover_boxz7y .option1 {
+    width: 120px;
+}
+
+.cover_boxz7y .option2 {
+
+}
+
+.cover_boxz7y .firmedBox {
+    width: 380px;
+    margin-right: 10px;
+
+}
+
+.cover_boxz7y .addBtn,
+.cover_boxz7y .removeBtn {
+    margin: 0;
+    margin-right: 10px;
+    border-radius: 5px;
+    border:1px solid #ccc;
+    color:#5c5c5c;
+    text-wrap: nowrap;
+    width: auto;
+    height: 32px;
+    padding: 0 10px;
+}
+
+.cover_boxz7y .inputBorder2 {
+    height: 32px;
+
+}
+.red {
+    color: red;
+}
+/*.cover_boxz7y .removeBtn {*/
+/*    display: none;*/
+/*}*/
+/*-- 제품등록>공정입력>부자재 end ------------*/
+
+/*-- 제품등록>공정입력>공정방법 ------------*/
+.products_boxc7m .roasting_boxe3x {
+    margin: 0;
+    margin-left: 20px;
+    width: 620px;
+}
+
+
+.roasting_boxe3x .ttl {
+    margin-right: 20px;
+    width: 80px;
+    height: 100px;
+}
+
+.roasting_boxe3x textarea {
+    border-radius: 5px;
+    border:1px solid #ccc;
+    width: 370px;
+    height: 120px;
+    resize: none;
+    padding: 10px;
+}
+
+.roasting_boxe3x .addBtn {
+    /*margin: 0;*/
+    /*border-radius: 5px;*/
+    /*border:1px solid #ececec;*/
+    /*width: 80px;*/
+    /*height: 26px;*/
+    /*text-wrap: nowrap;*/
+}
+
+/* productsAfterRegister end -------------------------------- */
+/* producingControl start -------------------------------- */
+
+.produce_boxfxp .under {
+    text-decoration: underline;
+}
+
+.produce_boxfxp .under:hover {
+    color:var(--color4);
+}
+
+/* producingControl end -------------------------------- */
+/* producingDetail start -------------------------------- */
+
+.producing_boxr8j .flexType2 {
+    margin-left: 12px;
+    margin-top: 10px;
+
+}
+
+.producing_boxr8j .nowon {
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color2);
+    margin-right: 10px;
+    /*width: 2px;*/
+    /*height: 24px;*/
+    /*background-color: #42B983;*/
+}
+
+.producing_boxr8j .productSn,
+.producing_boxr8j .productName {
+    border-radius: 20px;
+    border:1px solid #6c6c6c;
+    padding:0 24px;
+    width: auto;
+    height: 32px;
+    line-height:32px;
+    /*background-color: #42B98321;*/
+    /*color: #42B983;*/
+    background-color: #ececec21;
+    color:#6c6c6c;
+
+}
+
+.area_boxg4q{
+    margin-bottom: 10px;
+}
+
+.area_boxg4q .titleBox {
+    margin-bottom: 20px;
+
+}
+
+
+
+.area_boxg4q .left {
+    margin-right: 40px;
+}
+
+.area_boxg4q .elementBox {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.area_boxg4q .element {
+    padding-bottom:10px;
+}
+
+.area_boxg4q .element .title {
+    width: 100px;
+    margin-right: 20px;
+    font-size: 16px;
+}
+
+
+.area_boxg4q .element .data {
+    border-radius: 5px;
+    border:1px solid #ccc;
+    color:#000;
+    width: 220px;
+    height: 32px;
+    line-height: 32px;
+    padding-left: 10px;
+
+}
+
+.area_boxg4q .element .data1 {
+    width: 180px;
+
+}
+
+
+
+.memo_boxb5h textarea{
+    resize: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 820px;
+    height: 120px;
+    padding: 5px;
+}
+
+.memo_boxb5h .title {
+    width: 100px;
+    margin-right: 20px;
+
+}
+.mainContentStaff .memo_boxb5h .title {
+    width: 100px;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.mainContentStaff .memo_boxb5h textarea {
+    resize: none;
+    border-radius: 5px;
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    width: 880px;
+    height: 120px;
+    padding: 5px;
+    color:#fff;
+    font-size: 18px;
+}
+
+.area_boxg4q .submitBox {
+    width: 66vw;
+    margin: 20px 0px 20px 0;
+}
+
+.mainContentStaff .area_boxg4q .submitBox {
+    width: 66vw;
+    /*padding-right: 20px;*/
+}
+
+.mainContentStaff .area4 {
+    width: 77vw;
+    /*height: auto;*/
+    /*max-height: 60vh;*/
+}
+
+.mainContentStaff .area4 .produce_boxfxp {
+    width: 77vw;
+
+}
+
+.mainContentStaff .area4 .produce_boxfxp table{
+    /*width: 77vw;*/
+    width: 100%;
+    height: auto;
+    overflow: scroll;
+}
+
+.mainContentStaff .area4 .produce_boxfxp table th{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+}
+
+.mainContentStaff .lastArea{
+    border:1px solid #5c5c5c;
+    width:77vw;
+    height: 44px;
+    cursor: pointer;
+
+}
+
+/* areaBoxStaff barcod, progress box start -------------------------------- */
+
+.mainContentStaff .area1 {
+    margin-top: 40px;
+    /*margin-bottom: 10px;*/
+    overflow: hidden;
+}
+
+.mainContentStaff .area1 .trackBox {
+    padding-top: 5px;
+    width: 320px;
+    height: 60px;
+    background-color: #ececec20;
+    border-radius: 10px;
+}
+
+.mainContentStaff .area1 .trackBox.active {
+    background-color: var(--color7);
+
+}
+
+.mainContentStaff .area1 .trackBox .lightImg {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.mainContentStaff .area1 .trackBox .status {
+    font-size: 20px;
+    font-family: "Gmarket Sans";
+    font-weight: 300;
+
+
+}
+
+/*.mainContentStaff .area1 .trackBox .line {*/
+/*    border:1px solid #ccc;*/
+/*    width: 320px;*/
+/*    height: 2px;*/
+/*    position: absolute;*/
+/*    top:15px;*/
+/*    left:20px;*/
+/*    z-index: -99;*/
+/*}*/
+
+/*.mainContentStaff .area1 .trackBox .line.active {*/
+/*    border:1px solid var(--color1);*/
+
+/*}*/
+
+/*.mainContentStaff .area1 .trackBox .track{*/
+/*    margin-right: 40px;*/
+/*}*/
+
+/*.mainContentStaff .area1 .trackBox .track .step{*/
+/*    background-color: #ccc;*/
+/*    padding: 2px 20px;*/
+/*    border-radius: 20px;*/
+/*    color: #000;*/
+/*    margin-bottom: 10px;*/
+/*    !*width: auto;*!*/
+/*    !*height: 24px;*!*/
+/*}*/
+
+/*.mainContentStaff .area1 .trackBox .track .step.active{*/
+/*    background-color: var(--color1);*/
+/*    padding: 2px 20px;*/
+/*    border-radius: 20px;*/
+/*    color: #000;*/
+/*    margin-bottom: 10px;*/
+
+/*}*/
+
+/*.mainContentStaff .area1 .trackBox .track .text{*/
+
+/*}*/
+
+/* areaBoxStaff barcod, progress box end -------------------------------- */
+
+/* areaBoxStaff start -------------------------------- */
+
+.mainContentStaff {
+    margin: 0 auto;
+    width:77vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.mainContentStaff2 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 40px;
+
+}
+
+.mainContentStaff .areaBoxStaff {
+    /*border: 1px solid #5c5c5c;*/
+    background-color: transparent;
+    border-radius: 10px;
+    color:#fff;
+    width: 80vw;
+}
+
+
+.mainContentStaff .areaBoxStaff2 {
+    border: 1px solid #5c5c5c;
+    width: 70vw;
+    padding:20px;
+    overflow: hidden;
+
+}
+
+
+.mainContentStaff .packing_wrapghj .progress {
+    margin: 0;
+    padding:10px 0;
+    margin-left: 20px;
+}
+
+
+/* 생산자 생산목록 if원료입고 or not 에따른 div css start */
+
+.mainContentStaff .prog_boxl1p .data,
+.mainContentStaff .prog_boxl1p .title {
+    font-size: 18px;
+}
+
+.prog_boxl1p .prog_boxl1p {
+
+}
+
+
+.areaBoxStaff2 .upside {
+    height: auto;
+    min-height: 440px;
+}
+
+.areaBoxStaff2 .element .left,
+.areaBoxStaff2 .upside .left{
+    margin-right: 60px;
+}
+
+/* 생산자 생산목록 if 원료입고 or not 에따른 div css end */
+
+/* 생산 목록 titlebox, area1 start */
+.mainContentStaff .listTitleBox .headTitle {
+    /*padding: 0;*/
+    /*margin: 0;*/
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 22px;
+    font-family: "Gmarket Sans";
+
+}
+
+
+/* 생산 목록 titlebox, area1 end */
+/* 생산현황 상세 titlebox, area1 start */
+
+.mainContentStaff .detailTitleBox .headTitle {
+    /*padding: 0;*/
+    /*margin: 0;*/
+    margin-bottom: 20px;
+    font-size: 22px;
+    /*font-weight: bold;*/
+    font-family: "Gmarket Sans";
+
+}
+
+
+.mainContentStaff .producing_boxr8j .inputType520 {
+    margin: 0;
+    margin-bottom: 20px;
+
+}
+
+.mainContentStaff .areaBoxStaff2 .left .inputType220 {
+    width: 380px;
+}
+
+.mainContentStaff .areaBoxStaff2 .right .data4 {
+    height: auto;
+
+}
+
+/* 생산현황 상세 titlebox, area1 end */
+/* 생산현황 상세 start  */
+
+.production_boxu9d .coverBox .data4 {
+    height: auto;
+}
+
+.production_boxu9d .table_boxqqq,
+.production_boxu10 .table_boxqqq {
+}
+
+.production_boxu10 .table_boxqqq .leftArea .title,
+.production_boxu9d .table_boxqqq .leftArea .title{
+    width: 100px;
+    margin-right: 20px;
+    font-size: 16px;
+}
+
+
+/* 생산현황 상세 end  */
+
+.mainContentStaff .goods_boxkfg {
+    /*border-bottom: 1px solid #5c5c5c;*/
+    margin: 0;
+    padding: 0;
+    border:none;
+    width: 75vw;
+    margin-left: 20px;
+    margin-bottom: 10px;
+
+}
+
+
+.mainContentStaff .inputType520{
+    /*.mainContentStaff .areaBoxStaff .area1 .inputType520{*/
+    background-color: transparent;
+    border:1px solid #5c5c5c;
+    color:#fff;
+    font-size: 22px;
+    font-weight: bold;
+    text-wrap: nowrap;
+}
+
+.mainContentStaff .deliInfoTable,
+.mainContentStaff .orderInfoTable {
+    margin: 0 auto;
+    border-collapse: collapse;
+    border:1px solid #5c5c5c;
+    width: 77vw;
+    height: auto;
+    color:#fff;
+    margin-bottom: 100px;
+    padding-right: 100px;
+}
+
+.mainContentStaff .weight_tablevufb {
+    border-radius: 10px;
+    /*border:1px solid #5c5c5c;*/
+    width:500px;
+    height: auto;
+    margin-bottom: 40px;
+}
+
+.mainContentStaff .weight_tablevufb td,
+.mainContentStaff .deliInfoTable td,
+.mainContentStaff .areaBoxStaff .area4 .orderInfoTable td {
+    min-width: 100px;
+    width:100px;
+    overflow: hidden;
+    border: 1px solid #5c5c5c;
+    height: 80px;
+    line-height: 32px;
+    text-align: center;
+    padding: 0 10px;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .weight_tablevufb td{
+    height: 66px;
+}
+
+.mainContentStaff .orderInfoTable th,
+.mainContentStaff .deliInfoTable th {
+    height: 44px;
+    background-color: #1c1c1c;
+}
+
+.mainContentStaff .areaBox .area1 .period {
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    min-width: 100px;
+    width: 100px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+}
+
+
+.mainContentStaff .statusLabel {
+    margin-right: 20px;
+    width: auto;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .statusLabel .status {
+    width: 22px;
+    height: 22px;
+}
+
+.mainContentStaff .areaBox .area2 .right,
+.mainContentStaff .areaBox .area1 .right {
+    /*margin-right: 10px;*/
+    width: auto;
+    min-width: 240px;
+    overflow: hidden;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.mainContentStaff .areaBoxStaff .area2 .searchFilter,
+.mainContentStaff .areaBoxStaff .area2 .searchArea {
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    border-radius: 5px;
+    min-width: 80px;
+    width: auto;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 10px;
+    font-size: 16px;
+    /*text-align: center;*/
+    color: #fff;
+    text-wrap: nowrap;
+}
+
+
+.mainContentStaff .areaBoxStaff .area2 .searchArea {
+    width: 420px;
+    text-align: left;
+
+}
+
+
+.mainContentStaff .btnType1 {
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    border-radius: 5px;
+    min-width: 80px;
+    width: auto;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 10px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .btnType60 {
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .btn80Type1 {
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    /*padding: 0px 10px;*/
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .btn80Type2 {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    /*padding: 0px 10px;*/
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+
+.mainContentStaff .btn80Type3 {
+    border: 1px solid var(--gradient3);
+    background-image: var(--gradient3);
+    color:#000;
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    /*padding: 0px 10px;*/
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+
+.mainContentStaff .btn80Type3.active {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+
+}
+
+.mainContentStaff .areaBoxStaff .btn60Type1 {
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    color:#fff;
+    border-radius: 5px;
+    margin: 10px 0;
+    width: 60px;
+    height: 60px;
+    /*padding: 0px 10px;*/
+    font-size: 22px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+.mainContentStaff .areaBoxStaff .btn60Type2 {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    margin: 10px 0;
+    width: 60px;
+    height: 60px;
+    /*padding: 0px 10px;*/
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .areaBoxStaff .btn60Type3 {
+    border: 1px solid var(--gradient3);
+    background-image: var(--gradient3);
+    color:#000;
+    border-radius: 5px;
+    margin: 10px 0;
+    width: 60px;
+    height: 60px;
+    /*padding: 0px 10px;*/
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+
+.mainContentStaff .productionList_boxkkq button.active {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    margin: 10px 0;
+    width: 60px;
+    height: 60px;
+    /*padding: 0px 10px;*/
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .productionList_boxkkq button.mr10 {
+    margin-right: 10px;
+
+}
+
+.mainContentStaff .areaBoxStaff .weight_tablevufb .btn60Type3 {
+    font-size: 22px;
+    color:#5c5c5c;
+}
+
+.mainContentStaff .areaBoxStaff .weight_tablevufb .btn60Type3.active {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+
+}
+
+
+.mainContentStaff .areaBoxStaff .btn60Type3 i {
+    /*color:#000;*/
+}
+
+.mainContentStaff .areaBoxStaff .inputType220 {
+    padding: 0 10px;
+    border: 1px solid #5c5c5c;
+    color:#fff;
+    background-color: transparent;
+    min-width: 220px;
+    width: 220px;
+    min-height: 44px;
+    height: auto;
+    line-height: 44px;
+    text-wrap: nowrap;
+    /*overflow: hidden;*/
+
+}
+/* areaBoxStaff end -------------------------------- */
+/*2차 공정 상세 ----------------*/
+
+.status_boxv2l,
+.status_boxv22 {
+    margin-bottom: 20px;
+}
+
+.status_boxv2l .right,
+.status_boxv22 .right {
+    margin-left: 40px;
+    overflow: hidden;
+}
+
+.weight_tablevufb {
+    /*border:1px solid red;*/
+    width: 430px;
+    border-collapse:collapse;
+    text-align: center;
+    text-wrap: nowrap;
+}
+
+.weight_tablevufb .title,
+.weight_tablevufb .weight {
+    border:1px solid #ccc;
+    height: 32px;
+    line-height: 32px;
+}
+
+.weight_tablevufb .wConfirm {
+    border:1px solid #ececec;
+    border-radius: 5px;
+    width:60px;
+    height: 24px;
+    line-height: 24px;
+
+}
+
+
+/*.status_boxv22 .upside {*/
+/*    margin-left: 20px;*/
+/*    margin-bottom: 20px;*/
+
+/*}*/
+
+
+/*.status_boxv22 .upside .title1 {*/
+/*    border-radius: 5px;*/
+/*    background-color: #ececec40;*/
+/*    width: 80px;*/
+
+/*}*/
+
+/*.status_boxv22 .upside .title2,*/
+/*.status_boxv22 .upside .title3 {*/
+/*    border-radius: 5px;*/
+/*    background-color: #ececec40;*/
+/*    !*text-align: left;*!*/
+/*    width: 120px;*/
+/*}*/
+
+/*.status_boxv22 .weightBox1 {*/
+/*    margin-right: 30px;*/
+/*}*/
+
+/*.status_boxv22 .right {*/
+/*    width:480px;*/
+/*}*/
+
+/*.status_boxv22 .downside {*/
+/*    margin-left: 20px;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+
+/*.status_boxv22 .ingName,*/
+/*.status_boxv22 .weight {*/
+/*    !*border:1px solid red;*!*/
+/*    margin-right: 10px;*/
+/*    border:1px solid #ececec;*/
+/*    border-radius: 5px;*/
+/*    width: 80px;*/
+/*    height:32px;*/
+/*    line-height: 32px;*/
+/*    text-align: center;*/
+/*    font-size: 16px;*/
+/*    text-wrap: nowrap;*/
+/*}*/
+
+/*.status_boxv22 .ingName {*/
+/*    margin-right: 20px;*/
+/*}*/
+/*.status_boxv22 .btnType1 {*/
+/*    margin-left: 20px;*/
+
+/*}*/
+
+/* producingDetail end -------------------------------- */
+/* inOutStatus start -------------------------------- */
+
+.inout_boxq0a .left {
+    width: 220px;
+    margin-bottom: 10px;
+}
+
+.inout_boxq0a .btnType1 {
+    text-wrap: nowrap;
+    margin-right: 10px;
+}
+
+.inout_boxq0a {
+
+}
+
+.inout_boxq0b .memo {
+    color:#5c5c5c;
+    padding: 0 5px;
+}
+
+.inout_boxq0b .barcodeNo:hover {
+    color: var(--color4);
+}
+
+.inout_boxq0b .left3 .inputSearch {
+    border:1px solid #ccc;
+    border-radius: 5px;
+    width: 220px;
+    height: 32px;
+    margin-right: 10px;
+    padding-left: 10px;
+}
+
+.inout_boxq0a .right3 {
+    width: auto;
+    height: 32px;
+    overflow: hidden;
+}
+
+/* inOutStatus end -------------------------------- */
+/* ipgo pop start -------------------------------- */
+
+.addSupplier_wrapdej, /* 기타정보관리 > 공급사 등록 팝업*/
+.addMaker_wrapdej, /* 기타정보관리 > 제조사 등록 팝업*/
+.gdsDetail_wrapdej, /* 상품목록에서 상품 디테일 팝업*/
+.addProduct_wrapiaj, /* 상품등록에서  제품등록 팝업*/
+.barcode_wrapdej, /* 입출고 관리에서 바코드 출력 팝업 */
+.addMate_wrapdej, /* 제품등록 에서 중분류 추가 팝업 */
+.addCat2_wrapiaj, /* 제품등록 에서 중분류 추가 팝업 */
+.addCat3_wrapiaj, /* 제품등록 에서 소분류 추가 팝업 */
+.pQueue_wrapiaj, /*주문list 에서 각 항목 클릭 시, 포장발송화면으로 전송 */
+.upXlx_wrapiaj, /*주문list 에서 엑셀업로드*/
+.addOrder_wrapiaj, /*주문list 에서 포장대기에서 작업추가*/
+.ipgo_wrapdej,         /*입고처리*/
+.out_wrapiaj,           /*출고처리*/
+.order_wrapdej {    /*생산지시폼*/
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000080;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 100;
+}
+
+.addSupplier_wrapdej {
+    /*display: block;*/
+}
+
+.addSupplier_conkol,
+.addMaker_conkol,
+.gdsDetail_conkol,
+.addProduct_conrlo,
+.barcode_conkol,
+.addMate_conkol,
+.addCat2_conrlo,
+.addCat3_conrlo,
+.pQueue_conrlo,
+.upXlx_conrlo,
+.addOrder_conrlo,
+.ipgo_conkol,
+.out_conrlo,
+.order_conkol {
+    border-radius: 20px;
+    width: 520px;
+    height: 380px;
+    background-color: #fff;
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    z-index: 101;
+
+}
+
+.addMate_conkol .selUnit {
+    width: 320px;
+    height: 32px;
+}
+
+/* 440 길이가 조금 더 긴 팝업 white area 수정 */
+.addMate_conkol,
+.gdsDetail_conkol,
+.addOrder_conrlo {
+    width: 540px;
+    height: 480px;
+}
+
+.addProduct_conrlo {
+    width: 620px;
+    height: 780px;
+
+}
+
+
+.out_conrlo,
+.ipgo_conkol {
+    width: 540px;
+    height: 620px;
+
+}
+
+.addSupplier_conkol .padding_area,
+.addMaker_conkol .padding_area,
+.gdsDetail_conkol .padding_area,
+.addProduct_conrlo .padding_area,
+.barcode_conkol .padding_area,
+.addMate_conkol .padding_area,
+.addCat2_conrlo .padding_area,
+.addCat3_conrlo .padding_area,
+.pQueue_wrapiaj .padding_area,
+.upXlx_wrapiaj .padding_area,
+.addOrder_wrapiaj .padding_area,
+.ipgo_conkol .padding_area,
+.out_conrlo .padding_area,
+.order_conkol .padding_area {
+    margin: 20px;
+    position: relative;
+    height: 340px;
+}
+
+.addSupplier_conkol .fa-xmark,
+.addMaker_conkol .fa-xmark,
+.gdsDetail_conkol .fa-xmark,
+.addProduct_conrlo .fa-xmark,
+.barcode_conkol .fa-xmark,
+.addMate_conkol .fa-xmark,
+.addCat2_conrlo .fa-xmark,
+.addCat3_conrlo .fa-xmark,
+.pQueue_wrapiaj .fa-xmark,
+.upXlx_wrapiaj .fa-xmark,
+.addOrder_wrapiaj .fa-xmark,
+.ipgo_conkol .fa-xmark,
+.out_conrlo .fa-xmark,
+.order_conkol .fa-xmark {
+    position: absolute;
+    top:0;
+    right:0;
+    font-size: 22px;
+}
+
+
+.addSupplier_conkol .padding_area .head_title,
+.addMaker_conkol .padding_area .head_title,
+.gdsDetail_conkol .padding_area .head_title,
+.addProduct_conrlo .padding_area .head_title,
+.barcode_conkol .padding_area .head_title,
+.addMate_conkol .padding_area .head_title,
+.addCat2_conrlo .padding_area .head_title,
+.addCat3_conrlo .padding_area .head_title,
+.pQueue_wrapiaj .padding_area .head_title,
+.upXlx_wrapiaj .padding_area .head_title,
+.addOrder_wrapiaj .padding_area .head_title,
+.ipgo_conkol .padding_area .head_title,
+.out_conrlo .padding_area .head_title,
+.order_conkol .padding_area .head_title{
+    /*margin: 0 auto;*/
+    font-weight: 500;
+    font-size: 22px;
+    width: 480px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.addProduct_conrlo .padding_area .head_title {
+    width: 620px;
+    margin-bottom: 40px;
+
+}
+
+.addProduct_conrlo .padding_area .area,
+.barcode_conkol .padding_area .area,
+.addMate_conkol .padding_area .area,
+.addCat2_conrlo .padding_area .area,
+.addCat3_conrlo .padding_area .area,
+.pQueue_wrapiaj .padding_area .area,
+.upXlx_wrapiaj .padding_area .area,
+.addOrder_wrapiaj .padding_area .area,
+.ipgo_conkol .padding_area .area,
+.out_conrlo .padding_area .area,
+.order_conkol .padding_area .area {
+    margin-bottom: 10px;
+}
+
+.addProduct_conrlo .padding_area .area .inputType220,
+.barcode_conkol .padding_area .area .inputType220,
+.addMate_conkol .padding_area .area .inputType220,
+.addCat2_conrlo .padding_area .area .inputType220,
+.addCat3_conrlo .padding_area .area .inputType220,
+.pQueue_wrapiaj .padding_area .area .inputType220,
+.ipgo_conkol .padding_area .area .inputType220,
+.out_conrlo .padding_area .area .inputType220,
+.order_conkol .padding_area .area .inputType220 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 220px;
+    height: 32px;
+    padding-left: 10px;
+
+}
+
+/* input search 넓이 220 에서 350 으로 넓힘 */
+.addProduct_conrlo .padding_area .area .schInput,
+.ipgo_conkol .padding_area .area .schInput,
+.out_conrlo .padding_area .area .schInput {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 350px;
+    height: 32px;
+    padding-left: 10px;
+}
+
+.addSupplier_conkol .padding_area .area .category,
+.addMaker_conkol .padding_area .area .category,
+.gdsDetail_conkol .padding_area .area .category,
+.addProduct_conrlo .padding_area .area .category,
+.barcode_conkol .padding_area .area .category,
+.addMate_conkol .padding_area .area .category,
+.addCat2_conrlo .padding_area .area .category,
+.addCat3_conrlo .padding_area .area .category,
+.pQueue_conrlo .padding_area .area .category,
+.ipgo_conkol .padding_area .area .category,
+.out_conrlo .padding_area .area .category,
+.order_conkol .padding_area .area .category {
+    color:#5c5c5c;
+    width: 100px;
+    margin-right: 20px;
+}
+
+.addOrder_wrapiaj .padding_area .area .category {
+    color:#5c5c5c;
+    width: 80px;
+    margin-right: 20px;
+
+}
+
+.ipgo_conkol .padding_area .area1 {
+    margin-bottom: 20px;
+}
+
+
+.addSupplier_conkol .padding_area .lastArea,
+.addMaker_conkol .padding_area .lastArea,
+.addMate_conkol .padding_area .area5,
+.upXlx_wrapiaj .padding_area .area5,
+.ipgo_conkol .padding_area .area5,
+.out_conrlo .padding_area .area5,
+.order_conkol .padding_area .area5 {
+    position: absolute;
+    bottom:0;
+    /*right:0;*/
+    left:50%;
+    transform: translateX(-50%);
+}
+
+.addMate_conkol .padding_area .area .inputType220 {
+    width: 320px;
+}
+
+.addProduct_conrlo .padding_area .area .inputType220 {
+    width:420px;
+}
+
+
+/* 440 길이가 조금 더 긴 팝업 padding area 수정 */
+.addMate_conkol .padding_area,
+.gdsDetail_conkol .padding_area {
+
+    height: 440px;
+}
+
+
+/* ddProduct 620 길이가 조금 더 긴 팝업 padding area 수정 */
+.ipgo_conkol .padding_area,
+.out_conrlo .padding_area {
+    height: 560px;
+}
+
+.addProduct_conrlo .padding_area {
+    height: 620px;
+}
+
+.out_conrlo .padding_area .area5,
+.ipgo_conkol .padding_area .area5 {
+    position: absolute;
+    bottom:0;
+    /*right:0;*/
+    left:50%;
+    transform: translateX(-50%);
+
+}
+
+.out_conrlo .area6 .content,
+.ipgo_conkol .area6 .content{
+    resize: none;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    width: 320px;
+    height: 80px;
+    padding: 5px;
+
+}
+
+.addSupplier_conkol .inputType220,
+.addMaker_conkol .inputType220,
+.addOrder_wrapiaj .inputType220 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 320px;
+    height: 32px;
+    padding-left: 10px;
+}
+
+.addOrder_wrapiaj .area6 {
+    margin-top: 20px;
+}
+
+.addOrder_wrapiaj .area2 .btnType3,
+.addOrder_wrapiaj .area6 .btnType3,
+.addOrder_wrapiaj .area7 .btnType3 {
+    padding: 0 10px;
+    height: 32px;
+}
+
+.addProduct_conrlo .dataArea,
+.addProduct_conrlo .selectedDataCon {
+    border:1px solid #cccccc;
+    border-radius: 5px;
+    padding-left:10px;
+
+}
+
+/* ipgo pop end -------------------------------- */
+/* pop_GoodsDetail_View start -------------------------------- */
+
+.gdsDetail_conkol .gds_tablexo2 {
+    border-collapse: collapse;
+    border:none;
+    width: 340px;
+
+}
+
+.gdsDetail_conkol .gds_tablexo2 th {
+    border:1px solid #ececec;
+    text-align: center;
+    padding: 0 10px;
+    width: 50%;
+    font-weight: normal;
+}
+
+.gdsDetail_conkol .gds_tablexo2 td{
+    border:1px solid #ececec;
+    text-align: center;
+    padding: 0 10px;
+
+}
+
+.gdsDetail_conkol .area .right {
+    height: 90px;
+    border:1px solid #ccc;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+}
+
+.gdsDetail_conkol .right .copyIcon i {
+    /*border:1px solid red;*/
+    margin-left: 10px;
+    font-size: 12px;
+    color:#5c5c5c;
+    line-height: 22px;
+}
+
+.gdsDetail_conkol .area1,
+.gdsDetail_conkol .area2 {
+    margin-bottom: 20px;
+}
+/* pop_GoodsDetail_View end -------------------------------- */
+/* pop add product start -------------------------------- */
+
+.addProduct_conrlo .area2 {
+    margin-top: 10px;
+}
+
+.addProduct_conrlo .dataArea {
+    width:420px;
+    height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.addProduct_conrlo .dataArea .data {
+    height: 32px;
+
+}
+
+.addProduct_conrlo .dataArea .pname {
+    margin-right: 20px;
+}
+
+.addProduct_conrlo .dataArea .count{
+    border:1px solid #ccc;
+    border-radius: 5px;
+    height: 24px;
+    width: 40px;
+    margin-right: 20px;
+
+}
+
+.addProduct_conrlo .dataArea .btnType3 {
+    width: auto;
+    padding: 0 10px;
+    height: 24px;
+
+}
+
+.addProduct_conrlo .selectedDataCon {
+    width:420px;
+    height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.addProduct_conrlo .selectedDataBox {
+    height: 24px;
+}
+
+/* pop add product end -------------------------------- */
+/* pop barcode window start -------------------------------- */
+
+.barcode_boxfxp {
+    padding: 20px;
+}
+
+.barcode_Table {
+    border-collapse: collapse;
+}
+
+.barcode_Table .barcodeArea {
+    border:1px solid red;
+    height: 44px;
+}
+
+.barcode_Table .keyCol,
+.barcode_Table .row {
+    border: 1px solid #000;
+    padding: 0 10px;
+    text-align: center;
+    height: 24px;
+    text-wrap: nowrap;
+}
+
+.label80x40 {
+    width: 74mm;
+    height: 36mm;
+}
+
+
+/* pop barcode window end -------------------------------- */
+/* pop upload exel start -------------------------------- */
+
+.upXlx_wrapiaj .area1 .category {
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    margin-right: 20px;
+}
+
+.upXlx_wrapiaj .area1  input[type="file"]::file-selector-button {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    width: 100px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 10px;
+    margin-right: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+/* pop upload exel end -------------------------------- */
+/* pop add packing queue start -------------------------------- */
+
+
+.pQueue_conrlo .area .data{
+    width:320px;
+    height: 32px;
+    line-height: 32px;
+    overflow: hidden;
+}
+
+.pQueue_conrlo .lastArea2 {
+    position: absolute;
+    top:40px;
+    left:50%;
+    transform: translateX(-50%);
+
+}
+
+.pQueue_conrlo .area4 .btnType3 {
+
+    height: 32px;
+    padding: 0 10px;
+    text-wrap: nowrap;
+}
+
+.pQueue_conrlo .lastArea .btnType3 {
+    width: auto;
+    height: 32px;
+
+    padding: 0 10px;
+    margin-right: 10px;
+    text-wrap: nowrap;
+}
+
+
+.pQueue_conrlo .lastArea {
+    position: absolute;
+    bottom:0;
+    left:50%;
+    transform: translateX(-50%);
+
+}
+
+/* pop add packing queue end -------------------------------- */
+/* pop add category2 start -------------------------------- */
+
+.gdsDetail_conkol .lastArea,
+.addCat3_conrlo .lastArea,
+.addCat2_conrlo .lastArea {
+    position: absolute;
+    bottom:20px;
+    left:50%;
+    transform: translateX(-50%);
+
+}
+
+
+/* pop add category2 end -------------------------------- */
+/* add delivery start -------------------------------- */
+
+.odDeli_boxfxp {
+    /*margin: 0 auto;*/
+    margin: 20px 40px 20px 20px;
+}
+
+.odDeli_boxfxp table {
+    border-collapse: collapse;
+    text-align: center;
+    width: 800px;
+}
+.odDeli_boxfxp table {
+    border:1px solid #000;
+    border-collapse: collapse;
+    text-align: center;
+    width: 680px;
+}
+
+.odDeli_boxfxp .keyCol,
+.odDeli_boxfxp .row {
+    border:1px solid #000;
+    height: 32px;
+    line-height: 32px;
+    text-wrap: nowrap;
+
+}
+
+.odDeli_boxfxp .row {
+    width: 40px;
+}
+.odDeli_boxfxp .headTitle {
+    font-weight: 500;
+    font-size: 22px;
+    width: 50%;
+}
+
+.odDeli_boxfxp .subTitle {
+    height: 44px;
+    /*border-top: 2px solid #000;*/
+    /*border-bottom: 2px solid #000;*/
+    text-align: left;
+    padding-left: 10px;
+    font-weight: 500;
+}
+
+.odDeli_boxfxp .cat1 {
+    width: 20%;
+}
+.odDeli_boxfxp .data1 {
+    width: 30%;
+}
+
+
+/* add delivery end -------------------------------- */
+/* pop_InstructionForm_View start -------------------------------- */
+
+.odRoast_boxfxp {
+    width: 77vw;
+    margin: 0;
+    margin-top: 20px;
+    margin-left: 20px;
+    overflow: hidden;
+    /*margin: 20px 40px 20px 20px;*/
+}
+
+.odRoast_boxfxp .odRoast_Table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    text-wrap: nowrap;
+}
+
+.odRoast_boxfxp .odRoast_Table .headCol {
+    border:none;
+    height: 100px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.odRoast_Table tr .m_name {
+    height: 60px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.odRoast_Table .guide,
+.odRoast_Table .stepName {
+    text-wrap: wrap !important;
+
+}
+
+.odRoast_Table .ttl {
+    background-color: #ececec80;
+}
+
+
+.odRoast_boxfxp .barcodeArea {
+    margin: 0 auto;
+    padding: 10px 0;
+    width: 320px;
+    height: 40px;
+}
+
+
+.odRoast_boxfxp .odRoast_Table .barcodeBox {
+    font-size: 16px;
+}
+
+
+.odRoast_boxfxp .keyCol,
+.odRoast_boxfxp .row {
+    padding: 0 10px;
+    border:1px solid #000;
+    height: 32px;
+    text-align: center;
+    overflow: hidden;
+    /*text-wrap: nowrap;*/
+}
+
+.odRoast_boxfxp .subTitle {
+    border:none;
+    height: 20px;
+}
+
+.odRoast_boxfxp .odRoast_Table .row .stepName,
+.odRoast_boxfxp .odRoast_Table .row .desc {
+    padding: 5px;
+    /*width: 380px;*/
+    height: auto;
+    text-align: left;
+    overflow: hidden;
+    text-wrap: wrap;
+}
+
+.odRoast_boxfxp .odRoast_Table .signArea {
+    height: 60px;
+}
+
+.odRoast_boxfxp .odRoast_Table .signArea .row4,
+.odRoast_boxfxp .odRoast_Table .signArea .row5{
+    text-align: left;
+    padding-left: 10px;
+}
+
+
+.odRoast_boxfxp .odRoast_Table .productName {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* order to produce form end -------------------------------- */
+/* pop_QualityReport_View start   --------------------------- */
+
+.q_report_box22 .btnBox {
+    /*margin-left: ;*/
+    width:1200px;
+    height:100px;
+}
+
+.q_report_box23d {
+
+    width: 1200px;
+    overflow: hidden;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.q_report_box23d .q_report_table {
+    width: inherit;
+    table-layout: fixed;
+    border-collapse: collapse;
+
+}
+
+.q_report_box23d .q_report_table .headCol {
+    height: 80px;
+    font-size: 24px;
+    font-weight: 600;
+
+}
+
+.q_report_box23d .q_report_table tr .m_name {
+    height: 60px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.q_report_box23d .q_report_table td{
+    border:1px solid #000;
+    text-align: center;
+    height: 32px;
+    padding: 0 10px;
+}
+
+
+.q_report_box23d .q_report_table td.bn{
+    border:none;
+    height: 10px;
+}
+
+.q_report_box23d .q_report_table tbody td.rName {
+    /*text-wrap: wrap;*/
+    /*width: 400px;*/
+    /*color:red;*/
+
+}
+
+.q_report_box23d .q_report_table td.row1 {
+    /*width: 400px;*/
+    /*color:blue;*/
+}
+
+/* pop_QualityReport_View end   --------------------------- */
+/* pop order roast form start   --------------------------- */
+
+.instruction_boxqqq .btnBox {
+    width: 77vw;
+    margin-top: 40px;
+    margin-left: 20px;
+    /*margin: 20px;*/
+}
+
+
+/* pop order roast form end   --------------------------- */
+/* waybill form start -------------------------------- */
+
+.waybill_boxfxp {
+    display:none;
+    border:1px solid red;
+    margin: 20px;
+    position: relative;
+    width: 720px;
+}
+
+.waybill_boxfxp .bgBox {
+    width: 720px;
+    border:1px solid green;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 10;
+}
+
+.waybill_boxfxp .left{
+    border:1px solid red;
+    width: 40%;
+    z-index: 20;
+}
+
+.waybill_boxfxp .right{
+    border:1px solid red;
+    width: 60%;
+    /*position: absolute;*/
+    /*top:0;*/
+    /*left:0;*/
+    z-index: 20;
+}
+
+.waybill_boxfxp .right .right1,
+.waybill_boxfxp .right .right2{
+    margin-bottom: 40px;
+}
+.waybill_Table {
+    border-collapse: collapse;
+}
+
+.waybill_Table .keyCol,
+.waybill_Table .row {
+    border:1px solid #000;
+}
+
+/* waybill form end -------------------------------- */
+/* flexType1 -------------------------------- */
+
+.stockInLow.active {
+    color: var(--color9);
+}
+
+.hidden {
+    display: none;
+}
+
+
+.underline {
+    text-decoration: underline;
+}
+
+
+.underline2 {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.fontType1 {
+    font-family: "Gmarket Sans";
+}
+
+.fontType2 {
+    font-family:"Noto Sans";
+}
+
+.fontType3 {
+    font-size: 14px;
+    color: #5c5c5c;
+}
+
+.fontType4 {
+    font-size: 18px;
+    color: var(--color4);
+    font-weight: 500;
+}
+
+.flexType1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.flexType2 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.flexType2-1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+.flexType3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.flexType3-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+.flexType4 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+.flexType5 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+
+.flexType5-1 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.flexType5-2 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+}
+
+.flexCol {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.flexCol2 {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexStart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.red {
+    color:red;
+}
+
+.org {
+    color:orange;
+}
+
+.yel {
+    color:yellow;
+}
+
+.bn {
+    border:none;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.ml40 {
+    margin-left: 40px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.mt40 {
+    margin-top: 40px;
+}
+
+.pr20 {
+    padding-right: 20px;
+}
+
+.mr10vw {
+    margin-right: 5vw;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+.mr20 {
+    margin-right: 20px;
+}
+
+.mr40 {
+    margin-right: 40px;
+}
+
+.p20 {
+    padding: 20px;
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
+.mb40 {
+    margin-bottom: 40px;
+}
+
+.pb100 {
+    padding-bottom: 100px;
+}
+
+
+/* spinnerBox --------------- */
+
+.spinnerBox,
+.spinner {
+    display: none;
+}
+
+.spinnerBox {
+    position: fixed;
+    z-index: 30;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.05);
+
+}
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    z-index: 32;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.spinnerBox.active, .spinner.active {
+    display: block;
+}
+
+
+/* spinnerBox end */
+
+.toastBox {
+    padding: 2px 40px;
+    border-radius: 40px;
+    background-color: #00000091;
+    width: auto;
+    height: 44px;
+    font-size: 16px;
+    color:#fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom:16%;
+    left:50%;
+    transform: translateX(-50%);
+    z-index: 32;
+}
+
+.borderRed {
+    border:1px solid red;
+}
+
+.btnType1 {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    min-width: 80px;
+    width: auto;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 24px;
+    font-size: 16px;
+    text-align: center;
+    color:#303030;
+    text-wrap: nowrap;
+
+}
+
+.btnType2 {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    min-width: 80px;
+    width: auto;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 24px;
+    font-size: 16px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+
+.btnType3 {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    color:#303030;
+    text-wrap: nowrap;
+}
+
+.btnType4{
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.squareType {
+    border: none;
+    background-image: var(--main-gradient);
+    border-radius: 10px;
+    font-size: 22px;
+    width: 44px;
+    height: 44px;
+    text-align: center;
+    position: relative;
+    color:#fff;
+}
+
+.squareType2 {
+    border: none;
+    background-image: var(--gradient3);
+    color:#fff;
+    font-size: 22px;
+    border-radius: 10px;
+    width: 44px;
+    height: 44px;
+    text-align: center;
+    position: relative;
+}
+
+
+.inputType160 {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    min-width: 160px;
+    width: 160px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+
+}
+
+.inputBorder {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.must {
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+    background-color: red;
+}
+
+.notmust {
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+}
+
+.inputType {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    padding:0 5px;
+
+}
+
+.inputType2 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    padding:0 5px;
+
+}
+
+.inputType360 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    min-width: 360px;
+    width: 360px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 16px;
+    padding:0 5px;
+
+}
+
+.inputType520 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    min-width: 160px;
+    width: 520px;
+    height: 44px;
+    /*line-height: 44px;*/
+    font-size: 14px;
+    padding-left: 10px;
+
+}
+
+/*.odRoast_boxfxp {*/
+/*    max-width: 100px !important;*/
+/*    border:1px solid red !important;*/
+/*    overflow: hidden;*/
+/*}*/
+
+
+@media print {
+
+    @page {
+        size: A4 portrait; /* 또는 landscape */
+        margin: 10mm;
+    }
+
+
+    .odRoast_boxfxp {
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+        /*page-break-inside: avoid; !* 요소가 페이지 중간에 잘리지 않도록 *!*/
+    }
+
+    .odRoast_boxfxp * {
+        word-wrap: break-word;
+    }
+
+
+    .odRoast_Table {
+        width: 98%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        text-align: center;
+        table-layout: fixed;
+        /*width: 77vw;*/
+    }
+
+
+    .odRoast_Table .keyCol,
+    .odRoast_Table .row {
+        padding: 0 10px;
+        border:1px solid #000;
+        height: 32px;
+        text-align: center;
+        text-wrap: nowrap;
+    }
+
+
+
+    .odRoast_Table .headCol .keycol {
+        border:none;
+    }
+
+    .odRoast_Table .headCol {
+        height: 80px;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .odRoast_Table .ttl {
+        background-color: #ccc;
+    }
+
+    .odRoast_Table .subTitle {
+        border:none;
+        height: 10px;
+    }
+
+    /*.odRoast_Table .stepName {*/
+    /*    !*width: 180px;*!*/
+    /*    height: auto;*/
+    /*    text-align: left;*/
+    /*    overflow: hidden;*/
+    /*    text-wrap: wrap;*/
+    /*}*/
+
+    .odRoast_Table .row .stepName,
+    .odRoast_Table .row .desc {
+        padding: 5px;
+        /*width: 320px;*/
+        height: auto;
+        text-align: left;
+        overflow: hidden;
+        text-wrap: wrap;
+
+    }
+
+    .odRoast_Table .signArea {
+        height: 60px;
+    }
+
+    .odRoast_Table .signArea .row4,
+    .odRoast_Table .signArea .row5{
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .odRoast_Table .productName {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+
+    /*pop_QualityReport_View print start */
+
+
+    .q_report_table {
+        /*width: 100px;*/
+        overflow: hidden;
+        width: 96%;
+        table-layout: fixed;
+        border-collapse: collapse;
+        /*color:red;*/
+        text-wrap: nowrap;
+
+
+    }
+
+
+    .q_report_table .headCol {
+        height: 80px;
+        font-size: 24px;
+        font-weight: 600;
+
+    }
+
+    .q_report_table td {
+        border:1px solid #000;
+        height: 32px;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .q_report_table td.rName {
+        text-wrap: wrap;
+
+    }
+
+    .q_report_table td.m_name {
+        height: 60px;
+        font-size: 18px;
+        font-weight: 600;
+
+    }
+
+}

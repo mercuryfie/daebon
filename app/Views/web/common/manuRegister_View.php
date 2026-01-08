@@ -75,7 +75,7 @@
                                 <p class="must"></p>
                                 <p class="ttl">공정타입</p>
                                 <select name="" id="" class="inputType">
-                                    <option value="">계량</option>
+                                    <option value="">원료입고</option>
                                     <option value="">세척</option>
                                     <option value="">건조</option>
                                     <option value="">이물검사</option>

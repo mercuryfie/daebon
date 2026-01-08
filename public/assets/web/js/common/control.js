@@ -44,6 +44,17 @@ function generateNewCode(typ) {
 }
 
 
+function isEmptyData(data) {
+    if (data === null || data === undefined) return true;
+    if (typeof data === 'string') return data.trim() === '';
+    if (Array.isArray(data)) return data.length === 0;
+    if (typeof data === 'object') {
+        return Object.keys(data).length === 0 ||
+            (data.hasOwnProperty('info') && isEmptyData(data.info));
+    }
+    return false;
+}
+
 
 function fn_padNumber(num, targetLength) {
     return String(num).padStart(targetLength, '0');
@@ -61,7 +72,7 @@ function fn_IsEmpty(arr){
 }
 
 
-async  function Upload_Execl(upload_key,upload_type,excel_typ){
+async  function Upload_Excel(upload_key,upload_type,excel_typ){
     let fname = '';
     try {
         start_spinner();
@@ -411,7 +422,8 @@ function div_close(id,reload){
 
 
 function pop_AddDeliForm() {
-    let url = "/order/adddeliform";
+    let orcode = $('#poporcode').val();
+    let url = "/order/adddeliform?cd=" + orcode;
     let width = 720;
     let height = 980;
 
@@ -429,7 +441,8 @@ function pop_AddDeliForm() {
 
 
 function pop_waybillForm() {
-    let url = "/order/waybill";
+    let orcode = $('#poporcode').val();
+    let url = "/order/waybill?cd=" + orcode;
     let width = 720;
     let height = 980;
 
@@ -495,4 +508,31 @@ function pop_OrderRoastForm(url) {
             console.log("새 창 높이 조절 불가", e);
         }
     };
+}
+
+function fnProcess_Arr() {
+    return [
+        {code: 'P001', typ: 1, gubun: 1, name: '원료입고', loss: '0'},
+        {code: 'P002', typ: 1, gubun: 2, name: '파쇄', loss: '5'},
+        {code: 'P003', typ: 1, gubun: 2, name: '로스팅', loss: '20'},
+        {code: 'P004', typ: 1, gubun: 2, name: '이물제거', loss: '3'},
+        {code: 'P005', typ: 2, gubun: 2, name: '삼각티백포장', loss: '0'},
+        {code: 'P006', typ: 2, gubun: 2, name: '내포장', loss: '0'},
+        {code: 'P007', typ: 2, gubun: 2, name: '외포장', loss: '0'},
+    ];
+}
+
+function fnMake_Process_Type(cval) {
+    let html = '';
+    let t_arr = fnProcess_Arr();
+
+    t_arr.forEach(function(d) {
+        if (cval == d.code) {
+            html += `<option value='${d.code}' selected data-type='${d.typ}'>${d.name}</option>`;
+        } else {
+            html += `<option value='${d.code}' data-type='${d.typ}'>${d.name}</option>`;
+        }
+    });
+
+    return html;
 }

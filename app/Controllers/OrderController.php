@@ -17,6 +17,32 @@ class OrderController extends BaseController
     }
 
 
+    public function main()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => H_TITLE,
+                'h_type' => 1
+            ];
+
+            $main_data = [];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'main' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/main_View',$main_data);
+        }
+    }
+
     public function dashBoard()
     {
         $sessinarr = $this->GetSessionData();
@@ -69,30 +95,36 @@ class OrderController extends BaseController
         }
     }
 
-
     public function linkMallsLogs()
     {
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
         }else {
-            $metaarr = [
-                'h_title' => '쇼핑몰연동-로그보기',
-                'h_type' => 1
-            ];
+            $code  = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
+            if($code==''){
+                fn_Alert('잘못된 접근입니다.');
+            }else {
+                $metaarr = [
+                    'h_title' => '쇼핑몰연동-로그보기',
+                    'h_type' => 1
+                ];
 
-            $main_data = [];
+                $main_data = [
+                    'code' => $code
+                ];
 
-            $form = new Form;
-            $main_data = [
-                'meta' => $form->fnMake_Meta($metaarr),
-                'header' => $form->fnMake_Header($sessinarr),
-                'left' => $form->fnMake_Left(),
-                'main' => $main_data,
-                'footer' => $form->fnMake_Fooeter($sessinarr)
-            ];
+                $form = new Form;
+                $main_data = [
+                    'meta' => $form->fnMake_Meta($metaarr),
+                    'header' => $form->fnMake_Header($sessinarr),
+                    'left' => $form->fnMake_Left(),
+                    'body' => $main_data,
+                    'footer' => $form->fnMake_Fooeter($sessinarr)
+                ];
 
-            return view('web/common/linkMallsLogs_View',$main_data);
+                return view('web/common/linkMallsLogs_View', $main_data);
+            }
         }
     }
 
@@ -108,14 +140,16 @@ class OrderController extends BaseController
                 'h_type' => 1
             ];
 
-            $main_data = [];
+            $main_data = [
+                'optcode' => opt_Excode('')
+            ];
 
             $form = new Form;
             $main_data = [
                 'meta' => $form->fnMake_Meta($metaarr),
                 'header' => $form->fnMake_Header($sessinarr),
                 'left' => $form->fnMake_Left(),
-                'main' => $main_data,
+                'body' => $main_data,
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
@@ -127,6 +161,7 @@ class OrderController extends BaseController
     public function orderRegister()
     {
         $sessinarr = $this->GetSessionData();
+        $pdcode = ($this->request->getPost('code')=='') ? '' : $this->request->getPost('code');
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
         }else {

@@ -31,7 +31,7 @@
                                 <?=$body['excode'];?>
                             </select>
                             <input type="search" name="spcode" id="spcode" placeholder="주문코드 입력" class="inputType2 odCodeIn mb10" >
-                            <input type="search" name="sellid" id="sellid" placeholder="구매자 ID 입력" class="inputType2 odCodeIn" >
+                            <input type="search" name="buyid" id="buyid" placeholder="구매자 ID 입력" class="inputType2 odCodeIn" >
                         </div>
 
                     </div>

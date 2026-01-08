@@ -34,8 +34,8 @@
                     <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>
                 </div>
                 <div class="flexType2">
-                    <input type="file" id="attachExcel" name="attachExcel" accept=".xlsx,.xls" style="display:none;">
-                    <button type="button" class="btnType1 mr10" id="execlUp" name="execlUp">엑셀업로드</button>
+<!--                    <input type="file" id="attachExcel" name="attachExcel" accept=".xlsx,.xls" style="display:none;">-->
+                    <button type="button" class="btnType1 mr10" id="excelPop" name="excelPop">엑셀업로드</button>
 <!--                    <button type="button" class="btnType1 mr10">엑셀다운로드</button>-->
                     <button class="btnType2 " id="addMaker" name="addMaker" onclick="add_Maker();">제조사 등록</button>
 
@@ -78,5 +78,6 @@
 
 </section>
 
+<?= $this->include('/web/include/pop_UploadXlx_View'); ?>
 <?= $this->include('/web/include/pop_AddMaker_View'); ?>
 <?= $this->endSection() ?>

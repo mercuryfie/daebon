@@ -75,7 +75,7 @@
            <?}?>
                 <tr>
                     <td class="row row1" colspan="5">-</td>
-                    <td class="row row3">기본수량</td>
+                    <td class="row row3">지시수량</td>
                     <td class="row row2"><?=$body['info_arr']['quantity']?></td>
                 </tr>
                 <tr>

@@ -218,7 +218,6 @@ $(document).ready(function(){
         let pWeigth = $('#pWeight').val();
         let sell_type = $('#sell_type').val();
         let fileCount = $('#attachImg')[0].files.length;
-        console.log('dawn1829',fileCount);
         let NewCode = generateNewCode(1);
         if(category ==''){
             Make_Toast('대분류를 선택하세요.');
@@ -291,7 +290,6 @@ $(document).ready(function(){
                             pcode: pcode,
                             pcnt: pcnt
                         };
-                        console.log('dawn1737',p_arr)
                         pouch_arr.push(p_arr);
                     }
                 });
@@ -548,7 +546,6 @@ async function set_Data(pdcode) {
     }
 
     let pouch = arr.material;
-    console.log('dawn1852',pouch)
     if (pouch && Object.keys(pouch).length > 0) {
         let html = '';
 

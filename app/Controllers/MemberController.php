@@ -15,7 +15,7 @@ class MemberController extends BaseController
         $sessinarr = $this->GetSessionData();
 
         if($sessinarr['islogin']==true){
-            return redirect()->to('/order/dashboard');
+            return redirect()->to('/order/main');
         }else {
             $saveid = get_cookie(index: CK_IDSAVE);
             $prev_url = previous_url();

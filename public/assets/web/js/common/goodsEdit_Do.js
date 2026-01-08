@@ -217,9 +217,9 @@ $(document).ready(function(){
         }else if(sell_type=='') {
             Make_Toast('판매여부를 선택하세요.');
             $('#sell_type').focus();
-        }else if((fileCount===0) && (bfileCount===0)){
-            Make_Toast('대표이미지를 선택하세요.');
-            $('#attachImg').focus();
+        // }else if((fileCount===0) && (bfileCount===0)){
+        //     Make_Toast('대표이미지를 선택하세요.');
+        //     $('#attachImg').focus();
         }else {
             const container2 = $('#add_list');
             let goods_arr = [];
@@ -276,7 +276,6 @@ $(document).ready(function(){
                             pcode: pcode,
                             pcnt: pcnt
                         };
-                        console.log('dawn1737',p_arr)
                         pouch_arr.push(p_arr);
                     }
                 });
@@ -307,7 +306,7 @@ $(document).ready(function(){
 
                 let bool = await Mod_Data(return_arr);
                 if (bool === true) {
-                    // go_goodsList();
+                    go_goodsList();
                 } else {
                     Make_Toast('상품 수정에 실패 하였습니다.');
                 }

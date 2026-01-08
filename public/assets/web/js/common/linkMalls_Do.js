@@ -1,24 +1,7 @@
 
 $(document).ready(function() {
 
-    // $('#uploadExel #Xbtn, #uploadExel #Xbtn2').click(function () {
-    //     $('#uploadExel').css('display','none');
-    // });
-
-    // $('.period').each(function() {
-    //     if ($(this).text() === '1개월') {
-    //         $(this).addClass('active');
-    //     }
-    //
-    //     const today = new Date();
-    //     const startDate = new Date(today);
-    //     startDate.setMonth(today.getMonth() - 1);
-    //     startDate.setDate(startDate.getDate() + 1);
-    //
-    //     $('#s_date').val(formatDate(startDate));
-    //     $('#e_date').val(formatDate(today));
-    //
-    // });
+    Make_Html();
 
     $('.period').click(function(e) {
         e.preventDefault();
@@ -62,8 +45,6 @@ $(document).ready(function() {
         $('#e_date').val(formatDate(endDate));
     });
 
-
-
     $('.datepicker').each(function(index, elem) {
         const fp = flatpickr(elem, {
             dateFormat: "Y-m-d",
@@ -81,10 +62,102 @@ $(document).ready(function() {
         });
     });
 
+    $('#btn_showlog').on('click',function(){
+        let checked = $('input[name="styp"]:checked');
+        if (checked.length == 0) {
+            Make_Toast('로그를 확인하실 쇼핑몰을 선택하세요.');
+        }else if(checked.length > 1) {
+            Make_Toast('로그를 확인하실 쇼핑몰 하나만 선택하세요.');
+        }else{
+            let shoptype = $('input[name="styp"]:checked').val();
+            console.log(shoptype);
+            go_linkMallsLogs(shoptype);
+        }
+    });
+
+    $('#btn_mall').on('click',function(){
+        Make_Toast('API 테스트중입니다.');
+    });
+
 
 
 
 });
+
+async function Make_Html(){
+    let arr = await Load_Data();
+
+    console.log(arr);
+    let html = '';
+    if(arr.length > 0) {
+        $.each(arr, function (index, el) {
+            let indate1 = '';
+            let status1 = '';
+            let indate2 = '';
+            let status2 = '';
+            if(el.method=='API'){
+                indate1 = el.order['indate'];
+                if(el.order['status']=='ok'){
+                    status1 =`<p class="positive">정상</p>`;
+                }else{
+                    status1 =`<p class="negative">오류</p>`;
+                }
+
+                indate2 = el.claim['indate'];
+                if(el.claim['status']=='ok'){
+                    status2 =`<p class="positive">정상</p>`;
+                }else{
+                    status2 =`<p class="negative">오류</p>`;
+                }
+            }
+
+            html += `
+                    <tr>
+                        <td class="ltTbody">
+                            <input type="checkbox" name="styp" value="${el.shoptyp}">
+                        </td>
+                        <td class="ltTbody">${el.shop_name}</td>
+                        <td class="ltTbody">${el.shop_id}</td>
+                        <td class="ltTbody">${el.method}</td>
+                        <td class="ltTbody">${indate1}</td>
+                        <td class="ltTbody">${status1}</td>
+                        <td class="ltTbody">${indate2}</td>
+                        <td class="ltTbody">${status2}</td>
+                        <td class="ltTbody">-</td>
+                    </tr>
+            `;
+        });
+        $('#tList').empty();
+        $('#tList').append(html);
+    }else{
+        html = '<tr><td class="ltThead" colspan="9">검색된 데이터가 없습니다.</td></tr>';
+        $('#tList').empty();
+        $('#tList').append(html);
+    }
+}
+
+async function Load_Data(skey){
+    let data = {};
+    try {
+        start_spinner();
+        let dataarr = {};
+        let url = APIURL + '/Load_Mall_List';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+             data = result.get('data').list;
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+    return data;
+}
+
 
 function formatDate(d) {
     const year = d.getFullYear();

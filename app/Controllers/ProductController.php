@@ -97,7 +97,7 @@ class ProductController extends BaseController
                     'g_name' => $info['gname'],
                     'step_now' => $info['step_now'],
                     'step_sub_now' => $info['step_sub_now'],
-                    'unit_wight' => $info['unit_wight'],
+                    'unit_weight' => $info['unit_weight'],
                     'p_name' => $process['step_name'],
                     'step_typ' => $process['step_typ'],
                     'input' => $process['input_material'],

@@ -38,7 +38,7 @@ class Goods_m extends Model
     public function Load_Goods_Default($search, $fields = ['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_goods_info ";
+        $sql = "SELECT {$separated_val} ,IFNULL((SELECT gcode from tbl_goods where fk_gscode=a.gscode),'') AS gcode FROM tbl_goods_info a ";
         if($search===''){
             $searchword = '';
             $wheresql = "WHERE is_del=:ISDEL: ";
@@ -56,6 +56,33 @@ class Goods_m extends Model
         return $query->getResultArray();
     }
 
+
+    public function Load_Goods_Each($code, $fields = ['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+//        $sql = "SELECT {$separated_val} FROM tbl_goods_info ";
+        $sql = "SELECT {$separated_val} FROM tbl_goods_info WHERE gscode=:GSCODE: AND is_del=0";
+
+        $bindparam = [
+            'GSCODE' => $code,
+        ];
+
+        $query = $this->db->query($sql, $bindparam);
+        return $query->getResultArray();
+    }
+
+//    public function Load_Maker_Each ($code,$fields=['ALL'])
+//    {
+//
+//        $separated_val = fn_Make_Fields($fields);
+//        $sql = "SELECT {$separated_val} FROM tbl_maker WHERE code=:CODE: AND is_del=0";
+//
+//        $bindparam = [
+//            'CODE' => $code,
+//        ];
+//        $query = $this->db->query($sql,$bindparam);
+//        return $query->getResultArray();
+//    }
 
 
     public function Load_Goods_List($search, $fields = ['ALL'])

@@ -90,7 +90,7 @@ class Product_m extends Model
 
     public function Load_Product_Match($code,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_product_matching WHERE FK_pdcode=:PDCODE: ORDER BY seq ASC";
+        $sql = "SELECT {$separated_val} FROM tbl_product_matching WHERE fk_pdcode=:PDCODE: ORDER BY seq ASC";
         $bindparam = [
             'PDCODE'=> $code,
         ];
@@ -213,5 +213,17 @@ class Product_m extends Model
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
     }
+
+    public function Insert_Product_All($param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_product');
+        $affected = $builder->insertBatch($param);
+        $this->db->transComplete();
+
+        return $affected;
+    }
+
+
+
 
 }

@@ -1,24 +1,5 @@
-
 $(document).ready(function() {
-
-    // $('#uploadExel #Xbtn, #uploadExel #Xbtn2').click(function () {
-    //     $('#uploadExel').css('display','none');
-    // });
-
-    // $('.period').each(function() {
-    //     if ($(this).text() === '1개월') {
-    //         $(this).addClass('active');
-    //     }
-    //
-    //     const today = new Date();
-    //     const startDate = new Date(today);
-    //     startDate.setMonth(today.getMonth() - 1);
-    //     startDate.setDate(startDate.getDate() + 1);
-    //
-    //     $('#s_date').val(formatDate(startDate));
-    //     $('#e_date').val(formatDate(today));
-    //
-    // });
+    Make_Html();
 
     $('.period').click(function(e) {
         e.preventDefault();
@@ -81,10 +62,61 @@ $(document).ready(function() {
         });
     });
 
-
+    $('#btn_show').on('click',function(){
+        go_linkMalls();
+    });
 
 
 });
+
+
+async function Make_Html(){
+    let code = $('#code').val();
+    let arr = await Load_Data(code);
+    console.log(arr);
+    let html = '';
+    if(arr.length > 0) {
+        $.each(arr, function (index, el) {
+            html += `
+                    <tr>
+                        <td class="ltTbody">${el.shop_name}</td>
+                        <td class="ltTbody">${el.status}</td>
+                        <td class="ltTbody">${el.content}</td>
+                        <td class="ltTbody">${el.indate}</td>
+                    </tr>
+            `;
+        });
+        $('#tList').empty();
+        $('#tList').append(html);
+    }else{
+        html = '<tr><td class="ltThead" colspan="9">검색된 데이터가 없습니다.</td></tr>';
+        $('#tList').empty();
+        $('#tList').append(html);
+    }
+}
+
+async function Load_Data(code){
+    let data = {};
+    try {
+        start_spinner();
+        let dataarr = {code : code};
+        let url = APIURL + '/Load_Mall_Log_List';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            data = result.get('data').list;
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+    return data;
+}
+
 
 function formatDate(d) {
     const year = d.getFullYear();

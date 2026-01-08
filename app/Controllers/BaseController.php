@@ -308,35 +308,5 @@ abstract class BaseController extends Controller
     }
 
 
-    public function Call_Cancels()
-    {
-
-        //$target = ($this->request->getPost('target') == '') ? '' : $this->request->getPost('target');
-        $target = 'gmarket';
-
-        $t_arr = $this->Make_Token($target);
-        if($t_arr['result']=='ok') {
-            $jwt = $t_arr['info']['Token'];
-            echo($jwt.'<br><br>');
-            $api = 'https://sa2.esmplus.com/claim/v1/sa/Cancels';
-            $param = array(
-                "SiteType" => 3,
-                "CancelStatus" => 0,
-                "Type" => 0,
-                "StartDate" => "2025-08-01",
-                "EndDate" => "2025-08-04",
-                "PayNo" => "",
-                "OrderNo" => "",
-                "IsGiftOrder" => ""
-            );
-            //$result = $util->call_Market_api($jwt, $api, $param);
-
-            //print_r($result);
-        }
-
-        return '';
-    }
-
-
 
 }

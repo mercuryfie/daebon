@@ -7,7 +7,7 @@
                 <p class="category">구분</p>
                 <select name="division" id="division" class="inputType220">
                     <option value="">선택하세요.</option>
-                    <?=$main['material'];?>
+                    <?=$body['material'];?>
                 </select>
             </div>
             <div class="area area2 flexType2">
@@ -21,7 +21,7 @@
                 <select name="maker" id="maker" class="inputType220 ">
                     <option value="">선택하세요.</option>
 <!--                    <option value="bySelf">직접입력</option>-->
-                    <?=$main['maker'];?>
+                    <?=$body['maker'];?>
                 </select>
                 <input type="search" name="makeCom" id="makeCom" placeholder="회사이름"
                        class="inputType220 mr10" style="display:none;">
@@ -31,7 +31,7 @@
                 <select name="supply" id="supply" class="inputType220 ">
                     <option value="">선택하세요.</option>
 <!--                    <option value="bySelf">직접입력</option>-->
-                    <?=$main['supply'];?>
+                    <?=$body['supply'];?>
                 </select>
                 <input type="search" name="suppCom" id="suppCom" placeholder="회사이름"
                        class="inputType220 mr10" style="display:none;">
@@ -45,7 +45,7 @@
                 <p class="category">원자재단위</p>
                 <select name="unit" id="unit" class="inputType220">
                     <option value="">선택하세요.</option>
-                    <?=$main['unit'];?>
+                    <?=$body['unit'];?>
                 </select>
             </div>
             <div class="area area5 mt20 flexType5">

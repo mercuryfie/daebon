@@ -1,8 +1,16 @@
 
 $(document).ready(function() {
-    $('#uploadExel #Xbtn, #uploadExel #Xbtn2').click(function () {
-        $('#uploadExel').css('display','none');
+    $('#uploadExcel #Xbtn, #uploadExcel #Xbtn2').click(function () {
+        $('#uploadExcel').css('display','none');
     });
+
+
+    // $('button[name="add_deli_btn"]').click(function () {
+    //     let odcode = $('#ordercode').text();
+    //     console.log('dawn1636',odcode);
+    //     add_deliForm(odcode);
+    // });
+
 
     $('#addPQueue #Xbtn, #addPQueue #Xbtn2').click(function () {
         $('#addPQueue').css('display','none');
@@ -51,6 +59,8 @@ $(document).ready(function() {
 
     });
 
+
+
     $('.datepicker').each(function(index, elem) {
         const fp = flatpickr(elem, {
             dateFormat: "Y-m-d",
@@ -68,6 +78,55 @@ $(document).ready(function() {
         });
     });
 
+    $('#btn_orderUpload').on('click',function(){
+        Make_Toast('매칭된 상품코드가 없습니다. ');
+    });
+
+    $('#btn_ininstruct').on('click',async function(){
+        let checked = $('input[name="chkorder"]:checked');
+        if (checked.length == 0) {
+            Make_Toast('배송 지시 하실 주문을 선택하세요');
+        }else if(window.confirm('선택하신 주문을 배송지시 하시겠습니까?')){
+            let codes = $("input[name='chkorder']:checked").map(function() {
+                    return this.value;
+            }).get();
+            let tcnt = codes.length;
+            if(tcnt > 0){
+                let arr = await Put_Delivery(codes);
+                console.log(arr);
+                $.each(arr, function(index, item) {
+                    $('#ck_' + item.orcode).html('');
+                    $('#bu_' + item.orcode).html('<button type="button" class="btnType3">지시완료</button>');
+                    $('#da_' + item.orcode).text(item.indate);
+                });
+            }
+        }
+    });
+
+    $('#btn_package').on('click',async function(){
+        let checked = $('input[name="chkorder"]:checked');
+        if (checked.length == 0) {
+            Make_Toast('묶음포장 지시 하실 주문을 선택하세요');
+        }else if (checked.length == 1) {
+            Make_Toast('묶음포장 지시는 한개이상 선택하세요');
+        }else if(window.confirm('선택하신 주문을 묶음배송 하시겠습니까?')){
+            let codes = $("input[name='chkorder']:checked").map(function() {
+                return this.value;
+            }).get();
+            let tcnt = codes.length;
+            if(tcnt > 0){
+                let arr = await Put_Package(codes);
+                console.log(arr);
+                $.each(arr, function(index, item) {
+                    $('#ck_' + item.orcode).html('');
+                    $('#bu_' + item.orcode).html('<button type="button" class="btnType3">지시완료</button>');
+                    $('#da_' + item.orcode).text(item.indate);
+                });
+            }
+        }
+    });
+
+
 
     let param = '';
     Make_Html(param);
@@ -76,41 +135,36 @@ $(document).ready(function() {
 
 async function Make_Html(param){
     let arr = await Load_Data(param);
+    console.log('dawn1805',arr);
     let html = '';
     if(!fn_IsEmpty(arr)) {
         $.each(arr, function (index, el) {
-            let subhtml = '';
+            let subhtml1 = '';
+            let subhtml2 = '';
             if(el.orstep==0) {
-                subhtml = `<button type="button" class="btnType3">미확인</button> `;
-            }else if(el.orstep==1) {
-                subhtml = `<button type="button" class="btnType3">결제확인중</button> `;
-            }else if(el.orstep==2){
-                subhtml = `<button type="button" class="btnType3" onclick="add_packingQueue();">등록대기</button>`;
-            }else if(el.orstep==3){
-                subhtml = `<button type="button" class="btnType3">제품확인</button>`;
+                subhtml1 = `<input type="checkbox" name="chkorder" value="${el.orcode}">`;
+                subhtml2 = `<button type="button" class="btnType3" onclick="add_packingQueue('${el.orcode}');">지시대기</button> `;
+            }else{
+                subhtml1 = '';
+                subhtml2 = `<button type="button" class="btnType3">지시완료</button> `;
             }
 
             html +=`
-                <tr class="">
-                    <td class="ltTbody td40 fixedCol">
-                        <input type="checkbox" name="chkorder" value="${el.orcode}">
+                <tr class="" id="list_${el.orcode}">
+                    <td class="ltTbody td40 fixedCol" >
+                        <div class="inner40 flexCol2" id="ck_${el.orcode}">${subhtml1}</div>
                     </td>
-                    <td class="ltTbody productNo fixedCol" name="packingStep"><div class="inner1"><p class="text">${subhtml}</p></div></td>
-                    <td class="ltTbody fixedCol"><div class="inner1"><p class="text">엑셀</p></div></td>
-                    <td class="ltTbody fixedCol underline2" data-copy="copy"><div class="inner2"><p class="text">${el.orcode}</p></div></td>
-                    <td class="ltTbody fixedCol underline2"><div class="inner2 last_inner"><p class="text">${el.spcode}</p></div></td>
-                    <td class="ltTbody scrollableCol underline2">daebonddd1234</td>
-                    <td class="ltTbody scrollableCol underline2">daebonddd1234</td>  
-                     
-                    <td class="ltTbody scrollableCol">우엉차</td>
-                    <td class="ltTbody scrollableCol">홍길동</td>
-                    <td class="ltTbody scrollableCol">홍길동</td>
-                    <td class="ltTbody scrollableCol">10,000</td>
+                    <td class="ltTbody productNo fixedCol" name="packingStep"><div class="inner1 flexCol2"><p class="text" id="bu_${el.orcode}">${subhtml2}</p></div></td> 
+                    <td class="ltTbody fixedCol underline2" data-copy="copy"><div class="inner2 flexCol2"><p class="text">${el.orcode}</p><p class="text">${el.spcode}</p></div></td>
+                    <td class="ltTbody fixedCol underline2"><div class="inner2 flexCol2 last_inner"><p class="text">${el.pd_code}</p><p class="text">${el.sg_code}</p></div></td>
+                    <td class="ltTbody scrollableCol"><div class="inner4 flexType1 g_name"><a href="javascript:;" class="text mr10 ">${el.p_name}</a></div></td>
+                    <td class="ltTbody scrollableCol"><div class="inner4 flexCol2 fs14"><p class="text">${el.buy_name}</p><p class="text">${el.buy_phone}</p><p class="text">${el.receive_name}</p><p class="text">${el.receive_phone}</p></div></td>
+                    <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.tcnt}개</p><p class="text">${number_format(el.tprice)}원</p></div></td> 
+                    <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.orderdate}</p></div></td>
                     
-                    <td class="ltTbody scrollableCol">10</td> 
-                    <td class="ltTbody scrollableCol">2025.01.01</td>
-                    <td class="ltTbody scrollableCol">2025.01.01</td> 
-                    <td class="ltTbody scrollableCol">-</td>
+                    <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text" id="da_${el.orcode}">${el.deli_info['indate']}</p></div></td>    
+                    <td class="ltTbody scrollableCol "><div class="inner4 flexCol2 "><p class="text">${el.input_str}</p></div></td>
+                    <td class="ltTbody scrollableCol "><div class="inner4 flexCol2 "><p class="text">${el.shopstr}</p><p class="text">${el.sell_id}</p></div></div></td> 
                 </tr>
             `;
         });
@@ -121,12 +175,79 @@ async function Make_Html(param){
 
 
 function upload_Xlx() {
-    $('#uploadExel').css('display','block');
+    console.log('dawn1626');
+    $('#uploadExcel .area3').css('display','flex');
+    $('#uploadExcel').css('display','block');
 }
 
 
-function add_packingQueue() {
-    $('#addPQueue').css('display','block');
+
+async function add_packingQueue(orcode) {
+    let data= await Load_Delivery(orcode);
+    console.log('dawn1626',orcode);
+    console.log('dawn1626',data);
+    if(isEmptyData(data)){
+        Make_Toast('주문정보가 확인되지 않습니다.');
+    }else{
+        Packing_ini();
+
+        $('#ordercode').text(data.orcode);
+        $('#pname').text(data.p_name);
+        $('#buyname').text(data.receive_name);
+        $('#zipcode').text(data.receive_zipcode);
+        $('#buyaddress1').text(data.receive_address1);
+        $('#buyaddress2').text(data.receive_address2);
+        $('#poporcode').val(data.orcode);
+
+        $('#addPQueue').css('display','block');
+    }
+}
+
+// async function add_deliForm() {
+//     let odcode = $('#ordercode').text();
+//     console.log('dawn1646',odcode);
+//
+//     if(isEmptyData(odcode)){
+//         Make_Toast('주문정보가 확인되지 않습니다.');
+//     }else {
+//         AddDeliForm_ini();
+//         let arr = await Load_Delivery(odcode);
+//         console.log('dawn1653',arr);
+//         console.log('dawn1654',arr);
+//         let html = '';
+//         if(!fn_IsEmpty(arr)) {
+//             $.each(arr, function (index, el) {
+//
+//                 html +=`
+//                     <tr>
+//                         <td class="row row1">${el.p_name}</td>
+//                         <td class="row row1">-</td>
+//                         <td class="row row2" colspan="3">-</td>
+//                         <td class="row row3">-</td>
+//                         <td class="row row4">-</td>
+//                         <td class="row row5">-</td>
+//
+//                     </tr>
+//                 `;
+//             });
+//             $('#iList').empty();
+//             $('#iList').append(html);
+//         }
+//     }
+// }
+
+// function AddDeliForm_ini() {
+//     $('#add_deli_table td').text('');
+// }
+
+function Packing_ini(){
+    $('#ordercode').text('');
+    $('#pname').text('');
+    $('#buyname').text('');
+    $('#zipcode').text('');
+    $('#buyaddress1').text('');
+    $('#buyaddress2').text('');
+    $('#poporcode').val('');
 }
 
 function formatDate(d) {
@@ -142,6 +263,76 @@ async function Load_Data(param){
         start_spinner();
         let dataarr = {"search" : param};
         let url = APIURL + '/Load_Order_Data';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            data = result.get('data').list;
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+    return data;
+}
+
+async function Load_Delivery(orcode){
+    let data = {};
+    try {
+        start_spinner();
+        let dataarr = {"code" : orcode};
+        let url = APIURL + '/Load_Order_Info';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            data = result.get('data').info;
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+    return data;
+}
+
+async function Put_Delivery(codes){
+    let data = {};
+    try {
+        start_spinner();
+        let dataarr = {"codes" : codes};
+        let url = APIURL + '/Put_Delivery_Info';
+        let result = await Load_API_Auth(url,dataarr);
+        console.log(result);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'Error003') {
+            alert(result.get('message'));
+            location.reload();
+        }else if(result.get('status') == 'ok') {
+            data = result.get('data').list;
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+    return data;
+}
+
+async function Put_Package(codes){
+    let data = {};
+    try {
+        start_spinner();
+        let dataarr = {"codes" : codes};
+        let url = APIURL + '/Put_Package_Info';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();

@@ -8,7 +8,7 @@
     <input type="hidden" id="prcode" name="prcode" value="<?=$body['prcode'];?>" />
     <input type="hidden" id="gubun" name="gubun" value="<?=$body['info']['ptype']['gubun'];?>" />
     <input type="hidden" id="ptyp" name="ptyp" value="<?=$body['info']['ptype']['typ'];?>" />
-    <input type="hidden" id="unit_wight" name="unit_wight" value="<?=$body['info']['unit_wight'];?>" />
+    <input type="hidden" id="unit_weight" name="unit_weight" value="<?=$body['info']['unit_weight'];?>" />
     <div class="goods_boxfv6 ">
         <div class="area area1 flexType3">
             <div class="detailTitleBox producing_boxr8j">

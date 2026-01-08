@@ -1,3 +1,4 @@
+
 <div class="addMate_wrapdej" id="addMateWrap"  name="" style="">
     <div class="addMate_conkol">
         <div class="padding_area">
@@ -21,7 +22,11 @@
             </div>
             <div class="area area4 flexType2">
                 <p class="category">단위용량</p>
-                <input type="search" name="unit_wight" id="unit_wight" placeholder="숫자만 가능" class="inputType220 mr10 only-number">g
+                <input type="search" name="unit_weight" id="unit_weight" placeholder="숫자만 가능" class="inputType220 mr10 only-number">g
+            </div>
+            <div class="area area6 flexType2" id="tBag_box" name="tBag_box">
+                <p class="category">티백 수</p>
+                <input type="search" name="tBag_cnt" id="tBag_cnt" placeholder="숫자만 가능" class="inputType220 mr10 only-number">개
             </div>
             <div class="area area5 mt20 flexType5">
                 <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>

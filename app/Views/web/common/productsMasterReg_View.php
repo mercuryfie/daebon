@@ -1,12 +1,7 @@
 <?= $this->extend("/web/template/layout_workpage") ?>
 <?= $this->section("content") ?>
-
 <!-- js ----------------------------  -->
 <script src="<?=URL_COMMON_ASSETS?>/productsMasterReg_Do.js?rnd=<?=rand();?>"> </script>
-
-<script>
-</script>
-
 <section class="merright">
     <input type="hidden" name="stepCnt" id="stepCnt" value="1"/>
     <input type="hidden" name="gscode" id="gscode" value=""/>
@@ -30,35 +25,36 @@
                 <div class="elementBox products_boxc6m">
                     <div class="element element1 flexType2">
                         <p class="must"></p>
-                        <p class="title">제품검색</p>
-                        <div class="searchBox searchProducts_box291 area_box2qd">
-                            <div class="copyArea copyArea1 flexType3">
-                                <input type="search" class="copySearch" id="txt_search" name="txt_search" placeholder="제품코드 또는 제품명 입력후 엔터" onfocus="">
-                                <button class="copyDropdown" type="button" id="btn_search" name="btn_search"> <i class="fas fa-caret-down"></i></button>
-                            </div>
-                            <div class="copyArea copyArea2  mr10 flexCol" id="glist" name="glist">
-                            </div>
-                        </div>
+                        <p class="title">제품명</p>
+                        <span class="data" name="txt_gname" id="txt_gname" data-code="<?= $body['info_arr']['gscode']?>"><?= $body['info_arr']['gname']?></span>
+<!--                        <div class="searchBox searchProducts_box291 area_box2qd">-->
+<!--                            <div class="copyArea copyArea1 flexType3">-->
+<!--                                <input type="search" class="copySearch" id="txt_search" name="txt_search" placeholder="제품코드 또는 제품명 입력후 엔터" onfocus="">-->
+<!--                                <button class="copyDropdown" type="button" id="btn_search" name="btn_search"> <i class="fas fa-caret-down"></i></button>-->
+<!--                            </div>-->
+<!--                            <div class="copyArea copyArea2  mr10 flexCol" id="glist" name="glist">-->
+<!--                            </div>-->
+<!--                        </div>-->
 
                     </div>
                     <div class="element element2 flexType2">
                         <p class="notmust"></p>
                         <p class="title">분류</p>
-                        <span class="data" name="txt_category" id="txt_category"></span>
+                        <span class="data" name="txt_category" id="txt_category" data-ct="<?= $body['info_arr']['category']?>"><?= $body['info_arr']['cat_str']?></span>
                     </div>
                     <div class="element element4 flexType2">
                         <p class="notmust"></p>
                         <p class="title">적정 재고량</p>
-                        <span class="data" name="txt_Inventory" id="txt_Inventory"></span>
+                        <span class="data" name="txt_inventory" id="txt_inventory"><?= $body['info_arr']['inv_str']?></span>
                     </div>
                     <div class="element element4 flexType2">
                         <p class="notmust"></p>
                         <p class="title">단위당 용량</p>
-                        <span class="data" name="txt_unitwight" id="txt_unitwight"></span>
+                        <span class="data" name="txt_unitwight" id="txt_unitwight"><?= $body['info_arr']['unit_str']?></span>
                     </div>
                     <div class="element element6 flexType2 selectMetirialBox " >
                         <p class="must"></p>
-                        <p class="title">기본수량</p>
+                        <p class="title">지시수량</p>
                         <input type="search" class="inputType2 quantityIn mr10 only-number" placeholder="숫자만 입력 (예:10000)" name="Quantity" id="Quantity">
                         <p class="msg fontType3">한 번 생산 시 만들어지는 수량입니다. </p>
                     </div>
@@ -67,7 +63,6 @@
                             <p class="must"></p>
                             <p class="title">원재료 선택</p>
                         </div>
-
                         <div class="searchMate_boxx21  flexCol " name="">
                             <div class="copyArea copyArea1 flexType2 mr10">
                                 <div class="keyIn flexType2">
@@ -84,14 +79,12 @@
                                 <div class="copyArea copyArea3 tagBox" name="add_material" id="add_material">
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="areaBox area_boxm9k ">
-
             <div class="outerBox flexType3">
                 <div class="left flexType2">
                     <p class="title mr10">제품 BOM</p>
@@ -102,15 +95,15 @@
                 </div>
             </div>
             <div class="area5 area_box2qd proc_boxf9n">
-                <div class="roasting_boxp9x " name="roastBox">
-                    <div class="oneRoast elementBox products_boxc7m " name="oneRoast">
+                <div class="roasting_boxp9x " name="roastBox" id="roastBox">
+                    <div class="oneRoast elementBox products_boxc7m " name="oneRoast" >
                         <input type="hidden" name="stepNum" value="1" />
                         <i class="fa-solid fa-xmark removeRoasting" name="removeThisRoast"></i>
                         <div class="goods_boxt6r  " name="" >
                             <div class="bomType_boxh1t flexType2" name="">
                                 <p class="must mr10"></p>
                                 <p class="title">공정타입</p>
-                                <select name="ptype" class="inputType typeIn">
+                                <select name="ptype" class="inputType typeIn" data-code="" data-loss="">
                                     <option value="">선택하세요.</option>
                                     <?=$body['category'];?>
                                 </select>
@@ -119,7 +112,6 @@
                                 <p class="must mr10"></p>
                                 <p class="title">공정결과명</p>
                                 <input type="search" class="inputType nameIn" name="processname" placeholder="공정결과명">
-
                             </div>
                         </div>
                         <div class="inputIng_boxn7g">
@@ -172,10 +164,9 @@
                         </div>
                         <div class="element flexType4 roasting_boxe3x">
                             <p class="ttl">공정방법</p>
-                            <textarea class="mr10" name="step_memo"cols="" rows="" placeholder=""></textarea>
+                            <textarea class="mr10" name="step_memo"cols="" rows="" placeholder="내용을 입력하십시오. "></textarea>
                         </div>
                     </div>
-
                 </div>
                 <div class="cover_boxz7y flexType4">
                     <p class="ttl"></p>

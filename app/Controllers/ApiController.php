@@ -13,6 +13,129 @@ class ApiController extends BaseController
 {
     use ResponseTrait;
 
+    public function Load_Mall_Log_List()
+    {
+        $code  = ($this->request->getPost('code') == '') ? '' : $this->request->getPost('code');
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else if($code==''){
+            $result = 'Error003';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else{
+            $common_m = model('Common_m');
+            $Rs = $common_m->Load_Mall_Log_All($code);
+            if(fn_ArrayCnt($Rs)>0){
+                $list = [];
+                $tname = '';
+                foreach ($Rs as $d){
+                    if($d['typ']==1){
+                        $tname = '주문수집';
+                    }else if($d['typ']==2){
+                        $tname = '클레임수집';
+                    }
+                    $content = ($d['content']=='') ? $content = 'API Token 인증 오류' : $d['content'];
+
+                    $t_arr = [
+                        'shoptyp' => $d['fk_shoptyp'],
+                        'shop_name' => $d['sname'],
+                        'status' => $d['status'],
+                        'indate' =>$d['indate'],
+                        'content' => $content
+                    ];
+
+                    $list[] = $t_arr;
+                }
+
+                $data = ['list' => $list];
+                $result = 'ok';
+                $message = '';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Load_Mall_List()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $common_m = model('Common_m');
+            $Rs = $common_m->Load_Mall_List();
+            if(fn_ArrayCnt($Rs)>0){
+                $list = [];
+                foreach ($Rs as $d){
+                    $t_arr = [
+                        'shoptyp' => $d['shoptyp'],
+                        'shop_name' => $d['shop_name'],
+                        'method' => $d['method'],
+                        'shop_id' => $d['shop_id']
+                    ];
+
+                    $typ1 = $common_m->Load_Mall_Log($d['shoptyp'],1);
+                    if(fn_ArrayCnt($typ1)>0){
+                        $arr1 = [
+                            'typ' => '주문수집',
+                            'status' => $typ1[0]['status'],
+                            'indate' => $typ1[0]['indate']
+                        ];
+                    }else{
+                        $arr1 = ['typ'=>'','status'=>'','indate'=>''];
+                    }
+
+                    $typ1 = $common_m->Load_Mall_Log($d['shoptyp'],2);
+                    if(fn_ArrayCnt($typ1)>0){
+                        $arr2 = [
+                            'typ' => '크레임수집',
+                            'status' => $typ1[0]['status'],
+                            'indate' => $typ1[0]['indate']
+                        ];
+                    }else{
+                        $arr2 = ['typ'=>'','status'=>'','indate'=>''];
+                    }
+
+                    $t_arr['order'] = $arr1;
+                    $t_arr['claim'] = $arr2;
+
+                    $list[] = $t_arr;
+                }
+
+                $data = ['list' => $list];
+                $result = 'ok';
+                $message = '';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
+
     public function mod_Goods_Info(){
         $sessinarr = $this->GetSessionData();
         $info  = ($this->request->getPost('info') == '') ? [] : $this->request->getPost('info');
@@ -326,7 +449,7 @@ class ApiController extends BaseController
                     'category' => $d['category'],
                     'quantity' => $d['quantity'],
                     'inventory' => $d['inventory'],
-                    'unit_wight' => $d['unit_wight']
+                    'unit_weight' => $d['unit_weight']
                 ];
             }
 
@@ -610,7 +733,8 @@ class ApiController extends BaseController
                 'gsname' => $data['gsname'],
                 'category' => $data['category'],
                 'inventory' => $data['inventory'],
-                'unit_wight' => $data['unit_wight']
+                'unit_weight' => $data['unit_weight'],
+                't_cnt' => $data['t_cnt']
             ];
             $goods_m = model('Goods_m');
             $Cnt = $goods_m->Update_ProductDefault_Info($gscode,$param);
@@ -651,16 +775,29 @@ class ApiController extends BaseController
             $message = '잘못된 접근입니다.';
         }else{
             $newCode = fnMake_Code(2);
+
             $param = [
                 'gscode' =>$newCode,
                 'gsname' => $data['gsname'],
                 'category' => $data['category'],
                 'inventory' => $data['inventory'],
-                'unit_wight' => $data['unit_wight']
+                'unit_weight' => $data['unit_weight'],
+                't_cnt' => $data['t_cnt']
             ];
+
+
             $goods_m = model('Goods_m');
             $NewSeq = $goods_m->Insert_ProductDefault_Info($param);
             if($NewSeq > 0){
+                if($data['category']=='A001'){
+                    $unitname = 'g';
+                }else if($data['category']=='A002'){
+                    $unitname = 'ea';
+                }else if($data['category']=='A003'){
+                    $unitname = 'g';
+                }
+
+                $param['unit_name'] =  $unitname;
                 $material_m = model('Material_m');
                 $cRs = $material_m->Load_Goods_statistics($newCode,0);
                 if(fn_ArrayCnt($cRs)>0){
@@ -858,6 +995,8 @@ class ApiController extends BaseController
                         $unitname = 'g';
                     }else if($d['category']=='A002'){
                         $unitname = 'ea';
+                    }else if($d['category']=='A003'){
+                        $unitname = 'g';
                     }
 
 
@@ -868,8 +1007,10 @@ class ApiController extends BaseController
                         'category' => $d['category'],
                         'c_str' => fnGetProductNameByCode($d['category']),
                         'unit_name' => $unitname,
+                        'gcode' => $d['gcode'],
                         'inventory' => $d['inventory'],
-                        'unit_wight' => $d['unit_wight'],
+                        'unit_weight' => $d['unit_weight'],
+                        't_cnt' => $d['t_cnt'],
                         'avg' => $c_arr
 
                     ];
@@ -1054,7 +1195,6 @@ class ApiController extends BaseController
             $data = [];
             $message = '잘못된 토큰입니다.';
         }else{
-
             $skey = array_key_exists('skey', $data) ? $data['skey'] : '';
             $fkey = array_key_exists('fkey', $data) ? $data['fkey'] : 0;
             $material_m = model('Material_m');
@@ -1062,7 +1202,6 @@ class ApiController extends BaseController
 //            $mRs = ($skey=='') ? $material_m->Load_MaterialList_All() : $material_m->Load_Material_Search($skey);
             if ($skey == '' && $fkey == 0) {
                 $mRs = $material_m->Load_MaterialList_All();
-
             } else if ($skey != '') {
                 $mRs = $material_m->Load_Material_Search($skey);
 
@@ -1878,8 +2017,8 @@ class ApiController extends BaseController
     public function Upload_File()
     {
 
-        $u_type  = ($this->request->getPost('upload_type') == '') ? '1' : $this->request->getPost('upload_type');
-        $u_key  = ($this->request->getPost('upload_key') == '') ? '1' : $this->request->getPost('upload_key');
+        $u_type  = ($this->request->getPost('upload_type') == '') ? '1' : $this->request->getPost('upload_type'); //1이면 img 3이면 exel파일
+        $u_key  = ($this->request->getPost('upload_key') == '') ? '1' : $this->request->getPost('upload_key'); // input type
         $timeNow = date("Ymd");
         if($u_type==1) {//상품등록시 대표이미지
             $dir = "././assets/upload/goods/$timeNow";
@@ -1890,7 +2029,6 @@ class ApiController extends BaseController
             $dir2 = "/assets/upload/excel/$timeNow";
             $key = $u_key;
         }
-
 
         $allow = 'jpg,jpeg,gif,png,xls,xlsx';
         $allowed_extensions = explode(',', $allow);
@@ -2035,8 +2173,8 @@ class ApiController extends BaseController
 
     public function Insert_Excel(){
         $sessinarr = $this->GetSessionData();
-        $f_url  = ($this->request->getPost('url') == '') ? '1' : $this->request->getPost('url');
-        $f_typ  = ($this->request->getPost('typ') == '') ? '1' : $this->request->getPost('typ');
+        $f_url  = ($this->request->getPost('url') == '') ? '1' : $this->request->getPost('url'); //
+        $f_typ  = ($this->request->getPost('typ') == '') ? '1' : $this->request->getPost('typ'); // 원자재/제품/상품 구분
         if($sessinarr['islogin']==false) {
             $result = 'NoLogin';
             $data = [];
@@ -2065,8 +2203,8 @@ class ApiController extends BaseController
                     foreach ($rows as $i => $row) {
                         $t_arr = [
                             'code' => fnMake_Code(12),
-                            'name' => $row[0],
-                            'location' => $row[1]
+                            'name' => $row[1], // 이름
+                            'location' => $row[2] // 값
                         ];
                         array_push($insert_arr, $t_arr);
                     }
@@ -2089,13 +2227,13 @@ class ApiController extends BaseController
                         $message = '업로드하신 엑셀파일에서 적용된 내용 없습니다.';
                     }
 
-                }else if($f_typ==2) {//공급사엑셀등록
+                } else if($f_typ==2) { //공급사엑셀등록
                     $insert_arr = [];
                     foreach ($rows as $i => $row) {
                         $t_arr = [
                             'code' => fnMake_Code(13),
-                            'name' => $row[0],
-                            'location' => $row[1]
+                            'name' => $row[1],
+                            'location' => $row[2]
                         ];
                         array_push($insert_arr,$t_arr);
                     }
@@ -2117,16 +2255,17 @@ class ApiController extends BaseController
                         $data = [];
                         $message = '업로드하신 엑셀파일에서 적용된 내용 없습니다.';
                     }
-                }else if($f_typ==3) {//원자제액셀등록
+                }else if($f_typ==3) {//원자재 액셀등록
                     $insert_arr = [];
                     foreach ($rows as $i => $row) {
                         $t_arr = [
                             'mtcode' => fnMake_Code(3),
-                            'typ' => $row[4],
-                            'mtname' => $row[0],
-                            'fk_sucode' => $row[1],
+                            'mtname' => $row[1],
                             'fk_mkcode' => $row[2],
-                            'unit_name' => $row[5]
+                            'fk_sucode' => $row[3],
+                            'inventory' => $row[4],
+                            'unit_name' => $row[5],
+                            'typ' => $row[6]
                         ];
                         array_push($insert_arr,$t_arr);
                     }
@@ -2148,21 +2287,59 @@ class ApiController extends BaseController
                         $data = [];
                         $message = '업로드하신 엑셀파일에서 적용된 내용 없습니다.';
                     }
-                }else if($f_typ==4) {//제품엑샐등록
+                } else if($f_typ==4) {//제품엑셀등록
                     $insert_arr = [];
                     foreach ($rows as $i => $row) {
-                        $t_arr = [
-                            'gscode' => fnMake_Code(2),
-                            'gsname' => $row[0],
-                            'category' => $row[3],
-                            'unit_wight' => $row[2],
-                            'inventory' => $row[1],
-                        ];
-                        array_push($insert_arr,$t_arr);
+                        if($row[1]!='') {
+                            $t_arr = [
+                                'gscode' => fnMake_Code(2),
+                                'category' => $row[0],
+                                'gsname' => $row[1],
+                                'inventory' => $row[2],
+                                'unit_weight' => $row[3],
+                                't_cnt' => $row[4]
+                            ];
+
+                            $insert_arr[]= $t_arr;
+                        }
                     }
                     if(fn_ArrayCnt($insert_arr)>0) {
                         $goods_m = model('Goods_m');
                         $Cnt = $goods_m->Insert_Goods_All($insert_arr);
+                        if ($Cnt > 0) {
+                            $result = 'ok';
+                            $data = ['t_Cnt' => $Cnt];
+                            $message = '';
+                        } else {
+                            $result = 'Error005';
+                            $data = [];
+                            $message = '업로드하신 엑셀파일에서 적용된 내용 없습니다.';
+                        }
+                    }else{
+                        $result = 'Error006';
+                        $data = [];
+                        $message = '업로드하신 엑셀파일에서 적용된 내용 없습니다.';
+                    }
+                } else if($f_typ==5) {//상품엑셀등록
+                    $insert_arr = [];
+                    foreach ($rows as $i => $row) {
+                        if($row[1]!='') {
+                            $t_arr = [
+                                'pdcode' => fnMake_Code(9),
+                                'pdname' => $row[1],
+                                'pdcategory' => $row[0],
+                                'pdprice' => $row[3],
+                                'pdweigth' => $row[2],
+                                'content' => ''
+                            ];
+
+                            $insert_arr[] = $t_arr;
+                        }
+                    }
+                    //print_r($insert_arr);
+                    if(fn_ArrayCnt($insert_arr)>0) {
+                        $product_m = model('Product_m');
+                        $Cnt = $product_m->Insert_Product_All($insert_arr);
                         if ($Cnt > 0) {
                             $result = 'ok';
                             $data = ['t_Cnt' => $Cnt];
@@ -2189,6 +2366,7 @@ class ApiController extends BaseController
         return $this->respond($return);
 
     }
+
 
 
 }

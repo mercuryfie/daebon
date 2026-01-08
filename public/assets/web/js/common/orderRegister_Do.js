@@ -21,6 +21,16 @@ $(document).ready(function(){
         }
     });
 
+    $('#txt_product_num').on('keypress',function(e){
+        if (e.which === 13) {
+            let gcode = $('#txt_product').data('code');
+            let gname = $('#txt_product').val();
+            let cnt = $('#txt_product_num').val();
+            addProduct(gcode,gname,cnt);
+        }
+    });
+
+
     $('#btn_product').on('click',async function(e){
         let skey = $(this).val();
         if(skey==''){
@@ -57,25 +67,7 @@ $(document).ready(function(){
         let gcode = $('#txt_product').data('code');
         let gname = $('#txt_product').val();
         let cnt = $('#txt_product_num').val();
-        if(gcode==''){
-            Make_Toast('추가하실 체품을 검색하세요.');
-            $('#txt_product').focus();
-        }else if(cnt==''){
-            Make_Toast('추가하실 체품 수량을 검색하세요.');
-            $('#txt_product_num').focus();
-        }else{
-            let html = `
-                <div class="productTag flexType3" name="add_product_info" data-code="${gcode}">
-                    <p class="gname mr10" name="gname">${gname}</p>
-                    <p class="count" name="gcnt" data-cnt="${cnt}">${cnt}개</p>
-                    <i class="fa-solid fa-xmark" name="add_product_del"></i>
-                </div>
-            `;
-            $('#add_list').append(html).addClass('active');
-            $('#txt_product').val('');
-            $('#txt_product').data('code','');
-            $('#txt_product_num').val('');
-        }
+        addProduct(gcode,gname,cnt);
     });
 
     $('#shoptyp').on('change',function(){
@@ -99,6 +91,7 @@ $(document).ready(function(){
         let bname = $('#bname').val();
         let bphone = $('#bphone').val();
         let product_arr = [];
+        let buyid = $('#buyid').val();
         $('#add_list').find('div[name="add_product_info"]').each(function () {
             let pdcode = $(this).data('code');
             let pdcont = $(this).find('p[name="gcnt"]').data('cnt');
@@ -131,12 +124,20 @@ $(document).ready(function(){
             let data ={
                 shoptyp : shoptyp,
                 spcode : spcode,
+                sell_id : '',
+                buy_id : buyid,
                 zipcode : zipcode,
                 address1 : address1,
                 address2 : address2,
                 bname : bname,
                 bphone : bphone,
-                product : product_arr
+                r_zipcode : zipcode,
+                r_address1 : address1,
+                r_address2 : address2,
+                r_bname : bname,
+                r_bphone : bphone,
+                product : product_arr,
+                orderdate : ''
             };
 
             let bool = await Reg_Order(data);
@@ -163,6 +164,29 @@ $(document).ready(function(){
     });
 
 });
+
+function addProduct(gcode,gname,cnt){
+    if(gcode==''){
+        Make_Toast('추가하실 체품을 검색하세요.');
+        $('#txt_product').focus();
+    }else if(cnt==''){
+        Make_Toast('추가하실 체품 수량을 검색하세요.');
+        $('#txt_product_num').focus();
+    }else{
+        let html = `
+                <div class="productTag flexType3" name="add_product_info" data-code="${gcode}">
+                    <p class="gname mr10" name="gname">${gname}</p>
+                    <p class="count" name="gcnt" data-cnt="${cnt}">${cnt}개</p>
+                    <i class="fa-solid fa-xmark" name="add_product_del"></i>
+                </div>
+            `;
+        $('#add_list').append(html).addClass('active');
+        $('#txt_product').val('');
+        $('#txt_product').data('code','');
+        $('#txt_product_num').val('');
+    }
+}
+
 
 async function Reg_Order(param){
     let bool = false;

@@ -43,7 +43,7 @@ class PackingController extends BaseController
     }
 
 
-    public function packingStatus()
+    public function packingProcess()
     {
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {

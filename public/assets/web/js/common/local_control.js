@@ -1,18 +1,17 @@
 
-function fnProcess_Arr() {
-    return [
-        { code: 'P001', typ: 1, gubun: 1, name: '계량' },
-        { code: 'P002', typ: 1, gubun: 2, name: '세척' },
-        { code: 'P003', typ: 1, gubun: 2, name: '건조' },
-        { code: 'P004', typ: 1, gubun: 2, name: '이물검사' },
-        { code: 'P005', typ: 1, gubun: 2, name: '파쇄(조분쇄)' },
-        { code: 'P006', typ: 1, gubun: 2, name: '로스팅' },
-        { code: 'P007', typ: 1, gubun: 2, name: '전동진동채(이물제거)' },
-        { code: 'P008', typ: 2, gubun: 2, name: '삼각티백/내외포장' },
-        { code: 'P009', typ: 1, gubun: 2, name: '금속이물탐지' },
-        { code: 'P010', typ: 2, gubun: 2, name: '외포장' }
-    ];
+
+function fn_calculateNetWeight(weightStr, lossRateStr) {
+    let weight = parseFloat(weightStr) || 0;
+    let lossRate = parseFloat(lossRateStr) || 0;
+    let remainingRate = 1 - (lossRate / 100);
+    let netWeight = weight * remainingRate;
+
+    // 숫자만 리턴 (g 제거)
+    return netWeight % 1 === 0 ?
+        Math.round(netWeight) :
+        parseFloat(netWeight.toFixed(1));
 }
+
 
 function fnGetProcessNameByCode(code) {
     const products = fnProcess_Arr();
@@ -114,7 +113,12 @@ function go_logout(){
     $(location).attr("href", url);
 }
 
-function go_dashboard() {
+function go_main() {
+    var url = "/order/main";
+    $(location).attr("href", url);
+}
+
+function go_dashBoard() {
     var url = "/order/dashboard";
     $(location).attr("href", url);
 }
@@ -124,8 +128,8 @@ function go_linkMalls() {
     $(location).attr("href", url);
 }
 
-function go_linkMallsLogs() {
-    var url = "/order/linkmallslogs";
+function go_linkMallsLogs(code) {
+    var url = "/order/linkmallslogs?cd=" + code;
     $(location).attr("href", url);
 }
 
@@ -159,8 +163,8 @@ function go_packingStatus() {
     $(location).attr("href", url);
 }
 
-function go_packingStatusStaff() {
-    var url = "/packing/status";
+function go_packingStatusStaff(opcode) {
+    var url = "/packing/process?op=" + opcode;
     $(location).attr("href", url);
 }
 
@@ -265,9 +269,8 @@ function go_popBarcodeWindow() {
     $(location).attr("href", url);
 }
 
-
-function go_productsMasterReg(){
-    let url = "/goods/productsmasterreg";
+function go_productsMasterReg(pdcode){
+    let url = "/goods/productsmasterreg?cd=" + pdcode;
     $(location).attr("href", url);
 }
 

@@ -284,14 +284,28 @@ $(document).ready(function() {
         }
     });
 
-    $('#execlUp').on('click',function(){
-        $('#attachExcel').click(); // 숨겨진 파일 선택창 열기
+    // $('#execlUp').on('click',function(){
+    //     $('#attachExcel').click(); // 숨겨진 파일 선택창 열기
+    // });
+
+    $('#excelPop').click(function () {
+        $('#uploadExcel').css('display','block');
     });
 
-    $('#attachExcel').on('change', function () {
-        let fname = $('#attachExcel').val();
-        if(fname!='') {
-            Upload_Execl('attachExcel',3,3);
+    $('#uploadExcel #Xbtn, #uploadExcel #Xbtn2').click(function () {
+        $('#uploadExcel').css('display','none');
+        $('#attachExcel').val('');
+    });
+
+    $('#submitBtn').on('click', function () {
+        // let fname = $('#attachExcel').val();
+        const fname = $('#attachExcel').val();
+        if(fname == '') {
+            Make_Toast('업로드한 파일이 없습니다.');
+        } else {
+            Upload_Excel('attachExcel',3,3);
+            $('#uploadExcel').css('display','none');
+
         }
     });
 
@@ -440,7 +454,7 @@ async function Load_Data(data) {
                         <td class="ltTbody col2">
                             <a href="javascript:;" class="materialName" onclick="mod_Material('${el.mtcode}');">${el.mtname}</a>
                         </td>
-                        <td class="ltTbody col5">${number_format(el.inventory)} ${el.uname}${el.typ}</td>
+                        <td class="ltTbody col5">${number_format(el.inventory)} ${el.uname}</td>
                         <td class="ltTbody col4">${el.avg}</td>
                         <td class="ltTbody col5">${number_format(el.stock)} ${el.uname}</td>
                         <td class="ltTbody col6">

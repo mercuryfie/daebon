@@ -25,6 +25,27 @@ $(document).ready(function() {
     });
 
 
+    $('#excelPop').click(function () {
+        $('#uploadExcel').css('display','block');
+    });
+
+    $('#uploadExcel #Xbtn, #uploadExcel #Xbtn2').click(function () {
+        $('#uploadExcel').css('display','none');
+        $('#attachExcel').val('');
+    });
+
+    $('#submitBtn').on('click', function () {
+        const fname = $('#attachExcel').val();
+        if(fname == '') {
+            Make_Toast('업로드한 파일이 없습니다.');
+        } else {
+            Upload_Excel('attachExcel',3,2);
+            $('#uploadExcel').css('display','none');
+
+        }
+    });
+
+
     $(document).on('click','button[name="btn_search"]',function(){
         let key = $('#mkey').val();
         form_Ini();

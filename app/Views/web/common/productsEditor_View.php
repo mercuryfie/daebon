@@ -37,7 +37,7 @@
                     <div class="element element3 flexType2">
                         <p class="notmust"></p>
                         <p class="title">적정 재고량</p>
-                        <span class="data" name="txt_Inventory" id="txt_Inventory"><?=$body['goods_arr']['inventory'];?>개</span>
+                        <span class="data" name="txt_inventory" id="txt_inventory"><?=$body['goods_arr']['inventory'];?>개</span>
                     </div>
                     <div class="element element4 flexType2">
                         <p class="notmust"></p>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="element element5 flexType2">
                         <p class="must"></p>
-                        <p class="title">기본수량</p>
+                        <p class="title">지시수량</p>
                         <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="Quantity" id="Quantity" value="<?=$body['goods_arr']['quantity'];?>">개
                     </div>
                     <div class="element element6 flexType4" >
@@ -105,9 +105,9 @@
             <?php $first = 0; ?>
             <?if(fn_ArrayCnt($body['process_arr']) > 0){?>
                 <?for($i=0;$i<=(fn_ArrayCnt($body['process_arr'])-1);$i++){?>
-                    <div class="oneRoast elementBox products_boxc7m " name="oneRoast" id="one_roast" data-prcode="<?=$body['process_arr'][$i]['prcode'];?>">
+                    <div class="oneRoast elementBox active products_boxc7m " style="display: block;" name="oneRoast" id="one_roast" data-prcode="<?=$body['process_arr'][$i]['prcode'];?>">
                         <input type="hidden" name="stepNum" value="<?=$body['process_arr'][$i]['stepNum'];?>" />
-                        <i class="fa-solid fa-xmark removeRoasting" name="removeThisRoast" <?if($i!=0) echo('style="display: block;"'); ?>></i>
+                        <i class="fa-solid fa-xmark removeRoasting" name="removeThisRoast" <?if($i!=0) {echo('style="display: block;"');} else {echo('style="display: none;"');} ?>></i>
                         <div class="goods_boxt6r  " name="" >
                             <div class="bomType_boxh1t flexType2" name="">
                                 <p class="must mr10"></p>

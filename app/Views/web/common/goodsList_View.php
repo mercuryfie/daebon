@@ -30,6 +30,11 @@
                     <p class="count" id="tcnt" name="tcnt">0</p>
                     <p class="unit">건</p>
                 </div>
+                <div class="right flexType2">
+                    <!--                        <input type="file" id="attachExcel" name="attachExcel" accept=".xlsx,.xls" style="display:none;">-->
+                    <button type="button" class="btnType1 mr10" id="excelPop" name="excelPop">엑셀업로드</button>
+                    <!--                    <button type="button" class="btnType1 mr10">엑셀다운로드</button>-->
+                </div>
             </div>
             <div class="area4 goods_boxa1b flexType2">
                 <div class="order_boxfxp">
@@ -61,5 +66,6 @@
 
 </section>
 
+<?= $this->include('/web/include/pop_UploadXlx_View'); ?>
 <?= $this->include('/web/include/pop_GoodsDetail_View'); ?>
 <?= $this->endSection() ?>

@@ -19,7 +19,7 @@ class MainController extends BaseController
 
         if($sessinarr['islogin']==true){
             if($sessinarr['user']['grade']==AUTH_MASTER){
-                return redirect()->to('/order/dashboard');
+                return redirect()->to('/order/main');
             }else if($sessinarr['user']['grade']==AUTH_PRODUCT){
                 return redirect()->to('/product');
             }else if($sessinarr['user']['grade']==AUTH_PACKING) {

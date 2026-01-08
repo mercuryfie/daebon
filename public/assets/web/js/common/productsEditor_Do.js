@@ -147,7 +147,7 @@ $(function() {
             Make_Toast('잘못된 접근입니다.');
         }else if(Quantity==''){
             $('#Quantity').focus();
-            Make_Toast('기본수량을 입력하세요');
+            Make_Toast('지시수량을 입력하세요');
         }else {
             const container2 = $('#add_material');
             let goods_material = [];

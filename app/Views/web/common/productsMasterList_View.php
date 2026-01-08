@@ -19,9 +19,6 @@
                         <input type="search" name="txt_search" id="txt_search" class="searchArea" placeholder="제품코드 혹은 제품명 검색">
                         <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>
                     </div>
-                    <div class="right">
-                        <button type="button" class="btnType2 " onclick="go_productsMasterReg();">제품 BOM등록</button>
-                    </div>
                 </div>
             </div>
             <div class="areaBox area_boxmxh areaHidden ">

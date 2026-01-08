@@ -29,7 +29,6 @@ $(document).ready(function() {
             e.preventDefault(); // 폼 전송 방지
             $(this).closest('.flexType1').find('button[name="btn_process"]').trigger('click');
         }
-
     });
 
     $('#btn_search').on('click', function () {

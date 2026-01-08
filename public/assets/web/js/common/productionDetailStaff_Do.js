@@ -49,13 +49,13 @@ $(document).ready(function() {
                         Make_Toast('무게값이 잘못되었습니다.');
                     } else {
 
-                        let unit_wight = $('#unit_wight').val();
+                        let unit_weight = $('#unit_weight').val();
                         let ptyp = $('#ptyp').val();
                         let gstr = '';
                         if(ptyp==1){
                             gstr = gram + 'g';
                         }else if(ptyp==2) {
-                            let gCnt = (gram/unit_wight);
+                            let gCnt = (gram/unit_weight);
                             gCnt = Math.round(gCnt);
                             gstr = gram + 'g / ' + gCnt + 'ea';
                         }

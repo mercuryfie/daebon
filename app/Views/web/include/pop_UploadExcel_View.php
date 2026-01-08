@@ -1,0 +1,32 @@
+<!--db 에서 마켓값 읽어오는 버전-->
+<div class="upXlx_wrapiaj" id="uploadExcel" name="" style="">
+    <div class="upXlx_conrlo">
+        <div class="padding_area">
+            <p class="head_title" id="">엑셀 업로드</p>
+            <i class="fa-solid fa-xmark " id="Xbtn" name="Xbtn"></i>
+
+            <div class="area area3 flexType2">
+                <p class="category">마켓</p>
+                <select name="" id="" class="inputBorder">
+                    <option value="">선택</option>
+                    <?=$body['optcode'];?>
+                </select>
+            </div>
+            <div class="area area1 flexType4">
+                <p class="category">파일추가</p>
+                <label for="attachExcel" class="addFileBox">
+                    <input type="file" id="attachExcel" name="attachExcel" accept=".xlsx,.xls" >
+                </label>
+            </div>
+            <div class="area area2 flexType2">
+                <p class="category"></p>
+                <p class="fontType3">파일은 5M 이하여야합니다. </p>
+            </div>
+
+            <div class="area area5 mt20 flexType5">
+                <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>
+                <button type="button" class="btnType2" id="btn_orderUpload">확인</button>
+            </div>
+        </div>
+    </div>
+</div>

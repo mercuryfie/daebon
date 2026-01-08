@@ -63,5 +63,37 @@ class Common_m extends Model
     }
 
 
+    public function Load_Mall_List($fields=['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_mall_info order by seq ASC;";
+        $bindparam = [
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Load_Mall_Log($code,$typ,$fields=['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_mall_log where fk_shoptyp=:FKTYP: and typ=:TYP: order by seq DESC limit 1;";
+        $bindparam = [
+            'FKTYP' => $code,
+            'TYP' => $typ
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Load_Mall_Log_All($code,$fields=['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val},(select shop_name from tbl_mall_info where shoptyp=a.fk_shoptyp) as sname FROM tbl_mall_log a where fk_shoptyp=:FKTYP: order by seq DESC;";
+        $bindparam = [
+            'FKTYP' => $code
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
 
 }

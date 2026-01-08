@@ -74,6 +74,27 @@ $(document).ready(function() {
         $('#gdsDetailWrap').css('display','none');
     });
 
+    $('#excelPop').click(function () {
+        $('#uploadExcel').css('display','block');
+    });
+
+    $('#uploadExcel #Xbtn, #uploadExcel #Xbtn2').click(function () {
+        $('#uploadExcel').css('display','none');
+        $('#attachExcel').val('');
+    });
+
+    $('#submitBtn').on('click', function () {
+        const fname = $('#attachExcel').val();
+        if(fname == '') {
+            Make_Toast('업로드한 파일이 없습니다.');
+        } else {
+            Upload_Excel('attachExcel',3,5);
+            $('#attachExcel').val('');
+            $('#uploadExcel').css('display','none');
+
+        }
+    });
+
     $(document).on('click', '.fa-copy', function() {
         let code = $(this).data('copy');
         let temp = $("<textarea>");
@@ -97,21 +118,24 @@ function ini_pop(){
     $('#materiallist').empty();
 }
 
-async function pop_GoodsDetail(pdcode) {
+async function pop_GoodsDetail(pdcode,pdname) {
     if(pdcode==''){
         Make_Toast('잘못된 접근입니다.');
     }else {
         ini_pop();
+
+        $('#pdcode').text(pdcode);
+        $('#pdname').text(pdname);
+
         let arr = await Load_Detail(pdcode);
-        console.log(arr);
         let match = arr.match;
         if (match && Object.keys(match).length > 0) {
             let html = '';
             $.each(match, function (index, el) {
                 html += ` 
                     <tr>
-                        <td class="ltTbody copyIcon">${el.fk_excode}<i class="fa-regular fa-copy" data-copy="${el.fk_excode}"></i></td>
-                        <td class="ltTbody">${getNameByCode(el.ex_type)}</td>
+                        <td class=" copyIcon">${el.fk_excode}<i class="fa-regular fa-copy" data-copy="${el.fk_excode}"></i></td>
+                        <td class="">${getNameByCode(el.ex_type)}</td>
                     </tr>
                 `;
             });
@@ -124,9 +148,9 @@ async function pop_GoodsDetail(pdcode) {
             $.each(goods, function (index, el) {
                 html += ` 
                     <tr>
-                        <td class="ltTbody">${el.gsname}</td>
-                        <td class="ltTbody">${el.cnt}개</td>
-                    </tr>
+                        <td class="">${el.gsname}</td>
+                        <td class="">${el.cnt}개</td>
+                    </tr> 
                 `;
             });
             $('#goodslist').append(html);
@@ -138,8 +162,8 @@ async function pop_GoodsDetail(pdcode) {
             $.each(material, function (index, el) {
                 html += ` 
                     <tr>
-                        <td class="ltTbody">${el.mtname}</td>
-                        <td class="ltTbody">${el.cnt}개</td>
+                        <td class="">${el.mtname}</td>
+                        <td class="">${el.cnt}개</td>
                     </tr>
                 `;
             });
@@ -168,6 +192,7 @@ async function Load_Detail(pdcode){
         let dataarr = {"code" : pdcode};
         let url = APIURL + '/Load_Product_Detail';
         let result = await Load_API_Auth(url,dataarr);
+        console.log(result);
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {
@@ -194,7 +219,7 @@ async function Make_Html(skey){
         $.each(arr, function (index, el) {
             html += `
                 <tr>
-                    <td class="ltTbody detailTd"><div class="flexType2  "><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdcode}</a><a href="javascript:;" class="detail_fo1 flexType1 ml10" onclick="pop_GoodsDetail('${el.pdcode}');"><i class="fa-solid fa-info"></i></a></div></td>
+                    <td class="ltTbody detailTd"><div class="flexType2  "><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdcode}</a><a href="javascript:;" class="detail_fo1 flexType1 ml10" onclick="pop_GoodsDetail('${el.pdcode}','${el.pdname}');"><i class="fa-solid fa-info"></i></a></div></td>
                     <td class="ltTbody"><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdname}</a></td>
                     <td class="ltTbody">${el.cname}</td>
                     <td class="ltTbody">${number_format(el.pdWeigth)}g</td>

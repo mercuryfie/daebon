@@ -144,7 +144,7 @@ class GoodsController extends BaseController
                 'meta' => $form->fnMake_Meta($metaarr),
                 'header' => $form->fnMake_Header($sessinarr),
                 'left' => $form->fnMake_Left(),
-                'main' => $main_data,
+                'body' => $main_data,
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
@@ -203,7 +203,7 @@ class GoodsController extends BaseController
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/common/productsDefaultList_View',$main_data);
+            return view('web/common/productsList_View',$main_data);
         }
     }
 
@@ -326,11 +326,11 @@ class GoodsController extends BaseController
         }
     }
 
-
-
     public function productsMasterReg()
     {
         $sessinarr = $this->GetSessionData();
+        $code  = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
+
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
         }else {
@@ -339,7 +339,48 @@ class GoodsController extends BaseController
                 'h_type' => 1
             ];
 
+            $produce_m = model('Produce_m');
+            $goods_m=model('Goods_m');
+            $info_arr = [];
+
+            $mRs = $goods_m->Load_Goods_Each($code);
+            if (fn_ArrayCnt($mRs) > 0) {
+                $d = $mRs[0];
+                $info_arr = [
+                    'seq' => $d['seq'],
+                    'gscode' => $d['gscode'],
+                    'gname' => $d['gsname'],
+                    'category' => $d['category'],
+                    'cat_str' => fnGetProductNameByCode($d['category']),
+                    'unit_weight' => $d['unit_weight'],
+                    'unit_str' => number_format($d['unit_weight']) . 'g',
+                    'inventory' => $d['inventory'],
+                    'inv_str' => number_format($d['inventory']) . '개',
+                    'is_del' => $d['is_del'],
+                    'moddate' => $d['moddate'],
+                    'indate' => $d['indate'],
+                ];
+            }
+
+            $mtRs = $goods_m->Load_Goods_Material($code);
+            $material_param = [];
+            if(fn_ArrayCnt($mtRs)>0){
+                foreach ($mtRs as $d){
+                    $t_arr = [
+                        'mcode' => $d['mtcode'],
+                        'capacity' => $d['capacity'],
+                        'mname' => $d['mtname'],
+                        'maker' => $d['fk_mkname'],
+                        'supply' => $d['fk_suname']
+                    ];
+
+                    array_push($material_param,$t_arr);
+                }
+            }
+
             $main_data = [
+                'info_arr' => $info_arr,
+                'material_arr' => $material_param,
                 'category' => fnMake_Process_Type(''),
                 'material' => fnMake_Material_option('',2)
             ];
@@ -436,7 +477,7 @@ class GoodsController extends BaseController
                     'cname' => fnGetProductNameByCode($gRs[0]['category']),
                     'quantity' => $gRs[0]['quantity'],
                     'inventory' => number_format($gRs[0]['inventory']),
-                    'unitwight' => $gRs[0]['unit_wight']
+                    'unitwight' => $gRs[0]['unit_weight']
                 ];
 
                 $pRs = $good_m->Load_Goods_Process($code);

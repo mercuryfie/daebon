@@ -16,7 +16,6 @@ class ApiProductController extends BaseController
 
     }
 
-
     public function Load_Product_Detail(){
         $sessinarr = $this->GetSessionData();
         $pdcode = ($this->request->getPost('code')=='') ? '' : $this->request->getPost('code');
@@ -47,7 +46,6 @@ class ApiProductController extends BaseController
                 'goods' => $goods_arr,
                 'material' => $material_arr
             ];
-
 
             $i_arr = [
                 'info' => $p_arr

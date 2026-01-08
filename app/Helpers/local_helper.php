@@ -1,5 +1,121 @@
 <?php
 
+function get_Order_Delivery_Info($model,$orcode)
+{
+    $t_arr = [
+        'opcode' => '',
+        'deli_step' => '',
+        'deli_type' => '',
+        'deli_code' => '',
+        'deli_end_date' => '',
+        'deli_prn_date' => '',
+        'join' => 0,
+        'indate'  => '',
+        'enddate'  => ''
+    ];
+    $info = $model->Load_Order_Package_Info($orcode);
+    if(fn_ArrayCnt($info)>0) {
+        $opcode = $info[0]['fk_opcode'];
+        $Rs = $model->Load_Order_Delivery_Info($opcode);
+        if (fn_ArrayCnt($Rs) > 0) {
+            $t_arr = [
+                'opcode' => $Rs[0]['opcode'],
+                'deli_step' => $Rs[0]['deli_step'],
+                'deli_type' => $Rs[0]['deli_type'],
+                'deli_code' => $Rs[0]['deli_code'],
+                'deli_end_date' => fn_Short_Date($Rs[0]['deli_end_date']),
+                'deli_prn_date' => fn_Short_Date($Rs[0]['deli_prn_date']),
+                'join' => $Rs[0]['JoinCnt'],
+                'indate' => fn_Short_Date($Rs[0]['indate']),
+                'enddate' => fn_Short_Date($Rs[0]['enddate'])
+            ];
+        }
+    }
+    return $t_arr;
+
+}
+
+function get_Order_Delivery_Info2($model,$opcode)
+{
+    $t_arr = [
+        'opcode' => '',
+        'deli_step' => '',
+        'deli_type' => '',
+        'deli_code' => '',
+        'deli_end_date' => '',
+        'deli_prn_date' => '',
+        'join' => 0,
+        'indate'  => '',
+        'enddate'  => ''
+    ];
+    $Rs = $model->Load_Order_Delivery_Info($opcode);
+    if (fn_ArrayCnt($Rs) > 0) {
+        $t_arr = [
+            'opcode' => $Rs[0]['opcode'],
+            'deli_step' => $Rs[0]['deli_step'],
+            'deli_type' => $Rs[0]['deli_type'],
+            'deli_code' => $Rs[0]['deli_code'],
+            'deli_end_date' => fn_Short_Date($Rs[0]['deli_end_date']),
+            'deli_prn_date' => fn_Short_Date($Rs[0]['deli_prn_date']),
+            'join' => $Rs[0]['JoinCnt'],
+            'indate' => fn_Short_Date($Rs[0]['indate']),
+            'enddate' => fn_Short_Date($Rs[0]['enddate'])
+        ];
+    }
+
+    return $t_arr;
+
+}
+
+
+
+function get_Order_Input_Type($code){
+    $r_name = '';
+    if($code==0){
+        $r_name = '수기';
+    }else if($code==1){
+        $r_name = '쇼핑몰 연동';
+    }else if($code==2){
+        $r_name = '엑셀';
+    }
+    return $r_name;
+}
+
+
+function get_Order_Product_short_info($model,$orcode){
+    $short_name = '';
+    $short_sub = '';
+    $short_pdcode = '';
+    $short_pdsub = '';
+    $short_sgcode = '';
+    $short_sgsub = '';
+    $info = $model->Load_Order_Product($orcode);
+    $info_cnt = fn_ArrayCnt($info);
+    if($info_cnt>0){
+        if($info_cnt >= 2){
+            $short_sub = "외 (". ($info_cnt-1).")건";
+            $short_pdsub = "(". ($info_cnt-1).")";
+            $short_sgsub = "(". ($info_cnt-1).")";
+        }
+        $short_name = $info[0]['pdname'];
+        $short_pdcode = $info[0]['fk_pdcode'];
+        $short_sgcode = $info[0]['sgcode'];
+    }
+    if($short_sub!=''){
+        $short_name = $short_name . ' ' . $short_sub;
+        $short_pdcode = $short_pdcode .$short_pdsub;
+        $short_sgcode = $short_sgcode . $short_sgsub;
+    }
+
+    $t_arr = [
+        'name' => $short_name,
+        'pdcode' => $short_pdcode,
+        'sgcode' => $short_sgcode
+    ];
+
+    return $t_arr;
+}
+
 function Return_Prodcess_Gubun($model,$gicode,$stepnow){
     $gubun = '';
     $bRs = $model->Load_Instructions_NowProcess($gicode, $stepnow);
@@ -57,13 +173,23 @@ function getOrderStatusName($step) {
     }
 }
 
+function getExCodeName($type) {
+    $codes = List_ExCode();
+    return $codes[$type] ?? null;
+}
+
 
 function List_ExCode() {
-    return [
-        'type1' => '쿠팡',
-        'type2' => '옥션',
-        'type3' => '지마켓'
-    ];
+    $exCode = [];
+    $common_m = model('Common_m');
+    $Rs = $common_m->Load_Mall_List();
+    if(fn_ArrayCnt($Rs)>0) {
+        foreach ($Rs as $d) {
+            $exCode[$d['shoptyp']] = $d['shop_name'];
+        }
+    }
+
+    return $exCode;
 }
 
 function opt_Excode($select) {
@@ -441,7 +567,7 @@ function fn_LoadInstructionsInfo($model,$gicode){
             'icnt' => $d['icnt'],
             'quantity' => $d['quantity'],
             'inventory' => $d['inventory'],
-            'unit_wight' => $d['unit_wight'],
+            'unit_weight' => $d['unit_weight'],
             'step_cnt' => $d['Cnt'],
             'step_now' => $d['step_now'],
             'step_sub_now' => $d['step_sub_now'],
@@ -464,7 +590,8 @@ function fnGetProcessNameByCode($code) {
             $arr = [
                 'name' => $p['name'],
                 'typ' => $p['typ'],
-                'gubun' => $p['gubun']
+                'gubun' => $p['gubun'],
+                'loss' => $p['loss']
             ];
 
             return $arr;
@@ -490,16 +617,13 @@ function fnMake_Process_Type($cval){
 
 function fnProcess_Arr(){
     $t_arr = [
-        ['code' => 'P001', 'typ' => 1, 'gubun'=> 1, 'name' => '원료입고'],
-        ['code' => 'P002', 'typ' => 1, 'gubun'=> 2, 'name' => '세척'],
-        ['code' => 'P003', 'typ' => 1, 'gubun'=> 2, 'name' => '건조'],
-        ['code' => 'P004', 'typ' => 1, 'gubun'=> 2, 'name' => '이물검사'],
-        ['code' => 'P005', 'typ' => 1, 'gubun'=> 2, 'name' => '파쇄(조분쇄)'],
-        ['code' => 'P006', 'typ' => 1, 'gubun'=> 2, 'name' => '로스팅'],
-        ['code' => 'P007', 'typ' => 1, 'gubun'=> 2, 'name' => '전동진동채(이물제거)'],
-        ['code' => 'P008', 'typ' => 2, 'gubun'=> 2, 'name' => '삼각티백/내외포장'],
-        ['code' => 'P009', 'typ' => 1, 'gubun'=> 2, 'name' => '금속이물탐지'],
-        ['code' => 'P010', 'typ' => 2, 'gubun'=> 2, 'name' => '외포장']
+        ['code' => 'P001', 'typ' => 1, 'gubun'=> 1, 'name' => '원료입고','loss' => '0'], // gubun 은 단일/복합공정, typ 은 dbprod 에서 g혹은 EA
+        ['code' => 'P002', 'typ' => 1, 'gubun'=> 2, 'name' => '파쇄','loss' => '5'],
+        ['code' => 'P003', 'typ' => 1, 'gubun'=> 2, 'name' => '로스팅','loss' => '20'],
+        ['code' => 'P004', 'typ' => 1, 'gubun'=> 2, 'name' => '이물제거','loss' => '3'],
+        ['code' => 'P005', 'typ' => 2, 'gubun'=> 2, 'name' => '삼각티백포장','loss' => '0'],
+        ['code' => 'P006', 'typ' => 2, 'gubun'=> 2, 'name' => '내포장','loss' => '0'],
+        ['code' => 'P007', 'typ' => 2, 'gubun'=> 2, 'name' => '외포장','loss' => '0'],
     ];
 
     return $t_arr;
@@ -538,18 +662,19 @@ function fnGetProductNameByCode($code) {
 function fnProducts_Arr(){
     $t_arr = [
         ['code' => 'A001', 'name' => '원물볶음차'],
-        ['code' => 'A002', 'name' => '삼각티백차']
+        ['code' => 'A002', 'name' => '삼각티백차'],
+        ['code' => 'A003', 'name' => '농축액']
     ];
 
     return $t_arr;
 }
 
-function fnMake_Products_Type($cval){
+function fnMake_Products_Type($c_type){
     $html = '';
     $t_arr = fnProducts_Arr();
 
     foreach ($t_arr as $d) {
-        if ($cval == $d['code']) {
+        if ($c_type == $d['code']) {
             $html .= "<option value='{$d['code']}' selected>{$d['name']}</option>";
         } else {
             $html .= "<option value='{$d['code']}'>{$d['name']}</option>";
@@ -618,6 +743,10 @@ function fnMake_Code($typ,$max=''){
         $timeNow = date("Ymd");
         $rnd = mt_rand(100000, 999999);
         $newCode = 'SU'. $timeNow.$rnd;
+    } else if($typ==14){//배송코드
+        $timeNow = date("Ymd");
+        $rnd = mt_rand(100000, 999999);
+        $newCode = 'OP'. $timeNow.$rnd;
     }
 
     return $newCode;

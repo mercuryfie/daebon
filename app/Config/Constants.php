@@ -79,6 +79,7 @@ defined('EXIT__AUTO_MIN')      || define('EXIT__AUTO_MIN', 9);      // lowest au
 defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125);    // highest automatically-assigned error code
 
 define("URL_COMMON_ASSETS","/assets/web/js/common");
+define("URL_DASHBOARD_ASSETS","/assets/web/js/dashboard");
 
 $HTTPHOST = 'http://localhost:' . (PHP_SAPI === 'cli' ? '8080' : $_SERVER['SERVER_PORT']);
 if (! empty($_SERVER['HTTP_HOST'])) {

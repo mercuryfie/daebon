@@ -69,7 +69,7 @@
                                 <td class="ltTbody">12341234</td>
                                 <td class="ltTbody">12341234</td>
                                 <td class="ltTbody">우엉 혼합물</td>
-                                <td class="ltTbody">우엉 계량</td>
+                                <td class="ltTbody">우엉 원료입고</td>
                                 <td class="ltTbody">허브(농산물)</td>
                                 <td class="ltTbody">45.000g</td>
                                 <td class="ltTbody">-</td>
@@ -84,7 +84,7 @@
                                 <td class="ltTbody">12341234</td>
                                 <td class="ltTbody">12341234</td>
                                 <td class="ltTbody">우엉 혼합물</td>
-                                <td class="ltTbody">우엉 계량</td>
+                                <td class="ltTbody">우엉 원료입고</td>
                                 <td class="ltTbody">허브(농산물)</td>
                                 <td class="ltTbody">-</td>
                                 <td class="ltTbody">45.000g</td>

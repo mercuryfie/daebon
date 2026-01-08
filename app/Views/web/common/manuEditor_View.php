@@ -67,7 +67,7 @@
                                     <p class="must"></p>
                                     <p class="ttl">공정명</p>
                                     <select name="" id="" class="inputType360">
-                                        <option value="">계량</option>
+                                        <option value="">원료입고</option>
                                         <option value="">세척</option>
                                         <option value="">건조</option>
                                         <option value="">이물검사</option>
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="element element2 flexType2">
                                     <p class="title">공정 결과명</p>
-                                    <input type="search" class="inputData" placeholder="계량 완료" name="manufacturingName" >
+                                    <input type="search" class="inputData" placeholder="원료입고 완료" name="manufacturingName" >
                                 </div>
                                 <div class="element element3 flexType2">
                                     <p class="title">예상 산출량</p>

@@ -1,10 +1,7 @@
 <?= $this->extend("/web/template/layout_staff") ?>
 <?= $this->section("content") ?>
 
-<!-- js ----------------------------  -->
-<!--    <script src="--><?php //=URL_MASTER_ASSETS?><!--/burkOrderForm_Do.js?rnd=--><?php //= rand(); ?><!--"></script>-->
-<script>
-</script>
+<script src="<?=URL_COMMON_ASSETS?>/packingProcessStaff_Do.js?rnd=<?=rand();?>"> </script>
 
 <section class="mainContentStaff ">
     <div class="packing_wraptrf packingWrapStaff">
@@ -21,29 +18,20 @@
                 <div class="progress_boxatq flexType2-1">
                     <p class='title'>작업상태</p>
                     <div class="flexType2">
-                        <div class="progress flexCol2">
-                            <button class="squareType2">
-                                <i class="fa-regular fa-square-check"></i>
-                            </button>
-                            <p class="status">작업선택</p>
-                        </div>
-                        <div class="angle">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </div>
+<!--                        <div class="progress flexCol2">-->
+<!--                            <button class="squareType2">-->
+<!--                                <i class="fa-regular fa-square-check"></i>-->
+<!--                            </button>-->
+<!--                            <p class="status">작업선택</p>-->
+<!--                        </div>-->
+<!--                        <div class="angle">-->
+<!--                            <i class="fa-solid fa-angle-right"></i>-->
+<!--                        </div>-->
                         <div class="progress flexCol2">
                             <button class="squareType">
                                 <i class="fa-solid fa-print"></i>
                             </button>
-                            <p class="status">상품확인</p>
-                        </div>
-                        <div class="angle">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </div>
-                        <div class="progress flexCol2">
-                            <button class="squareType2">
-                                <i class="fa-solid fa-print"></i>
-                            </button>
-                            <p class="status">수량확인</p>
+                            <p class="status">포장중</p>
                         </div>
                         <div class="angle">
                             <i class="fa-solid fa-angle-right"></i>
@@ -61,21 +49,12 @@
                             <button class="squareType2">
                                 <i class="fa-solid fa-box-open"></i>
                             </button>
-                            <p class="status">포장</p>
-                        </div>
-                        <div class="angle">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </div>
-                        <div class="progress flexCol2">
-                            <button class="squareType2">
-                                <i class="fa-solid fa-cube"></i>
-                            </button>
-                            <p class="status">완료</p>
+                            <p class="status">포장완료</p>
                         </div>
                     </div>
 
                 </div>
-                <div class="right flexType2">
+                <div class="right flexType5-2">
                     <button type="button" class="btn80Type1 mr10" onclick="pop_waybillFormStaff();">송장<br>출력</button>
                     <button type="button" class="btn80Type1" onclick="pop_waybillFormStaff();">추가<br>출력</button>
                 </div>
@@ -150,14 +129,7 @@
                 <p class="title">포장과정 촬영</p>
                 <div class="imgBox_boxdzu flexType2">
                     <div class="planeLayer">
-                        <!--                        <div class="noir"></div>-->
-                        <img src="/assets/web/src/packing_1.png" alt="img">
-                    </div>
-                    <div class="planeLayer">
-                        <button type="button" class="closeBtn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                        <img src="/assets/web/src/packing_1.png" alt="img">
+                        <div class="noir" id="pick"></div>
                     </div>
                     <div class="dashedLayer">
                         <p class="inputArea">+</p>
@@ -165,21 +137,8 @@
                     <div class="dashedLayer">
                         <p class="inputArea">+</p>
                     </div>
-<!--                    <div class="dashedLayer">-->
-<!--                        <button type="button" class="closeBtn">-->
-<!--                            <i class="fa-solid fa-xmark"></i>-->
-<!--                        </button>-->
-<!--                        <p class="inputArea"></p> -->
-<!--                    </div>-->
-<!--                    <div class="dashedLayer">-->
-<!--                        <button type="button" class="closeBtn">-->
-<!--                            <i class="fa-solid fa-xmark"></i>-->
-<!--                        </button>-->
-<!--                        <p class="inputArea"></p> -->
-<!--                    </div>-->
                     <div class="btnBox">
-                        <button type="button" class="btn">촬영</button>
-
+                        <button type="button" class="btn" id="btn_prn">촬영</button>
                     </div>
                 </div>
                 <div class="lastBox flexType5 ">

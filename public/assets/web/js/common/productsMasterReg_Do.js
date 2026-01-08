@@ -1,13 +1,15 @@
 $(document).ready(function() {
 
+    let ct = $('#txt_category').data('ct');
+    let code = $('#txt_gname').data('code');
+    let gname = $('#txt_gname').text();
+    Set_BomProcess(ct, gname);
+
     $(document).on('click','#btn_confirm', async function () {
-        let gscode = $('#gscode').val();
+        let gscode = $('#txt_gname').data('code');
         let Quantity = $('#Quantity').val();
 
-        if (gscode == '') {
-            $('#category').focus();
-            Make_Toast('제품을 검색하세요. ');
-        }else if(Quantity==''){
+        if (Quantity==''){
             $('#Quantity').focus();
             Make_Toast('제품 지시수량을 입력하세요.');
         } else {
@@ -37,7 +39,6 @@ $(document).ready(function() {
                     let ptype = $(this).find('select[name="ptype"]').val();
                     if(ptype!='') {
                         let stepNum = $(this).find('input[name="stepNum"]').val();
-
                         let pname = $(this).find('input[name="processname"]').val();
                         let minput = $(this).find('input[name="material_input"]').val();
                         let moutput = $(this).find('input[name="material_output"]').val();
@@ -133,18 +134,26 @@ $(document).ready(function() {
     /* 제품등록>제품bom>공정 박스 end  */
 
     $(document).on('change','select[name="ptype"]',function(){
-        let pname = $('#gname').val();
-        if(pname==''){
-            Make_Toast('제품을 검색하세요.');
-        }else{
-            let stxt = $(this).find('option:selected').text();
-            let new_pname = pname + ' - ' + stxt;
-            let styp = $(this).find('option:selected').data('type');
-            let unit = (styp=='1') ? 'g' : 'ea';
-            $(this).parent().parent().parent().find('[name="unit_input"]').html(unit);
-            $(this).parent().parent().parent().find('[name="unit_output"]').html(unit);
-            $(this).parent().parent().find('[name="processname"]').val(new_pname);
-        }
+        let pname = $('#txt_gname').text();
+        let stxt = $(this).find('option:selected').text();
+        let new_pname = pname + ' - ' + stxt;
+        let styp = $(this).find('option:selected').data('type');
+        let unit = (styp=='1') ? 'g' : 'ea';
+        $(this).parent().parent().parent().find('[name="unit_input"]').html(unit);
+        $(this).parent().parent().parent().find('[name="unit_output"]').html(unit);
+        $(this).parent().parent().find('[name="processname"]').val(new_pname);
+
+        // if(pname==''){
+        //     Make_Toast('제품을 검색하세요.');
+        // }else{
+        //     let stxt = $(this).find('option:selected').text();
+        //     let new_pname = pname + ' - ' + stxt;
+        //     let styp = $(this).find('option:selected').data('type');
+        //     let unit = (styp=='1') ? 'g' : 'ea';
+        //     $(this).parent().parent().parent().find('[name="unit_input"]').html(unit);
+        //     $(this).parent().parent().parent().find('[name="unit_output"]').html(unit);
+        //     $(this).parent().parent().find('[name="processname"]').val(new_pname);
+        // }
     });
 
     // front js start
@@ -270,7 +279,7 @@ $(document).ready(function() {
         $('#gname').val(gsname);
         $('#txt_search').val(gsname);
         $('#txt_category').text(fnGetProductNameByCode(category));
-        $('#txt_Inventory').text(number_format(inventory)+'개');
+        $('#txt_inventory').text(number_format(inventory)+'개');
         $('#txt_unitwight').text(unitwight+'g');
         $('#Quantity').focus();
     });
@@ -283,7 +292,7 @@ $(document).ready(function() {
         let mtcode = $(this).data('mtcode');
         let mtname = $(this).data('mtname');
         if((mtcode=='') || (mtname=='')){
-            Make_Toast('잘못된 접근입니다.');
+            Make_Toast('2잘못된 접근입니다.');
         }else{
             $('#addproduct').data('mtcode',mtcode);
             $('#addproduct').data('mtname',mtname);
@@ -293,10 +302,17 @@ $(document).ready(function() {
         }
     });
 
+    //asdf
     $('#addproduct').on('click',function(){
         let mtcode = $(this).data('mtcode');
         let mtname = $(this).data('mtname');
+        let m_wgt = $('#txt_product_num').val();
+
+
+        console.log('무게:', m_wgt);
+
         Set_Material(mtcode,mtname);
+        Set_Method_Weight(m_wgt);
     });
 
     $('#txt_product_num').on('keydown', function (e) {
@@ -304,7 +320,12 @@ $(document).ready(function() {
             e.preventDefault(); // 폼 submit 등 기본 동작 방지
             let mtcode = $('#addproduct').data('mtcode');
             let mtname = $('#addproduct').data('mtname');
+            let mtcnt = $('#txt_product_num').val();
             Set_Material(mtcode,mtname);
+            Set_Method_Weight(mtcnt);
+
+
+
         }
     });
 
@@ -332,11 +353,28 @@ $(document).ready(function() {
 let isSearching = false;
 let isMaterial = false;
 
-function Set_Material(mtcode,mtname){
+
+
+function Check_Material(mtcode, mtname, mtcnt) {
+
+    if ((mtcode=='') || (mtname=='') || (mtcnt=='')) {
+        Make_Toast('잘못된 접근입니다22.');
+        return
+    } else {
+        $('#add_material').find('div[name="add_product_info"]').length > 0;
+        Make_Toast('원재료는 1개만 추가입니다.');
+    }
+
+    // return $('#add_material').find('.productTag').length > 0;
+}
+
+function Set_Material(mtcode, mtname){
     let mtcnt = $('#txt_product_num').val();
-    if((mtcode=='') || (mtname=='') || (mtcnt=='')) {
-        Make_Toast('잘못된 접근입니다.');
-    }else {
+    let ifMate = $('#add_material').find('.productTag[name="add_product_info"]');
+
+    if ((mtcode=='') || (mtname=='') || (mtcnt=='')) {
+        Make_Toast('원재료 정보를 모두 입력하십시오.');
+    } else {
         let html = `
                 <div class="productTag  flexType3" name="add_product_info" data-code="${mtcode}">
                     <div class="flexType2">
@@ -351,6 +389,8 @@ function Set_Material(mtcode,mtname){
         $('#addproduct').data('mtname','');
         $('#txt_product').val('');
         $('#txt_product_num').val('');
+
+        return mtcnt;
     }
 }
 
@@ -396,11 +436,11 @@ function doSearch() {
     }
 }
 
-
 async function Material_Data_Load(skey){
     try {
         start_spinner();
-        let dataarr = {"key" : skey};
+        let data = {'skey' : skey};
+        let dataarr = {"data" : data};
         let url = APIURL + '/Load_MaterialList';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
@@ -470,12 +510,6 @@ async function Data_Load(skey){
     }
 }
 
-
-
-
-
-
-
 async function Input_product(info,step){
     let arr = {};
     try {
@@ -505,3 +539,102 @@ function resetStepNum() {
     });
 }
 
+
+function bindRoastEvents($template) {
+    // 삭제 버튼 이벤트
+    $template.find('[name="removeThisRoast"]').on('click', function() {
+        $(this).closest('.oneRoast').remove();
+    });
+
+    // 부자재 추가 버튼
+    $template.find('[name="addCover"]').on('click', function() {
+        // 부자재 추가 로직
+    });
+
+    // 부자재 삭제 버튼
+    $template.find('[name="removeCover"]').on('click', function() {
+        // 부자재 삭제 로직
+    });
+}
+
+//
+function Set_BomProcess(ct, gname) {
+
+    const p_arr = fnProcess_Arr();
+    let typ0 = p_arr[0] // 원료
+    let typ1 = p_arr[1]; // 파쇄
+    let typ2 = p_arr[2]; // 로스팅
+    let typ3 = p_arr[3]; // 이물제거
+    let typ4 = p_arr[4]; // 삼각티백포장
+    let typ6 = p_arr[6]; //외포장
+
+    let types;
+    if (ct == 'A001') {
+        types = [typ0, typ2, typ3, typ6];  // 0,3,4,10
+    } else {
+        types = [typ0, typ2, typ1, typ3, typ4, typ6];  // 0,3,5,10
+    }
+    const $roastBox = $('#roastBox');
+    const $baseTemplate = $('div[name="oneRoast"]').first();
+    const $xIcon = $('div[name="oneRoast"]').find('.removeRoasting');
+
+    $baseTemplate.hide();
+
+    let html = '';
+    $roastBox.find('.oneRoastClone').remove();
+    $roastBox.children().find('.removeRoasting').hide();
+    let i = 1;
+    types.forEach((typ, idx) => {
+        $roastBox.find().first().hide();
+        let $template = $baseTemplate.clone().show();
+
+        $template.find('div[name="oneRoast"]').data('loss',typ.loss);
+        $template.find('select[name="ptype"]').val(typ.code);
+        $template.find('select[name="ptype"]').data('code',typ.code);
+        $template.find('select[name="ptype"]').data('loss',typ.loss);
+        let codeqq = $template.find('select[name="ptype"]').data('code',typ.code);
+        $template.find('input[name="processname"]').val(gname + ' - ' + typ.name);
+        $template.find('input[name="stepNum"]').val(i);
+        i++;
+
+        console.log(idx);
+        if (idx === 0) {
+            console.log('bello1817');
+            $template.find('.removeRoasting').hide();
+        } else {
+            $template.find('.removeRoasting').show();
+        }
+
+        $('#roastBox').append($template);
+
+    });
+    $('div[name="oneRoast"]').addClass('active');
+
+}
+
+function Set_Method_Weight(master_weight){
+    const container = $('#roastBox');
+
+    let loss = 0;
+    let material_input = 0;
+    let material_output = 0;
+    let now_weight = 0;
+    let calc_weight1  = 0;
+    let calc_weight2  = 0;
+    now_weight = parseInt(master_weight);
+    container.find('div[name="oneRoast"]').each(function () {
+        loss = $(this).find('select[name="ptype"]').data('loss');
+        if(loss!=''){
+            material_input = $(this).find('input[name="material_input"]').val();
+            material_input = material_input ? parseInt(material_input) : 0;
+            material_output = $(this).find('input[name="material_output"]').val();
+            material_output = material_output ? parseInt(material_output) : 0;
+            calc_weight1 = material_input + now_weight;
+            calc_weight2 = material_input + fn_calculateNetWeight(now_weight,loss);
+
+            $(this).find('input[name="material_input"]').val(parseInt(calc_weight1));
+            $(this).find('input[name="material_output"]').val(parseInt(calc_weight2));
+            now_weight = calc_weight2;
+        }
+    });
+}

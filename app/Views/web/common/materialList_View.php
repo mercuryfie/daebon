@@ -32,8 +32,8 @@
                         <option value="1">원재료</option>
                         <option value="2">부자재</option>
                     </select>
-                    <input type="file" id="attachExcel" name="attachExcel" accept=".xlsx,.xls" style="display:none;">
-                    <button type="button" class="btnType1 mr10" id="execlUp" name="execlUp" onclick="">엑셀업로드</button>
+<!--                    <input type="file" id="attachExcel" name="attachExcel" accept=".xlsx,.xls" style="display:none;">-->
+                    <button type="button" class="btnType1 mr10" id="excelPop" name="excelPop" onclick="">엑셀업로드</button>
                     <!--                        <button type="button" class="btnType1">엑셀다운로드</button>-->
                 </div>
             </div>
@@ -66,6 +66,6 @@
 </section>
 
 <?= $this->include('/web/include/pop_UploadXlx_View'); ?>
-<?= $this->include('/web/include/pop_AddMaterial_View',$main); ?>
+<?= $this->include('/web/include/pop_AddMaterial_View',$body); ?>
 <?= $this->endSection() ?>
 

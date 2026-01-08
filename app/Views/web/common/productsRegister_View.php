@@ -34,7 +34,7 @@
                     </div>
                     <div class="element flexType2">
                         <p class="must"></p>
-                        <p class="title">기본수량</p>
+                        <p class="title">지시수량</p>
                         <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="goodsQuantity" id="goodsQuantity">
                     </div>
                     <div class="element flexType2">

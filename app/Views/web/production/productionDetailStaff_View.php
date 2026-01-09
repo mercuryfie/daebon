@@ -3,19 +3,19 @@
 <!-- js ----------------------------  -->
 <script src="<?=URL_COMMON_ASSETS?>/productionDetailStaff_Do.js?rnd=<?=rand();?>"> </script>
 
-<section class="mainContentStaff mainContentStaff2">
+<section class="mainContentStaff mainContentStaff2 ">
     <input type="hidden" id="gicode" name="gicode" value="<?=$body['gicode'];?>" />
     <input type="hidden" id="prcode" name="prcode" value="<?=$body['prcode'];?>" />
     <input type="hidden" id="gubun" name="gubun" value="<?=$body['info']['ptype']['gubun'];?>" />
     <input type="hidden" id="ptyp" name="ptyp" value="<?=$body['info']['ptype']['typ'];?>" />
     <input type="hidden" id="unit_weight" name="unit_weight" value="<?=$body['info']['unit_weight'];?>" />
-    <div class="goods_boxfv6 ">
+    <div class="prod_status_wrap">
         <div class="area area1 flexType3">
             <div class="detailTitleBox producing_boxr8j">
                 <p class="headTitle ">
                     생산현황 상세
                 </p>
-                <input type="search" class="inputType520 " placeholder="무게를 측정하세요." name="incode" id="incode" autofocus>
+                <input type="search" class="searchArea " placeholder="무게를 측정하세요." name="incode" id="incode" autofocus>
             </div>
         <?if($body['info']['btype']==1){?>
             <div class="trackBox flexType1">
@@ -29,7 +29,7 @@
             </div>
         <?}?>
         </div>
-        <div class="areaBoxStaff areaBoxStaff2 area_boxg4q production_boxu10">
+        <div class="area area2 ">
             <div class="upside flexType4 mt10 ml10">
                 <div class="left">
                     <div class="element flexType2">
@@ -74,7 +74,7 @@
                     </div>
                     <div class="table_boxqqq flexType4">
                         <div class="leftArea">
-                            <p class="title mt10">무게</p>
+                            <p class="title ">무게</p>
                         </div>
                         <table class="weight_tablevufb ">
                             <thead>
@@ -111,19 +111,32 @@
 
                 </div>
             </div>
-            <div class="memo_boxb5h mt10 ml10 flexType4">
-                <p class="title">레시피</p>
-                <textarea name="" id="" cols="" rows="" readonly placeholder=""><?=$body['info']['method'];?></textarea>
-            </div>
-            <div class="submitBox flexType5-1 ">
-                <div class="right flexType2">
-                    <button type="button" class="btn80Type1 mr10" onclick="go_productionListStaff();">이전</button>
-                    <?if($body['info']['btype']==1){?>
+<!--            <div class="area area3 memo_boxb5h mt10 ml10 flexType4">-->
+<!--                <p class="title">레시피</p>-->
+<!--                <textarea name="" id="" cols="" rows="" readonly placeholder="">--><?php //=$body['info']['method'];?><!--</textarea>-->
+<!--            </div>-->
+<!--            <div class="area area4 submitBox flexType5-2 ">-->
+<!--                <div class="right flexType2">-->
+<!--                    <button type="button" class="btn80Type3 mr10" onclick="go_productionListStaff();">이전</button>-->
+<!--                    --><?//if($body['info']['btype']==1){?>
+<!--                    <button type="button" class="btn80Type3 active" id="btn_confirm">시작</button>-->
+<!--                    --><?//}else{?>
+<!--                    <button type="button" class="btn80Type3 active" id="btn_confirm">완료</button>-->
+<!--                    --><?//}?>
+<!--                </div>-->
+<!--            </div>-->
+        </div><div class="area area3 memo_boxb5h mt10 ml10 flexType4">
+            <p class="title">공정방법</p>
+            <textarea name="" id="" cols="" rows="" readonly placeholder="Recipe for this product"><?=$body['info']['method'];?></textarea>
+        </div>
+        <div class="area area4 submitBox flexType5-2 ">
+            <div class="right flexType2">
+                <button type="button" class="btn80Type3 mr10" onclick="go_productionListStaff();">이전</button>
+                <?if($body['info']['btype']==1){?>
                     <button type="button" class="btn80Type3 active" id="btn_confirm">시작</button>
-                    <?}else{?>
+                <?}else{?>
                     <button type="button" class="btn80Type3 active" id="btn_confirm">완료</button>
-                    <?}?>
-                </div>
+                <?}?>
             </div>
         </div>
     </div>

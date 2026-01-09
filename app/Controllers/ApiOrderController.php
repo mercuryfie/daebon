@@ -17,6 +17,42 @@ class ApiOrderController extends BaseController
         $this->Check_Auth($Auth);
     }
 
+    public function Put_Order_Info()
+    {
+        $sessinarr = $this->GetSessionData();
+        $orcode  = ($this->request->getPost('code') == '') ? '' : $this->request->getPost('code');
+        $param = $this->request->getPost('param') ?? [];
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else if((fn_ArrayCnt($param)<=0) || ($orcode=='')){
+            $result = 'Error003';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else {
+            $order_m = model('Order_m');
+            $Cnt = $order_m->Update_Order_Info2($orcode,$param);
+
+            $result = 'ok';
+            $data = [];
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
+
     public function Load_Packing_Data()
     {
         $sessinarr = $this->GetSessionData();
@@ -279,6 +315,67 @@ class ApiOrderController extends BaseController
         'result' => $result,
         'info' => $data,
         'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Insert_Delivery_Info()
+    {
+        $sessinarr = $this->GetSessionData();
+        $code = ($this->request->getPost('code')=='') ? '' :  $this->request->getPost('code');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if($code==''){
+            $result = 'Error001';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $bool = false;
+            $order_m = model('Order_m');
+            $Rs = $order_m->Load_Order_Info($code);
+            if(fn_ArrayCnt($Rs)<=0){
+                $result = 'Error003';
+                $data = [];
+                $message = '존재하지 않는 주문정보입니다.';
+            }else if($Rs[0]['orstep']==1) {
+                $result = 'Error004';
+                $data = [];
+                $message = '이미 포장지시완료 된 주문정보입니다.';
+            }else{
+                $newcode = fnMake_Code(14);
+                $deli_info = [
+                    'opcode' => $newcode
+                ];
+                $Cnt = $order_m->Insert_Order_delivery_Info2($deli_info);
+
+                $package_info = [
+                    'fk_opcode' => $newcode,
+                    'fk_orcode' => $code
+                ];
+                $Cnt = $order_m->Insert_Order_Package_Info2($package_info);
+
+                $param = ['orstep' => 1];
+                $Cnt = $order_m->Update_Order_Info2($code, $param);
+
+                $retval = get_Order_Delivery_Info($order_m, $code);
+
+                $i_arr = ['list' => $retval];
+                $result = 'ok';
+                $data = $i_arr;
+                $message = '';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
         ];
         return $this->respond($return);
     }

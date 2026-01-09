@@ -176,6 +176,16 @@ class Order_m extends Model
         return $affected;
     }
 
+    public function Insert_Order_Package_Info2($param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_order_package');
+        $builder->insert($param);
+        $insertID = $this->db->insertID();
+        $this->db->transComplete();
+
+        return $insertID;
+    }
+
     public function Update_Order_Info($codes,$param){
         $this->db->transStart();
         $builder = $this->db->table('tbl_order');
@@ -197,4 +207,17 @@ class Order_m extends Model
 
         return $affected_rows;
     }
+    public function Update_Order_Info2($codes,$param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_order');
+        $builder->where('orcode', $codes);
+        $builder->update($param);
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+
+
 }

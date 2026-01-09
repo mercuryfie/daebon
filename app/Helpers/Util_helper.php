@@ -62,7 +62,6 @@ function Check_Token($sessinarr):bool
             $token = str_replace('Bearer ', '', $token);
             $auth = new Auth();
             $key = $auth->Open_Key($token);
-
             $uid = $sessinarr['user']['uid'];
             $member_m = model('Member_m');
             $mRs = $member_m->Load_UserInfo_Uid($uid);

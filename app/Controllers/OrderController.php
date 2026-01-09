@@ -30,8 +30,6 @@ class OrderController extends BaseController
 
             $main_data = [];
 
-//            echo('cc='.get_cookie(COOKIE_KEY));
-
             $form = new Form;
             $main_data = [
                 'meta' => $form->fnMake_Meta($metaarr),
@@ -301,22 +299,33 @@ class OrderController extends BaseController
     public function addDeliForm()
     {
         $sessinarr = $this->GetSessionData();
+        $orcode  = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
+        }else if($orcode==''){
+            fn_AlertClose('잘못된 접근입니다.');
         }else {
             $metaarr = [
                 'h_title' => H_TITLE,
                 'h_type' => 1
             ];
 
-            $main_data = [];
+            $order_m = model('Order_m');
+            $info = $order_m->Load_Order_Info($orcode);
+            $product = $order_m->Load_Order_Product($orcode);
+
+            $main_data = [
+                'orcode' => $orcode,
+                'info' => $info[0],
+                'product' => $product
+            ];
 
             $form = new Form;
             $main_data = [
                 'meta' => $form->fnMake_Meta($metaarr),
                 'header' => $form->fnMake_Header($sessinarr),
                 'left' => $form->fnMake_Left(),
-                'main' => $main_data,
+                'body' => $main_data,
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 

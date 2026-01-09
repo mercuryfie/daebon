@@ -4,14 +4,6 @@ $(document).ready(function() {
         $('#uploadExcel').css('display','none');
     });
 
-
-    // $('button[name="add_deli_btn"]').click(function () {
-    //     let odcode = $('#ordercode').text();
-    //     console.log('dawn1636',odcode);
-    //     add_deliForm(odcode);
-    // });
-
-
     $('#addPQueue #Xbtn, #addPQueue #Xbtn2').click(function () {
         $('#addPQueue').css('display','none');
     });
@@ -119,7 +111,7 @@ $(document).ready(function() {
                 console.log(arr);
                 $.each(arr, function(index, item) {
                     $('#ck_' + item.orcode).html('');
-                    $('#bu_' + item.orcode).html('<button type="button" class="btnType3">지시완료</button>');
+                    $('#bu_' + item.orcode).html(`<button type="button" class="btnType3" onclick="add_packingQueue('${item.orcode}',2);">지시완료</button>`);
                     $('#da_' + item.orcode).text(item.indate);
                 });
             }
@@ -143,10 +135,10 @@ async function Make_Html(param){
             let subhtml2 = '';
             if(el.orstep==0) {
                 subhtml1 = `<input type="checkbox" name="chkorder" value="${el.orcode}">`;
-                subhtml2 = `<button type="button" class="btnType3" onclick="add_packingQueue('${el.orcode}');">지시대기</button> `;
+                subhtml2 = `<button type="button" class="btnType3" onclick="add_packingQueue('${el.orcode}',1);">지시대기</button>`;
             }else{
                 subhtml1 = '';
-                subhtml2 = `<button type="button" class="btnType3">지시완료</button> `;
+                subhtml2 = `<button type="button" class="btnType3" onclick="add_packingQueue('${el.orcode}',2);">지시완료</button>`;
             }
 
             html +=`
@@ -182,10 +174,8 @@ function upload_Xlx() {
 
 
 
-async function add_packingQueue(orcode) {
+async function add_packingQueue(orcode,typ) {
     let data= await Load_Delivery(orcode);
-    console.log('dawn1626',orcode);
-    console.log('dawn1626',data);
     if(isEmptyData(data)){
         Make_Toast('주문정보가 확인되지 않습니다.');
     }else{
@@ -202,43 +192,6 @@ async function add_packingQueue(orcode) {
         $('#addPQueue').css('display','block');
     }
 }
-
-// async function add_deliForm() {
-//     let odcode = $('#ordercode').text();
-//     console.log('dawn1646',odcode);
-//
-//     if(isEmptyData(odcode)){
-//         Make_Toast('주문정보가 확인되지 않습니다.');
-//     }else {
-//         AddDeliForm_ini();
-//         let arr = await Load_Delivery(odcode);
-//         console.log('dawn1653',arr);
-//         console.log('dawn1654',arr);
-//         let html = '';
-//         if(!fn_IsEmpty(arr)) {
-//             $.each(arr, function (index, el) {
-//
-//                 html +=`
-//                     <tr>
-//                         <td class="row row1">${el.p_name}</td>
-//                         <td class="row row1">-</td>
-//                         <td class="row row2" colspan="3">-</td>
-//                         <td class="row row3">-</td>
-//                         <td class="row row4">-</td>
-//                         <td class="row row5">-</td>
-//
-//                     </tr>
-//                 `;
-//             });
-//             $('#iList').empty();
-//             $('#iList').append(html);
-//         }
-//     }
-// }
-
-// function AddDeliForm_ini() {
-//     $('#add_deli_table td').text('');
-// }
 
 function Packing_ini(){
     $('#ordercode').text('');

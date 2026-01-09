@@ -53,8 +53,17 @@ class MemberController extends BaseController
     {
         $session = service('session');
         $session->remove(SESSION_KEY);
+        $session->destroy();
         delete_cookie(COOKIE_KEY, CK_DOMAIN, '/');
 
-        return redirect()->to('/');
+        //return redirect()->to('/');
+        //return '';
+        $response = service('response');
+        $response->setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->setHeader('Pragma', 'no-cache')
+            ->setHeader('Expires', '0')
+            ->redirect('/member/login');
+
+        return $response;
     }
 }

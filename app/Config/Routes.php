@@ -142,6 +142,8 @@ $routes->match(['GET', 'POST'], 'Api/Load_Order_Info', 'ApiOrderController::Load
 $routes->match(['GET', 'POST'], 'Api/Put_Delivery_Info', 'ApiOrderController::Put_Delivery_Info');
 $routes->match(['GET', 'POST'], 'Api/Put_Package_Info', 'ApiOrderController::Put_Package_Info');
 $routes->match(['GET', 'POST'], 'Api/Load_Packing_Data', 'ApiOrderController::Load_Packing_Data');
+$routes->match(['GET', 'POST'], 'Api/Put_Order_Info', 'ApiOrderController::Put_Order_Info');
+$routes->match(['GET', 'POST'], 'Api/Insert_Delivery_Info', 'ApiOrderController::Insert_Delivery_Info');
 
 
 $routes->match(['GET', 'POST'], 'Api/coupong_api_no1', 'ApiShopController::coupong_api_GetOrderPeriod');

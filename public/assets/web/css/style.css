@@ -4501,33 +4501,35 @@ input[type="radio"] {
 /* pop add category2 end -------------------------------- */
 /* pop_AddDeliForm_View start -------------------------------- */
 
-.odDeli_boxfxp {
+.add_deli_wrap {
     /*margin: 0 auto;*/
     margin: 20px 40px 20px 20px;
 }
 
-.odDeli_boxfxp table {
+.add_deli_tbl {
     /*border:1px solid #000;*/
     border-collapse: collapse;
     text-align: center;
-    /*width: 800px;*/
-    width: 680px;
+    width: 90vw;
+    /*margin: 20px;*/
 }
 
-.odDeli_boxfxp .add_deli_tbl .headTr {
-    border:1px solid mediumpurple;
+ .add_deli_tbl td {
+    padding: 0 10px;
+}
+
+ .add_deli_tbl .headTr {
     height: 60px;
     font-size: 22px;
     font-weight: 600;
     /*color:red;*/
 }
 
-.odDeli_boxfxp .add_deli_tbl .barTd {
+ .add_deli_tbl .barTd {
     /*margin: 0 auto !important;*/
 }
 
-.odDeli_boxfxp .add_deli_tbl .barcodeBox {
-    border:1px solid mediumpurple;
+ .add_deli_tbl .barcodeBox {
     /*width: 280px;*/
     /*height: 60px;*/
     width: 100%;
@@ -4535,14 +4537,13 @@ input[type="radio"] {
     padding: 5px 0;
 }
 
-.odDeli_boxfxp .add_deli_tbl .barcodeArea {
-    border:1px solid mediumpurple;
+ .add_deli_tbl .barcodeArea {
     width: 240px;
     height: 40px;
 
 }
 
-.odDeli_boxfxp .add_deli_tbl .text {
+ .add_deli_tbl .text {
     margin-top: 2px;
     height: 24px;
     line-height: 24px;
@@ -4550,14 +4551,18 @@ input[type="radio"] {
 }
 
 
-.odDeli_boxfxp .add_deli_tbl .bdNone {
+ .add_deli_tbl .border_none {
     border:none;
     height: 10px;
 
 }
 
-.odDeli_boxfxp .keyCol,
-.odDeli_boxfxp .row {
+.add_deli_tbl .subTitle {
+    border:1px solid #000;
+
+}
+.add_deli_tbl .keyCol,
+.add_deli_tbl .row {
     border:1px solid #000;
     height: 32px;
     line-height: 32px;
@@ -4565,31 +4570,35 @@ input[type="radio"] {
 
 }
 
-.odDeli_boxfxp .row {
+.add_deli_tbl .row {
     width: 40px;
 }
-.odDeli_boxfxp .headTitle {
+.add_deli_tbl .headTitle {
     font-weight: 500;
     font-size: 22px;
     width: 50%;
 }
 
-.odDeli_boxfxp .subTitle {
+.add_deli_tbl .subTitle {
     height: 40px;
     /*border-top: 2px solid #000;*/
     /*border-bottom: 2px solid #000;*/
     /*border:1px solid #000;*/
     text-align: left;
     /*padding-left: 10px;*/
-
     font-weight: 500;
 }
 
-.odDeli_boxfxp .cat1 {
+.add_deli_tbl .cat1 {
     width: 20%;
 }
-.odDeli_boxfxp .data1 {
+.add_deli_tbl .data1 {
     width: 30%;
+}
+
+.add_deli_contents .btnBox {
+    margin-top: 100px;
+    width: 90vw;
 }
 
 
@@ -5485,6 +5494,7 @@ input[type="radio"] {
         margin: 10mm;
     }
 
+    /*pop_InstructionForm_View start*/
 
     .odRoast_boxfxp {
         max-width: 100%;
@@ -5573,6 +5583,8 @@ input[type="radio"] {
         font-weight: bold;
     }
 
+    /*pop_InstructionForm_View start*/
+
 
     /*pop_QualityReport_View print start */
 
@@ -5615,5 +5627,43 @@ input[type="radio"] {
         font-weight: 600;
 
     }
+
+    /*pop_QualityReport_View print end */
+    /*pop_AddDeliForm_View print start */
+
+    .add_deli_wrap {
+        width: 80vw;
+        border:1px solid blue;
+        color:blue;
+    }
+
+    .add_deli_tbl {
+        margin: 20px 0;
+        /*padding: 0;*/
+        border:1px solid red;
+        /*width: 20%;*/
+        /*width: 50% !important;*/
+        width: 540px;
+        border-collapse: collapse;
+        color:green;
+        /*color:red;*/
+    }
+
+    .add_deli_tbl tbody .border_none {
+        border:none;
+        height: 10px;
+
+    }
+
+    .add_deli_tbl .subTitle {
+        border:1px solid #000;
+
+    }
+
+    .add_deli_tbl td {
+        border:1px solid #000;
+    }
+    /*pop_AddDeliForm_View print end */
+
 
 }

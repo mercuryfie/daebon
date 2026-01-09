@@ -437,45 +437,66 @@ main {
     justify-content: center;
 
 }
+
 .GaugeMeter3 {
     height: 110px;
-    margin-right: 10px;
-    margin-left: 10px;
+    /*margin-right: 10px;*/
+    /*margin-left: 10px;*/
     position: Relative;
     text-align: Center;
     overflow: Hidden;
 
 }
 
+.GaugeMeter3 canvas {
+    position: absolute;
+    top:0;
+    left:0;
+    /*width: 75px;*/
+    /*height: 75px;*/
+
+}
+
 .GaugeMeter3 span  {
     background-color: transparent;
-    font-family:'Chakra Petch' !important;
+    /*font-family:'Chakra Petch', 'Gmarket Sans' !important;*/
+    font-family: 'chakra petch', 'Electrolize', 'Gmarket Sans' ;
     font-size: 22px !important;
     font-weight: 500;
+    text-align: center;
+
 
 }
 
 .GaugeMeter3 b  {
+    width: 72px;
+    height: 32px;
     position: absolute;
     top:20px;
     left:0px;
+    /*left:50%;*/
+    /*transform: translateX(-50%);*/
     background-color: transparent;
-    font-size: 16px;
     font-weight: normal;
-}
-
-.GaugeMeter3 SPAN,
-.GaugeMeter3 B  {
-    margin: 0 10%;
-    width: 78%;
-
     text-align: center;
-    position: Absolute;
-    display: Inline-Block;
-    overflow: Hidden;
-    white-space: NoWrap;
-    z-index: 1;
+    font-size: 14px;
 }
+
+/*.GaugeMeter3 SPAN,*/
+/*.GaugeMeter3 B  {*/
+/*    border:1px solid blue;*/
+/*    margin: 0 10%;*/
+/*    width: 80%;*/
+/*    text-align: center;*/
+/*    position: Absolute;*/
+/*    !*display: Inline-Block;*!*/
+/*    overflow: Hidden;*/
+/*    !*white-space: NoWrap;*!*/
+/*    text-wrap: nowrap;*/
+/*    z-index: 1;*/
+/*    font-size: 14px;*/
+/*}*/
+
 .line1-1 {
     border-radius: 5px;
     width: 40px;
@@ -511,6 +532,10 @@ main {
     height: 200px;
 }
 
+.downside .GaugeMeter3 {
+
+}
+
 .mbox2-1 {
     display: flex;
     width: 920px;
@@ -530,7 +555,6 @@ main {
     width: 420px;
     height: 200px;
     overflow: hidden;
-    /*margin-bottom: 10px;*/
 
 }
 /* 예비조제 주문현황 */
@@ -548,12 +572,13 @@ main {
 
 .leftbox {
     width: 360px;
-    height: 80px;
+    height: 110px;
     display: flex;
     position: relative;
     justify-content: flex-start;
-    margin-top: 30px;
-    margin-left: 10px;
+    margin-top: 10px;
+    margin-left: 20px;
+
 }
 
 .rightbox .gaugapapa,
@@ -561,97 +586,17 @@ main {
     margin-right: 30px;
 }
 
-.GaugeMeter7 {
-    height: 110px;
-    margin-right: 0px;
-    margin-left: 0px;
-    position: Relative;
-    text-align: Center;
-    overflow: Hidden;
-}
-
-.GaugeMeter7 span  {
-    background-color: transparent;
-    font-size: 18px !important;
-    font-weight: bold;
-}
-
-.GaugeMeter7 B  {
-    position: absolute;
-    top:25px;
-    left:0px;
-    background-color: transparent;
-    color:#fff !important;
-    font-size: 16px;
-    font-weight: normal;
-}
-
-.GaugeMeter7 SPAN,
-.GaugeMeter7 B {
-    margin: 0 10%;
-    width: 78%;
-    font-family:'Chakra Petch';
-    position: Absolute;
-    text-align: Center;
-    display: Inline-Block;
-    overflow: Hidden;
-    white-space: NoWrap;
-    z-index: 1;
-}
 
 /*예비조제주문현황*/
 .rightbox {
     width: 420px;
-    height: 80px;
+    height: 110px;
     display: flex;
     position: relative;
     justify-content: flex-start;
-    margin-top: 30px;
-    margin-left: 30px;
+    margin-top: 10px;
+    margin-left: 20px;
 
-}
-.GaugeMeter8 {
-    height: 110px;
-    margin-right: 10px;
-    margin-left: 0px;
-    position: Relative;
-    text-align: Center;
-    overflow: Hidden;
-}
-
-.GaugeMeter8 span  {
-    background-color: transparent;
-    font-size: 18px !important;
-    font-weight: bold;
-
-}
-.GaugeMeter8 label {
-    width: 80px; /* 또는 필요한 너비 */
-    text-align: center;
-    display: inline-block;
-}
-
-.GaugeMeter8 B  {
-    position: absolute;
-    top:25px;
-    left:0px;
-    background-color: transparent;
-    color:#fff;
-    font-size: 16px;
-    font-weight: normal;
-    margin: 0 auto !important;
-    width: 100% !important;
-}
-.GaugeMeter8 SPAN,
-.GaugeMeter8 B {
-    margin: 0 10%;
-    width: 78%;
-    font-family:'Chakra Petch';
-    position: Absolute;
-    display: Inline-Block;
-    overflow: Hidden;
-    white-space: NoWrap;
-    z-index: 1;
 }
 
 /* 전체 진척도 */
@@ -981,22 +926,16 @@ main {
     transform: translateX(-50%);
 
 }
-.mbox3-1 .status {
+
+.mbox3-1 .area2 {
+    width: 400px;
     position: absolute;
     top:60px;
-    left: 40px;
-
-}
-/* weekly의 pagebox */
-.mbox3-1 .pagebox {
-    position: absolute;
-    bottom:10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
+    left: 20px;
 }
 
 .weeklyul {
+
     width: 200px;
     height: 50px;
     position: absolute;
@@ -1004,28 +943,33 @@ main {
     left:20px;
     overflow: hidden;
 }
+
 .weeklyul>li {
     font-weight: bold;
     font-size: 18px;
     display: block;
 }
+
 .weeklyul>li:nth-child(2) {
     position: absolute;
     top:50px;
     left:-10px;
 }
+
 .counterul {
     width: 100px;
     height: 45px;
-    margin-top: 12px;
-    margin-left: 340px;
+    /*margin-top: 12px;*/
+    /*margin-left: 340px;*/
     /* position: absolute;
     top:12px;
     right: 20px; */
+
     overflow: hidden;
 }
+
 .counterul>li {
-    font-family: 'chakra petch';
+    font-family: 'chakra petch', 'Electrolize', 'Gmarket Sans';
     text-align: center;
     font-size: 42px;
     font-weight: 400;
@@ -1078,6 +1022,7 @@ main {
     width: 420px;
     height: 300px;
 }
+
 .clockbox1-1,
 .clockbox1-2,
 .clockbox1-3 {
@@ -1132,7 +1077,8 @@ main {
     transform-style: preserve-3d;
     perspective: 1000px;
 }
-.gear {
+
+.flipper .gear {
     position: absolute;
     top: calc(var(--clockheight) / 2.5);
     width: 5px;
@@ -1153,18 +1099,21 @@ main {
     transform: translateZ(10px);
     perspective: 0;
 }
-.gear:nth-child(2) {
+
+.flipper .gear:nth-child(2) {
     left: calc(100% + -5px);
 }
-.top,
-.bottom {
+
+.flipper .top,
+.flipper .bottom {
     box-shadow: 0 6px 6px 1px rgba(0, 0, 0, 0.5),
     0 2px 2px 1px rgba(255, 255, 255, 0.15);
     border-top: 2px solid rgb(102, 103, 110);
     border-bottom: 2px solid #000;
     transition: all 1s ease-in-out;
 }
-.top {
+
+.flipper .top {
     position: relative;
     width: 65px;
     height: calc(50% - 5px);
@@ -1173,7 +1122,8 @@ main {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
-.bottom {
+
+.flipper .bottom {
     position: relative;
     width: 65px;
     height: calc(50% - 10px);
@@ -1182,9 +1132,9 @@ main {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
-.text {
-    font-size: 38px;
-    font-weight: 400;
+.flipper .text {
+    font-size: 34px;
+    font-weight: 600;
     display: block;
     position: absolute;
     overflow: hidden;
@@ -1194,28 +1144,33 @@ main {
     text-align: center;
     color:white;
     /*font-family:'Gemunu Libre';*/
-
     /*font-family: "Gmarket Sans";*/
-    font-family: "Chakra Petch";
+    font-family: 'Chakra Petch','Electrolize', 'gmarket sans' !important;
 }
-.bottom .text {
+
+.flipper .bottom .text {
     line-height: 0;
 }
-.top.new,
-.bottom.new {
+
+.flipper .top.new,
+.flipper .bottom.new {
     position: absolute;
     left: 0;
     z-index: 12;
 }
-.top.new {
+
+.flipper .top.new {
     top: 0;
     z-index: 1;
     /*   backface-visibility: hidden; */
 }
-.top.new .text {
+
+.flipper .top.new .text {
     backface-visibility: hidden;
+    /*font-family: "Chakra Petch","Electrolize", 'gmarket sans';*/
 }
-.bottom.new {
+
+.flipper .bottom.new {
     position: absolute;
     top: 0;
     height: calc(100% - 0px);
@@ -1223,13 +1178,16 @@ main {
     z-index: 1;
     opacity: 0;
 }
+
 .flipper.flipping .top.new {
     transform-origin: bottom center;
     animation: rotate 0.88s 1 ease-in-out forwards;
 }
+
 .flipper.flipping .bottom.new {
     animation: rotatebottom 0.88s 1 ease-in-out forwards;
 }
+
 @keyframes rotatebottom {
     0% {
         opacity: 0;
@@ -1432,24 +1390,29 @@ main {
 /* 원자재재고현황 Chart, 제품재고현황 Chart */
 .fbox1-2,
 .fbox2-2 {
-    width: 720px;
-    height: 480px;
+    width: 840px;
+    height: 420px;
     position: absolute;
-    top:60px;
-    right:40px;
-    /*right:50%;*/
-    /*transform: translateX(-50%);*/
+    top:120px;
+    left:40px;
 }
 
+.fbox1-2 .label,
+.fbox2-2 .label {
+    position: absolute;
+    top:-32px;
+    right:0;
+}
 
 .fbox1-2 #m_barChart,
 .fbox2-2 #p_barChart{
     /*border:1px solid mediumpurple;*/
-    width:720px;
+    width: 840px;
     height: 420px;
     position: absolute;
-    top:40px;
-    right:0px;
+    top:0px;
+    left:0;
+    text-wrap: nowrap;
 
 }
 

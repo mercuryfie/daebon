@@ -13,7 +13,10 @@ function flipNumber(el, newnumber) {
   setTimeout(function () {
     el.find(".bottom:not(.new)").find(".text").text(newnumber);
   }, 500);
+
+
 }
+
 function setTime() {
   $(".flipper").removeClass("flipping");
   $(".flipper .new").remove();

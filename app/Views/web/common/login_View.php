@@ -7,7 +7,7 @@
 <section class="login">
     <p class="title ttl1">로그인</p>
     <div class="inputcon">
-        <input type="text" name="userid" id="userid" placeholder="  아이디" class="idinput" />
+        <input type="text" name="userid" id="userid" placeholder="  아이디" class="idinput" value="<?=$main['saveid'];?>"/>
     </div>
     <div class="inputcon">
         <input type="password" name="passwd" id="passwd" placeholder="  패스워드" class="idinput" />

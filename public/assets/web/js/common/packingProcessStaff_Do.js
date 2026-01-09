@@ -56,6 +56,8 @@ $(document).ready(function() {
 
         let photoSlots = $container.find('.planeLayer:not(#pick) img, .dashedLayer .inputArea').length;
 
+        console.log('photoSlots=' + photoSlots);
+
         if (photoSlots >= MAX_SLOTS) {
             alert(`최대 ${MAX_SLOTS}장까지 가능합니다. (현재 ${photoSlots}장)`);
             return;

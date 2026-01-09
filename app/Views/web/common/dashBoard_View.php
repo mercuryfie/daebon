@@ -1,7 +1,7 @@
 <?= $this->extend("/web/template/layout_none") ?>
 <?= $this->section("content") ?>
 
-<link rel="stylesheet" href="/assets/web/css/style_dashBoard.css">
+<link rel="stylesheet" href="/assets/web/css/style_dashBoard.css?rnd=<?echo(rand()); ?>">
 <script src="<?=URL_COMMON_ASSETS?>/dashBoard_Do.js?rnd=<?rand();?>"> </script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -80,7 +80,7 @@
                         <div class="pages"></div>
                     </div>
                     <div class="clock">
-                        <div class="flipper hours">
+                        <div class="flipper hours card">
                             <div class="gear"></div>
                             <div class="gear"></div>
                             <div class="top">
@@ -91,7 +91,7 @@
                             </div>
                         </div>
 
-                        <div class="flipper minutes">
+                        <div class="flipper minutes card">
                             <div class="gear"></div>
                             <div class="gear"></div>
                             <div class="top">
@@ -102,7 +102,7 @@
                             </div>
                         </div>
 
-                        <div class="flipper seconds">
+                        <div class="flipper seconds card">
                             <div class="gear"></div>
                             <div class="gear"></div>
                             <div class="top">
@@ -118,7 +118,7 @@
             <div class="mbox mbox2">
                 <!-- 탕전주문현황, 예비조제 주문현황  -->
                 <div class="boxtwo mbox2-1 flexCol">
-                    <div class="upside flexType2">
+                    <div class="upside flexType4">
                         <div class="mbox2-1-1">
                             <p>생산 현황</p>
                             <div class="leftbox">
@@ -179,40 +179,6 @@
                                 >
                                     <p class="line1-1">200</p>
                                 </div>
-                                <!--                            <div-->
-                                <!--                                class="GaugeMeter7"-->
-                                <!--                                id="GaugeMeter_109"-->
-                                <!--                                data-percent="70"-->
-                                <!--                                data-append=""-->
-                                <!--                                data-size="60"-->
-                                <!--                                data-theme="Purple"-->
-                                <!--                                data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                data-animate_gauge_colors="true"-->
-                                <!--                                data-animate_text_colors="true"-->
-                                <!--                                data-width="9"-->
-                                <!--                                data-label="자보"-->
-                                <!--                                data-style="Arch"-->
-                                <!--                                data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
-                                <!--                            <div-->
-                                <!--                                    class="GaugeMeter7"-->
-                                <!--                                    id="GaugeMeter_110"-->
-                                <!--                                    data-percent="60"-->
-                                <!--                                    data-append=""-->
-                                <!--                                    data-size="60"-->
-                                <!--                                    data-theme="Purple"-->
-                                <!--                                    data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                    data-animate_gauge_colors="true"-->
-                                <!--                                    data-animate_text_colors="true"-->
-                                <!--                                    data-width="9"-->
-                                <!--                                    data-label="기타"-->
-                                <!--                                    data-style="Arch"-->
-                                <!--                                    data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
                             </div>
                         </div>
                         <div class="mbox2-1-2">
@@ -275,96 +241,10 @@
                                 >
                                     <p class="line1-1">200</p>
                                 </div>
-                                <!--                            <div-->
-                                <!--                                    class="GaugeMeter8"-->
-                                <!--                                    id="GaugeMeter_111"-->
-                                <!--                                    data-percent="90"-->
-                                <!--                                    data-append=""-->
-                                <!--                                    data-size="60"-->
-                                <!--                                    data-theme="DarkGreen-LightGreen"-->
-                                <!--                                    data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                    data-animate_gauge_colors="true"-->
-                                <!--                                    data-animate_text_colors="true"-->
-                                <!--                                    data-width="9"-->
-                                <!--                                    data-label="공진단"-->
-                                <!--                                    data-style="Arch"-->
-                                <!--                                    data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
-                                <!--                            <div-->
-                                <!--                                    class="GaugeMeter8"-->
-                                <!--                                    id="GaugeMeter_112"-->
-                                <!--                                    data-percent="70"-->
-                                <!--                                    data-append=""-->
-                                <!--                                    data-size="60"-->
-                                <!--                                    data-theme="DarkGreen-LightGreen"-->
-                                <!--                                    data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                    data-animate_gauge_colors="true"-->
-                                <!--                                    data-animate_text_colors="true"-->
-                                <!--                                    data-width="9"-->
-                                <!--                                    data-label="경옥고"-->
-                                <!--                                    data-style="Arch"-->
-                                <!--                                    data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
-                                <!--                            <div-->
-                                <!--                                    class="GaugeMeter8"-->
-                                <!--                                    id="GaugeMeter_113"-->
-                                <!--                                    data-percent="60"-->
-                                <!--                                    data-append=""-->
-                                <!--                                    data-size="60"-->
-                                <!--                                    data-theme="DarkGreen-LightGreen"-->
-                                <!--                                    data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                    data-animate_gauge_colors="true"-->
-                                <!--                                    data-animate_text_colors="true"-->
-                                <!--                                    data-width="9"-->
-                                <!--                                    data-label="다이어트"-->
-                                <!--                                    data-style="Arch"-->
-                                <!--                                    data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
-                                <!--                            <div-->
-                                <!--                                    class="GaugeMeter8"-->
-                                <!--                                    id="GaugeMeter_114"-->
-                                <!--                                    data-percent="50"-->
-                                <!--                                    data-append=""-->
-                                <!--                                    data-size="60"-->
-                                <!--                                    data-theme="DarkGreen-LightGreen"-->
-                                <!--                                    data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                    data-animate_gauge_colors="true"-->
-                                <!--                                    data-animate_text_colors="true"-->
-                                <!--                                    data-width="9"-->
-                                <!--                                    data-label="약속・탕약"-->
-                                <!--                                    data-style="Arch"-->
-                                <!--                                    data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
-                                <!--                            <div-->
-                                <!--                                    class="GaugeMeter8"-->
-                                <!--                                    id="GaugeMeter_115"-->
-                                <!--                                    data-percent="40"-->
-                                <!--                                    data-append=""-->
-                                <!--                                    data-size="60"-->
-                                <!--                                    data-theme="DarkGreen-LightGreen"-->
-                                <!--                                    data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                    data-animate_gauge_colors="true"-->
-                                <!--                                    data-animate_text_colors="true"-->
-                                <!--                                    data-width="9"-->
-                                <!--                                    data-label="기타"-->
-                                <!--                                    data-style="Arch"-->
-                                <!--                                    data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
                             </div>
                         </div>
                     </div>
                     <div class="downside flexType2">
-
                         <div class="mbox2-1-1">
                             <p>발송 현황</p>
                             <div class="leftbox">
@@ -382,7 +262,7 @@
                                     data-total="100"
                                     data-stripe="3"
                                     data-used="80"
-                                    data-theme="White"
+                                    data-color="rgb(119 90 248)"
                                     data-append=""
                                 >
                                     <p class="line1-1">200</p>
@@ -401,7 +281,7 @@
                                     data-total="100"
                                     data-stripe="3"
                                     data-used="80"
-                                    data-theme="White"
+                                    data-color="rgb(119 90 248)"
                                     data-append=""
                                 >
                                     <p class="line1-1">200</p>
@@ -420,45 +300,11 @@
                                         data-total="100"
                                         data-stripe="3"
                                         data-used="80"
-                                        data-theme="greenRed"
+                                        data-color="rgb(119 90 248)"
                                         data-append=""
                                 >
                                     <p class="line1-1">200</p>
                                 </div>
-                                <!--                            <div-->
-                                <!--                                class="GaugeMeter7"-->
-                                <!--                                id="GaugeMeter_109"-->
-                                <!--                                data-percent="70"-->
-                                <!--                                data-append=""-->
-                                <!--                                data-size="60"-->
-                                <!--                                data-theme="Purple"-->
-                                <!--                                data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                data-animate_gauge_colors="true"-->
-                                <!--                                data-animate_text_colors="true"-->
-                                <!--                                data-width="9"-->
-                                <!--                                data-label="자보"-->
-                                <!--                                data-style="Arch"-->
-                                <!--                                data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
-                                <!--                            <div-->
-                                <!--                                    class="GaugeMeter7"-->
-                                <!--                                    id="GaugeMeter_110"-->
-                                <!--                                    data-percent="60"-->
-                                <!--                                    data-append=""-->
-                                <!--                                    data-size="60"-->
-                                <!--                                    data-theme="Purple"-->
-                                <!--                                    data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                    data-animate_gauge_colors="true"-->
-                                <!--                                    data-animate_text_colors="true"-->
-                                <!--                                    data-width="9"-->
-                                <!--                                    data-label="기타"-->
-                                <!--                                    data-style="Arch"-->
-                                <!--                                    data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
                             </div>
                         </div>
                         <div class="mbox2-1-2">
@@ -478,7 +324,7 @@
                                         data-total="100"
                                         data-stripe="3"
                                         data-used="80"
-                                        data-theme="White"
+                                        data-color="rgb(119 90 248)"
                                         data-append=""
                                 >
                                     <p class="line1-1">200</p>
@@ -497,7 +343,7 @@
                                         data-total="100"
                                         data-stripe="3"
                                         data-used="80"
-                                        data-theme="White"
+                                        data-color="rgb(119 90 248)"
                                         data-append=""
                                 >
                                     <p class="line1-1">200</p>
@@ -516,7 +362,7 @@
                                         data-total="100"
                                         data-stripe="3"
                                         data-used="80"
-                                        data-theme="White"
+                                        data-color="rgb(119 90 248)"
                                         data-append=""
                                 >
                                     <p class="line1-1">200</p>
@@ -535,167 +381,36 @@
                                         data-total="100"
                                         data-stripe="3"
                                         data-used="80"
-                                        data-theme="White"
+                                        data-color="rgb(119 90 248)"
                                         data-append=""
                                 >
                                     <p class="line1-1">200</p>
                                 </div>
-                                <!--                            <div-->
-                                <!--                                    class="GaugeMeter8"-->
-                                <!--                                    id="GaugeMeter_111"-->
-                                <!--                                    data-percent="90"-->
-                                <!--                                    data-append=""-->
-                                <!--                                    data-size="60"-->
-                                <!--                                    data-theme="DarkGreen-LightGreen"-->
-                                <!--                                    data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                    data-animate_gauge_colors="true"-->
-                                <!--                                    data-animate_text_colors="true"-->
-                                <!--                                    data-width="9"-->
-                                <!--                                    data-label="공진단"-->
-                                <!--                                    data-style="Arch"-->
-                                <!--                                    data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
-                                <!--                            <div-->
-                                <!--                                    class="GaugeMeter8"-->
-                                <!--                                    id="GaugeMeter_112"-->
-                                <!--                                    data-percent="70"-->
-                                <!--                                    data-append=""-->
-                                <!--                                    data-size="60"-->
-                                <!--                                    data-theme="DarkGreen-LightGreen"-->
-                                <!--                                    data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                    data-animate_gauge_colors="true"-->
-                                <!--                                    data-animate_text_colors="true"-->
-                                <!--                                    data-width="9"-->
-                                <!--                                    data-label="경옥고"-->
-                                <!--                                    data-style="Arch"-->
-                                <!--                                    data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
-                                <!--                            <div-->
-                                <!--                                    class="GaugeMeter8"-->
-                                <!--                                    id="GaugeMeter_113"-->
-                                <!--                                    data-percent="60"-->
-                                <!--                                    data-append=""-->
-                                <!--                                    data-size="60"-->
-                                <!--                                    data-theme="DarkGreen-LightGreen"-->
-                                <!--                                    data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                    data-animate_gauge_colors="true"-->
-                                <!--                                    data-animate_text_colors="true"-->
-                                <!--                                    data-width="9"-->
-                                <!--                                    data-label="다이어트"-->
-                                <!--                                    data-style="Arch"-->
-                                <!--                                    data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
-                                <!--                            <div-->
-                                <!--                                    class="GaugeMeter8"-->
-                                <!--                                    id="GaugeMeter_114"-->
-                                <!--                                    data-percent="50"-->
-                                <!--                                    data-append=""-->
-                                <!--                                    data-size="60"-->
-                                <!--                                    data-theme="DarkGreen-LightGreen"-->
-                                <!--                                    data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                    data-animate_gauge_colors="true"-->
-                                <!--                                    data-animate_text_colors="true"-->
-                                <!--                                    data-width="9"-->
-                                <!--                                    data-label="약속・탕약"-->
-                                <!--                                    data-style="Arch"-->
-                                <!--                                    data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
-                                <!--                            <div-->
-                                <!--                                    class="GaugeMeter8"-->
-                                <!--                                    id="GaugeMeter_115"-->
-                                <!--                                    data-percent="40"-->
-                                <!--                                    data-append=""-->
-                                <!--                                    data-size="60"-->
-                                <!--                                    data-theme="DarkGreen-LightGreen"-->
-                                <!--                                    data-back="rgba(174,174,174,0.5)"-->
-                                <!--                                    data-animate_gauge_colors="true"-->
-                                <!--                                    data-animate_text_colors="true"-->
-                                <!--                                    data-width="9"-->
-                                <!--                                    data-label="기타"-->
-                                <!--                                    data-style="Arch"-->
-                                <!--                                    data-label_color="#FFF"-->
-                                <!--                            >-->
-                                <!--                                <p class="line1-1">200</p>-->
-                                <!--                            </div>-->
                             </div>
                         </div>
                     </div>
                 </div>
-<!--                <div class="boxtwo mbox2-2">-->
-<!--                    <div class="moonleft">-->
-<!--                        <div class="moon1-1">-->
-<!--                            <p>전체 진척도</p>-->
-<!--                            <div class="barbox">-->
-<!--                                <canvas id="barChart"></canvas>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="moon1-2">-->
-<!--                            <p>작업 시간 평균</p>-->
-<!--                            <div class="cardbox">-->
-<!--                                <div class="cardbox1">-->
-<!--                                    <div class="cardbox1-1">-->
-<!--                                        <p>조제</p>-->
-<!--                                        <p>5</p>-->
-<!--                                        <span>초</span>-->
-<!--                                    </div>-->
-<!--                                    <div class="cardbox1-2">-->
-<!--                                        <p>탕전</p>-->
-<!--                                        <p>180</p>-->
-<!--                                        <span>분</span>-->
-<!--                                    </div>-->
-<!--                                </div> -->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="moonright">-->
-<!--                        <p>전체 작업 현황</p>-->
-<!--                        <div class="radarbox">-->
-<!--                            <canvas id="radarChart"></canvas>-->
-<!--                        </div>-->
-<!--                        <div class="radar-status">-->
-<!--                            <div class="status1-1">-->
-<!--                                <div class="statuscircle parcel1"></div>-->
-<!--                                <p>전체</p>-->
-<!--                            </div>-->
-<!--                            <div class="status1-2">-->
-<!--                                <div class="statuscircle parcel2"></div>-->
-<!--                                <p>로젠</p>-->
-<!--                            </div>-->
-<!--                            <div class="status1-3">-->
-<!--                                <div class="statuscircle parcel3"></div>-->
-<!--                                <p>기타</p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-
             </div>
             <div class="mbox mbox3">
                 <div class="mboxb mbox3-1">
                     <ul class="weeklyul">
                         <li>주간 주문 건수</li>
                     </ul>
-                    <div class="status">
-                        <div class="status1-1">
-                            <div class="statuscircle on"></div>
-                            <p>이번주</p>
+                    <div class="area area2 flexType3">
+                        <div class="status">
+                            <div class="status1-1">
+                                <div class="statuscircle on"></div>
+                                <p>이번주</p>
+                            </div>
+                            <div class="status1-3">
+                                <div class="statuscircle standby"></div>
+                                <p>지난주</p>
+                            </div>
                         </div>
-                        <div class="status1-3">
-                            <div class="statuscircle standby"></div>
-                            <p>지난주</p>
-                        </div>
+                        <ul class="counterul">
+                            <li id="counter">200</li>
+                        </ul>
                     </div>
-                    <ul class="counterul">
-                        <li id="counter">200</li>
-                    </ul>
                     <div class="weekbox">
                         <canvas id="weekChart"></canvas>
                     </div>
@@ -716,7 +431,7 @@
                     </div>
                 </div>
                 <div class="fbox1-2">
-                    <p>(단위:건)</p>
+                    <p class="label">(단위:건)</p>
 <!--                    <canvas id="barChart"></canvas>-->
                     <canvas id="m_barChart"></canvas>
                 </div>
@@ -748,7 +463,7 @@
                     </div>
                 </div>
                 <div class="fbox2-2">
-                    <p>(단위:건)</p>
+                    <p class="label">(단위:건)</p>
                     <canvas id="p_barChart"></canvas>
                 </div>
                 <div class="pagebox">

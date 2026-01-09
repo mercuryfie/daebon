@@ -106,7 +106,15 @@ define("ENVIRONMENT","development");
 
 
 define("CK_IDSAVE","daebon_idsave");
-define("CK_DOMAIN",".djmedi.net");
+define("CK_LOGINKEEP","daebon_loginkeep");
+
+//define("CK_DOMAIN",".djmedi.net"); // live 적용
+//define("CK_DBIP","172.27.0.21"); // live 적용
+define("CK_DOMAIN",".daebon.com");
+define("CK_DBIP","211.251.239.37");
+
+
+
 
 
 define("ASSETS_URL","/assets/web");

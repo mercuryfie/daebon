@@ -1136,7 +1136,15 @@ class ApiController extends BaseController
                         $session = service('session');
                         $session->set(SESSION_KEY, $security);
                         if ($is_keep == 1) {
-                            delete_cookie('dj_Cstr');
+                            $cookie = [
+                                'name' => CK_LOGINKEEP,
+                                'value' => $userid,
+                                'expire' => 2147483647,
+                                'domain' => CK_DOMAIN,
+                                'path' => '/',
+                                'prefix' => ''
+                            ];
+                            set_cookie($cookie);
 
                             $cookie = [
                                 'name' => COOKIE_KEY,
@@ -1148,7 +1156,7 @@ class ApiController extends BaseController
                             ];
                             set_cookie($cookie);
                         } else {
-                            delete_cookie(COOKIE_KEY, CK_DOMAIN, '/');
+                            delete_cookie(CK_LOGINKEEP, CK_DOMAIN, '/');
                         }
 
                         if ($is_save == 1) {
@@ -1162,7 +1170,7 @@ class ApiController extends BaseController
                             ];
                             set_cookie($cookie);
                         } else {
-                            delete_cookie(COOKIE_KEY, CK_DOMAIN, '/');
+                            delete_cookie(CK_IDSAVE, CK_DOMAIN, '/');
                         }
 
                         $result = 'ok';
@@ -2014,6 +2022,119 @@ class ApiController extends BaseController
         return $this->respond($return);
     }
 
+    public function Upload_Multi_File()
+    {
+        $u_type  = $this->request->getPost('upload_type') ?: '1'; // 1:img,2:packing,3:excel
+        $u_key   = $this->request->getPost('upload_key') ?: 'files'; // input name
+        $timeNow = date("Ymd");
+
+        if ($u_type == 1) { // 이미지
+            $dir = FCPATH ."uploads/goods/$timeNow";
+            $dir2 = FCPATH ."uploads/goods/$timeNow";
+        }else if ($u_type == 2) { //packing img
+            $dir = FCPATH ."uploads/packing/$timeNow";
+            $dir2 = FCPATH ."uploads/packing/$timeNow";
+            $opcode = ($this->request->getPost('opcode')=='') ? '' : $this->request->getPost('opcode');
+            $order_m = model('Order_m');
+        } else if ($u_type == 3) { // 엑셀
+            $dir = FCPATH ."uploads/excel/$timeNow";
+            $dir2 = FCPATH ."uploads/excel/$timeNow";
+        } else {
+            return $this->respond(['result' => 'error', 'message' => '올바르지 않은 업로드 타입']);
+        }
+
+        $allow = 'jpg,jpeg,gif,png,xls,xlsx';
+        $allowed_extensions = explode(',', $allow);
+        $max_file_size = 5242880; // 5MB
+
+        $files = $this->request->getFiles();
+        $uploadedFiles = [];
+        $errors = [];
+
+        if (isset($files[$u_key]) && is_array($files[$u_key])) {
+            foreach ($files[$u_key] as $file) {
+                if ($file->isValid() && !$file->hasMoved()) {
+                    $filename = $file->getName();
+                    $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+                    $size = $file->getSize();
+
+                    // 유효성 검사
+                    if (!in_array($ext, $allowed_extensions)) {
+                        $errors[] = $filename . ': 확장자 불가';
+                        continue;
+                    }
+
+                    if ($size > $max_file_size) {
+                        $errors[] = $filename . ': 파일 크기 초과';
+                        continue;
+                    }
+
+                    // 디렉토리 생성
+                    $upload_dir = $dir . '/';
+                    $upload_dir2 = $dir2 . '/';
+                    if (!is_dir($upload_dir)) {
+                        mkdir($upload_dir, 0755, true);
+                    }
+
+                    // 고유 파일명 생성
+                    helper('text');
+                    $fileName = random_string('alnum', 16);
+                    $path = $fileName . '.' . $ext;
+
+                    if (move_uploaded_file($file->getTempName(), $upload_dir . $path)) {
+                        $uploadedFiles[] = [
+                            'fileName' => $fileName . '.' . $ext,
+                            'url' => $upload_dir2 . $path,
+                            'originalName' => $filename,
+                            'size' => fn_Str_File_Sise($size)
+                        ];
+
+                        if($opcode!=''){
+                            $param = [
+                                'opcode' => $opcode,
+                                'typ' => 1,
+                                'fname' => $fileName . '.' . $ext
+                            ];
+                            $Cnt = $order_m->Insert_Order_delivery_file($opcode,$param);
+                        }
+                    } else {
+                        $errors[] = $filename . ': 저장 실패';
+                    }
+                } else {
+                    $errors[] = '파일 오류';
+                }
+            }
+        } else {
+            return $this->respond([
+                'result' => 'error',
+                'message' => '파일이 선택되지 않았습니다.'
+            ]);
+        }
+
+        // 응답 생성
+        if (empty($errors) && !empty($uploadedFiles)) {
+            return $this->respond([
+                'result' => 'ok',
+                'info' => [
+                    'uploaded' => count($uploadedFiles),
+                    'total' => count($files[$u_key] ?? []),
+                    'files' => $uploadedFiles
+                ],
+                'message' => ''
+            ]);
+        } else {
+            return $this->respond([
+                'result' => 'error',
+                'info' => [
+                    'uploaded' => count($uploadedFiles),
+                    'total' => count($files[$u_key] ?? []),
+                    'files' => $uploadedFiles
+                ],
+                'message' => implode('; ', $errors)
+            ]);
+        }
+    }
+
     public function Upload_File()
     {
 
@@ -2021,12 +2142,12 @@ class ApiController extends BaseController
         $u_key  = ($this->request->getPost('upload_key') == '') ? '1' : $this->request->getPost('upload_key'); // input type
         $timeNow = date("Ymd");
         if($u_type==1) {//상품등록시 대표이미지
-            $dir = "././assets/upload/goods/$timeNow";
-            $dir2 = "/assets/upload/goods/$timeNow";
+            $dir = FCPATH."uploads/goods/$timeNow";
+            $dir2 = FCPATH."uploads/goods/$timeNow";
             $key = $u_key;
         }else if($u_type==3) {//상품등록시 대표이미지
-            $dir = "././assets/upload/excel/$timeNow";
-            $dir2 = "/assets/upload/excel/$timeNow";
+            $dir = FCPATH."uploads/excel/$timeNow";
+            $dir2 = FCPATH."uploads/excel/$timeNow";
             $key = $u_key;
         }
 

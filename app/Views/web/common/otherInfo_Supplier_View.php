@@ -19,19 +19,19 @@
             <div class="area1 flexType2">
                 <button type="button" class="tab active" onclick="go_otherInfo_Maker();">제조사관리</button>
                 <button type="button" class="tab" onclick="go_otherInfo_Supplier();">공급사관리</button>
-<!--                <button type="button" class="tab">ㅇㅇ관리</button>-->
-<!--                <button type="button" class="tab">ㅇㅇ관리</button>-->
-<!--                <button type="button" class="tab">ㅇㅇ관리</button>-->
-
-<!--                <p class="title">제품정보</p>-->
-<!--                <div class="right flexType1">-->
-<!--                    <i class="fa-solid fa-angle-down"></i>-->
-<!--                </div>-->
             </div>
             <div class="area2 flexType3">
                 <div class="left flexType2">
-                    <input type="search" name="mkey" id="mkey" class="searchArea" placeholder="통합 검색">
-                    <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>
+                    <div class="flexType2 mr20">
+                        <input type="search" name="mkey" id="mkey" class="searchArea" placeholder="통합 검색">
+                        <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>
+                    </div>
+                    <div class="element element1 flexType2 ">
+                        <p class="text ttl mr10">총</p>
+                        <p class="text data fontType4 mr10" id="tcnt" data-cnt="0"></p>
+                        <p class="text unit">건</p>
+                    </div>
+
                 </div>
                 <div class="flexType2">
                     <button type="button" class="btnType1 mr10" id="excelPop" name="excelPop">엑셀업로드</button>
@@ -42,11 +42,6 @@
             </div>
             <div class="area3 area_box2qd ">
                 <div class="elBox">
-                    <div class="element element1 flexType2">
-                        <p class="text ttl mr10">총</p>
-                        <p class="text data fontType4 mr10" id="tcnt"></p>
-                        <p class="text unit">건</p>
-                    </div>
                     <div class="element element2">
                         <table class="fac_tablexx9" >
                             <thead>

@@ -4,16 +4,13 @@
 <script src="<?=URL_COMMON_ASSETS?>/packingProcessStaff_Do.js?rnd=<?=rand();?>"> </script>
 
 <section class="mainContentStaff ">
-    <div class="packing_wraptrf packingWrapStaff">
+    <div class="pack_status_wrap">
         <div class="titleBox">
 <!--            <p class="headTitle">-->
 <!--                포장발송화면 / 상품확인dd-->
 <!--            </p>-->
-            <input type="search"
-                   class="inputType520 ml20"
-                   placeholder="바코드를 스캔하십시오" name="" id="">
         </div>
-        <div class="areaBox areaBoxStaff">
+        <div class="pack_status_box">
             <div class="area area5 flexType3-1 ">
                 <div class="progress_boxatq flexType2-1">
                     <p class='title'>작업상태</p>
@@ -56,78 +53,56 @@
                 </div>
                 <div class="right flexType5-2">
                     <button type="button" class="btn80Type1 mr10" onclick="pop_waybillFormStaff();">송장<br>출력</button>
-                    <button type="button" class="btn80Type1" onclick="pop_waybillFormStaff();">추가<br>출력</button>
+<!--                    <button type="button" class="btn80Type1" onclick="pop_waybillFormStaff();">추가<br>출력</button>-->
                 </div>
             </div>
-            <div class="area area1">
-                <p class='title'>상품정보/수량 확인</p>
-                <div class="productCheck_boxarv">
-                    <div class="productCheck flexType2">
-                        <p class="category">주문번호</p>
-                        <p class="data">12341234</p>
-                    </div>
-                    <div class="productCheck flexType2">
-                        <p class="category">주소지</p>
-                        <p class="data">서울시 강남구</p>
-                    </div>
-                    <div class="productCheck flexType2">
-                        <p class="category">주문내용</p>
-                        <p class="data">생강차 200g 외 2건</p>
-                    </div>
-                    <div class="productCheck flexType2">
-                        <p class="category">수량</p>
-                        <p class="data">총 10건</p>
-                    </div>
-                </div>
-                <div class="imgBox_box2ck imgBox_box2cq flexType2">
-                    <div class="noirBox">
-                        <div class="noirLayer ">
-                            <!--                        <div class="noir"></div>-->
-                            <div class="done flexType1">
-                                <i class="fa-solid fa-check"></i>
-                            </div>
-                            <div class="countBox">
-                                <p class="count">2개</p>
-                            </div>
-                            <img src="/assets/web/src/packing_1.png" alt="img">
+            <div class="area area1 flexType4">
+                <div class="inner left">
+                    <p class='title'>상품정보/수량 확인</p>
+                    <div class="productCheck_boxarv">
+                        <div class="productCheck flexType2">
+                            <p class="category">포장코드</p>
+                            <p class="data"><?=$body['opcode'];?></p>
                         </div>
-                        <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>
-                    </div>
-                    <div class="noirBox">
-                        <div class="noirLayer">
-                            <div class="noir active"></div>
-                            <div class="done flexType1">
-                                <i class="fa-solid fa-check"></i>
-                            </div>
-                            <div class="countBox">
-                                <p class="count">2개</p>
-                            </div>
-                            <img src="/assets/web/src/packing_1.png" alt="img">
+                        <div class="productCheck flexType2">
+                            <p class="category">주문번호</p>
+                            <p class="data"><?=$body['order_str'];?></p>
                         </div>
-                        <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>
-                    </div>
-                    <div class="noirBox">
-                        <div class="noirLayer">
-                            <div class="noir active"></div>
-                            <div class="done flexType1 ">
-                                <i class="fa-solid fa-check"></i>
-                            </div>
-                            <div class="countBox">
-                                <p class="count">2개</p>
-                            </div>
-                            <img src="/assets/web/src/packing_1.png" alt="img">
-                        </div>
-                        <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>
-                    </div>
-                    <div class="btnBox">
-                        <button type="button" class="btn">확인</button>
 
+                        <div class="productCheck flexType2">
+                            <p class="category">주소지</p>
+                            <p class="data"><?=$body['order']['receive_zipcode'];?> <?=$body['order']['receive_address1'];?> <?=$body['order']['receive_address2'];?></p>
+                        </div>
+                        <div class="productCheck flexType2">
+                            <p class="category">수량</p>
+                            <p class="data">총 <?=$body['tCnt'];?>건</p>
+                        </div>
                     </div>
                 </div>
+                <div class="inner imgBox_box2ck  ">
+                <?foreach($body['product'] as $d){?>
+                    <div class="prod_box flexType2" name="btn_noirbox" data-choice="0">
+                       <div class="thumBox">
+                           <div class="doneBox flexType1" name="noir_active">
+                               <div class="checkBox flexType1">
+                                   <i class="fa-solid fa-check "></i>
+                               </div>
+
+                           </div>
+                           <div class="imgBox">
+                               <img src="/assets/web/src/packing_1.png" alt="img" class="">
+                           </div>
+                       </div>
+                        <p class="ttl mr10"><?=$d['pdname'];?></p>
+                        <p class="count"><?=$d['gcnt'];?>개</p>
+                    </div>
+                <?}?>
+                </div>
             </div>
-            <div class="area area3">
+            <div class="area area3 flexType4" >
                 <p class="title">포장과정 촬영</p>
-                <div class="imgBox_boxdzu flexType2">
+                <p class="category unsupported_cam" id="unsupported_cam"></p>
+                <div class="imgBox_boxdzu flexType2" name="" id="cam_area">
                     <div class="planeLayer">
                         <div class="noir" id="pick"></div>
                     </div>
@@ -137,20 +112,31 @@
                     <div class="dashedLayer">
                         <p class="inputArea">+</p>
                     </div>
-                    <div class="btnBox">
-                        <button type="button" class="btn" id="btn_prn">촬영</button>
+                    <div class="dashedLayer">
+                        <p class="inputArea">+</p>
                     </div>
+                    <div class="dashedLayer">
+                        <p class="inputArea">+</p>
+                    </div>
+<!--                    <div class="btnBox">-->
+<!--                        <button type="button" class="btn cam_btn" id="btn_prn">촬영</button>-->
+<!--                    </div>-->
                 </div>
-                <div class="lastBox flexType5 ">
-                    <button type="button" class="btn80Type1 mr10" onclick="go_packingListStaff();">이전</button>
-                    <button type="button" class="btn80Type2">완료</button>
-
-                </div>
+<!--                <div class="lastBox flexType5 ">-->
+<!--                    <button type="button" class="btn80Type1 mr10" onclick="go_packingListStaff();">이전</button>-->
+<!--                    <button type="button" class="btn80Type2">완료</button>-->
+<!---->
+<!--                </div>-->
 
             </div>
+            <div class="area lastArea flexType5-1">
+                <button type="button" class="btn80Type1 mr10" onclick="go_packingListStaff();">이전</button>
+                <button type="button" class="btn80Type2" id="btn_complete" data-opcode="<?=$body['opcode'];?>">완료</button>
+            </div>
+
         </div>
     </div>
 </section>
 
-<?php //= $this->include('/web/include/pop_WaybillForm_View'); ?>
+<?= $this->include('/web/include/pop_MagImg_View'); ?>
 <?= $this->endSection() ?>

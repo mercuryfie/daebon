@@ -19,7 +19,7 @@
 </script>
 
 <section class="merright">
-    <div class="dashBoard_boxowy mt20">
+    <div class="main_boxowy mt20">
         <div class="statusBox flexType2">
             <div class="status">
                 <div class="aside upside flexType3">

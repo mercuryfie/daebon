@@ -27,8 +27,7 @@ class Database extends Config
 
     public array $default = [
         'DSN'          => '',
-        //'hostname'     => '172.27.0.21',  /* ftp */
-        'hostname'     => '211.251.239.37',  /* local */
+        'hostname'     => CK_DBIP,
         'username'     => 'daebon',
         'password'     => 'djMedi!!999',
         'database'     => 'daebon',

@@ -172,6 +172,57 @@ abstract class BaseController extends Controller
     public function GetSessionData()
     {
         $session = Services::session();
+        $tstr = $session->get(SESSION_KEY);
+        if (empty($tstr)) {
+            $cstr = get_cookie(COOKIE_KEY);
+            if (empty($cstr)) {
+                return [
+                    'user' => [],
+                    'islogin' => false
+                ];
+            }
+            $auth = new Auth();
+            $info = $auth->Open_Key($cstr);
+            if (fn_ArrayCnt($info) <= 0) {
+                delete_cookie(COOKIE_KEY, CK_DOMAIN, '/');
+                return [
+                    'user' => [],
+                    'islogin' => false
+                ];
+            }
+            $session->set(SESSION_KEY, $cstr);
+            log_message('info', '세션 쿠키로 복원: ' . $info['userid']);
+
+        } else {
+            $auth = new Auth();
+            $info = $auth->Open_Key($tstr);
+
+            if (fn_ArrayCnt($info) <= 0) {
+                $session->remove(SESSION_KEY);
+                return [
+                    'user' => [],
+                    'islogin' => false
+                ];
+            }
+        }
+        $user = [
+            'uid' => $info['uid'],
+            'userid' => $info['userid'],
+            'grade' => $info['grade'],
+            'name' => $info['name'],
+            'token' => $info['token']
+        ];
+
+        return [
+            'user' => $user,
+            'islogin' => true
+        ];
+    }
+
+
+    public function GetSessionData11()
+    {
+        $session = Services::session();
         $tstr = $session->get('DB_Sstr');
         if($tstr==''){
             $cstr = get_cookie(COOKIE_KEY);

@@ -67,28 +67,6 @@
                                 <input type="radio" class="status" name="status" id="" >완료
                             </label>
                         </div>
-<!--                        <div class="status_boxi3f flexType3">-->
-<!--                            <p class="status start">시작</p>-->
-<!--                            <p class="status end">완료</p>-->
-<!--                        </div>-->
-<!--                       <div class="prog_Box">-->
-<!--                           <div class="prog_background">-->
-<!--                               <div class="stanbyBox flexType1">-->
-<!--                                   <p class="stanby"></p>-->
-<!--                               </div>-->
-<!--                               <div class="stanbyBox2 flexType1">-->
-<!--                                   <p class="stanby2"></p>-->
-<!--                               </div>-->
-<!--                           </div>-->
-<!--                           <div class="prog_now" name="progNow">-->
-<!--                               <div class="stanbyBox flexType1">-->
-<!--                                   <p class="stanby"></p>-->
-<!--                               </div>-->
-<!--                               <div class="stanbyBox2 flexType1">-->
-<!--                                   <p class="stanby2"></p>-->
-<!--                               </div>-->
-<!--                           </div>-->
-<!--                       </div>-->
                     </div>
                 </div>
                 <div class="element flexType2-1  status_boxv22">

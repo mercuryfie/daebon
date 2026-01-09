@@ -16,14 +16,7 @@
             </p>
         </div>
         <div class="areaBox area_boxmxh inout_boxq0b">
-            <div class="goods_boxkfg  inout_boxq0a">
-                <div class="left ">
-                    <div class="left2 flexType2">
-                        <p class="title">전체</p>
-                        <p class="count">10</p>
-                        <p class="unit">건</p>
-                    </div>
-                </div>
+            <div class="goods_boxkfg mt10 inout_boxq0a">
                 <div class="right flexType3">
                     <div class="left3 flexType1">
                         <select name="" id="" class="btnType1 mr10">
@@ -34,12 +27,17 @@
                             <option value="">전체</option>
                         </select>
                         <input type="search" placeholder="반제품코드 또는 제품명 검색" class="inputSearch" >
-                        <button type="button" class="btnType1">검색</button>
+                        <button type="button" class="btnType1 mr20">검색</button>
+                        <div class="left2 flexType2">
+                            <p class="title">전체</p>
+                            <p class="count">10</p>
+                            <p class="unit">건</p>
+                        </div>
 
                     </div>
                     <div class="right3">
                         <button type="button" class="btnType1">로그표시</button>
-                        <button type="button" class="btnType1">엑셀다운로드</button>
+                        <button type="button" class="btnType1 mr20">엑셀다운로드</button>
                     </div>
                 </div>
             </div>

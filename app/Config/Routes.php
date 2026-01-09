@@ -102,6 +102,7 @@ $routes->match(['GET', 'POST'], 'Api/Load_Goods_Info', 'ApiController::Load_Good
 $routes->match(['GET', 'POST'], 'Api/mod_Goods_Info', 'ApiController::mod_Goods_Info');
 $routes->match(['GET', 'POST'], 'Api/Upload_File_Editor', 'ApiController::Upload_File_Editor');
 $routes->match(['GET', 'POST'], 'Api/Upload_file', 'ApiController::Upload_File');
+$routes->match(['GET', 'POST'], 'Api/Upload_Multi_File', 'ApiController::Upload_Multi_File');
 $routes->match(['GET', 'POST'], 'Api/Add_Goods', 'ApiController::Add_Goods');
 $routes->match(['GET', 'POST'], 'Api/Delete_Goods', 'ApiController::Delete_Goods');
 $routes->match(['GET', 'POST'], 'Api/Load_Product', 'ApiController::Load_Product');

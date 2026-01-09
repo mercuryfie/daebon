@@ -33,7 +33,7 @@
                         <div class="right flexType2">
                             <button type="button" class="btnType1 mr10" id="excelPop" name="excelPop">엑셀업로드</button>
                         </div>
-                        <div class="right flexType2">
+                        <div class="right flexType2 mr20">
                             <button type="button" class="btnType1" id="excel_down" name="excel_down">엑셀다운로드</button>
                         </div>
                     </div>

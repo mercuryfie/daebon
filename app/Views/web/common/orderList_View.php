@@ -14,11 +14,11 @@
                 주문목록
             </p>
         </div>
-        <div class="swich_boxli6 ">
-            <i class="fa-regular fa-calendar" onclick="go_main();"></i>
-            <p class="binder"></p>
-            <i class="fa-solid fa-list" onclick="go_orderList();"></i>
-        </div>
+<!--        <div class="swich_boxli6 ">-->
+<!--            <i class="fa-regular fa-calendar" onclick="go_main();"></i>-->
+<!--            <p class="binder"></p>-->
+<!--            <i class="fa-solid fa-list" onclick="go_orderList();"></i>-->
+<!--        </div>-->
         <div class="areaBox areaBox1 mb10">
             <div class="status_boxi3f flexType2">
                 <div class="progress flexType2">
@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="areaBox areaBox2 pb100">
-            <div class="area3 flexType3 mr20 mt10 ">
+            <div class="area3 flexType3  mt10 ">
                 <div class="left performStatusBox">
 <!--                    <p class="performStatus status1">전체 주문: 16건 | 작업중 16건 | 발송완료 14건 | 취소: 000건</p>-->
 <!--                    <p class="performStatus status2">옥션1: 000건,  옥션2 : 004건, 지마켓: 002건  농협몰:  010건 </p>-->
@@ -125,7 +125,7 @@
                     <button type="button" class="btnType1 mr10" id="btn_package">묶음포장지시</button>
                     <button type="button" class="btnType1 mr10" id="btn_ininstruct">개별포장지시</button>
                     <button type="button" class="btnType1 mr10" onclick="upload_Xlx();">엑셀업로드</button>
-                    <button type="button" class="btnType1 mr10">엑셀다운로드</button>
+                    <button type="button" class="btnType1 ">엑셀다운로드</button>
                 </div>
             </div>
             <div class="area4 order_boxfxp">

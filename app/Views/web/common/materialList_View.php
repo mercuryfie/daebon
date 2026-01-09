@@ -13,7 +13,7 @@
                     <input type="search" name="mkey" id="mkey" class="searchArea" placeholder="통합 검색">
                     <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>
                 </div>
-                <div class="right">
+                <div class="right ">
                     <button type="button" class="btnType2" id="adddata" name="adddata" onclick="add_Material();">자재등록</button>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                         <option value="2">부자재</option>
                     </select>
 <!--                    <input type="file" id="attachExcel" name="attachExcel" accept=".xlsx,.xls" style="display:none;">-->
-                    <button type="button" class="btnType1 mr10" id="excelPop" name="excelPop" onclick="">엑셀업로드</button>
+                    <button type="button" class="btnType1 mr20" id="excelPop" name="excelPop" onclick="">엑셀업로드</button>
                     <!--                        <button type="button" class="btnType1">엑셀다운로드</button>-->
                 </div>
             </div>

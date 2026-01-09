@@ -59,7 +59,7 @@
                         <option value="">100개씩</option>
                     </select>
                     <button type="button" class="btnType1 mr10">엑셀다운로드</button>
-                    <button type="button" class="btnType1 mr20">초기화</button>
+                    <button type="button" class="btnType1 mr40">초기화</button>
                 </div>
             </div>
             <div class="area4 ">

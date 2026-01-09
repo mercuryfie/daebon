@@ -18,6 +18,7 @@ class MemberController extends BaseController
             return redirect()->to('/order/main');
         }else {
             $saveid = get_cookie(index: CK_IDSAVE);
+            $keeplogin  = get_cookie(index: CK_LOGINKEEP);
             $prev_url = previous_url();
             if ($prev_url == '' || stripos($prev_url, 'login') !== false) {
                 $rec_url = '';
@@ -32,6 +33,7 @@ class MemberController extends BaseController
 
             $main_data = [
                 'saveid' => $saveid,
+                'keeplogin' => $keeplogin,
                 'rec_url' => $rec_url
             ];
 

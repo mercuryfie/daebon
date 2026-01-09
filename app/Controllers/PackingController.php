@@ -46,26 +46,82 @@ class PackingController extends BaseController
     public function packingProcess()
     {
         $sessinarr = $this->GetSessionData();
+        $opcode  = ($this->request->getGet('op') == '') ? '' : $this->request->getGet('op');
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
+        }else if($opcode==''){
+            fn_Alert('잘못된 접근입니다.');
         }else {
             $metaarr = [
-                'h_title' => '포장작업중-작업자',
+                'h_title' => '포장',
                 'h_type' => 1
             ];
 
-            $main_data = [];
 
-            $form = new Form;
-            $main_data = [
-                'meta' => $form->fnMake_Meta($metaarr),
-                'header' => $form->fnMake_Header($sessinarr),
-                'left' => $form->fnMake_Left(),
-                'main' => $main_data,
-                'footer' => $form->fnMake_Fooeter($sessinarr)
-            ];
+            $order_m = model('Order_m');
+            $info = $order_m->Load_Order_Delivery_Info($opcode);
+            $status = (fn_ArrayCnt($info)>0) ? $info[0]['p_status'] : '0';
+            if($status==0){
+                $param = [
+                    'worker' => $sessinarr['user']['uid'],
+                    'startdate' => date('Y-m-d H:i'),
+                    'p_status' => 1
+                ];
 
-            return view('web/packing/packingStatusStaff_View', $main_data);
+                $Cnt = $order_m->Update_Order_Delivery_Info($opcode,$param);
+            }
+
+
+            $package = $order_m->Load_Order_Package_Info_opcode($opcode);
+            if(fn_ArrayCnt($package)==0) {
+                fn_Alert('존재하자 않는 포장지시 입니다 ');
+            }else {
+                $orcode_arr = [];
+                $product_arr = [];
+                $f_orcode = '';
+                $tCnt = 0;
+                foreach ($package as $d) {
+                    $orcode = $d['fk_orcode'];
+                    if($f_orcode==''){
+                        $f_orcode = $orcode;
+                    }
+                    $orcode_arr[] = $orcode;
+                    $pRs = $order_m->Load_Order_Product($orcode);
+                    if (fn_ArrayCnt($pRs) > 0) {
+                        foreach ($pRs as $product) {  // 내부 루프
+                            $product_arr[] = $product; // 직접 push
+                            $tCnt = $tCnt + $product['gcnt'];
+                        }
+                    }
+                }
+
+                if(fn_ArrayCnt($orcode_arr) > 1){
+                    $order_str = implode(',', $orcode_arr) . '(묶음배송)';
+                }else{
+                    $order_str = implode(',', $orcode_arr);
+                }
+                $order = $order_m->Load_Order_Info($f_orcode);
+
+                $ret_data = [
+                    'opcode' => $opcode,
+                    'info' => $info,
+                    'order_str' => $order_str,
+                    'product' => $product_arr,
+                    'order' => $order[0],
+                    'tCnt' => $tCnt
+                ];
+
+                $form = new Form;
+                $main_data = [
+                    'meta' => $form->fnMake_Meta($metaarr),
+                    'header' => $form->fnMake_Header($sessinarr),
+                    'left' => $form->fnMake_Left(),
+                    'body' => $ret_data,
+                    'footer' => $form->fnMake_Fooeter($sessinarr)
+                ];
+
+                return view('web/packing/packingStatusStaff_View', $main_data);
+            }
         }
     }
 

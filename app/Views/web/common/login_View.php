@@ -23,7 +23,11 @@
             <p class="text">아이디 저장</p>
         </label>
         <label for="autolg" class="checkType flexType1">
-            <input type="checkbox" name="autolg" id="autolg">
+            <?if($main['keeplogin']==''){?>
+                <input type="checkbox" name="autolg" id="autolg">
+            <?}else{?>
+                <input type="checkbox" name="autolg" id="autolg" checked>
+            <?}?>
             <p class="text">자동 로그인</p>
         </label>
     </div>

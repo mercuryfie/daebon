@@ -14,6 +14,7 @@
           referrerpolicy="no-referrer" />
     <!--CSS section-->
     <link rel="stylesheet" href="/assets/web/css/style.css?rnd=<?echo(rand()); ?>">
+    <link rel="stylesheet" href="/assets/web/css/style_staff.css?rnd=<?echo(rand()); ?>">
     <!--###############-->
     <!--JS section-->
     <?= $this->include('/web/include/script_View'); ?>

@@ -64,7 +64,7 @@
                     <p class="unit">건</p>
                 </div>
                 <div class="right">
-                    <button type="button" class="btnType1">엑셀다운로드</button>
+                    <button type="button" class="btnType1 mr20">엑셀다운로드</button>
                 </div>
             </div>
             <div class="area4 goods_boxa1b flexType2">

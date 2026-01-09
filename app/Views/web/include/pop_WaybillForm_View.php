@@ -1,4 +1,4 @@
-<?= $this->extend("/web/template/layout_none") ?>
+a<?= $this->extend("/web/template/layout_none") ?>
 <?= $this->section("content") ?>
 
 <!-- js ----------------------------  -->
@@ -6,8 +6,8 @@
 <script>
 </script>
 
-<section class="content">
-    <div class="waybill_boxfxp flexType4">
+<section class="content waybill_content" >
+    <div class="waybill_boxfxp flexType4" id="prn_body">
         <div class="bgBox">
             <img src="/assets/web/src/waybill3.png" alt="img" class="waybillImg">
         </div>
@@ -110,9 +110,13 @@
                 <div class="area area11 flexType2">
                     <p class="text text1">한약 10첩</p>
                 </div>
-
+a
             </div>
         </div>
+    </div>
+    <div class="btnBox flexType1 mt20">
+        <button type="button" class="btnType1 mr10 " id="xBtn">닫기</button>
+        <button type="button" class="btnType1" id="btn_print">출력</button>
     </div>
 </section>
 

@@ -1,0 +1,1381 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button,
+i {
+    cursor: pointer;
+}
+
+body {
+    font-family: 'Noto Sans KR', 'Noto Sans';
+}
+
+/*body {*/
+/*    font-family: 'Gmarket Sans', 'Noto Sans KR', 'Noto Sans', 'Kanit', 'Chakra Petch', sans-serif;*/
+/*}*/
+
+
+input[type="search"] {
+    outline: none;
+}
+
+/*border option*/
+/*double, groove, ridge, inset, outset, none, hidden*/
+
+:root {
+    --color1: #6FFF74;
+    --color2: #19CD1F;
+    --color3: #43B747;
+    --color4: #42b983;
+    --color5: #42b98341;
+    --color6: #b0ddc260;
+    --color7: #5EFF5B20;
+    --color8: #5EFF5B80;
+    --color9: #FB622BFF;
+
+    /*dashBoard color start */
+    --color11: #110D22;
+    --color12: #C322FB;
+    --color13: #FF34EB;
+    --color14: #62E9EB;
+    --color15: #6AF288;
+    --color16: #ececec21;
+    --color17: #ececec81;
+    /*dashBoard color end */
+
+    --babyColor1:#b0ddc241;
+    --bgColor1: #F9F9F9;
+    --bgColor2: #F3F3F3;
+
+    --main-gradient: linear-gradient(
+            to bottom right,
+            #6FFF74 10%,
+            #19CD1F 70%
+    );
+    --gradient2: linear-gradient(
+            to bottom right,
+            #65f16a 10%,
+            #3ae041 70%
+    );
+    --gradient3: linear-gradient(
+            to bottom right,
+            #ececec 10%,
+            #ccc 70%
+    );
+
+    --gradient4: linear-gradient(
+            to bottom right,
+            #ececec 30%,
+            #d5d5d5 60%
+            /*#c1c1c1 20%,*/
+            /*#ccc 20%*/
+    );
+}
+
+::selection {
+    background-color: #b0ddc2; /* 드래그 배경색 */
+    color: #000; /* 드래그된 텍스트 색상 */
+}
+
+input[type="checkbox"] {
+    accent-color: #24c22b; /* 체크 표시 색상 (예: 토마토색) */
+    color:#fff;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    accent-color: #24c22b;
+    margin-right: 10px;
+}
+
+@font-face {
+    font-family: 'HY견고딕-Web';
+    src:
+            local('HY견고딕'),           /* Windows 시스템 */
+            local('HanyangGothic'),      /* 한글 프로그램 */
+            local('HYGoThic');          /* HFT 폰트 */
+    font-weight: normal;
+}
+
+
+/* header -------------------------------- */
+
+
+
+.headerWrapStaff,
+.headerwrap {
+    /*border:1px solid red;*/
+    border-bottom: 1px solid #ececec;
+    width: 98vw;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 60px 20px 60px;
+
+}
+
+.headerWrapStaff {
+    border:none;
+    width: 100vw;
+    background-color: #1c1c1c;
+    color:#fff;
+    position: fixed;
+    top:0;
+    z-index: 33;
+
+}
+
+.headerWrapStaff .logoImg,
+.headerwrap .logoImg {
+    cursor: pointer;
+}
+
+.headerBox {
+    margin: 0 auto;
+    width: 1050px;
+
+}
+
+
+/* packingListStaff_View start -------------------------------- */
+
+.mainContentStaff {
+    width: 94vw;
+    overflow: hidden;
+}
+
+.packing_wrapghj {
+    width: 94vw;
+
+}
+
+.mainContentStaff .titleBox .headTitle {
+    padding: 80px 0 20px 0px ;
+    font-family: "Gmarket Sans";
+    font-size: 32px;
+    font-weight: 500;
+}
+
+
+.pack_boxdw1 .area  {
+    padding: 10px 0px 10px 0px;
+    width: 94vw;
+
+}
+
+.pack_boxdw1 .area2 {
+    height: 60px;
+}
+
+.pack_boxdw1 .area2 .searchArea  {
+    border-radius: 5px;
+    border:1px solid #ccc;
+    width: 340px;
+    height: 40px;
+    background-color: transparent;
+    color:#ccc;
+    font-size: 18px;
+
+}
+
+
+.pack_boxdw1 .pack_list_table  {
+    width: 94vw;
+    border-collapse: collapse;
+
+}
+
+
+.pack_boxdw1 .pack_list_table th,
+.pack_boxdw1 .pack_list_table td {
+    border:1px solid #ccc;
+    text-align: center;
+    /*color:#ececec;*/
+    color:#ccc;
+
+}
+.pack_boxdw1 .pack_list_table th {
+    height: 40px;
+    line-height: 40px;
+    color:#ececec;
+
+}
+.pack_boxdw1 .pack_list_table td {
+    height: 70px;
+    text-wrap: nowrap;
+    overflow: hidden;
+
+}
+
+/* packingListStaff_View end -------------------------------- */
+/* packingStatusStaff_View start -------------------------------- */
+
+.pack_status_wrap {
+    width: 96vw;
+}
+
+.pack_status_wrap .pack_status_box {
+    margin-top: 80px;
+    width: 94vw;
+    border:1px solid #5c5c5c;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+
+.pack_status_box .area {
+    width: 94vw;
+    margin-bottom: 20px;
+
+}
+
+.pack_status_box .area .title{
+    width: 220px;
+    margin-right: 20px;
+    font-size: 22px;
+    font-weight: 600;
+
+}
+
+
+.pack_status_box .area .category {
+    width: 180px;
+    margin-right: 40px;
+
+}
+
+.pack_status_box .area .progress,
+.pack_status_box .area .angle {
+    margin-right: 20px;
+}
+
+.pack_status_box .area5 {
+    width: 90vw;
+
+}
+
+.pack_status_box .area1 .inner {
+    width: 50%;
+    height: auto;
+
+}
+
+.pack_status_box .area1 .productCheck {
+    margin-bottom: 20px;
+
+}
+
+.pack_status_box .area1 .inner.imgBox_box2ck {
+    margin-top: 40px;
+    min-height: 280px;
+    height: 280px;
+    overflow-y: auto;
+    /*max-height: 340px;*/
+
+}
+
+.imgBox_box2ck .prod_box {
+    margin-bottom: 10px;
+
+}
+
+.imgBox_box2ck .thumBox {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+
+}
+
+.imgBox_box2ck .doneBox {
+    display: none;
+}
+
+.imgBox_box2ck .doneBox.active {
+    display: block;
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top:0px;
+    right: 0px;
+    z-index: 30;
+    background-color: #3ae04160;
+
+}
+
+
+.imgBox_box2ck .doneBox .checkBox {
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background-color: #00000080;
+
+}
+
+.imgBox_box2ck .doneBox i {
+    color:#fff;
+    font-size: 14px;
+
+}
+
+.imgBox_box2ck .imgBox {
+    position: relative;
+
+}
+
+.imgBox_box2ck .imgBox img {
+    /*position: absolute;*/
+    /*top:0;*/
+    /*left:0;*/
+    width: 80px;
+    height: 80px;
+}
+
+.imgBox_box2ck .prod_box .count {
+    /*height: 80px;*/
+    /*line-height: 80px; */
+
+}
+
+
+.pack_status_box .area3 .category {
+    display: none;
+
+}
+
+.pack_status_box .area3 .imgBox_boxdzu {
+    margin: 0;
+}
+
+.pack_status_box .area3 .imgBox_boxdzu .planeLayer,
+.pack_status_box .area3 .imgBox_boxdzu .dashedLayer {
+    margin-right: 10px;
+    width: 220px;
+    height: 220px;
+
+}
+
+
+/* packingStatus -------------------------------- */
+
+.productCheck_boxarv {
+    /*margin-top: 20px;*/
+    /*margin-left: 20px;*/
+    margin: 20px 0 20px 20px;
+}
+
+.productCheck_boxarv .productCheck {
+    /*padding: 5px 0;*/
+}
+
+.productCheck_boxarv .category {
+    width: 100px;
+    margin-right: 20px;
+}
+
+
+.imgBox_boxdzu .btn  {
+    border:none;
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    font-size: 22px;
+    background-image: var(--gradient3);
+
+}
+
+.imgBox_boxdzu .planeLayer {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+
+}
+.imgBox_boxdzu .dashedLayer {
+    border-radius: 10px;
+    border:1px dashed #ccc;
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.mainContentStaff .imgBox_boxdzu .dashedLayer {
+    border:1px dashed #5c5c5c;
+
+}
+
+.imgBox_boxdzu .dashedLayer img,
+.imgBox_boxdzu .planeLayer img {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+
+
+}
+
+.imgBox_boxdzu .dashedLayer .inputArea {
+    color:#ccc;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    font-size: 22px;
+}
+
+
+.imgBox_boxdzu .planeLayer .closeBtn {
+    border:none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    background-color: #00000080;
+    position: absolute;
+    top:12px;
+    right:12px;
+}
+
+.imgBox_boxdzu .closeBtn i {
+    color:#fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+
+.pack_status_box .area3 .imgBox_boxdzu .cam_btn {
+    /*width: 220px;*/
+    height: 220px;
+    font-size: 28px;
+
+}
+
+.pack_status_box .lastArea {
+    width: 90vw;
+    height: 80px;
+    border:none;
+
+}
+
+.pack_status_box .lastArea button {
+    font-size: 22px;
+
+}
+
+
+
+/* packingStatusStaff_View end -------------------------------- */
+/* pop_MagImg_View start -------------------------------- */
+
+.mag_img_conrlo {
+    width: 80vw;
+    height: 80vh;
+    background-color: #5c5c5c60;
+    padding: 20px;
+}
+
+.mag_img_conrlo .padding_area {
+    width: 100%;
+    height: 100%;
+
+}
+
+/* pop_MagImg_View end -------------------------------- */
+
+
+/* dawn start -------------------------------- */
+
+
+
+/*.mainContentStaff .area4 .produce_boxfxp {*/
+/*    width: 99vw;*/
+
+/*}*/
+
+/*.mainContentStaff .area4 .produce_boxfxp table{*/
+/*    !*width: 77vw;*!*/
+/*    width: 100%;*/
+/*    height: auto;*/
+/*    overflow: scroll;*/
+/*}*/
+
+/*.mainContentStaff .area4 .produce_boxfxp table th{*/
+/*    position: sticky;*/
+/*    top: 0;*/
+/*    z-index: 10;*/
+
+/*}*/
+
+.mainContentStaff .lastArea{
+    border:1px solid #5c5c5c;
+    width: 81vw;
+    height: 44px;
+    cursor: pointer;
+
+}
+
+/* areaBoxStaff barcod, progress box start -------------------------------- */
+
+.mainContentStaff .area1 {
+    margin-top: 40px;
+    /*margin-bottom: 10px;*/
+    overflow: hidden;
+}
+
+.mainContentStaff .area1 .trackBox {
+    padding-top: 5px;
+    width: 320px;
+    height: 60px;
+    background-color: #ececec20;
+    border-radius: 10px;
+}
+
+.mainContentStaff .area1 .trackBox.active {
+    background-color: var(--color7);
+
+}
+
+.mainContentStaff .area1 .trackBox .lightImg {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.mainContentStaff .area1 .trackBox .status {
+    font-size: 20px;
+    font-family: "Gmarket Sans";
+    font-weight: 300;
+
+}
+
+
+/* areaBoxStaff barcod, progress box end -------------------------------- */
+
+/* areaBoxStaff start -------------------------------- */
+
+.mainContentStaff {
+    margin: 0 auto;
+    width: 81vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.mainContentStaff2 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 40px;
+
+}
+
+.mainContentStaff .areaBoxStaff {
+    /*border: 1px solid #5c5c5c;*/
+    margin-top: 80px;
+    background-color: transparent;
+    border-radius: 10px;
+    color:#fff;
+    width: 96vw;
+    border:none;
+    border:1px solid red;
+}
+
+
+.mainContentStaff .areaBoxStaff2 {
+    border: 1px solid #5c5c5c;
+    /*border:1px solid blue;*/
+    width: 70vw;
+    /*padding:20px;*/
+    overflow: hidden;
+
+}
+
+
+.mainContentStaff .packing_wrapghj .progress {
+    margin: 0;
+    padding:10px 0;
+    margin-left: 20px;
+}
+
+
+/* 생산자 생산목록 if원료입고 or not 에따른 div css start */
+
+.mainContentStaff .prog_boxl1p .data,
+.mainContentStaff .prog_boxl1p .title {
+    font-size: 18px;
+}
+
+.prog_boxl1p .prog_boxl1p {
+
+}
+
+
+.areaBoxStaff2 .upside {
+    height: auto;
+    min-height: 440px;
+}
+
+.areaBoxStaff2 .element .left,
+.areaBoxStaff2 .upside .left{
+    margin-right: 60px;
+}
+
+/* 생산자 생산목록 if 원료입고 or not 에따른 div css end */
+
+/* 생산 목록 titlebox, area1 start */
+.mainContentStaff .listTitleBox .headTitle {
+    /*padding: 0;*/
+    /*margin: 0;*/
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 22px;
+    font-family: "Gmarket Sans";
+
+}
+
+
+/* 생산 목록 titlebox, area1 end */
+/* 생산현황 상세 titlebox, area1 start */
+
+.mainContentStaff .detailTitleBox .headTitle {
+    /*padding: 0;*/
+    /*margin: 0;*/
+    margin-bottom: 20px;
+    font-size: 22px;
+    /*font-weight: bold;*/
+    font-family: "Gmarket Sans";
+
+}
+
+
+.mainContentStaff .producing_boxr8j .inputType520 {
+    margin: 0;
+    margin-bottom: 20px;
+
+}
+
+.mainContentStaff .areaBoxStaff2 .left .inputType220 {
+    width: 380px;
+}
+
+.mainContentStaff .areaBoxStaff2 .right .data4 {
+    height: auto;
+
+}
+
+/* 생산현황 상세 titlebox, area1 end */
+/* 생산현황 상세 start  */
+
+.production_boxu9d .coverBox .data4 {
+    height: auto;
+}
+
+.production_boxu9d .table_boxqqq,
+.production_boxu10 .table_boxqqq {
+}
+
+.production_boxu10 .table_boxqqq .leftArea .title,
+.production_boxu9d .table_boxqqq .leftArea .title{
+    width: 100px;
+    margin-right: 20px;
+    font-size: 16px;
+}
+
+
+/* 생산현황 상세 end  */
+
+.mainContentStaff .goods_boxkfg {
+    /*border-bottom: 1px solid #5c5c5c;*/
+    margin: 0;
+    padding: 0;
+    border:none;
+    width: 75vw;
+    margin-left: 20px;
+    margin-bottom: 10px;
+
+}
+
+
+.mainContentStaff .inputType520{
+    /*.mainContentStaff .areaBoxStaff .area1 .inputType520{*/
+    background-color: transparent;
+    border:1px solid #5c5c5c;
+    color:#fff;
+    font-size: 22px;
+    font-weight: bold;
+    text-wrap: nowrap;
+}
+
+.mainContentStaff .deliInfoTable,
+.mainContentStaff .orderInfoTable {
+    margin: 0 auto;
+    border-collapse: collapse;
+    border:1px solid #5c5c5c;
+    width: 90vw;
+    height: auto;
+    color:#fff;
+    margin-bottom: 100px;
+    padding-right: 100px;
+}
+
+.mainContentStaff .weight_tablevufb {
+    border-radius: 10px;
+    /*border:1px solid #5c5c5c;*/
+    width:500px;
+    height: auto;
+    margin-bottom: 40px;
+}
+
+.mainContentStaff .weight_tablevufb td,
+.mainContentStaff .deliInfoTable td,
+.mainContentStaff .areaBoxStaff .area4 .orderInfoTable td {
+    min-width: 100px;
+    width:auto;
+    overflow: hidden;
+    border: 1px solid #5c5c5c;
+    height: 80px;
+    line-height: 32px;
+    text-align: center;
+    padding: 0 10px;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .weight_tablevufb td{
+    height: 66px;
+}
+
+.mainContentStaff .orderInfoTable th,
+.mainContentStaff .deliInfoTable th {
+    height: 44px;
+    background-color: #1c1c1c;
+}
+
+.mainContentStaff .areaBox .area1 .period {
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    min-width: 100px;
+    width: 100px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+}
+
+
+.mainContentStaff .statusLabel {
+    margin-right: 20px;
+    width: auto;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .statusLabel .status {
+    width: 22px;
+    height: 22px;
+}
+
+.mainContentStaff .areaBox .area2 .right,
+.mainContentStaff .areaBox .area1 .right {
+    /*margin-right: 10px;*/
+    width: auto;
+    min-width: 240px;
+    overflow: hidden;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.mainContentStaff .areaBoxStaff .area2 .searchFilter,
+.mainContentStaff .areaBoxStaff .area2 .searchArea {
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    border-radius: 5px;
+    min-width: 80px;
+    width: auto;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 10px;
+    font-size: 16px;
+    /*text-align: center;*/
+    color: #fff;
+    text-wrap: nowrap;
+}
+
+
+.mainContentStaff .areaBoxStaff .area2 .searchArea {
+    width: 420px;
+    text-align: left;
+
+}
+
+
+.mainContentStaff .btnType1 {
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    border-radius: 5px;
+    min-width: 80px;
+    width: auto;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 10px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .btnType60 {
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .btn80Type1 {
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    /*padding: 0px 10px;*/
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .btn80Type2 {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    /*padding: 0px 10px;*/
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+
+.mainContentStaff .btn80Type3 {
+    border: 1px solid var(--gradient3);
+    background-image: var(--gradient3);
+    color:#000;
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    /*padding: 0px 10px;*/
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+
+.mainContentStaff .btn80Type3.active {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+
+}
+
+.mainContentStaff .areaBoxStaff .btn60Type1 {
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    color:#fff;
+    border-radius: 5px;
+    margin: 10px 0;
+    width: 60px;
+    height: 60px;
+    /*padding: 0px 10px;*/
+    font-size: 22px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+.mainContentStaff .areaBoxStaff .btn60Type2 {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    margin: 10px 0;
+    width: 60px;
+    height: 60px;
+    /*padding: 0px 10px;*/
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .areaBoxStaff .btn60Type3 {
+    border: 1px solid var(--gradient3);
+    background-image: var(--gradient3);
+    color:#000;
+    border-radius: 5px;
+    margin: 10px 0;
+    width: 60px;
+    height: 60px;
+    /*padding: 0px 10px;*/
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+
+.mainContentStaff .productionList_boxkkq button.active {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    margin: 10px 0;
+    width: 60px;
+    height: 60px;
+    /*padding: 0px 10px;*/
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+.mainContentStaff .productionList_boxkkq button.mr10 {
+    margin-right: 10px;
+
+}
+
+.mainContentStaff .areaBoxStaff .weight_tablevufb .btn60Type3 {
+    font-size: 22px;
+    color:#5c5c5c;
+}
+
+.mainContentStaff .areaBoxStaff .weight_tablevufb .btn60Type3.active {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+
+}
+
+
+.mainContentStaff .areaBoxStaff .btn60Type3 i {
+    /*color:#000;*/
+}
+
+.mainContentStaff .areaBoxStaff .inputType220 {
+    padding: 0 10px;
+    border: 1px solid #5c5c5c;
+    color:#fff;
+    background-color: transparent;
+    min-width: 220px;
+    width: 220px;
+    min-height: 44px;
+    height: auto;
+    line-height: 44px;
+    text-wrap: nowrap;
+    /*overflow: hidden;*/
+
+}
+
+/* areaBoxStaff end -------------------------------- */
+/* dawn end -------------------------------- */
+
+/* flexType1 -------------------------------- */
+
+
+.hidden {
+    display: none;
+}
+
+
+.underline {
+    text-decoration: underline;
+}
+
+
+.underline2 {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.fontType1 {
+    font-family: "Gmarket Sans";
+}
+
+.fontType2 {
+    font-family:"Noto Sans";
+}
+
+.fontType3 {
+    font-size: 14px;
+    color: #5c5c5c;
+}
+
+.fontType4 {
+    font-size: 18px;
+    color: var(--color4);
+    font-weight: 500;
+}
+
+.fs14 {
+    font-size: 14px;
+}
+
+.tww {
+    text-wrap: wrap;
+}
+
+.flexType1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.flexType2 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.flexType2-1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+.flexType3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.flexType3-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+.flexType4 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+.flexType5 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+
+.flexType5-1 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.flexType5-2 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+}
+
+.flexCol {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.flexCol2 {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexStart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.red {
+    color:red;
+}
+
+.org {
+    color:orange;
+}
+
+.yel {
+    color:yellow;
+}
+
+.bn {
+    border:none;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.ml40 {
+    margin-left: 40px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.mt40 {
+    margin-top: 40px;
+}
+
+.pr20 {
+    padding-right: 20px;
+}
+
+.mr10vw {
+    margin-right: 5vw;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+.mr20 {
+    margin-right: 20px;
+}
+
+.mr40 {
+    margin-right: 40px;
+}
+
+.p20 {
+    padding: 20px;
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
+.mb40 {
+    margin-bottom: 40px;
+}
+
+.pb100 {
+    padding-bottom: 100px;
+}
+
+
+
+.borderRed {
+    border:1px solid red;
+}
+
+.btnType1 {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    min-width: 80px;
+    width: auto;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 24px;
+    font-size: 16px;
+    text-align: center;
+    color:#303030;
+    text-wrap: nowrap;
+
+}
+
+.btnType2 {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    min-width: 80px;
+    width: auto;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 24px;
+    font-size: 16px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+
+.btnType3 {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    color:#303030;
+    text-wrap: nowrap;
+}
+
+.btnType4{
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.squareType {
+    border: none;
+    background-image: var(--main-gradient);
+    border-radius: 10px;
+    font-size: 22px;
+    width: 44px;
+    height: 44px;
+    text-align: center;
+    position: relative;
+    color:#fff;
+}
+
+.squareType2 {
+    border: none;
+    background-image: var(--gradient3);
+    color:#fff;
+    font-size: 22px;
+    border-radius: 10px;
+    width: 44px;
+    height: 44px;
+    text-align: center;
+    position: relative;
+}
+
+
+.inputType160 {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    min-width: 160px;
+    width: 160px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+
+}
+
+.inputBorder {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.must {
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+    background-color: red;
+}
+
+.notmust {
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+}
+
+.inputType {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    padding:0 5px;
+
+}
+
+.inputType2 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    padding:0 5px;
+
+}
+
+.inputType360 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    min-width: 360px;
+    width: 360px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 16px;
+    padding:0 5px;
+
+}
+
+.inputType520 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    min-width: 160px;
+    width: 520px;
+    height: 44px;
+    /*line-height: 44px;*/
+    font-size: 14px;
+    padding-left: 10px;
+
+}
+

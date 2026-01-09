@@ -383,8 +383,27 @@ function printWindow(id) {
 //     setTimeout(function(){window.print();}, 1000);
 // }
 
+function Make_Toast(msg) {
+    const div = document.createElement('div');
+    div.classList.add('toastBox');
+    div.textContent = msg;
 
-function Make_Toast(msg){
+    // 애니메이션
+    div.style.cssText = `
+        animation: toastSlideIn 0.3s ease-out;
+        white-space: pre-line;
+        word-wrap: break-word;
+    `;
+
+    document.body.appendChild(div);
+
+    setTimeout(() => {
+        div.style.animation = 'toastSlideOut 0.3s ease-in forwards';
+        setTimeout(() => div.remove(), 300);
+    }, 3000);
+}
+
+function Make_Toast1(msg){
     const div = document.createElement('div');
     div.classList.add('toastBox');
     div.textContent = msg;

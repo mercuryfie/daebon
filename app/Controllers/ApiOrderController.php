@@ -90,7 +90,7 @@ class ApiOrderController extends BaseController
                         'tcnt' => $t_Cnt,
                         'worker' => $worker,
                         'status' => $p_str,
-                        'start' => ($a['indate']==null) ? '' : $a['indate'],
+                        'start' => ($a['startdate']==null) ? '' : $a['startdate'],
                         'end' => ($a['enddate']==null) ? '' : $a['enddate']
                     ];
 

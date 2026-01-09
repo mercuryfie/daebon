@@ -30,6 +30,8 @@ class OrderController extends BaseController
 
             $main_data = [];
 
+//            echo('cc='.get_cookie(COOKIE_KEY));
+
             $form = new Form;
             $main_data = [
                 'meta' => $form->fnMake_Meta($metaarr),

@@ -587,7 +587,8 @@ input[type="radio"] {
     height: 200px;
     line-height: 200px;
     font-family: "Gmarket Sans";
-    font-size: 22px;
+    font-size: 34px;
+    font-weight: 500;
 }
 
 .login .inputcon input {
@@ -602,8 +603,9 @@ input[type="radio"] {
     width: 380px;
     height: 50px;
     /*background-color: #42b983;*/
-    color:#fff;
-    font-size: 18px;
+    /*color:#fff;*/
+    font-size: 22px;
+    font-weight: 500;
     font-family: "Gmarket Sans";
     border:none;
     border-radius: 5px;
@@ -631,28 +633,29 @@ input[type="radio"] {
 
 /* dashboard status -------------------------------- */
 
-.dashBoard_boxowy {
+.main_boxowy {
 }
 
-.dashBoard_boxowy .refreshBox {
+.main_boxowy .refreshBox {
     margin-top: 20px;
-    margin-left: 20px;
-    width:77vw;
+    margin-left: 22px;
+    padding-right: 10px;
+    width:84vw;
     height: 32px;
     overflow: hidden;
 }
 
 
-.dashBoard_boxowy .refreshBox .left{
+.main_boxowy .refreshBox .left{
     margin-right: 40px;
 }
 
-.dashBoard_boxowy .refreshBox .subtitle{
+.main_boxowy .refreshBox .subtitle{
     width: 60px;
     margin-right: 40px;
 }
 
-.dashBoard_boxowy .refreshBox .swich_boxli6 i{
+.main_boxowy .refreshBox .swich_boxli6 i{
     font-weight: bold;
     font-size: 18px;
 
@@ -664,10 +667,10 @@ input[type="radio"] {
 }
 
 .order_box28f .swich_boxli6 {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     margin-left: 20px;
     margin-bottom: 10px;
-    width: 78vw;
+    width: 82vw;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -745,7 +748,7 @@ input[type="radio"] {
     margin: 0 !important;
     margin-top: 40px !important;
     margin-left: 20px !important;
-    max-width: 90% !important;
+    width: 84vw;
     max-height: 720px;
     background-color: #fff;
     padding:20px;
@@ -1401,30 +1404,22 @@ input[type="radio"] {
 /* linkMalls -------------------------------- */
 
 .titleBox .headTitle {
-    padding: 40px 0 20px 30px ;
+    padding: 20px 0 20px 30px ;
     font-family: "Gmarket Sans";
     font-size: 22px;
     font-weight: 500;
 }
 
-.mainContentStaff .titleBox .headTitle {
-    padding: 100px 0 20px 20px ;
-    font-family: "Gmarket Sans";
-    font-size: 38px;
-    font-weight: 500;
-}
 
 .areaBox {
     border:1px solid #ccc;
     border-radius: 10px;
-    width: 80vw;
-    /*width: 1400px;*/
+    width: 84vw;
     height: auto;
     padding: 10px 0;
-    /*padding-right: 20px;*/
     margin-left: 20px;
+    margin-bottom: 10px;
     background-color: #fff;
-    /*overflow: hidden;*/
 
 }
 
@@ -1448,8 +1443,8 @@ input[type="radio"] {
 .areaBox .area3,
 .areaBox .area2,
 .areaBox .area1 {
-    padding: 10px 0px 10px 0px;
-    width: 90vw;
+    padding: 10px 0px 10px 20px;
+    width: 82vw;
 
 }
 
@@ -1526,6 +1521,7 @@ input[type="radio"] {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    width: 82vw;
 }
 
 
@@ -1596,7 +1592,7 @@ input[type="radio"] {
     /*border-bottom: 1px solid #ccc;*/
     border: 1px solid #ddd;
     overflow: hidden;
-    width: 77vw;
+    width: 81vw;
     background-color: #fff;
     height:auto;
     min-height: 560px;
@@ -1612,7 +1608,7 @@ input[type="radio"] {
 }
 
 .order_box28f .order_boxfxp .order_tabledj1 {
-    width: 77vw;
+    width: 81vw;
     border-collapse: collapse;
     text-wrap: nowrap;
     overflow-x: scroll;
@@ -1855,7 +1851,7 @@ input[type="radio"] {
 .order_box28f .area4 .order_boxfxp table {
     /*width:540px;*/
     border:1px solid green;
-    width: 77vw;
+    width: 81vw;
 }
 
 
@@ -1865,12 +1861,12 @@ input[type="radio"] {
 }
 
 .goods_boxkfg {
-    width: 77vw;
-    margin-top: 20px;
+    width: 82vw;
+    height: 40px;
+    /*border:1px solid red;*/
     margin-left: 20px;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ccc;
+    /*padding-bottom: 20px;*/
+    margin-bottom: 10px;
 }
 
 .goods_boxkfg .left {
@@ -1932,7 +1928,7 @@ input[type="radio"] {
 }
 
 .cat_boxa1b .catTable {
-    width: 77vw;
+    width: 81vw;
     margin-left: 20px;
 }
 
@@ -1968,9 +1964,10 @@ input[type="radio"] {
 .areaBox .area4 .linkMallsTable,
 .deliInfoTable {
     border:1px solid #ccc;
+    margin-left: 20px;
     border-collapse: collapse;
     color:#303030;
-    width: 77vw;
+    width: 81vw;
 
 }
 
@@ -2000,7 +1997,7 @@ input[type="radio"] {
 
 .link_wrap5r6 .area4,
 .deli_wrapghj .area4 {
-    width: 96vw;
+    width: 84vw;
     overflow-x: hidden;
     /*margin-left: 20px;*/
 }
@@ -2025,7 +2022,7 @@ input[type="radio"] {
 
 
 .areaBox .area4 .orderInfoTable1 {
-    width: 75vw;
+    width: 81vw;
 }
 
 .areaBox .area4 .orderInfoTable2 {
@@ -2093,7 +2090,7 @@ input[type="radio"] {
 }
 
 .order_box28f .areaBox .area5 .countBox{
-    width: 77vw;
+    width: 81vw;
     /*height: 160px;*/
 }
 
@@ -2181,13 +2178,13 @@ input[type="radio"] {
 /* dashboard -------------------------------- */
 
 #calendar {
-    max-width: 900px;
+    /*max-width: 900px;*/
     margin: 40px auto;
 }
 
 .statusBox {
     margin-left: 20px;
-    /*width: 1200px;*/
+    width: 84vw;
 }
 
 .statusBox .status {
@@ -2195,10 +2192,14 @@ input[type="radio"] {
     margin-right: 20px;
     border:1px solid #ccc;
     border-radius: 10px;
-    width: 22%;
+    width: 24%;
     min-width: 240px;
     height: 180px;
     background-color: #fff;
+}
+
+.statusBox .status:last-child {
+    margin-right: 0;
 }
 
 .statusBox .status .upside{
@@ -2221,7 +2222,6 @@ input[type="radio"] {
     height: 28px;
 
 }
-
 .statusBox .status .now{
     color:#5c5c5c;
 
@@ -2243,139 +2243,6 @@ input[type="radio"] {
     margin-right: 10px;
 }
 
-/* packing Info -------------------------------- */
-
-/*.packing_wraptrf .titleBox {*/
-/*    border:1px solid red;*/
-/*    margin-top: 100px;*/
-/*    margin-bottom: 20px;*/
-/*}*/
-
-
-.mainWrapStaff .packingWrapStaff .titleBox {
-    margin-top: 80px;
-
-}
-
-.mainWrapStaff .packingWrapStaff .titleBox input {
-    margin-bottom: 20px;
-}
-
-.packing_wraptrf .area,
-.packing_wraph1c .area1 {
-    /*padding: 0;*/
-    /*margin: 0;*/
-    border-bottom: 1px solid #ccc;
-}
-
-.packingWrapStaff .area,
-.packingWrapStaff .area1 {
-    border-bottom: 1px solid #5c5c5c;
-}
-
-.packing_wraptrf .area:last-child {
-    border-bottom: none;
-}
-
-.packing_wraph1c .area1 .innerBox {
-    width: 320px;
-    margin-bottom: 20px;
-
-}
-
-
-
-.packing_wraptrf .area .title {
-    margin-top: 10px;
-    font-family: "Gmarket Sans";
-    font-size: 18px;
-    width: 220px;
-}
-
-.packing_wraptrf .area5 .title {
-    margin-top: 0;
-    font-family: "Gmarket Sans";
-    font-size: 18px;
-    width: 120px;
-}
-
-.packing_wraptrf .area3 .lastBox {
-    width: 77vw;
-    padding-right: 40px;
-
-}
-
-.packing_wraptrf .area5 .printBox .btnType3{
-    width: 80px;
-    height: 80px;
-}
-
-.packing_boxfxp {
-    padding: 0 20px;
-}
-
-.packing_boxfxp table{
-    width: 100%;
-    border:1px solid #ccc;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-.packing_boxfxp table td{
-    height: 32px;
-    min-height: 32px;
-    border:1px solid #ccc;
-    text-align: center;
-}
-
-.packing_boxfxp .hoverGreen:hover {
-    color:var(--color4);
-}
-
-.progress_boxatq {
-    margin: 20px 0;
-}
-
-.progress_boxatq .progress{
-    padding: 0 20px;
-}
-
-.progress_boxatq .progress .status{
-    text-wrap: nowrap;
-}
-
-.progress_boxatq .squareType2,
-.progress_boxatq .squareType{
-    margin-bottom: 10px;
-
-}
-
-.area_boxd2s .right{
-    margin-left: 10px;
-}
-
-.area_boxd2s .right .btnType3{
-    padding: 0 10px;
-}
-
-.progress_boxatq .squareType i{
-    font-size: 22px;
-    color:#fff;
-}
-
-.progress_boxatq .angle {
-    padding: 0 20px;
-}
-
-.progress_boxatq .angle i {
-    font-size: 22px;
-    color:#ccc;
-}
-
-.packing_wraptrf .area5 .right {
-    text-wrap: nowrap;
-    margin-top: 20px;
-}
 
 /* goods register lastBox start  -------------------------------- */
 
@@ -2406,6 +2273,11 @@ input[type="radio"] {
     border-bottom: 1px solid #ccc;
 }
 
+.oinfo_box23e .area2 {
+    margin: 0;
+    margin: 10px 0;
+}
+
 .oinfo_box23e .area2 .refreshBtn {
     padding: 0 10px;
     height: 32px;
@@ -2431,11 +2303,6 @@ input[type="radio"] {
 }
 
 .oinfo_box23e .area1 .tab.active {
-    /*box-sizing: content-box;*/
-    /*background-color: var(--color6);*/
-    /*background-color: #ececec20;*/
-    /*height: 35px;*/
-    /*line-height: 35px;*/
     color:var(--color4);
     font-weight: 500;
     border-bottom: 2px solid var(--color4);
@@ -2447,9 +2314,11 @@ input[type="radio"] {
     /*width: auto;*/
     height: auto;
     text-align: center;
-    width: 75vw;
+    width: 81vw;
 
 }
+
+
 
 .oinfo_box23e .fac_tablexx9 th {
     font-weight: normal;
@@ -2778,230 +2647,16 @@ input[type="radio"] {
 
 /* goods editor > add cover end  -------------------------------- */
 
-/* packingStatus -------------------------------- */
-
-.productCheck_boxarv {
-    /*margin-top: 20px;*/
-    /*margin-left: 20px;*/
-    margin: 20px 0 20px 20px;
-}
-
-.productCheck_boxarv .productCheck {
-    /*padding: 5px 0;*/
-}
-
-.productCheck_boxarv .category {
-    width: 100px;
-    margin-right: 20px;
-}
-
-.imgBox_box2ck {
-    margin-top: 20px;
-    margin-left: 10px;
-    margin-bottom: 20px;
-
-}
-
-.imgBox_boxdzu > *,
-.imgBox_box2ck > * {
-    margin-right: 20px;
-}
-
-
-.imgBox_box2ck .noirBox {
-    width: 100px;
-    height: 120px;
-    overflow: hidden;
-
-}
-
-.imgBox_box2ck .noirLayer {
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-    position: relative;
-}
-
-.imgBox_box2ck .noirBox .done i {
-    font-size: 32px;
-}
-
-.imgBox_box2ck .noirBox .noir.active {
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top:0;
-    left:0;
-    z-index: 30;
-    background-color: #00000090;
-}
-
-.imgBox_box2cq .noirLayer .done.active,
-.imgBox_box2ck .noirLayer .done.active {
-    border:1px solid red;
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top:0;
-    left:0;
-    z-index: 33;
-    background-color: var(--color8);
-
-
-}
-
-.imgBox_box2cq .noirLayer .done.active i {
-    color:#000;
-}
-
-.imgBox_box2ck .noirBox .ttl {
-    width: 90px;
-    font-size: 14px;
-    margin-left: 5px;
-    text-wrap: nowrap;
-    overflow: hidden;
-}
-
-.imgBox_boxdzu {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 10px;
-
-}
-
-.imgBox_box2ck img {
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    position: absolute;
-    top:0;
-    left:0;
-    /*z-index: 20;*/
-}
-
-.imgBox_box2ck .countBox {
-    width: 100px;
-    height: 100px;
-    /*overflow: hidden;*/
-
-}
-
-
-
-.imgBox_box2ck .countBox .count {
-    border-radius: 10px;
-    background-color: #00000080;
-    width: 100px;
-    height: 100px;
-    border:1px solid #ccc;
-    text-align: center;
-    line-height: 100px;
-    font-size: 22px;
-    position: absolute;
-    top:0px;
-    left:0;
-    z-index: 22;
-
-}
-
-.mainContentStaff .imgBox_box2ck .count {
-    border:1px solid #5c5c5c;
-}
-
-.imgBox_box2ck .btnBox  {
-    width: 100px;
-    height: 120px;
-    overflow: hidden;
-
-}
-
-.imgBox_box2ck .btnBox .btn  {
-    border:none;
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-    font-size: 22px;
-    background-image: var(--gradient3);
-
-}
-
-.imgBox_boxdzu .btn  {
-    border:none;
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-    font-size: 22px;
-    background-image: var(--gradient3);
-
-}
-
-.imgBox_boxdzu .planeLayer {
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-    position: relative;
-
-}
-.imgBox_boxdzu .dashedLayer {
-    border-radius: 10px;
-    border:1px dashed #ccc;
-    width: 100px;
-    height: 100px;
-    position: relative;
-}
-
-.mainContentStaff .imgBox_boxdzu .dashedLayer {
-    border:1px dashed #5c5c5c;
-
-}
-
-.imgBox_boxdzu .dashedLayer img,
-.imgBox_boxdzu .planeLayer img {
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-
-
-}
-
-.imgBox_boxdzu .dashedLayer .inputArea {
-    color:#ccc;
-    position: absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    font-size: 22px;
-}
-
-
-.imgBox_boxdzu .planeLayer .closeBtn {
-    border:none;
-    border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    background-color: #00000041;
-    position: absolute;
-    top:8px;
-    right:8px;
-}
-
-.imgBox_boxdzu .closeBtn i {
-    color:#fff;
-}
-
 /* goods List -------------------------------- */
 
 
 .area_boxmxh {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     padding-bottom: 100px;
 }
 
 .goods_boxfv6 .area_boxmxh {
-    padding-bottom: 40px;
+    /*padding-bottom: 40px;*/
 }
 
 .area_boxmxh .lastArea {
@@ -3549,12 +3204,12 @@ input[type="radio"] {
 .products_boxa1b .orderInfoTable1,
 .produce_boxfxp .orderInfoTable1,
 .atom_boxa1b .orderInfoTable1 {
-    width: 77vw;
+    width: 81vw;
     text-wrap: nowrap;
 }
 
 .materialListTable {
-    width: 77vw;
+    width: 81vw;
 }
 
 .materialListTable th {
@@ -3700,7 +3355,7 @@ input[type="radio"] {
 
 .products_boxfxp {
     border:1px solid #ccc;
-    width: 77vw;
+    width: 81vw;
     overflow: scroll;
     /*overflow: hidden;*/
 
@@ -4118,548 +3773,13 @@ input[type="radio"] {
     margin-right: 20px;
 
 }
-.mainContentStaff .memo_boxb5h .title {
-    width: 100px;
-    margin-bottom: 20px;
-    font-size: 18px;
-}
 
-.mainContentStaff .memo_boxb5h textarea {
-    resize: none;
-    border-radius: 5px;
-    border: 1px solid #5c5c5c;
-    background-color: transparent;
-    width: 880px;
-    height: 120px;
-    padding: 5px;
-    color:#fff;
-    font-size: 18px;
-}
 
 .area_boxg4q .submitBox {
     width: 66vw;
     margin: 20px 0px 20px 0;
 }
 
-.mainContentStaff .area_boxg4q .submitBox {
-    width: 66vw;
-    /*padding-right: 20px;*/
-}
-
-.mainContentStaff .area4 {
-    width: 90vw;
-    /*height: auto;*/
-    /*max-height: 60vh;*/
-}
-
-.mainContentStaff .area4 .produce_boxfxp {
-    width: 77vw;
-
-}
-
-.mainContentStaff .area4 .produce_boxfxp table{
-    /*width: 77vw;*/
-    width: 100%;
-    height: auto;
-    overflow: scroll;
-}
-
-.mainContentStaff .area4 .produce_boxfxp table th{
-    position: sticky;
-    top: 0;
-    z-index: 10;
-
-}
-
-.mainContentStaff .lastArea{
-    border:1px solid #5c5c5c;
-    width:77vw;
-    height: 44px;
-    cursor: pointer;
-
-}
-
-/* areaBoxStaff barcod, progress box start -------------------------------- */
-
-.mainContentStaff .area1 {
-    margin-top: 40px;
-    /*margin-bottom: 10px;*/
-    overflow: hidden;
-}
-
-.mainContentStaff .area1 .trackBox {
-    padding-top: 5px;
-    width: 320px;
-    height: 60px;
-    background-color: #ececec20;
-    border-radius: 10px;
-}
-
-.mainContentStaff .area1 .trackBox.active {
-    background-color: var(--color7);
-
-}
-
-.mainContentStaff .area1 .trackBox .lightImg {
-    width: 16px;
-    height: 16px;
-    object-fit: contain;
-}
-
-.mainContentStaff .area1 .trackBox .status {
-    font-size: 20px;
-    font-family: "Gmarket Sans";
-    font-weight: 300;
-
-}
-
-
-/* areaBoxStaff barcod, progress box end -------------------------------- */
-
-/* areaBoxStaff start -------------------------------- */
-
-.mainContentStaff {
-    margin: 0 auto;
-    width:77vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-}
-
-.mainContentStaff2 {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-left: 40px;
-
-}
-
-.mainContentStaff .areaBoxStaff {
-    /*border: 1px solid #5c5c5c;*/
-    background-color: transparent;
-    border-radius: 10px;
-    color:#fff;
-    width: 96vw;
-    border:none;
-    border:1px solid red;
-}
-
-
-.mainContentStaff .areaBoxStaff2 {
-    border: 1px solid #5c5c5c;
-    /*border:1px solid blue;*/
-    width: 70vw;
-    /*padding:20px;*/
-    overflow: hidden;
-
-}
-
-.packing_wrapghj .headTitle {
-    font-size: 28px;
-
-}
-
-.mainContentStaff .packing_wrapghj .progress {
-    margin: 0;
-    padding:10px 0;
-    margin-left: 20px;
-}
-
-
-/* 생산자 생산목록 if원료입고 or not 에따른 div css start */
-
-.mainContentStaff .prog_boxl1p .data,
-.mainContentStaff .prog_boxl1p .title {
-    font-size: 18px;
-}
-
-.prog_boxl1p .prog_boxl1p {
-
-}
-
-
-.areaBoxStaff2 .upside {
-    height: auto;
-    min-height: 440px;
-}
-
-.areaBoxStaff2 .element .left,
-.areaBoxStaff2 .upside .left{
-    margin-right: 60px;
-}
-
-/* 생산자 생산목록 if 원료입고 or not 에따른 div css end */
-
-/* 생산 목록 titlebox, area1 start */
-.mainContentStaff .listTitleBox .headTitle {
-    /*padding: 0;*/
-    /*margin: 0;*/
-    margin-top: 20px;
-    margin-left: 20px;
-    font-size: 22px;
-    font-family: "Gmarket Sans";
-
-}
-
-
-/* 생산 목록 titlebox, area1 end */
-/* 생산현황 상세 titlebox, area1 start */
-
-.mainContentStaff .detailTitleBox .headTitle {
-    /*padding: 0;*/
-    /*margin: 0;*/
-    margin-bottom: 20px;
-    font-size: 22px;
-    /*font-weight: bold;*/
-    font-family: "Gmarket Sans";
-
-}
-
-
-.mainContentStaff .producing_boxr8j .inputType520 {
-    margin: 0;
-    margin-bottom: 20px;
-
-}
-
-.mainContentStaff .areaBoxStaff2 .left .inputType220 {
-    width: 380px;
-}
-
-.mainContentStaff .areaBoxStaff2 .right .data4 {
-    height: auto;
-
-}
-
-/* 생산현황 상세 titlebox, area1 end */
-/* 생산현황 상세 start  */
-
-.production_boxu9d .coverBox .data4 {
-    height: auto;
-}
-
-.production_boxu9d .table_boxqqq,
-.production_boxu10 .table_boxqqq {
-}
-
-.production_boxu10 .table_boxqqq .leftArea .title,
-.production_boxu9d .table_boxqqq .leftArea .title{
-    width: 100px;
-    margin-right: 20px;
-    font-size: 16px;
-}
-
-
-/* 생산현황 상세 end  */
-
-.mainContentStaff .goods_boxkfg {
-    /*border-bottom: 1px solid #5c5c5c;*/
-    margin: 0;
-    padding: 0;
-    border:none;
-    width: 75vw;
-    margin-left: 20px;
-    margin-bottom: 10px;
-
-}
-
-
-.mainContentStaff .inputType520{
-    /*.mainContentStaff .areaBoxStaff .area1 .inputType520{*/
-    background-color: transparent;
-    border:1px solid #5c5c5c;
-    color:#fff;
-    font-size: 22px;
-    font-weight: bold;
-    text-wrap: nowrap;
-}
-
-.mainContentStaff .deliInfoTable,
-.mainContentStaff .orderInfoTable {
-    margin: 0 auto;
-    border-collapse: collapse;
-    border:1px solid #5c5c5c;
-    width: 90vw;
-    height: auto;
-    color:#fff;
-    margin-bottom: 100px;
-    padding-right: 100px;
-}
-
-.mainContentStaff .weight_tablevufb {
-    border-radius: 10px;
-    /*border:1px solid #5c5c5c;*/
-    width:500px;
-    height: auto;
-    margin-bottom: 40px;
-}
-
-.mainContentStaff .weight_tablevufb td,
-.mainContentStaff .deliInfoTable td,
-.mainContentStaff .areaBoxStaff .area4 .orderInfoTable td {
-    min-width: 100px;
-    width:auto;
-    overflow: hidden;
-    border: 1px solid #5c5c5c;
-    height: 80px;
-    line-height: 32px;
-    text-align: center;
-    padding: 0 10px;
-    text-wrap: nowrap;
-
-}
-
-.mainContentStaff .weight_tablevufb td{
-    height: 66px;
-}
-
-.mainContentStaff .orderInfoTable th,
-.mainContentStaff .deliInfoTable th {
-    height: 44px;
-    background-color: #1c1c1c;
-}
-
-.mainContentStaff .areaBox .area1 .period {
-    border: 1px solid #5c5c5c;
-    background-color: transparent;
-    min-width: 100px;
-    width: 100px;
-    height: 32px;
-    line-height: 32px;
-    text-align: center;
-    font-size: 14px;
-    color: #fff;
-}
-
-
-.mainContentStaff .statusLabel {
-    margin-right: 20px;
-    width: auto;
-    text-wrap: nowrap;
-
-}
-
-.mainContentStaff .statusLabel .status {
-    width: 22px;
-    height: 22px;
-}
-
-.mainContentStaff .areaBox .area2 .right,
-.mainContentStaff .areaBox .area1 .right {
-    /*margin-right: 10px;*/
-    width: auto;
-    min-width: 240px;
-    overflow: hidden;
-    text-align: left;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-
-}
-
-.mainContentStaff .areaBoxStaff .area2 .searchFilter,
-.mainContentStaff .areaBoxStaff .area2 .searchArea {
-    border: 1px solid #5c5c5c;
-    background-color: transparent;
-    border-radius: 5px;
-    min-width: 80px;
-    width: auto;
-    height: 32px;
-    line-height: 32px;
-    padding: 0px 10px;
-    font-size: 16px;
-    /*text-align: center;*/
-    color: #fff;
-    text-wrap: nowrap;
-}
-
-
-.mainContentStaff .areaBoxStaff .area2 .searchArea {
-    width: 420px;
-    text-align: left;
-
-}
-
-
-.mainContentStaff .btnType1 {
-    border: 1px solid #5c5c5c;
-    background-color: transparent;
-    border-radius: 5px;
-    min-width: 80px;
-    width: auto;
-    height: 32px;
-    line-height: 32px;
-    padding: 0px 10px;
-    font-size: 16px;
-    text-align: center;
-    color: #fff;
-    text-wrap: nowrap;
-
-}
-
-.mainContentStaff .btnType60 {
-    border: 1px solid #5c5c5c;
-    background-color: transparent;
-    border-radius: 5px;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    font-size: 16px;
-    text-align: center;
-    color: #fff;
-    text-wrap: nowrap;
-
-}
-
-.mainContentStaff .btn80Type1 {
-    border: 1px solid #5c5c5c;
-    background-color: transparent;
-    border-radius: 5px;
-    width: 80px;
-    height: 80px;
-    /*padding: 0px 10px;*/
-    font-size: 18px;
-    text-align: center;
-    color: #fff;
-    text-wrap: nowrap;
-
-}
-
-.mainContentStaff .btn80Type2 {
-    border: 1px solid var(--color1);
-    background-image: var(--main-gradient);
-    color:#000;
-    border-radius: 5px;
-    width: 80px;
-    height: 80px;
-    /*padding: 0px 10px;*/
-    font-size: 18px;
-    text-align: center;
-    text-wrap: nowrap;
-
-}
-
-
-.mainContentStaff .btn80Type3 {
-    border: 1px solid var(--gradient3);
-    background-image: var(--gradient3);
-    color:#000;
-    border-radius: 5px;
-    width: 80px;
-    height: 80px;
-    /*padding: 0px 10px;*/
-    font-size: 18px;
-    text-align: center;
-    text-wrap: nowrap;
-
-}
-
-
-.mainContentStaff .btn80Type3.active {
-    border: 1px solid var(--color1);
-    background-image: var(--main-gradient);
-    color:#000;
-
-}
-
-.mainContentStaff .areaBoxStaff .btn60Type1 {
-    border: 1px solid #5c5c5c;
-    background-color: transparent;
-    color:#fff;
-    border-radius: 5px;
-    margin: 10px 0;
-    width: 60px;
-    height: 60px;
-    /*padding: 0px 10px;*/
-    font-size: 22px;
-    text-align: center;
-    text-wrap: nowrap;
-
-}
-.mainContentStaff .areaBoxStaff .btn60Type2 {
-    border: 1px solid var(--color1);
-    background-image: var(--main-gradient);
-    color:#000;
-    border-radius: 5px;
-    margin: 10px 0;
-    width: 60px;
-    height: 60px;
-    /*padding: 0px 10px;*/
-    font-size: 18px;
-    text-align: center;
-    text-wrap: nowrap;
-
-}
-
-.mainContentStaff .areaBoxStaff .btn60Type3 {
-    border: 1px solid var(--gradient3);
-    background-image: var(--gradient3);
-    color:#000;
-    border-radius: 5px;
-    margin: 10px 0;
-    width: 60px;
-    height: 60px;
-    /*padding: 0px 10px;*/
-    font-size: 18px;
-    text-align: center;
-    text-wrap: nowrap;
-
-}
-
-
-.mainContentStaff .productionList_boxkkq button.active {
-    border: 1px solid var(--color1);
-    background-image: var(--main-gradient);
-    color:#000;
-    border-radius: 5px;
-    margin: 10px 0;
-    width: 60px;
-    height: 60px;
-    /*padding: 0px 10px;*/
-    font-size: 18px;
-    text-align: center;
-    text-wrap: nowrap;
-
-}
-
-.mainContentStaff .productionList_boxkkq button.mr10 {
-    margin-right: 10px;
-
-}
-
-.mainContentStaff .areaBoxStaff .weight_tablevufb .btn60Type3 {
-    font-size: 22px;
-    color:#5c5c5c;
-}
-
-.mainContentStaff .areaBoxStaff .weight_tablevufb .btn60Type3.active {
-    border: 1px solid var(--color1);
-    background-image: var(--main-gradient);
-    color:#000;
-
-}
-
-
-.mainContentStaff .areaBoxStaff .btn60Type3 i {
-    /*color:#000;*/
-}
-
-.mainContentStaff .areaBoxStaff .inputType220 {
-    padding: 0 10px;
-    border: 1px solid #5c5c5c;
-    color:#fff;
-    background-color: transparent;
-    min-width: 220px;
-    width: 220px;
-    min-height: 44px;
-    height: auto;
-    line-height: 44px;
-    text-wrap: nowrap;
-    /*overflow: hidden;*/
-
-}
-/* areaBoxStaff end -------------------------------- */
 /*2차 공정 상세 ----------------*/
 
 .status_boxv2l,
@@ -4800,6 +3920,7 @@ input[type="radio"] {
 /* inOutStatus end -------------------------------- */
 /* ipgo pop start -------------------------------- */
 
+.mag_img_wrapiaj, /* 기타정보관리 > 공급사 등록 팝업*/
 .addSupplier_wrapdej, /* 기타정보관리 > 공급사 등록 팝업*/
 .addMaker_wrapdej, /* 기타정보관리 > 제조사 등록 팝업*/
 .gdsDetail_wrapdej, /* 상품목록에서 상품 디테일 팝업*/
@@ -4824,10 +3945,11 @@ input[type="radio"] {
     z-index: 100;
 }
 
-.addMate_conkol {
-    display: block;
+.mag_img_wrapiaj {
+    /*display: block;*/
 }
 
+.mag_img_conrlo,
 .addSupplier_conkol,
 .addMaker_conkol,
 .gdsDetail_conkol,
@@ -5480,7 +4602,7 @@ input[type="radio"] {
 /* pop_InstructionForm_View start -------------------------------- */
 
 .odRoast_boxfxp {
-    width: 77vw;
+    width: 81vw;
     margin: 0;
     margin-top: 20px;
     margin-left: 20px;
@@ -5639,7 +4761,7 @@ input[type="radio"] {
 /* pop order roast form start   --------------------------- */
 
 .instruction_boxqqq .btnBox {
-    width: 77vw;
+    width: 81vw;
     margin-top: 40px;
     margin-left: 20px;
     /*margin: 20px;*/
@@ -5692,6 +4814,12 @@ input[type="radio"] {
 
 .waybill_boxfxp .bgBox img{
     object-fit: cover;
+}
+
+.waybill_content .btnBox {
+    width: 700px;
+    height: 32px;
+
 }
 
 .waybill_boxfxp .right .right1,
@@ -6170,11 +5298,12 @@ input[type="radio"] {
 /* spinnerBox end */
 
 .toastBox {
-    padding: 2px 40px;
+    padding: 5px 40px;
     border-radius: 40px;
     background-color: #00000091;
     width: auto;
-    height: 44px;
+    min-height: 32px;
+    height: auto;
     font-size: 16px;
     color:#fff;
     display: flex;

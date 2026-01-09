@@ -147,6 +147,15 @@ class Order_m extends Model
         return $affected;
     }
 
+    public function Insert_Order_delivery_file($opcode,$param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_order_delivery_file');
+        $builder->insert($param);
+        $insertID = $this->db->insertID();
+        $this->db->transComplete();
+        return $insertID;
+    }
+
     public function Insert_Order_delivery_Info2($param){
         $this->db->transStart();
         $builder = $this->db->table('tbl_order_delivery_info');
@@ -171,6 +180,17 @@ class Order_m extends Model
         $this->db->transStart();
         $builder = $this->db->table('tbl_order');
         $builder->whereIn('orcode', $codes);
+        $builder->update($param);
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+    public function Update_Order_Delivery_Info($opcode,$param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_order_delivery_info');
+        $builder->where('opcode', $opcode);
         $builder->update($param);
         $affected_rows = $this->db->affectedRows();
         $this->db->transComplete();

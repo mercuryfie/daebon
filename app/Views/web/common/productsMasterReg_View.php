@@ -42,7 +42,7 @@
                         <p class="title">분류</p>
                         <span class="data" name="txt_category" id="txt_category" data-ct="<?= $body['info_arr']['category']?>"><?= $body['info_arr']['cat_str']?></span>
                     </div>
-                    <div class="element element4 flexType2">
+                    <div class="element element3 flexType2">
                         <p class="notmust"></p>
                         <p class="title">적정 재고량</p>
                         <span class="data" name="txt_inventory" id="txt_inventory"><?= $body['info_arr']['inv_str']?></span>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="element element6 flexType2 selectMetirialBox " >
                         <p class="must"></p>
-                        <p class="title">지시수량</p>
+                        <p class="title">기본수량</p>
                         <input type="search" class="inputType2 quantityIn mr10 only-number" placeholder="숫자만 입력 (예:10000)" name="Quantity" id="Quantity">
                         <p class="msg fontType3">한 번 생산 시 만들어지는 수량입니다. </p>
                     </div>

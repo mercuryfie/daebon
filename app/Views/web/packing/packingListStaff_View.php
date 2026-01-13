@@ -19,7 +19,7 @@
         <div class="pack_boxdw1">
             <div class="area area2 flexType3">
                 <div class="left flexType2">
-                    <input type="search" name="" id="" class="searchArea" autofocus placeholder="바코드를 스캔하십시오">
+                    <input type="search" name="incode" id="incode" class="searchArea" autofocus placeholder="바코드를 스캔하십시오">
                 </div>
                 <div class="right flexType2">
 <!--                    <div class=" flexType2 filter_boxa6m">-->
@@ -38,7 +38,7 @@
                     <button type="button" class="btn60Type3 " name="searchType" data-val="0">대기중</button>
                     <button type="button" class="btn60Type3 " name="searchType" data-val="1">진행중</button>
                     <button type="button" class="btn60Type3 " name="searchType" data-val="2">완료</button>
-                    <button type="button" class="btnType60 ">
+                    <button type="button" class="btnType60 " id="btn_reload" name="btn_reload">
                         <i class="fa-solid fa-rotate-right"></i>
                     </button>
 

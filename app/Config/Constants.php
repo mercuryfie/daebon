@@ -101,18 +101,27 @@ define('FILTER_WORD','관리자,운영자,[,],10새,10새기,10새리,10세리,1
 
 
 define('SECURITY_KEY','WMY784FY8ZPS8RRPZ82MHQ3K68NIEGP1');
-define("ENVIRONMENT","development");
-//define("ENVIRONMENT","production");
+
+
 
 
 define("CK_IDSAVE","daebon_idsave");
 define("CK_LOGINKEEP","daebon_loginkeep");
 
+//define("ENVIRONMENT","production"); // live 적용
 //define("CK_DOMAIN",".djmedi.net"); // live 적용
 //define("CK_DBIP","172.27.0.21"); // live 적용
+define("ENVIRONMENT","development");
 define("CK_DOMAIN",".daebon.com");
 define("CK_DBIP","211.251.239.37");
 
+
+define("COMPANY_NAME",'농업법인대본');
+define("COMPANY_ZIP",'38448');
+define("COMPANY_ADDRESS1",'경북 경산시 진량읍 초원길 10');
+define("COMPANY_ADDRESS2",'농업법인대본');
+define("COMPANY_MOBILE",'010-5180-4490');
+define("COMPANY_TEL",'070-4250-1052');
 
 
 
@@ -129,6 +138,8 @@ define("AUTH_PRODUCT",1103);
 define("PROCESS_STEP1",'대기');
 define("PROCESS_STEP2",'진행중');
 define("PROCESS_STEP3",'완료');
+
+
 
 
 

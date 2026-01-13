@@ -31,11 +31,13 @@ class GoodsController extends BaseController
             ];
 
             $produce_m = model('Produce_m');
-            $goods_m=model('Goods_m');
+            $goods_m = model('Goods_m');
             $info_arr = [];
 
             $mRs = $goods_m->Load_Goods_Code($code);
-            if (fn_ArrayCnt($mRs) > 0) {
+            if (fn_ArrayCnt($mRs) <= 0) {
+                fn_Alert('BOM을 먼저 등록하십시오.');
+            }else{
                 $d = $mRs[0];
                 $info_arr = [
                     'gcode' => '',
@@ -50,73 +52,80 @@ class GoodsController extends BaseController
                     'step_now' => '대기',
                     'indate' => $d['indate'],
                 ];
-            }
 
-            $mtRs = $goods_m->Load_Goods_Material($code);
-            $material_param = [];
-            if(fn_ArrayCnt($mtRs)>0){
-                foreach ($mtRs as $d){
-                    $t_arr = [
-                        'mcode' => $d['mtcode'],
-                        'capacity' => $d['capacity'],
-                        'mname' => $d['mtname'],
-                        'maker' => $d['fk_mkname'],
-                        'supply' => $d['fk_suname']
-                    ];
+                $mtRs = $goods_m->Load_Goods_Material($code);
+                $material_param = [];
+                if (fn_ArrayCnt($mtRs) > 0) {
+                    foreach ($mtRs as $d) {
+                        $t_arr = [
+                            'mcode' => $d['mtcode'],
+                            'capacity' => $d['capacity'],
+                            'mtname' => $d['mtname'],
+                            'maker' => $d['fk_mkname'],
+                            'supply' => $d['fk_suname']
+                        ];
 
-                    array_push($material_param,$t_arr);
+                        array_push($material_param, $t_arr);
+                    }
                 }
-            }
 
-            $pRs = $goods_m->Load_Goods_Process($code);
-            $step_info = [];
-            if(fn_ArrayCnt($pRs)>0){
-                $fields = ['a.*','b.mname'];
-                foreach($pRs as $a){
-                    $cRs = $goods_m->Load_Goods_Step_Material($a['fk_gcode'],$a['stepNum']);
-                    $step_material = '';
-                    if(fn_ArrayCnt($cRs)>0){
-                        foreach($cRs as $f){
-                            if($step_material==''){
-                                $step_material = $f['mtname'] . ':'. $f['capacity'].'개<br>';
-                            }else{
-                                $step_material .= $f['mtname'] . ':'. $f['capacity'].'개<br>';
+                $pRs = $goods_m->Load_Goods_Process($code);
+                $step_info = [];
+                if (fn_ArrayCnt($pRs) > 0) {
+                    $fields = ['a.*', 'b.mname'];
+                    foreach ($pRs as $a) {
+                        $cRs = $goods_m->Load_Goods_Step_Material($a['fk_gcode'], $a['stepNum']);
+                        $step_material = '';
+                        if (fn_ArrayCnt($cRs) > 0) {
+                            foreach ($cRs as $f) {
+                                if ($step_material == '') {
+                                    $step_material = $f['mtname'] . ':' . $f['capacity'] . '개<br>';
+                                } else {
+                                    $step_material .= $f['mtname'] . ':' . $f['capacity'] . '개<br>';
+                                }
                             }
                         }
+
+                        $t_arr = fnGetProcessNameByCode($a['step_typ']);
+
+                        $a_arr = [
+                            'step_name' => $a['step_name'],
+                            'step_num' => $a['stepNum'],
+                            'input_material' => $a['input_material'],
+                            'output_material' => $a['output_material'],
+                            'p_method' => $a['p_method'],
+                            'material' => $step_material
+                        ];
+
+                        array_push($step_info, $a_arr);
                     }
-
-                    $t_arr = fnGetProcessNameByCode($a['step_typ']);
-
-                    $a_arr = [
-                        'step_name' => $a['step_name'],
-                        'step_num' => $a['stepNum'],
-                        'input_material' => $a['input_material'],
-                        'output_material' => $a['output_material'],
-                        'p_method' => $a['p_method'],
-                        'material' => $step_material
-                    ];
-
-                    array_push($step_info,$a_arr);
                 }
+
+                //            $produce_m = model('Produce_m');
+                //            $info_arr = fn_LoadInstructionsInfo($produce_m,$code);
+                //            $material_param = fn_LoadInstructionsMaterial($produce_m,$code);
+                //            $step_info = fn_LoadInstructionsProcess($produce_m,$code);
+
+                $main_data = [
+                    'info_arr' => $info_arr,
+                    'material_arr' => $material_param,
+                    'step_arr' => $step_info
+                ];
+
+                print_r($main_data);
+
+
+                $form = new Form;
+                $main_data = [
+                    'meta' => $form->fnMake_Meta($metaarr),
+                    'header' => $form->fnMake_Header($sessinarr),
+                    'left' => $form->fnMake_Left(),
+                    'body' => $main_data,
+                    'footer' => $form->fnMake_Fooeter($sessinarr)
+                ];
+
+                return view('web/include/pop_InstructionForm_View', $main_data);
             }
-
-
-            $main_data = [
-                'info_arr' => $info_arr,
-                'material_arr' => $material_param,
-                'step_arr' => $step_info
-            ];
-
-            $form = new Form;
-            $main_data = [
-                'meta' => $form->fnMake_Meta($metaarr),
-                'header' => $form->fnMake_Header($sessinarr),
-                'left' => $form->fnMake_Left(),
-                'body' => $main_data,
-                'footer' => $form->fnMake_Fooeter($sessinarr)
-            ];
-
-            return view('web/include/pop_InstructionForm_View',$main_data);
         }
     }
 

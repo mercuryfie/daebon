@@ -1,10 +1,7 @@
-a<?= $this->extend("/web/template/layout_none") ?>
+<?= $this->extend("/web/template/layout_none") ?>
 <?= $this->section("content") ?>
-
-<!-- js ----------------------------  -->
-<!--<script src="--><?php //=URL_COMMON_ASSETS?><!--/goodsList_Do.js?rnd=--><?php //=rand();?><!--"> </script>-->
-<script>
-</script>
+<script src="<?=URL_COMMON_ASSETS?>/jquery-barcode.js"> </script>
+<script src="<?=URL_COMMON_ASSETS?>/deliveryform_Do.js?rnd=<?=rand();?>"> </script>
 
 <section class="content waybill_content" >
     <div class="waybill_boxfxp flexType4" id="prn_body">
@@ -15,22 +12,15 @@ a<?= $this->extend("/web/template/layout_none") ?>
             <div class="left ">
                 <div class="area area1 flexType3">
                     <div class="left1">
-                        <p class="text text1">L-13-완07</p>
-                        <p class="text text2">X 완주군 봉동읍</p>
+                        <p class="text text1"><?=$body['r_brnshp_nm']?></p>
+                        <p class="text text2"><?=$body['r_emp_nm']?></p>
                     </div>
                     <div class="left2 barBox">
-                        <p class="text text3">barcode area</p>
-
+                        <div id="barcodeDiv" class="barcodeArea" data-filt_cd="<?=$body['r_filt_cd']?>" style=""></div>
                     </div>
                 </div>
                 <div class="area area2 ">
-                    <p class="text">한약 10 첩///</p>
-                    <p class="text">한약 10 첩///</p>
-                    <p class="text">한약 10 첩///</p>
-                    <p class="text">한약 10 첩///</p>
-                    <p class="text">한약 10 첩///</p>
-                    <p class="text">한약 10 첩///</p>
-                    <p class="text">한약 10 첩///</p>
+                    <p class="text"> <?=$body['pname']?></p>
                 </div>
                 <div class="area area3 flexType3">
                     <p class="text"></p>
@@ -38,79 +28,77 @@ a<?= $this->extend("/web/template/layout_none") ?>
 
                 </div>
                 <div class="area area4">
-                    <p class="text text1">운송장 번호 : 000-000-000</p>
-                    <p class="text text2">보배는분 : 따뜻할온원외탕전실</p>
-                    <div class="flexType3"><p class="text text3">받는분 : 전주지점</p><p class="text text4">☎063-261-****</p></div>
-                    <p class="text text5">주소 : 전북 완주군 봉동읍 둔산리 936-3 (완주산단 7로)</p>
+                    <p class="text text1">운송장 번호 : <?=formatInvoiceNumber($body['fk_dcode'])?></p>
+                    <p class="text text2">보내는분 : <?=$body['s_name'];?></p>
+                    <div class="flexType3"><p class="text text3" name="r_name">받는분 : <?=formatInvoiceNumber($body['r_name']);?></p>
+                        <p class="text text4" name="phone_type">☎<?=$body['r_phone']?></p></div>
+                    <p class="text text5">주소 : <?=$body['r_address1']?> <?=$body['r_address2']?></p>
                     <p class="text text6">운임 : (신용)</p>
 
                 </div>
                 <div class="area barBox2 flexType2">
                     <div class="barBb barBb1">
-                        <p class="text text1">barcode area</p>
-
+                        <div id="barcodeDiv1" class="barcodeArea" data-orcode="<?=$body['fk_dcode']?>" style=""></div>
                     </div>
                     <div class="barBb barBb2">
-                        <p class="text text1">완주(대)</p>
-                        <p class="text text2">완07- 김진재</p>
+                        <p class="text text1"><?=$body['r_brnshp_nm']?></p>
+                        <p class="text text2"><?=$body['r_emp_nm']?></p>
                     </div>
                 </div>
             </div>
             <div class="right">
                 <div class="area area1 flexType3">
-                    <p class="text text1">1234-1234-0000 (신)</p>
-                    <p class="text text2">2025/01/01</p>
+                    <p class="text text1"><?=formatInvoiceNumber($body['fk_dcode'])?> (신)</p>
+                    <p class="text text2"><?=$body['confirm_date'];?></p>
                 </div>
                 <div class="area area2 ">
-                    <p class="text text1">둔산리 936-3</p>
+                    <p class="text text1"><?=$body['r_brnshp_nm']?></p>
                     <div class="telBo flexType2">
-                        <p class="text text2">전주지점</p>
-                        <p class="text text3">063-261-****</p>
-                        <p class="text text4">063-261-****</p>
+                        <p class="text text2"><?=$body['r_dong']?></p>
+                        <p class="text text3"></p>
+                        <p class="text text4" name="phone_type"><?=$body['r_phone']?></p>
                     </div>
 
                 </div>
                 <div class="area area3">
-                    <p class="text text1">전북 완주군 봉동읍 둔산리 936-3 (완주산단길)
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A distinctio eaque error fuga fugiat id impedit incidunt ipsa ipsam molestiae necessitatibus nemo numquam optio quas qui tempore ullam, voluptatibus voluptatum.
-                    </p>
+                    <p class="text text1"><?=$body['r_address1']?> <?=$body['r_address2']?></p>
                 </div>
-                <div class="area area4">
-                    <p class="text text1">따뜻할온원외탕전실 / 070-4820-0277</p>
+                <div class="area area4 flexType2" >
+                    <p class="text text1" id="" name="r_name"><?= $body['r_name'];?></p>
+                    <p class="text text2"> <?=$body['r_phone']?></p>
                 </div>
                 <div class="area area5">
-                    <p class="text text1">0000-0000-0000</p>
+                    <p class="text text1"><?=$body['fk_dcode']?></p>
                 </div>
                 <div class="area area6 flexType2">
                     <p class="text text1">(신)</p>
                     <p class="text text2">1-1</p>
                     <div class="area6bb">
-                        <p class="text text3">※일반출고※ 0000-0000-0000</p>
-                        <p class="text text4">전주중앙(대) ☎063-261-****</p>
+                        <p class="text text3">※일반출고※ <?=formatInvoiceNumber($body['fk_dcode'])?></p>
+                        <p class="text text4"><?=$body['r_brnshp_nm']?> ☎<?=$body['r_phone']?></p>
 
                     </div>
                 </div>
                 <div class="area area7 flexType3">
-                    <p class="text text1">홍길*</p>
-                    <p class="text text1">070-4820-0277</p>
+                    <p class="text text1"><?=$body['s_name']?></p>
+                    <p class="text text1"><?=$body['s_phone']?></p>
                 </div>
                 <div class="area area8 flexType2">
-                    <p class="text text2">전북 완주군 봉동읍 둔산리 936-3 (완주산단길)
-                        Lore</p>
+                    <p class="text text2"><?=$body['s_address1']?> <?=$body['s_address2']?></p>
                 </div>
                 <div class="area area9 flexType2">
-                    <p class="text text1">따뜻할온원외탕전실</p>
-                    <p class="text text2">070-4820-0277</p>
+                    <p class="text text1"><?=$body['s_name']?></p>
+                    <p class="text text2"><?=$body['s_phone']?></p>
                 </div>
                 <div class="area area10 flexType2">
-                    <p class="text text1">전북 완주군 봉동읍 둔산리 936-3 (완주산단길)
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus dolorum magni quam! Adipisci at blanditiis eaque, fugiat, harum itaque molestias mollitia omnis quasi quia quibusdam, recusandae reprehenderit repudiandae sunt vitae.
-                    </p>
+                    <p class="text text1"><?=$body['s_address1']?> <?=$body['s_address2']?></p>
                 </div>
                 <div class="area area11 flexType2">
-                    <p class="text text1">한약 10첩</p>
+                    <p class="text text1"><?=$body['pname']?></p>
                 </div>
-a
+                <div class="area area12 flexType2">
+                    <p class="text text1"></p>
+                </div>
             </div>
         </div>
     </div>

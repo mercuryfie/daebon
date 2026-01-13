@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Libraries\Form;
+use App\Libraries\LotteDeliveryApi;
 use CodeIgniter\API\ResponseTrait;
 
 class OrderController extends BaseController
@@ -364,26 +365,34 @@ class OrderController extends BaseController
     public function waybillForm()
     {
         $sessinarr = $this->GetSessionData();
+        $orcode  = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
+        $retyp = ($this->request->getGet('rt') == '') ? 1 : $this->request->getGet('rt');
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
+        }else if($orcode==''){
+            fn_AlertClose('잘못된 접근입니다.');
         }else {
-            $metaarr = [
-                'h_title' => H_TITLE,
-                'h_type' => 1
-            ];
+            $lotte = new LotteDeliveryApi();
+            $data = $lotte->Get_Delivery_Info($orcode,$retyp);
+            if($data['result'] != 'ok'){
+                fn_AlertClose('Error : ' . $data['message']);
+            }else {
+                $metaarr = [
+                    'h_title' => H_TITLE,
+                    'h_type' => 1
+                ];
 
-            $main_data = [];
+                $form = new Form;
+                $main_data = [
+                    'meta' => $form->fnMake_Meta($metaarr),
+                    'header' => $form->fnMake_Header($sessinarr),
+                    'left' => $form->fnMake_Left(),
+                    'body' => $data['info'],
+                    'footer' => $form->fnMake_Fooeter($sessinarr)
+                ];
 
-            $form = new Form;
-            $main_data = [
-                'meta' => $form->fnMake_Meta($metaarr),
-                'header' => $form->fnMake_Header($sessinarr),
-                'left' => $form->fnMake_Left(),
-                'main' => $main_data,
-                'footer' => $form->fnMake_Fooeter($sessinarr)
-            ];
-
-            return view('web/include/pop_WaybillForm_View',$main_data);
+                return view('web/include/pop_WaybillForm_View', $main_data);
+            }
         }
     }
 

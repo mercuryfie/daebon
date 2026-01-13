@@ -3,7 +3,7 @@
     <!-- js ----------------------------  -->
 <!--    <script src="--><?php //=URL_COMMON_ASSETS?><!--/productsEditor.js?rnd=--><?php //=rand();?><!--"> </script>-->
 <script src="<?=URL_COMMON_ASSETS?>/productsEditor_Do.js?rnd=<?=rand();?>"> </script>
-
+<?php //print_r($body)?>
 <section class="merright">
     <input type="hidden" id="gcode" name="gcode" value="<?=$body['code'];?>" />
     <div class="masModi_box23f">
@@ -27,12 +27,12 @@
                     <div class="element element1 flexType2">
                         <p class="notmust"></p>
                         <p class="title">제품명</p>
-                        <span class="data" name="txt_category" id="txt_category"><?=$body['goods_arr']['name'];?></span>
+                        <span class="data" name="txt_gname" id="txt_gname" data-code="<?=$body['goods_arr']['code'];?>"><?=$body['goods_arr']['name'];?></span>
                     </div>
                     <div class="element element2 flexType2">
                         <p class="notmust"></p>
                         <p class="title">분류</p>
-                        <span class="data" name="txt_category" id="txt_category"><?=$body['goods_arr']['c_str'];?></span>
+                        <span class="data" name="txt_category" id="txt_category" data-ct="<?= $body['goods_arr']['category']?>"><?=$body['goods_arr']['c_str'];?></span>
                     </div>
                     <div class="element element3 flexType2">
                         <p class="notmust"></p>
@@ -46,8 +46,9 @@
                     </div>
                     <div class="element element5 flexType2">
                         <p class="must"></p>
-                        <p class="title">지시수량</p>
-                        <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="Quantity" id="Quantity" value="<?=$body['goods_arr']['quantity'];?>">개
+                        <p class="title">기본수량</p>
+                        <input type="search" class="inputType360 mr10" placeholder="숫자만 입력 (예:10000)" name="Quantity" id="Quantity" value="<?=$body['goods_arr']['quantity'];?>">
+                        <p class="msg fontType3">한 번 생산 시 만들어지는 수량입니다. </p>
                     </div>
                     <div class="element element6 flexType4" >
                         <div class="cat flexType2">
@@ -100,7 +101,7 @@
                 </div>
             </div>
             <div class="area5 area_box2qd proc_boxf9n">
-                <div class="roasting_boxp9x " name="roastBox">
+                <div class="roasting_boxp9x " name="roastBox" id="roastBox">
 
             <?php $first = 0; ?>
             <?if(fn_ArrayCnt($body['process_arr']) > 0){?>
@@ -112,7 +113,7 @@
                             <div class="bomType_boxh1t flexType2" name="">
                                 <p class="must mr10"></p>
                                 <p class="title">공정타입</p>
-                                <select name="ptype" class="inputType typeIn">
+                                <select name="ptype" class="inputType typeIn" data-code="" data-loss="">
                                     <option value="">선택하세요.</option>
                                     <?= fnMake_Process_Type($body['process_arr'][$i]['step_typ']);?>
                                 </select>

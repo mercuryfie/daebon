@@ -11,7 +11,7 @@ $(document).ready(function() {
 
         if (Quantity==''){
             $('#Quantity').focus();
-            Make_Toast('제품 지시수량을 입력하세요.');
+            Make_Toast('제품 기본수량을 입력하세요.');
         } else {
             const container2 = $('#add_material');
             let goods_material = [];
@@ -308,7 +308,6 @@ $(document).ready(function() {
         let mtname = $(this).data('mtname');
         let m_wgt = $('#txt_product_num').val();
 
-
         console.log('무게:', m_wgt);
 
         Set_Material(mtcode,mtname);
@@ -323,7 +322,6 @@ $(document).ready(function() {
             let mtcnt = $('#txt_product_num').val();
             Set_Material(mtcode,mtname);
             Set_Method_Weight(mtcnt);
-
 
 
         }

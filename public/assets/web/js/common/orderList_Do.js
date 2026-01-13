@@ -1,5 +1,8 @@
 
 $(document).ready(function() {
+
+    Refine_R_Name();
+
     $('#uploadExcel #Xbtn, #uploadExcel #Xbtn2').click(function () {
         $('#uploadExcel').css('display','none');
     });
@@ -208,7 +211,13 @@ function formatDate(d) {
     const month = ('0' + (d.getMonth() + 1)).slice(-2);
     const day = ('0' + d.getDate()).slice(-2);
     return `${year}/${month}/${day}`;
-} 
+}
+
+function Refine_R_Name() {
+    let r_name = $('p[name="r_name"]').length;
+
+    console.log('dawn1042',r_name);
+}
 
 async function Load_Data(param){
     let data = {};

@@ -1,5 +1,10 @@
 $(function() {
 
+    // let ct = $('#txt_category').data('ct');
+    // let code = $('#txt_gname').data('code');
+    // let gname = $('#txt_gname').text();
+    // console.log('dawn1823',ct,code,gname);
+    // Set_BomProcess(ct, gname);
 
     $(".area_boxm9k > .outerBox > .right i").click(function() {
         var $icon = $(this);
@@ -147,9 +152,9 @@ $(function() {
             Make_Toast('잘못된 접근입니다.');
         }else if(Quantity==''){
             $('#Quantity').focus();
-            Make_Toast('지시수량을 입력하세요');
+            Make_Toast('기본수량을 입력하세요');
         }else {
-            const container2 = $('#add_material');
+            const container2 = $('#tag_meterial');
             let goods_material = [];
             container2.find('div[name="add_product_info"]').each(function () {
                 let gcode = $(this).data('code');
@@ -267,7 +272,22 @@ $(function() {
     $('#addproduct').on('click',function(){
         let mtcode = $(this).data('mtcode');
         let mtname = $(this).data('mtname');
-        Set_Material(mtcode,mtname);
+        let m_wgt = parseInt($('#txt_product_num').val() || 0);
+
+        const mate_con = $('#tag_meterial');
+        let s_m_cnt = 0;
+
+        mate_con.find('div[name="add_product_info"]').each(function () {
+            let m_cnt = parseInt($(this).find('p[name="mtcnt"]').data('cnt') || 0);
+            s_m_cnt += m_cnt;
+
+            let total = parseInt(m_wgt || 0) + parseInt(s_m_cnt || 0);
+        });
+
+        let total = m_wgt + s_m_cnt;
+
+        Set_Material(mtcode, mtname);
+        Set_Method_Weight(total);
     });
 
     $('#btn_cancel').on('click',function(){
@@ -304,17 +324,18 @@ function Set_Material(mtcode,mtname){
 
 function doMaterialSearch(){
     let skey = $('#txt_product').val();
+    let data = {"skey" : skey};
     if(skey==''){
         Make_Toast('제품코드 또는 제품명을 입력하세요');
     }else{
-        Material_Data_Load(skey);
+        Material_Data_Load(data);
     }
 }
 
-async function Material_Data_Load(skey){
+async function Material_Data_Load(data){
     try {
         start_spinner();
-        let dataarr = {"key" : skey};
+        let dataarr = {"data" : data};
         let url = APIURL + '/Load_MaterialList';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
@@ -323,14 +344,12 @@ async function Material_Data_Load(skey){
             let data = result.get('data');
             let html = '';
             arr = (data && data.list) ? data.list : [];
-            console.log(arr);
             if(arr.length > 0){
                 $.each(arr, function (index, el) {
                     html += `
                         <button class="copyOption active" data-mtcode="${el.mtcode}" data-mtname="${el.mtname}"  name="btn_material">${el.mtname}</button>
                     `;
                 });
-                console.log(html);
                 $('#add_material').append(html);
                 $('#add_material').addClass('active');
             }
@@ -369,5 +388,97 @@ async function Update_product(info,step){
 function resetStepNum() {
     $('div[name="oneRoast"]').each(function(index) {
         $(this).find('input[name="stepNum"]').val(index + 1);
+    });
+}
+
+
+function Set_BomProcess(ct, gname) {
+
+    const p_arr = fnProcess_Arr();
+    let typ0 = p_arr[0] // 원료
+    let typ1 = p_arr[1]; // 파쇄
+    let typ2 = p_arr[2]; // 로스팅
+    let typ3 = p_arr[3]; // 이물제거
+    let typ4 = p_arr[4]; // 삼각티백포장
+    let typ6 = p_arr[6]; //외포장
+
+    let types;
+    if (ct == 'A001') {
+        types = [typ0, typ2, typ3, typ6];  // 0,3,4,10
+    } else {
+        types = [typ0, typ2, typ1, typ3, typ4, typ6];  // 0,3,5,10
+    }
+    const $roastBox = $('#roastBox');
+    const $baseTemplate = $('div[name="oneRoast"]').first();
+    const $xIcon = $('div[name="oneRoast"]').find('.removeRoasting');
+
+    $baseTemplate.hide();
+
+    let html = '';
+    $roastBox.find('.oneRoastClone').remove();
+    $roastBox.children().find('.removeRoasting').hide();
+    let i = 1;
+    types.forEach((typ, idx) => {
+        $roastBox.find().first().hide();
+        let $template = $baseTemplate.clone().show();
+
+        $template.find('div[name="oneRoast"]').data('loss',typ.loss);
+        $template.find('select[name="ptype"]').val(typ.code);
+        $template.find('select[name="ptype"]').data('code',typ.code);
+        $template.find('select[name="ptype"]').data('loss',typ.loss);
+        let codeqq = $template.find('select[name="ptype"]').data('code',typ.code);
+        $template.find('input[name="processname"]').val(gname + ' - ' + typ.name);
+        $template.find('input[name="stepNum"]').val(i);
+        i++;
+
+        console.log('dawn1827',types);
+        console.log(idx);
+        if (idx === 0) {
+            $template.find('.removeRoasting').hide();
+        } else {
+            $template.find('.removeRoasting').show();
+        }
+
+        $('#roastBox').append($template);
+
+    });
+    $('div[name="oneRoast"]').addClass('active');
+
+}
+
+
+function Init_Weight(){
+    const container = $('#roastBox');
+    container.find('input[name="material_input"]').val(0);
+    container.find('input[name="material_output"]').val(0);
+}
+
+function Set_Method_Weight(master_weight){
+    Init_Weight();
+    const container = $('#roastBox');
+
+    let loss = 0;
+    let material_input = 0;
+    let material_output = 0;
+    let now_weight = 0;
+    let calc_weight1  = 0;
+    let calc_weight2  = 0;
+    now_weight = parseInt(master_weight);
+    container.find('div[name="oneRoast"]').each(function () {
+        loss = $(this).find('select[name="ptype"]').data('loss');
+        console.log('dawn1802',loss);
+        if(loss!=''){
+            console.log('dawn1802',loss);
+            material_input = $(this).find('input[name="material_input"]').val();
+            material_input = material_input ? parseInt(material_input) : 0;
+            material_output = $(this).find('input[name="material_output"]').val();
+            material_output = material_output ? parseInt(material_output) : 0;
+            calc_weight1 = material_input + now_weight;
+            calc_weight2 = material_input + fn_calculateNetWeight(now_weight,loss);
+
+            $(this).find('input[name="material_input"]').val(parseInt(calc_weight1));
+            $(this).find('input[name="material_output"]').val(parseInt(calc_weight2));
+            now_weight = calc_weight2;
+        }
     });
 }

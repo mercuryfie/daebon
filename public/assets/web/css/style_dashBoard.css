@@ -191,18 +191,31 @@ main {
     overflow: Hidden;
 }
 
+.GaugeMeter canvas,
+.GaugeMeter2 canvas {
+    position: absolute;
+    top:0;
+    left:0;
+
+}
+
 .GaugeMeter SPAN, .GaugeMeter2 SPAN {
     background-color: transparent;
     font-size: 32px !important;
-    font-family: 'chakra petch' !important;
+    font-family: 'chakra petch', 'Electrolize', 'Gmarket Sans' ;
+    font-weight: 500;
+    text-align: center;
 }
 
 .GaugeMeter B, .GaugeMeter2 B {
+    /*border:1px solid red;*/
+    width: 100px;
+    height: 32px;
     position: absolute;
-    top:40px;
+    top:30px;
     left:0px;
     background-color: transparent;
-    font-family: 'chakra petch' !important;
+    font-family: 'noto sans kr';
     font-size: 20px !important;
     font-weight: 400 !important;
 }
@@ -211,15 +224,15 @@ main {
 .GaugeMeter B,
 .GaugeMeter2 SPAN,
 .GaugeMeter2 B  {
-    margin: 0 23%;
-    width: 54%;
-    font-weight: bold;
-    position: Absolute;
-    text-align: Center;
-    display: Inline-Block;
-    overflow: Hidden;
-    white-space: NoWrap;
-    z-index: 1;
+    /*margin: 0 23%;*/
+    /*width: 54%;*/
+    /*font-weight: bold;*/
+    /*position: Absolute;*/
+    /*text-align: Center;*/
+    /*display: Inline-Block;*/
+    /*overflow: Hidden;*/
+    /*white-space: NoWrap;*/
+    /*z-index: 1;*/
 }
 
 

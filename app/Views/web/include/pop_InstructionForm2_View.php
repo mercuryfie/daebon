@@ -2,44 +2,70 @@
 <?= $this->section("content") ?>
 <script src="<?=URL_COMMON_ASSETS?>/jquery-barcode.js"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/instructionForm_Do.js?rnd=<?=rand();?>"> </script>
-<section class="merright instruction_boxqqq">
+<?php print_r($body)?>
+<section class="merright ins_form_contents">
     <div class="odRoast_boxfxp"  id="frnbody">
-        <table class="odRoast_Table">
+        <table class="odRoast_Table ins_form_table">
             <thead>
                 <tr class="headCol">
-                    <td class="keyCol " colspan="8">생산작업지시서</td>
+                    <td class="keyCol " colspan="8">생산작업지시서22</td>
                 </tr>
                 <tr class="">
                     <td class="keyCol barcodeBox" colspan="5" rowspan="2">
                         <div id="barcodeDiv" class="barcodeArea" data-pcode="<?=$body['info_arr']['gicode']?>" style=""></div>
                         <p class="barcodeNo"><?=$body['info_arr']['gicode']?></p>
                     </td>
-                    <td class="keyCol" colspan="">등록자</td>
+                    <td class="keyCol twnw" colspan="">등록자</td>
                     <td class="keyCol data1" colspan="2"><?=$body['info_arr']['writer']?></td>
                 </tr>
                 <tr>
-                    <td class="keyCol" colspan="1">등록일</td>
+                    <td class="keyCol twnw" colspan="1">등록일</td>
                     <td class="keyCol data1" colspan="2"><?=$body['info_arr']['indate']?></td>
                 </tr>
                 <tr>
-                    <td class="keyCol " colspan="2" rowspan="2">제품명</td>
+                    <td class="keyCol twnw" colspan="2" rowspan="2">제품명</td>
                     <td class="keyCol  m_name" colspan="3" rowspan="2" ><?=$body['info_arr']['gname']?></td>
-                    <td class="keyCol" >상품분류</td>
+                    <td class="keyCol twnw" >상품분류</td>
                     <td class="keyCol" colspan="2" ><?=$body['info_arr']['catestr']?></td>
                 </tr>
                 <tr>
-                    <td class="keyCol" >적정재고수량</td>
+                    <td class="keyCol twnw" >적정재고수량</td>
                     <td class="keyCol" colspan="2" ><?=number_format($body['info_arr']['inventory'])?>개</td>
                 </tr>
                 <tr>
                     <td class="row row2  " colspan="2" rowspan="2">원재료명</td>
-                    <td class="row row2 m_name" colspan="3" rowspan="2"><?=$body['material_arr'][0]['mtname'];?></td>
-                    <td class="row row3 " colspan="">제조사</td>
-                    <td class="row row3" colspan="2"><?= $body['material_arr'][0]['maker'];?></td>
+                    <td class="row row2 m_name" colspan="3" rowspan="2">
+                        <div class="dd flexCol2">
+                            <?php
+                            if ($body['material_arr'] == 1 ) {
+                                $mtNames = [$body['material_arr']['mtname'].' '.$body['material_arr']['capacity'].'g'];
+                            } else {
+                                $mtNames = array_map(function($item) {
+                                    return $item['mtname'].' '.$item['capacity'].'g';
+                                }, $body['material_arr']);
+                            }
+                            ?>
+                            <p class="mtname">
+                                <?php foreach($mtNames as $name): ?>
+                                    <?=$name?><br>
+                                <?php endforeach; ?>
+                            </p>
+                        </div>
+                    </td>
+                    <td class="row row3 twnw" colspan="">제조사/공급사</td>
+                    <td class="row row3" colspan="2">
+                        <div class="flexType1">
+                            <p class="text"><?= $body['material_arr'][0]['maker'];?>/<?= $body['material_arr'][0]['supply'];?></p>
+                        <?if ($body['step_arr'] > 1){?>
+                            <p class="add">외 <?=count($body['material_arr'])-1?>건</p>
+                        <?}?>
+                        </div>
+
+                    </td>
                 </tr>
                 <tr>
-                    <td class="row row3 " colspan="">공급사</td>
-                    <td class="row row5 " colspan="2"><?= $body['material_arr'][0]['supply'];?></td>
+                    <td class="row row3 twnw" colspan="">작업완료일시</td>
+                    <td class="row row5 " colspan="2">-</td>
                 </tr>
             </thead>
             <tbody>
@@ -55,46 +81,49 @@
                     <!--                            <p class="downside">실제 투입/산출(g)</p>-->
                     <!--                        </div>-->
                 </td>
-                <td class="row row3 ttl" colspan="2" rowspan="">가이드</td>
+                <td class="row row3 ttl" colspan="2" rowspan="">공정방법</td>
                 <td class="row row4 ttl" rowspan="">부자재</td>
 
                 <td class="row row6 ttl" rowspan="">담당자</td>
             </tr>
-            <?foreach ($body['step_arr'] as $d){?>
-                <tr>
-                    <td class="row row1 rName " colspan="2" rowspan="" ><?=$d['step_name'];?></td>
-
-                    <td class="row row2 " colspan="2"><div class="flexCol2">
-                            <!--                        <p class="upside">--><?php //=number_format($d['input_material']);?><!--/--><?php //=number_format($d['output_material']);?><!--</p>-->
-                            <?if ($d['step_typ']=='P001'){?>
-                                <p class="downside"><?=number_format($d['end_weight']);?></p>
-                            <?} else {?>
-                                <p class="downside"><?=number_format($d['start_weight']);?>/<?=number_format($d['end_weight']);?></p>
-                            <?}?>
-
-                        </div></td>
-                    <td class="row row3 " colspan="2" rowspan="">
-                        <p class="desc">
-                            <?=$d['p_method'];?>
-                        </p>
-                    </td>
-                    <td class="row row2" rowspan=""><?=$d['material'];?></td>
-                    <td class="row row2" rowspan=""><?=$d['worker']['name']?></td>
-                </tr>
-            <?}?>
+        <?foreach ($body['step_arr'] as $d){?>
             <tr>
-                <td class="row row1" colspan="6">-</td>
-                <td class="row row3">지시수량</td>
-                <td class="row row2"><?=$body['info_arr']['quantity']?>개</td>
+                <td class="row row1 rName tww" colspan="2" rowspan="" ><?=$d['step_name'];?></td>
+
+                <td class="row row2 " colspan="2">
+                    <div class="flexCol2">
+                        <p class="downside"><?=number_format($d['input_material']);?> / <?=number_format($d['output_material']);?></p>
+                    </div></td>
+                <td class="row row3 " colspan="2" rowspan="">
+                    <p class="desc">
+                        <?=$d['p_method'];?>
+                    </p>
+                </td>
+                <td class="row row2 tww" rowspan=""><?=$d['material'];?></td>
+                <td class="row row2" rowspan=""><?=$d['worker'][0]['name'] ?? '-'?></td>
+        <?}?>
             </tr>
             <tr>
                 <td class="row row1" colspan="6">-</td>
-                <td class="row row3" >실제완성량</td>
-                <td class="row row4"></td>
+                <td class="row row3 twnw">기본수량</td>
+                <td class="row row2"><?=$body['info_arr']['quantity']?> 개</td>
+            </tr>
+            <tr>
+                <td class="row row1" colspan="6">-</td>
+                <td class="row row3 twnw">지시수량</td>
+                <td class="row row2"><?=$body['info_arr']['icnt']?> 개</td>
+            </tr>
+            <tr>
+                <td class="row row1" colspan="6">-</td>
+                <td class="row row3 twnw" >실제완성량</td>
+                <td class="row row4"><?php
+                    $qty  = (int) $body['info_arr']['quantity'];
+                    $icnt = (int) $body['info_arr']['icnt'];
+                    $result = $qty * $icnt;
+                    ?><?=$result?> 개</td>
             </tr>
             <tr class="signArea">
-                <td class="row row1" colspan="2" rowspan="">작업완료일시</td>
-                <td class="row row3 m_name" colspan="6"></td>
+                <td class="row row1" colspan="8" rowspan=""></td>
             </tr>
             </tbody>
         </table>

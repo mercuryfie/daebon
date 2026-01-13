@@ -20,9 +20,19 @@ class Order_m extends Model
 
     public function Load_Packing_All($search,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_order_delivery_info  ORDER BY seq DESC";
+        $sql = "SELECT {$separated_val} FROM tbl_delivery_info  ORDER BY seq DESC";
         $bindparam = [
             'ISDEL'=> 0
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Load_PackingByOpcode($opcode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_delivery_info  where opcode=:OPCODE: ";
+        $bindparam = [
+            'OPCODE'=> $opcode
         ];
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
@@ -61,9 +71,9 @@ class Order_m extends Model
     public function Load_OrderIn_Delivery_Info($opcodes,$fields=['ALL']){
         if (empty($opcodes)) return [];
 
-        $builder = $this->db->table('tbl_order_delivery_info a');
+        $builder = $this->db->table('tbl_delivery_info a');
         $builder->select(fn_Make_Fields($fields))
-            ->select('(SELECT count(*) FROM tbl_order_package WHERE fk_opcode=a.opcode) as JoinCnt')
+            ->select('(SELECT count(*) FROM tbl_delivery_package WHERE fk_opcode=a.opcode) as JoinCnt')
             ->whereIn('opcode', $opcodes);
 
         return $builder->get()->getResultArray();
@@ -71,7 +81,7 @@ class Order_m extends Model
 
     public function Load_Order_Delivery_Info($opcode,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val},(SELECT count(*) FROM tbl_order_package WHERE fk_opcode=a.opcode) as JoinCnt FROM tbl_order_delivery_info a where opcode=:OPCODE:";
+        $sql = "SELECT {$separated_val},(SELECT count(*) FROM tbl_delivery_package WHERE fk_opcode=a.opcode) as JoinCnt FROM tbl_delivery_info a where opcode=:OPCODE:";
         $bindparam = [
             'OPCODE'=> $opcode
         ];
@@ -81,7 +91,7 @@ class Order_m extends Model
 
     public function Load_Order_Package_Info($orcode,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_order_package where fk_orcode=:ORCODE:";
+        $sql = "SELECT {$separated_val} FROM tbl_delivery_package where fk_orcode=:ORCODE:";
         $bindparam = [
             'ORCODE'=> $orcode
         ];
@@ -91,7 +101,7 @@ class Order_m extends Model
 
     public function Load_Order_Package_Info_opcode($opcode,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_order_package where fk_opcode=:OPCODE:";
+        $sql = "SELECT {$separated_val} FROM tbl_delivery_package where fk_opcode=:OPCODE:";
         $bindparam = [
             'OPCODE'=> $opcode
         ];
@@ -140,7 +150,7 @@ class Order_m extends Model
 
     public function Insert_Order_delivery_Info($param){
         $this->db->transStart();
-        $builder = $this->db->table('tbl_order_delivery_info');
+        $builder = $this->db->table('tbl_delivery_info');
         $affected = $builder->insertBatch($param);
         $this->db->transComplete();
 
@@ -149,7 +159,7 @@ class Order_m extends Model
 
     public function Insert_Order_delivery_file($opcode,$param){
         $this->db->transStart();
-        $builder = $this->db->table('tbl_order_delivery_file');
+        $builder = $this->db->table('tbl_delivery_file');
         $builder->insert($param);
         $insertID = $this->db->insertID();
         $this->db->transComplete();
@@ -158,7 +168,7 @@ class Order_m extends Model
 
     public function Insert_Order_delivery_Info2($param){
         $this->db->transStart();
-        $builder = $this->db->table('tbl_order_delivery_info');
+        $builder = $this->db->table('tbl_delivery_info');
         $builder->insert($param);
         $insertID = $this->db->insertID();
         $this->db->transComplete();
@@ -169,7 +179,7 @@ class Order_m extends Model
 
     public function Insert_Order_Package_Info($param){
         $this->db->transStart();
-        $builder = $this->db->table('tbl_order_package');
+        $builder = $this->db->table('tbl_delivery_package');
         $affected = $builder->insertBatch($param);
         $this->db->transComplete();
 
@@ -178,7 +188,7 @@ class Order_m extends Model
 
     public function Insert_Order_Package_Info2($param){
         $this->db->transStart();
-        $builder = $this->db->table('tbl_order_package');
+        $builder = $this->db->table('tbl_delivery_package');
         $builder->insert($param);
         $insertID = $this->db->insertID();
         $this->db->transComplete();
@@ -199,7 +209,7 @@ class Order_m extends Model
 
     public function Update_Order_Delivery_Info($opcode,$param){
         $this->db->transStart();
-        $builder = $this->db->table('tbl_order_delivery_info');
+        $builder = $this->db->table('tbl_delivery_info');
         $builder->where('opcode', $opcode);
         $builder->update($param);
         $affected_rows = $this->db->affectedRows();

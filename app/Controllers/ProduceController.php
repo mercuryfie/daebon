@@ -44,7 +44,6 @@ class ProduceController extends BaseController
                 'step_arr' => $step_info
             ];
 
-
             $form = new Form;
             $main_data = [
                 'meta' => $form->fnMake_Meta($metaarr),

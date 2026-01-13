@@ -80,7 +80,13 @@ $(document).ready(function() {
         }
     });
 
-
+    $(document).on('click','button[name="btn_print"]',function(){
+        let code = $(this).data('code');
+        let url = "/goods/instructionform?cd=" + code;
+        console.log('dawn1538',code);
+        console.log('dawn1539',url);
+        pop_OrderRoastForm(url);
+    });
 
     $('.only-number').on('input', function () {
         let value = this.value.replace(/[^0-9.]/g, ''); // 숫자+소수점만
@@ -342,6 +348,7 @@ async function Data_Add(param){
         }else if(result.get('status') == 'ok') {
             let data = result.get('data');
             arr = (data && data.list) ? data.list : null;
+            console.log('dawn1508',arr);
             if(arr) {
                 let html = `
                     <tr id="list_${arr.gscode}">
@@ -465,23 +472,35 @@ function Edit_Products(code,name,cat,inven,unit_weight,t_cnt){
 
 async function Make_Html(skey){
     let arr = await Data_Load(skey);
-    console.log(arr);
+    console.log('dawn1525',arr);
     let html = '';
     if(!fn_IsEmpty(arr.list)){
         $.each(arr.list, function (index, el) {
             let bomstr = '';
             let bominput = '';
+            let bomprn = '';
+            bomprn = `
+                    <button type="button" class="btnType3 printBtn" name="btn_print" data-code="${el.gcode}">
+                        <i class="fa-solid fa-print"></i>
+                    </button>
+                    `;
             if(el.gcode==''){
                 bomstr =`<button type="button" class="btnType3 " name="btn_bom_add" data-code="${el.gscode}" onclick="go_productsMasterReg('${el.gscode}');">등록</button>`;
                 bominput = '';
-
-            }else{
-                bomstr =`<button type="button" class="btnType3 " name="btn_bom_add" data-code="${el.gcode}" onclick="go_productsEditor('${el.gcode}');">수정</button>`;
+                bomprn = '';
+            }else {
+                bomstr = `<button type="button" class="btnType3 " name="btn_bom_add" data-code="${el.gcode}" onclick="go_productsEditor('${el.gcode}');">수정</button>`;
                 bominput = `
                     <div class="flexType1">
                         <input type="search" name="quantity" class="countInput mr10" placeholder="수량(예:10)" data-code="${el.gcode}">
                         <button type="button" class="submitBtn1" name="btn_process">확인</button>
                     </div>`;
+                bomprn = `
+                    <button type="button" class="btnType3 printBtn" name="btn_print" data-code="${el.gcode}">
+                        <i class="fa-solid fa-print"></i>
+                    </button>
+                    `;
+
             }
 
             html += `
@@ -497,11 +516,7 @@ async function Make_Html(skey){
                     <td class="ltTbody">${el.avg.avg}</td> 
                     <td class="ltTbody">${bomstr}</td> 
                     <td class="ltTbody orderProduct">${bominput}</td> 
-                    <td class="ltTbody">
-                        <button type="button" class="btnType3 printBtn" name="btn_print" data-code="${el.gscode}">
-                            <i class="fa-solid fa-print"></i>
-                        </button>
-                    </td>
+                    <td class="ltTbody">${bomprn}</td>
                     <td class="ltTbody">
                         <button type="button" class="btnType3 trashBtn"  name="btn_product_del"  data-code="${el.gscode}"> 
                             <i class="fa-solid fa-trash"></i>

@@ -2,6 +2,8 @@
 <?= $this->section("content") ?>
 <script src="<?=URL_COMMON_ASSETS?>/jquery-barcode.js"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/instructionForm_Do.js?rnd=<?=rand();?>"> </script>
+<?php print_r($body)?>
+<?php print_r($body['info_arr'])?>
 <section class="merright instruction_boxqqq">
     <div class="odRoast_boxfxp" id="frnbody">
         <table class="odRoast_Table" >
@@ -11,8 +13,8 @@
                 </tr>
                 <tr class="">
                     <td class="keyCol barcodeBox" colspan="4" rowspan="2">
-                        <div id="barcodeDiv" class="barcodeArea" data-pcode="<?=$body['info_arr']['gcode']?>" style=""></div>
-                        <p class="barcodeNo"><?=$body['info_arr']['gcode']?></p>
+<!--                        <div id="barcodeDiv" class="barcodeArea" data-pcode="--><?php //=$body['info_arr']['gicode']?><!--" style=""></div>-->
+<!--                        <p class="barcodeNo">--><?php //=$body['info_arr']['gicode']?><!--</p>-->
                     </td>
                     <td class="keyCol" colspan="">등록자</td>
                     <td class="keyCol data1" colspan="2"><?=$body['info_arr']['writer']?></td>
@@ -28,54 +30,74 @@
                     <td class="keyCol" colspan="2" ><?=$body['info_arr']['catestr']?></td>
                 </tr>
                 <tr>
-                    <td class="keyCol" >적정재고</td>
+                    <td class="keyCol" >적정재고수량</td>
                     <td class="keyCol" colspan="2" ><?=number_format($body['info_arr']['inventory'])?>개</td>
                 </tr>
                 <tr>
-                    <td class="row row2 ttl" >원료명</td>
-                    <td class="row row3 ttl" colspan="2">입고량</td>
-                    <td class="row row4 ttl">단위</td>
-                    <td class="row row5 ttl" colspan="3">비고</td>
+                    <td class="row row2  " colspan="" rowspan="2">원재료명</td>
+                    <td class="row row2 m_name" colspan="3" rowspan="2">
+                        <div class="dd flexCol2">
+<!--                            --><?php //=$body['material_arr'][0]['mtname']?>
+                            <?php
+                            if ($body['material_arr'] == 1 ) {
+                                $mtNames = [$body['material_arr']['mtname'].' '.$body['material_arr']['capacity'].'g'];
+                            } else {
+                                $mtNames = array_map(function($item) {
+                                    return $item['mtname'].' '.$item['capacity'].'g';
+                                }, $body['material_arr']);
+                            }
+                            ?>
+                            <p class="mtname">
+                                <?php foreach($mtNames as $name): ?>
+                                    <?=$name?><br>
+                                <?php endforeach; ?>
+                            </p>
+                        </div>
+                    </td>
+                    <td class="row row3 twnw" colspan="">제조사/공급사</td>
+                    <td class="row row3" colspan="2">
+                        <div class="flexType1">
+                            <p class="text"><?= $body['material_arr'][0]['maker'];?>/<?= $body['material_arr'][0]['supply'];?></p>
+                            <?if ($body['step_arr'] > 1){?>
+                                <p class="add">외 <?=count($body['material_arr'])-1?>건</p>
+                            <?}?>
+                        </div>
+
+                    </td>
                 </tr>
-            <?foreach ($body['material_arr'] as $d){?>
                 <tr>
-                    <td class="row row2"><?=$d['mname'];?></td>
-                    <td class="row row3" colspan="2"><?= number_format($d['capacity']);?></td>
-                    <td class="row row4">g</td>
-                    <td class="row row5" colspan="3"><?=$d['maker'];?> / <?=$d['supply'];?></td>
+                    <td class="row row3 twnw" colspan="">작업완료일시</td>
+                    <td class="row row5 " colspan="2">-</td>
                 </tr>
-            <?}?>
             </thead>
-            <tbody>
+            <tbody><>
                 <tr>
-                    <td class="row subTitle" colspan="7"></td>
+                    <td class="row </>subTitle" colspan="7"></td>
                 </tr>
                 <tr>
-                    <td class="row row1 ttl stepName">공정명</td>
-                    <td class="row row2 ttl">총투입량</td>
-                    <td class="row row2 ttl">예상산출량</td>
-                    <td class="row row3 ttl" colspan="2">가이드</td>
+                    <td class="row row1 ttl stepName" colspan="2">공정명</td>
+                    <td class="row row2 ttl">투입/산출량(g)</td>
+                    <td class="row row3 ttl" colspan="2">공정방법</td>
                     <td class="row row4 ttl">부자재</td>
 
-                    <td class="row row6 ttl">검사확인</td>
+                    <td class="row row6 ttl">담당자</td>
                 </tr>
            <?foreach ($body['step_arr'] as $d){?>
                 <tr>
-                    <td class="row row1 stepName"><?=$d['step_name'];?></td>
-                    <td class="row row2"><?=number_format($d['input_material']);?>g</td>
-                    <td class="row row2"><?=number_format($d['output_material']);?>g</td>
+                    <td class="row row1 stepName" colspan="2"><?=$d['step_name'];?></td>
+                    <td class="row row2"><?=number_format($d['input_material']);?>/<?=number_format($d['output_material']);?></td>
                     <td class="row row3 " colspan="2">
                         <p class="desc">
                             <?=$d['p_method'];?>
                         </p>
                     </td>
                     <td class="row row2"><?=$d['material'];?></td>
-                    <td class="row row2">-</td>
+                    <td class="row row2" rowspan=""><?=$d['worker'][0]['name'] ?? '-'?></td>
                 </tr>
            <?}?>
                 <tr>
                     <td class="row row1" colspan="5">-</td>
-                    <td class="row row3">지시수량</td>
+                    <td class="row row3">기본수량</td>
                     <td class="row row2"><?=$body['info_arr']['quantity']?></td>
                 </tr>
                 <tr>
@@ -99,7 +121,7 @@
     </div>
     <div class="btnBox flexType2 mt20">
         <button type="button" class="btnType1 mr10 " id="xBtn">닫기</button>
-        <button type="button" class="btnType1" id="btn_print">출력</button>
+        <button type="button" class="btnType1" id="btn_print" data-code="">출력</button>
     </div>
 
 </section>

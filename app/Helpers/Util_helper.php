@@ -5,6 +5,41 @@ use CodeIgniter\I18n\Time;
 use Config\Services;
 use App\Libraries\Auth;
 
+/** 송장번호 반환
+ * 317957255781  -> 3179-5725-5781
+ * 3179-5725-5781 -> 그대로 반환
+ */
+
+function formatInvoiceNumber($invoice)
+{
+    $numbers = preg_replace('/[^0-9]/', '', $invoice);
+
+    if (strlen($numbers) === 12) {
+        return substr($numbers, 0, 4) . '-' .
+            substr($numbers, 4, 4) . '-' .
+            substr($numbers, 8, 4);
+    }
+    return $invoice;
+}
+
+
+/**
+ * 01011112222  -> 010-3443-6063
+ * 010-1111-2222 -> 그대로 반환
+ */
+function fn_formatmobile($phone)
+{
+    $digits = preg_replace('/\D+/', '', $phone);
+    if (preg_match('/^010\d{8}$/', $digits)) {
+        if (preg_match('/^010-\d{4}-\d{4}$/', $phone)) {
+            return $phone;
+        }
+        return preg_replace('/^(010)(\d{4})(\d{4})$/', '$1-$2-$3', $digits); // [web:10]
+    }
+    return $phone;
+}
+
+
 
 function fn_toIso8601Kst(string $dateStr): string
 {
@@ -607,3 +642,35 @@ function fn_AlertClose($msg = '')
     echo '<script type="text/javascript"> alert("' . $msg . '"); window.close(); </script>';
     exit;
 }
+
+function fn_MakeToast($msg = '')
+{
+    if (!$msg) {
+        $msg = '잘못된 접근입니다.';
+    }
+    echo '<script>
+        const toast = document.querySelector(".toastBox, #toast, [class*="toast"]");
+        if(toast) toast.remove();
+        
+        const div = document.createElement("div");
+        div.className = "toastBox";
+        div.textContent = "'.$msg.'";
+        div.style.cssText = `
+            animation: toastSlideIn 0.3s ease-out;
+            white-space: pre-line;
+            word-wrap: break-word;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 99999;
+        `;
+        document.body.appendChild(div);
+        
+        setTimeout(() => {
+            div.style.animation = "toastSlideOut 0.3s ease-in forwards";
+            setTimeout(() => div.remove(), 300);
+        }, 3000);
+    </script>';
+    exit;
+}
+

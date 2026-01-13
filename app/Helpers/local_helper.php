@@ -1,5 +1,28 @@
 <?php
 
+function get_Delivery_ConfirmByOrcode($model,$orcode){
+    $data = [];
+    $Rs = $model->Load_Order_Package_Info($orcode);
+    if(fn_ArrayCnt($Rs)>0){
+        $opcode = $Rs[0]['fk_opcode'];
+        $iRs = $model->Load_PackingByOpcode($opcode);
+        if(fn_ArrayCnt($iRs)>0){
+            $data = $iRs[0];
+        }
+    }
+    return $data;
+}
+
+function get_RetrunOrcodeByOpcode($orcode){
+    $opcode = '';
+    $order_m = model('Order_m');
+    $Rs = $order_m->Load_Order_Package_Info($orcode);
+    if(fn_ArrayCnt($Rs)>0){
+        $opcode = $Rs[0]['fk_opcode'];
+    }
+    return $opcode;
+}
+
 function get_Order_Delivery_Info($model,$orcode)
 {
     $t_arr = [
@@ -89,6 +112,7 @@ function get_Order_Product_short_info($model,$orcode){
     $short_pdsub = '';
     $short_sgcode = '';
     $short_sgsub = '';
+    $pcnt = 0;
     $info = $model->Load_Order_Product($orcode);
     $info_cnt = fn_ArrayCnt($info);
     if($info_cnt>0){
@@ -110,7 +134,8 @@ function get_Order_Product_short_info($model,$orcode){
     $t_arr = [
         'name' => $short_name,
         'pdcode' => $short_pdcode,
-        'sgcode' => $short_sgcode
+        'sgcode' => $short_sgcode,
+        'pcnt' => $info_cnt
     ];
 
     return $t_arr;
@@ -400,7 +425,7 @@ function fn_LoadInstructionsProcess($model,$gicode){
     $pRs = $model->Load_Instructions_Process($gicode);
     if(fn_ArrayCnt($pRs)>0){
         foreach($pRs as $d){
-            $cRs = $model->Load_Instructions_Step_Material($gicode,$d['stepNum']);
+            $cRs = $model->Load_Instructions_Step_Material($gicode,$d['fk_prcode']);
             $step_material = '';
             if(fn_ArrayCnt($cRs)>0){
                 foreach($cRs as $f){
@@ -601,15 +626,15 @@ function fnGetProcessNameByCode($code) {
 }
 
 
-function fnMake_Process_Type($cval){
+function fnMake_Process_Type($c_typ){
     $html = '';
     $t_arr = fnProcess_Arr();
 
     foreach ($t_arr as $d) {
-        if ($cval == $d['code']) {
-            $html .= "<option value='{$d['code']}' selected data-type='{$d['typ']}'>{$d['name']}</option>";
+        if ($c_typ == $d['code']) {
+            $html .= "<option value='{$d['code']}' selected data-type='{$d['typ']}' data-loss='{$d['loss']}'>{$d['name']}</option>";
         } else {
-            $html .= "<option value='{$d['code']}' data-type='{$d['typ']}'>{$d['name']}</option>";
+            $html .= "<option value='{$d['code']}' data-type='{$d['typ']}' data-loss='{$d['loss']}'>{$d['name']}</option>";
         }
     }
     return $html;

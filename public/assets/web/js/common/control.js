@@ -312,6 +312,8 @@ function number_format(num){
 }
 
 function start_spinner() {
+    stop_spinner();
+
     $('#spinnerBox').addClass('active');
     $('#spinner').addClass('active');
 
@@ -384,35 +386,20 @@ function printWindow(id) {
 // }
 
 function Make_Toast(msg) {
-    const div = document.createElement('div');
-    div.classList.add('toastBox');
-    div.textContent = msg;
+    $('.toastBox').remove();
 
-    // 애니메이션
-    div.style.cssText = `
-        animation: toastSlideIn 0.3s ease-out;
-        white-space: pre-line;
-        word-wrap: break-word;
-    `;
+    const div = $(`<div class="toastBox">${msg}</div>`).css({
+        'animation': 'toastSlideIn 0.3s ease-out',
+        'white-space': 'pre-line',
+        'word-wrap': 'break-word'
+    });
 
-    document.body.appendChild(div);
+    $('body').append(div);
 
     setTimeout(() => {
-        div.style.animation = 'toastSlideOut 0.3s ease-in forwards';
-        setTimeout(() => div.remove(), 300);
+        div.css('animation', 'toastSlideOut 0.3s ease-in forwards')
+            .delay(300).queue(() => div.remove());
     }, 3000);
-}
-
-function Make_Toast1(msg){
-    const div = document.createElement('div');
-    div.classList.add('toastBox');
-    div.textContent = msg;
-    document.body.appendChild(div);
-
-    // 일정 시간이 지난 후 div 삭제
-    setTimeout(() => {
-        div.remove();  // div를 삭제
-    }, 2000); // 3초 후에 삭제
 }
 
 function checkValidDate(value) {
@@ -444,19 +431,47 @@ function pop_AddDeliForm() {
     let orcode = $('#poporcode').val();
     let url = "/order/adddeliform?cd=" + orcode;
     let width = 720;
-    let height = 980;
 
-    let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+    let newWindow = window.open(url, "_blank",
+        `width=${width},height=600,resizable=yes,scrollbars=no`
+    );
 
     newWindow.onload = function() {
-        try {
-            let docHeight = newWindow.document.body.scrollHeight;
-            newWindow.resizeTo(width, docHeight + 450);
-        } catch(e) {
-            console.log("새 창 높이 조절 불가", e);
-        }
+        setTimeout(() => {
+            try {
+                let docHeight = Math.max(
+                    newWindow.document.body.scrollHeight,
+                    newWindow.document.documentElement.scrollHeight,
+                    newWindow.document.body.offsetHeight
+                );
+
+                newWindow.resizeTo(width, docHeight + 80);
+                newWindow.scrollTo(0, 0);
+            } catch(e) {
+                console.log("새 창 높이 조절 불가", e);
+            }
+        }, 300);
     };
 }
+
+
+// function pop_AddDeliForm() {
+//     let orcode = $('#poporcode').val();
+//     let url = "/order/adddeliform?cd=" + orcode;
+//     let width = 720;
+//     let height = 980;
+//
+//     let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+//
+//     newWindow.onload = function() {
+//         try {
+//             let docHeight = newWindow.document.body.scrollHeight;
+//             newWindow.resizeTo(width, docHeight + 450);
+//         } catch(e) {
+//             console.log("새 창 높이 조절 불가", e);
+//         }
+//     };
+// }
 
 
 function pop_waybillForm() {
@@ -474,6 +489,33 @@ function pop_waybillForm() {
         } catch(e) {
             console.log("새 창 높이 조절 불가", e);
         }
+    };
+}
+
+function pop_waybillForm() {
+    let orcode = $('#poporcode').val();
+    let url = "/order/waybill?cd=" + orcode;
+    let width = 720;
+
+    let newWindow = window.open(url, "_blank",
+        `width=${width},height=600,resizable=yes,scrollbars=no`
+    );
+
+    newWindow.onload = function() {
+        setTimeout(() => {
+            try {
+                let docHeight = Math.max(
+                    // newWindow.document.body.scrollHeight,
+                    // newWindow.document.documentElement.scrollHeight,
+                    newWindow.document.body.offsetHeight
+                );
+
+                newWindow.resizeTo(width, docHeight + 80);
+                newWindow.scrollTo(0, 0);
+            } catch(e) {
+                console.log("waybill 새 창 높이 조절 불가", e);
+            }
+        }, 300);
     };
 }
 

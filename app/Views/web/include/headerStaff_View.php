@@ -1,7 +1,7 @@
 
 <header>
     <div class="headerWrapStaff">
-        <a href="/" target="_blank" onclick="go_main(); return false;">
+        <a href="/" target="_blank" onclick="go_main('<?=$header['grade'];?>'); return false;">
             <img src="/assets/web/src/logo_white.png" alt="img" id="" onclick="" onmousedown=""
                  class="logoImg">
         </a>

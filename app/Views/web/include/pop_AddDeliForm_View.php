@@ -3,7 +3,6 @@
 <script src="<?=URL_COMMON_ASSETS?>/jquery-barcode.js"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/AddDeliForm_Do.js"> </script>
 
-<?php print_r($body)?>
 <section class="merright add_deli_contents"  id="" >
     <div class="add_deli_wrap" id="add_deli_box">
 <!--        <table class="add_deli_tbl" id="add_deli_table">-->

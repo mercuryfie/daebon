@@ -17,14 +17,14 @@ class CommonController extends BaseController
     }
 
 
-    public function userInfo()
+    public function userRegister()
     {
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
         }else {
             $metaarr = [
-                'h_title' => '사용자 정보',
+                'h_title' => '사용자 등록',
                 'h_type' => 1
             ];
 
@@ -39,7 +39,33 @@ class CommonController extends BaseController
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/common/userInfo_View',$main_data);
+            return view('web/common/userRegister_View',$main_data);
+        }
+    }
+
+    public function userList()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '사용자 목록',
+                'h_type' => 1
+            ];
+
+            $main_data = [];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'main' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/userList_View',$main_data);
         }
     }
 

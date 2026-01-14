@@ -12,9 +12,39 @@ class ApiProductController extends BaseController
 {
     use ResponseTrait;
 
-    public function Load_Goods_List(){
+    public function Delete_Products(){
+        $sessinarr = $this->GetSessionData();
+        $code = ($this->request->getPost('code')=='') ?'':$this->request->getPost('code');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else if($code===''){
+            $result = 'Error003';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else{
+            $product_m = model('Product_m');
+            $Cnt = $product_m->Delete_Products_Data($code);
 
+            $result = 'ok';
+            $data = [];
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
     }
+
+
 
     public function Load_Product_Detail(){
         $sessinarr = $this->GetSessionData();

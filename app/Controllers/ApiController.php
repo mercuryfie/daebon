@@ -1040,6 +1040,44 @@ class ApiController extends BaseController
     }
 
 
+//    public function Delete_Products(){
+//        $sessinarr = $this->GetSessionData();
+//        $code = ($this->request->getPost('code')=='') ?'':$this->request->getPost('code');
+//        if($sessinarr['islogin']==false) {
+//            $result = 'NoLogin';
+//            $data = [];
+//            $message = '로그인이 필요합니다.';
+//        }else if(!Check_Token($sessinarr)) {
+//            $result = 'Error002';
+//            $data = [];
+//            $message = '잘못된 토큰입니다.';
+//        }else if($code===''){
+//            $result = 'Error003';
+//            $data = [];
+//            $message = '잘못된 접근입니다.';
+//        }else{
+//            $goods_m = model('Goods_m');
+//            $Cnt = $goods_m->Delete_ProductDefault_Info($code);
+//            if($Cnt > 0){
+//                $result = 'ok';
+//                $data = [];
+//                $message = '';
+//            }else{
+//                $result = 'Error004';
+//                $data = [];
+//                $message = '등록에 실패 하였습니다.';
+//            }
+//        }
+//
+//        $return = [
+//            'result' => $result,
+//            'info' => $data,
+//            'message' => $message
+//        ];
+//        return $this->respond($return);
+//    }
+
+
     public function Load_Category_Info()
     {
         $sessinarr = $this->GetSessionData();
@@ -1205,6 +1243,7 @@ class ApiController extends BaseController
         }else{
             $skey = array_key_exists('skey', $data) ? $data['skey'] : '';
             $fkey = array_key_exists('fkey', $data) ? $data['fkey'] : 0;
+
             $material_m = model('Material_m');
 
 //            $mRs = ($skey=='') ? $material_m->Load_MaterialList_All() : $material_m->Load_Material_Search($skey);
@@ -1212,7 +1251,6 @@ class ApiController extends BaseController
                 $mRs = $material_m->Load_MaterialList_All();
             } else if ($skey != '') {
                 $mRs = $material_m->Load_Material_Search($skey);
-
             } else if ($fkey != '') {
                 $mRs = $material_m->Load_Material_Filter($fkey);
             }

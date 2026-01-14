@@ -74,7 +74,7 @@ class GoodsController extends BaseController
                 if (fn_ArrayCnt($pRs) > 0) {
                     $fields = ['a.*', 'b.mname'];
                     foreach ($pRs as $a) {
-                        $cRs = $goods_m->Load_Goods_Step_Material($a['fk_gcode'], $a['stepNum']);
+                        $cRs = $goods_m->Load_Goods_Step_Material($a['fk_gcode'], $a['prcode']);
                         $step_material = '';
                         if (fn_ArrayCnt($cRs) > 0) {
                             foreach ($cRs as $f) {
@@ -101,18 +101,11 @@ class GoodsController extends BaseController
                     }
                 }
 
-                //            $produce_m = model('Produce_m');
-                //            $info_arr = fn_LoadInstructionsInfo($produce_m,$code);
-                //            $material_param = fn_LoadInstructionsMaterial($produce_m,$code);
-                //            $step_info = fn_LoadInstructionsProcess($produce_m,$code);
-
                 $main_data = [
                     'info_arr' => $info_arr,
                     'material_arr' => $material_param,
                     'step_arr' => $step_info
                 ];
-
-                print_r($main_data);
 
 
                 $form = new Form;
@@ -354,8 +347,10 @@ class GoodsController extends BaseController
 
             $mRs = $goods_m->Load_Goods_Each($code);
             if (fn_ArrayCnt($mRs) > 0) {
+//                echo "f data: "; print_r($pRs);
                 $d = $mRs[0];
                 $info_arr = [
+//                    echo "f data: "; print_r($pRs);
                     'seq' => $d['seq'],
                     'gscode' => $d['gscode'],
                     'gname' => $d['gsname'],
@@ -523,11 +518,15 @@ class GoodsController extends BaseController
                                 }
                             }
 
+                            $step_info = fnGetProcessNameByCode($d['step_typ']);
+                            $step_loss = (fn_ArrayCnt($step_info)>0) ? $step_info['loss'] : 0;
+
                             $t_arr = [
                                 'gcode' => $d['fk_gcode'],
                                 'prcode' => $d['prcode'],
                                 'stepNum' => $d['stepNum'],
                                 'step_typ' => $d['step_typ'],
+                                'step_loss' =>$step_loss,
                                 'step_name' => $d['step_name'],
                                 'input_material' => $d['input_material'],
                                 'output_material' => $d['output_material'],

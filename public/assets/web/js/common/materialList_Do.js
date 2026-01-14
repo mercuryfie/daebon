@@ -9,22 +9,6 @@ $(document).ready(function() {
 
     Load_Data(data);
 
-
-    // $('#mate_filter').on('change',function(){
-    //     let typ = $(this).val();
-    //     Load_Data('');
-    //
-    //     if(selected=='type0'){
-    //         let newcode = generateNewCode(2);
-    //         $('#spcode').val(newcode).prop('disabled', true);
-    //     }else{
-    //         $('#spcode').val('').prop('disabled', false).focus();
-    //     }
-    //
-    //
-    // });
-
-
     $('#addMate').click(function () {
         $('#addMateWrap').css('display','block');
     });
@@ -119,9 +103,6 @@ $(document).ready(function() {
 
     // selectAll: 체크박스 전체 선택
     $(document).on('change', '#mate_filter', function() {
-        // var colIdx = $(this).closest('td,th').index();
-        // let fkey = $(this).val();
-
         let search = '';
         let fkey = $('#mate_filter option:selected').val();
         const data = {
@@ -133,23 +114,29 @@ $(document).ready(function() {
 
 
     $(document).on('click','button[name="btn_search"]',function(){
-        let key = $('#mkey').val();
+        const data = {
+            skey : $('#mkey').val(),
+            fkey : ''
+        };
+
         form_Ini();
-        Load_Data(key);
+        Load_Data(data);
     });
 
     $('#mkey').on("keypress", function (key) {
         if (key.keyCode == 13) {
-            let key = $(this).val();
+            const data = {
+                skey : $(this).val(),
+                fkey : ''
+            };
+
             form_Ini();
-            Load_Data(key);
+            Load_Data(data);
         }
     });
 
     $('#btn_reload').on('click',function(){
-        form_Ini();
-        $('#mkey').val('');
-        Load_Data('');
+        location.reload();
     });
 
     $('#btn_pop').on('click',async function(){

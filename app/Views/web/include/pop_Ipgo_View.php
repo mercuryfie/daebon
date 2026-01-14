@@ -31,6 +31,7 @@
 <!--                        <option value="bySelf">직접입력</option>-->
                         <option value="">OEM</option>
                         <option value="">농산물센터</option>
+                        <option value="">기타</option>
                     </select>
                     <input type="search" name="suppCom" id="suppCom" placeholder="회사이름" class="inputType220 hidden" style="">
                 </div>
@@ -44,6 +45,7 @@
                 <p class="category">원자재단위</p>
                 <select name="unit" id="unit" class="inputType220">
                     <option value="">선택하세요.</option>
+                    <option value="">기타</option>
                 </select>
             </div>
             <div class="area area6 flexType4 fs14">

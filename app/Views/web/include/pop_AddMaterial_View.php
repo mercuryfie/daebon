@@ -39,7 +39,6 @@
             <div class="area area2 flexType2">
                 <p class="category">적정재고량</p>
                 <input type="search" name="inventory" id="inventory" placeholder="1000(숫자만입력)" class="inputType220 mr10">
-
             </div>
             <div class="area area6 flexType2">
                 <p class="category">원자재단위</p>

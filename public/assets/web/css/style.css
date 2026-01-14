@@ -1435,7 +1435,7 @@ input[type="radio"] {
 }
 
 .lastBox {
-    width: 80vw;
+    width: 84vw;
     height: auto;
     padding: 20px 0;
     margin-left: 20px;
@@ -2011,7 +2011,6 @@ input[type="radio"] {
 
 .deli_wrapghj .titleBox {
     width: 96vw;
-    border:1px solid red;
 }
 
 .deli_wrapghj .deli_box2w9 {
@@ -2043,8 +2042,7 @@ input[type="radio"] {
     width: 40px;
 }
 
-.linkMallsTable .negative,
-.linkMallsTable .positive {
+.linkMallsTable .status {
     margin: 0 auto;
     border-radius: 5px;
     width: 40px;
@@ -2054,17 +2052,18 @@ input[type="radio"] {
     font-size: 14px;
 }
 
-
-
-.linkMallsTable .positive {
+.linkMallsTable .status.positive {
     background-color: #6FFF74;
 }
 
-.linkMallsTable .negative {
+.linkMallsTable .status.negative {
     background-color: #FF6F6F;
     color:#fff;
 }
 
+.linkMallsTable .status.missing {
+    background-color: #F8E513;
+}
 
 .areaBox .area4 .orderInfoTable1 td:first-child {
     min-width: 40px;
@@ -2253,6 +2252,7 @@ input[type="radio"] {
 
 /* goods register lastBox start  -------------------------------- */
 
+.user_reg_wrap .lastBox .btnType1,
 .oinfo_box23e .lastBox .btnType1,
 .mas_box23f .lastBox .btnType1,
 .masModi_box23f .lastBox .btnType1,
@@ -2263,6 +2263,7 @@ input[type="radio"] {
 
 }
 
+.user_reg_wrap .lastBox .btnType2,
 .oinfo_box23e .lastBox .btnType2,
 .mas_box23f .lastBox .btnType2,
 .masModi_box23f .lastBox .btnType2,
@@ -2668,6 +2669,11 @@ input[type="radio"] {
 
 .area_boxmxh .lastArea {
     margin: 20px 0;
+}
+
+.goods_boxfv6 .goods_tablexo1 .btnType3 {
+    height: 24px;
+    color:#5c5c5c;
 }
 
 /* production detail > statusLabel start -------------------------------- */
@@ -3104,6 +3110,14 @@ input[type="radio"] {
     background-color: #00000081;
     color:#fff;
 
+}
+
+.thum_arange img {
+    border:1px solid #ccc;
+    border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
 }
 
 /* attach_boxp5s end*/
@@ -3984,7 +3998,7 @@ input[type="radio"] {
 }
 
 .addMate_conkol .area6 {
-    display:none;
+    /*display:none;*/
 }
 
 .addMate_conkol .selUnit {
@@ -4389,37 +4403,6 @@ input[type="radio"] {
 }
 
 /* pop add product end -------------------------------- */
-/* pop barcode window start -------------------------------- */
-
-.barcode_boxfxp {
-    padding: 20px;
-}
-
-.barcode_Table {
-    border-collapse: collapse;
-}
-
-.barcode_Table .barcodeArea {
-    border:1px solid red;
-    height: 44px;
-}
-
-.barcode_Table .keyCol,
-.barcode_Table .row {
-    border: 1px solid #000;
-    padding: 0 10px;
-    text-align: center;
-    height: 24px;
-    text-wrap: nowrap;
-}
-
-.label80x40 {
-    width: 74mm;
-    height: 36mm;
-}
-
-
-/* pop barcode window end -------------------------------- */
 /* pop upload exel start -------------------------------- */
 
 .upXlx_wrapiaj .area1 .category {
@@ -4776,6 +4759,7 @@ input[type="radio"] {
 /* pop_QualityReport_View end   --------------------------- */
 /* pop order roast form start   --------------------------- */
 
+.ins_form_contents .btnBox,
 .ins_form_contents .btnBox {
     width: 81vw;
     margin-top: 40px;
@@ -4787,6 +4771,16 @@ input[type="radio"] {
     overflow: hidden;
 }
 
+
+
+.ins_form_contents .ins_form_table .ttl{
+    font-size: 14px;
+}
+
+.ins_form_contents .ins_form_table .ma_data {
+    overflow: hidden;
+
+}
 
 /* pop order roast form end   --------------------------- */
 /* waybill form start -------------------------------- */
@@ -4822,7 +4816,12 @@ input[type="radio"] {
     overflow: hidden;
 }
 
-.waybill_boxfxp .bgBox {
+.waybill_content {
+    /*position: relative;*/
+}
+
+/*.waybill_boxfxp .bgBox {*/
+.waybill_content .bgBox {
     width: 700px;
     height: 360px;
     position: absolute;
@@ -4847,6 +4846,10 @@ input[type="radio"] {
     margin-bottom: 40px;
 }
 
+.waybill_boxfxp .paddingBox .area {
+    overflow: hidden;
+
+}
 
 .waybill_boxfxp .paddingBox .area1 {
     margin-top: 5px;
@@ -4874,6 +4877,7 @@ input[type="radio"] {
     padding: 10px;
     width: 140px;
     height:60px;
+    overflow: hidden;
 }
 
 
@@ -4881,18 +4885,42 @@ input[type="radio"] {
     overflow: hidden;
 }
 
-.waybill_boxfxp .paddingBox .left .area1 .barBox {
-    border:1px solid red;
+.waybill_boxfxp .paddingBox .left .area1 {
+    position: relative;
 }
 
+.waybill_boxfxp .paddingBox .left .area1 .left1 {
+    /*position: absolute;*/
+    /*top:0;*/
+    /*left:0;*/
+    /*z-index: 20;*/
+}
+
+.waybill_boxfxp .paddingBox .left .area1 .barBox {
+    position: absolute;
+    top:0px;
+    left:calc(38% - 0px);
+    overflow: hidden;
+    margin-top: 22px;
+    width: 190px;
+    height: 38px;
+}
+
+.waybill_boxfxp .paddingBox .left .area1 .barBox canvas {
+    /*position: absolute;*/
+    /*top:0px;*/
+    width: 100%;
+    object-fit: contain;
+
+}
 .waybill_boxfxp .paddingBox .left .area1 {
     margin-left: 10px;
 }
 
 .waybill_boxfxp .paddingBox .left .area2 {
     margin: 30px 0 0px 10px;
-    height:120px;
-    max-height: 120px;
+    height:100px;
+    /*max-height: 120px;*/
 
 }
 
@@ -4902,7 +4930,6 @@ input[type="radio"] {
     font-weight: 600;
     height: 100px;
     line-height: 20px;
-    border:1px solid red;
     text-wrap: wrap;
 
 }
@@ -4930,18 +4957,55 @@ input[type="radio"] {
 }
 
 .waybill_boxfxp .paddingBox .left .barBox2 {
-    margin-left: 10px;
+    position: relative;
+    border:1px solid blue;
+    /*width: 290px;*/
+    /*height: 40px;*/
+    margin-top: 10px;
 }
 
 .waybill_boxfxp .paddingBox .left .barBox2 .barBb {
-    width:120px;
-    height: 40px;
-
+    border:1px solid greenyellow;
 }
 
 .waybill_boxfxp .paddingBox .left .barBox2 .barBb1 {
     border:1px solid red;
+    width:50%;
     margin-right: 10px;
+    position: absolute;
+    top:0px;
+    left:0px;
+    /*display: none;*/
+    /*width: 140px;*/
+    /*height: 38px;*/
+    /*overflow: hidden;*/
+
+    /*position: relative;*/
+
+}
+
+
+.waybill_boxfxp .paddingBox .left .barBox2 .barBb1 canvas {
+    /*position: absolute;*/
+    /*top:0px;*/
+    /*left:0;*/
+    width:100%;
+    height:auto;
+    object-fit: contain;
+    /*height: 80px;*/
+    /*object-fit: cover;*/
+
+
+}
+
+
+.waybill_boxfxp .paddingBox .left .barBox2 .barBb2 {
+    /*width:40%;*/
+    /*position: absolute;*/
+    /*top:0;*/
+    /*left:0;*/
+    margin-left: 60%;
+    /*left:160px;*/
 
 }
 
@@ -5019,18 +5083,46 @@ input[type="radio"] {
     line-height: 18px;
 }
 
+
+.waybill_boxfxp .right .area5 {
+    overflow: hidden;
+    width: 420px;
+    height: 60px;
+    position: relative;
+}
+
+.waybill_boxfxp .right .area5 .barBox5 {
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    left:120px;
+    width: 60%;
+    height: 60px;
+    overflow: hidden;
+}
+
+.waybill_boxfxp .right .area5 .barBox5 canvas {
+    object-fit: contain;
+
+}
+
 .waybill_boxfxp .right .area5 .text1 {
     margin-top: 40px;
-    margin-left: 30px;
-    font-size: 16px;
+    margin-left: 20px;
+    font-size: 14px;
+    line-height: 14px;
+    z-index: 30;
+}
+
+.waybill_boxfxp .right .area6 {
 }
 
 .waybill_boxfxp .right .area6 .text2{
-    margin-left: 80px;
+    margin-left: 40px;
 }
 
 .waybill_boxfxp .right .area6 .area6bb{
-    margin-left: 50px;
+    margin-left: 20px;
 }
 
 .waybill_boxfxp .right .area6 .text3,
@@ -5045,8 +5137,6 @@ input[type="radio"] {
 }
 
 .waybill_boxfxp .right .area10,
-.waybill_boxfxp .right .area11,
-.waybill_boxfxp .right .area12,
 .waybill_boxfxp .right .area9 {
     font-size: 12px;
     line-height: 12px;
@@ -5064,13 +5154,80 @@ input[type="radio"] {
 .waybill_boxfxp .right .area11 {
     margin-top: 5px;
     font-size: 14px;
+    line-height: 14px;
     font-weight: 900;
 }
 
 /* waybill form end -------------------------------- */
+/* userRegister_View start -------------------------------- */
+
+.user_reg_wrap .area {
+    padding: 10px 0px 10px 20px;
+    /*width: 80vw;*/
+
+}
+
+.user_reg_wrap .area .notmust,
+.user_reg_wrap .area .must {
+    margin-right: 10px;
+}
+
+.user_reg_wrap .area .title {
+    width: 120px;
+    height: 32px;
+    margin-right: 20px;
+}
+
+.user_reg_wrap .area .inputBorder {
+    width: 340px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.user_reg_wrap .area4 {
+    align-items: center;
+}
+
+.user_reg_wrap .area5 .thumBox {
+    border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    position: relative;
+}
+
+.user_reg_wrap .area5 .thumBox img {
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+/* userRegister_View end -------------------------------- */
+/* userList_View start -------------------------------- */
+
+.user_reg_table {
+    border-collapse: collapse;
+    width: 80vw;
+    /*width: 40vw;*/
+    text-align: center;
+
+}
+
+.user_reg_table td {
+    height: 32px;
+    border:1px solid #ccc;
+}
+
+.user_reg_table .btnType3 {
+    padding: 0 10px;
+    height: 24px;
+    color:#5c5c5c;
+}
+
+/* userList_View end -------------------------------- */
 /* flexType1 -------------------------------- */
 
-.stockInLow.active {
+.low_stock.active {
     /*color: var(--color9);*/
     background-color: #FF828220;
 }
@@ -5193,6 +5350,14 @@ input[type="radio"] {
     flex-flow: column;
     justify-content: center;
     align-items: center;
+}
+
+
+.flexCol3 {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
 .flexStart {
@@ -5462,6 +5627,7 @@ input[type="radio"] {
     border-radius: 50%;
     width: 6px;
     height: 6px;
+    background-color: transparent;
 }
 
 .inputType {
@@ -5660,6 +5826,384 @@ input[type="radio"] {
         font-weight: 600;
 
     }
+
+    .waybill_inner {
+        position: relative;
+    }
+
+    .waybill_inner .bgBox {
+        position: absolute;
+        top:0;
+        left:0;
+
+    }
+
+    .waybill_inner .paddingBox {
+        position: absolute;
+        top:0;
+        left:0;
+
+    }
+
+    .waybill_inner .paddingBox .left {
+        width: 60%;
+    }
+
+    .waybill_inner .paddingBox .right {
+        width: 40%;
+    }
+
+
+    /* waybill form start -------------------------------- */
+
+    .waybill_boxfxp {
+        width: 700px;
+        height: 360px;
+        position: relative;
+        text-wrap: nowrap;
+        font-family: 'HYGothic-Extra', "HY견고딕", "HanyangGothic", HGGGT, "맑은 고딕", sans-serif;
+    }
+
+    .waybill_boxfxp .paddingBox {
+        width: 700px;
+        height: 360px;
+
+    }
+
+    .waybill_boxfxp .paddingBox .left {
+        position: relative;
+        width: 42%;
+        z-index: 33;
+        height: 340px;
+        overflow: hidden;
+
+    }
+    .waybill_boxfxp .paddingBox .right {
+        position: relative;
+        width: 52%;
+        z-index: 33;
+        margin-left: 24px;
+        height: 340px;
+        overflow: hidden;
+    }
+
+    .waybill_content {
+        /*position: relative;*/
+    }
+    /* waybill form start -------------------------------- */
+
+    .waybill_inner {
+        width: 700px;
+        height: 360px;
+        position: relative;
+        text-wrap: nowrap;
+        font-family: 'HYGothic-Extra', "HY견고딕", "HanyangGothic", HGGGT, "맑은 고딕", sans-serif;
+    }
+
+    .waybill_inner .paddingBox {
+        width: 700px;
+        height: 360px;
+    }
+
+    .waybill_inner .paddingBox .left {
+        position: relative;
+        width: 42%;
+        z-index: 33;
+        height: 340px;
+        overflow: hidden;
+    }
+
+    .waybill_inner .paddingBox .right {
+        position: relative;
+        width: 52%;
+        z-index: 33;
+        margin-left: 24px;
+        height: 340px;
+        overflow: hidden;
+    }
+
+    .waybill_content {
+        /*position: relative;*/
+    }
+
+    /*.waybill_inner .bgBox {*/
+    .waybill_content .bgBox {
+        width: 700px;
+        height: 360px;
+        position: absolute;
+        top:0;
+        left:0;
+        z-index: 10;
+    }
+
+    .waybill_inner .bgBox img{
+        object-fit: cover;
+    }
+
+    .waybill_content .btnBox {
+        width: 700px;
+        height: 32px;
+    }
+
+    .waybill_inner .right .right1,
+    .waybill_inner .right .right2{
+        margin-bottom: 40px;
+    }
+
+    .waybill_inner .paddingBox .area {
+        overflow: hidden;
+    }
+
+    .waybill_inner .paddingBox .area1 {
+        margin-top: 5px;
+    }
+
+    .waybill_inner .paddingBox .left1 {
+        width: 140px;
+        height: 60px;
+    }
+
+    .waybill_inner .paddingBox .left1 .text1 {
+        font-size: 22px;
+        font-weight: 800;
+    }
+
+    .waybill_inner .paddingBox .left1 .text2 {
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    .waybill_inner .paddingBox .left2 {
+        padding: 10px;
+        width: 140px;
+        height:60px;
+        overflow: hidden;
+    }
+
+    .waybill_inner .paddingBox .left .area {
+        overflow: hidden;
+    }
+
+    .waybill_inner .paddingBox .left .area1 .barBox {
+        position: relative;
+    }
+
+    .waybill_inner .paddingBox .left .area1 .barBox canvas {
+        position: absolute;
+        top:-10px;
+        left:0;
+        width: 140px;
+        height:80px;
+    }
+
+    .waybill_inner .paddingBox .left .area1 {
+        margin-left: 10px;
+    }
+
+    .waybill_inner .paddingBox .left .area2 {
+        margin: 30px 0 0px 10px;
+        height:100px;
+        /*max-height: 120px;*/
+    }
+
+    .waybill_inner .paddingBox .left .area2 .text {
+        width: 96%;
+        overflow: hidden;
+        font-weight: 600;
+        height: 100px;
+        line-height: 20px;
+        text-wrap: wrap;
+    }
+
+    .waybill_inner .paddingBox .left .area3 {
+        margin-right: 20px;
+    }
+
+    .waybill_inner .paddingBox .left .area3 .text2{
+        font-weight: bold;
+    }
+
+    .waybill_inner .paddingBox .left .area4 {
+        margin-left: 10px;
+    }
+
+    .waybill_inner .paddingBox .left .area4 .text{
+        font-size: 12px;
+        height: 12px;
+        line-height: 12px;
+        font-weight: 600;
+    }
+
+    .waybill_inner .paddingBox .left .barBox2 {
+        margin-left: 10px;
+    }
+
+    .waybill_inner .paddingBox .left .barBox2 .barBb {
+        /*width:50%;*/
+        height: 60px;
+    }
+
+    .waybill_inner .paddingBox .left .barBox2 .barBb1 {
+        width:60%;
+        margin-right: 10px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .waybill_inner .paddingBox .left .barBox2 .barBb1 canvas {
+        position: absolute;
+        top:-10px;
+        left:0;
+        width:140px;
+        height: 80px;
+        /*object-fit: cover;*/
+    }
+
+    .waybill_inner .paddingBox .left .barBox2 .barBb2 {
+        width:40%;
+    }
+
+    .waybill_inner .paddingBox .left .barBox2 .barBb2 .text {
+        font-size: 16px;
+        height:20px;
+        line-height: 20px;
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .waybill_inner .paddingBox .left .barBox2 .barBb2 .text1 {
+        /*margin-bottom: 2px;*/
+    }
+
+    .waybill_inner .paddingBox .left .barBox2 .barBb2 .text2 {
+        font-size: 18px;
+        height:20px;
+        line-height: 20px;
+        font-weight: bold;
+    }
+
+    .waybill_inner .right .area {
+        font-size: 16px;
+        line-height: 18px;
+        font-weight: 600;
+        margin-left: 5px;
+    }
+
+    .waybill_inner .right .area1 {
+        margin-left: 40px;
+    }
+
+    .waybill_inner .right .area2 {
+        /*margin: 5px 0 0 5px;*/
+        margin-top: 5px;
+    }
+
+    .waybill_inner .right .area2 .text1{
+        font-size: 18px;
+        font-weight: 900;
+    }
+
+    .waybill_inner .right .area2 .text4,
+    .waybill_inner .right .area2 .text3,
+    .waybill_inner .right .area2 .text2 {
+        font-size:16px;
+    }
+
+    .waybill_inner .right .area2 .text3,
+    .waybill_inner .right .area2 .text2 {
+        margin-right: 40px;
+    }
+
+    .waybill_inner .right .area3 {
+        margin-top: 5px;
+        letter-spacing: -2px
+    }
+
+    .waybill_inner .right .area3 .text1 {
+        font-size: 18px;
+        font-weight: 900;
+    }
+
+    .waybill_inner .right .area4 {
+        margin-top: 5px;
+    }
+
+    .waybill_inner .right .area4 .text1 {
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    .waybill_inner .right .area5 {
+        overflow: hidden;
+        width: 420px;
+        height: 60px;
+        position: relative;
+    }
+
+    .waybill_inner .right .area5 .barBox5 {
+        position: absolute;
+        top:50%;
+        transform: translateY(-50%);
+        left:120px;
+        width: 60%;
+        height: 60px;
+        overflow: hidden;
+    }
+
+    .waybill_inner .right .area5 .barBox5 canvas {
+        object-fit: contain;
+    }
+
+    .waybill_inner .right .area5 .text1 {
+        margin-top: 40px;
+        margin-left: 20px;
+        font-size: 14px;
+        line-height: 14px;
+        z-index: 30;
+    }
+
+    .waybill_inner .right .area6 .text2{
+        margin-left: 40px;
+    }
+
+    .waybill_inner .right .area6 .area6bb{
+        margin-left: 20px;
+    }
+
+    .waybill_inner .right .area6 .text3,
+    .waybill_inner .right .area6 .text4 {
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .waybill_inner .right .area7,
+    .waybill_inner .right .area8 {
+        margin-top: 5px;
+    }
+
+    .waybill_inner .right .area10,
+    .waybill_inner .right .area9 {
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .waybill_inner .right .area9 {
+        margin-top: 42px;
+    }
+
+    .waybill_inner .right .area9 .text1 {
+        margin-right: 40px;
+    }
+
+    .waybill_inner .right .area11 {
+        margin-top: 5px;
+        font-size: 14px;
+        line-height: 14px;
+        font-weight: 900;
+    }
+
+    /* waybill form end -------------------------------- */
+
 
     /*pop_QualityReport_View print end */
     /*pop_AddDeliForm_View print start */

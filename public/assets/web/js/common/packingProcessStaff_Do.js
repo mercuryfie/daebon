@@ -7,7 +7,6 @@ $(document).ready(function() {
     let videoEl = null;
     const MAX_SLOTS = 5;
 
-    // ✅ getUserMedia 지원 체크
     function checkCameraSupport() {
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
             if (!navigator.getUserMedia && !navigator.webkitGetUserMedia && !navigator.mozGetUserMedia) {
@@ -91,33 +90,76 @@ $(document).ready(function() {
     });
 
     $(document).on('click','div[name="btn_noirbox"]',function(){
-        $(this).data('choice',1);
-        $(this).find('div[name="noir_active"]').addClass('active');
+
+        let orstep = $('#orstep').val();
+        if(orstep<2) {
+            $(this).data('choice', 1);
+            $(this).find('div[name="noir_active"]').addClass('active');
+        }
     });
 
     $('#btn_complete').on('click', async function() {
-        const imageElements = $container.find('.planeLayer:not(#pick) img');
-
-        if (imageElements.length === 0) {
-            Make_Toast('촬영된 사진이 없습니다.');
-            return;
+        let opcode = $(this).data('opcode');
+        let orcode = $(this).data('orcode');
+        let delicode = $('#packing_delicode').html();
+        if(delicode==''){
+            Make_Toast('송장출력을 해야 포장완료로 진행이 가능합니다.');
         }else{
-            let opcode = $(this).data('opcode');
-            let param = {
-                opcode : opcode,
-                uploadKey : 'photos',
-                uploadtype : 2,
-                imageElements : imageElements
-            };
-            let bool = await Upload_Pic(param);
-            console.log(bool);
-        }
+            let allChecked = true;
+            $('#check_product div[name="btn_noirbox"').each(function(){
+                let choice = $(this).data('choice');
+                if(choice==0){
+                    allChecked = false;
+                    Make_Toast('확인이 안된 상품이 있습니다.');
+                    return false;
+                }
+            });
+            if (!allChecked){
+                return;
+            }else{
+                const imageElements = $container.find('.planeLayer:not(#pick) img');
+                if (imageElements.length > 0) {
 
+                    let param = {
+                        opcode : opcode,
+                        uploadKey : 'photos',
+                        uploadtype : 2,
+                        imageElements : imageElements
+                    };
+                    let bool = await Upload_Pic(param);
+                }
+                let data = {
+                    orcode : orcode,
+                    opcode : opcode
+                };
+                let bool = await Process_Packing_End(data);
+                if(bool==true){
+                    go_packingListStaff();
+                }
+            }
+        }
 
     });
 
-
+    let p_status = $('#p_status').val();
+    prn_status(p_status);
 });
+
+function prn_status(val){
+    if(val==1){
+        $('#p_status1').removeClass().addClass('squareType');
+        $('#p_status2').removeClass().addClass('squareType2');
+        $('#p_status3').removeClass().addClass('squareType2');
+    }else if(val==2){
+        $('#p_status1').removeClass().addClass('squareType2');
+        $('#p_status2').removeClass().addClass('squareType');
+        $('#p_status3').removeClass().addClass('squareType2');
+    }else if(val==3){
+        $('#p_status1').removeClass().addClass('squareType2');
+        $('#p_status2').removeClass().addClass('squareType2');
+        $('#p_status3').removeClass().addClass('squareType');
+    }
+}
 
 async function Upload_Pic(param){
     let bool = false;
@@ -167,19 +209,16 @@ async function Upload_Pic(param){
 
 
 async function Process_Packing_End(param){
-    let data = {};
+    let data =false;
     try {
         start_spinner();
-        let dataarr = {"data" : param};
-        let url = APIURL + '/Update_Packing_Info';
+        let dataarr = {"param" : param};
+        let url = APIURL + '/Put_Packing_Info';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {
-            data = {
-                list : result.get('data').list,
-                tcnt : result.get('data').total
-            }
+            data = true;
         }else{
             Make_Toast(result.get('message') + "[" + result.get('status') + "]");
         }
@@ -215,4 +254,18 @@ function imageToBlob(imgSrc) {
         img.onerror = () => resolve(null);
         img.src = imgSrc;
     });
+}
+
+function dataChange(orcode,delicode){
+    if((delicode!='') && (orcode!='')){
+        let html = `
+            <button type="button" class="btn80Type1 mr10" onclick="pop_waybillPacking('${orcode}','New');">송장<br>추가출력</button>
+            <button type="button" class="btn80Type1 mr10" onclick="pop_waybillPacking('${orcode}','');">송장<br>재출력</button>
+        `;
+
+        $('#delicode_button').empty();
+        $('#delicode_button').html(html);
+        $('#packing_delicode').html(delicode);
+    }
+    prn_status(2);
 }

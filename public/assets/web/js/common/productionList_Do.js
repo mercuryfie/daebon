@@ -122,6 +122,7 @@ async function Make_Html(data){
     }else{
         html = '<tr><td class="ltThead" colspan="10">검색된 데이터가 없습니다.</td></tr>';
     }
+    $('#cpage').hide();
     $('#clist').append(html);
     $('#tcnt').html(arr.total);
 }
@@ -158,13 +159,5 @@ async function Data_Load(data){
 
 function pop_OrderForm() {
     $('#order_wrapdek').css('display','block');
-}
-
-
-function formatDate(d) {
-    const year = d.getFullYear();
-    const month = ('0' + (d.getMonth() + 1)).slice(-2);
-    const day = ('0' + d.getDate()).slice(-2);
-    return `${year}/${month}/${day}`;
 }
 

@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
-
-    Refine_R_Name();
+    let param = '';
+    Make_Html(param);
 
     $('#uploadExcel #Xbtn, #uploadExcel #Xbtn2').click(function () {
         $('#uploadExcel').css('display','none');
@@ -53,8 +53,6 @@ $(document).ready(function() {
         $('#e_date').val(formatDate(endDate));
 
     });
-
-
 
     $('.datepicker').each(function(index, elem) {
         const fp = flatpickr(elem, {
@@ -114,17 +112,32 @@ $(document).ready(function() {
                 console.log(arr);
                 $.each(arr, function(index, item) {
                     $('#ck_' + item.orcode).html('');
-                    $('#bu_' + item.orcode).html(`<button type="button" class="btnType3" onclick="add_packingQueue('${item.orcode}',2);">지시완료</button>`);
+                    $('#bu_' + item.orcode).html(`<button type="button" class="btnType3" data-rttype="2"  onclick="add_packingQueue('${item.orcode}');">지시완료</button>`);
                     $('#da_' + item.orcode).text(item.indate);
                 });
             }
         }
     });
 
-
-
-    let param = '';
-    Make_Html(param);
+    $('#btn_delivery_prn').on('click',async function(){
+        let orcode = $('#poporcode').val();
+        if(orcode==''){
+            Make_Toast('잘못된 접근입니다.');
+        }else{
+            let codes = [];
+            codes.push(orcode);
+            let tcnt = codes.length;
+            if(tcnt > 0){
+                let arr = await Put_Delivery2(codes);
+                $.each(arr, function(index, item) {
+                    $('#ck_' + item.orcode).html('');
+                    $('#bu_' + item.orcode).html('<button type="button" class="btnType3">지시완료</button>');
+                    $('#da_' + item.orcode).text(item.indate);
+                });
+                pop_waybillForm();
+            }
+        }
+    });
 
 });
 
@@ -138,10 +151,10 @@ async function Make_Html(param){
             let subhtml2 = '';
             if(el.orstep==0) {
                 subhtml1 = `<input type="checkbox" name="chkorder" value="${el.orcode}">`;
-                subhtml2 = `<button type="button" class="btnType3" onclick="add_packingQueue('${el.orcode}',1);">지시대기</button>`;
+                subhtml2 = `<button type="button" class="btnType3" data-rttype="1" onclick="add_packingQueue('${el.orcode}');">지시대기</button>`;
             }else{
                 subhtml1 = '';
-                subhtml2 = `<button type="button" class="btnType3" onclick="add_packingQueue('${el.orcode}',2);">지시완료</button>`;
+                subhtml2 = `<button type="button" class="btnType3" data-rttype="2" onclick="add_packingQueue('${el.orcode}');">지시완료</button>`;
             }
 
             html +=`
@@ -168,14 +181,11 @@ async function Make_Html(param){
     }
 }
 
-
 function upload_Xlx() {
     console.log('dawn1626');
     $('#uploadExcel .area3').css('display','flex');
     $('#uploadExcel').css('display','block');
 }
-
-
 
 async function add_packingQueue(orcode,typ) {
     let data= await Load_Delivery(orcode);
@@ -206,18 +216,6 @@ function Packing_ini(){
     $('#poporcode').val('');
 }
 
-function formatDate(d) {
-    const year = d.getFullYear();
-    const month = ('0' + (d.getMonth() + 1)).slice(-2);
-    const day = ('0' + d.getDate()).slice(-2);
-    return `${year}/${month}/${day}`;
-}
-
-function Refine_R_Name() {
-    let r_name = $('p[name="r_name"]').length;
-
-    console.log('dawn1042',r_name);
-}
 
 async function Load_Data(param){
     let data = {};
@@ -289,6 +287,27 @@ async function Put_Delivery(codes){
     return data;
 }
 
+async function Put_Delivery2(codes){
+    let data = {};
+    try {
+        start_spinner();
+        let dataarr = {"codes" : codes};
+        let url = APIURL + '/Put_Delivery_Info';
+        let result = await Load_API_Auth(url,dataarr);
+        console.log(result);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            data = result.get('data').list;
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+    return data;
+}
+
 async function Put_Package(codes){
     let data = {};
     try {
@@ -310,3 +329,4 @@ async function Put_Package(codes){
     }
     return data;
 }
+

@@ -35,7 +35,7 @@ input[type="search"] {
 :root {
     --color1: #6FFF74;
     --color2: #19CD1F;
-    --color3: #43B747;
+    --color3: #fcd937;
     --color4: #42b983;
     --color5: #42b98341;
     --color6: #b0ddc260;
@@ -204,6 +204,7 @@ input[type="radio"] {
 
 .pack_boxdw1 .area2 .right button {
     margin-right: 10px;
+    font-size: 16px;
 }
 
 .pack_boxdw1 .area2 .right button:last-child {
@@ -447,7 +448,11 @@ input[type="radio"] {
     width: 100px;
     height: 100px;
 
+}
 
+.pack_staff_imgbox .dashedLayer img {
+    width: 220px;
+    height: 220px;
 }
 
 .imgBox_boxdzu .dashedLayer .inputArea {

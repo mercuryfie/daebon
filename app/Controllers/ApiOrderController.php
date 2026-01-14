@@ -17,6 +17,96 @@ class ApiOrderController extends BaseController
         $this->Check_Auth($Auth);
     }
 
+    public function Load_Delivery_Data()
+    {
+        $sessinarr = $this->GetSessionData();
+        $param = $this->request->getPost('param') ?? [];
+        if ($sessinarr['islogin'] == false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        } else if (fn_ArrayCnt($param) === 0) {
+            $result = 'Error001';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        } else {
+            $keyword = array_key_exists('keyword', $param) ? $param['keyword'] : '';
+            $t_sdate = array_key_exists('sdate', $param) ? $param['sdate'] : '';
+            $t_edate = array_key_exists('edate', $param) ? $param['edate'] : '';
+            $styp = array_key_exists('select_typ', $param) ? $param['select_typ'] : 0;
+
+            $sdate = ($t_sdate=='') ? fn_NowDateFormat(2) : $t_sdate;
+            $edate = ($t_edate=='') ? fn_NowDateFormat(2) : $t_edate;
+
+            $param = [
+                'searchkey' => $keyword,
+                'sdate' => $sdate,
+                'edate' => $edate,
+                'select_typ' => $styp
+            ];
+
+            $delivery_m = model('Delivery_m');
+            $fields = [
+                'a.*',
+                'b.pname',
+	            'b.pcnt',
+	            'b.confirm_date',
+                'b.s_name',
+	            'b.r_name',
+	            'b.r_phone',
+	            'b.r_zipcode',
+	            'b.r_address1',
+	            'b.r_address2',
+	    	    'd.orcode',
+	    	    'd.shoptyp',
+	    	    'd.spcode',
+	    	    'd.buy_id',
+	    	    'd.orderdate'
+            ];
+
+            $deli_info = [];
+            $Rs = $delivery_m->get_Delivery_List_All($param,$fields);
+            if(fn_ArrayCnt($Rs)>0){
+                foreach ($Rs as $d){
+                    $t_arr = [
+                        'shopname' => getExCodeName($d['shoptyp']),
+                        'spcode' => $d['spcode'],
+                        'delicode'=> $d['deli_code'],
+                        'deli_prn_date' => $d['deli_prn_date'],
+                        'confirm_date' => fn_Short_Date($d['confirm_date']),
+                        'orderdate' => fn_Short_Date($d['orderdate']),
+                        'pname' => $d['pname'],
+                        'pcnt' => $d['pcnt'],
+                        'r_name' => $d['r_name'],
+                        'r_phone' => $d['r_phone'],
+                        'r_address' => $d['r_address1'].' '.$d['r_address2']
+                    ];
+                    $deli_info[] = $t_arr;
+                }
+            }
+
+
+            $i_arr = ['list' => $deli_info];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+
+        }
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+
+    }
+
+
     public function Put_Order_Info()
     {
         $sessinarr = $this->GetSessionData();
@@ -56,7 +146,7 @@ class ApiOrderController extends BaseController
     public function Load_Packing_Data()
     {
         $sessinarr = $this->GetSessionData();
-        $search = $this->request->getPost('search') ?? [];
+        $search = $this->request->getPost('param') ?? [];
         if($sessinarr['islogin']==false) {
             $result = 'NoLogin';
             $data = [];
@@ -66,8 +156,10 @@ class ApiOrderController extends BaseController
             $data = [];
             $message = '잘못된 토큰입니다.';
         }else {
+            $keyword = array_key_exists('skey', $search) ? $search['skey'] : '';
+            $searchType = array_key_exists('stype', $search) ? $search['stype'] : '';
             $order_m = model('Order_m');
-            $Rs = $order_m->Load_Packing_All($search);
+            $Rs = $order_m->Load_Packing_All($keyword,$searchType);
             if(fn_ArrayCnt($Rs)<=0){
                 $result = 'ok';
                 $data = [];
@@ -76,46 +168,24 @@ class ApiOrderController extends BaseController
                 $p_arr = [];
                 foreach ($Rs as $a) {
                     $opcode = $a['opcode'];
-                    $info = $order_m->Load_Order_Package_Info_opcode($opcode);
-                    if (fn_ArrayCnt($info) > 0) {
-                        $t_Cnt = 0;
-                        $short_name = '';
-                        $short_cnt = 0;
-                        $receive_name = '';
-                        foreach ($info as $d) {
-                            $orcode = $d['fk_orcode'];
-                            $pRs = $order_m->Load_Order_Product($orcode);
-                            if(fn_ArrayCnt($pRs) > 0){
-                                foreach ($pRs as $f){
-                                    if ($short_name == '') {
-                                        $short_name = $f['pdname'];
-                                    }
-                                    $short_cnt++;
-                                    $t_Cnt = $t_Cnt + $f['gcnt'];
-                                }
-                            }
-                            if($receive_name=='') {
-                                $bRs = $order_m->Load_Order_Info($orcode);
-                                $receive_name = (fn_ArrayCnt($bRs) > 0) ? $bRs[0]['receive_name'] : '';
-                            }
-                        }
-                    }
-                    if (($short_cnt-1) > 0) {
-                        $short_name = $short_name . "외 (" . ($short_cnt - 1) . ")건";
-                    }
+                    $r_arr = get_OrderProductShortInfoByOpcode($order_m,$opcode);
+                    $short_name = $r_arr['short_name'];
+                    $receive_name = $r_arr['receive_name'];
+                    $t_Cnt = $r_arr['total_count'];
+
                     if($a['p_status']==0){
                         $worker = '';
-                        $p_str = '포장전';
+                        $p_str = '포장전(1/4)';
                     }else{
                         $member_m = model('Member_m');
                         $mRs = $member_m->Load_UserInfo_Uid($a['worker']);
                         $worker = (fn_ArrayCnt($mRs)>0) ? $mRs[0]['name'] : '';
                         if($a['p_status']==1){
-                            $p_str = '포장중';
+                            $p_str = '포장중(2/4)';
                         }else if($a['p_status']==2){
-                            $p_str = '송장출력';
+                            $p_str = '송장출력(3/4)';
                         }else if($a['p_status']==3){
-                            $p_str = '포장완료';
+                            $p_str = '포장완료(4/4)';
                         }
                     }
 

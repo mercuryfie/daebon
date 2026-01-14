@@ -55,7 +55,9 @@ class LotteDeliveryApi
                             $deli_m= model('Delivery_m');
                             $param = [
                                 'deli_code' => $deli_code,
-                                'fk_confirm' => $confirm_num
+                                'fk_confirm' => $confirm_num,
+                                'deli_prn_date' => fn_NowDateFormat(1),
+                                'p_status' => 2
                             ];
                             $Cnt = $deli_m->Update_Delivery_Info($opcode,$param);
                             $param = [
@@ -63,6 +65,7 @@ class LotteDeliveryApi
                                 'is_use' => 1
                             ];
                             $Cnt = $deli_m->Update_Delivery_Code($deli_code,$param);
+
                             $Rs = $deli_m->get_Delivery_confirm_info($confirm_num);
 
                             $result = 'ok';

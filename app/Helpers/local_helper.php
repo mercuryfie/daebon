@@ -3,6 +3,7 @@
 function get_Delivery_ConfirmByOrcode($model,$orcode){
     $data = [];
     $Rs = $model->Load_Order_Package_Info($orcode);
+
     if(fn_ArrayCnt($Rs)>0){
         $opcode = $Rs[0]['fk_opcode'];
         $iRs = $model->Load_PackingByOpcode($opcode);
@@ -103,6 +104,44 @@ function get_Order_Input_Type($code){
     }
     return $r_name;
 }
+
+function get_OrderProductShortInfoByOpcode($model,$opcode){
+    $t_Cnt = 0;
+    $short_name = '';
+    $short_cnt = 0;
+    $receive_name = '';
+    $info = $model->Load_Order_Package_Info_opcode($opcode);
+    if (fn_ArrayCnt($info) > 0) {
+        foreach ($info as $d) {
+            $orcode = $d['fk_orcode'];
+            $pRs = $model->Load_Order_Product($orcode);
+            if(fn_ArrayCnt($pRs) > 0){
+                foreach ($pRs as $f){
+                    if ($short_name == '') {
+                        $short_name = $f['pdname'];
+                    }
+                    $short_cnt++;
+                    $t_Cnt = $t_Cnt + $f['gcnt'];
+                }
+            }
+
+            if($receive_name=='') {
+                $bRs = $model->Load_Order_Info($orcode);
+                $receive_name = (fn_ArrayCnt($bRs) > 0) ? $bRs[0]['receive_name'] : '';
+            }
+        }
+    }
+
+    if (($short_cnt-1) > 0) {
+        $short_name = $short_name . "외 (" . ($short_cnt - 1) . ")건";
+    }
+    return [
+        'short_name' => $short_name,
+        'receive_name' => $receive_name,
+        'total_count' => $t_Cnt
+    ];
+}
+
 
 
 function get_Order_Product_short_info($model,$orcode){
@@ -900,7 +939,8 @@ function fnMake_Menu_name() {
         ['url' => '/monitor/processstatus','name' => '공정별진행현황', 'link' => 'go_processStatus();'],
     ];
     static $menus7 = [
-        ['url' => '/info/user','name' => '사용자정보', 'link' => 'go_userInfo();'],
+        ['url' => '/info/userregister','name' => '사용자등록', 'link' => 'go_userRegister();'],
+        ['url' => '/info/userlist','name' => '사용자목록', 'link' => 'go_userList();'],
         ['url' => '/info/notice','name' => '공지사항', 'link' => 'go_notice();']
     ];
 

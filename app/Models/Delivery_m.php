@@ -18,12 +18,51 @@ class Delivery_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function get_Delivery_List_All($param,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_delivery_info a ";
+        $sql .= "JOIN tbl_delivery_confirm b ON a.fk_confirm=b.seq ";
+        $sql .= "JOIN tbl_delivery_package c ON c.fk_opcode = a.opcode ";
+        $sql .= "JOIN tbl_order d ON d.orcode = c.fk_orcode ";
+        $sql .= "WHERE a.p_status > :STATUS: AND b.confirm_date >= :SDATE: AND b.confirm_date <= :EDATE: ";
+        if($param['select_typ']=='1'){
+            $sql .= "AND a.deli_code=:SEARCHKEY: ";
+        }else if($param['select_typ']=='2'){
+            $sql .= "AND b.r_name=:SEARCHKEY: ";
+        }else if($param['select_typ']=='3'){
+            $sql .= "AND b.r_phone=:SEARCHKEY: ";
+        }else if($param['select_typ']=='4'){
+            $sql .= "AND d.spcode=:SEARCHKEY: ";
+        }
+        $sql .= " order by a.seq DESC";
+        $bindparam = [
+            'STATUS'=> 1,
+            'SDATE' => $param['sdate'],
+            'EDATE' => $param['edate'],
+            'SEARCHKEY' => $param['searchkey']
+        ];
+
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+
     public function get_Delivery_code($fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
         $sql = "SELECT {$separated_val} FROM tbl_delivery_code WHERE is_use=:ISUSE: AND is_del=:ISDEL: order by seq ASC limit 1";
         $bindparam = [
             'ISUSE' => 0,
             'ISDEL' => 0
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function get_Delivery_Image($opcode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_delivery_file WHERE opcode=:OPCODE: order by seq ASC";
+        $bindparam = [
+            'OPCODE' => $opcode
         ];
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();

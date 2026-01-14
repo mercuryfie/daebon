@@ -2,7 +2,7 @@
 <?= $this->section("content") ?>
 
 <!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/deliList_Do.js?rnd=<?= rand(); ?>"></script>
+<script src="<?=URL_COMMON_ASSETS?>/deliveryList.js?rnd=<?= rand(); ?>"></script>
 
 <script>
 </script>
@@ -22,14 +22,15 @@
                     <a href="javascript:;" class="period">1주일</a>
                     <a href="javascript:;" class="period">1개월</a>
                     <a href="javascript:;" class="period">3개월</a>
+                    <a href="javascript:;" class="period">전체</a>
                     <div class="date_boxtc6 flexType2">
                         <label for="date1" class="dateLabel1">
-                            <input type="text" id="s_date" name="date1" class="inputType160 date1 datepicker" placeholder="2025/01/01" >
+                            <input type="text" id="s_date" name="date1" class="inputType160 date1 datepicker" >
                             <i class="fa-regular fa-calendar calicon" id="calicon1-1"></i>
                         </label>
                         <p class="wave">~</p>
                         <label for="date2" class="dateLabel2">
-                            <input type="text" id="e_date" name="date2" class="inputType160 datepicker" placeholder="2025/12/31" >
+                            <input type="text" id="e_date" name="date2" class="inputType160 datepicker" >
                             <i class="fa-regular fa-calendar calicon" id="calicon1-2"></i>
                         </label>
                     </div>
@@ -37,29 +38,36 @@
             </div>
             <div class="area2 ">
                 <div class="left flexType2">
-                    <input type="search" name="" id="" class="searchArea" placeholder="통합검색어 입력">
-                    <button type="button" class="btnType1">검색</button>
+                    <select name="select_typ" id="select_typ" class="btnType1 mr10 ">
+                        <option value="">검색조건</option>
+                        <option value="1">송장번호</option>
+                        <option value="2">수취인 이름</option>
+                        <option value="3">수취인 전화번호</option>
+                        <option value="4">쇼핑몰 주문번호</option>
+                    </select>
+                    <input type="search" name="stxt" id="stxt" class="searchArea" placeholder="검색어 입력">
+                    <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>
                 </div>
             </div>
         </div>
         <div class="areaBox pb100">
             <div class="flexType3 mt10">
                 <div class="left ml20">
-                    <p class="status">전체 주문 : 100 건 | 발송 : 10 건 | 발송완료 : 10 건</p>
+<!--                    <p class="status">전체 주문 : 100 건 | 발송 : 10 건 | 발송완료 : 10 건</p>-->
                 </div>
                 <div class="right">
-                    <select name="" id="" class="btnType1 mr10 ">
-                        <option value="">전체마켓</option>
-                        <option value="">옥션</option>
-                        <option value="">지마켓</option>
-                    </select>
-                    <select name="" id="" class="btnType1 mr10">
-                        <option value="">20개씩</option>
-                        <option value="">50개씩</option>
-                        <option value="">100개씩</option>
-                    </select>
+<!--                    <select name="" id="" class="btnType1 mr10 ">-->
+<!--                        <option value="">전체마켓</option>-->
+<!--                        <option value="">옥션</option>-->
+<!--                        <option value="">지마켓</option>-->
+<!--                    </select>-->
+<!--                    <select name="" id="" class="btnType1 mr10">-->
+<!--                        <option value="">20개씩</option>-->
+<!--                        <option value="">50개씩</option>-->
+<!--                        <option value="">100개씩</option>-->
+<!--                    </select>-->
                     <button type="button" class="btnType1 mr10">엑셀다운로드</button>
-                    <button type="button" class="btnType1 mr40">초기화</button>
+                    <button type="button" class="btnType1 mr40" id="btn_reload" name="btn_reload">초기화</button>
                 </div>
             </div>
             <div class="area4 ">
@@ -67,35 +75,20 @@
                     <table class="deliInfoTable ">
                         <thead>
                         <tr>
-                            <td class="ltThead productNo checkCol"></td>
+                            <td class="ltThead productNo">쇼핑몰</td>
+                            <td class="ltThead productNo">쇼핑몰주문번호</td>
                             <td class="ltThead productNo">송장번호</td>
                             <td class="ltThead productNo">송장등록일</td>
                             <td class="ltThead productNo">주문일</td>
-                            <td class="ltThead productNo">쇼핑몰</td>
-
                             <td class="ltThead productNo">상품명</td>
                             <td class="ltThead productNo">수량</td>
-                            <td class="ltThead productNo">주문자</td>
                             <td class="ltThead productNo">수령인</td>
+                            <td class="ltThead productNo">수령인 전화번호</td>
                             <td class="ltThead productNo">수령인 주소</td>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td class="ltTbody">
-                                <input type="checkbox" name="" id="">
-                            </td>
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
+                        <tbody id="cList">
 
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
-                            <td class="ltTbody">-</td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>

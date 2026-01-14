@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Libraries\Form;
+use App\Libraries\LotteDeliveryApi;
 use CodeIgniter\API\ResponseTrait;
 
 class PackingController extends BaseController
@@ -70,11 +71,9 @@ class PackingController extends BaseController
 
                 $Cnt = $order_m->Update_Order_Delivery_Info($opcode,$param);
             }
-
-
             $package = $order_m->Load_Order_Package_Info_opcode($opcode);
             if(fn_ArrayCnt($package)==0) {
-                fn_Alert('존재하자 않는 포장지시 입니다 ');
+                fn_Alert('존재하지 않는 포장지시 입니다 ');
             }else {
                 $orcode_arr = [];
                 $product_arr = [];
@@ -96,17 +95,28 @@ class PackingController extends BaseController
                 }
 
                 if(fn_ArrayCnt($orcode_arr) > 1){
-                    $order_str = implode(',', $orcode_arr) . '(묶음배송)';
+                    $order_str = implode(",\n", $orcode_arr) . '(묶음배송)';
                 }else{
                     $order_str = implode(',', $orcode_arr);
                 }
                 $order = $order_m->Load_Order_Info($f_orcode);
 
+                $deli_m = model('Delivery_m');
+                $image =[];
+                $iRs = $deli_m->get_Delivery_Image($opcode);
+                if(fn_ArrayCnt($iRs)>0){
+                    foreach ($iRs as $d){
+                        $url = '/uploads/packing/' .  date('Ymd', strtotime($d['indate'])) .'/' . $d['fname'];
+                        $image[] = $url;
+                    }
+                }
+
                 $ret_data = [
                     'opcode' => $opcode,
-                    'info' => $info,
+                    'info' => $info[0],
                     'order_str' => $order_str,
                     'product' => $product_arr,
+                    'image' => $image,
                     'order' => $order[0],
                     'tCnt' => $tCnt
                 ];
@@ -125,29 +135,50 @@ class PackingController extends BaseController
         }
     }
 
-    public function waybillForm()
+    public function waybill()
     {
         $sessinarr = $this->GetSessionData();
+        $orcode  = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
+        $chkPrint = ($this->request->getGet('cp') == '') ? '' : $this->request->getGet('cp');
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
+        }else if($orcode==''){
+            fn_AlertClose('잘못된 접근입니다.');
         }else {
-            $metaarr = [
-                'h_title' => H_TITLE,
-                'h_type' => 1
-            ];
+            if($chkPrint=='New'){
+                $retyp = 1;
+            }else{
+                $order_m = model('Order_m');
+                $retval = get_Delivery_ConfirmByOrcode($order_m,$orcode);
+                if(fn_ArrayCnt($retval)<=0){
 
-            $main_data = [];
+                }else {
+                    $delicode = $retval['deli_code'];
+                }
+                $retyp = ($delicode=='') ? 1 : 2;
+            }
 
-            $form = new Form;
-            $main_data = [
-                'meta' => $form->fnMake_Meta($metaarr),
-                'header' => $form->fnMake_Header($sessinarr),
-                'left' => $form->fnMake_Left(),
-                'main' => $main_data,
-                'footer' => $form->fnMake_Fooeter($sessinarr)
-            ];
+            $lotte = new LotteDeliveryApi();
+            $data = $lotte->Get_Delivery_Info($orcode, $retyp);
+            if ($data['result'] != 'ok') {
+                fn_AlertClose('Error : ' . $data['message']);
+            } else {
+                $metaarr = [
+                    'h_title' => H_TITLE,
+                    'h_type' => 1
+                ];
 
-            return view('web/include/pop_WaybillForm_View',$main_data);
+                $form = new Form;
+                $main_data = [
+                    'meta' => $form->fnMake_Meta($metaarr),
+                    'header' => $form->fnMake_Header($sessinarr),
+                    'left' => $form->fnMake_Left(),
+                    'body' => $data['info'],
+                    'footer' => $form->fnMake_Fooeter($sessinarr)
+                ];
+
+                return view('web/include/pop_WaybillForm_View', $main_data);
+            }
         }
     }
 

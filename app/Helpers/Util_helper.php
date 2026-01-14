@@ -5,12 +5,22 @@ use CodeIgniter\I18n\Time;
 use Config\Services;
 use App\Libraries\Auth;
 
+function fn_NowDateFormat($typ){
+    date_default_timezone_set('Asia/Seoul');
+    if($typ==1) {
+        return date('Y-m-d H:i:s');
+    }else if($typ==2) {
+        return date('Y-m-d');
+    }
+}
+
+
 /** 송장번호 반환
  * 317957255781  -> 3179-5725-5781
  * 3179-5725-5781 -> 그대로 반환
  */
 
-function formatInvoiceNumber($invoice)
+function fn_formatInvoiceNumber($invoice)
 {
     $numbers = preg_replace('/[^0-9]/', '', $invoice);
 

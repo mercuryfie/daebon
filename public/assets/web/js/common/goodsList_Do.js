@@ -83,6 +83,15 @@ $(document).ready(function() {
         $('#attachExcel').val('');
     });
 
+    $(document).on('click','button[name="remove_btn"]',function(){
+        let code = $(this).data('code');
+        if(code==''){
+            Make_Toast('잘못된 접근입니다.');
+        }else if(window.confirm('삭제 하시겠습니까?')==true){
+            Data_Delete(code);
+        }
+    });
+
     $('#submitBtn').on('click', function () {
         const fname = $('#attachExcel').val();
         if(fname == '') {
@@ -175,6 +184,27 @@ async function pop_GoodsDetail(pdcode,pdname) {
     }
 }
 
+async function Data_Delete(code){
+    try {
+        start_spinner();
+        let dataarr = {"code" : code};
+        let url = APIURL + '/Delete_Products';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            $('#list_' + code).remove();
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+        Make_Toast('삭제하였습니다. ');
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+}
+
 function doSearch() {
     let skey = $('#txt_search').val();
     if (isSearching) return;  // 연타 방지
@@ -218,7 +248,7 @@ async function Make_Html(skey){
     if(arr.length > 0) {
         $.each(arr, function (index, el) {
             html += `
-                <tr>
+                <tr id="list_${el.pdcode}">
                     <td class="ltTbody detailTd"><div class="flexType2  "><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdcode}</a><a href="javascript:;" class="detail_fo1 flexType1 ml10" onclick="pop_GoodsDetail('${el.pdcode}','${el.pdname}');"><i class="fa-solid fa-info"></i></a></div></td>
                     <td class="ltTbody"><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdname}</a></td>
                     <td class="ltTbody">${el.cname}</td>
@@ -227,6 +257,11 @@ async function Make_Html(skey){
                     <td class="ltTbody">${el.mCnt}개</td>
                     <td class="ltTbody">${el.gCnt}개</td>
                     <td class="ltTbody">${el.indate}</td>
+                    <td class="ltTbody">
+                        <button type="button" class="btnType3 removeBtn" data-code="${el.pdcode}" name="remove_btn">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
                 </tr>
             `;
         });
@@ -234,7 +269,8 @@ async function Make_Html(skey){
         $('#tList').append(html);
         $('#tcnt').html(data.tcnt);
     }else{
-        html = '<tr><td class="ltThead" colspan="8">검색된 데이터가 없습니다.</td></tr>';
+        html = '<tr><td class="ltThead" colspan="9">검색된 데이터가 없습니다.</td></tr>';
+        $('#cpage').hide();
         $('#tList').empty();
         $('#tList').append(html);
         $('#tcnt').html(data.tcnt);
@@ -264,12 +300,4 @@ async function Load_Data(skey){
         stop_spinner();
     }
     return data;
-}
-
-
-function formatDate(d) {
-    const year = d.getFullYear();
-    const month = ('0' + (d.getMonth() + 1)).slice(-2);
-    const day = ('0' + d.getDate()).slice(-2);
-    return `${year}/${month}/${day}`;
 }

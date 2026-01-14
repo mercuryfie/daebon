@@ -98,16 +98,16 @@ async function Make_Html(){
             if(el.method=='API'){
                 indate1 = el.order['indate'];
                 if(el.order['status']=='ok'){
-                    status1 =`<p class="positive">정상</p>`;
+                    status1 =`<p class="status positive">정상</p>`;
                 }else{
-                    status1 =`<p class="negative">오류</p>`;
+                    status1 =`<p class="status negative">오류</p>`;
                 }
 
                 indate2 = el.claim['indate'];
                 if(el.claim['status']=='ok'){
-                    status2 =`<p class="positive">정상</p>`;
+                    status2 =`<p class="status positive">정상</p>`;
                 }else{
-                    status2 =`<p class="negative">오류</p>`;
+                    status2 =`<p class="status negative">오류</p>`;
                 }
             }
 
@@ -156,12 +156,4 @@ async function Load_Data(skey){
         stop_spinner();
     }
     return data;
-}
-
-
-function formatDate(d) {
-    const year = d.getFullYear();
-    const month = ('0' + (d.getMonth() + 1)).slice(-2);
-    const day = ('0' + d.getDate()).slice(-2);
-    return `${year}/${month}/${day}`;
 }

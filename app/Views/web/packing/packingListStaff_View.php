@@ -22,22 +22,10 @@
                     <input type="search" name="incode" id="incode" class="searchArea" autofocus placeholder="바코드를 스캔하십시오">
                 </div>
                 <div class="right flexType2">
-<!--                    <div class=" flexType2 filter_boxa6m">-->
-<!--                        <label for="filter" class="statusLabel flexType2">-->
-<!--                            <input type="checkbox" name="filter" id="" class="status" checked>-->
-<!--                            <p class="text">상품준비중</p>-->
-<!--                        </label>-->
-<!--                        <label for="filter" class="statusLabel flexType2">-->
-<!--                            <input type="checkbox" name="filter" id="" class="status" checked>포장중-->
-<!--                        </label>-->
-<!--                        <label for="filter" class="statusLabel flexType2">-->
-<!--                            <input type="checkbox" name="filter" id="" class="status" >완료-->
-<!--                        </label>-->
-<!--                    </div>-->
-
-                    <button type="button" class="btn60Type3 " name="searchType" data-val="0">대기중</button>
-                    <button type="button" class="btn60Type3 " name="searchType" data-val="1">진행중</button>
-                    <button type="button" class="btn60Type3 " name="searchType" data-val="2">완료</button>
+                    <button type="button" class="btn60Type3 " name="searchType" data-val="0">포장전</button>
+                    <button type="button" class="btn60Type3 " name="searchType" data-val="1">포장중</button>
+                    <button type="button" class="btn60Type3 " name="searchType" data-val="2">송장<br>출력</button>
+                    <button type="button" class="btn60Type3 " name="searchType" data-val="3">완료</button>
                     <button type="button" class="btnType60 " id="btn_reload" name="btn_reload">
                         <i class="fa-solid fa-rotate-right"></i>
                     </button>
@@ -55,7 +43,7 @@
                             <th class="ltThead productNo">수령인</th>
                             <th class="ltThead productNo">수량</th>
 
-                            <th class="ltThead productNo">상태</th>
+                            <th class="ltThead productNo">상태(현재/전체)</th>
                             <th class="ltThead productNo">작업자</th>
                             <th class="ltThead productNo">포장지시일</th>
                             <th class="ltThead productNo">포장완료일</th>

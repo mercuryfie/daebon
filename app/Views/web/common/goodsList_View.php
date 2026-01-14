@@ -49,6 +49,7 @@
                             <td class="ltThead">매칭수</td>
                             <td class="ltThead">구성품</td>
                             <td class="ltThead">등록일</td>
+                            <td class="ltThead">삭제</td>
                         </tr>
                         </thead>
                         <tbody id="tList">

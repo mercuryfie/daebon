@@ -500,7 +500,6 @@ async function Make_Html(skey){
                         <i class="fa-solid fa-print"></i>
                     </button>
                     `;
-
             }
 
             html += `

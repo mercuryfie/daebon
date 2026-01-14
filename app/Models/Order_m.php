@@ -18,13 +18,29 @@ class Order_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
-    public function Load_Packing_All($search,$fields=['ALL']){
+
+
+    public function Load_Packing_All($keyword,$searchType,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_delivery_info  ORDER BY seq DESC";
+        $sql = "SELECT {$separated_val} FROM tbl_delivery_info a ";
+        if($keyword===''){
+            $searchword = '';
+            $wheresql1 = "WHERE a.is_del=:ISDEL: ";
+        }else{
+            $searchword = "%{$keyword}%";
+            $wheresql1 = "WHERE a.is_del=:ISDEL: AND (a.opcode LIKE :SEARCH: OR a.deli_code LIKE :SEARCH:) ";
+        }
+        $wheresql2='';
+        if($searchType!='') {
+            $wheresql2 = 'AND a.p_status=:STATUS: ';
+        }
+        $wsql = $sql . $wheresql1 . $wheresql2 . 'order by a.seq DESC;';
         $bindparam = [
-            'ISDEL'=> 0
+            'ISDEL'=> 0,
+            'SEARCH' => $searchword,
+            'STATUS' => $searchType
         ];
-        $query = $this->db->query($sql,$bindparam);
+        $query = $this->db->query($wsql,$bindparam);
         return $query->getResultArray();
     }
 
@@ -37,6 +53,8 @@ class Order_m extends Model
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
     }
+
+
 
     public function Load_Order_All($search,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);

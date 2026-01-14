@@ -16,7 +16,7 @@ $routes->GET('member/logout','MemberController::logOut');
 
 $routes->GET('order/adddeliform', 'OrderController::addDeliForm');
 
-$routes->GET('order/waybill', 'OrderController::waybillForm');
+$routes->GET('order/waybill', 'OrderController::waybill');
 $routes->GET('order/dashboard', 'OrderController::dashBoard');
 $routes->GET('order/main', 'OrderController::main');
 $routes->GET('order/mainthum', 'CommonController::mainThum');
@@ -63,13 +63,14 @@ $routes->GET('report/o_form', 'ReportController::orderReportForm');
 $routes->GET('monitor/workstatus', 'MonitorController::workStatus');
 $routes->GET('monitor/processstatus', 'MonitorController::processStatus');
 
-$routes->GET('info/user', 'CommonController::userInfo');
+$routes->GET('info/userregister', 'CommonController::userRegister');
+$routes->GET('info/userlist', 'CommonController::userList');
 $routes->GET('info/notice', 'CommonController::notice');
 
 /* Packing */
 $routes->GET('packing/', 'PackingController::main');
 $routes->GET('packing/process', 'PackingController::packingProcess');
-$routes->GET('packing/waybillform', 'PackingController::waybillForm');
+$routes->GET('packing/waybill', 'PackingController::waybill');
 
 
 /* Product */
@@ -144,6 +145,9 @@ $routes->match(['GET', 'POST'], 'Api/Put_Package_Info', 'ApiOrderController::Put
 $routes->match(['GET', 'POST'], 'Api/Load_Packing_Data', 'ApiOrderController::Load_Packing_Data');
 $routes->match(['GET', 'POST'], 'Api/Put_Order_Info', 'ApiOrderController::Put_Order_Info');
 $routes->match(['GET', 'POST'], 'Api/Insert_Delivery_Info', 'ApiOrderController::Insert_Delivery_Info');
+$routes->match(['GET', 'POST'], 'Api/Load_Delivery_Data', 'ApiOrderController::Load_Delivery_Data');
+
+$routes->match(['GET', 'POST'], 'Api/Put_Packing_Info', 'ApiPackingController::Put_Packing_Info');
 
 
 $routes->match(['GET', 'POST'], 'Api/coupong_api_no1', 'ApiShopController::coupong_api_GetOrderPeriod');

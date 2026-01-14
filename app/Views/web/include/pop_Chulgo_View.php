@@ -26,13 +26,15 @@
                             </div>
                             <div class="area area2 flexType2">
                                 <p class="category">기본공급사</p>
-                                <p class="merName">ㅇㅇ공급사</p>
+                                <p class="merName">ㅇㅇ공급사ㅇㅇ</p>
                             </div>
                             <div class="area area3 flexType2">
                                 <p class="category">출고사유</p>
                                 <select name="" id="" class="inputType220">
                                     <option value="">판매</option>
-                                    <option value="">불량</option>
+                                    <option value="">폐기</option>
+                                    <option value="">반품</option>
+                                    <option value="">기타</option>
                                 </select>
                             </div>
 
@@ -49,7 +51,6 @@
                             <div class="area area5 mt20 flexType5">
                                 <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>
                                 <button type="button" class="btnType2">확인</button>
-
                             </div>
                         </div>
                     </div>
@@ -64,7 +65,9 @@
                 <p class="category">출고사유</p>
                 <select name="" id="" class="inputType220">
                     <option value="">판매</option>
-                    <option value="">불량</option>
+                    <option value="">폐기</option>
+                    <option value="">반품</option>
+                    <option value="">기타</option>
                 </select>
             </div>
 

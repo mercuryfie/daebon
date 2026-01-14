@@ -98,8 +98,15 @@ function Join_attr_string(arr, sep){
     return arr.filter(e => e).join(sep);
 }
 
-function go_main() {
-    var url = "/";
+function go_main(grade) {
+    let url = '';
+    if(grade=='1101'){
+        url = '/';
+    }else if(grade=='1102'){
+        url = '/packing';
+    }else if(grade=='1103') {
+        url = '/product';
+    }
     $(location).attr("href", url);
 }
 
@@ -110,11 +117,6 @@ function go_login() {
 
 function go_logout(){
     var url = "/member/logout";
-    $(location).attr("href", url);
-}
-
-function go_main() {
-    var url = "/order/main";
     $(location).attr("href", url);
 }
 
@@ -316,10 +318,16 @@ function go_processStatus(){
     $(location).attr("href", url);
 }
 
-function go_userInfo(){
-    let url = "/info/user";
+function go_userRegister(){
+    let url = "/info/userregister";
     $(location).attr("href", url);
 }
+
+function go_userList(){
+    let url = "/info/userlist";
+    $(location).attr("href", url);
+}
+
 
 function go_notice(){
     let url = "/info/notice";

@@ -18,6 +18,19 @@ class Product_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+
+    public function Delete_Products_Data($pdcode)
+    {
+        $sql = "call DelProduct(:PDCODE:);";
+        $bindparam = [
+            'PDCODE' => $pdcode
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+
+
     public function Update_Product_Info($pdcode,$param) {
         $this->db->transStart();
         $builder = $this->db->table('tbl_product');

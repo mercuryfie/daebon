@@ -1,19 +1,20 @@
 $(document).ready(function() {
-    Make_Html('');
+    let param = {
+        skey : '',
+        stype : ''
+    };
+    Make_Html(param);
 
 
     $('#incode').on('keydown',async function(e){
         if (e.key === 'Enter' || e.keyCode === 13) {
-            let code = $(this).val();
-            let bool = await Check_instruction(code);
-            if(bool){
-                //go_productionListStaff();
-                go_productionDetailStaff(code);
-            }else{
-                Make_Toast('존재하지 않는 지시서 입니다. ');
-                $('#incode').val('');
-                $('#incode').focus();
-            }
+            let param = {
+                skey : $(this).val(),
+                stype : ''
+            };
+            Make_Html(param);
+            $('#incode').val('');
+            $('#incode').focus();
         }
     });
 
@@ -28,9 +29,22 @@ $(document).ready(function() {
     });
 
 
+    $(document).on('click','button[name="searchType"]',function(){
+        let stype = $(this).data('val');
+        $('button[name="searchType"]').removeClass('active');
+        $(this).addClass('active');
+        $('#clist').empty();
+        let param = {
+            skey : '',
+            stype : stype
+        };
+        Make_Html(param);
+    });
+
+
+
     async function Make_Html(param){
         let arr = await Load_Data(param);
-        console.log('dawn1805',arr);
         let html = '';
         if(!fn_IsEmpty(arr)) {
             $.each(arr, function (index, el) {
@@ -50,6 +64,10 @@ $(document).ready(function() {
             });
             $('#cList').empty();
             $('#cList').append(html);
+        }else{
+            html +=`<tr><td class="ltTbody td1" colspan="8">검색된 정보가 없습니다.</td></tr>`;
+            $('#cList').empty();
+            $('#cList').append(html);
         }
     }
 
@@ -57,7 +75,7 @@ $(document).ready(function() {
         let data = {};
         try {
             start_spinner();
-            let dataarr = {"search" : param};
+            let dataarr = {"param" : param};
             let url = APIURL + '/Load_Packing_Data';
             let result = await Load_API_Auth(url,dataarr);
             if (result.get('status') == 'NoLogin') {

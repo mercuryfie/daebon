@@ -362,21 +362,34 @@ class OrderController extends BaseController
     }
 
 
-    public function waybillForm()
+    public function waybill()
     {
         $sessinarr = $this->GetSessionData();
         $orcode  = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
-        $retyp = ($this->request->getGet('rt') == '') ? 1 : $this->request->getGet('rt');
+        $chkPrint = ($this->request->getGet('cp') == '') ? '' : $this->request->getGet('cp');
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
         }else if($orcode==''){
             fn_AlertClose('잘못된 접근입니다.');
         }else {
+            if($chkPrint=='New'){
+                $retyp = 1;
+            }else{
+                $order_m = model('Order_m');
+                $retval = get_Delivery_ConfirmByOrcode($order_m,$orcode);
+                if(fn_ArrayCnt($retval)<=0){
+
+                }else {
+                    $delicode = $retval['deli_code'];
+                }
+                $retyp = ($delicode=='') ? 1 : 2;
+            }
+
             $lotte = new LotteDeliveryApi();
-            $data = $lotte->Get_Delivery_Info($orcode,$retyp);
-            if($data['result'] != 'ok'){
+            $data = $lotte->Get_Delivery_Info($orcode, $retyp);
+            if ($data['result'] != 'ok') {
                 fn_AlertClose('Error : ' . $data['message']);
-            }else {
+            } else {
                 $metaarr = [
                     'h_title' => H_TITLE,
                     'h_type' => 1

@@ -24,7 +24,6 @@
             <div class="outerBox flexType3">
                 <p class="title">복사등록</p>
                 <div class="right flexType1">
-
                     <button type="button" class="btnType3 refBtn mr10" id="btn_reload" name="btn_reload">
                         <i class="fa-solid fa-arrow-rotate-right"></i>
                     </button>

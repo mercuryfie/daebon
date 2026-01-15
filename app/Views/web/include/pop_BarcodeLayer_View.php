@@ -33,7 +33,7 @@
                 <p class="category">입출고 메모</p>
                 <textarea name="" id="" cols="30" rows="10" class="content"></textarea>
             </div>
-            <div class="area area5 mt20 flexType5">
+            <div class="area lastArea mt20 flexType5">
                 <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>
                 <button type="button" class="btnType2">확인</button>
 

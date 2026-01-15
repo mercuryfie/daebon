@@ -21,6 +21,7 @@ $routes->GET('order/dashboard', 'OrderController::dashBoard');
 $routes->GET('order/main', 'OrderController::main');
 $routes->GET('order/mainthum', 'CommonController::mainThum');
 $routes->GET('order/linkmalls', 'OrderController::linkMalls');
+$routes->GET('order/missinglist', 'OrderController::missingList');
 $routes->GET('order/linkmallslogs', 'OrderController::linkMallsLogs');
 $routes->GET('order/orderlist', 'OrderController::orderList');
 $routes->GET('order/orderregister', 'OrderController::orderRegister');
@@ -52,7 +53,7 @@ $routes->GET('produce/instructionform', 'ProduceController::instructionForm');
 $routes->GET('inout/material', 'InoutController::inOutMaterial');
 $routes->GET('inout/halfproduct', 'InoutController::inOutHalfproduct');
 //$routes->GET('inout/materialreg', 'InoutController::materialReg');
-$routes->GET('inout/popbarcodewindow', 'InoutController::popBarcodeWindow');
+$routes->GET('inout/prn_barcode_material', 'InoutController::popPrintBarcodeMaterial');
 //$routes->GET('inout/popaddmatirial', 'InoutController::pop_AddMatirial');
 
 $routes->GET('report/quality', 'ReportController::qualityReport');
@@ -64,6 +65,7 @@ $routes->GET('monitor/workstatus', 'MonitorController::workStatus');
 $routes->GET('monitor/processstatus', 'MonitorController::processStatus');
 
 $routes->GET('info/userregister', 'CommonController::userRegister');
+$routes->GET('info/usereditor', 'CommonController::userEditor');
 $routes->GET('info/userlist', 'CommonController::userList');
 $routes->GET('info/notice', 'CommonController::notice');
 
@@ -136,6 +138,7 @@ $routes->match(['GET', 'POST'], 'Api/Load_Product_List', 'ApiProductController::
 $routes->match(['GET', 'POST'], 'Api/Load_Product_Info', 'ApiProductController::Load_Product_Info');
 $routes->match(['GET', 'POST'], 'Api/Edit_Product', 'ApiProductController::Edit_Product');
 $routes->match(['GET', 'POST'], 'Api/Load_Product_Detail', 'ApiProductController::Load_Product_Detail');
+$routes->match(['GET', 'POST'], 'Api/Delete_Products', 'ApiProductController::Delete_Products');
 
 $routes->match(['GET', 'POST'], 'Api/Insert_Order', 'ApiOrderController::Insert_Order');
 $routes->match(['GET', 'POST'], 'Api/Load_Order_Data', 'ApiOrderController::Load_Order_Data');

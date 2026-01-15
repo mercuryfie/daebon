@@ -30,7 +30,7 @@ function Make_Barcode(containerId,typ) {
     console.log($container);
     if (code != "") {
         $container.barcode(code, typ, {
-            barWidth: 1,
+            barWidth: 2,
             barHeight: 40,
             fontSize: 14,
             showHRI: false,

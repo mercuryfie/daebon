@@ -52,7 +52,8 @@ class ApiPackingController extends BaseController
 
                     $param = [
                         'p_status' => 3,
-                        'enddate' => fn_NowDateFormat(1)
+                        'enddate' => fn_NowDateFormat(1),
+                        'worker' => $sessinarr['user']['uid']
                     ];
                     $cnt = $order_m->Update_Order_Delivery_Info($opcode, $param);
 

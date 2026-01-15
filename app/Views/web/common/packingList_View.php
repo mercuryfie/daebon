@@ -14,8 +14,8 @@
         <div class="areaBox area_boxmxh ">
             <div class="goods_boxkfg flexType3">
                 <div class="left flexType2">
-                    <p class="title">포장완료 / 포장예정 : </p>
-                    <p class="count">30 / 80</p>
+<!--                    <p class="title">포장완료 / 포장예정 : </p>-->
+<!--                    <p class="count">30 / 80</p>-->
                 </div>
             </div>
             <div class="area4 products_boxa1b flexType2">

@@ -19,7 +19,7 @@
 <!--                <input type="search" name="" id="" placeholder="10" class="inputType220 mr10" readonly>-->
 <!--                <p class="unit">개</p>-->
             </div>
-            <div class="area area5 mt20 flexType5">
+            <div class="area lastArea mt20 flexType5">
                 <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>
                 <button type="button" class="btnType2" onclick="pop_OrderRoastForm();">출력</button>
 

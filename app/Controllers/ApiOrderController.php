@@ -257,7 +257,10 @@ class ApiOrderController extends BaseController
             } else {
                 $newcode = fnMake_Code(14);
                 $t_arr = [
-                    'opcode' => $newcode
+                    'opcode' => $newcode,
+                    'worker' => $sessinarr['user']['uid'],
+                    'startdate' => fn_NowDateFormat(1),
+                    'p_status' =>1
                 ];
                 $Cnt = $order_m->Insert_Order_delivery_Info2($t_arr);
 
@@ -342,7 +345,10 @@ class ApiOrderController extends BaseController
                 foreach ($codes as $code){
                     $newcode = fnMake_Code(14);
                     $t_arr = [
-                        'opcode' =>$newcode
+                        'opcode' =>$newcode,
+                        'worker' => $sessinarr['user']['uid'],
+                        'startdate'=> fn_NowDateFormat(1),
+                        'p_status' => 1
                     ];
 
                     $d_arr = [

@@ -96,7 +96,7 @@ class InoutController extends BaseController
 
     }
 
-    public function popBarcodeWindow()
+    public function popPrintBarcodeMaterial()
     {
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
@@ -118,7 +118,7 @@ class InoutController extends BaseController
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/include/pop_BarcodeWindow_View',$main_data);
+            return view('web/include/pop_PrintBarcode_Material_View',$main_data);
         }
 
 

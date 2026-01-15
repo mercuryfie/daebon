@@ -130,6 +130,11 @@ function go_linkMalls() {
     $(location).attr("href", url);
 }
 
+function go_missingList() {
+    var url = "/order/missinglist";
+    $(location).attr("href", url);
+}
+
 function go_linkMallsLogs(code) {
     var url = "/order/linkmallslogs?cd=" + code;
     $(location).attr("href", url);
@@ -266,8 +271,8 @@ function go_popBarcodeLayer() {
     $(location).attr("href", url);
 }
 
-function go_popBarcodeWindow() {
-    let url = "/inout/popbarcodewindow";
+function go_popPrintBarcodeMaterial() {
+    let url = "/inout/prn_barcode_material";
     $(location).attr("href", url);
 }
 
@@ -320,6 +325,11 @@ function go_processStatus(){
 
 function go_userRegister(){
     let url = "/info/userregister";
+    $(location).attr("href", url);
+}
+
+function go_userEditor(){
+    let url = "/info/usereditor";
     $(location).attr("href", url);
 }
 

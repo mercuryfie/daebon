@@ -412,8 +412,6 @@ async function Mod_Data(data){
     return arr;
 }
 
-
-
 async function Load_Data(data) {
     try {
         start_spinner();

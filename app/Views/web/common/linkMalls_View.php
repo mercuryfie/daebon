@@ -13,8 +13,8 @@
         </div>
         <div class="areaBox pb100">
             <div class="area3 mb10">
-                <button type="button" class="btnType1 mr10" id="btn_showlog">로그보기</button>
-                <button type="button" class="btnType2" id="btn_mall">주문수집</button>
+<!--                <button type="button" class="btnType1 mr10" id="btn_showlog">로그보기</button>-->
+<!--                <button type="button" class="btnType2" id="btn_mall">주문수집</button>-->
             </div>
             <div class="area4">
                 <table class="linkMallsTable ">
@@ -29,7 +29,8 @@
                             <td class="ltThead">수집시점(클레임)</td>
                             <td class="ltThead">상태</td>
 
-                            <td class="ltThead">비고</td>
+                            <td class="ltThead">로그</td>
+                            <td class="ltThead">연동</td>
                         </tr>
                     </thead>
                     <tbody id="tList">

@@ -33,7 +33,7 @@
                      <div class="area area4">
                          <p class="text text1">운송장 번호 : <?=fn_formatInvoiceNumber($body['fk_dcode'])?></p>
                          <p class="text text2">보내는분 : <?=$body['s_name'];?></p>
-                         <div class="flexType3"><p class="text text3" name="r_name">받는분 : <?=fn_formatInvoiceNumber($body['r_name']);?></p>
+                         <div class="flexType2"><p class="text text3 mr10" name="r_name">받는분 : <?=fn_formatInvoiceNumber($body['r_name']);?></p>
                              <p class="text text4" name="phone_type">☎<?=$body['r_phone']?></p></div>
                          <p class="text text5">주소 : <?=$body['r_address1']?> <?=$body['r_address2']?></p>
                          <p class="text text6">운임 : (신용)</p>
@@ -55,11 +55,10 @@
                          <p class="text text2"><?=fn_Short_Date($body['confirm_date']);?></p>
                      </div>
                      <div class="area area2 ">
-                         <p class="text text1"><?=$body['r_brnshp_nm']?></p>
+                         <p class="text text1"><?=$body['r_brnshp_nm']?><?=$body['r_dong']?></p>
                          <div class="telBo flexType2">
-                             <p class="text text2"><?=$body['r_dong']?></p>
-                             <p class="text text3"></p>
-                             <p class="text text4" name="phone_type"><?=$body['r_phone']?></p>
+                             <p class="text text2 mr10"><?=$body['r_name']?></p>
+                             <p class="text text3"><?=$body['r_phone']?></p>
                          </div>
 
                      </div>
@@ -67,8 +66,8 @@
                          <p class="text text1"><?=$body['r_address1']?> <?=$body['r_address2']?></p>
                      </div>
                      <div class="area area4 flexType2" >
-                         <p class="text text1" id="" name="r_name"><?= $body['r_name'];?></p>
-                         <p class="text text2"> <?=$body['r_phone']?></p>
+                         <p class="text text1" id="" name="s_name"><?= $body['s_name'];?></p>
+                         <p class="text text2"> <?=$body['s_phone']?></p>
                      </div>
                      <div class="area area5 flexType2">
                          <p class="text text1"><?=$body['fk_dcode']?></p>
@@ -89,25 +88,22 @@
 
                          </div>
                      </div>
-                     <div class="area area7 flexType3">
-                         <p class="text text1"><?=$body['s_name']?></p>
-                         <p class="text text1"><?=$body['s_phone']?></p>
+                     <div class="area area7">
+                         <div class="flexType2">
+                             <p class="text text1 mr10"><?=$body['r_name']?></p>
+                             <p class="text text2"><?=$body['r_phone']?></p>
+                         </div>
+                         <p class="text text3"><?=$body['r_address1']?> <?=$body['r_address2']?></p>
                      </div>
-                     <div class="area area8 flexType2">
-                         <p class="text text2"><?=$body['s_address1']?> <?=$body['s_address2']?></p>
-                     </div>
-                     <div class="area area9 flexType2">
-                         <p class="text text1"><?=$body['s_name']?></p>
-                         <p class="text text2"><?=$body['s_phone']?></p>
-                     </div>
-                     <div class="area area10 flexType2">
-                         <p class="text text1"><?=$body['s_address1']?> <?=$body['s_address2']?></p>
+                     <div class="area area9 ">
+                         <div class="flexType2">
+                             <p class="text text1"><?=$body['s_name']?></p>
+                             <p class="text text2"><?=$body['s_phone']?></p>
+                         </div>
+                         <p class="text text3"><?=$body['s_address1']?> <?=$body['s_address2']?></p>
                      </div>
                      <div class="area area11 flexType2">
                          <p class="text text1"><?=$body['pname']?></p>
-                     </div>
-                     <div class="area area12 flexType2">
-                         <p class="text text1"></p>
                      </div>
                  </div>
              </div>

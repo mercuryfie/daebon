@@ -47,7 +47,7 @@
                     <?=$body['unit'];?>
                 </select>
             </div>
-            <div class="area area5 mt20 flexType5">
+            <div class="area lastArea mt20 flexType5">
                 <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>
                 <button type="button" class="btnType2" id="btn_pop" name="btn_pop" data-type="" data-code="">확인</button>
 

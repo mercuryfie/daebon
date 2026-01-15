@@ -18,6 +18,17 @@ class Common_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Insert_Log($param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_system_log');
+        $builder->insert($param);
+        $insertID = $this->db->insertID();
+        $this->db->transComplete();
+
+        return $insertID;
+    }
+
+
     public function Load_Maker($fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);

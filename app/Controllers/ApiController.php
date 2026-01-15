@@ -1227,9 +1227,11 @@ class ApiController extends BaseController
 
     }
 
-
     public function Load_MaterialList(){
-        $data  = ($this->request->getPost('data') == '') ? '' : $this->request->getPost('data');
+
+//        $data = $this->request->getJSON(true) ?: [];
+//        $data  = ($this->request->getPost('data') == '') ? '' : $this->request->getPost('data');
+        $data = $this->request->getPost('data') ?? [];
 
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
@@ -1241,8 +1243,15 @@ class ApiController extends BaseController
             $data = [];
             $message = '잘못된 토큰입니다.';
         }else{
-            $skey = array_key_exists('skey', $data) ? $data['skey'] : '';
-            $fkey = array_key_exists('fkey', $data) ? $data['fkey'] : 0;
+
+//            $skey = array_key_exists('skey', $data) ? $data['skey'] : 'bello';
+//            $fkey = array_key_exists('fkey', $data) ? $data['fkey'] : 0;
+
+
+            $skey = $data['skey'] ?? '';
+            $fkey = $data['fkey'] ?? 0;
+            echo $skey;
+            echo 'hello'.$fkey;
 
             $material_m = model('Material_m');
 

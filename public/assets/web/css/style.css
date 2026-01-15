@@ -149,6 +149,7 @@ input[type="radio"] {
 
 /* table td start*/
 
+.orderInfoTable .btnType3,
 .orderInfoTable .trashBtn {
     height: 24px;
     padding: 0 10px;
@@ -2042,6 +2043,7 @@ input[type="radio"] {
     width: 40px;
 }
 
+.linkMallsTable .btnType3,
 .linkMallsTable .status {
     margin: 0 auto;
     border-radius: 5px;
@@ -2050,6 +2052,7 @@ input[type="radio"] {
     height: 24px;
     line-height: 24px;
     font-size: 14px;
+    color:#5c5c5c;
 }
 
 .linkMallsTable .status.positive {
@@ -2062,6 +2065,9 @@ input[type="radio"] {
 }
 
 .linkMallsTable .status.missing {
+    border:none;
+    height: 24px;
+    line-height: 28px;
     background-color: #F8E513;
 }
 
@@ -2811,7 +2817,6 @@ input[type="radio"] {
 }
 
 .prog_boxo6r .status_boxi3f .status{
-    border:1px solid red;
     width: 60px;
     text-align: center;
     /*text-align: left;*/
@@ -3838,65 +3843,6 @@ input[type="radio"] {
 
 }
 
-
-/*.status_boxv22 .upside {*/
-/*    margin-left: 20px;*/
-/*    margin-bottom: 20px;*/
-
-/*}*/
-
-
-/*.status_boxv22 .upside .title1 {*/
-/*    border-radius: 5px;*/
-/*    background-color: #ececec40;*/
-/*    width: 80px;*/
-
-/*}*/
-
-/*.status_boxv22 .upside .title2,*/
-/*.status_boxv22 .upside .title3 {*/
-/*    border-radius: 5px;*/
-/*    background-color: #ececec40;*/
-/*    !*text-align: left;*!*/
-/*    width: 120px;*/
-/*}*/
-
-/*.status_boxv22 .weightBox1 {*/
-/*    margin-right: 30px;*/
-/*}*/
-
-/*.status_boxv22 .right {*/
-/*    width:480px;*/
-/*}*/
-
-/*.status_boxv22 .downside {*/
-/*    margin-left: 20px;*/
-/*    margin-bottom: 10px;*/
-/*}*/
-
-
-/*.status_boxv22 .ingName,*/
-/*.status_boxv22 .weight {*/
-/*    !*border:1px solid red;*!*/
-/*    margin-right: 10px;*/
-/*    border:1px solid #ececec;*/
-/*    border-radius: 5px;*/
-/*    width: 80px;*/
-/*    height:32px;*/
-/*    line-height: 32px;*/
-/*    text-align: center;*/
-/*    font-size: 16px;*/
-/*    text-wrap: nowrap;*/
-/*}*/
-
-/*.status_boxv22 .ingName {*/
-/*    margin-right: 20px;*/
-/*}*/
-/*.status_boxv22 .btnType1 {*/
-/*    margin-left: 20px;*/
-
-/*}*/
-
 /* producingDetail end -------------------------------- */
 /* inOutStatus start -------------------------------- */
 
@@ -3966,8 +3912,8 @@ input[type="radio"] {
     z-index: 100;
 }
 
-.mag_img_wrapiaj {
-    /*display: block;*/
+.ipgo_wrapdej {
+    display: block;
 }
 
 .mag_img_conrlo,
@@ -3997,7 +3943,7 @@ input[type="radio"] {
 
 }
 
-.addMate_conkol .area6 {
+.ipgo_conkol .area6 {
     /*display:none;*/
 }
 
@@ -4169,20 +4115,19 @@ input[type="radio"] {
 }
 
 .ipgo_conkol .padding_area .area1 {
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
 }
 
 
 .addSupplier_conkol .padding_area .lastArea,
 .addMaker_conkol .padding_area .lastArea,
-.addMate_conkol .padding_area .area5,
-.upXlx_wrapiaj .padding_area .area5,
-.ipgo_conkol .padding_area .area5,
-.out_conrlo .padding_area .area5,
-.order_conkol .padding_area .area5 {
+.addMate_conkol .padding_area .lastArea,
+.upXlx_wrapiaj .padding_area .lastArea,
+.ipgo_conkol .padding_area .lastArea,
+.out_conrlo .padding_area .lastArea,
+.order_conkol .padding_area .lastArea {
     position: absolute;
     bottom:0;
-    /*right:0;*/
     left:50%;
     transform: translateX(-50%);
 }
@@ -4217,14 +4162,13 @@ input[type="radio"] {
     height: 620px;
 }
 
-.out_conrlo .padding_area .area5,
-.ipgo_conkol .padding_area .area5 {
-    position: absolute;
-    bottom:0;
-    /*right:0;*/
-    left:50%;
-    transform: translateX(-50%);
-
+.out_conrlo .padding_area .area11 textarea,
+.ipgo_conkol .padding_area .area11 textarea {
+    width: 220px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    resize: none;
 }
 
 .out_conrlo .area6 .content,
@@ -4267,7 +4211,84 @@ input[type="radio"] {
 
 }
 
-/* ipgo pop end -------------------------------- */
+/* pop_Ipgo_View start -------------------------------- */
+
+.ipgo_box .area .category {
+    font-size: 14px;
+
+}
+
+.ipgo_box .area1 {
+    width: 340px;
+    position: relative;
+
+}
+
+.ipgo_box .area1 .copyArea1 {
+
+}
+
+.ipgo_box .area1 .copySearch {
+    border:1px solid #cccccc;
+    border-radius: 5px;
+    width: 220px;
+    height: 32px;
+    /*line-height: 32ㅔ;*/
+
+}
+
+.ipgo_box .area1 .copyArea1 .copyDropdown {
+    border:none;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top:1px;
+    right: 2px;
+    color:#5c5c5c;
+
+}
+
+
+.ipgo_box .copyArea2 {
+    display: none;
+    position: absolute;
+    top:30px;
+    left:120px;
+    border-radius: 0 0 5px 5px;
+    border:1px solid #ccc;
+    background-color: #fff;
+    width:220px;
+    height: 220px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.ipgo_box .copyArea2 .copyOption {
+    width: 220px;
+    min-height: 32px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    color: #5c5c5c;
+    text-align: left;
+    padding-left: 10px;
+}
+
+
+.ipgo_box .copyArea2.active,
+.ipgo_box .copyArea2 .copyOption.active {
+    display: block;
+
+}
+
+.ipgo_box .copyArea2 > button:hover {
+    text-decoration: underline;
+}
+
+
+/* pop_Ipgo_View end -------------------------------- */
 /* pop_UploadXlx_View start -------------------------------- */
 
 .upXlx_conrlo {
@@ -4882,7 +4903,7 @@ input[type="radio"] {
 
 
 .waybill_boxfxp .paddingBox .left .area {
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .waybill_boxfxp .paddingBox .left .area1 {
@@ -4951,25 +4972,22 @@ input[type="radio"] {
 .waybill_boxfxp .paddingBox .left .area4 .text{
     font-size: 12px;
     height: 12px;
-    line-height: 12px;
+    line-height: 14px;
     font-weight: 600;
 
 }
 
 .waybill_boxfxp .paddingBox .left .barBox2 {
     position: relative;
-    border:1px solid blue;
     /*width: 290px;*/
     /*height: 40px;*/
     margin-top: 10px;
 }
 
 .waybill_boxfxp .paddingBox .left .barBox2 .barBb {
-    border:1px solid greenyellow;
 }
 
 .waybill_boxfxp .paddingBox .left .barBox2 .barBb1 {
-    border:1px solid red;
     width:50%;
     margin-right: 10px;
     position: absolute;
@@ -5127,7 +5145,7 @@ input[type="radio"] {
 
 .waybill_boxfxp .right .area6 .text3,
 .waybill_boxfxp .right .area6 .text4 {
-    font-size: 12px;
+    font-size: 10px;
     line-height: 12px;
 }
 
@@ -5139,11 +5157,12 @@ input[type="radio"] {
 .waybill_boxfxp .right .area10,
 .waybill_boxfxp .right .area9 {
     font-size: 12px;
-    line-height: 12px;
+    line-height: 14px;
+    /*border:1px solid red;*/
 }
 
 .waybill_boxfxp .right .area9 {
-    margin-top: 42px;
+    margin-top: 38px;
 }
 
 .waybill_boxfxp .right .area9 .text1 {
@@ -5225,6 +5244,32 @@ input[type="radio"] {
 }
 
 /* userList_View end -------------------------------- */
+/* pop_PrintBarcode_Material_View start -------------------------------- */
+
+
+.bar_mat_contents .btnBox {
+    margin-left: 20px;
+    width: 80vw;
+
+}
+
+.bar_mat_box {
+    margin: 20px;
+}
+
+.bar_mat_table {
+    border-collapse: collapse;
+    width: 80vw;
+}
+
+.bar_mat_table td {
+    padding: 0 10px;
+    text-align: center;
+    border:1px solid #ccc;
+    height: 32px;
+}
+
+/* pop_PrintBarcode_Material_View end -------------------------------- */
 /* flexType1 -------------------------------- */
 
 .low_stock.active {
@@ -5683,10 +5728,10 @@ input[type="radio"] {
 
 @media print {
 
-    @page {
-        size: A4 portrait; /* 또는 landscape */
-        margin: 10mm;
-    }
+    /*@page {*/
+    /*    size: A4 portrait; !* 또는 landscape *!*/
+    /*    margin: 10mm;*/
+    /*}*/
 
     /*pop_InstructionForm_View start*/
 
@@ -5827,140 +5872,44 @@ input[type="radio"] {
 
     }
 
+
+    /* pop_WaybillForm_View start -------------------------------- */
+
     .waybill_inner {
+        padding-top: 3mm;
         position: relative;
+        text-wrap: nowrap;
+        width: 200mm;
+        height: 100mm;
+        font-family: 'HYGothic-Extra', "HY견고딕", "HanyangGothic", HGGGT, "맑은 고딕", sans-serif;
+        overflow: hidden;
+    }
+
+    .waybill_inner .paddingBox .left {
+        position: relative;
+        width: 42%;
+        z-index: 33;
+        overflow: hidden;
+        left: 5mm;
+    }
+
+    .waybill_inner .paddingBox .right {
+        position: relative;
+        width: 52%;
+        z-index: 33;
+        overflow: hidden;
+        left:10mm;
     }
 
     .waybill_inner .bgBox {
-        position: absolute;
-        top:0;
-        left:0;
-
-    }
-
-    .waybill_inner .paddingBox {
-        position: absolute;
-        top:0;
-        left:0;
-
-    }
-
-    .waybill_inner .paddingBox .left {
-        width: 60%;
-    }
-
-    .waybill_inner .paddingBox .right {
-        width: 40%;
-    }
-
-
-    /* waybill form start -------------------------------- */
-
-    .waybill_boxfxp {
-        width: 700px;
-        height: 360px;
-        position: relative;
-        text-wrap: nowrap;
-        font-family: 'HYGothic-Extra', "HY견고딕", "HanyangGothic", HGGGT, "맑은 고딕", sans-serif;
-    }
-
-    .waybill_boxfxp .paddingBox {
-        width: 700px;
-        height: 360px;
-
-    }
-
-    .waybill_boxfxp .paddingBox .left {
-        position: relative;
-        width: 42%;
-        z-index: 33;
-        height: 340px;
-        overflow: hidden;
-
-    }
-    .waybill_boxfxp .paddingBox .right {
-        position: relative;
-        width: 52%;
-        z-index: 33;
-        margin-left: 24px;
-        height: 340px;
-        overflow: hidden;
-    }
-
-    .waybill_content {
-        /*position: relative;*/
-    }
-    /* waybill form start -------------------------------- */
-
-    .waybill_inner {
-        width: 700px;
-        height: 360px;
-        position: relative;
-        text-wrap: nowrap;
-        font-family: 'HYGothic-Extra', "HY견고딕", "HanyangGothic", HGGGT, "맑은 고딕", sans-serif;
-    }
-
-    .waybill_inner .paddingBox {
-        width: 700px;
-        height: 360px;
-    }
-
-    .waybill_inner .paddingBox .left {
-        position: relative;
-        width: 42%;
-        z-index: 33;
-        height: 340px;
-        overflow: hidden;
-    }
-
-    .waybill_inner .paddingBox .right {
-        position: relative;
-        width: 52%;
-        z-index: 33;
-        margin-left: 24px;
-        height: 340px;
-        overflow: hidden;
-    }
-
-    .waybill_content {
-        /*position: relative;*/
-    }
-
-    /*.waybill_inner .bgBox {*/
-    .waybill_content .bgBox {
-        width: 700px;
-        height: 360px;
-        position: absolute;
-        top:0;
-        left:0;
-        z-index: 10;
-    }
-
-    .waybill_inner .bgBox img{
-        object-fit: cover;
-    }
-
-    .waybill_content .btnBox {
-        width: 700px;
-        height: 32px;
-    }
-
-    .waybill_inner .right .right1,
-    .waybill_inner .right .right2{
-        margin-bottom: 40px;
+        display: none;
+        /*position: absolute;*/
+        /*top:0;*/
+        /*left:0;*/
     }
 
     .waybill_inner .paddingBox .area {
         overflow: hidden;
-    }
-
-    .waybill_inner .paddingBox .area1 {
-        margin-top: 5px;
-    }
-
-    .waybill_inner .paddingBox .left1 {
-        width: 140px;
-        height: 60px;
     }
 
     .waybill_inner .paddingBox .left1 .text1 {
@@ -5974,13 +5923,9 @@ input[type="radio"] {
     }
 
     .waybill_inner .paddingBox .left2 {
-        padding: 10px;
-        width: 140px;
-        height:60px;
-        overflow: hidden;
-    }
-
-    .waybill_inner .paddingBox .left .area {
+        /*padding: 10px;*/
+        /*width: 140px;*/
+        /*height:60px;*/
         overflow: hidden;
     }
 
@@ -5996,14 +5941,11 @@ input[type="radio"] {
         height:80px;
     }
 
-    .waybill_inner .paddingBox .left .area1 {
-        margin-left: 10px;
-    }
-
     .waybill_inner .paddingBox .left .area2 {
-        margin: 30px 0 0px 10px;
-        height:100px;
+        /*margin: 30px 0 0px 10px;*/
+        /*height:100px;*/
         /*max-height: 120px;*/
+        margin-top: 10mm;
     }
 
     .waybill_inner .paddingBox .left .area2 .text {
@@ -6023,39 +5965,35 @@ input[type="radio"] {
         font-weight: bold;
     }
 
-    .waybill_inner .paddingBox .left .area4 {
-        margin-left: 10px;
-    }
-
     .waybill_inner .paddingBox .left .area4 .text{
         font-size: 12px;
         height: 12px;
-        line-height: 12px;
+        line-height: 14px;
         font-weight: 600;
     }
 
     .waybill_inner .paddingBox .left .barBox2 {
-        margin-left: 10px;
+        /*margin-left: 10px;*/
+        margin-top: 5mm;
+        margin-left: -5mm;
     }
 
     .waybill_inner .paddingBox .left .barBox2 .barBb {
         /*width:50%;*/
-        height: 60px;
+        /*height: 60px;*/
     }
 
     .waybill_inner .paddingBox .left .barBox2 .barBb1 {
         width:60%;
-        margin-right: 10px;
+        margin-right: 5mm;
         position: relative;
         overflow: hidden;
     }
 
     .waybill_inner .paddingBox .left .barBox2 .barBb1 canvas {
         position: absolute;
-        top:-10px;
+        top:0px;
         left:0;
-        width:140px;
-        height: 80px;
         /*object-fit: cover;*/
     }
 
@@ -6111,7 +6049,7 @@ input[type="radio"] {
 
     .waybill_inner .right .area2 .text3,
     .waybill_inner .right .area2 .text2 {
-        margin-right: 40px;
+        margin-right: 5mm;
     }
 
     .waybill_inner .right .area3 {
@@ -6125,28 +6063,31 @@ input[type="radio"] {
     }
 
     .waybill_inner .right .area4 {
-        margin-top: 5px;
+        margin-top: 3mm;
     }
 
-    .waybill_inner .right .area4 .text1 {
+    .waybill_inner .right .area4 .flexType2 .text3 {
         font-size: 16px;
-        line-height: 18px;
+        margin-right: 5mm;
     }
 
     .waybill_inner .right .area5 {
         overflow: hidden;
-        width: 420px;
-        height: 60px;
         position: relative;
+        height: 12mm;
+        margin-top: 5mm;
+    }
+
+    .waybill_inner .right .area5 .text1 {
+        margin-top: 8mm;
+
     }
 
     .waybill_inner .right .area5 .barBox5 {
         position: absolute;
-        top:50%;
-        transform: translateY(-50%);
-        left:120px;
+        top:0mm;
+        right:0;
         width: 60%;
-        height: 60px;
         overflow: hidden;
     }
 
@@ -6155,19 +6096,25 @@ input[type="radio"] {
     }
 
     .waybill_inner .right .area5 .text1 {
-        margin-top: 40px;
-        margin-left: 20px;
+        /*margin-top: 40px;*/
+        /*margin-left: 20px;*/
         font-size: 14px;
         line-height: 14px;
         z-index: 30;
+        margin-left: 8mm;
+    }
+
+
+    .waybill_inner .right .area6 {
     }
 
     .waybill_inner .right .area6 .text2{
-        margin-left: 40px;
+        margin-left: 15mm;
     }
 
     .waybill_inner .right .area6 .area6bb{
-        margin-left: 20px;
+        margin-left: 10mm;
+        /*height: 5mm;*/
     }
 
     .waybill_inner .right .area6 .text3,
@@ -6176,9 +6123,9 @@ input[type="radio"] {
         line-height: 12px;
     }
 
-    .waybill_inner .right .area7,
-    .waybill_inner .right .area8 {
-        margin-top: 5px;
+    .waybill_inner .right .area7 {
+        padding-top: 2mm;
+        height: 20mm;
     }
 
     .waybill_inner .right .area10,
@@ -6188,18 +6135,20 @@ input[type="radio"] {
     }
 
     .waybill_inner .right .area9 {
-        margin-top: 42px;
+        margin-top: 5mm;
     }
 
     .waybill_inner .right .area9 .text1 {
-        margin-right: 40px;
+        margin-right: 5mm;
+        font-family: 'HY견고딕-Web', "HY견고딕", "HanyangGothic", HGGGT, "맑은 고딕", sans-serif;
     }
 
     .waybill_inner .right .area11 {
-        margin-top: 5px;
+        /*margin-top: 5px;*/
         font-size: 14px;
         line-height: 14px;
         font-weight: 900;
+        margin-top: 2mm;
     }
 
     /* waybill form end -------------------------------- */
@@ -6216,14 +6165,9 @@ input[type="radio"] {
 
     .add_deli_tbl {
         margin: 20px 0;
-        /*padding: 0;*/
-        border:1px solid red;
-        /*width: 20%;*/
-        /*width: 50% !important;*/
         width: 540px;
         border-collapse: collapse;
         color:green;
-        /*color:red;*/
     }
 
     .add_deli_tbl tbody .border_none {

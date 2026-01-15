@@ -23,7 +23,7 @@
                 <p class="fontType3">파일은 5M 이하여야합니다. </p>
             </div>
 
-            <div class="area area5 mt20 flexType5">
+            <div class="area lastArea mt20 flexType5">
                 <button type="button" class="btnType1 mr10" id="Xbtn2" name="Xbtn">닫기</button>
                 <button type="button" class="btnType2" id="btn_orderUpload">확인</button>
             </div>

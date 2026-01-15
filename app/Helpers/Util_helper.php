@@ -5,6 +5,27 @@ use CodeIgniter\I18n\Time;
 use Config\Services;
 use App\Libraries\Auth;
 
+
+
+function fn_InsertSystemLog($uid,$LogTyp,$Log){
+    $param = [
+        'uid' => $uid,
+        'ip' => fn_getClientIp(),
+        'LogTyp' => $LogTyp,
+        'Log' => $Log
+    ];
+
+    $common_m=model('Common_m');
+    $Cnt = $common_m->Insert_Log($param);
+
+    return true;
+}
+
+/** date format
+ * 1 : 2022-01-01 11:11:11 한국시간
+ * 2 : 2022-01-01 한국시간
+ */
+
 function fn_NowDateFormat($typ){
     date_default_timezone_set('Asia/Seoul');
     if($typ==1) {
@@ -683,4 +704,67 @@ function fn_MakeToast($msg = '')
     </script>';
     exit;
 }
+
+
+/**
+ * 사설 IP 제외한 공개 IP만 유효
+ */
+function validate_ip($ip): bool
+{
+    if (strtolower($ip) === 'unknown') return false;
+
+    $ip = ip2long($ip);
+    if ($ip !== false && $ip !== -1) {
+        $ip = sprintf('%u', $ip);
+        if ($ip >= 0 && $ip <= 50331647) return false;
+        if ($ip >= 167772160 && $ip <= 184549375) return false;
+        if ($ip >= 2130706432 && $ip <= 2147483647) return false;
+        if ($ip >= 2851995648 && $ip <= 2852061183) return false;
+        if ($ip >= 2886729728 && $ip <= 2887778303) return false;
+        if ($ip >= 3221225984 && $ip <= 3221226239) return false;
+        if ($ip >= 3232235520 && $ip <= 3232301055) return false;
+        if ($ip >= 4294967040) return false;
+    }
+    return true;
+}
+
+/**
+ * 접속자 ip
+ */
+function fn_getClientIp(): string
+{
+    // CI4 환경 우선 (프록시 자동 처리)
+    if (function_exists('service')) {
+        $request = service('request');
+        $ip = $request->getIPAddress();
+        if ($request->isValidIP($ip) && validate_ip($ip)) {
+            return $ip;
+        }
+    }
+
+    // 순수 PHP (원본 로직 + trim 개선)
+    $ip_keys = [
+        'HTTP_CLIENT_IP',
+        'HTTP_X_FORWARDED_FOR',
+        'HTTP_X_FORWARDED',
+        'HTTP_X_CLUSTER_CLIENT_IP',
+        'HTTP_FORWARDED_FOR',
+        'HTTP_FORWARDED',
+        'REMOTE_ADDR'
+    ];
+
+    foreach ($ip_keys as $key) {
+        if (!empty($_SERVER[$key] ?? '')) {
+            $forwarded_ips = explode(',', $_SERVER[$key]);
+            foreach (array_map('trim', $forwarded_ips) as $ip) {
+                if (validate_ip($ip)) {
+                    return $ip;
+                }
+            }
+        }
+    }
+
+    return $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+}
+
 

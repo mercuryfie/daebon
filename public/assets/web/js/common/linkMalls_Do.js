@@ -100,7 +100,7 @@ async function Make_Html(){
                 if(el.order['status']=='ok'){
                     status1 =`<p class="status positive">정상</p>`;
                 }else{
-                    status1 =`<p class="status negative">오류</p>`;
+                    status1 =`<button type="button" class="status missing" onclick="go_missingList();">누락</button>`;
                 }
 
                 indate2 = el.claim['indate'];
@@ -123,7 +123,16 @@ async function Make_Html(){
                         <td class="ltTbody">${status1}</td>
                         <td class="ltTbody">${indate2}</td>
                         <td class="ltTbody">${status2}</td>
-                        <td class="ltTbody">-</td>
+                        <td class="ltTbody">
+                            <button type="button" class="btnType3">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+                        </td>
+                        <td class="ltTbody">
+                            <button type="button" class="btnType3">
+                                <i class="fa-solid fa-link"></i>
+                            </button>
+                        </td>
                     </tr>
             `;
         });

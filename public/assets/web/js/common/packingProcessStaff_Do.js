@@ -146,7 +146,7 @@ $(document).ready(function() {
 });
 
 function prn_status(val){
-    if(val==1){
+    if((val==0) || (val==1)){
         $('#p_status1').removeClass().addClass('squareType');
         $('#p_status2').removeClass().addClass('squareType2');
         $('#p_status3').removeClass().addClass('squareType2');

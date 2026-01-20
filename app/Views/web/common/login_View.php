@@ -10,9 +10,12 @@
         <input type="text" name="userid" id="userid" placeholder="  아이디" class="idinput" value="<?=$main['saveid'];?>"/>
     </div>
     <div class="inputcon">
-        <input type="password" name="passwd" id="passwd" placeholder="  패스워드" class="idinput" />
+        <input type="password" name="passwd" id="passwd" placeholder="패스워드" class="idinput" />
     </div>
-    <button type="submit" id="btn_login" name="btn_login" class="" data-rurl="<?= $main['rec_url']; ?>">로그인</button>
+    <div class="dd">
+        <button type="submit" id="btn_login" name="btn_login" class="btnType2" data-rurl="<?= $main['rec_url']; ?>">로그인</button>
+
+    </div>
     <div class="autoLogin flexType1">
         <label for="saveid" class="checkType flexType1">
             <?if($main['saveid']==''){?>

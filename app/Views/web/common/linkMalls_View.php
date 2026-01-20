@@ -20,7 +20,6 @@
                 <table class="linkMallsTable ">
                     <thead>
                         <tr>
-                            <td class="ltThead col1"></td>
                             <td class="ltThead">쇼핑몰명</td>
                             <td class="ltThead">아이디</td>
                             <td class="ltThead">연동방법</td>

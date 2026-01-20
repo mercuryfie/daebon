@@ -420,18 +420,21 @@
         <section class="footer">
             <div class="fbox fbox1">
                 <p>원자재 재고 현황</p>
-                <div class="fbox1-1">
-                    <div class="fcbox fcbox1">
-                        <div class="fcircle fcircle1"></div>
-                        <p>적정재고수량</p>
+                <div class="fbox1-1 flexType2">
+                    <div class="dd">
+                        <div class="fcbox fcbox1">
+                            <div class="fcircle fcircle1"></div>
+                            <p>적정재고수량</p>
+                        </div>
+                        <div class="fcbox fcbox2">
+                            <div class="fcircle fcircle2"></div>
+                            <p>현 재고량</p>
+                        </div>
                     </div>
-                    <div class="fcbox fcbox2">
-                        <div class="fcircle fcircle2"></div>
-                        <p>현 재고량</p>
-                    </div>
+                    <p class="unit">(단위:건)</p>
                 </div>
                 <div class="fbox1-2">
-                    <p class="label">(단위:건)</p>
+<!--                    <p class="label">(단위:건)</p>-->
 <!--                    <canvas id="barChart"></canvas>-->
                     <canvas id="m_barChart"></canvas>
                 </div>
@@ -453,17 +456,17 @@
             <div class="fbox fbox2">
                 <p>제품 재고 현황</p>
                 <div class="fbox2-1">
-                    <div class="fcbox fcbox1">
+                    <div class="fcbox fcbox1 ">
                         <div class="fcircle fcircle1"></div>
-                        <p>적정재고수량</p>
+                        <p class="amount">적정재고수량</p>
                     </div>
                     <div class="fcbox fcbox2">
                         <div class="fcircle fcircle3"></div>
-                        <p>현 재고량</p>
+                        <p class="amount">현 재고량</p>
                     </div>
+                    <p class="unit">(단위:건)</p>
                 </div>
                 <div class="fbox2-2">
-                    <p class="label">(단위:건)</p>
                     <canvas id="p_barChart"></canvas>
                 </div>
                 <div class="pagebox">

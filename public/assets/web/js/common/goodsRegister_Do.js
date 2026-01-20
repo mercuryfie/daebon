@@ -377,7 +377,6 @@ $(document).ready(function(){
 
     initCkEditor('#ckeditor');
 
-
 });
 
 async function Load_Before(skey){
@@ -412,7 +411,6 @@ async function Load_Before(skey){
         stop_spinner();
     }
 }
-
 
 async function Reg_Data(param){
     let bool = false;
@@ -460,7 +458,6 @@ async  function Upload_File(pdcode){
     }
     return fname;
 }
-
 
 async function Find_Goods(skey) {
     let data = await Load_Data(skey);

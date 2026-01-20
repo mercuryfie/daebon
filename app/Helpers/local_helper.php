@@ -246,7 +246,7 @@ function getExCodeName($type) {
 function List_ExCode() {
     $exCode = [];
     $common_m = model('Common_m');
-    $Rs = $common_m->Load_Mall_List();
+    $Rs = $common_m->Load_Mall_List('');
     if(fn_ArrayCnt($Rs)>0) {
         foreach ($Rs as $d) {
             $exCode[$d['shoptyp']] = $d['shop_name'];
@@ -789,7 +789,7 @@ function fnMake_Code($typ,$max=''){
         $newCode = 'DG'. $timeNow.$rnd;
     }else if($typ==9){//상품코드
         $timeNow = date("Ymd");
-        $rnd = mt_rand(10000, 99999);
+        $rnd = mt_rand(100000, 999999);
         $newCode = 'DBG'. $timeNow.$rnd;
     }else if($typ==10){//주문코드
         $timeNow = date("Ymd");

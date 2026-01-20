@@ -24,7 +24,6 @@ $(document).ready(function() {
         location.reload();
     });
 
-
     $('#excelPop').click(function () {
         $('#uploadExcel').css('display','block');
     });
@@ -41,10 +40,8 @@ $(document).ready(function() {
         } else {
             Upload_Excel('attachExcel',3,1);
             $('#uploadExcel').css('display','none');
-
         }
     });
-
 
     $('#addMaker').click(function () {
         $('#addMakerWrap').css('display','block');

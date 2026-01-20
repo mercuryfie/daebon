@@ -3,6 +3,7 @@
 <script src="<?=URL_COMMON_ASSETS?>/jquery-barcode.js"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/deliveryform_Do.js?rnd=<?=rand();?>"> </script>
 
+<?php print_r($body)?>
 <section class="content waybill_content" >
     <input type="hidden" id="pop_orcode" name="pop_orcode" value="<?=$body['fk_orcode'];?>"/>
     <input type="hidden" id="pop_delicode" name="pop_delicode" value="<?=fn_formatInvoiceNumber($body['fk_dcode']);?>" />
@@ -13,10 +14,10 @@
              </div>
              <div class="paddingBox flexType4">
                  <div class="left ">
-                     <div class="area area1 flexType3">
+                     <div class="area area1 ">
                          <div class="left1">
-                             <p class="text text1"><?=$body['r_brnshp_nm']?></p>
-                             <p class="text text2"><?=$body['r_emp_nm']?></p>
+                             <p class="text text1"><?=$body['r_tml_nm']?></p>
+                             <p class="text text2"><?=$body['r_city_gun_gu']?> <?=$body['r_dong']?></p>
                          </div>
                          <div class="left2 barBox flexType2">
                              <div id="filtcd" name="filtcd" class="barcodeArea" data-code="<?=$body['r_filt_cd']?>" style=""></div>
@@ -39,7 +40,7 @@
                          <p class="text text6">운임 : (신용)</p>
 
                      </div>
-                     <div class="area barBox2 flexType2">
+                     <div class="area barBox2 flexType3">
                          <div class="barBb barBb1">
                              <div id="delicode" name="delicode" class="barcodeArea" data-code="<?=$body['fk_dcode']?>" style=""></div>
                          </div>

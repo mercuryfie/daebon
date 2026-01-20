@@ -42,6 +42,7 @@ input[type="search"] {
     --color7: #5EFF5B20;
     --color8: #5EFF5B80;
     --color9: #FB622BFF;
+    --color10: #42b983;
 
     /*dashBoard color start */
     --color11: #110D22;
@@ -172,11 +173,6 @@ input[type="radio"] {
 }
 
 /* table td end */
-
-/*.headerWrapStaff .loginBox {*/
-/*    height: 44px;*/
-/*    overflow: hidden;*/
-/*}*/
 .headerWrapStaff .loginBox .text,
 .headerwrap .loginBox .text {
     color:#1c1c1c;
@@ -204,8 +200,6 @@ input[type="radio"] {
     width: calc(100vw - 220px);
     height: 320px;
     text-align: center;
-    /*position: fixed;*/
-    /*bottom:0;*/
 
 }
 
@@ -600,19 +594,30 @@ input[type="radio"] {
     margin-bottom: 10px;
 }
 
-.login button {
+.login .btnType2 {
     width: 380px;
     height: 50px;
-    /*background-color: #42b983;*/
-    /*color:#fff;*/
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 500;
-    font-family: "Gmarket Sans";
+    /*font-family: "Gmarket Sans";*/
     border:none;
     border-radius: 5px;
     background-image: var(--main-gradient);
 }
 
+.login .btnType3 {
+    margin-top: 10px;
+    border:1px solid var(--color4);
+    background-color: #fff;
+    color:var(--color10);
+    width: 380px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    /*background-image: var(--main-gradient);*/
+
+}
 
 .login .autoLogin .checkType{
     width:160px;
@@ -1513,7 +1518,8 @@ input[type="radio"] {
 
 .areaBox .area1 .period:nth-child(1),
 .areaBox .area1 .period:nth-child(2),
-.areaBox .area1 .period:nth-child(3){
+.areaBox .area1 .period:nth-child(3),
+.areaBox .area1 .period:nth-child(4){
     border-right: none;
 }
 
@@ -2361,6 +2367,9 @@ input[type="radio"] {
 
 }
 
+.oinfo_box23e .fac_tablexx9 .btnType3 {
+    height: 24px;
+}
 
 /* otherInfo_View end  -------------------------------- */
 /* goods copy register start  -------------------------------- */
@@ -3913,7 +3922,7 @@ input[type="radio"] {
 }
 
 .ipgo_wrapdej {
-    display: block;
+    /*display: block;*/
 }
 
 .mag_img_conrlo,
@@ -4872,66 +4881,53 @@ input[type="radio"] {
 
 }
 
-.waybill_boxfxp .paddingBox .area1 {
+.waybill_boxfxp .paddingBox .left .area1 {
     margin-top: 5px;
-}
-
-.waybill_boxfxp .paddingBox .left1 {
-    width: 140px;
+    position: relative;
+    width: 280px;
     height: 60px;
 
 }
 
+.waybill_boxfxp .paddingBox .left .left1 {
+    width: 140px;
+    height: 60px;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 20;
+
+}
+
 .waybill_boxfxp .paddingBox .left1 .text1 {
-    font-size: 22px;
-    font-weight: 800;
+    font-size: 20px;
+    font-weight: bold;
 
 }
 
 .waybill_boxfxp .paddingBox .left1 .text2 {
-    font-size: 18px;
-    font-weight: 800;
+    font-size: 16px;
+    font-weight: bold;
 
-}
-
-.waybill_boxfxp .paddingBox .left2 {
-    padding: 10px;
-    width: 140px;
-    height:60px;
-    overflow: hidden;
-}
-
-
-.waybill_boxfxp .paddingBox .left .area {
-    /*overflow: hidden;*/
-}
-
-.waybill_boxfxp .paddingBox .left .area1 {
-    position: relative;
-}
-
-.waybill_boxfxp .paddingBox .left .area1 .left1 {
-    /*position: absolute;*/
-    /*top:0;*/
-    /*left:0;*/
-    /*z-index: 20;*/
 }
 
 .waybill_boxfxp .paddingBox .left .area1 .barBox {
-    position: absolute;
-    top:0px;
-    left:calc(38% - 0px);
+
+    width: 160px;
+    height:60px;
     overflow: hidden;
-    margin-top: 22px;
-    width: 190px;
-    height: 38px;
+
+    position: absolute;
+    top: 0px;
+    left: 130px;
 }
 
 .waybill_boxfxp .paddingBox .left .area1 .barBox canvas {
     /*position: absolute;*/
     /*top:0px;*/
-    width: 100%;
-    object-fit: contain;
+    width: 160px;
+    height:60px;
+
 
 }
 .waybill_boxfxp .paddingBox .left .area1 {
@@ -4979,9 +4975,9 @@ input[type="radio"] {
 
 .waybill_boxfxp .paddingBox .left .barBox2 {
     position: relative;
-    /*width: 290px;*/
-    /*height: 40px;*/
     margin-top: 10px;
+    width: 280px;
+    height: 60px;
 }
 
 .waybill_boxfxp .paddingBox .left .barBox2 .barBb {
@@ -4992,13 +4988,8 @@ input[type="radio"] {
     margin-right: 10px;
     position: absolute;
     top:0px;
-    left:0px;
-    /*display: none;*/
-    /*width: 140px;*/
-    /*height: 38px;*/
-    /*overflow: hidden;*/
-
-    /*position: relative;*/
+    left: -10px;
+    z-index: 20;
 
 }
 
@@ -5007,43 +4998,28 @@ input[type="radio"] {
     /*position: absolute;*/
     /*top:0px;*/
     /*left:0;*/
-    width:100%;
-    height:auto;
-    object-fit: contain;
-    /*height: 80px;*/
-    /*object-fit: cover;*/
+
 
 
 }
 
 
 .waybill_boxfxp .paddingBox .left .barBox2 .barBb2 {
-    /*width:40%;*/
-    /*position: absolute;*/
-    /*top:0;*/
-    /*left:0;*/
-    margin-left: 60%;
-    /*left:160px;*/
+    /*margin-left: 60%;*/
+    /*width: 160px;*/
+    position: absolute;
+    top:0;
+    left:200px;
+    z-index: 20;
 
 }
 
 .waybill_boxfxp .paddingBox .left .barBox2 .barBb2 .text {
-    font-size: 16px;
+    font-size: 13px;
     height:20px;
     line-height: 20px;
     font-weight: bold;
     text-align: right;
-}
-
-.waybill_boxfxp .paddingBox .left .barBox2 .barBb2 .text1 {
-    /*margin-bottom: 2px;*/
-}
-
-.waybill_boxfxp .paddingBox .left .barBox2 .barBb2 .text2 {
-    font-size: 18px;
-    height:20px;
-    line-height: 20px;
-    font-weight: bold;
 }
 
 .waybill_boxfxp .right .area {
@@ -5054,7 +5030,8 @@ input[type="radio"] {
 }
 
 .waybill_boxfxp .right .area1 {
-    margin-left: 40px;
+    margin-left: 20px;
+    margin-top: 5px;
 
 }
 
@@ -5162,7 +5139,7 @@ input[type="radio"] {
 }
 
 .waybill_boxfxp .right .area9 {
-    margin-top: 38px;
+    margin-top: 45px;
 }
 
 .waybill_boxfxp .right .area9 .text1 {
@@ -5171,7 +5148,7 @@ input[type="radio"] {
 }
 
 .waybill_boxfxp .right .area11 {
-    margin-top: 5px;
+    /*margin-top: 2px;*/
     font-size: 14px;
     line-height: 14px;
     font-weight: 900;
@@ -5180,6 +5157,33 @@ input[type="radio"] {
 /* waybill form end -------------------------------- */
 /* userRegister_View start -------------------------------- */
 
+.user_reg_wrap {
+    /*border:none;*/
+    /*margin: 0 auto;*/
+    width: 80vw;
+}
+
+.user_reg_wrap .titleBox {
+    /*margin: 0 auto;*/
+    /*margin-bottom: 20px;*/
+    width: 80vw;
+    /*border-bottom: 2px solid #ccc;*/
+    /*text-align: center;*/
+
+}
+
+.user_reg_wrap .titleBox .headTitle {
+    padding: 20px 0 20px 30px;
+    font-size: 22px;
+
+}
+
+.user_reg_wrap .lastBox,
+.user_reg_wrap .areaBox {
+    /*border:none;*/
+    /*margin: 0 auto;*/
+    width:80vw;
+}
 .user_reg_wrap .area {
     padding: 10px 0px 10px 20px;
     /*width: 80vw;*/
@@ -5195,6 +5199,11 @@ input[type="radio"] {
     width: 120px;
     height: 32px;
     margin-right: 20px;
+}
+
+.user_reg_wrap .btnType3 {
+    padding:0 10px;
+    height: 32px;
 }
 
 .user_reg_wrap .area .inputBorder {
@@ -5224,7 +5233,7 @@ input[type="radio"] {
 /* userRegister_View end -------------------------------- */
 /* userList_View start -------------------------------- */
 
-.user_reg_table {
+.user_list_table {
     border-collapse: collapse;
     width: 80vw;
     /*width: 40vw;*/
@@ -5232,15 +5241,24 @@ input[type="radio"] {
 
 }
 
-.user_reg_table td {
+.user_list_table td {
     height: 32px;
     border:1px solid #ccc;
 }
 
-.user_reg_table .btnType3 {
+.user_list_table .btnType3 {
     padding: 0 10px;
     height: 24px;
     color:#5c5c5c;
+}
+
+.user_list_wrap .area1 .searchArea {
+    border-radius: 5px;
+    border:1px solid #ccc;
+    width: 220px;
+    height: 32px;
+    margin-right: 10px;
+
 }
 
 /* userList_View end -------------------------------- */
@@ -5929,23 +5947,41 @@ input[type="radio"] {
         overflow: hidden;
     }
 
-    .waybill_inner .paddingBox .left .area1 .barBox {
+    .waybill_inner .paddingBox .left .area1 {
         position: relative;
+        height: 20mm;
+
+    }
+    .waybill_inner .paddingBox .left .area1 .barBox {
+        /*position: relative;*/
     }
 
-    .waybill_inner .paddingBox .left .area1 .barBox canvas {
+    .waybill_inner .paddingBox .left .area1 .left1 {
         position: absolute;
-        top:-10px;
+        top:2mm;
         left:0;
-        width: 140px;
-        height:80px;
+        z-index: 22;
+
+    }
+    .waybill_inner .paddingBox .left .area1 .left2 {
+        position: absolute;
+        top:0;
+        left:40mm;
+        width: 45mm;
+        height: 20mm;
+
+    }
+    .waybill_inner .paddingBox .left .area1 .barBox canvas {
+        /*margin-left: -5mm;*/
+        width: 45mm;
+        height: 20mm;
     }
 
     .waybill_inner .paddingBox .left .area2 {
         /*margin: 30px 0 0px 10px;*/
         /*height:100px;*/
         /*max-height: 120px;*/
-        margin-top: 10mm;
+        margin-top: 5mm;
     }
 
     .waybill_inner .paddingBox .left .area2 .text {
@@ -5975,7 +6011,10 @@ input[type="radio"] {
     .waybill_inner .paddingBox .left .barBox2 {
         /*margin-left: 10px;*/
         margin-top: 5mm;
-        margin-left: -5mm;
+        width: 83mm;
+        height: 20mm;
+        position: relative;
+
     }
 
     .waybill_inner .paddingBox .left .barBox2 .barBb {
@@ -5984,41 +6023,36 @@ input[type="radio"] {
     }
 
     .waybill_inner .paddingBox .left .barBox2 .barBb1 {
-        width:60%;
-        margin-right: 5mm;
-        position: relative;
-        overflow: hidden;
+        margin-right: 2mm;
+        position: absolute;
+        top:0;
+        left:-3mm;
+        width:62mm;
+        height: 15mm;
+
     }
 
     .waybill_inner .paddingBox .left .barBox2 .barBb1 canvas {
-        position: absolute;
-        top:0px;
-        left:0;
+        width:62mm;
+        height: 15mm;
         /*object-fit: cover;*/
     }
 
     .waybill_inner .paddingBox .left .barBox2 .barBb2 {
-        width:40%;
+        width:25mm;
+        height: 20mm;
+        /*text-align: right;*/
+        position: absolute;
+        top: -8mm;
+        right:0mm;
+        z-index: 22;
     }
 
     .waybill_inner .paddingBox .left .barBox2 .barBb2 .text {
-        font-size: 16px;
-        height:20px;
-        line-height: 20px;
-        font-weight: bold;
-        text-align: right;
-    }
-
-    .waybill_inner .paddingBox .left .barBox2 .barBb2 .text1 {
-        /*margin-bottom: 2px;*/
-    }
-
-    .waybill_inner .paddingBox .left .barBox2 .barBb2 .text2 {
-        font-size: 18px;
-        height:20px;
-        line-height: 20px;
+        font-size: 14px;
         font-weight: bold;
     }
+
 
     .waybill_inner .right .area {
         font-size: 16px;

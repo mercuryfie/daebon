@@ -1,99 +1,316 @@
 <?php
+
 namespace App\Libraries;
 
-use CodeIgniter\HTTP\CurlRequest;
+use Config\Services;
 
 class CoupangApi
 {
-    protected $accessKey;
-    protected $secretKey;
-    protected $vendorid;
-    protected $client;
+    private $accessKey;
+    private $secretKey;
+    private $baseapi;
+    private $httpClient;
+    private $vendorid;
 
     public function __construct()
     {
         $this->accessKey = 'a9adfe13-f559-42cf-bd61-48eef9af6028';
         $this->secretKey = 'eaf19f45a0a79d964044c52368c88005e18a17e9';
         $this->vendorid = 'A00061018';
-        $this->host = 'https://api-gateway.coupang.com';
+        $this->baseapi = 'https://api-gateway.coupang.com';
+
+        $this->httpClient = Services::curlrequest();
     }
 
-    private function generateSignature(string $method, string $path, string $query)
+    public function Get_Order_Period($sdate,$edate,$status,$nextToken)
     {
-        $datetime = gmdate("ymd") . 'T' . gmdate("His") . 'Z';
-        $message = $datetime . $method . $path . $query;
+        $path = "/v2/providers/openapi/apis/api/v5/vendors/{$this->vendorid}/ordersheets";
+        $method = "GET";
+        $max = 50;
+        if(empty($nextToken)) {
+            $query = "createdAtFrom={$sdate}&createdAtTo={$edate}&maxPerPage={$max}&status={$status}";
+        }else{
+            $query = "createdAtFrom={$sdate}&createdAtTo={$edate}&maxPerPage={$max}&status={$status}&nextToken={$nextToken}";
+        }
+        return $this->callApi($method, $path, $query);
+    }
+
+    private function callApi($method,$path,$query,$data = [] )
+    {
+        if($method=='POST'){
+            $apiurl = $this->baseapi . $path;
+        }else if($method=='GET'){
+            $apiurl = $this->baseapi . $path .'?'. $query;
+        }
+        $authorization = $this->Make_Authorization($method,$path,$query);
+        $headers = [
+            'Content-Type' => 'application/json;charset=UTF-8',
+            'Authorization' => $authorization,
+            'X-EXTENDED-TIMEOUT' => '60000'
+        ];
+        $options = [
+            'headers' => $headers,
+            'timeout' => 90,
+            'connect_timeout' => 30,
+            'http_errors' => false
+        ];
+        if ($data && in_array($method, ['POST', 'PUT'])) {
+            $options['json'] = $data;
+        }
+
+        $response = $this->httpClient->request($method, $apiurl, $options);
+
+        //$body = $response->getBody();
+        $body =  $this->Sample_order();
+        return json_decode($body, true);
+    }
+
+
+    private function Make_Authorization($method, $path, $query){
+        date_default_timezone_set("GMT+0");
+        $datetime = date("ymd").'T'.date("His").'Z';
+        if($method=='POST'){
+            $message = $datetime . $method . $path;
+        }else if($method=='GET'){
+            $message = $datetime . $method . $path . $query;
+        }
         $signature = hash_hmac('sha256', $message, $this->secretKey);
-
-        $authorization = "CEA algorithm=HmacSHA256, access-key=" . $this->accessKey . ", signed-date=" . $datetime . ", signature=" . $signature;
-
+        $algorithm = "HmacSHA256";
+        $authorization  = "CEA algorithm=".$algorithm.", access-key=".$this->accessKey.", signed-date=".$datetime.", signature=".$signature;
         return $authorization;
     }
 
 
-    private function api_request(string $method, string $path, string $query = '')
-    {
-        $authorization = $this->generateSignature($method, $path, $query);
-
-        $url = $this->host . $path;
-        if ($query !== '') {
-            $url .= '?' . $query;
-        }
-
-//        echo "=== DEBUG INFO ===<br>";
-//        echo "URL: " . $url . "<br><br>";
-//        echo "Authorization: " . $authorization . "<br><br>";
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json;charset=UTF-8",
-            "Authorization: ".$authorization
-        ]);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_ENCODING, '');
-        $result = curl_exec($curl);
-
-        // HTTP 상태코드 확인
-        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        $error = curl_error($curl);
-        curl_close($curl);
-
-//        echo "HTTP Code: " . $httpCode . "<br>";
-//        if ($error) echo "Curl Error: " . $error . "<br>";
-//
-//        echo "Raw Response: " . $result . "<br>";
-//        echo "================<br><br>";
-
-        return json_decode($result, true);
+    private function Sample_order(){
+        $sample = '{
+            "code": 200,
+            "message": "OK",
+            "data": [
+                {
+                    "shipmentBoxId": 642538971116401429,
+                    "orderId": 22000009546234,
+                    "orderedAt": "2025-01-15T14:17:13.973885-08:00",
+                    "orderer": {
+                        "name": "신*희",
+                        "email": "",
+                        "safeNumber": " +1(555)444-1234",
+                        "ordererNumber": null
+                    },
+                    "paidAt": "2025-01-15T14:17:13.973885-08:00",
+                    "status": "FINAL_DELIVERY",
+                    "shippingPrice": {
+                        "currencyCode": "KRW",
+                        "units": 5000,
+                        "nanos": 0
+                    },
+                    "remotePrice": null,
+                    "remoteArea": false,
+                    "parcelPrintMessage": "문 앞",
+                    "splitShipping": false,
+                    "ableSplitShipping": false,
+                    "receiver": {
+                        "name": "신*희",
+                        "safeNumber": " +1(555)444-1234",
+                        "receiverNumber": null,
+                        "addr1": "경기 오산시 가수동 **아파트",
+                        "addr2": "109동 *호",
+                        "postCode": "447-700"
+                    },
+                    "orderItems": [
+                        {
+                            "vendorItemPackageId": 0,
+                            "vendorItemPackageName": "인디고뱅크키즈 기모 테잎배색 트레이닝 팬츠 IKTM17WG1",
+                            "productId": 31846051,
+                            "vendorItemId": 3242596358,
+                            "vendorItemName": "인디고뱅크키즈 기모 테잎배색 트레이닝 팬츠 IKTM17WG1, 07 DARK GREY, 160호",
+                            "shippingCount": 1,
+                            "salesPrice": {
+                                "currencyCode": "KRW",
+                                "units": 19000,
+                                "nanos": 0
+                            },
+                            "orderPrice": {
+                                "currencyCode": "KRW",
+                                "units": 19000,
+                                "nanos": 0
+                            },
+                            "discountPrice": {
+                                "currencyCode": "KRW",
+                                "units": 3000,
+                                "nanos": 0
+                            },
+                            "instantCouponDiscount": {
+                                "currencyCode": "KRW",
+                                "units": 2000,
+                                "nanos": 0
+                            },
+                            "downloadableCouponDiscount": {
+                                "currencyCode": "KRW",
+                                "units": 1000,
+                                "nanos": 0
+                            },
+                            "coupangDiscount": {
+                                "currencyCode": "KRW",
+                                "units": 0,
+                                "nanos": 0
+                            },
+                            "externalVendorSkuCode": "170816368810",
+                            "etcInfoHeader": null,
+                            "etcInfoValue": null,
+                            "etcInfoValues": [
+                                "추가메시지1",
+                                "추가메시지2"
+                            ],
+                            "sellerProductId": 80240831,
+                            "sellerProductName": "인디고뱅크키즈 A5 기모 배색츄키니 IKTM17WG1",
+                            "sellerProductItemName": "07 DARK GREY 160호",
+                            "firstSellerProductItemName": "07 DARK GREY/160호",
+                            "cancelCount": 0,
+                            "holdCountForCancel": 0,
+                            "estimatedShippingDate": "2017-10-16",
+                            "plannedShippingDate": "",
+                            "invoiceNumberUploadDate": "",
+                            "extraProperties": {
+        
+                            },
+                            "pricingBadge": false,
+                            "usedProduct": false,
+                            "confirmDate": "2025-01-15T14:17:13.973885-08:00",
+                            "deliveryChargeTypeName": "유료",
+                            "canceled": false
+                        }
+                    ],
+                    "overseaShippingInfoDto": {
+                        "personalCustomsClearanceCode": "",
+                        "ordererSsn": "",
+                        "ordererPhoneNumber": ""
+                    },
+                    "deliveryCompanyName": "CJ 대한통운",
+                    "invoiceNumber": "340010913442",
+                    "inTrasitDateTime": "2025-01-15T14:17:13.973885-08:00",
+                    "deliveredDate": "2025-01-15T14:17:13.973885-08:00",
+                    "refer": "안드로이드앱",
+                    "shipmentType": "THIRD_PARTY",
+                    "isCod": false,
+                    "extraProperties":{}
+                },
+                {
+                    "shipmentBoxId": 642538971116401428,
+                    "orderId": 22000009546630,
+                    "orderedAt": "2025-01-15T14:17:13.973885-08:00",
+                    "orderer": {
+                        "name": "김*숙",
+                        "email": "hs*****@na",
+                        "safeNumber": " +1(555)444-1234",
+                        "ordererNumber": null
+                    },
+                    "paidAt": "2025-01-15T14:17:13.973885-08:00",
+                    "status": "FINAL_DELIVERY",
+                    "shippingPrice": {
+                        "currencyCode": "KRW",
+                        "units": 0,
+                        "nanos": 0
+                    },
+                    "remotePrice": null,
+                    "remoteArea": false,
+                    "parcelPrintMessage": "직접 받고 부재 시 문 앞",
+                    "splitShipping": false,
+                    "ableSplitShipping": false,
+                    "receiver": {
+                        "name": "김*숙",
+                        "safeNumber": " +1(555)444-1234",
+                        "receiverNumber": null,
+                        "addr1": "경기 광명시 하안1동 두산트레지움아파트",
+                        "addr2": "107동701호",
+                        "postCode": "423-747"
+                    },
+                    "orderItems": [
+                        {
+                            "vendorItemPackageId": 0,
+                            "vendorItemPackageName": "리틀브렌 후드달이 구스 경량 점퍼 LBJD17WG5",
+                            "productId": 34047877,
+                            "vendorItemId": 3261300431,
+                            "vendorItemName": "리틀브렌 후드달이 구스 경량 점퍼 LBJD17WG5, 04 MIDDLE MELANGE GR, 170호",
+                            "shippingCount": 1,
+                            "salesPrice": {
+                                "currencyCode": "KRW",
+                                "units": 27800,
+                                "nanos": 0
+                            },
+                            "orderPrice": {
+                                "currencyCode": "KRW",
+                                "units": 278000,
+                                "nanos": 0
+                            },
+                            "discountPrice": {
+                                "currencyCode": "KRW",
+                                "units": 2470,
+                                "nanos": 0
+                            },
+                            "instantCouponDiscount": {
+                                "currencyCode": "KRW",
+                                "units": 560,
+                                "nanos": 0
+                            },
+                            "downloadableCouponDiscount": {
+                                "currencyCode": "KRW",
+                                "units": 1910,
+                                "nanos": 0
+                            },
+                            "coupangDiscount": {
+                                "currencyCode": "KRW",
+                                "units": 0,
+                                "nanos": 0
+                            },
+                            "externalVendorSkuCode": "170824416510",
+                            "etcInfoHeader": null,
+                            "etcInfoValue": null,
+                            "etcInfoValues": [
+                                "추가메시지1",
+                                "추가메시지2"
+                            ],
+                            "sellerProductId": 87037167,
+                            "sellerProductName": "리틀브렌 후드달이 구스 경량 점퍼 LBJD17WG5",
+                            "sellerProductItemName": "04 MIDDLE MELANGE GR 170호",
+                            "firstSellerProductItemName": "04 MIDDLE MELANGE GR/170호",
+                            "cancelCount": 0,
+                            "holdCountForCancel": 0,
+                            "estimatedShippingDate": "2017-10-16",
+                            "plannedShippingDate": "",
+                            "invoiceNumberUploadDate": "",
+                            "extraProperties": {
+        
+                            },
+                            "pricingBadge": false,
+                            "usedProduct": false,
+                            "confirmDate": "2025-01-15T14:17:13.973885-08:00",
+                            "deliveryChargeTypeName": "무료",
+                            "canceled": false
+                        }
+                    ],
+                    "overseaShippingInfoDto": {
+                        "personalCustomsClearanceCode": "",
+                        "ordererSsn": "",
+                        "ordererPhoneNumber": ""
+                    },
+                    "deliveryCompanyName": "CJ 대한통운",
+                    "invoiceNumber": "340010912565",
+                    "inTrasitDateTime": "2025-01-15T14:17:13.973885-08:00",
+                    "deliveredDate": "2025-01-15T14:17:13.973885-08:00",
+                    "refer": "안드로이드앱",
+                    "shipmentType": "CGF LITE",
+                    "isCod": false,
+                    "extraProperties": {
+                        "taxReceiptInfo": {
+                            "appliedValue": null,
+                            "receiptOption": "PAPER",
+                            "appliedType": "PERSONAL_COUPANG_MEMBER_CARRIER"
+                        }
+                    }
+                }
+            ],
+            "nextToken": "448537989"
+        }';
+        return $sample;
     }
-
-    public function Get_Order_Period($sdate,$edate,$status,$max)
-    {
-        $v_id = $this->vendorid;
-        $path = "/v2/providers/openapi/apis/api/v4/vendors/{$v_id}/ordersheets";  // v4
-
-        $params = [
-            'createdAtFrom' => $sdate,
-            'createdAtTo'   => $edate,
-            'status'        => $status,
-            'maxPerPage'    => $max
-        ];
-        $query = http_build_query($params);  // 알파벳 순서로 정렬됨
-
-        return $this->api_request('GET', $path, $query);
-    }
-
-    public function Get_Product_Info_Load($pid){
-        $v_id = $this->vendorid;
-        $path = "/v2/providers/seller_api/apis/api/v1/marketplace/seller-products/{$pid}";
-        $params = [];
-        $query = http_build_query($params);  // 알파벳 순서로 정렬됨
-
-        return $this->api_request('GET', $path, $query);
-
-
-    }
-
-
 }

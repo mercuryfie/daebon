@@ -64,16 +64,15 @@ $routes->GET('report/o_form', 'ReportController::orderReportForm');
 $routes->GET('monitor/workstatus', 'MonitorController::workStatus');
 $routes->GET('monitor/processstatus', 'MonitorController::processStatus');
 
-$routes->GET('info/userregister', 'CommonController::userRegister');
-$routes->GET('info/usereditor', 'CommonController::userEditor');
-$routes->GET('info/userlist', 'CommonController::userList');
+$routes->GET('info/userregister', 'UserController::userRegister');
+$routes->GET('info/usereditor', 'UserController::userEditor');
+$routes->GET('info/userlist', 'UserController::userList');
 $routes->GET('info/notice', 'CommonController::notice');
 
 /* Packing */
 $routes->GET('packing/', 'PackingController::main');
 $routes->GET('packing/process', 'PackingController::packingProcess');
 $routes->GET('packing/waybill', 'PackingController::waybill');
-
 
 /* Product */
 $routes->GET('product/', 'ProductController::main');
@@ -126,6 +125,13 @@ $routes->match(['GET', 'POST'], 'Api/Load_Mall_List', 'ApiController::Load_Mall_
 $routes->match(['GET', 'POST'], 'Api/Load_Mall_Log_List', 'ApiController::Load_Mall_Log_List');
 
 
+$routes->match(['GET', 'POST'], 'Api/Load_UserList', 'ApiController::Load_UserList');
+$routes->match(['GET', 'POST'], 'Api/Add_UserInfo', 'ApiController::Add_UserInfo');
+$routes->match(['GET', 'POST'], 'Api/Mod_UserInfo', 'ApiController::Mod_UserInfo');
+$routes->match(['GET', 'POST'], 'Api/Del_UserInfo', 'ApiController::Del_UserInfo');
+$routes->match(['GET', 'POST'], 'Api/Check_UserId', 'ApiController::Check_UserId');
+$routes->match(['GET', 'POST'], 'Api/Reset_Password', 'ApiController::Reset_Password');
+
 $routes->match(['GET', 'POST'], 'Api/Load_Instructions_Process', 'ApiProduceController::Load_Instructions_Process');
 $routes->match(['GET', 'POST'], 'Api/Load_Instructions_Info', 'ApiProduceController::Load_Instructions_Info');
 $routes->match(['GET', 'POST'], 'Api/Load_Instructions_NowStep', 'ApiProduceController::Load_Instructions_NowStep');
@@ -152,10 +158,14 @@ $routes->match(['GET', 'POST'], 'Api/Load_Delivery_Data', 'ApiOrderController::L
 
 $routes->match(['GET', 'POST'], 'Api/Put_Packing_Info', 'ApiPackingController::Put_Packing_Info');
 
+$routes->match(['GET', 'POST'], 'Api/Shop_Opder_List', 'ApiMarketController::Shop_Opder_List');
+
 
 $routes->match(['GET', 'POST'], 'Api/coupong_api_no1', 'ApiShopController::coupong_api_GetOrderPeriod');
 $routes->match(['GET', 'POST'], 'Api/coupong_api_no2', 'ApiShopController::coupong_api_getOrderInfo');
 $routes->match(['GET', 'POST'], 'Api/ESM_api_no2', 'ApiShopController::esm_api_GetOrderInfo');
+
+
 
 
 

@@ -144,7 +144,7 @@ async function pop_GoodsDetail(pdcode,pdname) {
                 html += ` 
                     <tr>
                         <td class=" copyIcon">${el.fk_excode}<i class="fa-regular fa-copy" data-copy="${el.fk_excode}"></i></td>
-                        <td class="">${getNameByCode(el.ex_type)}</td>
+                        <td class="">${el.shopname}</td>
                     </tr>
                 `;
             });

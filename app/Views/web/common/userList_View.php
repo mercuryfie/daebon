@@ -2,7 +2,7 @@
 <?= $this->section("content") ?>
 
 <!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/qualityReport_Do.js?rnd=<?=rand();?>"> </script>
+<script src="<?=URL_COMMON_ASSETS?>/userList_Do.js?rnd=<?=rand();?>"> </script>
 <script>
 </script>
 
@@ -14,46 +14,24 @@
             </p>
         </div>
         <div class="areaBox  ">
-            <div class="area area1">
-                <table class="user_reg_table">
+            <div class="area area1 ">
+
+<!--                <input type="search" name="mkey" id="mkey" class="searchArea" placeholder="아이디 검색">-->
+                <button type="button" class="btnType2" id="add_btn" name="add_btn" onclick="go_userRegister();">계정등록</button>
+
+            </div>
+            <div class="area area2">
+                <table class="user_list_table">
                     <thead>
                         <tr>
+                            <td>아이디</td>
                             <td>아이디</td>
                             <td>권한</td>
                             <td>pw초기화</td>
                             <td>계정삭제</td>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1-1</td>
-                            <td>1-2</td>
-                            <td>
-                                <button type="button" class="btnType3 remove_btn" id="" name="btn_del"  data-code="">
-                                    <i class="fa-solid fa-rotate-right" name="fairy"></i>
-                                </button>
-                            </td>
-                            <td>
-                                <button type="button" class="btnType3 remove_btn" id="" name="btn_del"  data-code="">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1-1</td>
-                            <td>1-2</td>
-                            <td>
-                                <button type="button" class="btnType3 remove_btn" id="" name="btn_del"  data-code="">
-                                    <i class="fa-solid fa-rotate-right" name="fairy"></i>
-                                </button>
-                            </td>
-                            <td>
-                                <button type="button" class="btnType3 remove_btn" id="" name="btn_del"  data-code="">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-
+                    <tbody id="ulist" name="ulist">
                     </tbody>
                 </table>
             </div>

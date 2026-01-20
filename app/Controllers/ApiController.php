@@ -71,6 +71,7 @@ class ApiController extends BaseController
     public function Load_Mall_List()
     {
         $sessinarr = $this->GetSessionData();
+        $typ  = ($this->request->getPost('typ') == '') ? '' : $this->request->getPost('typ');
         if($sessinarr['islogin']==false) {
             $result = 'NoLogin';
             $data = [];
@@ -81,7 +82,7 @@ class ApiController extends BaseController
             $message = '잘못된 토큰입니다.';
         }else{
             $common_m = model('Common_m');
-            $Rs = $common_m->Load_Mall_List();
+            $Rs = $common_m->Load_Mall_List($typ);
             if(fn_ArrayCnt($Rs)>0){
                 $list = [];
                 foreach ($Rs as $d){
@@ -415,7 +416,6 @@ class ApiController extends BaseController
         return $this->respond($return);
 
     }
-
 
     public function Add_Instructions()
     {
@@ -1132,6 +1132,43 @@ class ApiController extends BaseController
         return $this->respond($return);
     }
 
+
+    public function Check_UserId() {
+
+        $sessinarr = $this->GetSessionData();
+        $userid  = ($this->request->getPost('userid') == '') ? [] : $this->request->getPost('userid');
+//        $userid = $data['userid'];
+
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $message = '로그인이 필요합니다.';
+        } else if ($userid == '') {
+            $result = 'type101';
+            $message = '필수항목 입력이 안되어 있습니다. ';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $message = '잘못된 토큰입니다.';
+        } else {
+            $Member_m = model('Member_m');
+            $Cnt = $Member_m->Chk_Member_Userid($userid);
+            if ($Cnt<=0) {
+                $result = 'ok';
+                $message = '사용 가능한 아이디 입니다.';
+            } else {
+                $result = 'type102';
+                $message = '잘못된 접근 입니다';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'message' => $message
+        ];
+        return $this->respond($return);
+
+    }
+
+
     public function Login_Do()
     {
         $userid = ($this->request->getPost('userid') == '') ? '' : $this->request->getPost('userid');
@@ -1229,7 +1266,6 @@ class ApiController extends BaseController
 
     public function Load_MaterialList(){
 
-//        $data = $this->request->getJSON(true) ?: [];
 //        $data  = ($this->request->getPost('data') == '') ? '' : $this->request->getPost('data');
         $data = $this->request->getPost('data') ?? [];
 
@@ -1243,15 +1279,8 @@ class ApiController extends BaseController
             $data = [];
             $message = '잘못된 토큰입니다.';
         }else{
-
-//            $skey = array_key_exists('skey', $data) ? $data['skey'] : 'bello';
-//            $fkey = array_key_exists('fkey', $data) ? $data['fkey'] : 0;
-
-
             $skey = $data['skey'] ?? '';
             $fkey = $data['fkey'] ?? 0;
-            echo $skey;
-            echo 'hello'.$fkey;
 
             $material_m = model('Material_m');
 
@@ -2504,7 +2533,6 @@ class ApiController extends BaseController
                             $insert_arr[] = $t_arr;
                         }
                     }
-                    //print_r($insert_arr);
                     if(fn_ArrayCnt($insert_arr)>0) {
                         $product_m = model('Product_m');
                         $Cnt = $product_m->Insert_Product_All($insert_arr);
@@ -2533,6 +2561,211 @@ class ApiController extends BaseController
         ];
         return $this->respond($return);
 
+    }
+
+    public function Load_UserList() {
+
+        $sessinarr = $this->GetSessionData();
+        $data = $this->request->getPost('data') ?? [];
+
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else if($sessinarr['user']['grade'] != AUTH_MASTER) {
+            $result = 'Error003';
+            $data = [];
+            $message = 'master 권한이 없습니다.';
+        }else if($sessinarr['user']['grade'] == AUTH_MASTER){
+            $common_m = model('Common_m');
+            $Rs = $common_m->Load_UserList();
+            if(fn_ArrayCnt($Rs)>0) {
+
+                $list = [];
+                $tname = '';
+                foreach ($Rs as $d){
+                    if($d['grade']==1101){
+                        $tname = '마스터';
+                    }else if($d['grade']== 1102){
+                        $tname = '작업자 - 배송';
+                    } else {
+                        $tname = '작업자 - 생산';
+                    }
+
+                    $t_arr = [
+                        'uid' => $d['uid'],
+                        'userid' => $d['userid'],
+                        'grade' => $tname,
+                        'passwd' => $d['passwd'],
+                        'name' => $d['name'],
+                        'is_use' => $d['is_use']
+                    ];
+
+                    $list[] = $t_arr;
+                }
+
+                $data = ['list' => $list];
+                $result = 'ok';
+                $message = '';
+
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Add_UserInfo() {
+
+        $sessinarr = $this->GetSessionData();
+        $data = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
+        $userid = $data['userid'] ?? '';
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        } else if (fn_ArrayCnt($data)<=0){
+            $result = 'Error001';
+            $data = [];
+            $message = '필수 입력값이 누락되었습니다.';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        } else {
+            $Member_m = model('Member_m');
+            $Cnt = $Member_m->Chk_Member_Userid($userid);
+            if($Cnt == 1 ){
+                $result = 'duplicate';
+                $data = [];
+                $message = '이미 사용중인 아이디 입니다. ';
+            }else if ($Cnt <=0) {
+                $timeNow = date("YmdHis");
+                $data_param = [
+                    'userid' => $data['userid'],
+                    'name' => $data['u_name'],
+                    'passwd' => $data['pw_2'],
+                    'grade' => $data['grade'],
+                    'is_use' => 1,
+                    'indate' => $timeNow,
+                ];
+
+                $common_m = model('Common_m');
+                $Rs = $common_m->Insert_UserInfo($data_param);
+                if(fn_ArrayCnt($Rs) >= 0) {
+                    $result = 'ok';
+                    $data = $Rs;
+                    $message = '';
+
+                } else {
+                    $result = 'Error003';
+                    $data = [];
+                    $message = '등록에 실패했습니다.';
+                }
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Del_UserInfo(){
+        $sessinarr = $this->GetSessionData();
+        $uid  = ($this->request->getPost('uid') == '') ? [] : $this->request->getPost('uid');
+//        $uid  = $dataarr['uid'];
+        if(fn_ArrayCnt($uid)==''){
+            $result = 'Error001';
+            $message = '잘못된 접근입니다.';
+        }else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $message = '잘못된 토큰입니다.';
+        } else if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $message = '로그인이 필요합니다.';
+        } else if($sessinarr['user']['grade'] != AUTH_MASTER) {
+            $result = 'Error003';
+            $message = '마스터 권한이 없습니다. ';
+        } else if($sessinarr['user']['grade'] == AUTH_MASTER) {
+            $common_m = model('Common_m');
+            $userinfo = $common_m->Load_UserInfo($uid);
+            if(fn_ArrayCnt($userinfo)>0){
+                $param = [
+                    'is_use' => 0
+                ];
+                $Cnt = $common_m->Update_UserInfo($uid,$param);
+                if($Cnt > 0){
+                    $result = 'ok';
+                    $message = '';
+                }else{
+                    $result = 'Error004';
+                    $message = '정보 수정에 실패하였습니다.';
+                }
+            }else{
+                $result = 'Error005';
+                $message = '존재하지 않는 계정 입니다. ';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
+    public function Reset_Password(){
+        $sessinarr = $this->GetSessionData();
+        $uid  = ($this->request->getPost('uid') == '') ? [] : $this->request->getPost('uid');
+//        $uid  = $dataarr['uid'];
+        if(fn_ArrayCnt($uid)==''){
+            $result = 'Error001';
+            $message = '잘못된 접근입니다.';
+        }else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $message = '잘못된 토큰입니다.';
+        } else if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $message = '로그인이 필요합니다.';
+        } else if($sessinarr['user']['grade'] != AUTH_MASTER) {
+            $result = 'Error003';
+            $message = '마스터 권한이 없습니다. ';
+        } else if($sessinarr['user']['grade'] == AUTH_MASTER) {
+            $common_m = model('Common_m');
+            $userinfo = $common_m->Load_UserInfo($uid);
+            if(fn_ArrayCnt($userinfo)>0){
+                $passwd = 123123;
+                $Cnt = $common_m->Update_User_Passwd($uid,$passwd);
+                if($Cnt > 0){
+                    $result = 'ok';
+                    $message = '';
+                }else{
+                    $result = 'Error004';
+                    $message = '정보 수정에 실패하였습니다.';
+                }
+            }else{
+                $result = 'Error005';
+                $message = '존재하지 않는 계정 입니다. ';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'message' => $message
+        ];
+        return $this->respond($return);
     }
 
 

@@ -103,7 +103,7 @@ class Product_m extends Model
 
     public function Load_Product_Match($code,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_product_matching WHERE fk_pdcode=:PDCODE: ORDER BY seq ASC";
+        $sql = "SELECT {$separated_val},(SELECT shop_name from tbl_mall_info WHERE shoptyp=a.ex_type) AS shopname FROM tbl_product_matching a WHERE fk_pdcode=:PDCODE: ORDER BY seq ASC";
         $bindparam = [
             'PDCODE'=> $code,
         ];

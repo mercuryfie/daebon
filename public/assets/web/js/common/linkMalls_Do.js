@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-    Make_Html();
+    Make_Html('API');
 
     $('.period').click(function(e) {
         e.preventDefault();
@@ -62,21 +62,21 @@ $(document).ready(function() {
         });
     });
 
-    $('#btn_showlog').on('click',function(){
-        let checked = $('input[name="styp"]:checked');
-        if (checked.length == 0) {
-            Make_Toast('로그를 확인하실 쇼핑몰을 선택하세요.');
-        }else if(checked.length > 1) {
-            Make_Toast('로그를 확인하실 쇼핑몰 하나만 선택하세요.');
-        }else{
-            let shoptype = $('input[name="styp"]:checked').val();
-            console.log(shoptype);
-            go_linkMallsLogs(shoptype);
-        }
+    $(document).on('click','button[name="btn_showlog"]',function(){
+        let shoptype = $(this).data('typ');
+        console.log(shoptype);
+        go_linkMallsLogs(shoptype);
     });
 
     $('#btn_mall').on('click',function(){
         Make_Toast('API 테스트중입니다.');
+    });
+
+    $(document).on('click','button[name="btn_loadshop"]',async function(){
+        let shoptype = $(this).data('typ');
+        console.log(shoptype);
+        let arr = await Load_Shop_Order_List(shoptype);
+        console.log(arr);
     });
 
 
@@ -84,8 +84,30 @@ $(document).ready(function() {
 
 });
 
-async function Make_Html(){
-    let arr = await Load_Data();
+async function Load_Shop_Order_List(styp){
+    let data = {};
+    try {
+        start_spinner();
+        let dataarr = {styp:styp};
+        let url = APIURL + '/Shop_Opder_List';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            data = result.get('data').list;
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+    return data;
+}
+
+async function Make_Html(skey){
+    let arr = await Load_Data(skey);
 
     console.log(arr);
     let html = '';
@@ -113,9 +135,6 @@ async function Make_Html(){
 
             html += `
                     <tr>
-                        <td class="ltTbody">
-                            <input type="checkbox" name="styp" value="${el.shoptyp}">
-                        </td>
                         <td class="ltTbody">${el.shop_name}</td>
                         <td class="ltTbody">${el.shop_id}</td>
                         <td class="ltTbody">${el.method}</td>
@@ -124,12 +143,12 @@ async function Make_Html(){
                         <td class="ltTbody">${indate2}</td>
                         <td class="ltTbody">${status2}</td>
                         <td class="ltTbody">
-                            <button type="button" class="btnType3">
+                            <button type="button" class="btnType3" name="btn_showlog" data-typ="${el.shoptyp}">
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                         </td>
                         <td class="ltTbody">
-                            <button type="button" class="btnType3">
+                            <button type="button" class="btnType3" name="btn_loadshop" data-typ="${el.shoptyp}">
                                 <i class="fa-solid fa-link"></i>
                             </button>
                         </td>
@@ -149,7 +168,7 @@ async function Load_Data(skey){
     let data = {};
     try {
         start_spinner();
-        let dataarr = {};
+        let dataarr = {typ:skey};
         let url = APIURL + '/Load_Mall_List';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {

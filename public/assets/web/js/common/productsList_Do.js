@@ -1,5 +1,11 @@
 $(document).ready(function() {
-    Make_Html('');
+
+    let search = '';
+    const data = {
+        skey : search,
+        page : $('#cpage').data('page')
+    };
+    Make_Html(search);
 
 
     $(document).on('click','button[name="btn_process"]',async function(){
@@ -331,7 +337,7 @@ async function Data_Edit(param){
         }
         stop_spinner();
     } catch (error) {
-        Make_Toast('33오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
         stop_spinner();
     }
 }
@@ -553,7 +559,7 @@ async function Data_Load(skey){
         }
         stop_spinner();
     } catch (error) {
-        Make_Toast('22오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
         stop_spinner();
     }
     return r_arr;

@@ -1362,18 +1362,35 @@ main {
 }
 
 .fbox1-1, .fbox2-1 {
-    width: 150px;
+    width: 320px;
     height: 40px;
     display: flex;
     flex-flow: column;
     position: absolute;
-    top:60px;
-    left:40px;
+    top:30px;
+    right:40px;
+    border:1px solid mediumpurple;
 }
+
+
+.fbox1-1 .dd {
+    border:1px solid mediumpurple;
+
+}
+/*.fbox1-1 .amount,*/
+/*.fbox2-1 .amount,*/
+.fbox1-1 .unit,
+.fbox2-1 .unit{
+    font-size: 14px;
+    padding-left: 20px;
+    /*text-align: right;*/
+}
+
 .fcbox {
     width: 150px;
     height: 20px;
     display: flex;
+    /*justify-content: flex-end;*/
     align-items: center;
 }
 .fcbox p {
@@ -1406,8 +1423,9 @@ main {
     width: 840px;
     height: 420px;
     position: absolute;
-    top:120px;
+    top:100px;
     left:40px;
+    /*border:1px solid red;*/
 }
 
 .fbox1-2 .label,
@@ -1423,7 +1441,7 @@ main {
     width: 840px;
     height: 420px;
     position: absolute;
-    top:0px;
+    top:-10px;
     left:0;
     text-wrap: nowrap;
 

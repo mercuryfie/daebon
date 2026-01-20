@@ -41,7 +41,7 @@ function generateNewCode(typ) {
 
     if(typ==1) {
         let timeNow = new Date().toISOString().slice(0, 10).replace(/-/g, ''); // YYYYMMDD
-        let rnd = Math.floor(Math.random() * 9000) + 1000; // 10000~99999
+        let rnd = Math.floor(Math.random() * 90000) + 10000; // 10000~99999
         return 'DBG' + timeNow + rnd;
     }else if(typ==2){
         let timeNow = new Date().toISOString().slice(0, 10).replace(/-/g, ''); // YYYYMMDD

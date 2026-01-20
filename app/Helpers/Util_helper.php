@@ -72,15 +72,6 @@ function fn_formatmobile($phone)
 
 
 
-function fn_toIso8601Kst(string $dateStr): string
-{
-    // '2025-12-30 143944' → '2025-12-30 14:39:44' 변환
-    $normalized = preg_replace('/(\d{2})(\d{2})(\d{2})$/', '$1:$2:$3', $dateStr);
-
-    $date = new DateTimeImmutable($normalized, new DateTimeZone('Asia/Seoul'));
-    return $date->format('Y-m-d\TH:i:s.vP');
-}
-
 
 /** 자리수에 맞춰서 0넣기 */
 function fn_padNumber($num, $targetLength) {

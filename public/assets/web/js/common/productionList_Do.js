@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     let search = '';
     const data = {
         skey : search
@@ -131,7 +132,7 @@ async function Data_Load(data){
     let r_arr = {};
     try {
         start_spinner();
-        let dataarr = {"param" : data};
+        let dataarr = {"skey" : data};
         let url = APIURL + '/Load_Instructions_Info';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {

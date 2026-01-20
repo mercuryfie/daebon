@@ -34,7 +34,8 @@ class Member_m extends Model
     public function Load_UserIDAPWD_Info($Param,$fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_member WHERE is_use=:ISUSE: and userid = :USERID:   AND passwd = PASSWORD(:PWD:);";
+        $sql = "SELECT {$separated_val} FROM tbl_member WHERE is_use=:ISUSE: and userid = :USERID:  AND passwd = PASSWORD(:PWD:);";
+
         $bindparam = [
             'USERID' => $Param['userid'],
             'PWD' => $Param['passwd'],

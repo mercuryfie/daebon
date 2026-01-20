@@ -133,7 +133,7 @@ async function Load_Before(skey){
         }
         stop_spinner();
     } catch (error) {
-        Make_Toast('11오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
         stop_spinner();
     }
 }

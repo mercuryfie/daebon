@@ -74,11 +74,16 @@ class Common_m extends Model
     }
 
 
-    public function Load_Mall_List($fields=['ALL'])
+    public function Load_Mall_List($typ,$fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_mall_info order by seq ASC;";
+        if($typ==''){
+            $sql = "SELECT {$separated_val} FROM tbl_mall_info order by seq ASC;";
+        }else {
+            $sql = "SELECT {$separated_val} FROM tbl_mall_info WHERE method=:METHOD:  order by seq ASC;";
+        }
         $bindparam = [
+            'METHOD' => $typ
         ];
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
@@ -106,5 +111,99 @@ class Common_m extends Model
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
     }
+
+
+    public function Load_UserList ($fields=['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_member where is_use=:IS_USE: order by uid DESC;";
+        $bindparam = [
+            'IS_USE' => 1
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Load_UserInfo ($uid,$fields=['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_member where uid=:UID: and is_use=:IS_USE:";
+        $bindparam = [
+            'UID' => $uid,
+            'IS_USE' => 1
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Insert_UserInfo ($param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_member');
+
+        if (!empty($param['passwd'])) {
+            $builder->set('passwd', "PASSWORD('{$param['passwd']}')", false);
+            unset($param['passwd']);
+        }
+
+        $builder->insert($param);
+        $insertID = $this->db->insertID();
+        $this->db->transComplete();
+
+        return $insertID;
+    }
+
+    public function Update_UserInfo($uid,$param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_member');
+        $builder->where('uid',$uid);
+        $builder->update($param);
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+    public function Update_ResetPw($uid,$param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_member');
+        $builder->where('uid',$uid);
+        $builder->update($param);
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+    public function Delete_UserInfo($uid){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_member');
+        $builder->where('uid',$uid);
+        $builder->delete();
+
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+    public function Update_User_Passwd($uid,$passwd){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_member');
+        $builder->set('passwd', "PASSWORD('{$passwd}')", FALSE);
+//        $hash = password_hash($passwd, PASSWORD_BCRYPT);
+
+//        $builder->set('passwd', $hash);
+        $builder->where('uid', $uid);
+        $builder->update();
+
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+
+
+
 
 }

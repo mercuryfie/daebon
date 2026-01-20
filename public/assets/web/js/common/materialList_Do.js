@@ -112,7 +112,6 @@ $(document).ready(function() {
         Load_Data(data);
     });
 
-
     $(document).on('click','button[name="btn_search"]',function(){
         const data = {
             skey : $('#mkey').val(),
@@ -426,6 +425,7 @@ async function Load_Data(data) {
             let data = result.get('data');
             let tCnt = data.tCnt;
             let arr = (data && data.list) ? data.list : [];
+            console.log('dawn1050',arr);
             let Cnt = arr.length;
             if (Cnt > 0) {
                 $.each(arr, function (index, el) {

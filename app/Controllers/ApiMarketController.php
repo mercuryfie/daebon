@@ -17,6 +17,58 @@ class ApiMarketController extends BaseController
 {
     use ResponseTrait;
 
+
+    public function Shop_Opder_List(){
+        $sessinarr = $this->GetSessionData();
+        $shoptyp  = ($this->request->getPost('styp') == '') ? '' : $this->request->getPost('styp');
+        $token = ($this->request->getPost('token') == '') ? '' : $this->request->getPost('token');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else if($shoptyp==''){
+            $result = 'Error003';
+            $data = [];
+            $message = '필수 입력값이 누락되었습니다.';
+        }else {
+            if($shoptyp=='type1'){
+                $maker_m = model('Market_m');
+                $param = ['shoptyp' => $shoptyp];
+                $Rs = $maker_m->getMallLog($param);
+                if(fn_ArrayCnt($Rs)>0){
+                    $startdate =  explode(' ', $Rs[0]['indate'])[0].'%2B09:00';
+                }else{
+                    $startdate = fn_NowDateFormat(2).'%2B09:00';
+                }
+                $enddate = fn_NowDateFormat(2).'%2B09:00';
+                $coupang = new CoupangApi();
+                $order = $coupang->Get_Order_Period($startdate,$enddate,'ACCEPT',$token);
+                if($order['code']==200){
+                    $i_arr = ['list' => $order['data']];
+                    $result = 'ok';
+                    $data =$i_arr;
+                    $message = '';
+                }else{
+                    $result = 'error';
+                    $data = '';
+                    $message = $order['message'];
+                }
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
     public function Coupang_Order_Period(){
         $coupang = new CoupangApi();
 
@@ -154,5 +206,6 @@ class ApiMarketController extends BaseController
             ])->setStatusCode(500);
         }
     }
+
 
 }

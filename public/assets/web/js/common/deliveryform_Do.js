@@ -1,8 +1,15 @@
 $(document).ready(function() {
 
-    Make_Barcode('filtcd','code39');
-    Make_Barcode('delicode','code128');
-    Make_Barcode2('delicode2','code128');
+    // Make_Barcode('filtcd','code39');
+    // Make_Barcode('delicode','code128');
+    // Make_Barcode2('delicode2','code128');
+
+    let filtcd = $('#filtcd').data('code');
+    JsBarcode("#filtcd", filtcd, {format: "CODE39",displayValue: false});
+
+    let delicode = $('#delicode1').data('code');
+    JsBarcode("#delicode1", delicode, {format: "ITF",  width: 1.2,height:40,displayValue: false});
+    JsBarcode("#delicode2", delicode, {format: "ITF",  width: 1.2,height:40,displayValue: false});
 
     $('#btn_print').on('click',async function(){
         printWindow('prn_body');

@@ -6,6 +6,7 @@ namespace App\Controllers;
 use App\Libraries\Auth;
 use App\Libraries\CoupangApi;
 use App\Libraries\ElevenStreetApi;
+use App\Libraries\LotteDeliveryApi;
 use App\Libraries\NaverApi;
 use App\Libraries\EsmApi;
 use CodeIgniter\API\ResponseTrait;
@@ -17,6 +18,17 @@ class ApiMarketController extends BaseController
 {
     use ResponseTrait;
 
+    public function Make_Delivery_Code(){
+        $lotte = new LotteDeliveryApi();
+        $deliarr = $lotte->Make_Delivery_Code();
+
+        $commom_m = model('Common_m');
+        $Cnt = $commom_m->Insert_Delivery_Code($deliarr);
+
+        echo($Cnt);
+
+    }
+    
 
     public function Shop_Opder_List(){
         $sessinarr = $this->GetSessionData();

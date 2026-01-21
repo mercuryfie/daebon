@@ -20,17 +20,35 @@ class LotteDeliveryApi
     {
         $this->http = \Config\Services::curlrequest();
         if(ENVIRONMENT=='production'){
-            $this->superCustCd = '336421';
-            $this->jobCustCd = '336421';
+            $this->superCustCd = '289163';
+            $this->jobCustCd = '289163';
             $this->baseUrl = 'https://apigw.llogis.com:10100/api';
             $this->accessToken = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJDMDE0MDI1IiwiYXVkIjoiQzAxNDAyNSIsIm5hbWUiOiJkam1lZGkiLCJleHAiOjE1MzUxMzU1OTk5OTksImlhdCI6MTY5MDI1ODEwMH0.U9ZrVxawqDX1SiQbgoXCLI5kVcYG7qHt7ymlx88VcT4';
         }else{
-            $this->superCustCd = '336421';
+            $this->superCustCd = '289163';
             $this->jobCustCd = '101000';
             $this->baseUrl = 'http://devapigw.llogis.com:10110/api';
             $this->accessToken = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJDMDEwNjE5IiwiYXVkIjoiQzAxMDYxOSIsIm5hbWUiOiJkam1lZGkiLCJleHAiOjE1MzUxMzU1OTk5OTksImlhdCI6MTY5MDI1NzYwNX0.Gk4md4iQhEFdSuHst3NZosTbbM1b1PrBdPLXDm4hrfY';
         }
     }
+
+    public function Make_Delivery_Code11(){
+
+        $start=31810365581;
+        $end=31810385580;
+
+        $m=0;
+        $deli_arr = [];
+        for($i=$start;$i<=$end;$i++){
+            $t_mod=$i%7;
+            $deli_code=$i.$t_mod;
+
+            $deli_arr[] = [ 'dcode' => $deli_code, 'typ' => 'lotte'];
+            $m++;
+        }
+        return $deli_arr;
+    }
+
 
     public function Get_Delivery_Info($orcode,$prtyp)
     {
@@ -362,50 +380,6 @@ class LotteDeliveryApi
         }
     }
 
-
-
-    public function generateInvoicesFromRange($startRange, $endRange, $quantity = 1)
-    {
-        if(!$this->validateRange($startRange,$endRange)) {
-            throw new \Exception('유효하지 않은 대역폭');
-        }
-        $invoices = [];
-        $current = $startRange;
-        for($i = 0; $i < $quantity; $i++) {
-            $invoice = $this->createInvoice($current);
-            $invoices[] = $invoice;
-            $current = $this->nextNumber($current);
-        }
-
-        return $invoices;
-
-    }
-
-    private function createInvoice($base15)
-    {
-        // Check Digit Mod7 (최적화)
-        $sum = 0;
-        for($i = 0; $i < 11; $i++) {
-            $sum += (int) $base15[$i];
-        }
-        $checkDigit = $sum % 7;
-
-        $fullNum = substr($base15, 0, 12) . $checkDigit;
-        return $this->format($fullNum);
-    }
-
-    private function nextNumber($current)
-    {
-        $prefix = substr($current, 0, -3);
-        $last3 = (int) substr($current, -3) + 1;  // 최적화!
-        return $prefix . str_pad($last3, 3, '0', STR_PAD_LEFT);
-    }
-
-    private function validateRange($startRange,$endRange)
-    {
-        return strlen($startRange) === 15 && strlen($endRange) === 15 && $startRange <= $endRange;
-    }
-
     private function Get_Delivery_Code(){
         $del_code = '';
         $delivery_m = model('Delivery_m');
@@ -414,40 +388,6 @@ class LotteDeliveryApi
             $del_code = $Rs[0]['dcode'];
         }
         return $del_code;
-    }
-
-    private function formatDeliveryCode($code)
-    {
-        $numbers = preg_replace('/[^0-9]/', '', $code);
-
-        if(strlen($numbers) === 12) {
-            return substr($numbers, 0, 4) . '-' .
-                substr($numbers, 4, 4) . '-' .
-                substr($numbers, 8, 4);
-        }
-
-        // 다른 길이 대응
-        return str_pad($numbers, 12, '0', STR_PAD_LEFT);
-    }
-
-    private function maskPhoneNumber($phone)
-    {
-        $clean = preg_replace('/[^0-9]/', '', $phone);
-
-        if(strlen($clean) !== 11) {
-            return $phone;  // 유효하지 않으면 원본
-        }
-
-        if(strpos($phone, '-') !== false) {
-            $parts = explode('-', $phone);
-            if(count($parts) === 3) {
-                return $parts[0] . '-' . $parts[1] . '-****';
-            }
-        }
-
-        return substr($clean, 0, 3) . '-' .    // 010
-            substr($clean, 3, 4) . '-' .    // 3443
-            '****';
     }
 
     private function Load_API($endpoint, $data)

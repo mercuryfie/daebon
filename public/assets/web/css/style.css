@@ -1518,11 +1518,13 @@ input[type="radio"] {
 
 .areaBox .area1 .period:nth-child(1),
 .areaBox .area1 .period:nth-child(2),
-.areaBox .area1 .period:nth-child(3),
-.areaBox .area1 .period:nth-child(4){
+.areaBox .area1 .period:nth-child(3) {
     border-right: none;
 }
 
+.deli_wrapghj .areaBox .area1 .period:nth-child(4) {
+    border-right: none;
+}
 .areaBox .area2 .right,
 .areaBox .area1 .right {
     min-width: 240px;
@@ -4912,24 +4914,15 @@ input[type="radio"] {
 }
 
 .waybill_boxfxp .paddingBox .left .area1 .barBox {
-
-    width: 160px;
-    height:60px;
+    width: 140px;
+    height:40px;
     overflow: hidden;
-
     position: absolute;
-    top: 0px;
-    left: 130px;
+    top: 5px;
+    left: 140px;
+    padding:2px;
 }
 
-.waybill_boxfxp .paddingBox .left .area1 .barBox canvas {
-    /*position: absolute;*/
-    /*top:0px;*/
-    width: 160px;
-    height:60px;
-
-
-}
 .waybill_boxfxp .paddingBox .left .area1 {
     margin-left: 10px;
 }
@@ -4976,7 +4969,7 @@ input[type="radio"] {
 .waybill_boxfxp .paddingBox .left .barBox2 {
     position: relative;
     margin-top: 10px;
-    width: 280px;
+    width: 290px;
     height: 60px;
 }
 
@@ -4984,22 +4977,13 @@ input[type="radio"] {
 }
 
 .waybill_boxfxp .paddingBox .left .barBox2 .barBb1 {
-    width:50%;
+    width:160px !important;
     margin-right: 10px;
     position: absolute;
-    top:0px;
-    left: -10px;
+    top: -10px;
+    left: 0px;
     z-index: 20;
-
-}
-
-
-.waybill_boxfxp .paddingBox .left .barBox2 .barBb1 canvas {
-    /*position: absolute;*/
-    /*top:0px;*/
-    /*left:0;*/
-
-
+    padding: 2px;
 
 }
 
@@ -5009,13 +4993,13 @@ input[type="radio"] {
     /*width: 160px;*/
     position: absolute;
     top:0;
-    left:200px;
+    left:180px;
     z-index: 20;
 
 }
 
 .waybill_boxfxp .paddingBox .left .barBox2 .barBb2 .text {
-    font-size: 13px;
+    font-size: 16px;
     height:20px;
     line-height: 20px;
     font-weight: bold;
@@ -5081,24 +5065,18 @@ input[type="radio"] {
 
 .waybill_boxfxp .right .area5 {
     overflow: hidden;
-    width: 420px;
+    width: 360px;
     height: 60px;
     position: relative;
 }
 
 .waybill_boxfxp .right .area5 .barBox5 {
     position: absolute;
-    top:50%;
-    transform: translateY(-50%);
-    left:120px;
-    width: 60%;
+    /*top:50%;*/
+    /*transform: translateY(-50%);*/
+    left:160px;
+    width:220px;
     height: 60px;
-    overflow: hidden;
-}
-
-.waybill_boxfxp .right .area5 .barBox5 canvas {
-    object-fit: contain;
-
 }
 
 .waybill_boxfxp .right .area5 .text1 {
@@ -5737,12 +5715,6 @@ input[type="radio"] {
 
 }
 
-/*.odRoast_boxfxp {*/
-/*    max-width: 100px !important;*/
-/*    border:1px solid red !important;*/
-/*    overflow: hidden;*/
-/*}*/
-
 
 @media print {
 
@@ -5949,11 +5921,18 @@ input[type="radio"] {
 
     .waybill_inner .paddingBox .left .area1 {
         position: relative;
-        height: 20mm;
-
+        height: 16mm;
     }
+
     .waybill_inner .paddingBox .left .area1 .barBox {
         /*position: relative;*/
+        /*width: 60mm;*/
+        /*height: 12mm;*/
+    }
+    .waybill_inner .paddingBox .left .area1 .barBox svg{
+        /*width: 60mm;*/
+        /*height: 12mm;*/
+
     }
 
     .waybill_inner .paddingBox .left .area1 .left1 {
@@ -5967,14 +5946,10 @@ input[type="radio"] {
         position: absolute;
         top:0;
         left:40mm;
-        width: 45mm;
-        height: 20mm;
+        padding: 1mm;
+        width: 50mm;
+        height: 18mm;
 
-    }
-    .waybill_inner .paddingBox .left .area1 .barBox canvas {
-        /*margin-left: -5mm;*/
-        width: 45mm;
-        height: 20mm;
     }
 
     .waybill_inner .paddingBox .left .area2 {
@@ -6025,17 +6000,17 @@ input[type="radio"] {
     .waybill_inner .paddingBox .left .barBox2 .barBb1 {
         margin-right: 2mm;
         position: absolute;
-        top:0;
-        left:-3mm;
-        width:62mm;
-        height: 15mm;
+        top:-2mm;
+        left:-2mm;
+        width:55mm;
+        height: 20mm;
 
     }
+    .waybill_inner .paddingBox .left .barBox2 .barBb1 svg {
+        width:55mm;
+        height: 20mm;
 
-    .waybill_inner .paddingBox .left .barBox2 .barBb1 canvas {
-        width:62mm;
-        height: 15mm;
-        /*object-fit: cover;*/
+
     }
 
     .waybill_inner .paddingBox .left .barBox2 .barBb2 {
@@ -6106,8 +6081,9 @@ input[type="radio"] {
     }
 
     .waybill_inner .right .area5 {
-        overflow: hidden;
+        /*overflow: hidden;*/
         position: relative;
+        width: 100mm;
         height: 12mm;
         margin-top: 5mm;
     }
@@ -6119,16 +6095,18 @@ input[type="radio"] {
 
     .waybill_inner .right .area5 .barBox5 {
         position: absolute;
-        top:0mm;
+        top: -5mm;
         right:0;
-        width: 60%;
-        overflow: hidden;
+        width: 45mm;
+        height: 20mm;
+        padding: 1mm;
     }
 
-    .waybill_inner .right .area5 .barBox5 canvas {
-        object-fit: contain;
-    }
+    .waybill_inner .right .area5 .barBox5 svg {
+        width: 45mm;
+        height: 20mm;
 
+    }
     .waybill_inner .right .area5 .text1 {
         /*margin-top: 40px;*/
         /*margin-left: 20px;*/

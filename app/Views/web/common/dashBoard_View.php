@@ -126,9 +126,9 @@
                                     class="GaugeMeter3 gaugapapa"
                                     id="GaugeMeter_103"
                                     data-back="rgba(174,174,174,0.5)"
-                                    data-label="작업대기"
+                                    data-label="쿠팡"
                                     data-label_color="#FFF"
-                                    data-size="70"
+                                    data-size="60"
                                     data-style="Arch"
                                     data-width="8"
                                     data-showvalue="true"
@@ -145,9 +145,9 @@
                                         class="GaugeMeter3 gaugapapa"
                                         id="GaugeMeter_104"
                                         data-back="rgba(174,174,174,0.5)"
-                                        data-label="진행중"
+                                        data-label="옥션"
                                         data-label_color="#FFF"
-                                        data-size="70"
+                                        data-size="60"
                                         data-style="Arch"
                                         data-width="8"
                                         data-showvalue="true"
@@ -164,9 +164,47 @@
                                         class="GaugeMeter3 gaugapapa"
                                         id="GaugeMeter_105"
                                         data-back="rgba(174,174,174,0.5)"
-                                        data-label="완료"
+                                        data-label="지마켓"
                                         data-label_color="#FFF"
-                                        data-size="70"
+                                        data-size="60"
+                                        data-style="Arch"
+                                        data-width="8"
+                                        data-showvalue="true"
+                                        data-min="0"
+                                        data-total="100"
+                                        data-stripe="3"
+                                        data-used="80"
+                                        data-theme="White"
+                                        data-append=""
+                                >
+                                    <p class="line1-1">200</p>
+                                </div>
+                                <div
+                                        class="GaugeMeter3 gaugapapa"
+                                        id="GaugeMeter_105"
+                                        data-back="rgba(174,174,174,0.5)"
+                                        data-label="11번가"
+                                        data-label_color="#FFF"
+                                        data-size="60"
+                                        data-style="Arch"
+                                        data-width="8"
+                                        data-showvalue="true"
+                                        data-min="0"
+                                        data-total="100"
+                                        data-stripe="3"
+                                        data-used="80"
+                                        data-theme="White"
+                                        data-append=""
+                                >
+                                    <p class="line1-1">200</p>
+                                </div>
+                                <div
+                                        class="GaugeMeter3 gaugapapa"
+                                        id="GaugeMeter_105"
+                                        data-back="rgba(174,174,174,0.5)"
+                                        data-label="카카오"
+                                        data-label_color="#FFF"
+                                        data-size="60"
                                         data-style="Arch"
                                         data-width="8"
                                         data-showvalue="true"
@@ -420,68 +458,69 @@
         <section class="footer">
             <div class="fbox fbox1">
                 <p>원자재 재고 현황</p>
-                <div class="fbox1-1 flexType2">
-                    <div class="dd">
-                        <div class="fcbox fcbox1">
+                <div class="fbox1-1">
+                    <div class="fcbox fcbox1 flexCol3">
+                        <div class="labelBox labelBox1 flexType5-1">
+                            <p class="amount mr10">적정재고수량</p>
                             <div class="fcircle fcircle1"></div>
-                            <p>적정재고수량</p>
                         </div>
-                        <div class="fcbox fcbox2">
+                        <div class="labelBox labelBox2 flexType5-1">
+                            <p class="amount mr10">현 재고량</p>
                             <div class="fcircle fcircle2"></div>
-                            <p>현 재고량</p>
                         </div>
+                        <p class="unit">(단위:%)</p>
                     </div>
-                    <p class="unit">(단위:건)</p>
-                </div>
-                <div class="fbox1-2">
-<!--                    <p class="label">(단위:건)</p>-->
-<!--                    <canvas id="barChart"></canvas>-->
-                    <canvas id="m_barChart"></canvas>
-                </div>
-                <div class="pagebox">
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
+                    <div class="fcbox fcbox2">
+    <!--                    <p class="label">(단위:건)</p>-->
+    <!--                    <canvas id="barChart"></canvas>-->
+                        <canvas id="m_barChart"></canvas>
+                    </div>
+                    <div class="pagebox">
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
 
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                    </div>
                 </div>
             </div>
 
             <div class="fbox fbox2">
                 <p>제품 재고 현황</p>
                 <div class="fbox2-1">
-                    <div class="fcbox fcbox1 ">
-                        <div class="fcircle fcircle1"></div>
-                        <p class="amount">적정재고수량</p>
+                    <div class="fcbox fcbox1 flexCol3">
+                        <div class="labelBox labelBox1 flexType5-1">
+                            <p class="amount mr10">적정재고수량</p>
+                            <div class="fcircle fcircle1"></div>
+                        </div>
+                        <div class="labelBox labelBox2 flexType5-1">
+                            <p class="amount mr10">현 재고량</p>
+                            <div class="fcircle fcircle3"></div>
+                        </div>
+                        <p class="unit">(단위:%)</p>
                     </div>
                     <div class="fcbox fcbox2">
-                        <div class="fcircle fcircle3"></div>
-                        <p class="amount">현 재고량</p>
+                        <canvas id="p_barChart"></canvas>
                     </div>
-                    <p class="unit">(단위:건)</p>
-                </div>
-                <div class="fbox2-2">
-                    <canvas id="p_barChart"></canvas>
-                </div>
-                <div class="pagebox">
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
+                    <div class="pagebox">
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
 
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                </div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                        <div class="pages"></div>
+                    </div>
             </div>
         </section>
     </div>

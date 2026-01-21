@@ -333,16 +333,14 @@ function stop_spinner(){
 
 
 function printWindow(id) {
-    var printContent = document.getElementById(id).innerHTML;
-    var printWindow = window.open('', '', 'width=800,height=600');
-    var rnd = Math.floor(Math.random() * 10000);
+    let printContent = document.getElementById(id).innerHTML;
+    let printWindow = window.open('', '', 'width=800,height=600');
+    let rnd = Math.floor(Math.random() * 10000);
     printWindow.document.write('<html><head><title>Print</title>');
-    // 외부 CSS파일 링크 - 문법 오류 없이 닫기
     printWindow.document.write("<link rel='stylesheet' href='/assets/web/css/style.css?rnd=" + rnd + "' />");
-    // 꼭 필요한 스타일 직접 삽입 (불안할 경우, 예: 테이블 border 등)
-    // printWindow.document.write('<style>@media print { table, th, td { border:1px solid black !important; } }</style>');
     printWindow.document.write('</head><body>');
     printWindow.document.write(printContent);
+    console.log('dawn1307',printContent);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.onload = function() {

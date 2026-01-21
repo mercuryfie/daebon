@@ -159,6 +159,7 @@ $routes->match(['GET', 'POST'], 'Api/Load_Delivery_Data', 'ApiOrderController::L
 $routes->match(['GET', 'POST'], 'Api/Put_Packing_Info', 'ApiPackingController::Put_Packing_Info');
 
 $routes->match(['GET', 'POST'], 'Api/Shop_Opder_List', 'ApiMarketController::Shop_Opder_List');
+$routes->match(['GET', 'POST'], 'Api/Make_Delivery_Code', 'ApiMarketController::Make_Delivery_Code');
 
 
 $routes->match(['GET', 'POST'], 'Api/coupong_api_no1', 'ApiShopController::coupong_api_GetOrderPeriod');

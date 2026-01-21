@@ -190,9 +190,6 @@ class Common_m extends Model
         $this->db->transStart();
         $builder = $this->db->table('tbl_member');
         $builder->set('passwd', "PASSWORD('{$passwd}')", FALSE);
-//        $hash = password_hash($passwd, PASSWORD_BCRYPT);
-
-//        $builder->set('passwd', $hash);
         $builder->where('uid', $uid);
         $builder->update();
 
@@ -202,7 +199,14 @@ class Common_m extends Model
         return $affected_rows;
     }
 
+    public function Insert_Delivery_Code($param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_delivery_code');
+        $affected = $builder->insertBatch($param);
+        $this->db->transComplete();
 
+        return $affected;
+    }
 
 
 

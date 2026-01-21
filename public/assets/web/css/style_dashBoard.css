@@ -474,19 +474,21 @@ main {
     background-color: transparent;
     /*font-family:'Chakra Petch', 'Gmarket Sans' !important;*/
     font-family: 'chakra petch', 'Electrolize', 'Gmarket Sans' ;
-    font-size: 22px !important;
+    font-size: 18px !important;
     font-weight: 500;
     text-align: center;
+    width: 72px;
 
 
 }
 
 .GaugeMeter3 b  {
-    width: 72px;
+    width: 60px;
     height: 32px;
     position: absolute;
     top:20px;
     left:0px;
+    border:1px solid red;
     /*left:50%;*/
     /*transform: translateX(-50%);*/
     background-color: transparent;
@@ -584,21 +586,26 @@ main {
 }
 
 .leftbox {
-    width: 360px;
+    width: 380px;
     height: 110px;
     display: flex;
     position: relative;
     justify-content: flex-start;
     margin-top: 10px;
     margin-left: 20px;
+    border:1px solid red;
 
 }
 
 .rightbox .gaugapapa,
 .leftbox .gaugapapa {
-    margin-right: 30px;
+    margin-right: 20px;
 }
 
+.rightbox .gaugapapa:last-child,
+.leftbox .gaugapapa:last-child {
+    margin-right: 0;
+}
 
 /*예비조제주문현황*/
 .rightbox {
@@ -1335,23 +1342,21 @@ main {
     width:925px;
     height: 620px;
     border-radius: 5px;
+    /*position: relative;*/
+    border:1px solid yellow;
 }
 
 .fbox1 {
     margin-right: 10px;
-    position: relative;
-}
-
-.fbox2 {
-    position: relative;
 }
 
 .fbox>p {
-    position: absolute;
-    top:20px;
-    left:20px;
+    /*position: absolute;*/
+    /*top:20px;*/
+    /*left:20px;*/
     font-weight: bold;
     font-size: 18px;
+    margin: 20px 0 10px 20px;
 }
 
 /* logo10 area--------------------------------- */
@@ -1361,43 +1366,54 @@ main {
     justify-content: center;
 }
 
-.fbox1-1, .fbox2-1 {
-    width: 320px;
-    height: 40px;
-    display: flex;
-    flex-flow: column;
-    position: absolute;
-    top:30px;
-    right:40px;
-    border:1px solid mediumpurple;
+.fbox1-1,
+.fbox2-1 {
+    width:925px;
+    height: 560px;
+    /*display: flex;*/
+    /*flex-flow: column;*/
+    /*position: absolute;*/
+    /*top:30px;*/
+    /*right:40px;*/
+    /*top:60px;*/
+    /*left:60px;*/
+    border: 1px solid red;
+    position: relative;
+
 }
 
-
-.fbox1-1 .dd {
-    border:1px solid mediumpurple;
-
-}
 /*.fbox1-1 .amount,*/
 /*.fbox2-1 .amount,*/
 .fbox1-1 .unit,
 .fbox2-1 .unit{
     font-size: 14px;
-    padding-left: 20px;
-    /*text-align: right;*/
+    text-align: right;
 }
 
-.fcbox {
-    width: 150px;
-    height: 20px;
-    display: flex;
+.fcbox1 {
+    width: 220px;
+    height: 60px;
+    border:1px solid red;
+    position: absolute;
+    top:0;
+    right:60px;
+    /*left:0;*/
+    /*display: flex;*/
     /*justify-content: flex-end;*/
-    align-items: center;
+    /*align-items: center;*/
 }
-.fcbox p {
+
+.fcbox1 .amount,
+.fcbox1 .unit {
     font-size: 14px;
     font-family: 'noto sans kr';
     font-weight: 300;
 }
+
+.fcbox1 .unit {
+    margin-right: 20px;
+}
+
 .fcircle {
     width: 10px;
     height: 10px;
@@ -1418,88 +1434,44 @@ main {
 }
 
 /* 원자재재고현황 Chart, 제품재고현황 Chart */
-.fbox1-2,
-.fbox2-2 {
-    width: 840px;
-    height: 420px;
-    position: absolute;
-    top:100px;
-    left:40px;
-    /*border:1px solid red;*/
-}
 
-.fbox1-2 .label,
-.fbox2-2 .label {
-    position: absolute;
-    top:-32px;
-    right:0;
+.fcbox2  {
+    width: 800px;
+    height: 400px;
+    position: absolute ;
+    top:60px;
+    left:50%;
+    transform: translateX(-50%);
+    border:1px solid blue;
 }
 
 .fbox1-2 #m_barChart,
-.fbox2-2 #p_barChart{
+.fbox2-2 #p_barChart {
     /*border:1px solid mediumpurple;*/
-    width: 840px;
-    height: 420px;
-    position: absolute;
-    top:-10px;
-    left:0;
-    text-wrap: nowrap;
+    /*width: 840px !important;*/
+    /*height: 420px !important;*/
+    /*position: absolute !important;*/
+    /*top:-10px;*/
+    /*left:0;*/
+    /*text-wrap: nowrap;*/
+    /*border:1px solid blue;*/
 
 }
 
-.fbox2-2 {
-
+.fbox2-2 canvas {
+    /*border:1px solid red;*/
 }
 
-.fbox1-2 p,
-.fbox2-2 p {
-    width: 200px;
-    height: 20px;
-    text-align: right;
-    font-size: 14px;
-    font-family: 'noto sans kr';
-    /*margin-left: 240px;*/
-    font-weight: 300;
-    position: absolute;
-    top:10px;
-    right:10px;
-}
-
-/* mode 1,2,3,4 */
+    /* mode 1,2,3,4 */
 .fbox1-3, .fbox2-3 {
     width: 100px;
     position: absolute;
     top:40px;
     right: 40px;
 }
-.fbox1-3>p,
-.fbox2-3>p {
-    background-color: #ececec21;
-    width: 80px;
-    height: 30px;
-    line-height: 30px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 14px;
-    font-family: 'noto sans kr';
-}
-.fbox1-3>p:nth-child(1),
-.fbox2-3>p:nth-child(1) {
-    font-weight: 500;
-    background:linear-gradient(to left,rgb(249, 74, 249), rgb(80, 42, 248));
-}
 
+.fbox2 .pagebox,
 .fbox1 .pagebox {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    bottom:20px;
-    left:53%;
-    transform: translateX(-53%);
-}
-
-.fbox2 .pagebox {
     display: flex;
     justify-content: center;
     position: absolute;

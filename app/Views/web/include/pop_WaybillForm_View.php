@@ -1,9 +1,9 @@
 <?= $this->extend("/web/template/layout_none") ?>
 <?= $this->section("content") ?>
-<script src="<?=URL_COMMON_ASSETS?>/jquery-barcode.js"> </script>
+
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 <script src="<?=URL_COMMON_ASSETS?>/deliveryform_Do.js?rnd=<?=rand();?>"> </script>
 
-<?php print_r($body)?>
 <section class="content waybill_content" >
     <input type="hidden" id="pop_orcode" name="pop_orcode" value="<?=$body['fk_orcode'];?>"/>
     <input type="hidden" id="pop_delicode" name="pop_delicode" value="<?=fn_formatInvoiceNumber($body['fk_dcode']);?>" />
@@ -20,7 +20,7 @@
                              <p class="text text2"><?=$body['r_city_gun_gu']?> <?=$body['r_dong']?></p>
                          </div>
                          <div class="left2 barBox flexType2">
-                             <div id="filtcd" name="filtcd" class="barcodeArea" data-code="<?=$body['r_filt_cd']?>" style=""></div>
+                             <svg id="filtcd" name="filtcd" class="barcodeArea" data-code="<?=$body['r_filt_cd']?>" style=""></svg>
                          </div>
                      </div>
                      <div class="area area2 ">
@@ -42,7 +42,7 @@
                      </div>
                      <div class="area barBox2 flexType3">
                          <div class="barBb barBb1">
-                             <div id="delicode" name="delicode" class="barcodeArea" data-code="<?=$body['fk_dcode']?>" style=""></div>
+                             <svg id="delicode1" name="delicode1" class="barcodeArea" data-code="<?=$body['fk_dcode']?>"  ></svg>
                          </div>
                          <div class="barBb barBb2 flexCol3 mr10">
                              <p class="text text1"><?=$body['r_brnshp_nm']?></p>
@@ -70,10 +70,10 @@
                          <p class="text text1" id="" name="s_name"><?= $body['s_name'];?></p>
                          <p class="text text2"> <?=$body['s_phone']?></p>
                      </div>
-                     <div class="area area5 flexType2">
+                     <div class="area area5 flexType3">
                          <p class="text text1"><?=$body['fk_dcode']?></p>
                          <div class="barBox5 flexType1">
-                             <div id="delicode2" name="delicode2" class="barcodeArea" data-code="<?=$body['fk_dcode']?>" style=""></div>
+                             <svg id="delicode2" name="delicode2" class="barcodeArea" data-code="<?=$body['fk_dcode']?>" style=""></svg>
                          </div>
                      </div>
                      <div class="area area6 flexType3">

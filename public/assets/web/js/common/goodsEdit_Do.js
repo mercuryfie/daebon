@@ -395,7 +395,7 @@ async function Make_Html() {
         let shortDate = img[0].indate.split(' ')[0].replace(/-/g, '');
         html += ` 
             <div class="thumBox" name="thumBox" id="thumBox">
-              <img src="/assets/upload/goods/` + shortDate + `/`+ img[0].fname + `" alt="img" class="addedImg">
+              <img src="/uploads/goods/` + shortDate + `/`+ img[0].fname + `" alt="img" class="addedImg">
               <button type="button" class="delete-btn" onclick="">
                  <i class="fa-solid fa-xmark"></i>
               </button>   
@@ -412,7 +412,7 @@ async function Make_Html() {
             html += `
                 <div class="mached flexType2" data-extype="${el.ex_type}" name="mached">
                     <p class="code" name="m_code">${el.fk_excode}</p>
-                    <p class="market" name="m_market">${getNameByCode(el.ex_type)}</p>
+                    <p class="market" name="m_market">${el.shopname}</p>
                     <i class="fa-solid fa-xmark" name="mached_del"></i>
                 </div>
             `;

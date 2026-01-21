@@ -1266,9 +1266,7 @@ class ApiController extends BaseController
 
     public function Load_MaterialList(){
 
-//        $data  = ($this->request->getPost('data') == '') ? '' : $this->request->getPost('data');
         $data = $this->request->getPost('data') ?? [];
-
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
             $result = 'NoLogin';
@@ -1284,7 +1282,6 @@ class ApiController extends BaseController
 
             $material_m = model('Material_m');
 
-//            $mRs = ($skey=='') ? $material_m->Load_MaterialList_All() : $material_m->Load_Material_Search($skey);
             if ($skey == '' && $fkey == 0) {
                 $mRs = $material_m->Load_MaterialList_All();
             } else if ($skey != '') {

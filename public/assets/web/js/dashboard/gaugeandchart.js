@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['전체','결명자','계피','구기자','노니','당귀','대추','도꼬마리','도라지','돼지감자','두충' ],
+            labels: ['전체','결명자','계피','구기자','노니','당귀','대추','도꼬마리','도라지','돼지감자' ],
             datasets: [{
                 label: '전체',
                 data: [120,100,80,60,40,20],
@@ -248,7 +248,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-
     // 제품 재고 현황
     const ctx2 = document.getElementById('p_barChart');
     new Chart(ctx2, {
@@ -257,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
             labels: ['전체','결명자','계피','구기자','노니','당귀','대추','도꼬마리','도라지','돼지감자','두충','도꼬마리','도라지','돼지감자','두충'  ],
             datasets: [{
                 label: '전체',
-                data: [500,400,300,200,100],
+                data: [120,100,80,60,40,20],
                 borderWidth: 1,
                 borderColor:'transparent',
                 fill:true,

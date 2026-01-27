@@ -30,6 +30,32 @@ $(document).on('click', '.copied', function (e) {
     }
 });
 
+function delivery_name_masking(name)
+{
+    var reNameS="";
+    name=name.trim();
+    var nlen=name.length;
+    if(nlen==1){
+        reNameS=name;
+    }else if(nlen==2){
+        reNameS=name.substring(0,1)+"*";
+    }else if(nlen==3){
+        reNameS=name.substring(0,1)+"*"+name.substring(2,3);
+    }else if(nlen==4){
+        reNameS=name.substring(0,1)+"*"+name.substring(2,3)+"*";
+    }else if(nlen>=5){
+        var len=nlen-4;
+        var restar="";
+        for(i=0;i<len;i++)
+        {
+            restar+="*";
+        }
+        reNameS=name.substring(0, 4)+restar;
+    }
+    return reNameS;
+}
+
+
 function formatDate(d) {
     const year = d.getFullYear();
     const month = ('0' + (d.getMonth() + 1)).slice(-2);
@@ -340,7 +366,6 @@ function printWindow(id) {
     printWindow.document.write("<link rel='stylesheet' href='/assets/web/css/style.css?rnd=" + rnd + "' />");
     printWindow.document.write('</head><body>');
     printWindow.document.write(printContent);
-    console.log('dawn1307',printContent);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.onload = function() {

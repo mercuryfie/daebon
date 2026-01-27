@@ -328,8 +328,8 @@ function go_userRegister(){
     $(location).attr("href", url);
 }
 
-function go_userEditor(){
-    let url = "/info/usereditor";
+function go_userEditor(uid,grade){
+    let url = "/info/usereditor?uid="+uid+"&grade="+grade;
     $(location).attr("href", url);
 }
 
@@ -338,9 +338,18 @@ function go_userList(){
     $(location).attr("href", url);
 }
 
+function go_noticeList(){
+    let url = "/info/noticelist";
+    $(location).attr("href", url);
+}
 
-function go_notice(){
-    let url = "/info/notice";
+function go_noticeRegister(){
+    let url = "/info/noticeregister";
+    $(location).attr("href", url);
+}
+
+function go_noticeEditor(bcode){
+    let url = "/info/noticeeditor?cd="+bcode;
     $(location).attr("href", url);
 }
 

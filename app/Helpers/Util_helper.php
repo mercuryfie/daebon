@@ -36,6 +36,7 @@ function fn_NowDateFormat($typ){
 }
 
 
+
 /** 송장번호 반환
  * 317957255781  -> 3179-5725-5781
  * 3179-5725-5781 -> 그대로 반환
@@ -722,18 +723,15 @@ function validate_ip($ip): bool
 /**
  * 접속자 ip
  */
+
 function fn_getClientIp(): string
 {
-    // CI4 환경 우선 (프록시 자동 처리)
-    if (function_exists('service')) {
-        $request = service('request');
-        $ip = $request->getIPAddress();
-        if ($request->isValidIP($ip) && validate_ip($ip)) {
-            return $ip;
-        }
-    }
+    $request = service('request');
+    $ip = $request->getIPAddress();
 
-    // 순수 PHP (원본 로직 + trim 개선)
+    if (filter_var($ip, FILTER_VALIDATE_IP) && validate_ip($ip)) {
+        return $ip;
+    }
     $ip_keys = [
         'HTTP_CLIENT_IP',
         'HTTP_X_FORWARDED_FOR',
@@ -745,10 +743,11 @@ function fn_getClientIp(): string
     ];
 
     foreach ($ip_keys as $key) {
-        if (!empty($_SERVER[$key] ?? '')) {
-            $forwarded_ips = explode(',', $_SERVER[$key]);
-            foreach (array_map('trim', $forwarded_ips) as $ip) {
-                if (validate_ip($ip)) {
+        if (!empty($_SERVER[$key])) {
+            $ips = explode(',', $_SERVER[$key]);
+            foreach ($ips as $ip) {
+                $ip = trim($ip);
+                if (filter_var($ip, FILTER_VALIDATE_IP) && validate_ip($ip)) {
                     return $ip;
                 }
             }
@@ -757,5 +756,3 @@ function fn_getClientIp(): string
 
     return $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 }
-
-

@@ -32,6 +32,17 @@ class LotteDeliveryApi
         }
     }
 
+
+    public function getInIInfo(){
+        return [
+            'superCustCd' =>$this->superCustCd,
+            'jobCustCd' => $this->jobCustCd,
+            'baseUrl' => $this->baseUrl,
+            'accessToken' => $this->accessToken
+        ];
+
+    }
+
     public function Make_Delivery_Code11(){
 
         $start=31810365581;

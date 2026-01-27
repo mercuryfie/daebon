@@ -1,5 +1,30 @@
 <?php
 
+function put_Shop_Api_Log($shotype,$request_status,$request_url,$request_endpoint,$request_query,$request_method,$response_json){
+    $api = model('Api_m');
+
+    if (is_array($request_query) || is_object($request_query)) {
+        $request_query = json_encode($request_query, JSON_UNESCAPED_UNICODE);
+    }
+    if (is_array($response_json) || is_object($response_json)) {
+        $response_json = json_encode($response_json, JSON_UNESCAPED_UNICODE);
+    }
+
+    $param = [
+        'fk_shoptyp' => $shotype,
+        'request_status' => $request_status,
+        'request_url' => $request_url,
+        'request_endpoint' => $request_endpoint,
+        'request_query' => $request_query,
+        'request_method' => $request_method,
+        'response_json' => $response_json
+    ];
+    $Cnt = $api->Insert_API_Log($param);
+
+    return $Cnt;
+
+}
+
 function get_Delivery_ConfirmByOrcode($model,$orcode){
     $data = [];
     $Rs = $model->Load_Order_Package_Info($orcode);
@@ -694,14 +719,14 @@ function fnProcess_Arr(){
 }
 
 
-function fnMake_Material_option($cval,$typ)
+function fnMake_Material_option($ctyp,$typ)
 {
     $html = '';
     $material_m = model('Material_m');
     $cRs = $material_m->Load_MaterialList_Type($typ);
     if(fn_ArrayCnt($cRs)>0) {
         foreach ($cRs as $d) {
-            if ($cval == $d['mtcode']) {
+            if ($ctyp == $d['mtcode']) {
                 $html .= "<option value='{$d['mtcode']}' selected>{$d['mtname']}</option>";
             } else {
                 $html .= "<option value='{$d['mtcode']}' >{$d['mtname']}</option>";
@@ -710,6 +735,26 @@ function fnMake_Material_option($cval,$typ)
     }else{
         $html = '';
     }
+    return $html;
+}
+
+function fnMake_UserGrade_option($gtyp) {
+    $html = '';
+
+    $gradeMap = [
+        1101 => '마스터',
+        1102 => '작업자 - 배송',
+        1103 => '작업자 - 생산'
+    ];
+
+    foreach ($gradeMap as $grade => $grade_str) {
+        if ($gtyp == $grade) {
+            $html .= "<option value='{$grade}' selected>{$grade_str}</option>";
+        } else {
+            $html .= "<option value='{$grade}'>{$grade_str}</option>";
+        }
+    }
+
     return $html;
 }
 
@@ -723,15 +768,19 @@ function fnGetProductNameByCode($code) {
     return null;
 }
 
+
+
 function fnProducts_Arr(){
     $t_arr = [
         ['code' => 'A001', 'name' => '원물볶음차'],
         ['code' => 'A002', 'name' => '삼각티백차'],
-        ['code' => 'A003', 'name' => '농축액']
+        ['code' => 'A003', 'name' => '농축액'],
+        ['code' => 'A004', 'name' => '선물세트']
     ];
 
     return $t_arr;
 }
+
 
 function fnMake_Products_Type($c_type){
     $html = '';
@@ -938,10 +987,11 @@ function fnMake_Menu_name() {
         ['url' => '/monitor/workstatus','name' => '작업진행현황', 'link' => 'go_workStatus();'],
         ['url' => '/monitor/processstatus','name' => '공정별진행현황', 'link' => 'go_processStatus();'],
     ];
+
     static $menus7 = [
         ['url' => '/info/userregister','name' => '사용자등록', 'link' => 'go_userRegister();'],
         ['url' => '/info/userlist','name' => '사용자목록', 'link' => 'go_userList();'],
-        ['url' => '/info/notice','name' => '공지사항', 'link' => 'go_notice();']
+        ['url' => '/info/notice','name' => '공지사항', 'link' => 'go_noticeList();']
     ];
 
     $menu = [

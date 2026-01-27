@@ -28,12 +28,12 @@
             <div class="area area3 flexType2">
                 <p class="must"></p>
                 <p class="title">비밀번호</p>
-                <input type="password" class="inputBorder " placeholder="영문,숫자 8-12자리" id="pw_1" name="pw_1">
+                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_1" name="pw_1">
             </div>
             <div class="area area4 flexType2">
                 <p class="must"></p>
                 <p class="title">비밀번호 확인</p>
-                <input type="password" class="inputBorder " placeholder="영문,숫자 8-12자리" id="pw_2" name="pw_2">
+                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_2" name="pw_2">
             </div>
             <div class="area area4 flexType2">
                 <p class="must"></p>

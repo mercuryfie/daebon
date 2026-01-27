@@ -15,7 +15,6 @@
         </div>
         <div class="areaBox  ">
             <div class="area area1 ">
-
 <!--                <input type="search" name="mkey" id="mkey" class="searchArea" placeholder="아이디 검색">-->
                 <button type="button" class="btnType2" id="add_btn" name="add_btn" onclick="go_userRegister();">계정등록</button>
 
@@ -25,10 +24,11 @@
                     <thead>
                         <tr>
                             <td>아이디</td>
-                            <td>아이디</td>
+                            <td>이름</td>
                             <td>권한</td>
-                            <td>pw초기화</td>
-                            <td>계정삭제</td>
+                            <td class="narrow">수정</td>
+                            <td class="narrow">pw초기화</td>
+                            <td class="narrow">계정삭제</td>
                         </tr>
                     </thead>
                     <tbody id="ulist" name="ulist">

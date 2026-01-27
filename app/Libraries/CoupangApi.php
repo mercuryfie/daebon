@@ -8,16 +8,16 @@ class CoupangApi
 {
     private $accessKey;
     private $secretKey;
-    private $baseapi;
+    private $baseapi = 'https://api-gateway.coupang.com';
     private $httpClient;
     private $vendorid;
+    private $shopType = 'type1';
 
     public function __construct()
     {
         $this->accessKey = 'a9adfe13-f559-42cf-bd61-48eef9af6028';
         $this->secretKey = 'eaf19f45a0a79d964044c52368c88005e18a17e9';
         $this->vendorid = 'A00061018';
-        $this->baseapi = 'https://api-gateway.coupang.com';
 
         $this->httpClient = Services::curlrequest();
     }
@@ -32,37 +32,45 @@ class CoupangApi
         }else{
             $query = "createdAtFrom={$sdate}&createdAtTo={$edate}&maxPerPage={$max}&status={$status}&nextToken={$nextToken}";
         }
+
         return $this->callApi($method, $path, $query);
     }
 
     private function callApi($method,$path,$query,$data = [] )
     {
-        if($method=='POST'){
-            $apiurl = $this->baseapi . $path;
-        }else if($method=='GET'){
-            $apiurl = $this->baseapi . $path .'?'. $query;
-        }
-        $authorization = $this->Make_Authorization($method,$path,$query);
-        $headers = [
-            'Content-Type' => 'application/json;charset=UTF-8',
-            'Authorization' => $authorization,
-            'X-EXTENDED-TIMEOUT' => '60000'
-        ];
-        $options = [
-            'headers' => $headers,
-            'timeout' => 90,
-            'connect_timeout' => 30,
-            'http_errors' => false
-        ];
-        if ($data && in_array($method, ['POST', 'PUT'])) {
-            $options['json'] = $data;
-        }
+        try {
+            if ($method == 'POST') {
+                $apiurl = $this->baseapi . $path;
+            } else if ($method == 'GET') {
+                $apiurl = $this->baseapi . $path . '?' . $query;
+            }
+            $authorization = $this->Make_Authorization($method, $path, $query);
+            $headers = [
+                'Content-Type' => 'application/json;charset=UTF-8',
+                'Authorization' => $authorization,
+                'X-EXTENDED-TIMEOUT' => '60000'
+            ];
+            $options = [
+                'headers' => $headers,
+                'timeout' => 90,
+                'connect_timeout' => 30,
+                'http_errors' => false
+            ];
+            if ($data && in_array($method, ['POST', 'PUT'])) {
+                $options['json'] = $data;
+            }
 
-        $response = $this->httpClient->request($method, $apiurl, $options);
+            $response = $this->httpClient->request($method, $apiurl, $options);
 
-        //$body = $response->getBody();
-        $body =  $this->Sample_order();
-        return json_decode($body, true);
+            $body = $response->getBody();
+            $Cnt = put_Shop_Api_Log($this->shopType, 'Success', $this->baseapi, $path, $query, $method, $body);
+            //$body =  $this->Sample_order();
+            return json_decode($body, true);
+        } catch (\Exception $e) {
+            log_message('error', '[COUPANG API Error] ' . $e->getMessage());
+            $Cnt = put_Shop_Api_Log($this->shopType, 'Error', $this->baseapi, $path, $query, $method, $body);
+            throw new Exception("Coupan Request Failed: " . $e->getMessage());
+        }
     }
 
 

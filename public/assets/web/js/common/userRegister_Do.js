@@ -1,15 +1,14 @@
 $(document).ready(function() {
-
-
     $('#btn_dup').on('click',function(){
 
         let userid = $('#userid').val();
-        Dup_Id_Check(userid);
+        let pw_2 = $('#pw_2').val();
+        Dup_Id_Check(userid,pw_2);
 
     })
 });
 
-let isDupChecked = false;
+// let isDupChecked = false;
 let lastCheckedUserId = '';
 
 async function add_Account() {
@@ -18,18 +17,22 @@ async function add_Account() {
     // let poptext = '등록';
     // let bool = false;
     let userid = $('#userid').val();
+    let pw_2 = $('#pw_2').val();
 
-    if (!isDupChecked) {
+
+    let dupResult = await Dup_Id_Check(userid, pw_2);
+    if (dupResult == false ) {
         Make_Toast('아이디 중복확인을 먼저 해주세요.');
-    } else if (userid !== lastCheckedUserId) {
-        Make_Toast('아이디 변경 후 다시 중복확인 해주세요.');
-        isDupChecked = false;
-    } else {
+        return;
+    } else if (userid != lastCheckedUserId) {
+        Make_Toast('아이디 중복확인 다시 해주세요.');
+        return;
+    } else if (dupResult == true){
         try {
             let userid = $('#userid').val();
             let u_name = $('#u_name').val();
             let pw_1 = $('#pw_1').val();
-            let pw_2 = $('#pw_2').val();
+            // let pw_2 = $('#pw_2').val();
             let grade = $('#grade').val();
 
             if (pw_1 !== pw_2) {
@@ -59,9 +62,6 @@ async function add_Account() {
                     pw_2: pw_2,
                     grade: grade
                 };
-                console.log('dawn1421', dataarr);
-                // let isOk = await Add_UserInfo(dataarr);
-                // Add_UserInfo(dataarr);
                 let bool = await Add_UserInfo(dataarr);
                 if (bool == true) {
                 // if (isOk) {
@@ -74,20 +74,34 @@ async function add_Account() {
         } catch (error) {
             Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
         }
+    } else {
+        Make_Toast('오류가 발생하였습니다. ');
+
     }
 }
 
-function validateUserId(id) {
+function validateId(id) {
     const reg = /^[a-zA-Z0-9]{4,12}$/;
     return reg.test(id);
 }
 
-async function Dup_Id_Check(userid) {
+function validatePw(pw) {
+    const reg = /^[a-zA-Z0-9]{4,12}$/;
+    return reg.test(pw);
+}
+
+async function Dup_Id_Check(userid,pw_2) {
+    // let isDupChecked = false;
     let bool = false;
 
-    if (!validateUserId(userid)) {
-        Make_Toast('영문/숫자 4~12자 이내로 입력하세요.');
-        isDupChecked = false;
+    if (!validateId(userid)) {
+        Make_Toast('아이디: 영문/숫자 4~12자 이내.');
+        return false;
+    }
+
+    if (!validatePw(pw_2)) {
+        Make_Toast('비밀번호: 영문/숫자 4~12자 이내.');
+        return false;
     }
 
     try {
@@ -95,25 +109,24 @@ async function Dup_Id_Check(userid) {
         let dataarr = {"userid" : userid};
         let url = APIURL + '/Check_UserId';
         let result = await Load_API_Auth(url,dataarr);
-        console.log('dawn1452',result);
         if (result.get('status') == 'ok') {
-            isDupChecked = true;
+            stop_spinner();
             lastCheckedUserId = userid;
             Make_Toast('사용 가능한 아이디입니다.');
             bool = true;
         } else {
-            isDupChecked = false;
+            stop_spinner();
             Make_Toast('이미 사용 중인 아이디입니다.');
+            // isDupChecked = false;
             return false;
         }
-        stop_spinner();
     } catch (error) {
-        isDupChecked = false;
+        stop_spinner();
+        // isDupChecked = false;
         Make_Toast('중복 확인 중 오류가 발생했습니다.');
         return false;
-    } finally {
-        stop_spinner();
     }
+    return bool;
 
 }
 
@@ -126,60 +139,6 @@ async function Add_UserInfo(data){
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'ok') {
             bool = true;
-            // let info = result.get('result');
-            // console.log('dawn1706',info);
-            // console.log('dawn1707',result);
-            // arr = (info && info.list) ? info.list : [];
-        }else{
-            console.log('dawn1708',result);
-            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
-        }
-        stop_spinner();
-    } catch (error) {
-        Make_Toast('오류가 발생하였습니다. 다시 시도하여 주세요.\n[ERROR : ' + error + '}');
-        stop_spinner();
-    }
-    return bool;
-}
-
-async function Mod_Data(data,code){
-    let arr = [];
-    try {
-        start_spinner();
-        let dataarr = {"data" : data};
-        let url = APIURL + '/Mod_Maker_Info';
-        let result = await Load_API_Auth(url,dataarr);
-        let html = '';
-        if (result.get('status') == 'NoLogin') {
-            go_login();
-        }else if(result.get('status') == 'ok') {
-            let data = result.get('data');
-            arr = (data && data.list) ? data.list : [];
-            $('#addMakerWrap').css('display','none');
-
-            Make_Toast('등록되었습니다. ');
-        }else{
-            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
-        }
-        stop_spinner();
-    } catch (error) {
-        Make_Toast('오류가 발생하였습니다. 다시 시도하여 주세요.\n[ERROR : ' + error + '}');
-        stop_spinner();
-    }
-    return arr;
-}
-
-async function Del_Data(code){
-    let bool = false;
-    try {
-        start_spinner();
-        let dataarr = {"code" : code};
-        let url = APIURL + '/Del_Maker_Info';
-        let result = await Load_API_Auth(url,dataarr);
-        if (result.get('status') == 'NoLogin') {
-            go_login();
-        }else if(result.get('status') == 'ok') {
-            bool = true;
         }else{
             Make_Toast(result.get('message') + "[" + result.get('status') + "]");
         }
@@ -190,3 +149,52 @@ async function Del_Data(code){
     }
     return bool;
 }
+//
+// async function Mod_Data(data,code){
+//     let arr = [];
+//     try {
+//         start_spinner();
+//         let dataarr = {"data" : data};
+//         let url = APIURL + '/Mod_Maker_Info';
+//         let result = await Load_API_Auth(url,dataarr);
+//         let html = '';
+//         if (result.get('status') == 'NoLogin') {
+//             go_login();
+//         }else if(result.get('status') == 'ok') {
+//             let data = result.get('data');
+//             arr = (data && data.list) ? data.list : [];
+//             $('#addMakerWrap').css('display','none');
+//
+//             Make_Toast('등록되었습니다. ');
+//         }else{
+//             Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+//         }
+//         stop_spinner();
+//     } catch (error) {
+//         Make_Toast('오류가 발생하였습니다. 다시 시도하여 주세요.\n[ERROR : ' + error + '}');
+//         stop_spinner();
+//     }
+//     return arr;
+// }
+//
+// async function Del_Data(code){
+//     let bool = false;
+//     try {
+//         start_spinner();
+//         let dataarr = {"code" : code};
+//         let url = APIURL + '/Del_Maker_Info';
+//         let result = await Load_API_Auth(url,dataarr);
+//         if (result.get('status') == 'NoLogin') {
+//             go_login();
+//         }else if(result.get('status') == 'ok') {
+//             bool = true;
+//         }else{
+//             Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+//         }
+//         stop_spinner();
+//     } catch (error) {
+//         Make_Toast('오류가 발생하였습니다. 다시 시도하여 주세요.\n[ERROR : ' + error + '}');
+//         stop_spinner();
+//     }
+//     return bool;
+// }

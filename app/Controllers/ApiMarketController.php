@@ -4,11 +4,14 @@ namespace App\Controllers;
 
 
 use App\Libraries\Auth;
+use App\Libraries\Cafe24Api;
 use App\Libraries\CoupangApi;
 use App\Libraries\ElevenStreetApi;
 use App\Libraries\LotteDeliveryApi;
+use App\Libraries\LotteOnApi;
 use App\Libraries\NaverApi;
 use App\Libraries\EsmApi;
+use App\Libraries\SsgAPI;
 use CodeIgniter\API\ResponseTrait;
 use Firebase\JWT\JWT;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -18,6 +21,50 @@ class ApiMarketController extends BaseController
 {
     use ResponseTrait;
 
+    public function getInIInfo(){
+        $lotte = new LotteDeliveryApi();
+        $arr = $lotte->getInIInfo();
+        print_r($arr);
+    }
+
+
+    public function ESM_Order_Period(){
+        $sessinarr = $this->GetSessionData();
+        $siteinfo  = ($this->request->getPost('site') == '') ? '' : $this->request->getPost('site');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else if($siteinfo==''){
+            $result = 'Error003';
+            $data = [];
+            $message = '검색하실 사이트를 선택하세요.';
+        }else {
+
+
+            $result = 'ok';
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+
+
+    }
+
+
+
+    /**
+     * 롯데택배 송장번호 생성
+     */
     public function Make_Delivery_Code(){
         $lotte = new LotteDeliveryApi();
         $deliarr = $lotte->Make_Delivery_Code();
@@ -28,7 +75,6 @@ class ApiMarketController extends BaseController
         echo($Cnt);
 
     }
-    
 
     public function Shop_Opder_List(){
         $sessinarr = $this->GetSessionData();
@@ -47,28 +93,88 @@ class ApiMarketController extends BaseController
             $data = [];
             $message = '필수 입력값이 누락되었습니다.';
         }else {
-            if($shoptyp=='type1'){
-                $maker_m = model('Market_m');
-                $param = ['shoptyp' => $shoptyp];
-                $Rs = $maker_m->getMallLog($param);
-                if(fn_ArrayCnt($Rs)>0){
-                    $startdate =  explode(' ', $Rs[0]['indate'])[0].'%2B09:00';
-                }else{
-                    $startdate = fn_NowDateFormat(2).'%2B09:00';
-                }
-                $enddate = fn_NowDateFormat(2).'%2B09:00';
+            $maker_m = model('Market_m');
+            $param = ['shoptyp' => $shoptyp];
+            $Rs = $maker_m->getMallLog($param);
+            if (fn_ArrayCnt($Rs) > 0) {
+                $s_date = $Rs[0]['indate'];
+            } else {
+                $s_date = fn_NowDateFormat(1);
+            }
+            if($shoptyp=='type1') {
                 $coupang = new CoupangApi();
-                $order = $coupang->Get_Order_Period($startdate,$enddate,'ACCEPT',$token);
-                if($order['code']==200){
+                $startdate = explode(' ', $s_date)[0] . '%2B09:00';
+                $enddate = fn_NowDateFormat(2) . '%2B09:00';
+                $order = $coupang->Get_Order_Period($startdate, $enddate, 'ACCEPT', $token);
+
+                if ((!empty($order)) && ($order['code'] == 200)) {
                     $i_arr = ['list' => $order['data']];
                     $result = 'ok';
-                    $data =$i_arr;
+                    $data = $i_arr;
                     $message = '';
-                }else{
+                } else {
                     $result = 'error';
                     $data = '';
-                    $message = $order['message'];
+                    $message = (!empty($order)) ? $order['message'] : '통신오류';
                 }
+            }else if($shoptyp=='type2'){
+                $site = 'au';
+                $esm = new EsmApi($site);
+                $startdate = explode(' ', $s_date)[0];
+                $enddate = fn_NowDateFormat(2);
+                $data = $esm->getOrderList($startdate,$enddate);
+                $result = 'ok';
+                $message = '';
+            }else if($shoptyp=='type3'){
+                $site = 'gm';
+                $esm = new EsmApi($site);
+                $startdate = explode(' ', $s_date)[0];
+                $enddate = fn_NowDateFormat(2);
+                $data = $esm->getOrderList($startdate,$enddate);
+                $result = 'ok';
+                $message = '';
+            }else if($shoptyp=='type4') {
+                $startdate = date('YmdHi', strtotime($s_date));
+                $enddate = date('YmdHi', strtotime(fn_NowDateFormat(1)));
+
+                $eleven = new ElevenStreetApi();
+                $data = $eleven->getNewOrders($startdate,$enddate);
+                //$data = $eleven->getNewOrders2($startdate, $enddate);
+
+                $result = 'ok';
+                $message = '';
+            }else if($shoptyp=='type6') {
+                $startdate = date('Y-m-d', strtotime('-7 days', strtotime($s_date)));
+                $enddate = fn_NowDateFormat(2);
+
+                $cafe = new Cafe24Api();
+                $data = $cafe->getOrders($startdate,$enddate);
+                $result = 'ok';
+                $message = '';
+            }else if($shoptyp=='type8') {
+                $startdate = date('Y-m-d\TH:i:s.vP', strtotime('-1 days', strtotime($s_date)));
+                $enddate = date('Y-m-d\TH:i:s.vP');
+
+                $naver = new NaverApi();
+                $orderIds = $naver->getChangedOrderIds($startdate,$enddate);
+                $data = $naver->getParsedOrderDetails($orderIds);
+                $result = 'ok';
+                $message = '';
+            }else if($shoptyp=='type13') {
+                $startdate = date('Ymd000000', strtotime('-7 days', strtotime($s_date)));
+                $enddate = date('Ymd235959');
+
+                $lotte = new LotteOnApi();
+                $data = $lotte->getOrderList($startdate,$enddate);
+                $result = 'ok';
+                $message = '';
+            }else if($shoptyp=='type14') {
+                $startdate = date('Y-m-d', strtotime('-7 days', strtotime($s_date)));
+                $enddate = fn_NowDateFormat(2);
+                $ssg = new SsgAPI();
+                $data = $ssg->getShppDirectionList($startdate,$enddate);
+                $result = 'ok';
+                $message = '';
             }
         }
 

@@ -43,6 +43,7 @@ input[type="search"] {
     --color8: #5EFF5B80;
     --color9: #FB622BFF;
     --color10: #42b983;
+    --color10-20: #42b98320;
 
     /*dashBoard color start */
     --color11: #110D22;
@@ -587,6 +588,7 @@ input[type="radio"] {
 }
 
 .login .inputcon input {
+    padding-left: 10px;
     border-radius: 5px;
     border:1px solid #ccc;
     width: 380px;
@@ -1980,7 +1982,7 @@ input[type="radio"] {
 .areaBox .area4 .linkMallsTable,
 .deliInfoTable {
     border:1px solid #ccc;
-    margin-left: 20px;
+    /*margin-left: 20px;*/
     border-collapse: collapse;
     color:#303030;
     width: 81vw;
@@ -2138,6 +2140,33 @@ input[type="radio"] {
 
 }
 
+/* missingList_View start -------------------------------- */
+
+.missing_list_table {
+    border-collapse: collapse;
+    width: 80vw;
+    text-align: center;
+
+}
+
+.missing_list_table td{
+    border:1px solid #ccc;
+    /*height: 32px;*/
+    padding: 5px 0;
+    height: auto;
+}
+
+.missing_list_table .data_box {
+    display: none;
+}
+
+.missing_list_table .data_box .data {
+    height: 32px;
+    line-height: 32px;
+}
+
+
+/* missingList_View end -------------------------------- */
 
 /* producingStatus start -------------------------------- */
 
@@ -2266,6 +2295,7 @@ input[type="radio"] {
 
 /* goods register lastBox start  -------------------------------- */
 
+.user_edit_wrap .lastBox .btnType1,
 .user_reg_wrap .lastBox .btnType1,
 .oinfo_box23e .lastBox .btnType1,
 .mas_box23f .lastBox .btnType1,
@@ -2277,6 +2307,7 @@ input[type="radio"] {
 
 }
 
+.user_edit_wrap .lastBox .btnType2,
 .user_reg_wrap .lastBox .btnType2,
 .oinfo_box23e .lastBox .btnType2,
 .mas_box23f .lastBox .btnType2,
@@ -3371,7 +3402,7 @@ input[type="radio"] {
     border:1px solid #ccc;
     border-radius: 5px;
     color:#5c5c5c;
-    background-color: transparent;
+    background-color: #fff;
     width: auto;
     padding: 0 10px;
     height: 24px;
@@ -5224,6 +5255,10 @@ input[type="radio"] {
     border:1px solid #ccc;
 }
 
+.user_list_table td.narrow {
+    width: 100px;
+}
+
 .user_list_table .btnType3 {
     padding: 0 10px;
     height: 24px;
@@ -5240,6 +5275,245 @@ input[type="radio"] {
 }
 
 /* userList_View end -------------------------------- */
+/* userEditor_View start -------------------------------- */
+
+
+.user_edit_wrap {
+    /*border:none;*/
+    /*margin: 0 auto;*/
+    width: 80vw;
+}
+
+.user_edit_wrap .titleBox {
+    /*margin: 0 auto;*/
+    /*margin-bottom: 20px;*/
+    width: 80vw;
+    /*border-bottom: 2px solid #ccc;*/
+    /*text-align: center;*/
+
+}
+
+.user_edit_wrap .titleBox .headTitle {
+    padding: 20px 0 20px 30px;
+    font-size: 22px;
+
+}
+
+.user_edit_wrap .lastBox,
+.user_edit_wrap .areaBox {
+    /*border:none;*/
+    /*margin: 0 auto;*/
+    width:80vw;
+}
+.user_edit_wrap .area {
+    padding: 10px 0px 10px 20px;
+    /*width: 80vw;*/
+
+}
+
+.user_edit_wrap .area .notmust,
+.user_edit_wrap .area .must {
+    margin-right: 10px;
+}
+
+.user_edit_wrap .area .title {
+    width: 120px;
+    height: 32px;
+    margin-right: 20px;
+}
+
+.user_edit_wrap .btnType3 {
+    padding:0 10px;
+    height: 32px;
+}
+
+.user_edit_wrap .area .inputBorder {
+    width: 340px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.user_edit_wrap .area4 {
+    align-items: center;
+}
+
+.user_edit_wrap .area5 .thumBox {
+    border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    position: relative;
+}
+
+.user_edit_wrap .area5 .thumBox img {
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+
+/* userEditor_View end -------------------------------- */
+/* noticeList_View start -------------------------------- */
+
+.notice_list_table {
+    border-collapse: collapse;
+    width: 80vw;
+    text-align: center;
+
+}
+
+.notice_list_table th {
+    background-color: #ececec60;
+}
+
+.notice_list_table th,
+.notice_list_table td{
+    font-weight: normal;
+    border:none;
+    border-bottom:1px solid #ececec;
+
+    height: 40px;
+}
+
+.notice_list_table th.num {
+    width: 80px;
+}
+
+.notice_list_table th.name,
+.notice_list_table th.date {
+    width: 220px;
+}
+
+.notice_list_table .type {
+    margin: 0 auto;
+    border-radius: 5px;
+    border:1px solid var(--color10);
+    color:var(--color10);
+    width: 40px;
+    height: 28px;
+    line-height: 28px;
+}
+
+.notice_list_table .fixed {
+    background-color: #3ae04120;
+}
+
+.notice_list_box .area1 .selBox,
+.notice_list_box .area1 .title {
+    margin-bottom: 10px;
+
+}
+
+.notice_list_box .area1 .titleBox .msg {
+    font-size: 14px;
+    color:#5c5c5c;
+}
+
+.notice_list_box .area1 .title {
+    padding-left: 10px;
+    margin-right: 10px;
+    font-size: 18px;
+    background-color: #f5f6f8;
+    color:#5c5c5c;
+    border:none;
+    border-radius: 5px;
+    width: 690px;
+    height:40px;
+
+}
+
+.notice_list_box .area1 .checkType {
+    cursor: pointer;
+    margin-bottom: 10px;
+    /*width: 32px;*/
+    /*height: 32px;*/
+    font-size: 16px;
+
+}
+
+.notice_list_box .area1 textarea {
+    /*display: none;*/
+}
+
+.notice_list_box .area1 .add_msg {
+    padding-left: 10px;
+    width: 32px;
+
+
+}
+
+
+.notice_list_box .area1 textarea {
+    resize: none;
+    width: 690px;
+    height: 430px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+
+}
+
+
+/* noticeList_View end -------------------------------- */
+/* noticeRegister_View start -------------------------------- */
+
+.notice_list_box .selBox .inputBorder {
+    border:none;
+    border-radius: 0;
+    border-bottom:1px solid #ccc;
+    width: 220px;
+    height: 32px;
+}
+
+.notice_list_table tr {
+    min-height: 32px;
+    height: auto;
+}
+
+.notice_list_table tr.active {
+    background-color: var(--color10-20);
+}
+
+.notice_list_table th.td_spec {
+    width: 100px;
+}
+
+.notice_list_box .content_box {
+    /*border-radius: 0;*/
+    padding: 20px 0;
+    width:inherit;
+    max-width: 60vw;
+    height:auto;
+    text-align: left;
+    display: none;
+    overflow: hidden;
+    /*margin-right: 10px;*/
+    /*font-size: 18px;*/
+    /*border: none;*/
+    /*border-bottom: 1px solid #ececec;*/
+}
+
+.content_box ol, .content_box ul {
+    margin-left: 2em !important;
+    padding-left: 1em;
+}
+.content_box ol > li, .content_box ul > li {
+    margin-bottom: 0.5em;
+}
+.content_box ol ol, .content_box ul ul {
+    margin-left: 2em !important;
+}
+
+.notice_list_box .content_box b,
+.notice_list_box .content_box span,
+.notice_list_box .content_box p{
+    text-align: left;
+    text-wrap: wrap;
+
+}
+
+/* noticeRegister_View end -------------------------------- */
 /* pop_PrintBarcode_Material_View start -------------------------------- */
 
 
@@ -5399,6 +5673,13 @@ input[type="radio"] {
     flex-flow: column;
     justify-content: flex-end;
     align-items: flex-end;
+}
+
+.flexCol4 {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    /*align-items: center;*/
 }
 
 .flexStart {

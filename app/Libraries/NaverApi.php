@@ -1,109 +1,193 @@
 <?php
-// app/Libraries/NaverCommerceApi.php
+
 namespace App\Libraries;
 
 use CodeIgniter\HTTP\CURLRequest;
+use Config\Services;
+use Exception;
 
 class NaverApi
 {
-    private $baseUrl = 'https://api.commerce.naver.com/external/v1';
-    private $accessToken = null;
-    private $tokenExpires = 0;
-    private $request;
+    protected CURLRequest $client;
+    protected string $baseUrl = "https://api.commerce.naver.com/external";
+    protected string $clientId;
+    protected string $clientSecret;
+
+    protected ?string $accessToken = null;
+
+    protected string $shopType = 'type8';
 
     public function __construct()
     {
         $this->clientId = '7VPYEPaTX0uve6cGgHkCIq';
         $this->clientSecret = '$2a$04$oZuxOFEh1TtEZ0RoxQslfe';
-        $this->request = service('curlrequest');
+
+        $this->client = Services::curlrequest([
+            'timeout'     => 30,
+            'http_errors' => false,
+            'headers'     => [
+                'Content-Type' => 'application/json',
+            ],
+        ]);
     }
 
-    private function getAccessToken()
+    protected function sendRequest(string $method, string $path, array $params = [], bool $requireAuth = true): array
     {
-        if ($this->accessToken && time() < $this->tokenExpires - 300) {
-            return $this->accessToken;
-        }
-        $timestamp = (int)(microtime(true) * 1000);
-        $password = $this->clientId . '_' . $timestamp;
-        $signature = crypt($password, $this->clientSecret);
-        $signature = base64_encode($signature);
+        $url = $this->baseUrl . $path;
+        $options = [];
 
-        $data = [
+        if ($requireAuth) {
+            if ($this->accessToken === null) {
+                $this->issueAccessToken();
+            }
+            if ($this->accessToken === null) {
+                throw new Exception("Access Token이 설정되지 않았습니다. issueAccessToken() 실패.");
+            }
+            $options['headers']['Authorization'] = 'Bearer ' . $this->accessToken;
+        }
+
+        if (strtoupper($method) === 'GET') {
+            $options['query'] = $params;
+        } else {
+            $options['json'] = $params;
+
+            if (isset($params['grant_type'])) {
+                unset($options['json']);
+                $options['form_params'] = $params;
+            }
+        }
+
+        try {
+            $response = $this->client->request($method, $url, $options);
+        } catch (Exception $e) {
+            log_message('error', "[NaverAPI] Request Failed: " . $e->getMessage());
+            throw new Exception("API 호출 중 통신 오류가 발생했습니다.");
+        }
+
+        $statusCode = $response->getStatusCode();
+        if($statusCode == 200) {
+            $body = $response->getBody();
+            $decoded = json_decode($body, true);
+            put_Shop_Api_Log($this->shopType,'Success', $this->baseUrl, $path, $params, $method, (string)$response->getBody());
+        }else{
+            $errorMsg = $decoded['message'] ?? $decoded['error_description'] ?? 'UnKnown_Error';
+            $errorCode = $decoded['code'] ?? $decoded['error'] ?? 'Unknown';
+            $t_msg = ['response' =>"[NaverAPI] Error ({$statusCode}): {$errorCode} - {$errorMsg}"];
+            $Cnt = put_Shop_Api_Log($this->shopType,'Error', $this->baseUrl, $path, $params, $method, json_encode($t_msg));
+            log_message('error', "[NaverAPI] Error ($statusCode): $errorCode - $errorMsg");
+            $decoded = [];
+        }
+
+        return $decoded;
+    }
+
+    public function issueAccessToken(): string
+    {
+        $timestamp = (int)(microtime(true) * 1000);
+        $password = $this->clientId . "_" . $timestamp;
+        $signature = base64_encode(crypt($password, $this->clientSecret));
+
+        $params = [
             'client_id' => $this->clientId,
-            'timestamp' => (string)$timestamp,
+            'timestamp' => $timestamp,
+            'grant_type' => 'client_credentials',
             'client_secret_sign' => $signature,
             'type' => 'SELF',
-            'grant_type' => 'client_credentials'
         ];
 
-        $response = $this->request->post($this->baseUrl . '/oauth2/token', [
-            'form_params' => $data,
-            'verify' => false,
-            'timeout' => 30,
-            'http_errors' => false
-        ]);
+        $response = $this->sendRequest('POST', '/v1/oauth2/token', $params, false);
 
-        if ($response->getStatusCode() !== 200) {
-            throw new \Exception('Token Error: ' . $response->getBody());
+        if (isset($response['access_token'])) {
+            $this->accessToken = $response['access_token'];
+            return $this->accessToken;
         }
-
-        $result = json_decode($response->getBody(), true);
-        $this->accessToken = $result['access_token'];
-        $this->tokenExpires = time() + ($result['expires_in'] ?? 3600);
-        return $this->accessToken;
+        throw new Exception("토큰 발급 실패: 응답에 access_token이 없습니다.");
     }
 
-    private function getHeaders()
+    public function getChangedOrderIds(string $lastChangedFrom, string $lastChangedTo, string $status = 'PAYED'): array
     {
-        return [
-            'Authorization' => 'Bearer ' . $this->getAccessToken(),
-            'Content-Type' => 'application/json',
-            'X-Naver-Client-Id' => $this->clientId,
-            'X-Naver-Client-Secret' => $this->clientSecret
+        $uri = "/v1/pay-order/seller/product-orders/last-changed-statuses";
+        $params = [
+            'lastChangedFrom' => $lastChangedFrom,
+            'lastChangedTo'   => $lastChangedTo, // 기간 조회시 To 파라미터 필요할 수 있음
+            'lastChangedType' => $status
         ];
-    }
 
-    private function makeRequest($method, $endpoint, $options = [])
-    {
+        $response = $this->sendRequest('GET', $uri, $params);
 
-        $url = $this->baseUrl . $endpoint;
-        $response = $this->request->$method($url, [
-            'headers' => $this->getHeaders(),
-            'timeout' => 30,     // GW.TIMEOUT.01 방지
-            'http_errors' => false
-        ]);
-
-        $status = $response->getStatusCode();
-        $body = $response->getBody();
-
-        if ($status === 400) {
-            log_message('error', '400 Bad Request Details: ' . $body);
-            throw new \Exception("400 Bad Request: " . $body);
+        if (!empty($response['data']['lastChangeStatuses'])) {
+            return array_column($response['data']['lastChangeStatuses'], 'productOrderId');
         }
 
-        //토큰 재발급
-        if ($status === 401 && strpos($body, 'GW.AUTHN') !== false) {
-            $this->accessToken = null;
-            $this->getAccessToken();
-        }
-
-        if ($status !== 200) {
-            throw new \Exception("API Error {$status}: {$body}");
-        }
-
-        return json_decode($body, true);
+        return [];
     }
 
-    public function getOrders($params = [])
+    public function getParsedOrderDetails(array $productOrderIds): array
     {
-        $query = http_build_query($params);
-        return $this->makeRequest('get', '/pay-order/seller/orders?' . $query);
+        if (empty($productOrderIds)) {
+            return [];
+        }
+
+        $allRawData = [];
+        $parsedData = [];
+
+        $chunks = array_chunk($productOrderIds, 50);
+
+        foreach ($chunks as $chunkIds) {
+            $details = $this->getOrderDetails($chunkIds); // 기존 함수 재사용
+
+            if (!empty($details)) {
+                $allRawData = array_merge($allRawData, $details);
+            }
+
+            usleep(100000);
+        }
+
+        foreach ($allRawData as $order) {
+            if (!isset($order['productOrder'])) {
+                continue;
+            }
+
+            $pOrder = $order['productOrder'];
+            $delivery = $pOrder['shippingAddress'] ?? []; // 배송지 정보가 없을 수도 있음
+
+            $parsedData[] = [
+                'order_id'       => $pOrder['productOrderId'] ?? '',
+                'order_date'     => $pOrder['orderDate'] ?? '',
+                'status'         => $pOrder['productOrderStatus'] ?? '', // PAYED, DISPATCHED 등
+                'buyer_name'     => $delivery['name'] ?? '',
+                'buyer_phone'    => $delivery['tel1'] ?? '',
+                'address'        => trim(($delivery['baseAddress'] ?? '') . ' ' . ($delivery['detailedAddress'] ?? '')),
+                'zipcode'        => $delivery['zipCode'] ?? '',
+                'productId'   => $pOrder['productId'] ?? '',
+                'product_name'   => $pOrder['productName'] ?? '',
+                'product_option' => $pOrder['productOption'] ?? '',
+                'quantity'       => $pOrder['quantity'] ?? 0,
+                'price'          => $pOrder['totalPaymentAmount'] ?? 0,
+                'mall_id'        => $pOrder['mallId'] ?? '',
+                'shippingMemo'        => $pOrder['shippingMemo'] ?? ''
+            ];
+        }
+
+        return $parsedData;
     }
 
-    public function getOrdersAll($params = [])
+
+    public function getOrderDetails(array $productOrderIds): array
     {
-        $query = http_build_query($params);
-        return $this->makeRequest('get', '/pay-order/seller/product-orders/last-changed-statuses?' . $query);
+        if (empty($productOrderIds)) {
+            return [];
+        }
+
+        $uri = "/v1/pay-order/seller/product-orders/query";
+        $params = [
+            'productOrderIds' => $productOrderIds
+        ];
+
+        $response = $this->sendRequest('POST', $uri, $params);
+
+        // 네이버 응답 구조: { data: [ ...상세정보... ] }
+        return $response['data'] ?? [];
     }
 
 }

@@ -272,7 +272,7 @@ class GoodsController extends BaseController
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
         }else if($pdcode==''){
-            alert('잘못된 접근입니다.');
+            fn_Alert('잘못된 접근입니다.');
         }else {
             $metaarr = [
                 'h_title' => '상품수정',

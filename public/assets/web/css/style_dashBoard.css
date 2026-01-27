@@ -488,7 +488,6 @@ main {
     position: absolute;
     top:20px;
     left:0px;
-    border:1px solid red;
     /*left:50%;*/
     /*transform: translateX(-50%);*/
     background-color: transparent;
@@ -497,20 +496,53 @@ main {
     font-size: 14px;
 }
 
-/*.GaugeMeter3 SPAN,*/
-/*.GaugeMeter3 B  {*/
-/*    border:1px solid blue;*/
-/*    margin: 0 10%;*/
-/*    width: 80%;*/
-/*    text-align: center;*/
-/*    position: Absolute;*/
-/*    !*display: Inline-Block;*!*/
-/*    overflow: Hidden;*/
-/*    !*white-space: NoWrap;*!*/
-/*    text-wrap: nowrap;*/
-/*    z-index: 1;*/
-/*    font-size: 14px;*/
-/*}*/
+/* gaugemeter downside  start */
+
+.GaugeMeter4 {
+    height: 110px;
+    /*margin-right: 10px;*/
+    /*margin-left: 10px;*/
+    position: Relative;
+    text-align: Center;
+    overflow: Hidden;
+
+}
+
+.GaugeMeter4 canvas {
+    position: absolute;
+    top:0;
+    left:0;
+    /*width: 75px;*/
+    /*height: 75px;*/
+
+}
+
+.GaugeMeter4 span  {
+    background-color: transparent;
+    /*font-family:'Chakra Petch', 'Gmarket Sans' !important;*/
+    font-family: 'chakra petch', 'Electrolize', 'Gmarket Sans' ;
+    font-size: 18px !important;
+    font-weight: 500;
+    text-align: center;
+    width: 70px;
+
+}
+
+.GaugeMeter4 b  {
+    width: 70px;
+    height: 32px;
+    position: absolute;
+    top:20px;
+    left:0px;
+    background-color: transparent;
+    font-weight: normal;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+
+/* gaugemeter downside  end */
 
 .line1-1 {
     border-radius: 5px;
@@ -567,18 +599,21 @@ main {
 
 /* 탕전 주문현황 */
 .mbox2-1-1 {
-    width: 420px;
+    width: 440px;
     height: 200px;
     overflow: hidden;
 
 }
 /* 예비조제 주문현황 */
 .mbox2-1-2 {
-    width: 500px;
-    height: 190px;
+    width: 440px;
+    height: 200px;
     overflow: hidden;
 }
+
 .mbox2-1-1> p, .mbox2-1-2> p {
+    width: 220px;
+    height: 32px;
     margin-top: 15px;
     margin-left: 20px;
     font-size: 18px;
@@ -586,19 +621,23 @@ main {
 }
 
 .leftbox {
-    width: 380px;
+    width: 420px;
     height: 110px;
     display: flex;
     position: relative;
     justify-content: flex-start;
     margin-top: 10px;
     margin-left: 20px;
-    border:1px solid red;
 
 }
 
-.rightbox .gaugapapa,
-.leftbox .gaugapapa {
+.upside .rightbox .gaugapapa,
+.upside .leftbox .gaugapapa {
+    margin-right: 10px;
+}
+
+.downside .rightbox .gaugapapa,
+.downside .leftbox .gaugapapa {
     margin-right: 20px;
 }
 
@@ -1264,70 +1303,70 @@ main {
 }
 
 /* 택배발송현황 */
-.mbox3-3 {
-    overflow: hidden;
-    position: relative;
-}
-.mbox3-3>p:nth-child(2) {
-    font-weight: normal;
-    font-size: 14px;
-    position: absolute;
-    top:20px;
-    right: 20px;
-}
-.parbox {
-    margin-top: 20px;
-    margin-left: 40px;
-    width: 360px;
-    height: 120px;
-    display: flex;
-    position: relative;
-    justify-content: space-evenly;
-    overflow: hidden;
-}
+/*.mbox3-3 {*/
+/*    overflow: hidden;*/
+/*    position: relative;*/
+/*}*/
+/*.mbox3-3>p:nth-child(2) {*/
+/*    font-weight: normal;*/
+/*    font-size: 14px;*/
+/*    position: absolute;*/
+/*    top:20px;*/
+/*    right: 20px;*/
+/*}*/
+/*.parbox {*/
+/*    margin-top: 20px;*/
+/*    margin-left: 40px;*/
+/*    width: 360px;*/
+/*    height: 120px;*/
+/*    display: flex;*/
+/*    position: relative;*/
+/*    justify-content: space-evenly;*/
+/*    overflow: hidden;*/
+/*}*/
 
-.GaugeMeter5,
-.GaugeMeter6 {
-    height: 110px;
-    margin-right: 10px;
-    position: Relative;
-    text-align: Center;
-    overflow: Hidden;
+/*.GaugeMeter5,*/
+/*.GaugeMeter6 {*/
+/*    height: 110px;*/
+/*    margin-right: 10px;*/
+/*    position: Relative;*/
+/*    text-align: Center;*/
+/*    overflow: Hidden;*/
 
-}
+/*}*/
 
-.GaugeMeter5 span,
-.GaugeMeter6 span {
-    background-color: transparent;
-    font-family:'Chakra Petch' !important;
-    font-size: 22px !important;
-    font-weight: 500;
-}
+/*.GaugeMeter5 span,*/
+/*.GaugeMeter6 span {*/
+/*    background-color: transparent;*/
+/*    font-family:'Chakra Petch' !important;*/
+/*    font-size: 22px !important;*/
+/*    font-weight: 500;*/
+/*}*/
 
-.GaugeMeter5 B,
-.GaugeMeter6 B {
-    position: absolute;
-    top:20px;
-    left:0px;
-    background-color: transparent;
-    color:#fff !important;
-    font-size: 16px;
-    font-weight: normal;
-}
-.GaugeMeter5 SPAN,
-.GaugeMeter5 B,
-.GaugeMeter6 SPAN,
-.GaugeMeter6 B  {
-    margin: 0 10%;
-    width: 78%;
-    font-family:'Chakra Petch';
-    position: Absolute;
-    text-align: Center;
-    display: Inline-Block;
-    overflow: Hidden;
-    white-space: NoWrap;
-    z-index: 1;
-}
+/*.GaugeMeter5 B,*/
+/*.GaugeMeter6 B {*/
+/*    position: absolute;*/
+/*    top:20px;*/
+/*    left:0px;*/
+/*    background-color: transparent;*/
+/*    color:#fff !important;*/
+/*    font-size: 16px;*/
+/*    font-weight: normal;*/
+/*}*/
+/*.GaugeMeter5 SPAN,*/
+/*.GaugeMeter5 B,*/
+/*.GaugeMeter6 SPAN,*/
+/*.GaugeMeter6 B  {*/
+/*    margin: 0 10%;*/
+/*    width: 78%;*/
+/*    font-family:'Chakra Petch';*/
+/*    position: Absolute;*/
+/*    text-align: Center;*/
+/*    display: Inline-Block;*/
+/*    overflow: Hidden;*/
+/*    white-space: NoWrap;*/
+/*    z-index: 1;*/
+/*}*/
 
 /* footer box --------------------------------- */
 .fbox-con {
@@ -1337,13 +1376,10 @@ main {
 
 .fbox {
     border: 1px solid #ececec81;
-    /*border:1px solid green;*/
     color:white;
     width:925px;
     height: 620px;
     border-radius: 5px;
-    /*position: relative;*/
-    border:1px solid yellow;
 }
 
 .fbox1 {
@@ -1351,9 +1387,6 @@ main {
 }
 
 .fbox>p {
-    /*position: absolute;*/
-    /*top:20px;*/
-    /*left:20px;*/
     font-weight: bold;
     font-size: 18px;
     margin: 20px 0 10px 20px;
@@ -1370,20 +1403,10 @@ main {
 .fbox2-1 {
     width:925px;
     height: 560px;
-    /*display: flex;*/
-    /*flex-flow: column;*/
-    /*position: absolute;*/
-    /*top:30px;*/
-    /*right:40px;*/
-    /*top:60px;*/
-    /*left:60px;*/
-    border: 1px solid red;
     position: relative;
 
 }
 
-/*.fbox1-1 .amount,*/
-/*.fbox2-1 .amount,*/
 .fbox1-1 .unit,
 .fbox2-1 .unit{
     font-size: 14px;
@@ -1393,14 +1416,9 @@ main {
 .fcbox1 {
     width: 220px;
     height: 60px;
-    border:1px solid red;
     position: absolute;
-    top:0;
+    top:-20Px;
     right:60px;
-    /*left:0;*/
-    /*display: flex;*/
-    /*justify-content: flex-end;*/
-    /*align-items: center;*/
 }
 
 .fcbox1 .amount,
@@ -1439,27 +1457,9 @@ main {
     width: 800px;
     height: 400px;
     position: absolute ;
-    top:60px;
+    top:40px;
     left:50%;
     transform: translateX(-50%);
-    border:1px solid blue;
-}
-
-.fbox1-2 #m_barChart,
-.fbox2-2 #p_barChart {
-    /*border:1px solid mediumpurple;*/
-    /*width: 840px !important;*/
-    /*height: 420px !important;*/
-    /*position: absolute !important;*/
-    /*top:-10px;*/
-    /*left:0;*/
-    /*text-wrap: nowrap;*/
-    /*border:1px solid blue;*/
-
-}
-
-.fbox2-2 canvas {
-    /*border:1px solid red;*/
 }
 
     /* mode 1,2,3,4 */

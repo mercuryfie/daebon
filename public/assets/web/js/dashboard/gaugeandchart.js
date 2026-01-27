@@ -51,27 +51,33 @@ document.addEventListener('DOMContentLoaded', function() {
         color: '#6AF288',
     });
 
-    // 택배발송현황 parbox
-    $(".GaugeMeter5").gaugeMeter({
-        theme: 'blue',
-        color: '#2986cc',
-    });
-    $(".GaugeMeter6").gaugeMeter({
-        theme: 'cyonblue',
-        color: '#62E9EB',
+    // 각 공정 현황 procbox
+    $(".GaugeMeter4").gaugeMeter({
+        theme: 'red',
+        color: 'red',
     });
 
-    // 탕전 주문현황 leftbox
-    $(".GaugeMeter7").gaugeMeter({
-        theme: 'Purple',
-        color: '#C322FB',
-    });
-
-    // 예비조제 주문현황 rightbox
-    $(".GaugeMeter8").gaugeMeter({
-        theme: 'green',
-        color: '#6AF288',
-    });
+    // // 택배발송현황 parbox
+    // $(".GaugeMeter5").gaugeMeter({
+    //     theme: 'blue',
+    //     color: '#2986cc',
+    // });
+    // $(".GaugeMeter6").gaugeMeter({
+    //     theme: 'cyonblue',
+    //     color: '#62E9EB',
+    // });
+    //
+    // // 탕전 주문현황 leftbox
+    // $(".GaugeMeter7").gaugeMeter({
+    //     theme: 'Purple',
+    //     color: '#C322FB',
+    // });
+    //
+    // // 예비조제 주문현황 rightbox
+    // $(".GaugeMeter8").gaugeMeter({
+    //     theme: 'green',
+    //     color: '#6AF288',
+    // });
 
 
     // 주간 주문 건수 weekbox
@@ -253,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(ctx2, {
         type: 'bar',
         data: {
-            labels: ['전체','결명자','계피','구기자','노니','당귀','대추','도꼬마리','도라지','돼지감자','두충','도꼬마리','도라지','돼지감자','두충'  ],
+            labels: ['전체','결명자','계피','구기자','노니','당귀','대추','도꼬마리','도라지','돼지감자'],
             datasets: [{
                 label: '전체',
                 data: [120,100,80,60,40,20],

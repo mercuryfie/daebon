@@ -89,8 +89,6 @@ $(document).ready(function() {
     $(document).on('click','button[name="btn_print"]',function(){
         let code = $(this).data('code');
         let url = "/goods/instructionform?cd=" + code;
-        console.log('dawn1538',code);
-        console.log('dawn1539',url);
         pop_OrderRoastForm(url);
     });
 
@@ -354,7 +352,6 @@ async function Data_Add(param){
         }else if(result.get('status') == 'ok') {
             let data = result.get('data');
             arr = (data && data.list) ? data.list : null;
-            console.log('dawn1508',arr);
             if(arr) {
                 let html = `
                     <tr id="list_${arr.gscode}">
@@ -478,13 +475,20 @@ function Edit_Products(code,name,cat,inven,unit_weight,t_cnt){
 
 async function Make_Html(skey){
     let arr = await Data_Load(skey);
-    console.log('dawn1525',arr);
     let html = '';
     if(!fn_IsEmpty(arr.list)){
         $.each(arr.list, function (index, el) {
             let bomstr = '';
             let bominput = '';
             let bomprn = '';
+            let stock_css = '';
+            let inventory = parseInt(el.inventory);
+            let avgTotal = parseInt(el.avg.total);
+            if(inventory > avgTotal){
+                stock_css =`low_stock active`;
+            } else {
+                stock_css =`belloff`;
+            }
             bomprn = `
                     <button type="button" class="btnType3 printBtn" name="btn_print" data-code="${el.gcode}">
                         <i class="fa-solid fa-print"></i>
@@ -509,7 +513,7 @@ async function Make_Html(skey){
             }
 
             html += `
-                <tr id="list_${el.gscode}">
+                <tr id="list_${el.gscode}" class="${stock_css}">
                     <td class="ltTbody ">${el.gscode}</td>
                     <td class="ltTbody " name="gnode">
                         <a href="javascript:;" onclick="Edit_Products('${el.gscode}','${el.gsname}','${el.category}','${el.inventory}','${el.unit_weight}','${el.t_cnt}');" class="goodsName" name="gname">${el.gsname}</a>
@@ -517,7 +521,7 @@ async function Make_Html(skey){
                     <td class="ltTbody" name="c_str">${el.c_str}</td>                    
                     <td class="ltTbody" name="inventory">${number_format(el.inventory)} 개</td>
                     <td class="ltTbody" name="unit_weight">${el.unit_weight} g</td>
-                    <td class="ltTbody">${el.avg.total}</td> 
+                    <td class="ltTbody ">${el.avg.total}</td> 
                     <td class="ltTbody">${el.avg.avg}</td> 
                     <td class="ltTbody">${bomstr}</td> 
                     <td class="ltTbody orderProduct">${bominput}</td> 

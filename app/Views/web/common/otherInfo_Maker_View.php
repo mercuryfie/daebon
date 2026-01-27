@@ -58,10 +58,10 @@
                     </div>
                 </div>
             </div>
-            <div class="area lastArea flexType1 pb100" id="cpage" name="cpage" data-page="1">
-                <p class="more mr10">더보기</p>
-                <i class="fa-solid fa-angle-down"></i>
-            </div>
+<!--            <div class="area lastArea flexType1 pb100" id="cpage" name="cpage" data-page="1">-->
+<!--                <p class="more mr10">더보기</p>-->
+<!--                <i class="fa-solid fa-angle-down"></i>-->
+<!--            </div>-->
         </div>
 <!--        <div class="lastBox flexType5">-->
 <!--            <button type="button" class="btnType1 mr10">취소</button>-->

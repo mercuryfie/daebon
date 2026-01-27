@@ -33,12 +33,10 @@ $(document).ready(function() {
 
 });
 
-
 async function Load_Data() {
     try {
         start_spinner();
         let dataarr = {};
-        // let fkey = data.fkey;
         let url = APIURL + '/Load_UserList';
         let result = await Load_API_Auth(url, dataarr);
         if (result.get('status') == 'NoLogin') {
@@ -49,16 +47,20 @@ async function Load_Data() {
             // let tCnt = data.tCnt;
             let arr = (data && data.list) ? data.list : [];
             let Cnt = arr.length;
-            console.log('dawn1801', arr);
             if (Cnt > 0) {
                 $.each(arr, function (index, el) {
                     html += `
                     <tr id="tr_${el.uid}">
                         <td class="ltTbody col1" data-uid="${el.uid}">${el.userid}</td>
                         <td class="ltTbody col2">
-                            <a href="javascript:;" class="" onclick="mod_UserInfo('${el.uid}');">${el.name}</a>
+                            <p class="" >${el.name}</p>
                         </td>
-                        <td class="ltTbody col1" data-uid="${el.uid}">${el.grade}</td> 
+                        <td class="ltTbody col1" data-uid="${el.uid}">${el.grade_str}</td> 
+                        <td class="ltTbody col2"> 
+                            <button type="button" class="btnType3 " name="" data-uid="${el.uid}" onclick="go_userEditor('${el.uid}','${el.grade}');">
+                                <i class="fa-solid fa-gear"></i>
+                            </button> 
+                        </td> 
                         <td class="ltTbody col2"> 
                             <button type="button" class="btnType3 ref_btn" name="btn_pw_reset" data-uid="${el.uid}">
                                 <i class="fa-solid fa-rotate-right" name=""></i>
@@ -122,7 +124,6 @@ async function Reset_Password(uid){
     try {
         start_spinner();
         let dataarr = {"uid" : uid};
-        console.log('dawn1121',dataarr);
         let url = APIURL + '/Reset_Password';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {

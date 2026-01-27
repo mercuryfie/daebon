@@ -110,24 +110,6 @@ async function Load_Before(skey){
         }else if(result.get('status') == 'ok') {
             let data = result.get('data');
             let arr = (data && data.list) ? data.list : [];
-            console.log('dawn1746',arr);
-            // let Cnt = arr.length;
-            //
-            // $('#beforelist').empty().removeClass('active');
-            //
-            // if(Cnt > 0){
-            //     let html = '';
-            //     $.each(arr, function (index, el) {
-            //         html = `<button class="copyOption active" type="button" name="option_Before" data-code="${el.pdcode}">${el.pdname}</button>`;
-            //
-            //         console.log('dawn1746',el.pdcode);
-            //     });
-            //
-            //     $('#beforelist').append(html);
-            //     $('#beforelist').addClass('active');
-            // }else{
-            //     Make_Toast('검색된 상품이 없습니다.');
-            // }
         }else{
             Make_Toast(result.get('message') + "[" + result.get('status') + "]");
         }
@@ -164,8 +146,6 @@ async function Before_Data_Load(pdcode) {
 
 async function set_Data(pdcode) {
     let arr = await Before_Data_Load(pdcode);
-    console.log('dawn1744',arr);
-    console.log('dawn1745',pdcode);
     let info = arr.info;
     if (info && Object.keys(info).length > 0) {
         let cat_str = '';

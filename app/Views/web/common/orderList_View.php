@@ -99,20 +99,20 @@
                     <input type="search" name="" id="" class="searchArea" placeholder="통합 검색">
                     <button type="button" class="btnType1">검색</button>
                 </div>
-                <div class="right flexType2 filter_boxa6m">
-                    <label for="filter" class="statusLabel flexType2">
-                        <input type="checkbox" name="filter" id="" class="status" checked>등록대기
-                    </label>
-                    <label for="filter" class="statusLabel flexType2">
-                        <input type="checkbox" name="filter" id="" class="status" >작업대기
-                    </label>
-                    <label for="filter" class="statusLabel flexType2">
-                        <input type="checkbox" name="filter" id="" class="status" >작업중
-                    </label>
-                    <label for="filter" class="statusLabel flexType2">
-                        <input type="checkbox" name="filter" id="" class="status" >완료
-                    </label>
-                </div>
+<!--                <div class="right flexType2 filter_boxa6m">-->
+<!--                    <label for="filter" class="statusLabel flexType2">-->
+<!--                        <input type="checkbox" name="filter" id="" class="status" checked>등록대기-->
+<!--                    </label>-->
+<!--                    <label for="filter" class="statusLabel flexType2">-->
+<!--                        <input type="checkbox" name="filter" id="" class="status" >작업대기-->
+<!--                    </label>-->
+<!--                    <label for="filter" class="statusLabel flexType2">-->
+<!--                        <input type="checkbox" name="filter" id="" class="status" >작업중-->
+<!--                    </label>-->
+<!--                    <label for="filter" class="statusLabel flexType2">-->
+<!--                        <input type="checkbox" name="filter" id="" class="status" >완료-->
+<!--                    </label>-->
+<!--                </div>-->
             </div>
         </div>
         <div class="areaBox areaBox2 pb100">

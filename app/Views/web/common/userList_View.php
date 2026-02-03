@@ -13,7 +13,7 @@
                 사용자 목록
             </p>
         </div>
-        <div class="areaBox  ">
+        <div class="areaBox min80vh ">
             <div class="area area1 ">
 <!--                <input type="search" name="mkey" id="mkey" class="searchArea" placeholder="아이디 검색">-->
                 <button type="button" class="btnType2" id="add_btn" name="add_btn" onclick="go_userRegister();">계정등록</button>

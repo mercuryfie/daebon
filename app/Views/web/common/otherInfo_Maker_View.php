@@ -15,7 +15,7 @@
                 기타정보관리
             </p>
         </div>
-        <div class="areaBox  ">
+        <div class="areaBox min80vh ">
             <div class="area1 flexType2">
                 <button type="button" class="tab" onclick="go_otherInfo_Maker();">제조사관리</button>
                 <button type="button" class="tab" onclick="go_otherInfo_Supplier();">공급사관리</button>
@@ -35,6 +35,7 @@
                 </div>
                 <div class="flexType2">
                     <button type="button" class="btnType1 mr10" id="excelPop" name="excelPop">엑셀업로드</button>
+                    <button type="button" class="btnType1 mr10" id="excelPop" name="excelPop">양식 다운</button>
                     <button class="btnType2 " id="addMaker" name="addMaker" onclick="add_Maker();">제조사 등록</button>
 
                 </div>

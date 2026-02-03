@@ -75,73 +75,73 @@ $(document).ready(function() {
     $(document).on('click','button[name="btn_loadshop"]',async function(){
         let shoptype = $(this).data('typ');
         console.log(shoptype);
-        let arr = await Load_Shop_Order_List(shoptype);
-        console.log(arr);
+        let message = await Load_Shop_Order_List(shoptype);
+        if(message!='') {
+            Make_Toast(message);
+        }
+
     });
-
-
-
 
 });
 
 async function Load_Shop_Order_List(styp){
-    let data = {};
+    let message = '';
     try {
         start_spinner();
         let dataarr = {styp:styp};
         let url = APIURL + '/Shop_Opder_List';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
-            go_login();
+            message = '로그인하세요.';
         }else if(result.get('status') == 'ok') {
-            data = result.get('data').list;
+            message = '주문정보 등록 완료 하였습니다.';
+            $('#tp_'+ styp).find('#id1_' + styp).html(`<p class="status positive">정상</p>`);
+            $('#tp_'+ styp).find('#id2_' + styp).html(result.get('data').period);
+            $('#tp_'+ styp).find('#id3_' + styp).html(result.get('data').indate);
+        }else if(result.get('status') == 'nothing') {
+            message = '해당쇼핑몰의 주문정보가 없습니다.';
+            $('#tp_'+ styp).find('#id1_' + styp).html(`<p class="status positive">정상</p>`);
+            $('#tp_'+ styp).find('#id2_' + styp).html(result.get('data').period);
+            $('#tp_'+ styp).find('#id3_' + styp).html(result.get('data').indate);
+        }else if(result.get('status') == 'miss') {
+            message = '주문정보 동기화에 누락된 주문이 존재합니다.';
+            $('#tp_'+ styp).find('#id1_' + styp).html(`<button type="button" class="status missing" onclick="go_missingList('${styp}');">누락</button>`);
+            $('#tp_'+ styp).find('#id2_' + styp).html(result.get('data').period);
+            $('#tp_'+ styp).find('#id3_' + styp).html(result.get('data').indate);
         }else{
-            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+            Make_Toast(result.get('message'));
         }
+
         stop_spinner();
     } catch (error) {
         Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
         stop_spinner();
     }
-    return data;
+    return message;
 }
 
 async function Make_Html(skey){
     let arr = await Load_Data(skey);
-
-    console.log(arr);
     let html = '';
     if(arr.length > 0) {
         $.each(arr, function (index, el) {
-            let indate1 = '';
             let status1 = '';
-            let indate2 = '';
-            let status2 = '';
-            if(el.method=='API'){
-                indate1 = el.order['indate'];
-                if(el.order['status']=='ok'){
-                    status1 =`<p class="status positive">정상</p>`;
-                }else{
-                    status1 =`<button type="button" class="status missing" onclick="go_missingList();">누락</button>`;
-                }
-
-                indate2 = el.claim['indate'];
-                if(el.claim['status']=='ok'){
-                    status2 =`<p class="status positive">정상</p>`;
-                }else{
-                    status2 =`<p class="status negative">오류</p>`;
-                }
+            if(el.period==''){
+                status1 = '';
+            }else if(el.status=='miss') {
+                status1 = `<button type="button" class="status missing" onclick="go_missingList('${el.shoptyp}');">누락</button>`;
+            }else {
+                status1 = `<p class="status positive">정상</p>`;
             }
 
             html += `
-                    <tr>
+                    <tr id="tp_${el.shoptyp}">
                         <td class="ltTbody">${el.shop_name}</td>
                         <td class="ltTbody">${el.shop_id}</td>
                         <td class="ltTbody">${el.method}</td>
-                        <td class="ltTbody">${indate1}</td>
-                        <td class="ltTbody">${status1}</td>
-                        <td class="ltTbody">${indate2}</td>
-                        <td class="ltTbody">${status2}</td>
+                        <td class="ltTbody" id="id1_${el.shoptyp}">${status1}</td>
+                        <td class="ltTbody" id="id2_${el.shoptyp}">${el.period}</td>
+                        <td class="ltTbody" id="id3_${el.shoptyp}">${el.indate}</td>
                         <td class="ltTbody">
                             <button type="button" class="btnType3" name="btn_showlog" data-typ="${el.shoptyp}">
                                 <i class="fa-solid fa-ellipsis-vertical"></i>

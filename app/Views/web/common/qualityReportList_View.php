@@ -36,14 +36,14 @@
                     </label>
                 </div>
             </div>
-            <div class="area2 production_boxa6m">
+            <div class="area2 production_boxa6m  ">
                 <div class="left flexType2">
                     <input type="search" name="" id="" class="searchArea" placeholder="지시코드 또는 제품명 검색">
                     <button type="button" class="btnType1">검색</button>
                 </div>
             </div>
         </div>
-        <div class="areaBox area_boxmxh ">
+        <div class="areaBox area_boxmxh min70vh">
             <div class="goods_boxkfg flexType3">
                 <div class="left flexType2">
                     <p class="title">작업목록</p>
@@ -76,10 +76,10 @@
                     </table>
                 </div>
             </div>
-<!--            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">-->
-<!--                <p class="more mr10">더보기</p>-->
-<!--                <i class="fa-solid fa-angle-down"></i>-->
-<!--            </div>-->
+            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </div>
 

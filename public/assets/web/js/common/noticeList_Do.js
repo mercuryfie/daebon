@@ -10,8 +10,6 @@ $(document).ready(function() {
 
 });
 
-
-
 function Load_NoticeInfo(bcode) {
     let $contentBox = $('#con_' + bcode);
     let $other = $("div[name='n_content_box']");

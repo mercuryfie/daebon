@@ -25,16 +25,48 @@ function fn_InsertSystemLog($uid,$LogTyp,$Log){
  * 1 : 2022-01-01 11:11:11 한국시간
  * 2 : 2022-01-01 한국시간
  */
+function fn_NowDateFormat(int $typ, ?string $baseDate = null): string
+{
+     $now = ($baseDate === null) ? Time::now('Asia/Seoul') : Time::parse($baseDate, 'Asia/Seoul');
 
-function fn_NowDateFormat($typ){
-    date_default_timezone_set('Asia/Seoul');
-    if($typ==1) {
-        return date('Y-m-d H:i:s');
-    }else if($typ==2) {
-        return date('Y-m-d');
-    }
+    return match ($typ) {
+        1       => $now->toDateTimeString(), // 2025-11-01 00:00:00
+        2       => $now->toDateString(),     // 2025-11-01
+        3       => $now->format('Ymd'), // 20251111
+        default => $now->toDateTimeString(),
+    };
 }
 
+/** date format
+ * 입력받는 $dasy만큼 전날
+ */
+function fn_PrevDateFormat(int $typ, int $days = 0, ?string $baseDate = null): string
+{
+    $time = ($baseDate === null) ? Time::now('Asia/Seoul') : Time::parse($baseDate, 'Asia/Seoul');
+    $time = $time->subDays($days);
+    return match ($typ) {
+        1       => $time->toDateTimeString(), // 2025-11-01 00:00:00
+        2       => $time->toDateString(),     // 2025-11-01
+        3       => $time->format('Ymd'), // 20251101
+        default => $time->toDateTimeString(),
+    };
+}
+
+
+/** date format
+ * 입력받는 $dasy만큼 다음날
+ */
+function fn_NextDateFormat(int $typ, int $days = 0, ?string $baseDate = null): string
+{
+    $time = ($baseDate === null) ? Time::now('Asia/Seoul'): Time::parse($baseDate, 'Asia/Seoul');
+    $time = $time->addDays($days);
+    return match ($typ) {
+        1       => $time->toDateTimeString(), // 2025-11-01 00:00:00
+        2       => $time->toDateString(),     // 2025-11-01
+        3       => $time->format('Ymd'), // 20251101
+        default => $time->toDateTimeString(),
+    };
+}
 
 
 /** 송장번호 반환

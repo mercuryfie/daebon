@@ -1,48 +1,118 @@
 
 $(document).ready(function() {
 
+    let search = $('#txt_mtinfo').val();
+    Make_Html(search);
 
     $('#txt_before').on('focus',function(){
         $(this).val('');
-        $('#beforelist').removeClass('active');
-        $('#beforelist').empty();
+        $('#inputlist').removeClass('active');
+        $('#inputlist').empty();
 
     });
 
-    $('#txt_before').on('keypress',async function(e){
+    $('#txt_mtinfo').on('keypress',function(e){
         if (e.which === 13) {
-            let skey = $(this).val();
-            if(skey==''){
-                Make_Toast('검색하실 상품명을 입력하세요.');
-                $(this).focus();
-            }else{
-                $('#beforelist').empty();
-                Load_Before(skey);
+            let search = $('#txt_mtinfo').val();
+            Make_Html(search);
+        }
+    });
+
+    $('#bnt_input').on('click',function(){
+        input_Form_ini();
+        $('#ipgoWrap').css('display','block');
+    });
+
+    $('#btn_output').on('click',function(){
+        $('#outWrap').css('display','block');
+    });
+
+    $(document).on('click','button[name="btn_barcode"]',function(){
+        let mtcode = $(this).data('mtcode');
+        let url = "/inout/prn_barcode_material?mt=" + mtcode;
+        let width = 430;
+        let height = 320;
+
+        let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+
+        newWindow.onload = function() {
+            try {
+                let docHeight = newWindow.document.body.scrollHeight;
+                newWindow.resizeTo(width, docHeight + 100);
+            } catch(e) {
+                console.log("새 창 높이 조절 불가", e);
+            }
+        };
+    });
+
+    $('#txt_pop_input').on('keypress',function(e){
+        if (e.which === 13) {
+            let search = $('#txt_pop_input').val();
+            let data = {skey:search};
+            Load_Material(data);
+        }
+    });
+
+    $('#txt_pop_income').on("input",function() {
+        $(this).val($(this).val().replace(/\D/g, ""));
+    });
+
+    $('#txt_pop_input').on('focus', function(){
+        $(this).val('');
+        input_Form_ini();
+
+    });
+
+    $('#btn_income').on('click',async function(){
+        const income = $('#txt_pop_income').val();
+        const memo = $('#txt_mtmemo').val();
+        const mtcode = $('#pop_mtcode').val();
+
+        if(income==''){
+            Make_Toast('입고량을 입력하세요.');
+            $('#txt_pop_income').focus();
+        }else if(mtcode==''){
+            $('#ipgoWrap').css('display','block');
+            Make_Toast('잘못된 접근입니다. ');
+        }else if(window.confirm('입고 처리 하시겠습니까?')==true){
+            const params = {
+                mtcode : mtcode,
+                income : income,
+                stocktyp : 1,
+                memo : memo
+            }
+            let bool = await Patch_Material_Income(mtcode,params);
+            if(bool==true){
+                Make_Toast('입고 처리 하였습니다.');
             }
         }
     });
 
-    $(document).on('click', function(e) {
-        const beforeList = $('#beforelist');
-        if (!beforeList.hasClass('active')) {
-            return;
-        }
-        const copyBox = $('.copyBox');
-        if ($(e.target).closest(copyBox).length) {
-            return;
-        }
-        $('#txt_before').val('');
-        beforeList.removeClass('active').empty();
+
+    $(document).on('click','button[name="select_input"]',function(){
+        let mtcode = $(this).data('mtcode');
+        let mtname = $(this).data('mtname');
+        let mtyp = $(this).data('typstr');
+        let mkname= $(this).data('mkname');
+        let suname= $(this).data('suname');
+        let typ = $(this).data('typ');
+        let unit = (typ==1) ? 'g' : '개';
+
+        $('#mtcode').text(mtcode);
+        $('#mtname').text(mtname);
+        $('#pop_mtcode').val(mtcode);
+        $('#mttype').text(mtyp);
+        $('#mtmaker').text(mkname);
+        $('#mtsupplier').text(suname);
+        $('#pop_unit').text(unit);
+        $('#txt_pop_input').val('');
+        $('#txt_pop_income').prop('disabled',false);
+        $('#txt_mtmemo').val('');
+        $('#txt_mtmemo').prop('disabled',false);
+        $('#inputlist').remove();
+        $('#txt_pop_income').focus();
+
     });
-
-
-    $(document).on('click','button[name="option_Before"]',function(){
-        let pdcode = $(this).data('code');
-        set_Data(pdcode);
-        $('#txt_before').val('');
-        $('#beforelist').removeClass('active').empty();
-    });
-
 
     $('#barcodeWrap #Xbtn, #barcodeWrap #Xbtn2').click(function () {
         $('#barcodeWrap').css('display','none');
@@ -56,53 +126,120 @@ $(document).ready(function() {
         $('#outWrap').css('display','none');
     });
 
-    $("#supply").on("change", function() {
-        if ($(this).val() === "bySelf") {
-            $("#supply").hide();
-            $("#suppCom").show().focus();
-        } else {
-            $("#suppCom").hide();
-        }
-    });
+    input_Form_ini();
 
 
 });
 
-function pop_barcodeWindow() {
-    let url = "/inout/prn_barcode_material";
-    let width = 430;
-    let height = 320;
-
-    let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
-
-    newWindow.onload = function() {
-        try {
-            let docHeight = newWindow.document.body.scrollHeight;
-            newWindow.resizeTo(width, docHeight + 100);
-        } catch(e) {
-            console.log("새 창 높이 조절 불가", e);
+async function Patch_Material_Income(code,params){
+    let bool = false;
+    try {
+        start_spinner();
+        let dataarr = {"params": params};
+        let url = APIURL + '/Patch_Meterial_Income';
+        let result = await Load_API_Auth(url, dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        } else if(result.get('status') == 'ok') {
+            // $('#tr1_' + code).text(result.get('data').total);
+            // $('#tr2_' + code).text(result.get('data').indate);
+            location.reload(true);
+            bool = true;
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
         }
-    };
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+    } finally {
+        stop_spinner();
+    }
+    return bool;
 }
 
-function pop_barcodeLayer() {
-    $('#barcodeWrap').css('display','block');
+
+function input_Form_ini(){
+    $('#pop_mtcode').val('');
+    $('#inputlist').empty();
+    $('#mttype').text('');
+    $('#mtcode').text('');
+    $('#mtname').text('');
+    $('#mtmaker').text('');
+    $('#mtsupplier').text('');
+    $('#txt_pop_input').val('');
+    $('#txt_pop_income').prop('disabled',true);
+    $('#txt_pop_income').val('');
+    $('#txt_mtmemo').val('');
+    $('#pop_unit').text('');
+
+    $('#txt_mtmemo').prop('disabled',true);
+    $('#inputlist').removeClass('active');
+
 }
 
-function pop_ipgoView() {
-    $('#ipgoWrap').css('display','block');
+async function Make_Html(search){
+    let arr = await Load_data(search);
+    let html = '';
+    if(arr.tcnt > 0) {
+        $.each(arr.list, function (index, el) {
+            html += `
+                    <tr id="tr_${el.mtcode}">
+                        <td class="ltTbody">${el.mttype}</td>
+                        <td class="ltTbody">${el.mtname}</td>
+                        <td class="ltTbody" id="td1_${el.mtcode}">${el.total}</td>
+                        <td class="ltTbody" id="td2_${el.mtcode}">${el.indate}</td>
+                        <td class="ltTbody">
+                            <button type="button" class="btnType3 " name="btn_barcode" data-mtcode="${el.mtcode}" >${el.mtcode}</button>
+                        </td>
+                        <td class="ltTbody">
+                            <button type="button" class="btnType3" name="btn_showlog" data-typ="${el.mtcode}">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+        });
+        $('#tList').empty();
+        $('#tcnt').text('');
+        $('#tcnt').text(arr.tcnt);
+        $('#tList').append(html);
+    }else{
+        html = '<tr><td class="ltThead" colspan="9">검색된 데이터가 없습니다.</td></tr>';
+        $('#tList').empty();
+        $('#tcnt').text('0');
+        $('#tList').append(html);
+    }
 }
 
-function pop_chulgoView() {
-    $('#outWrap').css('display','block');
+async function Load_data(search) {
+    let data = {};
+    try {
+        start_spinner();
+        let dataarr = {"search": search};
+        let url = APIURL + '/Load_Material_Inout';
+        let result = await Load_API_Auth(url, dataarr);
+       if (result.get('status') == 'NoLogin') {
+            go_login();
+        } else if(result.get('status') == 'ok') {
+            data = {
+                list : result.get('data').list,
+                tcnt : result.get('data').tcnt
+            };
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+    }finally {
+        stop_spinner();
+    }
+    return data;
 }
 
-async function Load_Before(skey){
+async function Load_Material(param){
     try {
         start_spinner();
         let fkey = 0;
-        let dataarr = {'skey' : skey, 'fkey' : fkey};
-        console.log('🚀 최종 dataarr:', dataarr);
+        let dataarr = {'data' : param};
         let url = APIURL + '/Load_MaterialList';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
@@ -110,76 +247,25 @@ async function Load_Before(skey){
         }else if(result.get('status') == 'ok') {
             let data = result.get('data');
             let arr = (data && data.list) ? data.list : [];
+            console.log(arr);
+            let Cnt = arr.length;
+            if(Cnt > 0){
+                let html = '';
+                $.each(arr, function (index, el) {
+                    html += `<button class="copyOption active" type="button" name="select_input" data-typ="${el.typ}" data-mtcode="${el.mtcode}" data-mtname="${el.mtname}" data-typstr="${el.typ_str}" data-mkname="${el.fk_mkname}" data-suname="${el.fk_suname}">${el.mtname}</button>`;
+                });
+
+                $('#inputlist').append(html);
+                $('#inputlist').addClass('active');
+            }else{
+                Make_Toast('검색된 상품이 없습니다.');
+            }
         }else{
             Make_Toast(result.get('message') + "[" + result.get('status') + "]");
         }
-        stop_spinner();
     } catch (error) {
         Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+    }finally {
         stop_spinner();
     }
 }
-
-
-async function Before_Data_Load(pdcode) {
-    let data = [];
-    try {
-        start_spinner();
-        let dataarr = {"code": pdcode};
-        let url = APIURL + '/Load_Product_Info';
-        let result = await Load_API_Auth(url, dataarr);
-        if (result.get('status') == 'NoLogin') {
-            go_login();
-        } else if(result.get('status') == 'ok') {
-            data = result.get('data').info;
-        }else{
-            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
-        }
-        stop_spinner();
-    } catch (error) {
-        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
-        stop_spinner();
-    }
-    return data;
-}
-
-
-async function set_Data(pdcode) {
-    let arr = await Before_Data_Load(pdcode);
-    let info = arr.info;
-    if (info && Object.keys(info).length > 0) {
-        let cat_str = '';
-        if (info.pdcategory == 'A001') {
-            cat_str = '원재료';
-        } else {
-            cat_str = '부자재';
-
-        }
-        $('#cat_data').text(cat_str);
-        $('#m_code').text(info.pdcode);
-        $('#m_name').text(info.pdname);
-        $('#m_maker').text(info.pdname);
-        $('#m_supplier').text(info.pdname);
-        // theEditor.setData(info.content);
-    }
-    //
-    //
-    // let pouch = arr.material;
-    // if (pouch && Object.keys(pouch).length > 0) {
-    //     let html = '';
-    //
-    //     $.each(pouch, function (index, el) {
-    //         html += `
-    //             <div class="pouchTag  flexType2" name="add_pouch_info" data-mtcode="${el.fk_mtcode}">
-    //                 <p class="pname" name="p_name" data-mtcode="${el.fk_mtcode}">${el.mtname}</p>
-    //                 <p class="count" name="p_cnt" data-cnt="${el.cnt}">${el.cnt}개</p>
-    //                 <i class="fa-solid fa-xmark" name="add_pouch_del"></i>
-    //             </div>
-    //         `;
-    //     });
-    //
-    //     $('#pouch_list').empty();
-    //     $('#pouch_list').append(html);
-    // }
-}
-

@@ -22,6 +22,32 @@ class CoupangApi
         $this->httpClient = Services::curlrequest();
     }
 
+    public function Put_Order_Confirm($shipmentBoxIds = [])
+    {
+        $path = "/v2/providers/openapi/apis/api/v4/vendors/{$this->vendorid}/ordersheets/acknowledgement";
+        $method = "PUT";
+        if (empty($shipmentBoxIds)) {
+            return ['result' => 'error', 'message' => '배송번호(shipmentBoxIds)가 없습니다.'];
+        }
+
+        $data = [
+            "vendorId" => $this->vendorid,
+            "shipmentBoxIds" => is_array($shipmentBoxIds) ? $shipmentBoxIds : [$shipmentBoxIds]
+        ];
+        $query = "";
+        try {
+            $result = $this->callApi($method, $path, $query, $data);
+            return $result;
+        } catch (\Exception $e) {
+            return [
+                'code' => 'ERROR',
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+
+
     public function Get_Order_Period($sdate,$edate,$status,$nextToken)
     {
         $path = "/v2/providers/openapi/apis/api/v5/vendors/{$this->vendorid}/ordersheets";
@@ -34,12 +60,13 @@ class CoupangApi
         }
 
         return $this->callApi($method, $path, $query);
+        //return $this->Sample_order();
     }
 
     private function callApi($method,$path,$query,$data = [] )
     {
         try {
-            if ($method == 'POST') {
+            if (in_array($method, ['POST', 'PUT', 'PATCH'])) {
                 $apiurl = $this->baseapi . $path;
             } else if ($method == 'GET') {
                 $apiurl = $this->baseapi . $path . '?' . $query;
@@ -56,7 +83,7 @@ class CoupangApi
                 'connect_timeout' => 30,
                 'http_errors' => false
             ];
-            if ($data && in_array($method, ['POST', 'PUT'])) {
+            if ($data && in_array($method, ['POST', 'PUT', 'PATCH'])) {
                 $options['json'] = $data;
             }
 
@@ -68,8 +95,9 @@ class CoupangApi
             return json_decode($body, true);
         } catch (\Exception $e) {
             log_message('error', '[COUPANG API Error] ' . $e->getMessage());
-            $Cnt = put_Shop_Api_Log($this->shopType, 'Error', $this->baseapi, $path, $query, $method, $body);
+            $Cnt = put_Shop_Api_Log($this->shopType, 'Error', $this->baseapi, $path, $query, $method, $e->getMessage());
             throw new Exception("Coupan Request Failed: " . $e->getMessage());
+            return'';
         }
     }
 
@@ -128,7 +156,7 @@ class CoupangApi
                         {
                             "vendorItemPackageId": 0,
                             "vendorItemPackageName": "인디고뱅크키즈 기모 테잎배색 트레이닝 팬츠 IKTM17WG1",
-                            "productId": 31846051,
+                            "productId": 9009613321,
                             "vendorItemId": 3242596358,
                             "vendorItemName": "인디고뱅크키즈 기모 테잎배색 트레이닝 팬츠 IKTM17WG1, 07 DARK GREY, 160호",
                             "shippingCount": 1,
@@ -236,7 +264,69 @@ class CoupangApi
                         {
                             "vendorItemPackageId": 0,
                             "vendorItemPackageName": "리틀브렌 후드달이 구스 경량 점퍼 LBJD17WG5",
-                            "productId": 34047877,
+                            "productId": 7415535129,
+                            "vendorItemId": 3261300431,
+                            "vendorItemName": "리틀브렌 후드달이 구스 경량 점퍼 LBJD17WG5, 04 MIDDLE MELANGE GR, 170호",
+                            "shippingCount": 1,
+                            "salesPrice": {
+                                "currencyCode": "KRW",
+                                "units": 27800,
+                                "nanos": 0
+                            },
+                            "orderPrice": {
+                                "currencyCode": "KRW",
+                                "units": 278000,
+                                "nanos": 0
+                            },
+                            "discountPrice": {
+                                "currencyCode": "KRW",
+                                "units": 2470,
+                                "nanos": 0
+                            },
+                            "instantCouponDiscount": {
+                                "currencyCode": "KRW",
+                                "units": 560,
+                                "nanos": 0
+                            },
+                            "downloadableCouponDiscount": {
+                                "currencyCode": "KRW",
+                                "units": 1910,
+                                "nanos": 0
+                            },
+                            "coupangDiscount": {
+                                "currencyCode": "KRW",
+                                "units": 0,
+                                "nanos": 0
+                            },
+                            "externalVendorSkuCode": "170824416510",
+                            "etcInfoHeader": null,
+                            "etcInfoValue": null,
+                            "etcInfoValues": [
+                                "추가메시지1",
+                                "추가메시지2"
+                            ],
+                            "sellerProductId": 87037167,
+                            "sellerProductName": "리틀브렌 후드달이 구스 경량 점퍼 LBJD17WG5",
+                            "sellerProductItemName": "04 MIDDLE MELANGE GR 170호",
+                            "firstSellerProductItemName": "04 MIDDLE MELANGE GR/170호",
+                            "cancelCount": 0,
+                            "holdCountForCancel": 0,
+                            "estimatedShippingDate": "2017-10-16",
+                            "plannedShippingDate": "",
+                            "invoiceNumberUploadDate": "",
+                            "extraProperties": {
+        
+                            },
+                            "pricingBadge": false,
+                            "usedProduct": false,
+                            "confirmDate": "2025-01-15T14:17:13.973885-08:00",
+                            "deliveryChargeTypeName": "무료",
+                            "canceled": false
+                        },
+                        {
+                            "vendorItemPackageId": 0,
+                            "vendorItemPackageName": "리틀브렌 후드달이 구스 경량 점퍼 LBJD17WG5",
+                            "productId": 8243792002,
                             "vendorItemId": 3261300431,
                             "vendorItemName": "리틀브렌 후드달이 구스 경량 점퍼 LBJD17WG5, 04 MIDDLE MELANGE GR, 170호",
                             "shippingCount": 1,
@@ -319,6 +409,6 @@ class CoupangApi
             ],
             "nextToken": "448537989"
         }';
-        return $sample;
+        return json_decode($sample, true);
     }
 }

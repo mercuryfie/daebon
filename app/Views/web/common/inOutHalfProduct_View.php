@@ -15,7 +15,7 @@
                 입출고관리 (반제품)
             </p>
         </div>
-        <div class="areaBox area_boxmxh inout_boxq0b">
+        <div class="areaBox area_boxmxh inout_boxq0b min80vh">
             <div class="goods_boxkfg mt10 inout_boxq0a">
                 <div class="right flexType3">
                     <div class="left3 flexType1">
@@ -95,10 +95,10 @@
                     </table>
                 </div>
             </div>
-<!--            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">-->
-<!--                <p class="more mr10">더보기</p>-->
-<!--                <i class="fa-solid fa-angle-down"></i>-->
-<!--            </div>-->
+            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </div>
 

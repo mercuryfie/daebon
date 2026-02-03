@@ -3,7 +3,7 @@ namespace App\Libraries;
 
 use CodeIgniter\HTTP\CurlRequest;
 
-class KakaoShoppingApi
+class KakaoApi
 {
     private $apiKey;
     private $baseUrl;
@@ -32,7 +32,7 @@ class KakaoShoppingApi
     /**
      * GET 요청
      */
-    public function get(string $endpoint, array $params = []): array
+    public function getOrderList(string $endpoint, array $params = []): array
     {
         $url = $this->baseUrl . $endpoint;
         if (!empty($params)) {

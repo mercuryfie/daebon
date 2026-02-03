@@ -7,7 +7,7 @@
         <table class="odRoast_Table ins_form_table">
             <thead>
                 <tr class="headCol">
-                    <td class="keyCol " colspan="8">생산작업지시서22</td>
+                    <td class="keyCol " colspan="8">생산작업지시서</td>
                 </tr>
                 <tr class="">
                     <td class="keyCol barcodeBox" colspan="5" rowspan="2">

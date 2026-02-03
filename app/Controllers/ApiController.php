@@ -13,6 +13,149 @@ class ApiController extends BaseController
 {
     use ResponseTrait;
 
+    public function Patch_Meterial_Income(){
+        $sessinarr = $this->GetSessionData();
+        $params  = $this->request->getPost('params') ?? [];
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else {
+            $mtcode = $params['mtcode'] ?? '';
+            $income = $params['income'] ?? '';
+            $s_type = $params['stocktyp'] ?? 1;
+            $memo = $params['memo'] ?? '';
+            if(($mtcode=='') || ($income=='')){
+                $result = 'Error003';
+                $data = [];
+                $message = '잘못된 접근입니다.';
+            }else{
+                $indate = fn_NowDateFormat(1);
+                $material_m = model('Material_m');
+                $Rs = $material_m->Load_Material_stock($mtcode);
+                $total = (fn_ArrayCnt($Rs)>0) ? $Rs[0]['total'] : 0;
+                if($s_type==1){
+                    $t_income = $total + $income;
+                    $data = [
+                        'fk_mtcode' => $mtcode,
+                        'total' => $t_income,
+                        'm_input' => $income,
+                        'm_output' => 0,
+                        'memo' => $memo,
+                        'indate' => $indate
+                    ];
+                    $Cnt = $material_m->Insert_Material_Income($data);
+                    if($Cnt >0){
+                        $i_arr = ['indate' => $indate,'total' => $t_income];
+                        $result = 'ok';
+                        $data = $i_arr;
+                        $message = '';
+                    }else{
+                        $result = 'error005';
+                        $data = [];
+                        $message = '입고 처리에 실패 하였습니다.';
+                    }
+                }else{
+                    if($total < $income){
+                        $result = 'error006';
+                        $data = [];
+                        $message = '출고량이 입고량보다 큽니다.';
+                    }else{
+                        $t_income = $total - $income;
+                        $data = [
+                            'fk_mtcode' => $mtcode,
+                            'total' => $t_income,
+                            'm_input' => 0,
+                            'm_output' => $income,
+                            'memo' => $memo,
+                            'indate' => $indate
+                        ];
+                        $Cnt = $material_m->Insert_Material_Income($data);
+                        if($Cnt >0){
+                            $i_arr = ['indate' => $indate,'total' => $t_income];
+                            $result = 'ok';
+                            $data = $i_arr;
+                            $message = '';
+                        }else{
+                            $result = 'error005';
+                            $data = [];
+                            $message = '축고 처리에 실패 하였습니다.';
+                        }
+                    }
+                }
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
+
+    public function Load_Material_Inout(){
+        $sessinarr = $this->GetSessionData();
+        $search  = ($this->request->getPost('search') == '') ? '' : $this->request->getPost('search');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else {
+            $material_m = model('Material_m');
+            $Rs = $material_m->Load_Material_inout($search);
+            if(fn_ArrayCnt($Rs)>0){
+                $data = [];
+                foreach ($Rs as $d){
+                    $mtstr = explode('||',$d['mtstr']);
+                    $mtname = $mtstr[0];
+                    $mttype = ($mtstr[1]==1) ? '원자재' : '부자재';
+                    $t_arr = [
+                        'mtcode' => $d['fk_mtcode'],
+                        'mtname' => $mtname,
+                        'mttype' => $mttype,
+                        'total' => $d['total'],
+                        'indate' => $d['indate'],
+                        'memo' => $d['memo']
+                    ];
+                    $data[] = $t_arr;
+                }
+
+                $i_arr = [
+                    'list' => $data,
+                    'tcnt' => fn_ArrayCnt($data)
+                ];
+
+                $result = 'ok';
+                $data = $i_arr;
+                $message = '';
+
+            }else{
+                $result = 'ok';
+                $data = [];
+                $message = '';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+
+    }
+
     public function Load_Mall_Log_List()
     {
         $code  = ($this->request->getPost('code') == '') ? '' : $this->request->getPost('code');
@@ -35,18 +178,27 @@ class ApiController extends BaseController
             if(fn_ArrayCnt($Rs)>0){
                 $list = [];
                 $tname = '';
+                $sStr = '';
                 foreach ($Rs as $d){
                     if($d['typ']==1){
                         $tname = '주문수집';
                     }else if($d['typ']==2){
                         $tname = '클레임수집';
                     }
+
                     $content = ($d['content']=='') ? $content = 'API Token 인증 오류' : $d['content'];
 
+                    match ($d['status']) {
+                        1       => $sStr = '정상',
+                        2       => $sStr = '정상',
+                        3       => $sStr = '정상',
+                        4       => $sStr = '사용불가',
+                        default => $sStr = '정상',
+                    };
                     $t_arr = [
                         'shoptyp' => $d['fk_shoptyp'],
                         'shop_name' => $d['sname'],
-                        'status' => $d['status'],
+                        'status' => $sStr,
                         'indate' =>$d['indate'],
                         'content' => $content
                     ];
@@ -86,38 +238,27 @@ class ApiController extends BaseController
             if(fn_ArrayCnt($Rs)>0){
                 $list = [];
                 foreach ($Rs as $d){
+                    $status = ($d['missCnt'] > 0) ? 'miss' : '';
+                    if(is_null($d['period'])){
+                        $dateRange = '';
+                        $indate = '';
+                    }else{
+                        $periodParts = explode('||', $d['period']);
+                        $start = (isset($periodParts[0])) ? fn_Short_Date($periodParts[0]) : '';
+                        $end = (isset($periodParts[1])) ? fn_Short_Date($periodParts[1]) : '';
+                        $indate = $periodParts[2] ?? '';
+                        $dateRange =($start && $end) ? $start . ' ~ ' . $end : '';
+                    }
+
                     $t_arr = [
-                        'shoptyp' => $d['shoptyp'],
                         'shop_name' => $d['shop_name'],
+                        'shop_id' => $d['shop_id'],
                         'method' => $d['method'],
-                        'shop_id' => $d['shop_id']
+                        'status' => $status,
+                        'period' => $dateRange,
+                        'indate' => $indate,
+                        'shoptyp' => $d['shoptyp']
                     ];
-
-                    $typ1 = $common_m->Load_Mall_Log($d['shoptyp'],1);
-                    if(fn_ArrayCnt($typ1)>0){
-                        $arr1 = [
-                            'typ' => '주문수집',
-                            'status' => $typ1[0]['status'],
-                            'indate' => $typ1[0]['indate']
-                        ];
-                    }else{
-                        $arr1 = ['typ'=>'','status'=>'','indate'=>''];
-                    }
-
-                    $typ1 = $common_m->Load_Mall_Log($d['shoptyp'],2);
-                    if(fn_ArrayCnt($typ1)>0){
-                        $arr2 = [
-                            'typ' => '크레임수집',
-                            'status' => $typ1[0]['status'],
-                            'indate' => $typ1[0]['indate']
-                        ];
-                    }else{
-                        $arr2 = ['typ'=>'','status'=>'','indate'=>''];
-                    }
-
-                    $t_arr['order'] = $arr1;
-                    $t_arr['claim'] = $arr2;
-
                     $list[] = $t_arr;
                 }
 
@@ -1267,6 +1408,7 @@ class ApiController extends BaseController
     public function Load_MaterialList(){
 
         $data = $this->request->getPost('data') ?? [];
+
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
             $result = 'NoLogin';
@@ -1281,7 +1423,6 @@ class ApiController extends BaseController
             $fkey = $data['fkey'] ?? 0;
 
             $material_m = model('Material_m');
-
             if ($skey == '' && $fkey == 0) {
                 $mRs = $material_m->Load_MaterialList_All();
             } else if ($skey != '') {
@@ -1301,6 +1442,8 @@ class ApiController extends BaseController
                 $t_arr['fk_mkcode'] = $d['fk_mkcode'];
                 $t_arr['inventory'] = $d['inventory'];
                 $t_arr['uname'] = $d['unit_name'];
+                $t_arr['fk_mkname'] = $d['fk_mkname'];
+                $t_arr['fk_suname'] = $d['fk_suname'];
 
                 $cRs = $material_m->Load_Material_statistics($d['mtcode']);
                 if(fn_ArrayCnt($cRs)>0){
@@ -1322,7 +1465,7 @@ class ApiController extends BaseController
 
             $i_arr = [
                 'list' => $m_arr,
-                'tCnt' => fn_ArrayCnt($m_arr)
+                'tCnt' => fn_ArrayCnt($mRs)
             ];
 
             $result = 'ok';
@@ -2720,23 +2863,19 @@ class ApiController extends BaseController
                         ];
 
                         $Cnt2 = $Member_m->Update_UserInfo($uid,$param);
-                        if ($Cnt2 >= 1) {
-                            $LogTyp = 'userinfo update';
-                            $Log = implode('::', $param).':: pw updated';
-                            fn_InsertSystemLog($sessinarr['user']['uid'],$LogTyp,$Log);
-                            $result = 'ok';
-                            $data = $Cnt2;
-                            $message = '';
-                        } else {
-                            $result = 'Error006';
-                            $data = [];
-                            $message = 'update1 실패하엿습니다 ';
-                        }
+
+                        $LogTyp = 'userinfo update';
+                        $Log = implode('::', $param).':: pw updated';
+                        fn_InsertSystemLog($sessinarr['user']['uid'],$LogTyp,$Log);
+
+                        $result = 'ok';
+                        $data = $Cnt2;
+                        $message = '';
 
                     } else {
                         $result = 'Error007';
                         $data = [];
-                        $message = 'new pw update 실패하엿습니다 ';
+                        $message = 'new pw update 실패하였습니다 ';
 
                     }
 
@@ -2749,19 +2888,14 @@ class ApiController extends BaseController
 
                     $Cnt3 = $Member_m->Update_UserInfo($uid,$param);
 
-                    if ($Cnt3 >= 1) {
-                        $LogTyp = 'userinfo update';
-                        $Log = implode('::', $param);
-                        fn_InsertSystemLog($sessinarr['user']['uid'],$LogTyp,$Log);
-                        $result = 'ok';
-                        $data = $Cnt3;
-                        $message = '';
+                    $LogTyp = 'userinfo update';
+                    $Log = implode('::', $param);
+                    fn_InsertSystemLog($sessinarr['user']['uid'],$LogTyp,$Log);
 
-                    } else {
-                        $result = 'Error008';
-                        $data = $param;
-                        $message = 'update2 실패하엿습니다 ';
-                    }
+                    $result = 'ok';
+                    $data = $Cnt3;
+                    $message = '';
+
                 }
             } else {
                 $result = 'Error007';
@@ -2797,20 +2931,20 @@ class ApiController extends BaseController
             $message = '마스터 권한이 없습니다. ';
         } else if($sessinarr['user']['grade'] == AUTH_MASTER) {
 
-
             $Member_m = model('Member_m');
             $userinfo = $Member_m->Load_UserInfo($uid);
             if(fn_ArrayCnt($userinfo)>0){
-                $param = [
-                    'is_use' => 0
-                ];
-                $Cnt = $common_m->Update_UserInfo($uid,$param);
+                $Cnt = $Member_m->Delete_UserInfo($uid);
                 if($Cnt > 0){
+                    $LogTyp = 'userinfo is deleted';
+                    $Log = $uid;
+                    fn_InsertSystemLog($sessinarr['user']['uid'],$LogTyp,$Log);
+
                     $result = 'ok';
                     $message = '';
                 }else{
                     $result = 'Error004';
-                    $message = '정보 수정에 실패하였습니다.';
+                    $message = '삭제된 계정이 없습니다.';
                 }
             }else{
                 $result = 'Error005';
@@ -2871,55 +3005,6 @@ class ApiController extends BaseController
 
 //Board_NoticeRegister start
 
-    public function Add_NoticeInfo() {
-
-        $sessinarr = $this->GetSessionData();
-        $data = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
-        if($sessinarr['islogin']==false) {
-            $result = 'NoLogin';
-            $data = [];
-            $message = '로그인이 필요합니다.';
-        } else if (fn_ArrayCnt($data)<=0){
-            $result = 'Error001';
-            $data = [];
-            $message = '필수 입력값이 누락되었습니다.';
-        } else if (!Check_Token($sessinarr)) {
-            $result = 'Error002';
-            $data = [];
-            $message = '잘못된 토큰입니다.';
-        } else {
-
-            $uid = $sessinarr['user']['uid'];
-            $param = [
-                'is_Fix' => $data['is_fixed'],
-                'is_Notice' => $data['is_notice'],
-                'bTitle' => $data['n_title'],
-                'bContent' => $data['content'],
-                'is_del' => 0,
-                'uid' => $uid,
-            ];
-
-            $Common_m = model('Common_m');
-            $Cnt = $Common_m->Insert_Notice_Content($param);
-            if(fn_ArrayCnt($Cnt) >= 0) {
-                $result = 'ok';
-                $data = $Cnt;
-                $message = '';
-
-            } else {
-                $result = 'Error003';
-                $data = [];
-                $message = '등록에 실패했습니다.';
-            }
-        }
-
-        $return = [
-            'result' => $result,
-            'info' => $data,
-            'message' => $message
-        ];
-        return $this->respond($return);
-    }
 
     public function Load_NoticeList() {
 
@@ -3025,6 +3110,55 @@ class ApiController extends BaseController
     }
 
 
+    public function Add_NoticeInfo() {
+
+        $sessinarr = $this->GetSessionData();
+        $data = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        } else if (fn_ArrayCnt($data)<=0){
+            $result = 'Error001';
+            $data = [];
+            $message = '필수 입력값이 누락되었습니다.';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        } else {
+            $uid = $sessinarr['user']['uid'];
+            $param = [
+                'is_Fix' => $data['is_fixed'],
+                'is_Notice' => $data['is_notice'],
+                'bTitle' => $data['n_title'],
+                'bContent' => $data['content'],
+                'is_del' => 0,
+                'uid' => $uid,
+            ];
+
+            $Common_m = model('Common_m');
+            $Cnt = $Common_m->Insert_Notice_Content($param);
+            if(fn_ArrayCnt($Cnt) >= 0) {
+                $result = 'ok';
+                $data = $Cnt;
+                $message = '';
+
+            } else {
+                $result = 'Error003';
+                $data = [];
+                $message = '등록에 실패했습니다.';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
     public function Mod_NoticeInfo(){
 
 //        $data  = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
@@ -3041,12 +3175,15 @@ class ApiController extends BaseController
             $result = 'NoLogin';
             $data = [];
             $message = '로그인이 필요합니다.';
+        }else if($sessinarr['user']['grade'] != AUTH_MASTER) {
+            $result = 'not master';
+            $data = [];
+            $message = 'master 권한이 없습니다.';
         }else if(!Check_Token($sessinarr)) {
             $result = 'Error002';
             $data = [];
             $message = '잘못된 토큰입니다.';
         }else{
-
             $param = [
                 'is_Fix' => $data['is_fixed'],
                 'is_Notice' => $data['is_notice'],
@@ -3056,6 +3193,11 @@ class ApiController extends BaseController
 
             $common_m = model('Common_m');
             $Rs = $common_m->Update_NoticeInfo($bcode,$param);
+
+            $LogTyp = 'notice info update';
+            $Log = $bcode;
+            fn_InsertSystemLog($sessinarr['user']['uid'],$LogTyp,$Log);
+
             $result = 'ok';
             $data = $Rs;
             $message = '';
@@ -3085,7 +3227,6 @@ class ApiController extends BaseController
             $data = [];
             $message = '잘못된 토큰입니다.';
         }else{
-
             $param = [
                 'is_Del' => 1
             ];
@@ -3094,6 +3235,10 @@ class ApiController extends BaseController
             $Rs = $common_m->IsDel_NoticeInfo($bcode,$param);
 
             if($Rs > 0){
+                $LogTyp = 'notice info is_del';
+                $Log = $bcode;
+                fn_InsertSystemLog($sessinarr['user']['uid'],$LogTyp,$Log);
+
                 $result = 'ok';
                 $data = [];
                 $message = '';

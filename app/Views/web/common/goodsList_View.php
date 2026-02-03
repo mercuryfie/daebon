@@ -32,8 +32,8 @@
                 </div>
                 <div class="right flexType2">
                     <!--                        <input type="file" id="attachExcel" name="attachExcel" accept=".xlsx,.xls" style="display:none;">-->
-                    <button type="button" class="btnType1 mr20" id="excelPop" name="excelPop">엑셀업로드</button>
-                    <!--                    <button type="button" class="btnType1 mr10">엑셀다운로드</button>-->
+                    <button type="button" class="btnType1 mr10" id="excelPop" name="excelPop">엑셀업로드</button>
+                    <button type="button" class="btnType1 mr20">양식 다운</button>
                 </div>
             </div>
             <div class="area4 goods_boxa1b flexType2">
@@ -58,10 +58,10 @@
                     </table>
                 </div>
             </div>
-<!--            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">-->
-<!--                <p class="more mr10">더보기</p>-->
-<!--                <i class="fa-solid fa-angle-down"></i>-->
-<!--            </div>-->
+            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </div>
 

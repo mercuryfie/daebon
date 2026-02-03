@@ -18,6 +18,35 @@ class Material_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Load_Material_stock($mtcode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_material_inout WHERE fk_mtcode=:MTCODE: ORDER BY seq DESC LIMIT 1;";
+        $bindparam = [
+            'MTCODE' => $mtcode,
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+
+
+    public function Load_Material_inout($search){
+        $sql = "SELECT m1.*, CONCAT(mt.mtname, '||', mt.typ) AS mtstr FROM tbl_material_inout m1 ";
+        $sql .="INNER JOIN (SELECT MAX(seq) AS max_seq FROM tbl_material_inout GROUP BY fk_mtcode ) m2 ON m1.seq = m2.max_seq ";
+        $sql .="INNER JOIN tbl_material mt ON m1.fk_mtcode = mt.mtcode ";
+        if($search!=''){
+            $sql .= "WHERE (m1.fk_mtcode LIKE :LIKESTR: OR mt.mtname LIKE :LIKESTR:)";
+            $like = "%{$search}%";
+            $bindparam = ['LIKESTR' => $like];
+        }else{
+            $bindparam = [];
+        }
+        $sql .= ' order by m1.seq DESC';
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+
     public function Cnt_Maker_All()
     {
         $sql = "SELECT count(*) as Cnt FROM tbl_maker where is_del=:ISDEL:;";
@@ -48,15 +77,6 @@ class Material_m extends Model
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
     }
-
-//    public function Load_Maker_All($fields=['ALL'])
-//    {
-//        $separated_val = fn_Make_Fields($fields);
-//        $sql = "SELECT {$separated_val} FROM tbl_maker WHERE is_del=0 order by name ASC;";
-//        $query = $this->db->query($sql);
-//        return $query->getResultArray();
-//    }
-
 
     public function Load_Maker_Each ($code,$fields=['ALL'])
     {
@@ -132,15 +152,18 @@ class Material_m extends Model
     public function Load_MaterialList_All($fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_material WHERE is_del=0 order by mtname ASC;";
-        $query = $this->db->query($sql);
+        $sql = "SELECT {$separated_val} FROM vw_material_info WHERE is_del=:ISDEL: order by mtname ASC";
+        $bindparam = [
+            'ISDEL' => 0
+        ];
+        $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
     }
 
     public function Load_MaterialList_Type($typ,$fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_material WHERE is_del=0 AND typ=:TYP: order by seq ASC;";
+        $sql = "SELECT {$separated_val} FROM vw_material_info WHERE is_del=0 AND typ=:TYP: order by seq ASC;";
         $bindparam = [
             'TYP' => $typ
         ];
@@ -331,6 +354,16 @@ class Material_m extends Model
     public function Insert_Material_Info($param){
         $this->db->transStart();
         $builder = $this->db->table('tbl_material');
+        $builder->insert($param);
+        $insertID = $this->db->insertID();
+        $this->db->transComplete();
+
+        return $insertID;
+    }
+
+    public function Insert_Material_Income($param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_material_inout');
         $builder->insert($param);
         $insertID = $this->db->insertID();
         $this->db->transComplete();

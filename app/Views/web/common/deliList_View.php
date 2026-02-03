@@ -14,7 +14,7 @@
                 배송목록
             </p> 
         </div>
-        <div class="areaBox mb10">
+        <div class="areaBox mb10 ">
             <div class="area1 flexType3">
                 <div class="left flexType2">
 <!--                        <p class="title">기간</p>-->
@@ -50,29 +50,19 @@
                 </div>
             </div>
         </div>
-        <div class="areaBox pb100">
+        <div class="areaBox pb100 min70vh">
             <div class="flexType3 mt10">
                 <div class="left ml20">
 <!--                    <p class="status">전체 주문 : 100 건 | 발송 : 10 건 | 발송완료 : 10 건</p>-->
                 </div>
                 <div class="right">
-<!--                    <select name="" id="" class="btnType1 mr10 ">-->
-<!--                        <option value="">전체마켓</option>-->
-<!--                        <option value="">옥션</option>-->
-<!--                        <option value="">지마켓</option>-->
-<!--                    </select>-->
-<!--                    <select name="" id="" class="btnType1 mr10">-->
-<!--                        <option value="">20개씩</option>-->
-<!--                        <option value="">50개씩</option>-->
-<!--                        <option value="">100개씩</option>-->
-<!--                    </select>-->
                     <button type="button" class="btnType1 mr10">엑셀다운로드</button>
                     <button type="button" class="btnType1 mr40" id="btn_reload" name="btn_reload">초기화</button>
                 </div>
             </div>
             <div class="area4 ">
                 <div class="deli_box1od">
-                    <table class="deliInfoTable ">
+                    <table class="deliInfoTable ml20 ">
                         <thead>
                         <tr>
                             <td class="ltThead productNo">쇼핑몰</td>
@@ -93,10 +83,10 @@
                     </table>
                 </div>
             </div>
-<!--            <div class="area lastArea flexType1 mt20" id="cpage" name="cpage" data-page="1">-->
-<!--                <p class="more mr10">더보기</p>-->
-<!--                <i class="fa-solid fa-angle-down"></i>-->
-<!--            </div>-->
+            <div class="area lastArea flexType1 mt20" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </div>
 

@@ -719,6 +719,17 @@ function fnProcess_Arr(){
 }
 
 
+function fnPageAmount_Arr(){
+    $t_arr = [
+        ['limit' => '30'], //
+        ['limit' => '50'],
+        ['limit' => '100']
+    ];
+
+    return $t_arr;
+}
+
+
 function fnMake_Material_option($ctyp,$typ)
 {
     $html = '';
@@ -757,6 +768,7 @@ function fnMake_UserGrade_option($gtyp) {
 
     return $html;
 }
+
 
 function fnGetProductNameByCode($code) {
     $products = fnProducts_Arr();

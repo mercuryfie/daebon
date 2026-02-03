@@ -17,6 +17,120 @@ class ApiOrderController extends BaseController
         $this->Check_Auth($Auth);
     }
 
+    public function Put_Order_Miss(){
+        $sessinarr = $this->GetSessionData();
+        $sgcode = ($this->request->getPost('sgcode')=='') ? '' : $this->request->getPost('sgcode');
+        $orcode = ($this->request->getPost('orcode')=='') ? '' : $this->request->getPost('orcode');
+        if ($sessinarr['islogin'] == false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        } else if (($sgcode == '' ) || ($orcode == '' )) {
+            $result = 'Error001';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        } else {
+            $order_m = model('Order_m');
+            $iRs = $order_m->Load_Order_InfoBySgcode($order_m);
+            if(fn_ArrayCnt($iRs)<=0){
+                $result = 'Error101';
+                $data = [];
+                $message = '존재하지 않는 주문상품입니다.';
+            }else if($iRs[0]['fk_pdcode']!=''){
+                $result = 'Error102';
+                $data = [];
+                $message = '이미 매칭 처리된 상품입니다.';
+            }else{
+                $nRs = $order_m->Load_Order_ProductByMatch($sgcode);
+                if(fn_ArrayCnt($nRs)<=0){
+                    $result = 'Error103';
+                    $data = [];
+                    $message = '아직 매칭 정보를 등록 하지 않았습니다.';
+                }else{
+                    $fk_pdcode = $nRs[0]['fk_pdcode'];
+                    $cRs = $order_m->procedure_Move_Order_Miss($orcode,$sgcode,$fk_pdcode);
+                }
+            }
+        }
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Load_Order_Miss(){
+        $sessinarr = $this->GetSessionData();
+        $styp = ($this->request->getPost('styp')=='') ? '' : $this->request->getPost('styp');
+        if ($sessinarr['islogin'] == false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        } else if ($styp == '' ) {
+            $result = 'Error001';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        } else {
+            $market_m = model('Market_m');
+            $mRs = $market_m->Load_Mall_info($styp);
+            if(fn_ArrayCnt($mRs)<=0){
+                $result = 'Error003';
+                $data = [];
+                $message = '존재하지 않는 쇼핑몰입니다.';
+            }else{
+                $order_m = model('Order_m');
+                $sname = $mRs[0]['shop_name'];
+                $fields = ['a.orcode','a.spcode','a.shoptyp','a.orderdate','a.indate as regidate','b.*','c.*'];
+                $iRs = $order_m->Load_Order_InfoByMissProduct($styp,$fields);
+                if(fn_ArrayCnt($iRs)<=0){
+                    $result = 'nothing';
+                    $data = [];
+                    $message = '';
+                }else{
+                    $product = [];
+                    foreach ($iRs as $d){
+                        $msg = ($d['fk_pdcode']!='') ? '-' : '상품 매칭정보 누락';
+                        $t_arr = [
+                            'orcode' => $d['orcode'],
+                            'spcode' => $d['spcode'],
+                            'sgcode' => $d['sgcode'],
+                            'pdcode' => $d['fk_pdcode'],
+                            'buy_name' => $d['buy_name'],
+                            'orderdate' => fn_Short_Date($d['orderdate']),
+                            'miss' => $msg,
+                            'sgname' => $d['sgname'],
+                            'indate' => fn_Short_Date($d['regidate'])
+                        ];
+                        $product[] = $t_arr;
+                    }
+
+                    $result = 'ok';
+                    $data = [
+                        'sname' => $sname,
+                        'list' => $product
+                    ];
+                    $message = '';
+                }
+            }
+        }
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
     public function Load_Delivery_Data()
     {
         $sessinarr = $this->GetSessionData();
@@ -560,6 +674,7 @@ class ApiOrderController extends BaseController
                         'orcode' => $d['orcode'],
                         'spcode' => $d['spcode'],
                         'shoptyp' => $d['shoptyp'],
+                        'shopmethod' => $d['shopmethod'],
                         'shopstr' => getExCodeName($d['shoptyp']),
                         'tprice' => $d['tprice'],
                         'tcnt' => $d['tcnt'],

@@ -1435,7 +1435,14 @@ input[type="radio"] {
     margin-left: 20px;
     margin-bottom: 10px;
     background-color: #fff;
+}
 
+.areaBox.min80vh {
+    min-height: 80vh;
+}
+
+.areaBox.min70vh {
+    min-height: 70vh;
 }
 
 .areaHidden {
@@ -1620,27 +1627,40 @@ input[type="radio"] {
 
 .order_box28f .order_boxfxp .table_scroll {
     overflow-x: auto;
-    overflow-y: visible;
+    overflow-y: auto;
     height: auto;
     min-height: 560px;
+    max-height: 600px;
+    border:1px solid blue;
 }
 
-.order_box28f .order_boxfxp .order_tabledj1 {
+.order_box28f .order_boxfxp .table_scroll .order_tabledj1 {
     width: 81vw;
     border-collapse: collapse;
     text-wrap: nowrap;
-    overflow-x: scroll;
-    position: sticky;
-    top:0;
-    z-index: 40;
+    /*overflow-x: scroll;*/
+    /*overflow-y: auto;*/
+    max-height: 600px;
+    /*position: sticky;*/
+    /*top:0;*/
+    /*z-index: 40;*/
     font-size: 14px;
 
+    border:1px solid red;
 }
 
 .order_box28f .order_boxfxp .order_tabledj1 .tbl_head{
     position: sticky;
     top:0;
     z-index: 10;
+}
+
+.order_box28f .order_boxfxp .order_tabledj1 th {
+    position: sticky;
+    top: 0;
+    /*background-color: #fff;  !* 배경색으로 내용 가림 방지 *!*/
+    z-index: 10;  /* 겹침 우선순위 */
+
 }
 
 .order_box28f .order_boxfxp .order_tabledj1 td {
@@ -2066,7 +2086,7 @@ input[type="radio"] {
 }
 
 .linkMallsTable .status.positive {
-    background-color: #6FFF74;
+    background-color: var(--color15);
 }
 
 .linkMallsTable .status.negative {
@@ -2165,7 +2185,21 @@ input[type="radio"] {
     line-height: 32px;
 }
 
+.missing_list_table .match_btn {
+    /*height: 24px;*/
+    padding: 5px 10px;
+    color:#5c5c5c;
+}
 
+.missing_list_wrap .lastArea {
+    width:86vw;
+
+}
+
+.missing_list_wrap .lastArea .btnType1{
+    width: 220px;
+    height: 40px;
+}
 /* missingList_View end -------------------------------- */
 
 /* producingStatus start -------------------------------- */
@@ -4538,6 +4572,22 @@ input[type="radio"] {
 }
 
 /* pop_AddPackingQueue_View end -------------------------------- */
+/* cpage start -------------------------------- */
+
+.more_box {
+    /*border:1px solid red;*/
+    /*height: 60px;*/
+    cursor: pointer;
+}
+
+.more_box .btnType3 {
+    /*border:1px solid red;*/
+    border:none;
+    width: 120px;
+    height: 60px;
+}
+
+/* cpage end -------------------------------- */
 /* pop add category2 start -------------------------------- */
 
 .gdsDetail_conkol .lastArea,

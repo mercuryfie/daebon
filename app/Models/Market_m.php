@@ -21,12 +21,33 @@ class Market_m extends Model
     public function getMallLog($param, $fields = ['*'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_mall_log WHERE fk_shoptyp=:FKSHOPTYP: AND typ=:TYP: AND status=:STATUS:";
+        $sql = "SELECT {$separated_val} FROM tbl_mall_log WHERE fk_shoptyp=:FKSHOPTYP: AND typ=:TYP: order by seq DESC limit 1;";
 
         $bindparam = [
             'FKSHOPTYP' => $param['shoptyp'],
-            'TYP' => 1,
-            'STATUS' => 'ok'
+            'TYP' => 1
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function getCode($code, $fields = ['*'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_product_matching WHERE fk_excode=:FKEXCODE:;";
+
+        $bindparam = [
+            'FKEXCODE' => $code
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Load_Mall_info($stype,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_mall_info  where shoptyp=:SHOPTYP: ";
+        $bindparam = [
+            'SHOPTYP'=> $stype
         ];
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();

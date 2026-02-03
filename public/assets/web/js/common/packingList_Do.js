@@ -70,6 +70,7 @@ $(document).ready(function() {
 
 async function Make_Html(param){
     let arr = await Load_Data(param);
+    console.log('dawn1805',arr);
     let html = '';
     if(!fn_IsEmpty(arr)) {
         $.each(arr, function (index, el) {

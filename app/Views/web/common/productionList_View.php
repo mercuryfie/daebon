@@ -32,7 +32,7 @@
                     </label>
                 </div>
             </div>
-            <div class="area2 flexType3 production_boxa6m">
+            <div class="area2 flexType3 production_boxa6m ">
                 <div class="left flexType2">
 <!--                    <select name="" id="" class="searchFilter ">-->
 <!--                        <option value="">작업상태</option>-->
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="areaBox area_boxmxh ">
+        <div class="areaBox area_boxmxh min70vh">
             <div class="goods_boxkfg flexType3">
                 <div class="left flexType2">
                     <p class="title">작업목록</p>
@@ -91,10 +91,10 @@
                     </table>
                 </div>
             </div>
-<!--            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">-->
-<!--                <p class="more mr10">더보기</p>-->
-<!--                <i class="fa-solid fa-angle-down"></i>-->
-<!--            </div>-->
+            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </div>
 </section>

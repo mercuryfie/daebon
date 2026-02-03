@@ -15,7 +15,7 @@
                 기타정보관리
             </p>
         </div>
-        <div class="areaBox  ">
+        <div class="areaBox min80vh ">
             <div class="area1 flexType2">
                 <button type="button" class="tab active" onclick="go_otherInfo_Maker();">제조사관리</button>
                 <button type="button" class="tab" onclick="go_otherInfo_Supplier();">공급사관리</button>

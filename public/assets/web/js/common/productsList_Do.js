@@ -89,6 +89,8 @@ $(document).ready(function() {
     $(document).on('click','button[name="btn_print"]',function(){
         let code = $(this).data('code');
         let url = "/goods/instructionform?cd=" + code;
+        console.log('dawn1538',code);
+        console.log('dawn1539',url);
         pop_OrderRoastForm(url);
     });
 
@@ -352,6 +354,7 @@ async function Data_Add(param){
         }else if(result.get('status') == 'ok') {
             let data = result.get('data');
             arr = (data && data.list) ? data.list : null;
+            console.log('dawn1508',arr);
             if(arr) {
                 let html = `
                     <tr id="list_${arr.gscode}">
@@ -475,6 +478,7 @@ function Edit_Products(code,name,cat,inven,unit_weight,t_cnt){
 
 async function Make_Html(skey){
     let arr = await Data_Load(skey);
+    console.log('dawn1525',arr);
     let html = '';
     if(!fn_IsEmpty(arr.list)){
         $.each(arr.list, function (index, el) {

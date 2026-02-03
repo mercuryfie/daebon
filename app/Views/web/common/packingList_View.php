@@ -11,7 +11,7 @@
                 포장목록
             </p>
         </div>
-        <div class="areaBox area_boxmxh ">
+        <div class="areaBox area_boxmxh min80vh">
             <div class="goods_boxkfg flexType3">
                 <div class="left flexType2">
 <!--                    <p class="title">포장완료 / 포장예정 : </p>-->
@@ -39,10 +39,10 @@
                     </table>
                 </div>
             </div>
-<!--            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">-->
-<!--                <p class="more mr10">더보기</p>-->
-<!--                <i class="fa-solid fa-angle-down"></i>-->
-<!--            </div>-->
+            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </div>
 

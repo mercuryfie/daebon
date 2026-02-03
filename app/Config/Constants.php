@@ -115,7 +115,6 @@ define("ENVIRONMENT","development");
 define("CK_DOMAIN",".daebon.com");
 define("CK_DBIP","211.251.239.37");
 
-
 define("COMPANY_NAME",'농업법인대본');
 define("COMPANY_ZIP",'38448');
 define("COMPANY_ADDRESS1",'경북 경산시 진량읍 초원길 10');
@@ -123,17 +122,16 @@ define("COMPANY_ADDRESS2",'농업법인대본');
 define("COMPANY_MOBILE",'010-5180-4490');
 define("COMPANY_TEL",'070-4250-1052');
 
-
-
-
 define("ASSETS_URL","/assets/web");
 define("H_TITLE","DAEBON ESM");
-
 
 define("AUTH_MASTER",1101);
 define("AUTH_PACKING",1102);
 define("AUTH_PRODUCT",1103);
 
+define("PAGES30",30);
+define("50PAGES",50);
+define("100PAGES",100);
 
 define("PROCESS_STEP1",'대기');
 define("PROCESS_STEP2",'진행중');

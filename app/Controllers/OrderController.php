@@ -102,19 +102,20 @@ class OrderController extends BaseController
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
         }else {
+            $shoptype  = ($this->request->getGet('sp') == '') ? '' : $this->request->getGet('sp');
             $metaarr = [
                 'h_title' => '누락목록',
                 'h_type' => 1
             ];
 
-            $main_data = [];
+            $main_data = ['styp' => $shoptype];
 
             $form = new Form;
             $main_data = [
                 'meta' => $form->fnMake_Meta($metaarr),
                 'header' => $form->fnMake_Header($sessinarr),
                 'left' => $form->fnMake_Left(),
-                'main' => $main_data,
+                'body' => $main_data,
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 

@@ -9,25 +9,22 @@ use Exception;
 class SsgAPI
 {
     protected string $baseUrl;
-
     protected string $apiKey;
-    protected $apiVersion = '1';
+    protected string $apiVersion = '1';
+    protected string $shopType = 'type14';
+
     protected CURLRequest $client;
+
 
     public function __construct()
     {
+        // 보안을 위해 API 키는 .env 파일 등에 관리하는 것을 추천합니다.
         $this->apiKey = '9e2fee85-529e-4483-ba12-ed6b57aa46d1';
+        $this->baseUrl = 'https://eapi.ssgadm.com';
 
-        if(ENVIRONMENT=='production'){
-            $this->baseUrl = 'http://eapi.ssgadm.com';
-        }else{
-            $this->baseUrl = 'http://qa-eapi.ssgadm.com';
-        }
-
-        // CURLRequest 초기화
         $this->client = Services::curlrequest([
             'headers'  => [
-                'Authorization' => $this->apiKey, // SSG API 인증키
+                'Authorization' => $this->apiKey,
                 'Accept'        => 'application/json',
                 'Content-Type'  => 'application/json',
             ],
@@ -36,71 +33,114 @@ class SsgAPI
         ]);
     }
 
-    /**
-     * @param string $method HTTP 메서드 (GET, POST)
-     * @param string $path API 엔드포인트 경로 (예: /item/v1/getItemList.ssg)
-     * @param array $params 요청 파라미터 (GET은 쿼리스트링, POST는 JSON Body)
-     * @return array|object 응답 데이터
-     * @throws Exception
-     */
     public function sendRequest(string $method, string $path, array $params = [])
     {
         $method = strtoupper($method);
         $options = [];
 
-        // 파라미터 설정
         if (!empty($params)) {
             if ($method === 'GET') {
                 $options['query'] = $params;
             } else {
-                $options['json'] = $params; // JSON 형식으로 전송
+                // CI4의 'json' 옵션은 내부적으로 json_encode 및 Content-Type 설정을 수행합니다.
+                $options['json'] = $params;
             }
         }
 
         try {
             $response = $this->client->request($method, $path, $options);
-            $statusCode = $response->getStatusCode();
             $body = $response->getBody();
-
-            // JSON 디코딩
             $result = json_decode($body, true);
 
-            // API 에러 처리
-            if ($statusCode >= 400) {
-                // SSG API 응답 구조에 맞춰 에러 메시지 추출
-                $errorMessage = $result['resultMessage'] ?? $result['resultDesc'] ?? 'Unknown Error';
-                throw new Exception("SSG API Error ({$statusCode}): " . $errorMessage);
+            if (isset($result['resultCode']) && $result['resultCode'] !== 'SUCCESS') {
+                $errorMsg = $result['resultDesc'] ?? $result['resultMessage'] ?? '알 수 없는 오류';
+
+                put_Shop_Api_Log($this->shopType, 'Error', $this->baseUrl, $path, $params, $method, json_encode($errorMsg));
+
+                throw new Exception("SSG API 응답 실패: " . $errorMsg);
             }
+
+            put_Shop_Api_Log($this->shopType, 'Success', $this->baseUrl, $path, $params, $method, $body);
 
             return $result;
 
-        } catch (\Exception $e) {
-            log_message('error', '[SsgApiClient] Request Failed: ' . $e->getMessage());
+        } catch (Exception $e) {
+            put_Shop_Api_Log($this->shopType, 'Error', $this->baseUrl, $path, $params, $method,$e->getMessage());
+            log_message('error', '[SsgAPI] Request Failed: ' . $e->getMessage());
             throw $e;
         }
     }
 
+    /**
+     * 배송지시 목록 조회
+     */
     public function getShppDirectionList(string $startDate, string $endDate)
     {
-        $endpoint = $this->baseUrl .  "/api/pd/{$this->apiVersion}/listShppDirection.ssg";
+        $path = $this->baseUrl . "/api/pd/{$this->apiVersion}/listShppDirection.ssg";
         $params = [
-            'perdType' =>"01",
-            'perdStrDts' => $startDate,
-            'perdEndDts' => $endDate
+            'requestShppDirection' => [
+                'perdType'   => "01",
+                'perdStrDts' => $startDate,
+                'perdEndDts' => $endDate
+            ]
         ];
 
-        return $this->sendRequest('POST', $endpoint, $params);
-        //return [];
+        return $this->sendRequest('POST', $path, $params);
+    }
+
+    public function putOrderConfirm(string $orcode)
+    {
+        try {
+            $order_m = model('Order_m');
+            $Rs = $order_m->Load_Order_Product($orcode);
+            if (fn_ArrayCnt($Rs) <= 0) return '';
+            $results = [];
+            foreach ($Rs as $d) {
+                $sgcode = $d['sgcode'];
+                if (empty($d['addProductInfo'])) continue;
+                $Info = json_decode($d['addProductInfo'], true, 512, JSON_THROW_ON_ERROR);
+
+                $path = "/api/pd/{$this->apiVersion}/updateOrderSubjectManage.ssg";
+                $params = [
+                    'requestOrderSubjectManage' => [
+                        'shppNo' => $Info['shppNo'],
+                        'shppSeq' => $Info['shppSeq']
+                    ]
+                ];
+                $results[$sgcode] = $this->sendRequest('POST', $path, $params);
+            }
+            return $results;
+        } catch (\Exception $e) {
+            log_message('error', '[confirmOrder 전체 에러] ' . $e->getMessage());
+            return ['result' => 'error', 'message' => $e->getMessage()];
+        }
     }
 
 
 
+
     /**
-     * 사용 예시: 상품 목록 조회
+     * 배송지시 목록 조회
+     */
+    public function getShppDirectionList(string $startDate, string $endDate)
+    {
+        $path = $this->baseUrl . "/api/pd/{$this->apiVersion}/listShppDirection.ssg";
+        $params = [
+            'requestShppDirection' => [
+                'perdType'   => "01",
+                'perdStrDts' => $startDate,
+                'perdEndDts' => $endDate
+            ]
+        ];
+
+        return $this->sendRequest('POST', $path, $params);
+    }
+
+    /**
+     * 상품 목록 조회 예시
      */
     public function getItemList(string $version = 'v1', array $searchParams = [])
     {
-        // 내부 호출 메서드명도 sendRequest로 변경
-        return $this->sendRequest('GET', "/item/{$version}/getItemList.ssg", $searchParams);
+        return $this->sendRequest('GET', "/api/item/{$version}/getItemList.ssg", $searchParams);
     }
 }

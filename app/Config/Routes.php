@@ -125,6 +125,8 @@ $routes->match(['GET', 'POST'], 'Api/Edit_Goods', 'ApiController::Edit_Goods');
 $routes->match(['GET', 'POST'], 'Api/Insert_Excel', 'ApiController::Insert_Excel');
 $routes->match(['GET', 'POST'], 'Api/Load_Mall_List', 'ApiController::Load_Mall_List');
 $routes->match(['GET', 'POST'], 'Api/Load_Mall_Log_List', 'ApiController::Load_Mall_Log_List');
+$routes->match(['GET', 'POST'], 'Api/Load_Material_Inout', 'ApiController::Load_Material_Inout');
+$routes->match(['GET', 'POST'], 'Api/Patch_Meterial_Income', 'ApiController::Patch_Meterial_Income');
 
 $routes->match(['GET', 'POST'], 'Api/Load_UserList', 'ApiController::Load_UserList');
 $routes->match(['GET', 'POST'], 'Api/Add_UserInfo', 'ApiController::Add_UserInfo');
@@ -162,6 +164,7 @@ $routes->match(['GET', 'POST'], 'Api/Load_Packing_Data', 'ApiOrderController::Lo
 $routes->match(['GET', 'POST'], 'Api/Put_Order_Info', 'ApiOrderController::Put_Order_Info');
 $routes->match(['GET', 'POST'], 'Api/Insert_Delivery_Info', 'ApiOrderController::Insert_Delivery_Info');
 $routes->match(['GET', 'POST'], 'Api/Load_Delivery_Data', 'ApiOrderController::Load_Delivery_Data');
+$routes->match(['GET', 'POST'], 'Api/Load_Order_Miss', 'ApiOrderController::Load_Order_Miss');
 
 $routes->match(['GET', 'POST'], 'Api/Put_Packing_Info', 'ApiPackingController::Put_Packing_Info');
 
@@ -169,6 +172,7 @@ $routes->match(['GET', 'POST'], 'Api/Shop_Opder_List', 'ApiMarketController::Sho
 $routes->match(['GET', 'POST'], 'Api/Make_Delivery_Code', 'ApiMarketController::Make_Delivery_Code');
 $routes->match(['GET', 'POST'], 'Api/ESM_Order_Period', 'ApiMarketController::ESM_Order_Period');
 $routes->match(['GET', 'POST'], 'Api/getInIInfo', 'ApiMarketController::getInIInfo');
+
 
 
 $routes->match(['GET', 'POST'], 'Api/coupong_api_no1', 'ApiShopController::coupong_api_GetOrderPeriod');

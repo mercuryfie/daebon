@@ -63,6 +63,7 @@ async function Add_Content() {
                 n_title: n_title,
                 content: content
             };
+            // console.log('dawn1421', dataarr);
             let bool = await Add_NoticeInfo(data);
             if (bool == true) {
                 Make_Toast('등록하였습니다');

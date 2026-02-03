@@ -4,8 +4,12 @@
             <p class="head_title" id="">출고하기</p>
             <i class="fa-solid fa-xmark " id="Xbtn" name="Xbtn"></i>
             <div class="area area1 flexType2">
-                <input type="search" name="" id="" placeholder="바코드를 스캔하세요" class="schInput mr10">
-                <button type="button" class="btnType1">검색</button>
+                <div class="copyArea copyArea1 flexType2">
+                    <p class="category ">검색</p>
+                    <input type="search" class="inputType220 " id="txt_pop_output" name="txt_pop_output" placeholder="검색어 입력후 Enter" onfocus="">
+                </div>
+                <div class="copyArea copyArea2  mr10 flexCol" id="outputlist" name="outputlist">
+                </div>
             </div>
 
             <div class="area area2 flexType2">
@@ -16,7 +20,7 @@
                             <p class="head_title" id="">출고하기</p>
                             <i class="fa-solid fa-xmark " id="Xbtn" name="Xbtn"></i>
                             <div class="area area1 flexType2">
-                                <input type="search" name="" id="" placeholder="바코드를 스캔하세요" class="schInput mr10">
+                                <input type="search" name="" id="" placeholder="바코드를 스캔하세요" class="inputType220 mr10">
                                 <button type="button" class="btnType1">검색</button>
                             </div>
 

@@ -12,9 +12,12 @@ $(document).ready(function() {
         if(window.confirm('삭제하시겠습니까?')==true){
             let bool = await Del_User(uid);
             if(bool==true) {
+                // location.reload();
                 Make_Toast('삭제 하였습니다.');
-                // $('#tr_' + uid).remove();
-                location.reload();
+                $('#tr_' + uid).remove();
+            } else {
+                Make_Toast('삭제 실패');
+
             }
         }
     });
@@ -47,6 +50,7 @@ async function Load_Data() {
             // let tCnt = data.tCnt;
             let arr = (data && data.list) ? data.list : [];
             let Cnt = arr.length;
+            console.log('dawn1801', arr);
             if (Cnt > 0) {
                 $.each(arr, function (index, el) {
                     html += `
@@ -93,7 +97,6 @@ async function Load_Data() {
         Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
         stop_spinner();
     }
-
 }
 
 async function Del_User(uid){
@@ -124,6 +127,7 @@ async function Reset_Password(uid){
     try {
         start_spinner();
         let dataarr = {"uid" : uid};
+        console.log('dawn1121',dataarr);
         let url = APIURL + '/Reset_Password';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {

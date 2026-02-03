@@ -13,7 +13,7 @@
                 사용자 등록
             </p>
         </div>
-        <div class="areaBox  ">
+        <div class="areaBox min70vh ">
             <div class="area area1 flexType2">
                 <p class="must"></p>
                 <p class="title">아이디</p>

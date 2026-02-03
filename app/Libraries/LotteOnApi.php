@@ -85,6 +85,20 @@ class LotteOnApi
         return $decoded ?? [];
     }
 
+
+    public function putOrderConfirm(string $orcode){
+        $uri = "/delivery/v1/SellerIfCompleteInform";
+
+        $params = [
+            'dvRtrvDvsCd' => 'DV',
+            'odNo' => $orcode,
+            'procSeq' => 1,
+            'ifCplYN' => 'Y'
+        ];
+        return $this->sendRequest('POST', $uri, $params);
+    }
+
+
     /**
      * [API No. 209] 출고/회수지시(주문정보) 조회
      * 문서: https://api.lotteon.com/apiService/?apiNo=209
@@ -96,7 +110,7 @@ class LotteOnApi
 
         $params = [
             'srchStrtDt' => $startDate,
-            'srchEndDt'  => $startDate,
+            'srchEndDt'  => $endDate,
             'odPrgsStepCd'    => 11,
             'odTypCd'         => 10
         ];

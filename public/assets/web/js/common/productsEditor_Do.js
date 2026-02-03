@@ -1,5 +1,11 @@
 $(function() {
 
+    // let ct = $('#txt_category').data('ct');
+    // let code = $('#txt_gname').data('code');
+    // let gname = $('#txt_gname').text();
+    // console.log('dawn1823',ct,code,gname);
+    // Set_BomProcess(ct, gname);
+
     $(".area_boxm9k > .outerBox > .right i").click(function() {
         var $icon = $(this);
         var $content = $icon.closest(".area_boxm9k").find(".area_box2qd");
@@ -425,6 +431,8 @@ function Set_BomProcess(ct, gname) {
         $template.find('input[name="stepNum"]').val(i);
         i++;
 
+        console.log('dawn1827',types);
+        console.log(idx);
         if (idx === 0) {
             $template.find('.removeRoasting').hide();
         } else {
@@ -458,7 +466,9 @@ function Set_Method_Weight(master_weight){
     now_weight = parseInt(master_weight);
     container.find('div[name="oneRoast"]').each(function () {
         loss = $(this).find('select[name="ptype"]').data('loss');
+        console.log('dawn1802',loss);
         if(loss!=''){
+            console.log('dawn1802',loss);
             material_input = $(this).find('input[name="material_input"]').val();
             material_input = material_input ? parseInt(material_input) : 0;
             material_output = $(this).find('input[name="material_output"]').val();

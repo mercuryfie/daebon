@@ -366,6 +366,7 @@ function printWindow(id) {
     printWindow.document.write("<link rel='stylesheet' href='/assets/web/css/style.css?rnd=" + rnd + "' />");
     printWindow.document.write('</head><body>');
     printWindow.document.write(printContent);
+    console.log('dawn1307',printContent);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.onload = function() {

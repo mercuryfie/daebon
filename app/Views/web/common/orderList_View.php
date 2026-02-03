@@ -115,17 +115,19 @@
 <!--                </div>-->
             </div>
         </div>
-        <div class="areaBox areaBox2 pb100">
+        <div class="areaBox areaBox2 pb100 min70vh">
             <div class="area3 flexType3  mt10 ">
                 <div class="left performStatusBox">
 <!--                    <p class="performStatus status1">전체 주문: 16건 | 작업중 16건 | 발송완료 14건 | 취소: 000건</p>-->
 <!--                    <p class="performStatus status2">옥션1: 000건,  옥션2 : 004건, 지마켓: 002건  농협몰:  010건 </p>-->
                 </div>
                 <div class="right">
-                    <button type="button" class="btnType1 mr10" id="btn_package">묶음포장지시</button>
+                    <button type="button" class="btnType1 mr10" id="btn_orderconfirm">주문확인처리</button>
                     <button type="button" class="btnType1 mr10" id="btn_ininstruct">개별포장지시</button>
+                    <button type="button" class="btnType1 mr10" id="btn_package">묶음포장지시</button>
                     <button type="button" class="btnType1 mr10" onclick="upload_Xlx();">엑셀업로드</button>
-                    <button type="button" class="btnType1 ">엑셀다운로드</button>
+                    <button type="button" class="btnType1 mr10">엑셀 다운</button>
+                    <button type="button" class="btnType1 " onclick="template_Download();">양식 다운</button>
                 </div>
             </div>
             <div class="area4 order_boxfxp">
@@ -135,17 +137,17 @@
                         <tr>
                             <td class="ltThead fixedCol checkCol td40"><div class="inner40 flexCol2"><p class="text">-</p></div></td>
                             <td class="ltThead fixedCol" onclick=""><div class="inner1 flexCol2"><p class="text">진행상태</p></div></td>
-                            <td class="ltThead fixedCol"><div class="inner2 flexCol2"><p class="text">마켓 주문번호</p><p class="text">MES 주문번호</p></div></td>
-                            <td class="ltThead fixedCol"><div class="inner2 flexCol2 last_inner"><p class="text">마켓 상품번호</p><p class="text">MES 상품번호</p></div></td>
+                            <td class="ltThead fixedCol"><div class="inner2 flexCol2"><p class="text">MES 주문번호</p><p class="text">마켓 주문번호</p></div></td>
+                            <td class="ltThead fixedCol"><div class="inner2 flexCol2 last_inner"><p class="text">MES 상품번호</p><p class="text">마켓 상품번호</p></div></td>
 
-                            <td class="ltThead scrollableCol"><div class="inner4 g_name flexCol2"><p class="text">상품명</p></div></td>
-                            <td class="ltThead scrollableCol"><div class="inner4 flexCol2 fs14"><p class="text">구매자명</p><p class="text">연락처</p><p class="text">수취인명</p><p class="text">연락처</p></div></td>
-                            <td class="ltThead scrollableCol"><div class="inner4 flexCol2 "><p class="text">수량</p><p class="text">총액</p></div></td>
-                            <td class="ltThead scrollableCol"><div class="inner4 flexCol2 "><p class="text">주문일자</p></div></td>
+                            <th class="ltThead scrollableCol"><div class="inner4 g_name flexCol2"><p class="text">상품명</p></div></th>
+                            <th class="ltThead scrollableCol"><div class="inner4 flexCol2 fs14"><p class="text">구매자명</p><p class="text">연락처</p><p class="text">수취인명</p><p class="text">연락처</p></div></th>
+                            <th class="ltThead scrollableCol"><div class="inner4 flexCol2 "><p class="text">수량</p><p class="text">총액</p></div></th>
+                            <th class="ltThead scrollableCol"><div class="inner4 flexCol2 "><p class="text">주문일자</p></div></th>
 
-                            <td class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">배송지시일</p></div></td>
-                            <td class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">등록</p></div></td>
-                            <td class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">연동정보</p></div></td>
+                            <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">배송지시일</p></div></th>
+                            <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">등록</p></div></th>
+                            <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">연동정보</p></div></th>
                         </tr>
                         </thead>
                         <tbody id="cList" name="cList">
@@ -153,10 +155,10 @@
                     </table>
                 </div>
             </div>
-<!--            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">-->
-<!--                <p class="more mr10">더보기</p>-->
-<!--                <i class="fa-solid fa-angle-down"></i>-->
-<!--            </div>-->
+            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </div>
 </section>

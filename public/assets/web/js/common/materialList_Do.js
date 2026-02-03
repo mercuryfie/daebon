@@ -2,7 +2,9 @@ $(document).ready(function() {
 
     let search = '';
     let filter = 0;
+    let page = $('#cpage_box').data('page');
     const data = {
+        page : page,
         skey : search,
         fkey : filter
     };
@@ -15,6 +17,18 @@ $(document).ready(function() {
 
     $('#addMateWrap #Xbtn, #addMateWrap #Xbtn2').click(function () {
         $('#addMateWrap').css('display','none');
+    });
+
+    $("#cpage_box, #cpage").on("click", function (key) {
+        let page = $('#cpage_box').data('page');
+        let search = '';
+        let filter = 0;
+        const data = {
+            page : page,
+            skey : search,
+            fkey : filter
+        };
+        Load_Data(data);
     });
 
     $("#maker").on("change", function() {
@@ -33,6 +47,19 @@ $(document).ready(function() {
         } else {
             $("#suppCom").hide();
         }
+    });
+
+    $('#cpage_box').on('click',function(){
+        let search = '';
+        let filter = 0;
+        let page = $('#cpage_box').data('page');
+        const data = {
+            page : page,
+            skey : search,
+            fkey : filter
+        };
+
+        Load_Data(data);
     });
 
     $("#mTable thead th").on("click", function () {

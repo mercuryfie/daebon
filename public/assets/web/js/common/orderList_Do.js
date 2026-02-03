@@ -139,17 +139,75 @@ $(document).ready(function() {
         }
     });
 
+    $('#btn_orderconfirm').on('click',async function(){
+        let checked = $('input[name="chkorder"]:checked');
+        if (checked.length == 0) {
+            Make_Toast('쇼핑몰 주문확인 처리 하실 주문을 선택하세요.');
+            return
+        }
+        let isCheck = true;
+        let datas = [];
+        checked.each(function (){
+            let method = $(this).data('method');
+            if (method !== 'API') {
+                isCheck = false;
+                datas = [];
+                return false;
+            }else{
+                let row = {
+                    orcode: $(this).val()
+                };
+                datas.push(row);
+            }
+        });
+        if(!isCheck) return;
+        for (const item of datas) {
+            console.log(`${item.orcode} 처리 시작...`);
+            //let resultData = await Put_Order_Confirm(item.orcode);
+            //if (resultData && Object.keys(resultData).length > 0) {
+            //    console.log(`${item.orcode} 처리 완료`);
+            //}
+        }
+        Make_Toast('모든 주문 처리가 완료되었습니다.');
+    });
+
+
 });
+
+async function Put_Order_Confirm(orcode){
+    let data = {};
+    try {
+        start_spinner();
+        let dataarr = {"orcode" : orcode};
+        let url = APIURL + '/Load_Order_Data';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            data = result.get('data').list;
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
+    return data;
+}
+
+
 
 async function Make_Html(param){
     let arr = await Load_Data(param);
+    console.log('dawn1805',arr);
     let html = '';
     if(!fn_IsEmpty(arr)) {
         $.each(arr, function (index, el) {
             let subhtml1 = '';
             let subhtml2 = '';
             if(el.orstep==0) {
-                subhtml1 = `<input type="checkbox" name="chkorder" value="${el.orcode}">`;
+                subhtml1 = `<input type="checkbox" name="chkorder" value="${el.orcode}" data-method="${el.shopmethod}">`;
                 subhtml2 = `<button type="button" class="btnType3" data-rttype="1" onclick="add_packingQueue('${el.orcode}');">지시대기</button>`;
             }else{
                 subhtml1 = '';
@@ -183,6 +241,15 @@ async function Make_Html(param){
 function upload_Xlx() {
     $('#uploadExcel .area3').css('display','flex');
     $('#uploadExcel').css('display','block');
+}
+
+function template_Download(e) {
+    console.log('dawn1626');
+
+    e.preventDefault();  // 기본 onclick 막기
+    window.location.href = '/path/to/your/template.xlsx';  // 실제 Excel 파일 경로로 변경
+    // $this->load->helper('download');
+    // force_download('templates/template.xlsx', NULL);
 }
 
 async function add_packingQueue(orcode,typ) {

@@ -20,6 +20,8 @@ class Order_m extends Model
 
 
 
+
+
     public function Load_Packing_All($keyword,$searchType,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
         $sql = "SELECT {$separated_val} FROM tbl_delivery_info a ";
@@ -76,6 +78,71 @@ class Order_m extends Model
         return $query->getResultArray();
     }
 
+    public function Load_Order_InfoBySpcode($spcode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM vw_order_info where spcode=:SPCODE:";
+        $bindparam = [
+            'SPCODE'=> $spcode
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Load_Order_InfoByMiss($spcode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_order_miss where spcode=:SPCODE:";
+        $bindparam = [
+            'SPCODE'=> $spcode
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Load_Order_InfoByMissProduct($shoptype,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM vw_order_info_miss a LEFT JOIN tbl_order_products b ON a.orcode=b.fk_orcode LEFT JOIN tbl_order_buyer_info c ON a.orcode=c.fk_orcode WHERE shoptyp=:SHOPTYP: AND a.is_del=:ISDEL:;";
+        $bindparam = [
+            'SHOPTYP' => $shoptype,
+            'ISDEL'=> 0
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Load_Order_InfoBySgcode($orcode,$sgcode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_order_products where fk_orcode=:FKORCODE: AND sgcode=:SGCODE:";
+        $bindparam = [
+            'FKORCODE' => $orcode,
+            'SGCODE' => $sgcode
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function procedure_Move_Order_Miss($orcode,$sgcode,$pdcode)
+    {
+        $sql = "call sp_MoveMissOrderToMain(:ORCODE:,:SGCODE:,:PDCODE:);";
+        $bindparam = [
+            'ORCODE' => $orcode,
+            'SGCODE' => $sgcode,
+            'PDCODE' => $pdcode
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+
+    public function Load_Order_ProductByMatch($excode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_product_matching where fk_excode=:FKEXCODE:";
+        $bindparam = [
+            'FKEXCODE'=> $excode
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
     public function Load_Order_In_Info($orcodes,$fields=['ALL']){
         if (empty($orcodes)) return [];
 
@@ -117,6 +184,21 @@ class Order_m extends Model
         return $query->getResultArray();
     }
 
+
+
+
+    public function Cnt_Order_Miss_ShopType($shopType){
+        $sql = "SELECT COUNT(*) as cnt FROM tbl_order_miss WHERE shoptyp = :SHOPTYPE: AND is_del=:ISDEL:";
+        $bindparam = [
+            'SHOPTYPE' => $shopType,
+            'ISDEL' => 0
+        ];
+        $query = $this->db->query($sql, $bindparam);
+        $row = $query->getRowArray();
+        return (int)$row['cnt'];
+    }
+
+
     public function Load_Order_Package_Info_opcode($opcode,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
         $sql = "SELECT {$separated_val} FROM tbl_delivery_package where fk_opcode=:OPCODE:";
@@ -140,6 +222,16 @@ class Order_m extends Model
     public function Insert_Order_Info($param){
         $this->db->transStart();
         $builder = $this->db->table('tbl_order');
+        $builder->insert($param);
+        $insertID = $this->db->insertID();
+        $this->db->transComplete();
+
+        return $insertID;
+    }
+
+    public function Insert_Order_Info_Miss($param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_order_miss');
         $builder->insert($param);
         $insertID = $this->db->insertID();
         $this->db->transComplete();
@@ -245,6 +337,18 @@ class Order_m extends Model
 
         return $affected_rows;
     }
+
+    public function Insert_Order_API_MallLog($param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_mall_log');
+        $builder->insert($param);
+        $insertID = $this->db->insertID();
+        $this->db->transComplete();
+
+        return $insertID;
+    }
+
+
 
 
 

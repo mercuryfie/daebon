@@ -78,9 +78,15 @@ class Common_m extends Model
     {
         $separated_val = fn_Make_Fields($fields);
         if($typ==''){
-            $sql = "SELECT {$separated_val} FROM tbl_mall_info order by seq ASC;";
+            $sql = "SELECT {$separated_val}";
+            $sql .= ",(select count(*) from tbl_order_miss where shoptyp=a.shoptyp) as missCnt ";
+            $sql .= ",(select concat(startdate,'||',enddate,'||',indate) from tbl_mall_log where fk_shoptyp=a.shoptyp AND typ=1 order by seq DESC limit 1) as period ";
+            $sql .= "FROM tbl_mall_info a order by seq ASC;";
         }else {
-            $sql = "SELECT {$separated_val} FROM tbl_mall_info WHERE method=:METHOD:  order by seq ASC;";
+            $sql = "SELECT {$separated_val}";
+            $sql .= ",(select count(*) from tbl_order_miss where shoptyp=a.shoptyp) as missCnt ";
+            $sql .= ",(select concat(startdate,'||',enddate,'||',indate) from tbl_mall_log where fk_shoptyp=a.shoptyp AND typ=1 order by seq DESC limit 1) as period ";
+            $sql .= "FROM tbl_mall_info a WHERE method=:METHOD:  order by seq ASC;";
         }
         $bindparam = [
             'METHOD' => $typ

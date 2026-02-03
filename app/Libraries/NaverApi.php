@@ -70,8 +70,15 @@ class NaverApi
             $decoded = json_decode($body, true);
             put_Shop_Api_Log($this->shopType,'Success', $this->baseUrl, $path, $params, $method, (string)$response->getBody());
         }else{
-            $errorMsg = $decoded['message'] ?? $decoded['error_description'] ?? 'UnKnown_Error';
-            $errorCode = $decoded['code'] ?? $decoded['error'] ?? 'Unknown';
+            $body = $response->getBody();
+            if (empty($body)) {
+                $errorMsg = 'Empty Response Body';
+                $errorCode = 'EMPTY_BODY';
+            } else {
+                $decoded = json_decode($body, true);
+                $errorMsg = $decoded['message'] ?? $decoded['error_description'] ?? 'UnKnown_Error';
+                $errorCode = $decoded['code'] ?? $decoded['error'] ?? 'Unknown';
+            }
             $t_msg = ['response' =>"[NaverAPI] Error ({$statusCode}): {$errorCode} - {$errorMsg}"];
             $Cnt = put_Shop_Api_Log($this->shopType,'Error', $this->baseUrl, $path, $params, $method, json_encode($t_msg));
             log_message('error', "[NaverAPI] Error ($statusCode): $errorCode - $errorMsg");
@@ -135,11 +142,9 @@ class NaverApi
 
         foreach ($chunks as $chunkIds) {
             $details = $this->getOrderDetails($chunkIds); // 기존 함수 재사용
-
             if (!empty($details)) {
                 $allRawData = array_merge($allRawData, $details);
             }
-
             usleep(100000);
         }
 
@@ -148,24 +153,29 @@ class NaverApi
                 continue;
             }
 
+            $dOrder = $order['order'];
             $pOrder = $order['productOrder'];
             $delivery = $pOrder['shippingAddress'] ?? []; // 배송지 정보가 없을 수도 있음
 
             $parsedData[] = [
-                'order_id'       => $pOrder['productOrderId'] ?? '',
-                'order_date'     => $pOrder['orderDate'] ?? '',
+                'order_id'       => $dOrder['orderId'] ?? '',
+                'order_date'     => $dOrder['orderDate'] ?? '',
+                'pay_data'       => $dOrder['paymentDate'] ?? '',
+                'ordererName'       => $dOrder['ordererName'] ?? '',
+                'ordererTel'       => $dOrder['ordererTel'] ?? '',
                 'status'         => $pOrder['productOrderStatus'] ?? '', // PAYED, DISPATCHED 등
                 'buyer_name'     => $delivery['name'] ?? '',
                 'buyer_phone'    => $delivery['tel1'] ?? '',
-                'address'        => trim(($delivery['baseAddress'] ?? '') . ' ' . ($delivery['detailedAddress'] ?? '')),
+                'address1'        => $delivery['baseAddress'] ?? '',
+                'address2'        => $delivery['detailedAddress'] ?? '',
                 'zipcode'        => $delivery['zipCode'] ?? '',
                 'productId'   => $pOrder['productId'] ?? '',
                 'product_name'   => $pOrder['productName'] ?? '',
                 'product_option' => $pOrder['productOption'] ?? '',
                 'quantity'       => $pOrder['quantity'] ?? 0,
-                'price'          => $pOrder['totalPaymentAmount'] ?? 0,
+                'price'          => $pOrder['unitPrice'] ?? 0,
                 'mall_id'        => $pOrder['mallId'] ?? '',
-                'shippingMemo'        => $pOrder['shippingMemo'] ?? ''
+                'shippingMemo'   => $pOrder['shippingMemo'] ?? ''
             ];
         }
 
@@ -189,5 +199,23 @@ class NaverApi
         // 네이버 응답 구조: { data: [ ...상세정보... ] }
         return $response['data'] ?? [];
     }
+
+
+    public function putOrderConfirm(array $orcode): array
+    {
+        if (empty($orcode)) {
+            return [];
+        }
+
+        $uri = "/v1/pay-order/seller/product-orders/confirm";
+        $params = [
+            'productOrderIds' => $orcode
+        ];
+        $response = $this->sendRequest('POST', $uri, $params);
+        return $response['data'] ?? [];
+    }
+
+
+
 
 }

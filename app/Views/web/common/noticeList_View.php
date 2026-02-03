@@ -13,7 +13,7 @@
                 공지사항
             </p>
         </div>
-        <div class="areaBox notice_list_box ">
+        <div class="areaBox notice_list_box min80vh">
             <div class="area area1 ">
                 <button type="button" class="btnType2" id="add_btn" name="add_btn" onclick="go_noticeRegister();">글쓰기</button>
             </div>

@@ -33,7 +33,7 @@ class InoutController extends BaseController
                 'meta' => $form->fnMake_Meta($metaarr),
                 'header' => $form->fnMake_Header($sessinarr),
                 'left' => $form->fnMake_Left(),
-                'main' => $main_data,
+                'body' => $main_data,
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 

@@ -130,8 +130,8 @@ function go_linkMalls() {
     $(location).attr("href", url);
 }
 
-function go_missingList() {
-    var url = "/order/missinglist";
+function go_missingList(styp) {
+    var url = "/order/missinglist?sp=" + styp;
     $(location).attr("href", url);
 }
 

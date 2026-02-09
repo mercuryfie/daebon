@@ -41,7 +41,7 @@
         </table>
     </div>
     <div class="btnBox flexType1">
-        <button type="button" class="btnType1 mr10 " id="xBtn">닫기</button>
+        <button type="button" class="btnType1 mr10 " id="xBtn" onclick="Close_Window();">닫기</button>
         <button type="button" class="btnType1" id="btn_print" data-code="">출력</button>
     </div>
 </section>

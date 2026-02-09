@@ -518,7 +518,7 @@
                 <div class="fbox1-1">
                     <div class="fcbox fcbox1 flexCol3">
                         <div class="labelBox labelBox1 flexType5-1">
-                            <p class="amount mr10">적정재고수량</p>
+                            <p class="amount mr10">적정재고량</p>
                             <div class="fcircle fcircle1"></div>
                         </div>
                         <div class="labelBox labelBox2 flexType5-1">
@@ -553,7 +553,7 @@
                 <div class="fbox2-1">
                     <div class="fcbox fcbox1 flexCol3">
                         <div class="labelBox labelBox1 flexType5-1">
-                            <p class="amount mr10">적정재고수량</p>
+                            <p class="amount mr10">적정재고량</p>
                             <div class="fcircle fcircle1"></div>
                         </div>
                         <div class="labelBox labelBox2 flexType5-1">

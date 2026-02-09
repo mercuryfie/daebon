@@ -1,16 +1,11 @@
 $(document).ready(function() {
-    $(document).on('click', function(e){
+    $(document).on('click', function() {
+        const incode = $('#incode');
         if (document.activeElement.id !== 'incode') {
-            $('#incode').focus();
+            incode.focus();
         }
     });
 
-
-    $(document).on('click', function(e){
-        if (document.activeElement.id !== 'incode') {
-            $('#incode').focus();
-        }
-    });
 
     $('#btn_confirm').on('click',async function(){
         let gicode = $('#gicode').val();
@@ -35,7 +30,9 @@ $(document).ready(function() {
     });
 
 
-    $(document).on('keypress','#incode',function(){
+    $('#incode').on('keypress',function(e){
+        console.log('keypress');
+        if (e.which !== 13) return;
         let status = $('#status').val();
         if (status != 2) {
             let act = $('#btn_act').data('act');
@@ -43,29 +40,24 @@ $(document).ready(function() {
                 let weight = $(this).val();
                 if (weight == '') {
                     Make_Toast('저울을 확인하세요.');
+                    $('#incode').val('');
+                    $('#incode').focus();
                 } else {
                     let gram = convertToGram(weight);
-                    if (gram == 0) {
-                        Make_Toast('무게값이 잘못되었습니다.');
-                    } else {
-
-                        let unit_weight = $('#unit_weight').val();
-                        let ptyp = $('#ptyp').val();
-                        let gstr = '';
-                        if(ptyp==1){
-                            gstr = gram + 'g';
-                        }else if(ptyp==2) {
-                            let gCnt = (gram/unit_weight);
-                            gCnt = Math.round(gCnt);
-                            gstr = gram + 'g / ' + gCnt + 'ea';
-                        }
-
-                        $('#afterweight').data('val', gram);
-                        $('#afterweight').text(gstr);
-
-                        $('#incode').val('');
-                        $('#incode').focus();
+                    let unit_weight = $('#unit_weight').val();
+                    let ptyp = $('#ptyp').val();
+                    let gstr = '';
+                    if(ptyp==1){
+                        gstr = gram + 'g';
+                    }else if(ptyp==2) {
+                        let gCnt = (gram/unit_weight);
+                        gCnt = Math.round(gCnt);
+                        gstr = gram + 'g / ' + gCnt + 'ea';
                     }
+                    $('#afterweight').data('val', gram);
+                    $('#afterweight').text(gstr);
+                    $('#incode').val('');
+                    $('#incode').focus();
                 }
             }else{
                 $('#incode').val('');
@@ -75,19 +67,22 @@ $(document).ready(function() {
     });
 
 
-    $(document).on('click','#btn_act',function(){
+    $('#btn_act').on('click',function(e){
+        console.log('click');
+        e.stopPropagation();
         let act = $(this).data('act');
         if (act == 'yes') {
             $(this).data('act', 'no');
-            $('#btn_act').addClass('active');
-            $('#btn_act_i').removeClass('fa-lock-open');
-            $('#btn_act_i').addClass('fa-lock');
+            $(this).addClass('active');
+            $('#btn_act_i').removeClass('fa-lock-open').addClass('fa-lock');
+            $('#incode').val('').focus();
         } else {
             $(this).data('act', 'yes');
-            $('#btn_act').removeClass('active');
-            $('#btn_act_i').removeClass('fa-lock');
-            $('#btn_act_i').addClass('fa-lock-open');
+            $(this).removeClass('active');
+            $('#btn_act_i').removeClass('fa-lock').addClass('fa-lock-open');
+            $('#incode').val('').focus();
         }
+        return false;
     });
 
 });

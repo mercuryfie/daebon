@@ -14,13 +14,22 @@ class Material_m extends Model
     public function __construct()
     {
         parent::__construct();
-
         $this->db = \Config\Database::connect('default');
     }
 
     public function Load_Material_stock($mtcode,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
         $sql = "SELECT {$separated_val} FROM tbl_material_inout WHERE fk_mtcode=:MTCODE: ORDER BY seq DESC LIMIT 1;";
+        $bindparam = [
+            'MTCODE' => $mtcode,
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Load_Material_Log($mtcode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_material_inout WHERE fk_mtcode=:MTCODE: ORDER BY seq DESC;";
         $bindparam = [
             'MTCODE' => $mtcode,
         ];
@@ -171,16 +180,38 @@ class Material_m extends Model
         return $query->getResultArray();
     }
 
-    public function Load_Material_Info($code,$fields=['ALL'])
+
+    public function Load_MaterialList($param, $fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM vw_material_info WHERE is_del=0 AND mtcode=:CODE:;";
-        $bindparam = [
-            'CODE' => $code
-        ];
-        $query = $this->db->query($sql,$bindparam);
-        return $query->getResultArray();
+        $builder = $this->db->table('vw_material_info');
+        $builder->where('is_del', 0);
+
+        if (!empty($param['skey'])) {
+            $builder->groupStart()
+                ->like('mtcode', $param['skey'])
+                ->orLike('mtname', $param['skey'])
+                ->groupEnd();
+        }
+
+        if (!empty($param['fkey'])) {
+            $builder->where('typ', $param['fkey']);
+        }
+
+        $builder->orderBy('mtname', 'ASC');  // 정렬 추가
+
+        return $builder->get($param['limit'], $param['offset'])->getResultArray();
     }
+//    public function Load_Material_Info($code,$fields=['ALL'])
+//    {
+//        $separated_val = fn_Make_Fields($fields);
+//        $sql = "SELECT {$separated_val} FROM vw_material_info WHERE is_del=0 AND mtcode=:CODE:;";
+//        $bindparam = [
+//            'CODE' => $code
+//        ];
+//        $query = $this->db->query($sql,$bindparam);
+//        return $query->getResultArray();
+//    }
 
     public function Load_Material_MaxCode()
     {
@@ -222,7 +253,7 @@ class Material_m extends Model
         return $query->getResultArray();
     }
 
-    public function Load_Material_statistics($mcode)
+    public function Load_Material_Statistics($mcode)
     {
         $sql = "call GetMaterialInout(:MCODE:);";
         $bindparam = [

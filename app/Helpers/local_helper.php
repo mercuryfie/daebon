@@ -539,6 +539,8 @@ function fn_Load_NowStep($model,$param){
     $p_step = '';
     $p_str = '';
     $worker = '';
+    $indate= '';
+    $semicode = '';
 
 
     if($is_complete==0) {
@@ -552,6 +554,8 @@ function fn_Load_NowStep($model,$param){
             $p_step = $a['step_name'];
             $stepNum = $a['stepNum'];
             $worker = '';
+            $semicode = '';
+            $indate= '';
         }
     }else if($is_complete==1){
         $gubun = Return_Prodcess_Gubun($model,$gicode,$stepnow);
@@ -566,6 +570,8 @@ function fn_Load_NowStep($model,$param){
                 $stepNum = $a['stepNum'];
                 $worker = '';
                 $p_str = ($gubun==1) ? '작업대기중' : '작업시작등록대기중';
+                $semicode = '';
+                $indate= '';
             }
         }else if($gubun==2){
             if (($step_sub_now == 0) && ($is_complete == 0)) {
@@ -588,6 +594,8 @@ function fn_Load_NowStep($model,$param){
                 $p_step = $a['step_name'];
                 $stepNum = $a['stepNum'];
                 $worker = $a['worker'];
+                $semicode = $a['semi_code'];
+                $indate = $a['indate'];
             }
 
         }
@@ -597,13 +605,17 @@ function fn_Load_NowStep($model,$param){
         $stepNum = '';
         $p_str = '완료';
         $worker = '';
+        $semicode = '';
+        $indate= '';
     }
     $r_arr = [
         'prcode'=> $prcode,
         'stepNum'=> $stepNum,
         'step' => $p_step,
         'str' => $p_str,
-        'worker' => $worker
+        'worker' => $worker,
+        'semicode' => $semicode,
+        'indate' => $indate
 
     ];
 
@@ -877,7 +889,19 @@ function fnMake_Code($typ,$max=''){
     return $newCode;
 }
 
-function fnMake_Material_Type($cval=''){
+
+function fnMake_Material_Log_Reason($typ){
+    return match ($typ) {
+        '0'       => '입고',
+        '1'       => '판매',
+        '2'       => '폐기',
+        '3'       => '반품',
+        '4'       => '기타',
+        default => '-'
+    };
+}
+
+function fnMake_Material_Type($ctyp=''){
     $html = '';
     $t_arr = [
         ['typ' => '1', 'name' => '원자재'],
@@ -885,7 +909,7 @@ function fnMake_Material_Type($cval=''){
     ];
 
     foreach ($t_arr as $d) {
-        if ($cval == $d['typ']) {
+        if ($ctyp == $d['typ']) {
             $html .= "<option value='{$d['typ']}' selected>{$d['name']}</option>";
         } else {
             $html .= "<option value='{$d['typ']}'>{$d['name']}</option>";
@@ -894,16 +918,17 @@ function fnMake_Material_Type($cval=''){
     return $html;
 }
 
-function fnMake_Material_Unit($cval=''){
+function fnMake_Material_Unit($ctyp=''){
     $html = '';
     $t_arr = [
         ['typ' => 'g', 'name' => 'g'],
+        ['typ' => 'kg', 'name' => 'kg'],
         ['typ' => 'box', 'name' => 'box'],
         ['typ' => 'ea', 'name' => 'ea']
     ];
 
     foreach ($t_arr as $d) {
-        if ($cval == $d['typ']) {
+        if ($ctyp == $d['typ']) {
             $html .= "<option value='{$d['typ']}' selected>{$d['name']}</option>";
         } else {
             $html .= "<option value='{$d['typ']}'>{$d['name']}</option>";

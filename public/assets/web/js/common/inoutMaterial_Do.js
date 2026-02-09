@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 
     let search = $('#txt_mtinfo').val();
@@ -23,10 +22,6 @@ $(document).ready(function() {
         $('#ipgoWrap').css('display','block');
     });
 
-    $('#btn_output').on('click',function(){
-        $('#outWrap').css('display','block');
-    });
-
     $(document).on('click','button[name="btn_barcode"]',function(){
         let mtcode = $(this).data('mtcode');
         let url = "/inout/prn_barcode_material?mt=" + mtcode;
@@ -49,7 +44,15 @@ $(document).ready(function() {
         if (e.which === 13) {
             let search = $('#txt_pop_input').val();
             let data = {skey:search};
-            Load_Material(data);
+            Load_Material(1,data);
+        }
+    });
+
+    $('#txt_pop_output').on('keypress',function(e){
+        if (e.which === 13) {
+            let search = $('#txt_pop_output').val();
+            let data = {skey:search};
+            Load_Material(2,data);
         }
     });
 
@@ -57,10 +60,18 @@ $(document).ready(function() {
         $(this).val($(this).val().replace(/\D/g, ""));
     });
 
+    $('#txt_pop_outcome').on("input",function() {
+        $(this).val($(this).val().replace(/\D/g, ""));
+    });
+
     $('#txt_pop_input').on('focus', function(){
         $(this).val('');
         input_Form_ini();
+    });
 
+    $('#txt_pop_output').on('focus', function(){
+        $(this).val('');
+        output_Form_ini();
     });
 
     $('#btn_income').on('click',async function(){
@@ -79,6 +90,7 @@ $(document).ready(function() {
                 mtcode : mtcode,
                 income : income,
                 stocktyp : 1,
+                reason : 0,
                 memo : memo
             }
             let bool = await Patch_Material_Income(mtcode,params);
@@ -86,6 +98,63 @@ $(document).ready(function() {
                 Make_Toast('입고 처리 하였습니다.');
             }
         }
+    });
+
+    $('#btn_outcome').on('click',async function(){
+        const outcome = $('#txt_pop_outcome').val();
+        const memo = $('#txt_omtmemo').val();
+        const mtcode = $('#pop_omtcode').val();
+        const reason = $('#o_reason').val();
+
+        if(outcome=='') {
+            Make_Toast('출고량을 입력하세요.');
+            $('#txt_pop_outcome').focus();
+        }else if(reason==''){
+            Make_Toast('출고사유를 선택하세요.');
+            $('#o_reason').focus();
+        }else if(mtcode==''){
+            $('#ipgoWrap').css('display','block');
+            Make_Toast('잘못된 접근입니다. ');
+        }else if(window.confirm('출고 처리 하시겠습니까?')==true){
+            const params = {
+                mtcode : mtcode,
+                income : outcome,
+                stocktyp : 2,
+                reason : reason,
+                memo : memo
+            }
+            let bool = await Patch_Material_Income(mtcode,params);
+            if(bool==true){
+                Make_Toast('입고 처리 하였습니다.');
+            }
+        }
+    });
+
+
+
+    $(document).on('click','button[name="select_output"]',function() {
+        let mtcode = $(this).data('mtcode');
+        let mtname = $(this).data('mtname');
+        let mtyp = $(this).data('typstr');
+        let mkname= $(this).data('mkname');
+        let suname= $(this).data('suname');
+        let typ = $(this).data('typ');
+        let unit = (typ==1) ? 'g' : '개';
+
+        $('#o_mtcode').text(mtcode);
+        $('#o_mtname').text(mtname);
+        $('#pop_omtcode').val(mtcode);
+        $('#o_mttype').text(mtyp);
+        $('#o_mtmaker').text(mkname);
+        $('#o_mtsupplier').text(suname);
+        $('#pop_ounit').text(unit);
+        $('#txt_pop_output').val('');
+        $('#txt_pop_outcome').prop('disabled',false);
+        $('#txt_omtmemo').val('');
+        $('#txt_omtmemo').prop('disabled',false);
+        $('#outputlist').remove();
+        $('#o_reason').prop('disabled',false);
+        $('#o_reason').focus();
     });
 
 
@@ -114,6 +183,12 @@ $(document).ready(function() {
 
     });
 
+    $(document).on('click','button[name="btn_showlog"]',function(){
+        const mtcode = $(this).data('mtcode');
+        go_inOutMaterial_Log(mtcode);
+    });
+
+
     $('#barcodeWrap #Xbtn, #barcodeWrap #Xbtn2').click(function () {
         $('#barcodeWrap').css('display','none');
     });
@@ -127,8 +202,7 @@ $(document).ready(function() {
     });
 
     input_Form_ini();
-
-
+    output_Form_ini();
 });
 
 async function Patch_Material_Income(code,params){
@@ -141,8 +215,6 @@ async function Patch_Material_Income(code,params){
         if (result.get('status') == 'NoLogin') {
             go_login();
         } else if(result.get('status') == 'ok') {
-            // $('#tr1_' + code).text(result.get('data').total);
-            // $('#tr2_' + code).text(result.get('data').indate);
             location.reload(true);
             bool = true;
         }else{
@@ -156,6 +228,26 @@ async function Patch_Material_Income(code,params){
     return bool;
 }
 
+
+function output_Form_ini(){
+    $('#pop_omtcode').val('');
+    $('#outputlist').empty();
+    $('#o_mttype').text('');
+    $('#o_mtcode').text('');
+    $('#o_mtname').text('');
+    $('#o_mtmaker').text('');
+    $('#o_mtsupplier').text('');
+    $('#txt_pop_output').val('');
+    $('#txt_pop_outcome').prop('disabled',true);
+    $('#o_reason').prop('disabled',true);
+    $('#txt_pop_outcome').val('');
+    $('#txt_omtmemo').val('');
+    $('#pop_ounit').text('');
+
+    $('#txt_omtmemo').prop('disabled',true);
+    $('#outputlist').removeClass('active');
+
+}
 
 function input_Form_ini(){
     $('#pop_mtcode').val('');
@@ -185,13 +277,13 @@ async function Make_Html(search){
                     <tr id="tr_${el.mtcode}">
                         <td class="ltTbody">${el.mttype}</td>
                         <td class="ltTbody">${el.mtname}</td>
-                        <td class="ltTbody" id="td1_${el.mtcode}">${el.total}</td>
+                        <td class="ltTbody" id="td1_${el.mtcode}">${el.total} ${el.unit}</td>
                         <td class="ltTbody" id="td2_${el.mtcode}">${el.indate}</td>
                         <td class="ltTbody">
                             <button type="button" class="btnType3 " name="btn_barcode" data-mtcode="${el.mtcode}" >${el.mtcode}</button>
                         </td>
                         <td class="ltTbody">
-                            <button type="button" class="btnType3" name="btn_showlog" data-typ="${el.mtcode}">
+                            <button type="button" class="btnType3" name="btn_showlog" data-mtcode="${el.mtcode}">
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                         </td>
@@ -235,7 +327,7 @@ async function Load_data(search) {
     return data;
 }
 
-async function Load_Material(param){
+async function Load_Material(stocktyp,param){
     try {
         start_spinner();
         let fkey = 0;
@@ -251,12 +343,20 @@ async function Load_Material(param){
             let Cnt = arr.length;
             if(Cnt > 0){
                 let html = '';
+                let sname = '';
+                let listname = '';
+                if(stocktyp==1){
+                    sname = 'select_input';
+                    listname = 'inputlist';
+                }else{
+                    sname = 'select_output';
+                    listname = 'outputlist';
+                }
                 $.each(arr, function (index, el) {
-                    html += `<button class="copyOption active" type="button" name="select_input" data-typ="${el.typ}" data-mtcode="${el.mtcode}" data-mtname="${el.mtname}" data-typstr="${el.typ_str}" data-mkname="${el.fk_mkname}" data-suname="${el.fk_suname}">${el.mtname}</button>`;
+                    html += `<button class="copyOption active" type="button" name="${sname}" data-typ="${el.typ}" data-mtcode="${el.mtcode}" data-mtname="${el.mtname}" data-typstr="${el.typ_str}" data-mkname="${el.fk_mkname}" data-suname="${el.fk_suname}">${el.mtname}</button>`;
                 });
-
-                $('#inputlist').append(html);
-                $('#inputlist').addClass('active');
+                $('#' + listname).append(html);
+                $('#' + listname).addClass('active');
             }else{
                 Make_Toast('검색된 상품이 없습니다.');
             }

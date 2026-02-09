@@ -357,13 +357,12 @@ function stop_spinner(){
     $('#spinner').removeClass('active');
 }
 
-
 function printWindow(id) {
     let printContent = document.getElementById(id).innerHTML;
     let printWindow = window.open('', '', 'width=800,height=600');
     let rnd = Math.floor(Math.random() * 10000);
     printWindow.document.write('<html><head><title>Print</title>');
-    printWindow.document.write("<link rel='stylesheet' href='/assets/web/css/style.css?rnd=" + rnd + "' />");
+    printWindow.document.write("<link rel='stylesheet' href='/assets/web/css/style_staff.css?rnd=" + rnd + "' />");
     printWindow.document.write('</head><body>');
     printWindow.document.write(printContent);
     console.log('dawn1307',printContent);
@@ -376,6 +375,11 @@ function printWindow(id) {
             printWindow.close();
         }, 500); // 딜레이 충분히 주세요 (300~1000ms 권장)
     };
+}
+
+function Close_Window() {
+    window.close();
+
 }
 
 function Make_Toast(msg) {
@@ -539,6 +543,32 @@ function pop_qualityReportForm(url) {
 
 
 function pop_OrderRoastForm(url) {
+    let width = 720;
+
+    let newWindow = window.open(url, "_blank",
+        `width=800,height=600,resizable=yes,scrollbars=no`
+    );
+
+    newWindow.onload = function() {
+        setTimeout(() => {
+            try {
+                let docHeight = Math.max(
+                    // newWindow.document.body.scrollHeight,
+                    // newWindow.document.documentElement.scrollHeight,
+                    newWindow.document.body.offsetHeight
+                );
+
+                newWindow.resizeTo(width, docHeight + 80);
+                newWindow.scrollTo(0, 0);
+            } catch(e) {
+                console.log("waybill 새 창 높이 조절 불가", e);
+            }
+        }, 300);
+    };
+}
+
+
+function pop_Ptn_HalfProduct(url) {
     let width = 720;
 
     let newWindow = window.open(url, "_blank",

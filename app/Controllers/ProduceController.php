@@ -126,6 +126,7 @@ class ProduceController extends BaseController
         }
     }
 
+
     public function productionDetail()
     {
         $sessinarr = $this->GetSessionData();

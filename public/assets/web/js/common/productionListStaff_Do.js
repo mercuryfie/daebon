@@ -36,7 +36,7 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('click','tr[name="view_detail"]',function(){
+    $(document).on('click','td[name="view_detail"]',function(){
         let iscomplete= $(this).data('iscomplete');
         if(iscomplete!=2) {
             let code = $(this).data('code');
@@ -63,6 +63,34 @@ $(document).ready(function() {
 
     });
 
+    $(document).on('click','button[name="prn_label"]',function(e){
+        if (e.target.tagName === "BUTTON") {
+            let gicode = $(this).data('gicode');
+            let sicode = $(this).data('sicode');
+            let pname = $(this).data('pname');
+            let indate = $(this).data('indate');
+            let url = '/product/prn_label?gi=' + gicode + '&si=' + sicode + '&pn=' + pname + '&in=' + indate;
+            // window.open(url, "_blank");
+
+
+            console.log('dawn1646', gicode,sicode,pname,gicode);
+
+            let width = '920';
+            let height = '580';
+
+            let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+
+            newWindow.onload = function() {
+                try {
+                    let docHeight = newWindow.document.body.scrollHeight;
+                    newWindow.resizeTo(width, docHeight + 100);
+                } catch(e) {
+                    console.log("새 창 높이 조절 불가", e);
+                }
+            };
+        }
+    });
+
 });
 
 async function Make_Html(data){
@@ -70,21 +98,26 @@ async function Make_Html(data){
     let html = '';
     if(!fn_IsEmpty(arr.list)){
         $.each(arr.list, function (index, el) {
-
             let prog = '';
+            let prn = '';
             if (!fn_IsEmpty(el.stepNum)) {
                 prog = `(` + el.stepNum + `/` + el.processcnt + `)`;
             }
+            if(el.semicode!=''){
+                prn = `<button type="button" class="btn60Type3 " name="prn_label" data-gicode="${el.gicode}" data-sicode="${el.semicode}" data-pname="${el.processname}" data-indate="${el.indate}">출력</button>`;
+            }
+
             html += `
-                <tr class="" name="view_detail" data-code="${el.gicode}" data-iscomplete="${el.iscomplete}"> 
+                <tr class="" data-code="${el.gicode}" data-iscomplete="${el.iscomplete}"> 
                     <td class="ltTbody  ">${el.shortdate}</td>
                     <td class="ltTbody  ">${el.gicode}</td>
-                    <td class="ltTbody">${el.gname}</td>
-                    <td class="ltTbody">${el.processname} ${prog}</td> 
+                    <td class="ltTbody gname" name="view_detail" data-code="${el.gicode}">${el.gname}</td>
+                    <td class="ltTbody pname" name="view_detail" data-code="${el.gicode}">${el.processname} ${prog}</td> 
                     <td class="ltTbody">${number_format(el.quantity)}개</td>
                       
                     <td class="ltTbody">${el.processstr}</td> 
-                    <td class="ltTbody">${el.worker}</td> 
+                    <td class="ltTbody">${el.worker}</td>  
+                    <td class="ltTbody">${prn}</td> 
                 </tr>
             `;
         });
@@ -111,11 +144,11 @@ async function Make_Html2(data){
                 prog = `(` + el.stepNum + `/` + el.processcnt + `)`;
             }
             html += `
-                <tr class="" name="view_detail" data-code="${el.gicode}" data-iscomplete="${el.iscomplete}"> 
+                <tr class="" data-code="${el.gicode}" data-iscomplete="${el.iscomplete}"> 
                     <td class="ltTbody  ">${el.shortdate}</td>
                     <td class="ltTbody  ">${el.gicode}</td>
-                    <td class="ltTbody">${el.gname}</td>
-                    <td class="ltTbody">${el.processname} ${prog}</td> 
+                    <td class="ltTbody" name="view_detail" data-code="${el.gicode}">${el.gname}</td>
+                    <td class="ltTbody" name="view_detail" data-code="${el.gicode}">${el.processname} ${prog}</td> 
                     <td class="ltTbody">${number_format(el.quantity)}개</td>
                       
                     <td class="ltTbody">${el.processstr}</td> 

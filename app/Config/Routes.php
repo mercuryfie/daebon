@@ -48,13 +48,11 @@ $routes->GET('produce/productionliststaff', 'ProduceController::productionListSt
 $routes->GET('produce/productiondetail', 'ProduceController::productionDetail');
 $routes->GET('produce/productiondetailmono', 'ProduceController::productionDetailMono');
 $routes->GET('produce/instructionform', 'ProduceController::instructionForm');
-//$routes->GET('produce/report', 'ProduceController::reportForm');
 
 $routes->GET('inout/material', 'InoutController::inOutMaterial');
 $routes->GET('inout/halfproduct', 'InoutController::inOutHalfproduct');
-//$routes->GET('inout/materialreg', 'InoutController::materialReg');
 $routes->GET('inout/prn_barcode_material', 'InoutController::popPrintBarcodeMaterial');
-//$routes->GET('inout/popaddmatirial', 'InoutController::pop_AddMatirial');
+$routes->GET('inout/materiallog', 'InoutController::stockLog');
 
 $routes->GET('report/quality', 'ReportController::qualityReport');
 $routes->GET('report/q_form', 'ReportController::qualityReportForm');
@@ -79,6 +77,9 @@ $routes->GET('packing/waybill', 'PackingController::waybill');
 /* Product */
 $routes->GET('product/', 'ProductController::main');
 $routes->GET('product/statusdetail', 'ProductController::statusDetail');
+$routes->GET('product/prn_label', 'ProductController::prn_label');
+$routes->GET('product/halflist', 'ProductController::halfList');
+$routes->GET('product/halflistlog', 'ProductController::halfListLog');
 
 /*API*/
 $routes->match(['GET', 'POST'], 'Api/Call_Cancels', 'ApiController::Call_Cancels');
@@ -90,7 +91,6 @@ $routes->match(['GET', 'POST'], 'Api/Eleven_Get_Order_Delivery', 'ApiMarketContr
 $routes->match(['GET', 'POST'], 'Api/Eleven_Get_Order_Info_Period', 'ApiMarketController::Eleven_Get_Order_Info_Period');
 $routes->match(['GET', 'POST'], 'Api/Naver_Get_Product_Info', 'ApiMarketController::Naver_Get_Product_Info');
 $routes->match(['GET', 'POST'], 'Api/Naver_Get_Order_Period', 'ApiMarketController::Naver_Get_Order_Period');
-
 
 $routes->match(['GET', 'POST'], 'Api/login_do', 'ApiController::Login_Do');
 $routes->match(['GET', 'POST'], 'Api/Load_MaterialList', 'ApiController::Load_MaterialList');
@@ -127,6 +127,7 @@ $routes->match(['GET', 'POST'], 'Api/Load_Mall_List', 'ApiController::Load_Mall_
 $routes->match(['GET', 'POST'], 'Api/Load_Mall_Log_List', 'ApiController::Load_Mall_Log_List');
 $routes->match(['GET', 'POST'], 'Api/Load_Material_Inout', 'ApiController::Load_Material_Inout');
 $routes->match(['GET', 'POST'], 'Api/Patch_Meterial_Income', 'ApiController::Patch_Meterial_Income');
+$routes->match(['GET', 'POST'], 'Api/get_Material_Stock_Log', 'ApiController::get_Material_Stock_Log');
 
 $routes->match(['GET', 'POST'], 'Api/Load_UserList', 'ApiController::Load_UserList');
 $routes->match(['GET', 'POST'], 'Api/Add_UserInfo', 'ApiController::Add_UserInfo');

@@ -46,7 +46,7 @@
         <div class="areaBox area_boxmxh min70vh">
             <div class="goods_boxkfg flexType3">
                 <div class="left flexType2">
-                    <p class="title">작업목록</p>
+                    <p class="title">총</p>
                     <p class="count">10</p>
                     <p class="unit">건</p>
                 </div>

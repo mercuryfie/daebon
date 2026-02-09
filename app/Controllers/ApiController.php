@@ -13,6 +13,74 @@ class ApiController extends BaseController
 {
     use ResponseTrait;
 
+    public function get_Material_Stock_Log(){
+        $sessinarr = $this->GetSessionData();
+        $mtcode  = ($this->request->getPost('mtcode') == '') ? '' : $this->request->getPost('mtcode');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else {
+            $material_m = model('Material_m');
+            $info = $material_m->Load_Material_Info($mtcode);
+            if(fn_ArrayCnt($info)>0){
+                $mtname = $info[0]['mtname'];
+                $mttyp = $info[0]['typ'];
+            }else{
+                $mtname = '';
+                $mttyp = 1;
+            }
+            $log = $material_m->Load_Material_Log($mtcode);
+            if(fn_ArrayCnt($log)<=0){
+                $i_arr = [
+                    'mtname' => $mtname,
+                    'list' => '',
+                    'tcnt' => 0
+                ];
+                $result = 'ok';
+                $data = $i_arr;
+                $message = '';
+            }else{
+                $unit = ($mttyp==1) ? 'g' : '개';
+
+                $list = [];
+                foreach ($log as $d){
+                    $t_arr = [
+                        'total' => $d['total'],
+                        'm_input' => $d['m_input'],
+                        'm_output' => $d['m_output'],
+                        'memo' => $d['memo'],
+                        'reason' => fnMake_Material_Log_Reason($d['reason']),
+                        'indate' => $d['indate'],
+                        'unit' => $unit
+                    ];
+                    $list[] = $t_arr;
+                }
+
+                $i_arr = [
+                    'mtname' => $mtname,
+                    'list' => $list,
+                    'tcnt' => fn_ArrayCnt($list)
+                ];
+
+                $result = 'ok';
+                $data = $i_arr;
+                $message = '';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
     public function Patch_Meterial_Income(){
         $sessinarr = $this->GetSessionData();
         $params  = $this->request->getPost('params') ?? [];
@@ -29,6 +97,7 @@ class ApiController extends BaseController
             $income = $params['income'] ?? '';
             $s_type = $params['stocktyp'] ?? 1;
             $memo = $params['memo'] ?? '';
+            $reason = $params['reason'] ?? '';
             if(($mtcode=='') || ($income=='')){
                 $result = 'Error003';
                 $data = [];
@@ -46,6 +115,7 @@ class ApiController extends BaseController
                         'm_input' => $income,
                         'm_output' => 0,
                         'memo' => $memo,
+                        'reason' => $reason,
                         'indate' => $indate
                     ];
                     $Cnt = $material_m->Insert_Material_Income($data);
@@ -72,6 +142,7 @@ class ApiController extends BaseController
                             'm_input' => 0,
                             'm_output' => $income,
                             'memo' => $memo,
+                            'reason' => $reason,
                             'indate' => $indate
                         ];
                         $Cnt = $material_m->Insert_Material_Income($data);
@@ -119,14 +190,21 @@ class ApiController extends BaseController
                 foreach ($Rs as $d){
                     $mtstr = explode('||',$d['mtstr']);
                     $mtname = $mtstr[0];
-                    $mttype = ($mtstr[1]==1) ? '원자재' : '부자재';
+                    if($mtstr[1]==1) {
+                        $mttype = '원자재';
+                        $mtunit = 'g';
+                    }else{
+                        $mttype = '부자재';
+                        $mtunit = '개';
+                    }
                     $t_arr = [
                         'mtcode' => $d['fk_mtcode'],
                         'mtname' => $mtname,
                         'mttype' => $mttype,
                         'total' => $d['total'],
                         'indate' => $d['indate'],
-                        'memo' => $d['memo']
+                        'memo' => $d['memo'],
+                        'unit' => $mtunit
                     ];
                     $data[] = $t_arr;
                 }
@@ -1132,22 +1210,13 @@ class ApiController extends BaseController
                         ];
                     }
 
-                    if($d['category']=='A001'){
-                        $unitname = 'g';
-                    }else if($d['category']=='A002'){
-                        $unitname = 'ea';
-                    }else if($d['category']=='A003'){
-                        $unitname = 'g';
-                    }
-
-
                     $t_arr = [
                         'seq' => $d['seq'],
                         'gscode' => $d['gscode'],
                         'gsname' => $d['gsname'],
                         'category' => $d['category'],
                         'c_str' => fnGetProductNameByCode($d['category']),
-                        'unit_name' => $unitname,
+                        'unit_type' => $d['unit_type'],
                         'gcode' => $d['gcode'],
                         'inventory' => $d['inventory'],
                         'unit_weight' => $d['unit_weight'],
@@ -1404,10 +1473,93 @@ class ApiController extends BaseController
         return $this->respond($return);
 
     }
+//
+//    public function Load_MaterialList(){
+//
+//        $data = $this->request->getPost('data') ?? [];
+//        $page = (int)($data['page'] ?? 1);
+//        $limit = PAGES30;
+//        $offset = $limit * ($page - 1);
+//
+//        $sessinarr = $this->GetSessionData();
+//        if($sessinarr['islogin']==false) {
+//            $result = 'NoLogin';
+//            $data = [];
+//            $message = '로그인이 필요합니다.';
+//        }else if(!Check_Token($sessinarr)){
+//            $result = 'Error002';
+//            $data = [];
+//            $message = '잘못된 토큰입니다.';
+//        }else{
+//            $skey = $data['skey'] ?? '';
+//            $fkey = $data['fkey'] ?? 0;
+//
+//            $material_m = model('Material_m');
+//            if ($skey == '' && $fkey == 0) {
+//                $mRs = $material_m->Load_MaterialList_All();
+//            } else if ($skey != '') {
+//                $mRs = $material_m->Load_Material_Search($skey);
+//            } else if ($fkey != '') {
+//                $mRs = $material_m->Load_Material_Filter($fkey);
+//            }
+//
+//            $m_arr = [];
+//
+//            foreach ($mRs as $d){
+//                $t_arr['seq'] = $d['seq'];
+//                $t_arr['mtcode'] = $d['mtcode'];
+//                $t_arr['typ'] = $d['typ'];
+//                $t_arr['typ_str'] = ($d['typ']==1) ? '원재료' : '부자재';
+//                $t_arr['mtname'] = $d['mtname'];
+//                $t_arr['fk_sucode'] = $d['fk_sucode'];
+//                $t_arr['fk_mkcode'] = $d['fk_mkcode'];
+//                $t_arr['inventory'] = $d['inventory'];
+//                $t_arr['uname'] = $d['unit_name'];
+//                $t_arr['fk_mkname'] = $d['fk_mkname'];
+//                $t_arr['fk_suname'] = $d['fk_suname'];
+//
+//                $cRs = $material_m->Load_Material_Statistics($d['mtcode']);
+//                if(fn_ArrayCnt($cRs)>0){
+//                    $nowstock = $cRs[0]['t_input'] - $cRs[0]['t_output'];
+//                    $t_arr['t_in'] = $cRs[0]['t_input'];
+//                    $t_arr['t_out'] = $cRs[0]['t_output'];
+//                    $t_arr['stock'] = $nowstock;
+//                    $t_arr['avg'] = $cRs[0]['avg_m_output'];
+//                    $t_arr['s_status'] = ($nowstock < $d['inventory']) ? 1 : 0;
+//                }else{
+//                    $t_arr['t_in'] = 0;
+//                    $t_arr['t_out'] = 0;
+//                    $t_arr['stock'] = 0;
+//                    $t_arr['avg'] = 0 ;
+//                    $t_arr['s_status'] = 0;
+//                }
+//                array_push($m_arr,$t_arr);
+//            }
+//
+//            $i_arr = [
+//                'list' => $m_arr,
+//                'tCnt' => fn_ArrayCnt($mRs)
+//            ];
+//
+//            $result = 'ok';
+//            $data = $i_arr;
+//            $message = '';
+//        }
+//
+//        $return = [
+//            'result' => $result,
+//            'info' => $data,
+//            'message' => $message
+//        ];
+//        return $this->respond($return);
+//    }
 
     public function Load_MaterialList(){
 
         $data = $this->request->getPost('data') ?? [];
+        $page = (int)($data['page'] ?? 1);
+        $limit = PAGES30;
+        $offset = $limit * ($page - 1);
 
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
@@ -1422,16 +1574,28 @@ class ApiController extends BaseController
             $skey = $data['skey'] ?? '';
             $fkey = $data['fkey'] ?? 0;
 
+
             $material_m = model('Material_m');
-            if ($skey == '' && $fkey == 0) {
-                $mRs = $material_m->Load_MaterialList_All();
-            } else if ($skey != '') {
-                $mRs = $material_m->Load_Material_Search($skey);
-            } else if ($fkey != '') {
-                $mRs = $material_m->Load_Material_Filter($fkey);
-            }
+            $param = [
+                'skey' => $skey,
+                'fkey' => $fkey,
+                'limit' => $limit,
+                'offset' => $offset
+            ];
+
+            $mRs = $material_m->Load_MaterialList($param);
+
+//            $material_m = model('Material_m');
+//            if ($skey == '' && $fkey == 0) {
+//                $mRs = $material_m->Load_MaterialList_All();
+//            } else if ($skey != '') {
+//                $mRs = $material_m->Load_Material_Search($skey);
+//            } else if ($fkey != '') {
+//                $mRs = $material_m->Load_Material_Filter($fkey);
+//            }
 
             $m_arr = [];
+
             foreach ($mRs as $d){
                 $t_arr['seq'] = $d['seq'];
                 $t_arr['mtcode'] = $d['mtcode'];
@@ -1445,7 +1609,7 @@ class ApiController extends BaseController
                 $t_arr['fk_mkname'] = $d['fk_mkname'];
                 $t_arr['fk_suname'] = $d['fk_suname'];
 
-                $cRs = $material_m->Load_Material_statistics($d['mtcode']);
+                $cRs = $material_m->Load_Material_Statistics($d['mtcode']);
                 if(fn_ArrayCnt($cRs)>0){
                     $nowstock = $cRs[0]['t_input'] - $cRs[0]['t_output'];
                     $t_arr['t_in'] = $cRs[0]['t_input'];
@@ -2029,7 +2193,6 @@ class ApiController extends BaseController
         return $this->respond($return);
     }
 
-
     public function Add_Material_Info(){
         $data  = ($this->request->getPost('data') == '') ? [] : $this->request->getPost('data');
         $sessinarr = $this->GetSessionData();
@@ -2058,6 +2221,11 @@ class ApiController extends BaseController
                 'inventory' => $data['inventory']
             ];
             $Cnt = $material_m->Insert_Material_Info($param);
+
+            $LogMsg = 'insert material';
+            $Log = implode('::', $param);
+            fn_InsertSystemLog($sessinarr['user']['uid'],$LogMsg,$Log);
+
             if($Cnt > 0){
                 $mRs = $material_m->Load_Material_Info($NewCode);
                 if(fn_ArrayCnt($mRs)<=0){
@@ -2137,12 +2305,17 @@ class ApiController extends BaseController
 
                 $Cnt = $material_m->Update_Material_Info($mcode,$param);
                 if($Cnt > 0){
+                    $LogMsg = 'update material info';
+                    $Log = implode('::', $param);
+                    fn_InsertSystemLog($sessinarr['user']['uid'],$LogMsg,$Log);
+
                     $mRs = $material_m->Load_Material_Info($mcode);
                     if(fn_ArrayCnt($mRs)<=0){
                         $result = 'Error003';
                         $data = [];
                         $message = '존재하지 않는 원자재 입니다. ';
                     }else {
+
                         $d = $mRs[0];
                         $m_arr = [
                             'code' => $d['mtcode'],
@@ -2213,6 +2386,11 @@ class ApiController extends BaseController
                 ];
                 $Cnt = $material_m->Update_Material_Info($mcode,$param);
                 if($Cnt > 0){
+                    $LogMsg = 'delete material';
+                    $Log = $mcode;
+                    $Log2 = implode('::', $param).$mcode;
+                    fn_InsertSystemLog($sessinarr['user']['uid'],$LogMsg,$Log);
+
                     $result = 'ok';
                     $data = [];
                     $message = '';

@@ -162,19 +162,30 @@ $(document).ready(function() {
 
     });
 
-    $('#addMateWrap #Xbtn, #addMateWrap #Xbtn2').click(function () {
-        $('#addMateWrap').css('display','none');
-    });
-
-
-    $('#category').on('change', function() {
-        const $tBagBox = $('[name="tBag_box"]');
-        if ($(this).val() == 'A002') {
-            $tBagBox.css('display','flex');
-        } else {
-            $tBagBox.hide();
+    $('#unit_typ').on('change',function(){
+        let typ = $(this).val();
+        if(typ=='') return ;
+        if(typ=='kg'){
+            $('span[name="u_type1"]').text('kg');
+            $('span[name="u_type2"]').text('kg');
+        }else if(typ=='g'){
+            $('span[name="u_type1"]').text('g');
+            $('span[name="u_type2"]').text('g');
+        }else if(typ=='개'){
+            $('span[name="u_type1"]').text('개');
+            $('span[name="u_type2"]').text('g');
         }
 
+    })
+
+    $('#category').on('change',function(){
+        form_ini();
+    })
+
+
+
+    $('#addMateWrap #Xbtn, #addMateWrap #Xbtn2').click(function () {
+        $('#addMateWrap').css('display','none');
     });
 
     $('#btn_pop').on('click',function(){
@@ -184,7 +195,7 @@ $(document).ready(function() {
         let gsname = $('#gname').val();
         let inventory = $('#inventory').val();
         let unit_weight = $('#unit_weight').val();
-        let t_cnt = $('#tBag_cnt').val();
+        let total_weight = $('#total_weight').val();
         let bool = false;
         if(typ==1){
             if(category==''){
@@ -360,7 +371,7 @@ async function Data_Add(param){
                     <tr id="list_${arr.gscode}">
                         <td class="ltTbody">${arr.gscode}</td>
                         <td class="ltTbody " name="gnode">
-                            <a href="javascript:;" onclick="Edit_Products('${arr.gscode}','${arr.gsname}','${arr.category}','${arr.inventory}','${arr.unit_weight}','${arr.t_cnt}');" class="goodsName" name="gname">${arr.gsname}</a>
+                            <a href="javascript:;" onclick="Edit_Products('${arr.gscode}','${arr.gsname}','${arr.category}','${arr.inventory}','${arr.unit_weight}','${arr.t_cnt}','${arr.unit_type}');" class="goodsName" name="gname">${arr.gsname}</a>
                         </td>
                         <td class="ltTbody" name="c_str">${fnGetProductNameByCode(arr.category)} </td>     
                         <td class="ltTbody" name="inventory">${number_format(arr.inventory)}</td>
@@ -409,24 +420,28 @@ function add_Products() {
     let poptext = '등록';
 
     $('#p_title').html(title);
-    $('#category').val('');
     $('#gname').val('');
+    $('#category').val('');
+    $('#unit_typ').val('');
     $('#inventory').val('');
     $('#unit_weight').val('');
+    $('#total_weight').val('');
     $('#btn_pop').data('code','');
     $('#btn_pop').html(poptext);
     $('#btn_pop').data('type',poptype);
-
+    $('span[name="u_type"]').text('');
     $('#addMateWrap').css('display','block');
 }
 
 function form_ini(){
-    $('#category').val('');
     $('#gname').val('');
+    $('#unit_typ').val('');
     $('#inventory').val('');
+    $('#unit_weight').val('');
+    $('#total_weight').val('');
     $('#btn_pop').data('code','');
-    $('#btn_pop').html('');
     $('#btn_pop').data('type','');
+    $('span[name="u_type"]').text('');
 }
 
 function doSearch() {
@@ -455,12 +470,6 @@ function Edit_Products(code,name,cat,inven,unit_weight,t_cnt){
     let title = '제품수정';
     let poptype = '2';
     let poptext = '수정';
-    const $tBagBox = $('[name="tBag_box"]');
-    if (cat == 'A002') {
-        $tBagBox.css('display','flex');
-    } else {
-        $tBagBox.hide();
-    }
 
     $('#tBag_box').css('display','flex');
     $('#p_title').html(title);
@@ -488,6 +497,9 @@ async function Make_Html(skey){
             let stock_css = '';
             let inventory = parseInt(el.inventory);
             let avgTotal = parseInt(el.avg.total);
+            let cnt_str1 = '';
+            let cnt_str2 = '';
+            let cnt_str3 = '';
             if(inventory > avgTotal){
                 stock_css =`low_stock active`;
             } else {
@@ -516,15 +528,25 @@ async function Make_Html(skey){
                     `;
             }
 
+            let params = {
+                unit_type : el.unit_type,
+                inventory : el.inventory,
+                t_cnt : el.t_cnt,
+                unit_weight : el.unit_weight
+            };
+
+            let t_arr = fn_PrnUnitType(params);
+
             html += `
                 <tr id="list_${el.gscode}" class="${stock_css}">
                     <td class="ltTbody ">${el.gscode}</td>
                     <td class="ltTbody " name="gnode">
-                        <a href="javascript:;" onclick="Edit_Products('${el.gscode}','${el.gsname}','${el.category}','${el.inventory}','${el.unit_weight}','${el.t_cnt}');" class="goodsName" name="gname">${el.gsname}</a>
+                        <a href="javascript:;" onclick="Edit_Products('${el.gscode}','${el.gsname}','${el.category}','${el.inventory}','${el.unit_weight}','${el.t_cnt}','${el.unit_type}');" class="goodsName" name="gname">${el.gsname}</a>
                     </td>
                     <td class="ltTbody" name="c_str">${el.c_str}</td>                    
-                    <td class="ltTbody" name="inventory">${number_format(el.inventory)} 개</td>
-                    <td class="ltTbody" name="unit_weight">${el.unit_weight} g</td>
+                    <td class="ltTbody" name="inventory">${t_arr['cnt_str1']}</td>
+                    <td class="ltTbody" name="t_cnt">${t_arr['cnt_str2']}</td>
+                    <td class="ltTbody" name="unit_weight">${t_arr['cnt_str3']}</td>
                     <td class="ltTbody ">${el.avg.total}</td> 
                     <td class="ltTbody">${el.avg.avg}</td> 
                     <td class="ltTbody">${bomstr}</td> 

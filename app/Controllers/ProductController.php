@@ -46,6 +46,109 @@ class ProductController extends BaseController
         }
     }
 
+    public function prn_label(){
+        $sessinarr = $this->GetSessionData();
+        $gicode  = ($this->request->getGet('gi') == '') ? '' : $this->request->getGet('gi');
+        $sicode  = ($this->request->getGet('si') == '') ? '' : $this->request->getGet('si');
+        $pname  = ($this->request->getGet('pn') == '') ? '' : $this->request->getGet('pn');
+        $indate  = ($this->request->getGet('in') == '') ? '' : $this->request->getGet('in');
+
+        if($sessinarr['islogin']==false) {
+            fn_AlertClose('로그인이 필요합니다.');
+        }else if(($gicode=='') || ($sicode=='') || ($pname=='') || ($indate=='')){
+            fn_AlertClose('잘못된 접근입니다.');
+        }else {
+            $metaarr = [
+                'h_title' => '생산목록-작업자',
+                'h_type' => 1
+            ];
+
+            $left_data = [
+                'session' => $sessinarr,
+                'gicode' => ''
+            ];
+            $main_data = [
+                'gicode' => $gicode,
+                'sicode' => $sicode,
+                'pname' => $pname,
+                'indate' => $indate
+            ];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Staff_Left($left_data),
+                'body' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/production/pop_PrnLabel2_View', $main_data);
+        }
+    }
+
+
+    public function halfList()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '생산목록-작업자',
+                'h_type' => 1
+            ];
+
+            $left_data = [
+                'session' => $sessinarr,
+                'gicode' => ''
+            ];
+            $main_data = [];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Staff_Left($left_data),
+                'main' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/production/halfList_View', $main_data);
+        }
+    }
+
+
+    public function halfListLog()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '생산목록-작업자',
+                'h_type' => 1
+            ];
+
+            $left_data = [
+                'session' => $sessinarr,
+                'gicode' => ''
+            ];
+            $main_data = [];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Staff_Left($left_data),
+                'main' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/production/halfListLog_View', $main_data);
+        }
+    }
+
     public function statusDetail()
     {
         $sessinarr = $this->GetSessionData();

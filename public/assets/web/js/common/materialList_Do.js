@@ -1,8 +1,11 @@
 $(document).ready(function() {
 
+
+    window.totalCnt = 0;
+
     let search = '';
     let filter = 0;
-    let page = $('#cpage_box').data('page');
+    let page = parseInt($('#cpage').data('page')) || 1;
     const data = {
         page : page,
         skey : search,
@@ -10,6 +13,8 @@ $(document).ready(function() {
     };
 
     Load_Data(data);
+
+
 
     $('#addMate').click(function () {
         $('#addMateWrap').css('display','block');
@@ -19,8 +24,18 @@ $(document).ready(function() {
         $('#addMateWrap').css('display','none');
     });
 
-    $("#cpage_box, #cpage").on("click", function (key) {
-        let page = $('#cpage_box').data('page');
+    // $('#more-btn').on('click', function() {
+    //     page++; // 1 → 2 → 3...
+    //     $('#cpage').data('page', page);
+    //     Load_Data({page: page, skey: search, fkey: filter});
+    // });
+
+    $("#cpage").on("click", function (key) {
+        // let page = $('#cpage_box').data('page');
+
+        page = parseInt($('#cpage').data('page')) + 1;
+        $('#cpage').data('page', page);
+        console.log('page:', page);
         let search = '';
         let filter = 0;
         const data = {
@@ -210,11 +225,10 @@ $(document).ready(function() {
                             </td>
                             <td class="ltThead col2">
                                 <a href="javascript:;" class="materialName" onclick="mod_Material('${el.code}');">${el.name}</a>
-                            </td>
-                            <td class="ltTbody col4">${el.stock}</td>
-                            <td class="ltTbody col5">${el.inventory} ${el.uname}</td>  
-                            <td class="ltTbody col5">${el.stock}</td> 
+                            </td> 
+                            <td class="ltTbody col5">${el.inventory} ${el.uname}</td>   
                             <td class="ltTbody col5">${el.avg}</td>
+                            <td class="ltTbody col5">${el.stock}</td> 
                             <td class="ltThead col6">
                                 <button type="button" class="btnType3 trashBtn" id="del_${el.seq}" name="btn_del"  data-code="${el.code}"> 
                                     <i class="fa-solid fa-trash"></i>
@@ -277,11 +291,10 @@ $(document).ready(function() {
                             </td>
                             <td class="ltThead col2">
                                 <a href="javascript:;" class="materialName" onclick="mod_Material('${el.code}');">${el.name}</a>
-                            </td>
-                            <td class="ltTbody col4">${el.stock}</td>
+                            </td> 
                             <td class="ltTbody col5">${el.inventory} ${el.uname}</td>  
-                            <td class="ltTbody col5">${el.stock}</td> 
                             <td class="ltTbody col5">${el.avg}</td>
+                            <td class="ltTbody col5">${el.stock}</td> 
                             <td class="ltThead col6">
                                 <button type="button" class="btnType3 trashBtn" id="del_${el.seq}" name="btn_del" data-code="${el.code}"> 
                                     <i class="fa-solid fa-trash"></i>
@@ -451,13 +464,21 @@ async function Load_Data(data) {
             let html = '';
             let data = result.get('data');
             let tCnt = data.tCnt;
+            // let totalCnt = 0;
             let arr = (data && data.list) ? data.list : [];
             let Cnt = arr.length;
+            console.log('dawn',arr,Cnt);
+            let stock_css = '';
             if (Cnt > 0) {
                 $.each(arr, function (index, el) {
+                    if (el.stock < el.inventory) {
+                        stock_css = 'low_stock active';
+                    } else {
+                        stock_css = '';
+                    }
 
                     html +=`
-                    <tr id="tr_${el.mtcode}">
+                    <tr id="tr_${el.mtcode}" class="${stock_css}">
                         <td class="ltTbody col1">${el.typ_str}</td>
                         <td class="ltTbody col2">
                             <a href="javascript:;" class="materialName" onclick="mod_Material('${el.mtcode}');">${el.mtcode}</a>
@@ -490,15 +511,28 @@ async function Load_Data(data) {
                     </tr>
                 `;
             }
-            if (Cnt  < 15) {
-                $('#cpage').hide();
+
+            if (data.page == 1) {
+                $('#mlist').empty().append(html);
+                window.totalCnt = Cnt;  // 처음 총합 초기화
             } else {
-                $('#cpage').show();
+                $('#mlist').append(html);
+                window.totalCnt += Cnt;  // 누적
             }
 
-            $('#mlist').empty();
-            $('#mlist').append(html);
-            $('#tcnt').html(number_format(data.tCnt));
+            // $('#tcnt').html(tCnt);
+            $('#tcnt').html(number_format(window.totalCnt));  // JS 누적값 표시
+
+            if (Cnt  < 30) {
+                $('#cpage_box').hide();
+                Make_Toast('더 이상 데이터가 없습니다.');
+            } else {
+                $('#cpage_box').show();
+            }
+
+            // $('#mlist').empty();
+            // $('#mlist').append(html);
+            // $('#tcnt').html(number_format(data.tCnt));
         } else {
             Make_Toast(result.get('message'));
         }

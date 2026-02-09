@@ -34,7 +34,7 @@
                 <td class="keyCol" colspan="2" ><?=$body['info_arr']['catestr']?></td>
             </tr>
             <tr>
-                <td class="keyCol" >적정재고수량</td>
+                <td class="keyCol" >적정재고량</td>
                 <td class="keyCol" colspan="2" ><?=number_format($body['info_arr']['inventory'])?>개</td>
             </tr>
             <tr>

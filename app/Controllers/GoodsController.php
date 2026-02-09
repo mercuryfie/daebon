@@ -154,7 +154,6 @@ class GoodsController extends BaseController
         }
     }
 
-
     public function pop_AddMatirial()
     {
         $sessinarr = $this->GetSessionData();

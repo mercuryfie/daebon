@@ -38,14 +38,14 @@
                 </div>
             </div>
             <div class="area4 atom_boxa1b flexType2">
-                <div class="order_boxfxp">
+                <div class="order_boxfxp matetiallist_box">
                     <table class="orderInfoTable materialListTable " id="mTable">
                         <thead>
                         <tr>
                             <th class="ltThead" data-col="0"><div class="flexType1"><p class="cname mr10">종류</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                             <th class="ltThead" data-col="1"><div class="flexType1"><p class="cname mr10">원자재코드</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                             <th class="ltThead" data-col="2"  ><div class="flexType1"><p class="cname mr10">이름</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
-                            <th class="ltThead" data-col="4"><div class="flexType1"><p class="cname mr10">적정재고수량</p></div></th>
+                            <th class="ltThead" data-col="4"><div class="flexType1"><p class="cname mr10">적정재고량</p></div></th>
                             <th class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">한달평균사용</p><i class="fa-solid fa-angle-down dIcon"></i></div> </th>
                             <th class="ltThead" data-col="5"><div class="flexType1"><p class="cname mr10">현재재고</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                             <th class="ltThead" data-col="7">삭제</th>
@@ -56,8 +56,8 @@
                     </table>
                 </div>
             </div>
-            <div class="area lastArea more_box flexType1" id="cpage_box" name="cpage_box" data-page="1" onclick="">
-                <button type="button" class="btnType3 mr10" id="cpage" name="cpage">더보기</button><i class="fa-solid fa-angle-down"></i>
+            <div class="area lastArea more_box flexType1" id="cpage_box" name="cpage_box">
+                <button type="button" class="btnType3 mr10" id="cpage" name="cpage" data-page="1" onclick="">더보기</button><i class="fa-solid fa-angle-down"></i>
 <!--                <a href="javascript:;" class="more mr10">더보기</a>-->
 <!--                <i class="fa-solid fa-angle-down"></i>-->
             </div>

@@ -17,7 +17,7 @@
     <div class="goods_boxx7z">
         <div class="titleBox">
             <p class="headTitle">
-                공지사항 글쓰기
+                글쓰기
             </p>
         </div>
         <div class="areaBox notice_list_box ">

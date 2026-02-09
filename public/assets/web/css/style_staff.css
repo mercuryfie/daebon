@@ -528,8 +528,14 @@ input[type="radio"] {
     width: 94vw;
 }
 
+.prod_list_box .prod_list_table td.gname,
+.prod_list_box .prod_list_table td.pname {
+    /*width: 94vw;*/
+    cursor: pointer;
+}
+
 .prod_list_box .area {
-    width: 94vw;
+
 }
 
 .prod_list_box .area1 {
@@ -550,7 +556,7 @@ input[type="radio"] {
 
 .prod_list_box .area1 .left2 .count {
     font-size: 24px;
-    color:var(--color3);
+    color:var(--color2);
     font-weight: 600;
 
 
@@ -622,8 +628,6 @@ input[type="radio"] {
 }
 
 .prod_status_wrap {
-    /*margin: 0;*/
-    border:1px solid #5c5c5c;
     border-radius: 5px;
     padding: 10px;
     margin-left: 20px;
@@ -639,9 +643,16 @@ input[type="radio"] {
 
 }
 
+.prod_status_wrap .area2 {
+    border:1px solid #5c5c5c;
+    border-radius: 5px;
+    padding:40px 0;
+    width: 79vw;
+
+}
 .prod_status_wrap .area1,
 .prod_status_wrap .area4 {
-    width: 76vw;
+    width: 79vw;
 
 }
 
@@ -684,9 +695,6 @@ input[type="radio"] {
 
 }
 
-.prod_status_wrap .area2 {
-
-}
 
 .prod_status_wrap .area2 .left {
     width: 50%;
@@ -707,6 +715,7 @@ input[type="radio"] {
     width: 140px;
     margin-right: 20px;
     color:#ccc;
+    text-wrap: nowrap;
 
 }
 
@@ -747,22 +756,328 @@ input[type="radio"] {
     /*color:#000;*/
 }
 
-.prod_status_wrap .area3 .title {
-    color: #ccc;
-    width: 140px;
-    margin-right: 20px;
-    /*width: 80vw;*/
-}
+/*.prod_status_wrap .area3 .title {*/
+/*    color: #ccc;*/
+/*    width: 140px;*/
+/*    margin-right: 20px; */
+/*}*/
 
-.prod_status_wrap .area3 textarea {
+.prod_status_wrap .area2 textarea {
+    border-radius: 5px;
     border:1px solid #5c5c5c;
     background-color: transparent;
-    width: 420px;
+    width: 440px;
+    height: 120px;
+    color:#fff;
+    padding:5px;
+    font-size: 18px;
+    resize: none;
 
 }
 
 /* productionDetailStaff_View end -------------------------------- */
+/* halfProductListStaff_View start -------------------------------- */
 
+.half_list_wrap .btn_gray,
+.half_list_wrap .btn_more {
+    /*border-radius: 5px;*/
+    /*border:1px solid #5c5c5c;*/
+    /*background-color: transparent;*/
+    width: 60px;
+    height: 40px;
+    /*color:#ccc;*/
+}
+
+/* halfProductListStaff_View end -------------------------------- */
+/* pop_AddHalfProduct_View start -------------------------------- */
+
+.add_half_wrap1 {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000080;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 100;
+}
+
+.add_half_con {
+    border-radius: 20px;
+    width: 80vw;
+    height: 60vh;
+    background-color: #2c2c2c;
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    z-index: 101;
+}
+
+
+.add_half_con .padding_area {
+    width: 80vw;
+    height: 60vh;
+    position: relative;
+
+}
+
+.add_half_con .x_btn {
+    position: absolute;
+    top:20px;
+    right: 30px;
+    font-size: 22px;
+}
+
+.add_half_con .head_title {
+    font-size: 22px;
+    margin-top: 20px;
+    /*margin: 20px 0 0 20px;*/
+
+}
+
+.add_half_con .area {
+    margin-left: 20px;
+    width: 77vw;
+}
+
+.add_half_con .area1 {
+    margin: 10px 0 10px 20px;
+}
+
+.add_half_con .area1 table {
+    width: 560px;
+    border-collapse: collapse;
+    border-bottom: 1px solid #5c5c5c;
+}
+
+.add_half_con .area1 table td{
+    padding: 0 10px;
+    height:32px;
+    text-align: left;
+    /*border-bottom: 1px solid #5c5c5c;*/
+}
+
+.add_half_con .area .area_mini {
+    /*margin-top: 20px;*/
+    height: 34vh;
+    /*min-height: 240px;*/
+    /*max-height: 560px;*/
+}
+
+.add_half_con .area .area_mini1 {
+    width: 70%;
+    height: 344px;
+    overflow-y:scroll;
+    overflow-x: hidden;
+}
+
+.add_half_con .area .area_mini2 {
+    width: 30%;
+    position: relative;
+    overflow:hidden;
+    height: 34vh;
+
+}
+
+
+.half_tbl_xk1 {
+    margin-left: 2%;
+    /*padding-left: 20px;*/
+    border-collapse: collapse;
+    overflow:hidden;
+    width: 98%;
+}
+
+
+.half_tbl_xk1 th,
+.half_tbl_xk1 td{
+    font-weight: normal;
+    /*border: 1px solid #ccc;*/
+    /*border-bottom: 1px solid #ccc;*/
+    border-bottom: 1px solid #5c5c5c;
+    text-align: center;
+    height: 60px;
+    font-size: 18px;
+    padding: 5px 20px;
+    /*line-height: 40px;*/
+}
+
+
+.half_tbl_xk1 th {
+    background-color: #1a1a1a;
+    height: 40px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.half_tbl_xk1 td .inputBorder {
+    padding:5px;
+    /*margin: 0;*/
+    border: 1px solid #5c5c5c;
+    background-color: transparent;
+    width: 120px;
+    height: 40px;
+    color:#fff;
+    font-size: 32px;
+    text-align: center;
+
+}
+
+.add_half_con .area .area_mini2 .keypad {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 256px;
+    height: 304px;
+    overflow:hidden;
+    /*min-height: 220px;*/
+    /*max-height: 220px;*/
+}
+
+
+.add_half_con .area .area_mini2 .keypad .row {
+    display: flex;
+    gap: 8px;
+}
+
+
+.add_half_con .area .area_mini2 .keypad .btn_gray {
+    flex: 1;
+    font-size: 32px;
+    width: 80px;
+    height: 70px;
+}
+
+.add_half_con .area .area_mini2 .keypad i {
+    /*color: #5c5c5c;*/
+    font-size: 28px;
+
+}
+
+.add_half_con .lastArea {
+    margin-top: 40px;
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*bottom: 20px;*/
+    /*transform: translateX(-50%);*/
+}
+
+.add_half_con .btn_gray,
+.add_half_con .btn_green {
+    width: 60px;
+    height:60px;
+
+}
+
+
+
+/* pop_AddHalfProduct_View end -------------------------------- */
+/* pop_PrnLabel_View start -------------------------------- */
+
+.prod_label_wrap {
+    padding:20px;
+}
+
+.prod_label_wrap .prod_label_table {
+    border-collapse: collapse;
+    width: 720px;
+    text-align: center;
+
+}
+
+.prod_label_wrap .prod_label_table th,
+.prod_label_wrap .prod_label_table td{
+    font-weight: normal;
+    border:1px solid #000;
+    height: 40px;
+
+}
+
+
+.prod_label_wrap .prod_label_table th.title {
+    width: 40%;
+}
+
+.prod_label_table td.data1,
+.prod_label_table td.data2 {
+    height: 25mm;
+
+}
+
+.prod_label_table td svg {
+    width: 320px;
+}
+
+.prod_label_table .bar_wrap {
+    width: 100%;
+
+}
+
+.prod_label_table .bar_box {
+    width: 50%;
+}
+
+.prod_label_table .bar_box.left{
+    border-right:  1px solid #000;
+
+}
+
+.prod_label_table .bar_box .title {
+    height: 40px;
+    line-height: 40px;
+}
+
+.prod_label_table .bar_box .title:first-child {
+    border-bottom: 1px solid #000;
+    /*border-right:  1px solid #000;*/
+}
+
+.prod_label_wrap .lastArea {
+    padding: 20px 0;
+    width: 720px;
+}
+
+/* pop_PrnLabel_View end -------------------------------- */
+/* pop_PrnLabel2_View start -------------------------------- */
+
+.prod_label_wrap2 .area {
+    /*padding:20px;*/
+}
+.prod_label_table2 {
+    margin: 20px;
+    width:480px;
+    border-collapse: collapse;
+
+}
+
+.prod_label_table2 th,
+.prod_label_table2 td {
+    font-weight: normal;
+    border: 1px solid #000;
+    text-align: center;
+    padding: 0 10px;
+    text-wrap: nowrap;
+    height: 40px;
+
+}
+
+.prod_label_table2 svg {
+    width: 220px;
+}
+
+.prod_label_wrap2 .lastArea {
+    margin-left: 20px;
+    width:480px;
+
+}
+
+/* pop_PrnLabel2_View end -------------------------------- */
 /* btnType etc start -------------------------------- */
 
 .mainContentStaff .btnType1 {
@@ -875,6 +1190,7 @@ input[type="radio"] {
 
 }
 
+.btn60Type3,
 .mainContentStaff .btn60Type3 {
     border: 1px solid var(--gradient3);
     background-image: var(--gradient3);
@@ -887,7 +1203,6 @@ input[type="radio"] {
     font-size: 18px;
     text-align: center;
     text-wrap: nowrap;
-    background-color: red;
 
 }
 
@@ -895,6 +1210,45 @@ input[type="radio"] {
     border: 1px solid var(--color1);
     background-image: var(--main-gradient);
     color:#000;
+
+}
+
+.btn_gray,
+.mainContentStaff .btn_gray {
+    border: 1px solid var(--gradient3);
+    background-image: var(--gradient3);
+    color:#000;
+    border-radius: 5px;
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+
+.btn_green,
+.mainContentStaff .btn_green {
+    border: 1px solid var(--color1);
+    background-image: var(--main-gradient);
+    color:#000;
+    border-radius: 5px;
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+}
+.mainContentStaff .btn_long {
+    border: 1px solid var(--gradient3);
+    background-image: var(--gradient3);
+    color:#000;
+    border-radius: 5px;
+    margin: 10px 0;
+    width: 120px;
+    height: 60px;
+    font-size: 18px;
+    text-align: center;
+    text-wrap: nowrap;
+
+
 
 }
 
@@ -1267,3 +1621,38 @@ input[type="radio"] {
 
 }
 
+
+@media print {
+
+    .prod_label_table {
+        margin: 5mm;
+        border-radius: 1em;
+        width: 190mm;
+        height: 90mm;
+        border-collapse: collapse;
+        text-align: center;
+        font-size: 22px;
+
+    }
+
+    .prod_label_table th,
+    .prod_label_table td {
+        border:1px solid #000;
+        overflow: hidden;
+        /*height: ;*/
+    }
+
+    .prod_label_table td.data1,
+    .prod_label_table td.data2 {
+        height: 25mm;
+
+    }
+
+    .prod_label_table td svg {
+        margin: 0 auto;
+        /*width: 120mm;*/
+        height: 22mm;
+    }
+
+
+}

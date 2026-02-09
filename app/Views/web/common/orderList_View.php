@@ -21,55 +21,55 @@
 <!--        </div>-->
         <div class="areaBox areaBox1 mb10">
             <div class="status_boxi3f flexType2">
-                <div class="progress flexType2">
-                    <button class="squareType ">
-                        <i class="fa-regular fa-square-check"></i>
-                    </button>
-                    <div class="right ">
-                        <p class="status">전체</p>
-                        <div class="countBox flexType2">
-                            <p class="count">10</p>
-                            <p class="unit">건</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="progress flexType2">
-                    <button class="squareType2">
-                        <i class="fa-solid fa-arrow-trend-down"></i>
-                    </button>
-                    <div class="right ">
-                        <p class="status">재고 10개 이하</p>
-                        <div class="countBox flexType2">
-                            <p class="count">10</p>
-                            <p class="unit">건</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="progress flexType2">
-                    <button class="squareType2">
-                        <i class="fa-solid fa-chart-line"></i>
-                    </button>
-                    <div class="right ">
-                        <p class="status">주간 평균판매량</p>
-                        <div class="countBox flexType2">
-                            <p class="count">10</p>
-                            <p class="unit">건</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="progress flexType2">
-                    <button class="squareType2">
-                        <i class="fa-solid fa-chart-line"></i>
-                    </button>
-                    <div class="right">
-                        <p class="status">월간 평균판매량</p>
-                        <div class="countBox flexType2">
-                            <p class="count">10</p>
-                            <p class="unit">건</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--                <div class="progress flexType2">-->
+<!--                    <button class="squareType ">-->
+<!--                        <i class="fa-regular fa-square-check"></i>-->
+<!--                    </button>-->
+<!--                    <div class="right ">-->
+<!--                        <p class="status">전체</p>-->
+<!--                        <div class="countBox flexType2">-->
+<!--                            <p class="count">10</p>-->
+<!--                            <p class="unit">건</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="progress flexType2">-->
+<!--                    <button class="squareType2">-->
+<!--                        <i class="fa-solid fa-arrow-trend-down"></i>-->
+<!--                    </button>-->
+<!--                    <div class="right ">-->
+<!--                        <p class="status">재고 10개 이하</p>-->
+<!--                        <div class="countBox flexType2">-->
+<!--                            <p class="count">10</p>-->
+<!--                            <p class="unit">건</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="progress flexType2">-->
+<!--                    <button class="squareType2">-->
+<!--                        <i class="fa-solid fa-chart-line"></i>-->
+<!--                    </button>-->
+<!--                    <div class="right ">-->
+<!--                        <p class="status">주간 평균판매량</p>-->
+<!--                        <div class="countBox flexType2">-->
+<!--                            <p class="count">10</p>-->
+<!--                            <p class="unit">건</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="progress flexType2">-->
+<!--                    <button class="squareType2">-->
+<!--                        <i class="fa-solid fa-chart-line"></i>-->
+<!--                    </button>-->
+<!--                    <div class="right">-->
+<!--                        <p class="status">월간 평균판매량</p>-->
+<!--                        <div class="countBox flexType2">-->
+<!--                            <p class="count">10</p>-->
+<!--                            <p class="unit">건</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="area1 flexType3">
                 <div class="leftDad flexType2">
                     <div class="left flexType2">

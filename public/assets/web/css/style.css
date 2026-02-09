@@ -531,7 +531,9 @@ input[type="radio"] {
 }
 
 .leftBoxStaff .topMenu .title {
-    font-size: 24px;
+    font-size: 22px;
+    line-height: 22px;
+    /*color:red;*/
     font-family: "Gmarket Sans";
     width: 220px;
     height: 60px;
@@ -1631,7 +1633,6 @@ input[type="radio"] {
     height: auto;
     min-height: 560px;
     max-height: 600px;
-    border:1px solid blue;
 }
 
 .order_box28f .order_boxfxp .table_scroll .order_tabledj1 {
@@ -1645,8 +1646,6 @@ input[type="radio"] {
     /*top:0;*/
     /*z-index: 40;*/
     font-size: 14px;
-
-    border:1px solid red;
 }
 
 .order_box28f .order_boxfxp .order_tabledj1 .tbl_head{
@@ -2836,7 +2835,6 @@ input[type="radio"] {
     /*z-index: 30;*/
     width: 240px;
     height: 40px;
-    border:1px solid blue;
     overflow: hidden;
 
 }
@@ -3310,14 +3308,37 @@ input[type="radio"] {
     text-wrap: nowrap;
 }
 
-.materialListTable {
+/* materialList_View start*/
+
+.matetiallist_box {
     width: 81vw;
+    overflow: auto;  /* 부모에 스크롤 추가 */
+    max-height: 680px;  /* 원하는 높이로 조정 */
+    position: relative;  /* sticky 기준점 */
+    border: 1px solid red;
+
+}
+
+.materialListTable {
+    width: 100%;  /* 부모 너비 꽉 채움 */
+    table-layout: fixed;  /* 컬럼 너비 고정 */
 }
 
 .materialListTable th {
-    border:1px solid #ccc;
+    /*border:1px solid #ccc;*/
+    /*height: 32px;*/
+    /*font-weight: normal;*/
+    /*position: sticky;*/
+    /*top:0;*/
+    /*z-index: 10; */
+
+    border: 1px solid #ccc;
     height: 32px;
     font-weight: normal;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #ececec !important;
 }
 
 .urgent {
@@ -3338,6 +3359,7 @@ input[type="radio"] {
     height: 22px;
 }
 
+/* materialList_View end*/
 /* 제품목록 table width control start */
 
 .products_boxfv6 .areaBox .area4 .prodDef_tablejf2 {
@@ -4240,7 +4262,7 @@ input[type="radio"] {
 
 .out_conrlo .padding_area .area11 textarea,
 .ipgo_conkol .padding_area .area11 textarea {
-    width: 220px;
+    width: 320px;
     border:1px solid #ccc;
     border-radius: 5px;
     padding: 5px;
@@ -4288,9 +4310,12 @@ input[type="radio"] {
 }
 
 /* pop_Ipgo_View start -------------------------------- */
+.ipgo_box .area  {
+    font-size: 16px;
 
+}
 .ipgo_box .area .category {
-    font-size: 14px;
+    /*font-size: 16px;*/
 
 }
 
@@ -4304,10 +4329,9 @@ input[type="radio"] {
 
 }
 
-.ipgo_box .area1 .copySearch {
-    border:1px solid #cccccc;
+.ipgo_box .area .inputBorder {
     border-radius: 5px;
-    width: 220px;
+    width: 320px;
     height: 32px;
     /*line-height: 32ㅔ;*/
 
@@ -4335,14 +4359,14 @@ input[type="radio"] {
     border-radius: 0 0 5px 5px;
     border:1px solid #ccc;
     background-color: #fff;
-    width:220px;
-    height: 220px;
+    width:320px;
+    height: 420px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
 .ipgo_box .copyArea2 .copyOption {
-    width: 220px;
+    width: 320px;
     min-height: 32px;
     border: none;
     border-bottom: 1px solid #ccc;
@@ -4365,6 +4389,71 @@ input[type="radio"] {
 
 
 /* pop_Ipgo_View end -------------------------------- */
+/* pop_Chulgo_View start -------------------------------- */
+
+.chulgo_box .area .inputBorder{
+    width: 320px;
+    height: 32px;
+    font-size: 16px;
+
+}
+
+.chulgo_box .area1 .copyArea1 {
+    position: relative;
+}
+
+.chulgo_box .area1 .copyArea1 .copyDropdown {
+    border:none;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top:1px;
+    right: 2px;
+    color:#5c5c5c;
+
+}
+
+
+.chulgo_box .copyArea2 {
+    display: none;
+    position: absolute;
+    top:80px;
+    left:121px;
+    border-radius: 0 0 5px 5px;
+    border:1px solid #ccc;
+    background-color: #fff;
+    width: 320px;
+    height: 420px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    z-index: 100;
+}
+
+.chulgo_box .copyArea2 .copyOption {
+    width: 320px;
+    min-height: 32px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    color: #5c5c5c;
+    text-align: left;
+    padding-left: 10px;
+}
+
+
+.chulgo_box .copyArea2.active,
+.chulgo_box .copyArea2 .copyOption.active {
+    display: block;
+
+}
+
+.chulgo_box .copyArea2 > button:hover {
+    text-decoration: underline;
+}
+
+/* pop_Chulgo_View end -------------------------------- */
 /* pop_UploadXlx_View start -------------------------------- */
 
 .upXlx_conrlo {
@@ -6502,7 +6591,6 @@ input[type="radio"] {
 
     .add_deli_wrap {
         width: 80vw;
-        border:1px solid blue;
         color:blue;
     }
 

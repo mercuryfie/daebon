@@ -15,7 +15,7 @@
                 <p class="headTitle ">
                     생산현황 상세
                 </p>
-                <input type="search" class="searchArea " placeholder="무게를 측정하세요." name="incode" id="incode" autofocus>
+                <input type="search" class="searchArea " placeholder="무게를 측정하세요." name="incode" id="incode" maxlength="10" autofocus>
             </div>
         <?if($body['info']['btype']==1){?>
             <div class="trackBox flexType1">
@@ -125,13 +125,15 @@
 <!--                    --><?//}?>
 <!--                </div>-->
 <!--            </div>-->
-        </div><div class="area area3 memo_boxb5h mt10 ml10 flexType4">
-            <p class="title">공정방법</p>
-            <textarea name="" id="" cols="" rows="" readonly placeholder="Recipe for this product"><?=$body['info']['method'];?></textarea>
+            <div class="downside flexType2-1">
+                <p class="title ml10">공정방법</p>
+                <textarea name="" id="" cols="" rows="" readonly placeholder="Recipe for this product"><?=$body['info']['method'];?></textarea>
+            </div>
+
         </div>
         <div class="area area4 submitBox flexType5-2 ">
             <div class="right flexType2">
-                <button type="button" class="btn80Type3 mr10" onclick="go_productionListStaff();">이전</button>
+                <button type="button" class="btn80Type3 mr10" onclick="go_productionListStaff();">목록</button>
                 <?if($body['info']['btype']==1){?>
                     <button type="button" class="btn80Type3 active" id="btn_confirm">시작</button>
                 <?}else{?>

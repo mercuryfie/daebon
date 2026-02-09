@@ -447,7 +447,9 @@ class ApiProduceController extends BaseController
                         'processstr' => $p_arr['str'],
                         'worker' => $p_arr['worker'],
                         'stepnow' => $d['step_now'],
-                        'stepNum' => $p_arr['stepNum']
+                        'stepNum' => $p_arr['stepNum'],
+                        'semicode' => $p_arr['semicode'],
+                        'indate' =>  $p_arr['indate']
                     ];
 
                     array_push($info_arr,$t_arr);

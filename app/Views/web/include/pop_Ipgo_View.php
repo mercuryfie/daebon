@@ -10,7 +10,7 @@
 
                 <div class="copyArea copyArea1 flexType2">
                     <p class="category ">검색</p>
-                    <input type="search" class="copySearch " id="txt_pop_input" name="txt_pop_input" placeholder="검색어 입력후 Enter" onfocus="">
+                    <input type="search" class="inputBorder" id="txt_pop_input" name="txt_pop_input" placeholder="검색어 입력후 Enter" onfocus="">
                 </div>
                 <div class="copyArea copyArea2  mr10 flexCol" id="inputlist" name="inputlist">
                 </div>
@@ -35,21 +35,10 @@
                 <p class="category">기본공급사</p>
                 <p class="merName" id="mtsupplier" name="mtsupplier"></p>
             </div>
-<!--            <div class="area area7 flexType2 fs14">-->
-<!--                <p class="category">실제 공급사</p>-->
-<!--                <div class="flexCol">-->
-<!--                    <select name="" id="supply" class="inputType220" >-->
-<!--                        <option value="">자체</option>-->
-<!--                        <option value="bySelf">직접입력</option>-->
-<!--                        <option value="">OEM</option>-->
-<!--                        <option value="">농산물센터</option>-->
-<!--                        <option value="">기타</option>-->
-<!--                    </select>-->
-<!--                </div>-->
-<!--            </div>-->
             <div class="area area8 flexType2 fs14">
                 <p class="category">입고량</p>
-                <input type="search" name="txt_pop_income" id="txt_pop_income" placeholder="숫자만 가능합니다." class="inputType220 mr10"><p id="pop_unit" name="pop_unit"></p>
+                <input type="search" name="txt_pop_income" id="txt_pop_income" placeholder="숫자만 가능합니다." class="inputBorder mr10">
+<!--                <p id="pop_unit" name="pop_unit"></p>-->
             </div>
 <!--            <div class="area area9 flexType2 fs14">-->
 <!--                <p class="category">원자재단위</p>-->
@@ -59,7 +48,7 @@
 <!--                </select>-->
 <!--            </div>-->
             <div class="area area11 flexType4 fs14">
-                <p class="category">입출고 메모</p>
+                <p class="category">입고 메모</p>
                 <textarea name="txt_mtmemo" id="txt_mtmemo" cols="30" rows="5" class="content" placeholder="메모를 남기십시오." ></textarea>
             </div>
             <div class="area lastArea mt20 flexType5">

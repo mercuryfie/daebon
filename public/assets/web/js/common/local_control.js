@@ -1,4 +1,33 @@
 
+function fn_PrnUnitType(params){
+    let unit_typ = params['unit_type'];
+    let inventory = params['inventory'];
+    let t_cnt = params['t_cnt'];
+    let unit_weight = params['unit_weight'];
+
+    if(unit_typ=='kg'){
+        let gtokg1 = inventory/1000;
+        cnt_str1 = `${gtokg1} kg`;
+        cnt_str2 = `${t_cnt} 개`
+        let gtokg2 = unit_weight/1000;
+        cnt_str3 = `${gtokg2} kg`;
+    }else if(unit_typ=='g'){
+        cnt_str1 = `${inventory} g`;
+        cnt_str2 = `${t_cnt} 개`
+        cnt_str3 = `${unit_weight} g`;
+    }else if(unit_typ=='개'){
+        cnt_str1 = `${inventory} 개`;
+        cnt_str2 = `${t_cnt} 개`
+        cnt_str3 = `${unit_weight} g`;
+    }
+
+    return {
+        cnt_str1 : cnt_str1,
+        cnt_str2 : cnt_str2,
+        cnt_str3 : cnt_str3
+    }
+}
+
 
 function fn_calculateNetWeight(weightStr, lossRateStr) {
     let weight = parseFloat(weightStr) || 0;
@@ -222,6 +251,16 @@ function go_productionListStaff() {
     $(location).attr("href", url);
 }
 
+function go_halfList() {
+    let url = "/product/halflist";
+    $(location).attr("href", url);
+}
+
+function go_halfListLog() {
+    let url = "/product/halflistlog";
+    $(location).attr("href", url);
+}
+
 function go_productionStatus(code) {
     let url = "/produce/productionstatus?cd=" + code;
     $(location).attr("href", url);
@@ -255,6 +294,12 @@ function go_inOutMaterial() {
     let url = "/inout/material";
     $(location).attr("href", url);
 }
+
+function go_inOutMaterial_Log(mtcode) {
+    let url = "/inout/materiallog?mt=" + mtcode;
+    $(location).attr("href", url);
+}
+
 
 function go_inOutHalfProduct() {
     let url = "/inout/halfproduct";

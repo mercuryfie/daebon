@@ -18,6 +18,18 @@ class Product_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Load_Product_Inout($gscode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val},b.gsname,b.category,b.unit_weight,b.unit_type from tbl_goods_inout a  join vw_goods b ON a.gscode = b.gscode WHERE a.gscode=:GSCODE: ORDER BY a.seq DESC;";
+        $bindparam = [
+            'GSCODE'=> $gscode,
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+
+
 
     public function Delete_Products_Data($pdcode)
     {

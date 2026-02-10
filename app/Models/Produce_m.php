@@ -18,6 +18,29 @@ class Produce_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Load_SemiProduct_Info($search){
+
+        $sql = "SELECT pscode,a.fk_gicode,b.gname,c.step_name,a.indate, ";
+        $sql .= "SUM(m_input) AS total_input, SUM(m_output) AS total_output, (SUM(m_input) - SUM(m_output)) AS stock_amount ";
+        $sql .= "FROM tbl_semiproduct_inout a JOIN tbl_instructions b ON a.fk_gicode=b.gicode JOIN tbl_instructions_process c ON a.fk_gicode=c.fk_gicode AND  c.fk_prcode=a.fk_prcode ";
+        if($search!=''){
+            $searchword = "%{$search}%";
+            $wheresql = "WHERE (b.gname LIKE :SEARCH: OR c.step_name LIKE :SEARCH: OR a.fk_gicode LIKE :SEARCH: OR a.pscode LIKE :SEARCH:)";
+        }else{
+            $searchword = '';
+            $wheresql = '';
+        }
+
+        $sql = $sql . $wheresql . "GROUP BY pscode ORDER BY indate DESC;";
+
+        $bindparam = [
+            'SEARCH'=> $searchword
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+
     public function Cnt_Instructions_Process($typ,$gicode){
         if($typ==1) {
             $sql = "SELECT count(*) AS Cnt from tbl_instructions_process WHERE fk_gicode=:GICODE: and is_del=0";
@@ -135,18 +158,6 @@ class Produce_m extends Model
             'TYPE' => $typ,
             'ISDEL' => 0
         ];
-        $query = $this->db->query($sql,$bindparam);
-        return $query->getResultArray();
-    }
-
-    public function Load_SemiProduct_Info($gscode,$typ,$fields=['ALL']){
-        $separated_val = fn_Make_Fields($fields);
-        if($typ==1) {
-            $sql = "SELECT {$separated_val} from tbl_semiproduct_inout WHERE pscode=:PSCODE: AND m_input>0 order by seq DESC limit 1";
-        }else{
-            $sql = "SELECT {$separated_val} from tbl_semiproduct_inout WHERE pscode=:PSCODE: AND m_output>0 order by seq DESC limit 1";
-        }
-        $bindparam = ['PSCODE' => $gscode];
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
     }

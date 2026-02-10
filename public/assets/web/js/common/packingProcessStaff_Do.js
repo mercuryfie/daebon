@@ -110,7 +110,7 @@ $(document).ready(function() {
                 let choice = $(this).data('choice');
                 if(choice==0){
                     allChecked = false;
-                    Make_Toast('확인이 안된 상품이 있습니다.');
+                    Make_Toast('수량 확인 후 상품 이미지를 터치하십시오. ');
                     return false;
                 }
             });

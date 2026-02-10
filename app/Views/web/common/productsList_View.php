@@ -39,24 +39,24 @@
                     </div>
                 </div>
                 <div class="area4 products_boxa1b flexType2 ">
-                    <div class="products_boxfxp  ">
-                        <table class="orderInfoTable orderInfoTable1 prodDef_tablejf2" id="pTable">
+                    <div class="products_list_box  ">
+                        <table class="products_list_tbl" id="pTable">
                             <thead>
                             <tr>
-                                <td class="ltThead" data-col="0"><div class="flexType1"><p class="cname mr10">제품코드</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
-                                <td class="ltThead" data-col="1"><div class="flexType1"><p class="cname mr10">제품명</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
-                                <td class="ltThead" data-col="2"><div class="flexType1"><p class="cname mr10">구분</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
-                                <td class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">적정재고량</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
-                                <td class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">제품용량</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
-                                <td class="ltThead" data-col="4">단위용량</td>
+                                <th class="ltThead" data-col="0"><div class="flexType1"><p class="cname mr10">제품코드</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
+                                <th class="ltThead" data-col="1"><div class="flexType1"><p class="cname mr10">제품명</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
+                                <th class="ltThead" data-col="2"><div class="flexType1"><p class="cname mr10">구분</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
+                                <th class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">적정재고량</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
+                                <th class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">제품용량</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
+                                <th class="ltThead" data-col="4">단위용량</th>
 
-                                <td class="ltThead" data-col="5"><div class="flexType1"><p class="cname mr10">총재고량</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
-                                <td class="ltThead" data-col="6"><div class="flexType1"><p class="cname mr10">평균사용량</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
-                                <td class="ltThead" data-col="7">BOM</td>
-                                <td class="ltThead orderProduct">간편작업지시</td>
-                                <td class="ltThead" data-col="8">출력</td>
-                                <td class="ltThead" data-col="8">로그</td>
-                                <td class="ltThead" data-col="8">삭제</td>
+                                <th class="ltThead" data-col="5"><div class="flexType1"><p class="cname mr10">총재고량</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
+                                <th class="ltThead" data-col="6"><div class="flexType1"><p class="cname mr10">평균사용량</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
+                                <th class="ltThead" data-col="7">BOM</th>
+                                <th class="ltThead orderProduct">간편작업지시</th>
+                                <th class="ltThead" data-col="8">출력</th>
+                                <th class="ltThead" data-col="8">로그</th>
+                                <th class="ltThead" data-col="8">삭제</th>
                             </tr>
                             </thead>
                             <tbody id="clist" name="clist">
@@ -64,10 +64,10 @@
                         </table>
                     </div>
                 </div>
-                <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
-                    <p class="more mr10">더보기</p>
-                    <i class="fa-solid fa-angle-down"></i>
-                </div>
+<!--                <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">-->
+<!--                    <p class="more mr10">더보기</p>-->
+<!--                    <i class="fa-solid fa-angle-down"></i>-->
+<!--                </div>-->
             </div>
         </div>
 

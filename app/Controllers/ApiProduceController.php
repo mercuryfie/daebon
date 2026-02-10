@@ -12,6 +12,61 @@ class ApiProduceController extends BaseController
 {
     use ResponseTrait;
 
+    public function Load_SemiProduct_Info(){
+        $sessinarr = $this->GetSessionData();
+        $search = ($this->request->getPost('skey')=='') ?'':$this->request->getPost('skey');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $produce_m = model('Produce_m');
+            $Rs = $produce_m->Load_SemiProduct_Info($search);
+            if(fn_ArrayCnt($Rs)>0){
+                $info = [];
+                foreach ($Rs as $d){
+                    $t_arr = [
+                        'pscode' => $d['pscode'],
+                        'fk_gicode' => $d['fk_gicode'],
+                        'gname' => $d['gname'],
+                        'step_name' => $d['step_name'],
+                        'indate' => $d['indate'],
+                        'total_input' => $d['total_input'],
+                        'total_output' => $d['total_output'],
+                        'stock_amount' => $d['stock_amount']
+                    ];
+                    $info[] = $t_arr;
+                }
+
+                $i_arr = [
+                    'list' => $info,
+                    'cnt' => fn_ArrayCnt($info)
+                ];
+
+
+                $result = 'ok';
+                $data = $i_arr;
+                $message = '';
+            }else{
+                $result = 'ok';
+                $data = [];
+                $message = '';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
 
     public function Search_Goods()
     {

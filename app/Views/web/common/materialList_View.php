@@ -57,11 +57,9 @@
                     </table>
                 </div>
             </div>
-            <div class="area lastArea more_box flexType1" id="cpage_box" name="cpage_box">
-                <button type="button" class="btnType3 mr10" id="cpage" name="cpage" data-page="1" onclick="">더보기</button><i class="fa-solid fa-angle-down"></i>
-<!--                <a href="javascript:;" class="more mr10">더보기</a>-->
-<!--                <i class="fa-solid fa-angle-down"></i>-->
-            </div>
+<!--            <div class="area lastArea more_box flexType1" id="cpage_box" name="cpage_box">-->
+<!--                <button type="button" class="btnType3 mr10" id="cpage" name="cpage" data-page="1" onclick="">더보기</button><i class="fa-solid fa-angle-down"></i> -->
+<!--            </div>-->
         </div>
     </div>
 

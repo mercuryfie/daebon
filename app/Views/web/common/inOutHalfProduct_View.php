@@ -19,27 +19,26 @@
             <div class="goods_boxkfg mt10 inout_boxq0a">
                 <div class="right flexType3">
                     <div class="left3 flexType1">
-                        <select name="" id="" class="btnType1 mr10">
-                            <option value="">기간</option>
-                            <option value="">3개월</option>
-                            <option value="">6개월</option>
-                            <option value="">1년</option>
-                            <option value="">전체</option>
-                        </select>
-                        <input type="search" placeholder="반제품코드 또는 제품명 검색" class="inputSearch" >
-                        <button type="button" class="btnType1 mr20">검색</button>
+<!--                        <select name="" id="" class="btnType1 mr10">-->
+<!--                            <option value="">기간</option>-->
+<!--                            <option value="">3개월</option>-->
+<!--                            <option value="">6개월</option>-->
+<!--                            <option value="">1년</option>-->
+<!--                            <option value="">전체</option>-->
+<!--                        </select>-->
+                        <input type="search" placeholder="반제품코드 또는 공정명을 검색" class="inputSearch" id="txt_search">
+                        <button type="button" class="btnType1 mr20" id="btn_search">검색</button>
                         <div class="left2 flexType2">
                             <p class="title">전체</p>
-                            <p class="count">10</p>
+                            <p class="count" id="tcnt">0</p>
                             <p class="unit">건</p>
                         </div>
 
                     </div>
                     <div class="right3">
-                        <button type="button" class="btnType1">로그표시</button>
+<!--                        <button type="button" class="btnType1">로그표시</button>-->
                         <button type="button" class="btnType1 mr20">엑셀다운로드</button>
                         <button type="button" class="btnType2 mr20" id="chulgoBtn" onclick="pop_chulgoView();">출고하기</button>
-
                     </div>
                 </div>
             </div>
@@ -49,56 +48,23 @@
                         <thead>
                         <tr>
                             <td class="ltThead productNo checkCol">순번</td>
-                            <td class="ltThead">날짜</td>
-                            <td class="ltThead">BOM코드</td>
                             <td class="ltThead">반제품코드</td>
-                            <td class="ltThead">제품명</td>
-                            <td class="ltThead">공정명</td>
-                            <td class="ltThead">전체재고</td>
-
+                            <td class="ltThead">BOM코드</td>
+                            <td class="ltThead">제품이름</td>
                             <td class="ltThead">입고량</td>
                             <td class="ltThead">출고량</td>
+                            <td class="ltThead">출입고일자</td>
                         </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td class="ltTbody">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="ltTbody">2025.01.01</td>
-                                <td class="ltTbody">12341234</td>
-                                <td class="ltTbody">12341234</td>
-                                <td class="ltTbody">우엉 혼합물</td>
-                                <td class="ltTbody">우엉 원료입고</td>
-                                <td class="ltTbody">허브(농산물)</td>
-                                <td class="ltTbody">45.000g</td>
-                                <td class="ltTbody">-</td>
-
-
-                            </tr>
-                            <tr>
-                                <td class="ltTbody">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="ltTbody">2025.01.01</td>
-                                <td class="ltTbody">12341234</td>
-                                <td class="ltTbody">12341234</td>
-                                <td class="ltTbody">우엉 혼합물</td>
-                                <td class="ltTbody">우엉 원료입고</td>
-                                <td class="ltTbody">허브(농산물)</td>
-                                <td class="ltTbody">-</td>
-                                <td class="ltTbody">45.000g</td>
-
-
-                            </tr>
+                        <tbody id="clist">
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
-                <p class="more mr10">더보기</p>
-                <i class="fa-solid fa-angle-down"></i>
-            </div>
+<!--            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">-->
+<!--                <p class="more mr10">더보기</p>-->
+<!--                <i class="fa-solid fa-angle-down"></i>-->
+<!--            </div>-->
         </div>
     </div>
 

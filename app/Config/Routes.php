@@ -35,6 +35,7 @@ $routes->GET('goods/goodslist', 'GoodsController::goodsList');
 $routes->GET('goods/goodsreg', 'GoodsController::goodsReg');
 $routes->GET('goods/goodsedit', 'GoodsController::goodsEdit');
 $routes->GET('goods/productslist', 'GoodsController::productsList');
+$routes->GET('goods/productslog', 'GoodsController::productsLog');
 $routes->GET('goods/productsmasterlist', 'GoodsController::productsMasterList');
 $routes->GET('goods/productsmasterreg', 'GoodsController::productsMasterReg');
 $routes->GET('goods/productsmasterreg2', 'GoodsController::productsMasterReg2');
@@ -109,7 +110,7 @@ $routes->match(['GET', 'POST'], 'Api/Upload_file', 'ApiController::Upload_File')
 $routes->match(['GET', 'POST'], 'Api/Upload_Multi_File', 'ApiController::Upload_Multi_File');
 $routes->match(['GET', 'POST'], 'Api/Add_Goods', 'ApiController::Add_Goods');
 $routes->match(['GET', 'POST'], 'Api/Delete_Goods', 'ApiController::Delete_Goods');
-$routes->match(['GET', 'POST'], 'Api/Load_Product', 'ApiController::Load_Product');
+//$routes->match(['GET', 'POST'], 'Api/Load_Product', 'ApiController::Load_Product');
 $routes->match(['GET', 'POST'], 'Api/Delete_Goods_List', 'ApiController::Delete_Goods_List');
 $routes->match(['GET', 'POST'], 'Api/Load_Maker', 'ApiController::Load_Maker');
 $routes->match(['GET', 'POST'], 'Api/Load_Maker_Each', 'ApiController::Load_Maker_Each');
@@ -148,10 +149,12 @@ $routes->match(['GET', 'POST'], 'Api/Load_Instructions_NowStep', 'ApiProduceCont
 $routes->match(['GET', 'POST'], 'Api/Process_Confirm', 'ApiProduceController::Process_Confirm');
 $routes->match(['GET', 'POST'], 'Api/Search_Goods', 'ApiProduceController::Search_Goods');
 $routes->match(['GET', 'POST'], 'Api/Check_instruction', 'ApiProduceController::Check_instruction');
+$routes->match(['GET', 'POST'], 'Api/Load_SemiProduct_Info', 'ApiProduceController::Load_SemiProduct_Info');
 
 $routes->match(['GET', 'POST'], 'Api/Insert_Product', 'ApiProductController::Insert_Product');
 $routes->match(['GET', 'POST'], 'Api/Load_Product_List', 'ApiProductController::Load_Product_List');
 $routes->match(['GET', 'POST'], 'Api/Load_Product_Info', 'ApiProductController::Load_Product_Info');
+$routes->match(['GET', 'POST'], 'Api/Load_Product_Inout', 'ApiProductController::Load_Product_Inout');
 $routes->match(['GET', 'POST'], 'Api/Edit_Product', 'ApiProductController::Edit_Product');
 $routes->match(['GET', 'POST'], 'Api/Load_Product_Detail', 'ApiProductController::Load_Product_Detail');
 $routes->match(['GET', 'POST'], 'Api/Delete_Products', 'ApiProductController::Delete_Products');

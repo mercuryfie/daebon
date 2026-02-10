@@ -550,28 +550,6 @@ async function Load_Data(data) {
                 '현재 totalCnt:', tcnt
             );
 
-            // if (c_page === 1) {
-            //     $('#mlist').empty().append(html);
-            //     tcnt = Cnt;
-            // } else {
-            //     $('#mlist').append(html);
-            //     tcnt += Cnt;
-            // }
-
-            // $('#tcnt').html(number_format(tcnt));
-            // console.log('서버 page:', data.page, 'Cnt:', Cnt, '현재 totalCnt:', tcnt);
-
-            // if (data.page == 1) {
-            //     $('#mlist').append(html);
-            //     tcnt = Cnt;  // 처음 총합 초기화
-            // } else {
-            //     $('#mlist').append(html);
-            //     tcnt += Cnt;  // 누적
-            // }
-            //
-            // // $('#tcnt').html(tCnt);
-            // $('#tcnt').html(number_format(tcnt));  // JS 누적값 표시
-
             if (Cnt  < 30) {
                 $('#cpage_box').hide();
                 $('#tcnt').html(Cnt);

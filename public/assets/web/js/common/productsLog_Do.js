@@ -1,11 +1,12 @@
 $(document).ready(function() {
 
     let search = '';
+    let gscode = $('#gscode').val();
     const data = {
         skey : search,
-        page : $('#cpage').data('page')
+        gscode : gscode,
     };
-    Make_Html(search);
+    Make_Html(data);
 
 
     $(document).on('click','button[name="btn_process"]',async function(){
@@ -510,100 +511,42 @@ function Edit_Products(code,name,cat,inven,unit_weight,t_cnt,unit_type){
     $('#addMateWrap').css('display','block');
 }
 
-async function Make_Html(skey){
-    let arr = await Data_Load(skey);
+async function Make_Html(data){
+    let arr = await Data_Load(data);
     console.log('dawn1525',arr);
+    console.log('dawn1526',data);
     let html = '';
     if(!fn_IsEmpty(arr.list)){
         $.each(arr.list, function (index, el) {
-            let bomstr = '';
-            let bominput = '';
-            let bomprn = '';
-            let stock_css = '';
-            let inventory = parseInt(el.inventory);
-            let avgTotal = parseInt(el.avg.total);
-            let cnt_str1 = '';
-            let cnt_str2 = '';
-            let cnt_str3 = '';
-            if(inventory > avgTotal){
-                stock_css =`low_stock active`;
-            } else {
-                stock_css =`belloff`;
-            }
-            bomprn = `
-                    <button type="button" class="btnType3 printBtn" name="btn_print" data-code="${el.gcode}">
-                        <i class="fa-solid fa-print"></i>
-                    </button>
-                    `;
-            if(el.gcode==''){
-                bomstr =`<button type="button" class="btnType3 " name="btn_bom_add" data-code="${el.gscode}" onclick="go_productsMasterReg('${el.gscode}');">등록</button>`;
-                bominput = '';
-                bomprn = '';
-            }else {
-                bomstr = `<button type="button" class="btnType3 " name="btn_bom_add" data-code="${el.gcode}" onclick="go_productsEditor('${el.gcode}');">수정</button>`;
-                bominput = `
-                    <div class="flexType1">
-                        <input type="search" name="quantity" class="countInput mr10" placeholder="수량(예:10)" data-code="${el.gcode}">
-                        <button type="button" class="btnType3 submitBtn1" name="btn_process">확인</button>
-                    </div>`;
-                bomprn = `
-                    <button type="button" class="btnType3 printBtn" name="btn_print" data-code="${el.gcode}">
-                        <i class="fa-solid fa-print"></i>
-                    </button>
-                    `;
-            }
-
-            let params = {
-                unit_type : el.unit_type,
-                inventory : el.inventory,
-                t_cnt : el.t_cnt,
-                unit_weight : el.unit_weight
-            };
-
-            let t_arr = fn_PrnUnitType(params);
-
             html += `
-                <tr id="list_${el.gscode}" class="${stock_css}">
-                    <td class="ltTbody ">${el.gscode}</td>
-                    <td class="ltTbody " name="gnode">
-                        <a href="javascript:;" onclick="Edit_Products('${el.gscode}','${el.gsname}','${el.category}','${el.inventory}','${el.unit_weight}','${el.t_cnt}','${el.unit_type}');" class="goodsName" name="gname">${el.gsname}</a>
-                    </td>
-                    <td class="ltTbody" name="c_str">${el.c_str}</td>                    
-                    <td class="ltTbody" name="inventory">${t_arr['cnt_str1']}</td>
-                    <td class="ltTbody" name="t_cnt">${t_arr['cnt_str2']}</td>
-                    <td class="ltTbody" name="unit_weight">${t_arr['cnt_str3']}</td>
-                    <td class="ltTbody ">${el.avg.total} ${el.unit_type}</td> 
-                    <td class="ltTbody">${el.avg.avg} ${el.unit_type}</td> 
-                    <td class="ltTbody">${bomstr}</td> 
-                    <td class="ltTbody orderProduct">${bominput}</td> 
-                    <td class="ltTbody">${bomprn}</td>
-                    <td class="ltTbody">
-                        <button type="button" class="btnType3" name="btn_more" data-code="" onclick="go_productsLog('${el.gscode}');">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                        </button>
-                    </td>
-                    <td class="ltTbody">
-                        <button type="button" class="btnType3 trashBtn"  name="btn_product_del"  data-code="{el.gscode}"> 
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td> 
+                <tr id="list_${el.fk_gicode}" class=""> 
+                    <td class="ltTbody ">${el.fk_gicode}</td>
+                    <td class="ltTbody ">12341234</td> 
+                    <td class="ltTbody ">${number_format(el.inout_val)}</td>
+                    <td class="ltTbody ">${el.inout_str}</td>
+                    <td class="ltTbody ">${el.indate}</td> 
                 </tr>
             `;
+            // $('#gscode').val('${el.gscode}');
+            // $('#gscode').html(el.gscode);
+            console.log('현재 p 내용:', $('#gscode').html());
+            $('#vw_gscode').html(el.gscode);
+            $('#gsname').html(el.gsname);
+            $('#category').html(el.cat_str);
+            console.log('변경 후:', $('#vw_gscode').html());
         });
     }else{
-        html = '<tr><td class="ltThead" colspan="10">검색된 데이터가 없습니다.</td></tr>';
+        html = '<tr><td class="ltThead" colspan="6">검색된 데이터가 없습니다.</td></tr>';
     }
-    $('#clist').append(html);
-    $('#tcnt').html(arr.total);
+    $('#pList').empty().append(html);
 }
 
-async function Data_Load(skey){
+async function Data_Load(data){
     let r_arr = {};
     try {
         start_spinner();
-        let dataarr = {"search" : skey};
-        let url = APIURL + '/Load_Product_List';
-        let result = await Load_API_Auth(url,dataarr);
+        let url = APIURL + '/Load_Product_Inout';
+        let result = await Load_API_Auth(url,data);
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {

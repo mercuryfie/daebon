@@ -22,6 +22,12 @@ $(document).ready(function() {
         $('#ipgoWrap').css('display','block');
     });
 
+    $('#btn_output').on('click',function(){
+        output_Form_ini();
+        $('#outWrap').css('display','block');
+    });
+
+
     $(document).on('click','button[name="btn_barcode"]',function(){
         let mtcode = $(this).data('mtcode');
         let url = "/inout/prn_barcode_material?mt=" + mtcode;
@@ -188,6 +194,9 @@ $(document).ready(function() {
         go_inOutMaterial_Log(mtcode);
     });
 
+    // $('#chulgoBtn').click(function () {
+    //     $('#outWrap').css('display','block');
+    // });
 
     $('#barcodeWrap #Xbtn, #barcodeWrap #Xbtn2').click(function () {
         $('#barcodeWrap').css('display','none');

@@ -146,7 +146,7 @@
 
             </div>
             <div class="area lastArea flexType5-1">
-                <button type="button" class="btn80Type1 mr10" onclick="go_packingListStaff();">이전</button>
+                <button type="button" class="btn80Type1 mr10" onclick="go_packingListStaff();">목록</button>
                 <?if($body['order']['orstep']<2){?>
                 <button type="button" class="btn80Type2" id="btn_complete" data-opcode="<?=$body['opcode'];?>" data-orcode="<?=$body['order']['orcode'];?>">완료</button>
                 <?}?>

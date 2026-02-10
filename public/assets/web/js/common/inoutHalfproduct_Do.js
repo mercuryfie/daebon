@@ -1,5 +1,20 @@
-
 $(document).ready(function() {
+
+    let search = $('#txt_search').val();
+    Make_html(search)
+
+    $('#txt_search').on('keyup', function(e) {
+        if (e.keyCode === 13) { // 13은 엔터 키 코드
+            let search = $(this).val();
+            Make_html(search)
+        }
+    });
+
+    $('#btn_search').on('click',function(){
+        let search = $('#txt_search').val();
+        Make_html(search)
+    });
+
 
     $('#barcodeWrap #Xbtn, #barcodeWrap #Xbtn2').click(function () {
         $('#barcodeWrap').css('display','none');
@@ -24,6 +39,72 @@ $(document).ready(function() {
 
 
 });
+
+
+
+
+async function Make_html(search){
+    let arr = await Load_Data(search);
+    let html = '';
+    if(arr.total > 0){
+        $.each(arr.list, function (index, el) {
+            html += `
+                <tr>
+                    <td class="ltTbody"><input type="checkbox" name="" id=""></td>
+                    <td class="ltTbody">2025.01.01</td>
+                    <td class="ltTbody">12341234</td>
+                    <td class="ltTbody">12341234</td>
+                    <td class="ltTbody">우엉 혼합물</td>
+                    <td class="ltTbody">우엉 원료입고</td>
+                    <td class="ltTbody">허브(농산물)</td>
+                    <td class="ltTbody">45.000g</td>
+                    <td class="ltTbody">-</td>
+                </tr>
+            `;
+
+        });
+    }else{
+        html = '<tr><td class="ltThead" colspan="10">검색된 데이터가 없습니다.</td></tr>';
+    }
+    $('#clist').append(html);
+    $('#tcnt').html(arr.total);
+
+}
+
+
+async function Load_Data(skey){
+    let r_arr = {};
+    try {
+        start_spinner();
+        let dataarr = {"search" : skey};
+        let url = APIURL + '/Load_SemiProduct_Info';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            let data = result.get('data');
+            arr = (data && data.list) ? data.list : [];
+            tcnt = (data && data.tcnt) ? data.tcnt : 0;
+            r_arr = {
+                list : arr,
+                total : tcnt
+            };
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+
+    } finally {
+        stop_spinner();
+    }
+    return r_arr;
+}
+
+
+
+
+
 
 function pop_barcodeWindow() {
     let url = "/inout/popbarcodewindow";

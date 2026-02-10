@@ -224,6 +224,11 @@ function go_productsList() {
     $(location).attr("href", url);
 }
 
+function go_productsLog(code) {
+    var url = "/goods/productslog?cd=" + code;
+    $(location).attr("href", url);
+}
+
 function go_productsEditor(code) {
     var url = "/goods/productseditor?cd=" + code;
     $(location).attr("href", url);

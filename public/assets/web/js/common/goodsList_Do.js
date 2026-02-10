@@ -239,7 +239,6 @@ async function Load_Detail(pdcode){
 }
 
 
-
 async function Make_Html(skey){
     let data = await Load_Data(skey);
     let arr = (data && data.list) ? data.list : [];
@@ -282,7 +281,7 @@ async function Load_Data(skey){
     try {
         start_spinner();
         let dataarr = {"search" : skey};
-        let url = APIURL + '/Load_Product_List';
+        let url = APIURL + '/Load_Goods_List';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();

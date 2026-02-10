@@ -3312,16 +3312,16 @@ input[type="radio"] {
 
 .matetiallist_box {
     width: 81vw;
-    overflow: auto;  /* 부모에 스크롤 추가 */
-    max-height: 680px;  /* 원하는 높이로 조정 */
-    position: relative;  /* sticky 기준점 */
+    overflow: auto;
+    max-height: 760px;
+    position: relative;
     border:1px solid #ccc;
 
 }
 
 .materialListTable {
-    width: 100%;  /* 부모 너비 꽉 채움 */
-    table-layout: fixed;  /* 컬럼 너비 고정 */
+    width: 100%;
+    table-layout: fixed;
     border:none;
     border-collapse: collapse;
 }
@@ -3373,6 +3373,8 @@ input[type="radio"] {
     height: 24px;
 }
 
+/* materialList_View end*/
+/* materialList_View end*/
 /* materialList_View end*/
 /* 제품목록 table width control start */
 
@@ -3429,6 +3431,8 @@ input[type="radio"] {
 }
 /* end */
 
+
+
 .atom_boxa1b .materialName:hover {
     color: var(--color4);
 }
@@ -3457,7 +3461,46 @@ input[type="radio"] {
 
 }
 
-.products_boxfxp .countInput {
+/* productsList_View start -------------------------------- */
+
+.products_list_box {
+    border:1px solid #ccc;
+    max-height: 760px;
+    overflow-y: scroll;
+}
+
+.products_list_box .products_list_tbl {
+    border-collapse: collapse;
+    width: 80vw;
+}
+
+.products_list_box .products_list_tbl th,
+.products_list_box .products_list_tbl td {
+    border-bottom:1px solid #ccc;
+    border-right:1px solid #ccc;
+    height: 32px;
+    text-align: center;
+
+}
+
+.products_list_box .products_list_tbl th {
+    background-color: #ececec;
+    font-weight: normal;
+    position: sticky;
+    top:0;
+
+}
+
+.products_list_box .products_list_tbl .btnType3 {
+    border:1px solid #ccc;
+    border-radius: 5px;
+    padding: 0 10px;
+    min-width: 40px;
+    width: auto;
+    height: 24px;
+    line-height: 24px;
+}
+.products_list_box .countInput {
     border:1px solid #ccc;
     border-radius: 2px;
     padding-left: 10px;
@@ -3468,19 +3511,89 @@ input[type="radio"] {
 
 }
 
-.products_boxfxp .submitBtn1 {
+/* productsList_View end -------------------------------- */
+/* productsLog_View start -------------------------------- */
+
+.p_log_wrap .titleBox,
+.p_log_wrap .area {
+    width: 84vw;
+
+}
+
+.p_log_wrap .area {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+
+
+.p_log_wrap .area1,
+.p_log_wrap .area2 {
     border:1px solid #ccc;
-    border-radius: 5px;
-    color:#5c5c5c;
     background-color: #fff;
-    width: auto;
-    padding: 0 10px;
-    height: 24px;
+    border-radius: 10px;
+}
+
+.p_log_wrap .area1 {
+    padding:10px 40px 10px 20px;
 
 
 }
 
-/* productsList end -------------------------------- */
+.p_log_wrap .area1 input {
+    padding-left: 10px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    width: 220px;
+    height: 32px;
+    margin-right: 10px;
+
+
+}
+
+.p_log_wrap .area2 {
+    padding: 20px 0 40px 20px ;
+}
+
+.p_log_wrap .area2 .area_mini1 .m_log_info_tbl {
+    border-collapse: collapse;
+}
+
+.p_log_wrap .area2 .area_mini1 .m_log_info_tbl td{
+    height: 32px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    padding: 0px 20px 0 10px;
+}
+
+.p_log_wrap .area2 .area_mini2 .p_log_tbl_wrap {
+    margin-top: 20px;
+    height: 720px;
+    overflow-y: auto;
+
+}
+
+.p_log_wrap .area2 .area_mini2 .p_log_tbl {
+    border-collapse: collapse;
+    width: 80vw;
+
+}
+
+.p_log_wrap .area2 .area_mini2 .p_log_tbl th,
+.p_log_wrap .area2 .area_mini2 .p_log_tbl td{
+    height: 32px;
+    border:1px solid #ccc;
+    text-align: center;
+    font-weight: normal;
+}
+
+.p_log_wrap .area2 .area_mini2 .p_log_tbl th {
+    background-color: #ececec;
+    position: sticky;
+    top:0;
+}
+
+/* productsLog_View end -------------------------------- */
 /* packingList_View start -------------------------------- */
 
 .pack_table td.td1 {

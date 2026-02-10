@@ -208,6 +208,36 @@ class GoodsController extends BaseController
         }
     }
 
+    public function productsLog()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $gscode  = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
+
+            $metaarr = [
+                'h_title' => '제품목록',
+                'h_type' => 1
+            ];
+
+            $main_data = [
+                'gscode' => $gscode
+            ];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'body' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/productsLog_View',$main_data);
+        }
+    }
+
     public function goodsList()
     {
         $sessinarr = $this->GetSessionData();

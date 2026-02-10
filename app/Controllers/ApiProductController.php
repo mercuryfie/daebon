@@ -12,6 +12,9 @@ class ApiProductController extends BaseController
 {
     use ResponseTrait;
 
+
+
+
     public function Delete_Products(){
         $sessinarr = $this->GetSessionData();
         $code = ($this->request->getPost('code')=='') ?'':$this->request->getPost('code');
@@ -206,6 +209,8 @@ class ApiProductController extends BaseController
         return $this->respond($return);
     }
 
+
+
     public function Load_Product_Info(){
         $sessinarr = $this->GetSessionData();
         $pdcode = ($this->request->getPost('code')==='') ? '' : $this->request->getPost('code');
@@ -262,10 +267,10 @@ class ApiProductController extends BaseController
 
     }
 
-
-    public function Load_Product_List(){
+    public function Load_Product_List()
+    {
         $sessinarr = $this->GetSessionData();
-        $search = ($this->request->getPost('search')==='') ? '' : $this->request->getPost('search');
+        $search  = ($this->request->getPost('search') == '') ? '' : $this->request->getPost('search');
         if($sessinarr['islogin']==false) {
             $result = 'NoLogin';
             $data = [];
@@ -275,34 +280,190 @@ class ApiProductController extends BaseController
             $data = [];
             $message = '잘못된 토큰입니다.';
         }else{
-            $product_m = model('Product_m');
-            $pRs = $product_m->Load_Product_All($search);
-            $p_arr = [];
-            if(fn_ArrayCnt($pRs)>0){
-                foreach ($pRs as $d){
+            $good_m = model('Goods_m');
+            $mRs = $good_m->Load_Goods_Default($search);
+            if(fn_ArrayCnt($mRs)>0){
+                $material_m = model('Material_m');
+                $m_arr = [];
+                foreach ($mRs as $d) {
+                    $cRs = $material_m->Load_Goods_statistics($d['gscode'],'');
+                    if(fn_ArrayCnt($cRs)>0){
+                        $c_arr = [
+                            'total' => ($cRs[0]['tg_input'] - $cRs[0]['tg_output']),
+                            'input' => $cRs[0]['tg_input'],
+                            'output' => $cRs[0]['tg_output'],
+                            'avg'=>  $cRs[0]['avg_g_output']
+                        ];
+                    }else{
+                        $c_arr = [
+                            'input' => 0,
+                            'output' => 0,
+                            'avg'=>  0
+                        ];
+                    }
+
                     $t_arr = [
                         'seq' => $d['seq'],
-                        'pdcode' => $d['pdcode'],
-                        'pdname' => $d['pdname'],
-                        'pdWeigth' => $d['pdweigth'],
-                        'cname' => fnGetProductNameByCode($d['pdcategory']),
-                        'pdprice' => $d['pdprice'],
-                        'indate' => fn_Short_Date($d['indate']),
-                        'mCnt' => $d['mCnt'],
-                        'gCnt' => $d['gCnt']
+                        'gscode' => $d['gscode'],
+                        'gsname' => $d['gsname'],
+                        'category' => $d['category'],
+                        'c_str' => fnGetProductNameByCode($d['category']),
+                        'unit_type' => $d['unit_type'],
+                        'gcode' => $d['gcode'],
+                        'inventory' => $d['inventory'],
+                        'unit_weight' => $d['unit_weight'],
+                        't_cnt' => $d['t_cnt'],
+                        'avg' => $c_arr
+
                     ];
-                    array_push($p_arr,$t_arr);
+                    array_push($m_arr,$t_arr);
                 }
+                $i_arr = [
+                    'list' => $m_arr,
+                    'tcnt' => fn_ArrayCnt($m_arr)
+                ];
+
+                $result = 'ok';
+                $data = $i_arr;
+                $message = '';
+            }else{
+                $result = 'ok';
+                $data = [];
+                $message = '';
             }
+        }
 
-            $i_arr = [
-                'list' => $p_arr,
-                'total' => fn_ArrayCnt($pRs)
-            ];
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
 
-            $result = 'ok';
-            $data = $i_arr;
-            $message = '';
+//    public function Load_Product_List(){
+//        $sessinarr = $this->GetSessionData();
+//        $search = ($this->request->getPost('search')==='') ? '' : $this->request->getPost('search');
+//        if($sessinarr['islogin']==false) {
+//            $result = 'NoLogin';
+//            $data = [];
+//            $message = '로그인이 필요합니다.';
+//        }else if(!Check_Token($sessinarr)) {
+//            $result = 'Error002';
+//            $data = [];
+//            $message = '잘못된 토큰입니다.';
+//        }else{
+//            $product_m = model('Product_m');
+//            $pRs = $product_m->Load_Product_All($search);
+//            $p_arr = [];
+//            if(fn_ArrayCnt($pRs)>0){
+//                foreach ($pRs as $d){
+//                    $t_arr = [
+//                        'seq' => $d['seq'],
+//                        'pdcode' => $d['pdcode'],
+//                        'pdname' => $d['pdname'],
+//                        'pdWeigth' => $d['pdweigth'],
+//                        'cname' => fnGetProductNameByCode($d['pdcategory']),
+//                        'pdprice' => $d['pdprice'],
+//                        'indate' => fn_Short_Date($d['indate']),
+//                        'mCnt' => $d['mCnt'],
+//                        'gCnt' => $d['gCnt']
+//                    ];
+//                    array_push($p_arr,$t_arr);
+//                }
+//            }
+//
+//            $i_arr = [
+//                'list' => $p_arr,
+//                'total' => fn_ArrayCnt($pRs)
+//            ];
+//
+//            $result = 'ok';
+//            $data = $i_arr;
+//            $message = '';
+//        }
+//
+//        $return = [
+//            'result' => $result,
+//            'info' => $data,
+//            'message' => $message
+//        ];
+//        return $this->respond($return);
+//
+//    }
+
+
+    public function Load_Product_Inout(){
+        $sessinarr = $this->GetSessionData();
+        $search  = ($this->request->getPost('search') == '') ? '' : $this->request->getPost('search');
+        $gscode  = ($this->request->getPost('gscode') == '') ? '' : $this->request->getPost('gscode');
+//        $product_m = model('Product_m');
+//        $Rs = $product_m->Load_Product_Inout($gscode);
+//        var_dump($Rs);
+//        exit;
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else {
+            $product_m = model('Product_m');
+            $Rs = $product_m->Load_Product_Inout($gscode);
+
+            if(fn_ArrayCnt($Rs)>0){
+                $data = [];
+                $inout_str = '';
+                $cat_str = '';
+                foreach ($Rs as $d){
+                    $inout_typ = $d['g_input'];
+                    if(($d['g_output']) == 0) {
+                        $inout_str = '입고';
+                        $inout_val = $d['g_input'];
+                    }else{
+                        $inout_str = '출고';
+                        $inout_val = $d['g_output'];
+                    }
+                    if(($d['category']) == 'A001') {
+                        $cat_str = '원물볶음차';
+                    }else if(($d['category']) == 'A002'){
+                        $cat_str = '삼각티백차';
+                    } else {
+                        $cat_str = '농축액';
+                    }
+                    $t_arr = [
+                        'seq' => $d['seq'],
+                        'gsname' => $d['gsname'],
+                        'unit_weight' => $d['unit_weight'],
+                        'unit_type' => $d['unit_type'],
+                        'gscode' => $d['gscode'],
+                        'fk_gicode' => $d['fk_gicode'],
+                        'g_input' => $d['g_input'],
+                        'g_output' => $d['g_output'],
+                        'inout_val' => $inout_val,
+                        'inout_str' => $inout_str,
+                        'cat_str' => $cat_str,
+                        'indate' => $d['indate']
+                    ];
+                    $data[] = $t_arr;
+                }
+
+                $i_arr = [
+                    'list' => $data,
+                    'tcnt' => fn_ArrayCnt($data)
+                ];
+
+                $result = 'ok';
+                $data = $i_arr;
+                $message = '';
+
+            }else{
+                $result = 'ok';
+                $data = [];
+                $message = '';
+            }
         }
 
         $return = [

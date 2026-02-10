@@ -63,7 +63,8 @@ class Produce_m extends Model
     {
         $separated_val = fn_Make_Fields($fields);
         $sql = "SELECT {$separated_val} ,";
-        $sql .= "IFNULL((SELECT fk_prcode from tbl_instructions_process WHERE fk_gicode=a.gicode AND stepNum=a.step_now),'') AS nowprcode ";
+        $sql .= "IFNULL((SELECT fk_prcode from tbl_instructions_process WHERE fk_gicode=a.gicode AND stepNum=a.step_now),'') AS nowprcode ,";
+        $sql .= "IFNULL((SELECT fk_gscode FROM tbl_goods WHERE gcode=a.fk_gcode ),'') AS nowgscode ";
         $sql .= " from vw_produce a WHERE gicode=:GICODE: AND is_del=:ISDEL: order by seq DESC  ";
         $bindparam = [
             'GICODE'=> $gicode,

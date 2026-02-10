@@ -22,7 +22,7 @@
             <div class="goods_boxkfg flexType3">
                 <div class="left flexType2">
                     <p class="title">상품목록</p>
-                    <p class="count" id="tcnt" name="tcnt">0</p>
+                    <p class="count" id="tcnt" name="tcnt" value="0">0</p>
                     <p class="unit">건</p>
                 </div>
                 <div class="right">
@@ -39,9 +39,10 @@
             </div>
             <div class="area4 atom_boxa1b flexType2">
                 <div class="order_boxfxp matetiallist_box">
-                    <table class="orderInfoTable materialListTable " id="mTable">
+                    <table class="materialListTable " id="mTable">
                         <thead>
                         <tr>
+                            <th class="ltThead" data-col="0"><div class="flexType1"><p class="cname mr10">순번</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                             <th class="ltThead" data-col="0"><div class="flexType1"><p class="cname mr10">종류</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                             <th class="ltThead" data-col="1"><div class="flexType1"><p class="cname mr10">원자재코드</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                             <th class="ltThead" data-col="2"  ><div class="flexType1"><p class="cname mr10">이름</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>

@@ -47,7 +47,7 @@
                                 <td class="ltThead" data-col="1"><div class="flexType1"><p class="cname mr10">제품명</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
                                 <td class="ltThead" data-col="2"><div class="flexType1"><p class="cname mr10">구분</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
                                 <td class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">적정재고량</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
-                                <td class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">용량(갯수)</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
+                                <td class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">제품용량</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
                                 <td class="ltThead" data-col="4">단위용량</td>
 
                                 <td class="ltThead" data-col="5"><div class="flexType1"><p class="cname mr10">총재고량</p><i class="fa-solid fa-angle-down dIcon"></i></div></td>
@@ -55,6 +55,7 @@
                                 <td class="ltThead" data-col="7">BOM</td>
                                 <td class="ltThead orderProduct">간편작업지시</td>
                                 <td class="ltThead" data-col="8">출력</td>
+                                <td class="ltThead" data-col="8">로그</td>
                                 <td class="ltThead" data-col="8">삭제</td>
                             </tr>
                             </thead>

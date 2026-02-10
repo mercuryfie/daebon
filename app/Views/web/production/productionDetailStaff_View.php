@@ -82,7 +82,7 @@
                                 <?if($body['info']['ptype']['typ']==1){?>
                                 <td class="title">실제무게</td>
                                 <?}else if($body['info']['ptype']['typ']==2){?>
-                                <td class="title">실제무게 / 갯수</td>
+                                <td class="title">실제무게</td>
                                 <?}?>
                                 <td class="title">저울잠금</td>
                             </tr>

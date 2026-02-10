@@ -3315,13 +3315,25 @@ input[type="radio"] {
     overflow: auto;  /* 부모에 스크롤 추가 */
     max-height: 680px;  /* 원하는 높이로 조정 */
     position: relative;  /* sticky 기준점 */
-    border: 1px solid red;
+    border:1px solid #ccc;
 
 }
 
 .materialListTable {
     width: 100%;  /* 부모 너비 꽉 채움 */
     table-layout: fixed;  /* 컬럼 너비 고정 */
+    border:none;
+    border-collapse: collapse;
+}
+
+.materialListTable th,
+.materialListTable td {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    text-align: center;
+    height: 32px;
+    font-weight: normal;
+
 }
 
 .materialListTable th {
@@ -3331,15 +3343,15 @@ input[type="radio"] {
     /*position: sticky;*/
     /*top:0;*/
     /*z-index: 10; */
-
-    border: 1px solid #ccc;
-    height: 32px;
-    font-weight: normal;
     position: sticky;
     top: 0;
     z-index: 10;
     background: #ececec !important;
 }
+
+/*.materialListTable td:last-child {*/
+/*    border-bottom: none;*/
+/*}*/
 
 .urgent {
     background-color: #F53C3620;
@@ -3355,8 +3367,10 @@ input[type="radio"] {
     padding: 0 10px;
     font-size: 14px;
     text-align: center;
+    width:auto;
+    min-width: 40px;
     color:#5c5c5c;
-    height: 22px;
+    height: 24px;
 }
 
 /* materialList_View end*/
@@ -3419,7 +3433,7 @@ input[type="radio"] {
     color: var(--color4);
 }
 
-.materialListTable .trashBtn {
+.materialListTable .btnType3 {
     width: auto;
     padding: 0 10px;
 }

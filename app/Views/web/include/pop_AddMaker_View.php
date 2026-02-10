@@ -6,7 +6,6 @@
             <div class="area area1 flexType2 mb10" name="" id="code_box">
                 <p class="category">제조사코드</p>
                 <p class="data" id="mcode"></p>
-
             </div>
             <div class="area area2 mb10 flexType2">
                 <p class="category">제조사</p>

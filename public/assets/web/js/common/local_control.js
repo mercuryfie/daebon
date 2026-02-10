@@ -300,7 +300,6 @@ function go_inOutMaterial_Log(mtcode) {
     $(location).attr("href", url);
 }
 
-
 function go_inOutHalfProduct() {
     let url = "/inout/halfproduct";
     $(location).attr("href", url);
@@ -397,6 +396,8 @@ function go_noticeEditor(bcode){
     let url = "/info/noticeeditor?cd="+bcode;
     $(location).attr("href", url);
 }
+
+
 
 
 // function pop_AddDeliForm() {

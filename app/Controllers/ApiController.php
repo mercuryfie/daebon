@@ -13,29 +13,30 @@ class ApiController extends BaseController
 {
     use ResponseTrait;
 
-    public function get_Material_Stock_Log(){
+    public function get_Material_Stock_Log()
+    {
         $sessinarr = $this->GetSessionData();
-        $mtcode  = ($this->request->getPost('mtcode') == '') ? '' : $this->request->getPost('mtcode');
-        if($sessinarr['islogin']==false) {
+        $mtcode = ($this->request->getPost('mtcode') == '') ? '' : $this->request->getPost('mtcode');
+        if ($sessinarr['islogin'] == false) {
             $result = 'NoLogin';
             $data = [];
             $message = '로그인이 필요합니다.';
-        }else if(!Check_Token($sessinarr)) {
+        } else if (!Check_Token($sessinarr)) {
             $result = 'Error002';
             $data = [];
             $message = '잘못된 토큰입니다.';
-        }else {
+        } else {
             $material_m = model('Material_m');
             $info = $material_m->Load_Material_Info($mtcode);
-            if(fn_ArrayCnt($info)>0){
+            if (fn_ArrayCnt($info) > 0) {
                 $mtname = $info[0]['mtname'];
                 $mttyp = $info[0]['typ'];
-            }else{
+            } else {
                 $mtname = '';
                 $mttyp = 1;
             }
             $log = $material_m->Load_Material_Log($mtcode);
-            if(fn_ArrayCnt($log)<=0){
+            if (fn_ArrayCnt($log) <= 0) {
                 $i_arr = [
                     'mtname' => $mtname,
                     'list' => '',
@@ -44,11 +45,11 @@ class ApiController extends BaseController
                 $result = 'ok';
                 $data = $i_arr;
                 $message = '';
-            }else{
-                $unit = ($mttyp==1) ? 'g' : '개';
+            } else {
+                $unit = ($mttyp == 1) ? 'g' : '개';
 
                 $list = [];
-                foreach ($log as $d){
+                foreach ($log as $d) {
                     $t_arr = [
                         'total' => $d['total'],
                         'm_input' => $d['m_input'],
@@ -1001,6 +1002,7 @@ class ApiController extends BaseController
                 'category' => $data['category'],
                 'inventory' => $data['inventory'],
                 'unit_weight' => $data['unit_weight'],
+                'unit_type' => $data['unit_typ'],
                 't_cnt' => $data['t_cnt']
             ];
 
@@ -1018,7 +1020,7 @@ class ApiController extends BaseController
 
                 $param['unit_name'] =  $unitname;
                 $material_m = model('Material_m');
-                $cRs = $material_m->Load_Goods_statistics($newCode,0);
+                $cRs = $material_m->Load_Goods_statistics($newCode,'');
                 if(fn_ArrayCnt($cRs)>0){
                     $c_arr = [
                         'total' => ($cRs[0]['tg_input'] - $cRs[0]['tg_output']),
@@ -1120,7 +1122,7 @@ class ApiController extends BaseController
                 $m_arr = [];
                 foreach ($mRs as $d) {
 
-                    $cRs = $material_m->Load_Goods_statistics($d['gcode'],0);
+                    $cRs = $material_m->Load_Goods_statistics($d['gcode'],'');
                     if(fn_ArrayCnt($cRs)>0){
                         $c_arr = [
                             'total' => ($cRs[0]['tg_input'] - $cRs[0]['tg_output']),
@@ -1194,7 +1196,7 @@ class ApiController extends BaseController
                 $m_arr = [];
                 foreach ($mRs as $d) {
 
-                    $cRs = $material_m->Load_Goods_statistics($d['gscode'],0);
+                    $cRs = $material_m->Load_Goods_statistics($d['gscode'],'');
                     if(fn_ArrayCnt($cRs)>0){
                         $c_arr = [
                             'total' => ($cRs[0]['tg_input'] - $cRs[0]['tg_output']),
@@ -1628,6 +1630,7 @@ class ApiController extends BaseController
             }
 
             $i_arr = [
+                'page' => $page,
                 'list' => $m_arr,
                 'tCnt' => fn_ArrayCnt($mRs)
             ];
@@ -2141,6 +2144,7 @@ class ApiController extends BaseController
 
     public function Load_Material_Info(){
         $mcode  = ($this->request->getPost('code') == '') ? 1 : $this->request->getPost('code');
+
         $sessinarr = $this->GetSessionData();
         if($mcode==''){
             $result = 'Error001';

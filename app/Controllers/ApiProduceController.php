@@ -215,6 +215,7 @@ class ApiProduceController extends BaseController
                 $stepnow = $cRs[0]['step_now'];
                 $stepsub = $cRs[0]['step_sub_now'];
                 $iscomplete = $cRs[0]['is_complete'];
+                $gscode = $cRs[0]['nowgscode'];
 
 
                 $process = fn_LoadInstructionsSingleProcess($produce_m,$gicode,$prcode);
@@ -245,7 +246,7 @@ class ApiProduceController extends BaseController
                                 $param = ['is_complete' => 2,'step_sub_now' => 2];
                                 $Cnt = $produce_m->Update_Instructions_Info($gicode,$param);
                                 //완제품입고
-                                fn_Input_FinalProduct($produce_m,$gicode,$weight);
+                                fn_Input_FinalProduct($produce_m,$gscode,$gicode,$weight);
 
                                 $result = 'ok';
                                 $data = [];
@@ -305,7 +306,7 @@ class ApiProduceController extends BaseController
                                     $param = ['is_complete' => 2, 'step_sub_now' => 2];
                                     $Cnt = $produce_m->Update_Instructions_Info($gicode, $param);
                                     //완제품입고
-                                    fn_Input_FinalProduct($produce_m, $gicode, $weight);
+                                    fn_Input_FinalProduct($produce_m,$gscode,$gicode, $weight);
                                     $result = 'ok';
                                     $data = [];
                                     $message = '';

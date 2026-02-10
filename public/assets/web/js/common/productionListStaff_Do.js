@@ -100,19 +100,23 @@ async function Make_Html(data){
         $.each(arr.list, function (index, el) {
             let prog = '';
             let prn = '';
+            let iscomplete = '';
             if (!fn_IsEmpty(el.stepNum)) {
                 prog = `(` + el.stepNum + `/` + el.processcnt + `)`;
             }
             if(el.semicode!=''){
                 prn = `<button type="button" class="btn60Type3 " name="prn_label" data-gicode="${el.gicode}" data-sicode="${el.semicode}" data-pname="${el.processname}" data-indate="${el.indate}">출력</button>`;
             }
+            if(el.iscomplete<2){
+                iscomplete = `name="view_detail" data-code="${el.gicode}"`;
+            }
 
             html += `
                 <tr class="" data-code="${el.gicode}" data-iscomplete="${el.iscomplete}"> 
-                    <td class="ltTbody  ">${el.shortdate}</td>
-                    <td class="ltTbody  ">${el.gicode}</td>
-                    <td class="ltTbody gname" name="view_detail" data-code="${el.gicode}">${el.gname}</td>
-                    <td class="ltTbody pname" name="view_detail" data-code="${el.gicode}">${el.processname} ${prog}</td> 
+                    <td class="ltTbody" ${iscomplete}>${el.shortdate}</td>
+                    <td class="ltTbody" ${iscomplete}>${el.gicode}</td>
+                    <td class="ltTbody gname" ${iscomplete}>${el.gname}</td>
+                    <td class="ltTbody pname" ${iscomplete}>${el.processname} ${prog}</td> 
                     <td class="ltTbody">${number_format(el.quantity)}개</td>
                       
                     <td class="ltTbody">${el.processstr}</td> 
@@ -140,15 +144,25 @@ async function Make_Html2(data){
         $.each(arr.list, function (index, el) {
 
             let prog = '';
+            let prn = '';
+            let iscomplete = '';
             if (!fn_IsEmpty(el.stepNum)) {
                 prog = `(` + el.stepNum + `/` + el.processcnt + `)`;
             }
+            if(el.semicode!=''){
+                prn = `<button type="button" class="btn60Type3 " name="prn_label" data-gicode="${el.gicode}" data-sicode="${el.semicode}" data-pname="${el.processname}" data-indate="${el.indate}">출력</button>`;
+            }
+            if(el.iscomplete<2){
+                iscomplete = `name="view_detail" data-code="${el.gicode}"`;
+            }
+
+
             html += `
                 <tr class="" data-code="${el.gicode}" data-iscomplete="${el.iscomplete}"> 
-                    <td class="ltTbody  ">${el.shortdate}</td>
-                    <td class="ltTbody  ">${el.gicode}</td>
-                    <td class="ltTbody" name="view_detail" data-code="${el.gicode}">${el.gname}</td>
-                    <td class="ltTbody" name="view_detail" data-code="${el.gicode}">${el.processname} ${prog}</td> 
+                    <td class="ltTbody" ${iscomplete}>${el.shortdate}</td>
+                    <td class="ltTbody" ${iscomplete}>${el.gicode}</td>
+                    <td class="ltTbody" ${iscomplete}>${el.gname}</td>
+                    <td class="ltTbody" ${iscomplete}>${el.processname} ${prog}</td> 
                     <td class="ltTbody">${number_format(el.quantity)}개</td>
                       
                     <td class="ltTbody">${el.processstr}</td> 

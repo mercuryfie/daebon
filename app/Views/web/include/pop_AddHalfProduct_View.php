@@ -37,8 +37,7 @@
                         </tr>
                         <tr class="" name="this_item">
                             <td>1234123412341234</td>
-                            <td>우엉차 원물
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam delectus distinctio doloremque earum esse ipsa ipsam mollitia odit, provident, quae quia quis quos recusandae tempora tenetur unde vel voluptatum?
+                            <td>우엉차 50 티백 - 외포장 (6/6)
                             </td>
                             <td>
                                 <input type="text" class="inputBorder" name="add_amount" id="">
@@ -46,42 +45,42 @@
                         </tr>
                         <tr class="" name="this_item">
                             <td>12341234</td>
-                            <td>우엉차 티백</td>
+                            <td>우엉차 50 티백 - 로스팅 (4/6)</td>
                             <td>
                                 <input type="text" class="inputBorder" name="add_amount" id="">
                             </td>
                         </tr>
                         <tr class="" name="this_item">
                             <td>12341234</td>
-                            <td>우엉차 티백</td>
+                            <td>우엉차 50 티백 - 외포장 (6/6)</td>
                             <td>
                                 <input type="text" class="inputBorder" name="add_amount" id="">
                             </td>
                         </tr>
                         <tr class="" name="this_item">
                             <td>12341234</td>
-                            <td>우엉차 티백</td>
+                            <td>우엉차 50 티백 - 외포장 (6/6)</td>
                             <td>
                                 <input type="text" class="inputBorder" name="add_amount" id="">
                             </td>
                         </tr>
                         <tr>
                             <td>12341234</td>
-                            <td>우엉차 티백</td>
+                            <td>우엉차 50 티백 - 외포장 (6/6)</td>
                             <td>
                                 <input type="text" class="inputBorder" name="add_amount" id="">
                             </td>
                         </tr>
                         <tr>
                             <td>12341234</td>
-                            <td>우엉차 티백</td>
+                            <td>우엉차 50 티백 - 외포장 (6/6)</td>
                             <td>
                                 <input type="text" class="inputBorder" name="add_amount" id="">
                             </td>
                         </tr>
                         <tr>
                             <td>12341234</td>
-                            <td>우엉차 티백</td>
+                            <td>우엉차 50 티백 - 외포장 (6/6)</td>
                             <td>
                                 <input type="text" class="inputBorder" name="add_amount" id="">
                             </td>

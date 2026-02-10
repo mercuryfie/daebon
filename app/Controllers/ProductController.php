@@ -83,7 +83,7 @@ class ProductController extends BaseController
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/production/pop_PrnLabel2_View', $main_data);
+            return view('web/production/pop_PrnLabel_View', $main_data);
         }
     }
 

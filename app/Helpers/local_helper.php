@@ -361,10 +361,10 @@ function fn_OutPut_SemiProduct($model,$gicode,$prcode,$pscode){
 }
 
 
-function fn_Input_FinalProduct($model,$gicode,$weight){
-    $gdcode = fnMake_Code(8);
+function fn_Input_FinalProduct($model,$gscode,$gicode,$weight){
+    //$gdcode = fnMake_Code(8);
     $param = [
-        'gdcode' => $gdcode,
+        'gscode' => $gscode,
         'fk_gicode' => $gicode,
         'g_input' => $weight,
         'g_output' => 0
@@ -372,7 +372,7 @@ function fn_Input_FinalProduct($model,$gicode,$weight){
     $Cnt = $model->Insert_FinalProduct($param);
 
     $r_arr =[
-        'gdcode' => $gdcode,
+        'gscode' => $gscode,
         'cnt' => $Cnt
     ];
     return $r_arr;

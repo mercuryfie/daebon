@@ -202,16 +202,17 @@ class Material_m extends Model
 
         return $builder->get($param['limit'], $param['offset'])->getResultArray();
     }
-//    public function Load_Material_Info($code,$fields=['ALL'])
-//    {
-//        $separated_val = fn_Make_Fields($fields);
-//        $sql = "SELECT {$separated_val} FROM vw_material_info WHERE is_del=0 AND mtcode=:CODE:;";
-//        $bindparam = [
-//            'CODE' => $code
-//        ];
-//        $query = $this->db->query($sql,$bindparam);
-//        return $query->getResultArray();
-//    }
+
+    public function Load_Material_Info($code,$fields=['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM vw_material_info WHERE is_del=0 AND mtcode=:CODE:;";
+        $bindparam = [
+            'CODE' => $code
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
 
     public function Load_Material_MaxCode()
     {

@@ -190,36 +190,42 @@ $(document).ready(function() {
 
     $('#btn_pop').on('click',function(){
         let typ = $(this).data('type');
+        console.log('typ=' + typ);
         let gscode = $('#btn_pop').data('code');
         let category = $('#category').val();
         let gsname = $('#gname').val();
         let inventory = $('#inventory').val();
         let unit_weight = $('#unit_weight').val();
+        let unit_typ = $('#unit_typ').val();
         let total_weight = $('#total_weight').val();
         let bool = false;
         if(typ==1){
             if(category==''){
                 Make_Toast('분류를 선택하세요.');
                 $('#category').focus();
-            }else if(gname==''){
+            }else if(gsname==''){
                 Make_Toast('제품명을 입력하세요.');
                 $('#gname').focus();
+            } else if(unit_typ=='') {
+                Make_Toast('기본단위를 선택하세요.');
+                $('#unit_typ').focus();
             }else if(inventory=='') {
-                Make_Toast('텍스트를 입력하세요.');
+                Make_Toast('적정용량을 입력하세요.');
                 $('#inventory').focus();
             } else if(unit_weight=='') {
                 Make_Toast('단위용량을 입력하세요.');
                 $('#unit_weight').focus();
-            }else if(t_cnt=='') {
-                Make_Toast('티백 수를 입력하세요.');
-                $('#tBag_cnt').focus();
+            } else if(total_weight=='') {
+                Make_Toast('제품용량을 입력하세요.');
+                $('#total_weight').focus();
             } else{
                 let param = {
                     gsname : gsname,
                     category : category,
                     inventory : inventory,
+                    unit_typ : unit_typ,
                     unit_weight : unit_weight,
-                    t_cnt : t_cnt
+                    t_cnt : total_weight
                 };
                 Data_Add(param);
             }
@@ -238,17 +244,18 @@ $(document).ready(function() {
             }else if(unit_weight=='') {
                 Make_Toast('단위용량을 입력하세요.');
                 $('#unit_weight').focus();
-            }else if(t_cnt=='') {
+            }else if(total_weight=='') {
                 Make_Toast('단위용량을 입력하세요.');
-                $('#tBag_cnt').focus();
+                $('#total_weight').focus();
             }else{
                 let param = {
                     gscode : gscode,
                     gsname : gsname,
                     category : category,
                     inventory : inventory,
+                    unit_typ : unit_typ,
                     unit_weight : unit_weight,
-                    t_cnt : t_cnt
+                    t_cnt : total_weight
                 };
                 Data_Edit(param);
             }
@@ -333,13 +340,23 @@ async function Data_Edit(param){
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {
+
+            let params = {
+                unit_type : param['unit_typ'],
+                inventory : param['inventory'],
+                t_cnt : param['t_cnt'],
+                unit_weight : param['unit_weight']
+            };
+
+            let t_arr = fn_PrnUnitType(params);
+
             let container = $('#list_' + param['gscode']);
-            let html = `<a href="javascript:;" onclick="Edit_Products('${param['gscode']}','${param['gsname']}','${param['category']}','${param['inventory']}','${param['unit_weight']}','${param['t_cnt']}');" class="goodsName" name="gname">${param['gsname']}</a>`;
+            let html = `<a href="javascript:;" onclick="Edit_Products('${param['gscode']}','${param['gsname']}','${param['category']}','${param['inventory']}','${param['unit_weight']}','${param['t_cnt']}','${param['unit_typ']}');" class="goodsName" name="gname">${param['gsname']}</a>`;
             container.find('[name="gnode"').html(html);
             container.find('[name="c_str"').text(fnGetProductNameByCode(param['category']));
-            container.find('[name="inventory"').text(number_format(param['inventory'])+'개');
-            container.find('[name="unit_wight"').text(number_format(param['unit_weight'])+'g');
-            container.find('[name="tBag_cnt"').text(number_format(param['t_cnt']));
+            container.find('[name="inventory"').text(t_arr['cnt_str1']);
+            container.find('[name="t_cnt"').text(t_arr['cnt_str2']);
+            container.find('[name="unit_weight"').text(t_arr['cnt_str3']);
             form_ini();
             $('#addMateWrap').css('display','none');
             Make_Toast('수정되었습니다.');
@@ -365,8 +382,19 @@ async function Data_Add(param){
         }else if(result.get('status') == 'ok') {
             let data = result.get('data');
             arr = (data && data.list) ? data.list : null;
-            console.log('dawn1508',arr);
             if(arr) {
+
+                let params = {
+                    unit_type : arr.unit_type,
+                    inventory : arr.inventory,
+                    t_cnt : arr.t_cnt,
+                    unit_weight : arr.unit_weight
+                };
+
+                let t_arr = fn_PrnUnitType(params);
+
+
+
                 let html = `
                     <tr id="list_${arr.gscode}">
                         <td class="ltTbody">${arr.gscode}</td>
@@ -374,24 +402,14 @@ async function Data_Add(param){
                             <a href="javascript:;" onclick="Edit_Products('${arr.gscode}','${arr.gsname}','${arr.category}','${arr.inventory}','${arr.unit_weight}','${arr.t_cnt}','${arr.unit_type}');" class="goodsName" name="gname">${arr.gsname}</a>
                         </td>
                         <td class="ltTbody" name="c_str">${fnGetProductNameByCode(arr.category)} </td>     
-                        <td class="ltTbody" name="inventory">${number_format(arr.inventory)}</td>
-                        <td class="ltTbody" name="inventory">${arr.unit_weight}g</td>
+                        <td class="ltTbody" name="inventory">${t_arr['cnt_str1']}</td>
+                        <td class="ltTbody" name="t_cnt">${t_arr['cnt_str2']}</td>
+                        <td class="ltTbody" name="unit_weight">${t_arr['cnt_str3']}</td>
                         <td class="ltTbody">${arr.avg.total}</td> 
                         <td class="ltTbody">${arr.avg.avg}</td>
-                        <td class="ltTbody"><button type="button" class="btnType3 " name="btn_bom_add" data-code="${arr.gscode}" onclick="go_productsMasterReg();"> 
-                                BOM등록</button>
-                        </td>
-                        <td class="ltTbody orderProduct">
-                            <div class="flexType1">
-                                <input type="search" name="quantity" class="countInput mr10" placeholder="수량(예:10)" data-code="${arr.gscode}">
-                                <button type="button" class="submitBtn1" name="btn_process">확인</button>
-                            </div>
-                        </td> 
-                        <td class="ltTbody">
-                            <button type="button" class="btnType3 printBtn" name="btn_print" data-code="${arr.gscode}">
-                                <i class="fa-solid fa-print"></i>
-                            </button>
-                        </td>
+                        <td class="ltTbody"><button type="button" class="btnType3 " name="btn_bom_add" data-code="${arr.gscode}" onclick="go_productsMasterReg('${arr.gscode}');">등록</button>
+                        <td class="ltTbody orderProduct"></td> 
+                        <td class="ltTbody"></td>
                         <td class="ltThead">
                             <button type="button" class="btnType3 trashBtn" name="btn_product_del"  data-code="${arr.gscode}"> 
                                 <i class="fa-solid fa-trash"></i>
@@ -429,6 +447,9 @@ function add_Products() {
     $('#btn_pop').data('code','');
     $('#btn_pop').html(poptext);
     $('#btn_pop').data('type',poptype);
+
+    console.log();
+
     $('span[name="u_type"]').text('');
     $('#addMateWrap').css('display','block');
 }
@@ -439,8 +460,8 @@ function form_ini(){
     $('#inventory').val('');
     $('#unit_weight').val('');
     $('#total_weight').val('');
-    $('#btn_pop').data('code','');
-    $('#btn_pop').data('type','');
+    // $('#btn_pop').data('code','');
+    // $('#btn_pop').data('type','');
     $('span[name="u_type"]').text('');
 }
 
@@ -466,10 +487,12 @@ function pop_UploadXlx() {
     $('#uploadExel').css('display','block');
 }
 
-function Edit_Products(code,name,cat,inven,unit_weight,t_cnt){
+function Edit_Products(code,name,cat,inven,unit_weight,t_cnt,unit_type){
     let title = '제품수정';
     let poptype = '2';
     let poptext = '수정';
+
+    console.log('111=' + unit_type);
 
     $('#tBag_box').css('display','flex');
     $('#p_title').html(title);
@@ -477,10 +500,12 @@ function Edit_Products(code,name,cat,inven,unit_weight,t_cnt){
     $('#gname').val(name);
     $('#inventory').val(inven);
     $('#unit_weight').val(unit_weight);
-    $('#tBag_cnt').val(t_cnt);
+    $('#total_weight').val(t_cnt);
+    $('#unit_typ').val(unit_type);
     $('#btn_pop').data('code',code);
     $('#btn_pop').html(poptext);
     $('#btn_pop').data('type',poptype);
+
 
     $('#addMateWrap').css('display','block');
 }
@@ -519,7 +544,7 @@ async function Make_Html(skey){
                 bominput = `
                     <div class="flexType1">
                         <input type="search" name="quantity" class="countInput mr10" placeholder="수량(예:10)" data-code="${el.gcode}">
-                        <button type="button" class="submitBtn1" name="btn_process">확인</button>
+                        <button type="button" class="btnType3 submitBtn1" name="btn_process">확인</button>
                     </div>`;
                 bomprn = `
                     <button type="button" class="btnType3 printBtn" name="btn_print" data-code="${el.gcode}">
@@ -547,16 +572,21 @@ async function Make_Html(skey){
                     <td class="ltTbody" name="inventory">${t_arr['cnt_str1']}</td>
                     <td class="ltTbody" name="t_cnt">${t_arr['cnt_str2']}</td>
                     <td class="ltTbody" name="unit_weight">${t_arr['cnt_str3']}</td>
-                    <td class="ltTbody ">${el.avg.total}</td> 
-                    <td class="ltTbody">${el.avg.avg}</td> 
+                    <td class="ltTbody ">${el.avg.total} ${el.unit_type}</td> 
+                    <td class="ltTbody">${el.avg.avg} ${el.unit_type}</td> 
                     <td class="ltTbody">${bomstr}</td> 
                     <td class="ltTbody orderProduct">${bominput}</td> 
                     <td class="ltTbody">${bomprn}</td>
                     <td class="ltTbody">
+                        <button type="button" class="btnType3" name="btn_more" data-code="" onclick="go_halfListLog();">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                    </td>
+                    <td class="ltTbody">
                         <button type="button" class="btnType3 trashBtn"  name="btn_product_del"  data-code="${el.gscode}"> 
                             <i class="fa-solid fa-trash"></i>
                         </button>
-                    </td>
+                    </td> 
                 </tr>
             `;
         });

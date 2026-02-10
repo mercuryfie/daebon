@@ -24,9 +24,6 @@
                 </div>
                 <div class="right flexType2 filter_boxa6m">
                     <button type="button" class="btn_long mr10" name="searchType" data-val="0" onclick="go_productionListStaff();">생산 목록</button>
-                    <button type="button" class="btn60Type3 " name="searchType" data-val="0">대기중</button>
-                    <button type="button" class="btn60Type3 " name="searchType" data-val="1">진행중</button>
-                    <button type="button" class="btn60Type3 mr10" name="searchType" data-val="2">완료</button>
                     <button type="button" class="btnType60 " id="btn_reload" name="btn_reload">
                         <i class="fa-solid fa-rotate-right"></i>
                     </button>

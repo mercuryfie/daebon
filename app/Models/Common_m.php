@@ -51,29 +51,6 @@ class Common_m extends Model
         return $query->getResultArray();
     }
 
-    public function Load_Material_Info($skey,$fields=['ALL'])
-    {
-        $separated_val = fn_Make_Fields($fields);
-        if($skey=='') {
-            $sql = "SELECT {$separated_val} FROM vw_category WHERE is_del=:ISDEL: order by cname ASC;";
-            $bindparam = [
-                'ISDEL' => 0
-            ];
-        }else{
-            $sql = "SELECT {$separated_val} FROM vw_category WHERE is_del=:ISDEL: ";
-            $sql .=  ' AND cname like :SKEY: order by cname ASC;';
-            $like = "%{$skey}%";
-            $bindparam = [
-                'ISDEL' => 0,
-                'SKEY' => $like
-            ];
-        }
-
-        $query = $this->db->query($sql,$bindparam);
-        return $query->getResultArray();
-    }
-
-
     public function Load_Mall_List($typ,$fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
@@ -129,16 +106,6 @@ class Common_m extends Model
         return $affected;
     }
 
-//    public function Load_NoticeList ($bcode, $fields=['ALL'])
-//    {
-//        $separated_val = fn_Make_Fields($fields);
-//        $sql = "SELECT {$separated_val} FROM tbl_board where is_Del=:IS_DEL: order by regidate DESC;";
-//        $bindparam = [
-//            'IS_DEL' => 0
-//        ];
-//        $query = $this->db->query($sql,$bindparam);
-//        return $query->getResultArray();
-//    }
 
     public function Load_NoticeList($bcode,$fields=['ALL'])
     {
@@ -196,30 +163,6 @@ class Common_m extends Model
         return $affected_rows;
     }
 
-
-//    public function Load_NoticeInfo($bcode,$fields=['ALL'])
-//    {
-//        $separated_val = fn_Make_Fields($fields);
-//        if($bcode=='') {
-//            $sql = "SELECT {$separated_val} FROM tbl_board WHERE is_Del=:IS_DEL: order by regidate DESC;";
-//            $bindparam = [
-//                'IS_DEL' => 0
-//            ];
-//        }else{
-//            $sql = "SELECT {$separated_val} FROM tbl_board WHERE is_Del=:IS_DEL: ";
-//            $sql .=  ' AND bcode like :BCODE:';
-//            $like = "%{$bcode}%";
-//            $bindparam = [
-//                'IS_DEL' => 0,
-//                'BCODE' => $like
-//            ];
-//        }
-//
-//        $query = $this->db->query($sql,$bindparam);
-//        return $query->getResultArray();
-//    }
-
-//    Board_NoticeRegister end
 
 
 

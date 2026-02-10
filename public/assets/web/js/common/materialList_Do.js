@@ -1,15 +1,19 @@
+let tcnt = 0;
+let c_page = 1;
+
 $(document).ready(function() {
 
-
-    window.totalCnt = 0;
+    // let tcnt =  $('#tcnt').val('0');
+        // tcnt = 0;
 
     let search = '';
     let filter = 0;
-    let page = parseInt($('#cpage').data('page')) || 1;
+    let page = $('#cpage').data('page') || 1;
+
     const data = {
-        page : page,
         skey : search,
-        fkey : filter
+        fkey : filter,
+        page : page
     };
 
     Load_Data(data);
@@ -30,21 +34,33 @@ $(document).ready(function() {
     //     Load_Data({page: page, skey: search, fkey: filter});
     // });
 
-    $("#cpage").on("click", function (key) {
-        // let page = $('#cpage_box').data('page');
 
-        page = parseInt($('#cpage').data('page')) + 1;
-        $('#cpage').data('page', page);
-        console.log('page:', page);
-        let search = '';
-        let filter = 0;
-        const data = {
-            page : page,
-            skey : search,
-            fkey : filter
-        };
-        Load_Data(data);
+    // $('#cpage').on('click', function() {
+    //     currentPage++;  // 1→2→3 (data() 안 씀!)
+    //     console.log('요청 page:', currentPage);  // 디버그
+    //
+    //     const data = { page: currentPage, skey: '', fkey: 0 };
+    //     Load_Data(data);
+    // });
+
+
+    $('#cpage').on('click', function() {
+        c_page++;  // 1→2→3
+        console.log('클릭 → page:', c_page);
+        Load_Data({page: c_page, skey: '', fkey: 0});
     });
+
+    // $("#cpage").on("click", function (key) {
+    //     // let page = $('#cpage_box').data('page');
+    //     page++;
+    //     console.log('page:', page);
+    //     const data = {
+    //         page : page,
+    //         skey : '',
+    //         fkey : 0
+    //     };
+    //     Load_Data(data);
+    // });
 
     $("#maker").on("change", function() {
         if ($(this).val() === "bySelf") {
@@ -359,7 +375,6 @@ function add_Material(mcode) {
     $('#addMateWrap').css('display','block');
 }
 
-
 async function mod_Material(mcode) {
     let title = '원자재수정';
     let poptype = '2';
@@ -463,10 +478,12 @@ async function Load_Data(data) {
         }else if(result.get('status') == 'ok') {
             let html = '';
             let data = result.get('data');
+            let page = data.page;
             let tCnt = data.tCnt;
             // let totalCnt = 0;
             let arr = (data && data.list) ? data.list : [];
             let Cnt = arr.length;
+            let num = 0;
             console.log('dawn',arr,Cnt);
             let stock_css = '';
             if (Cnt > 0) {
@@ -476,9 +493,11 @@ async function Load_Data(data) {
                     } else {
                         stock_css = '';
                     }
+                    num++;
 
                     html +=`
                     <tr id="tr_${el.mtcode}" class="${stock_css}">
+                        <td class="ltTbody col1">${num}</td>
                         <td class="ltTbody col1">${el.typ_str}</td>
                         <td class="ltTbody col2">
                             <a href="javascript:;" class="materialName" onclick="mod_Material('${el.mtcode}');">${el.mtcode}</a>
@@ -512,19 +531,50 @@ async function Load_Data(data) {
                 `;
             }
 
-            if (data.page == 1) {
-                $('#mlist').empty().append(html);
-                window.totalCnt = Cnt;  // 처음 총합 초기화
+            $('#cpage').data('page',data.page);
+
+            if (page === 1) {
+                $('#mlist').html(html);   // 🔥 리셋
+                tcnt = Cnt;
             } else {
-                $('#mlist').append(html);
-                window.totalCnt += Cnt;  // 누적
+                $('#mlist').append(html); // 🔥 추가
+                tcnt += Cnt;
             }
 
-            // $('#tcnt').html(tCnt);
-            $('#tcnt').html(number_format(window.totalCnt));  // JS 누적값 표시
+            $('#tcnt').html(number_format(tcnt));
+            $('#cpage').data('page', page);
+
+            console.log(
+                '서버 page:', page,
+                'Cnt:', Cnt,
+                '현재 totalCnt:', tcnt
+            );
+
+            // if (c_page === 1) {
+            //     $('#mlist').empty().append(html);
+            //     tcnt = Cnt;
+            // } else {
+            //     $('#mlist').append(html);
+            //     tcnt += Cnt;
+            // }
+
+            // $('#tcnt').html(number_format(tcnt));
+            // console.log('서버 page:', data.page, 'Cnt:', Cnt, '현재 totalCnt:', tcnt);
+
+            // if (data.page == 1) {
+            //     $('#mlist').append(html);
+            //     tcnt = Cnt;  // 처음 총합 초기화
+            // } else {
+            //     $('#mlist').append(html);
+            //     tcnt += Cnt;  // 누적
+            // }
+            //
+            // // $('#tcnt').html(tCnt);
+            // $('#tcnt').html(number_format(tcnt));  // JS 누적값 표시
 
             if (Cnt  < 30) {
                 $('#cpage_box').hide();
+                $('#tcnt').html(Cnt);
                 Make_Toast('더 이상 데이터가 없습니다.');
             } else {
                 $('#cpage_box').show();

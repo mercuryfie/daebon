@@ -118,29 +118,4 @@ class SsgAPI
 
 
 
-
-    /**
-     * 배송지시 목록 조회
-     */
-    public function getShppDirectionList(string $startDate, string $endDate)
-    {
-        $path = $this->baseUrl . "/api/pd/{$this->apiVersion}/listShppDirection.ssg";
-        $params = [
-            'requestShppDirection' => [
-                'perdType'   => "01",
-                'perdStrDts' => $startDate,
-                'perdEndDts' => $endDate
-            ]
-        ];
-
-        return $this->sendRequest('POST', $path, $params);
-    }
-
-    /**
-     * 상품 목록 조회 예시
-     */
-    public function getItemList(string $version = 'v1', array $searchParams = [])
-    {
-        return $this->sendRequest('GET', "/api/item/{$version}/getItemList.ssg", $searchParams);
-    }
 }

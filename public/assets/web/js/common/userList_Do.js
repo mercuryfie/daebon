@@ -50,7 +50,6 @@ async function Load_Data() {
             // let tCnt = data.tCnt;
             let arr = (data && data.list) ? data.list : [];
             let Cnt = arr.length;
-            console.log('dawn1801', arr);
             if (Cnt > 0) {
                 $.each(arr, function (index, el) {
                     html += `
@@ -127,7 +126,6 @@ async function Reset_Password(uid){
     try {
         start_spinner();
         let dataarr = {"uid" : uid};
-        console.log('dawn1121',dataarr);
         let url = APIURL + '/Reset_Password';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {

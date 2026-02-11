@@ -319,7 +319,7 @@ input[type="radio"] {
 }
 
 .rightWrap {
-    padding-bottom: 100px;
+    padding-bottom: 20px;
     background-color: var(--bgColor2);
     width: calc(100vw - 220px);
     height: 100vh;
@@ -362,7 +362,7 @@ input[type="radio"] {
 }
 
 .merright {
-    padding-bottom: 100px;
+    padding-bottom: 20px;
 }
 
 .searchBox1 {
@@ -862,8 +862,8 @@ input[type="radio"] {
 .orderReg_boxx7x .element1 .copyBox {
     position: relative;
     text-wrap: nowrap;
-    width:420px;
-    height: 32px;
+    /*width:420px;*/
+    /*height: 32px;*/
 
 }
 
@@ -880,26 +880,30 @@ input[type="radio"] {
 .orderReg_boxx7x .element1 .copyBox .copyArea1 .left{
     border:1px solid #ccc;
     border-radius: 5px;
-    width: 220px;
+    width: 360px;
     height: 34px;
-
+    /*border:1px solid red;*/
+    position: relative;
 }
 
-
-.orderReg_boxx7x .element1 .copyBox .copyArea1 .copySearch{
+.orderReg_boxx7x .element1 .copyBox .copyArea1 .sch_input{
     border:none;
-
-    /*padding-left: 10px;*/
-    width: 188px;
+    width: 330px;
     height: 30px;
+    background-color: transparent;
 }
 
 .orderReg_boxx7x .element1 .copyBox .copyArea1 .copyDropdown{
     width:30px;
     height: 30px;
     border: none;
-    background-color: #fff;
+    background-color: transparent;
     color: #5c5c5c;
+    position: absolute;
+    top:0;
+    right: 2px;
+    z-index: 10;
+
 
 }
 
@@ -918,7 +922,6 @@ input[type="radio"] {
     width: 125px;
     height: 32px;
     margin-right: 10px;
-
 }
 
 
@@ -979,17 +982,18 @@ input[type="radio"] {
     border-radius: 0 0 5px 5px;
     border:1px solid #ccc;
     background-color: #fff;
-    width:220px;
+    width: 360px;
     height: 220px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
 .orderReg_boxx7x .element1 .copyBox .copyArea2 .copyOption {
-    width: 560px;
+    width: 360px;
     min-height: 40px;
     border: none;
     border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid red;
     background-color: #fff;
     color: #5c5c5c;
     text-align: left;
@@ -1575,44 +1579,43 @@ input[type="radio"] {
     width: auto;
 }
 
-.goods_tablexo1 th.th1,
-.goods_tablexo1 th.th2 {
-    border: 1px solid #ccc;
-    padding: 0 5px;
-    width: 40px;
-    font-weight: normal;
-    text-wrap: nowrap;
-}
-
-.areaBox .area4 .orderInfoTable .ltTbody.detailTd {
-    width: 20px;
-    min-width: 20px;
-    text-wrap: nowrap;
-    padding: 0 10px;
-}
-
-.order_boxfxp .detail_fo1 {
-    border-radius: 50%;
-    /*border:2px groove #ccc;*/
-    background-image: var(--gradient4);
-    /*border: 2px outset;*/
-    /*border: 1px */
-    width: 22px;
-    height: 22px;
-
-}
-
-.order_boxfxp .detail_fo1 i {
-    color: #5c5c5c;
-    /*color:#fff;*/
-    font-size: 12px;
-}
-
 
 .areaBox .area4 .order_boxe4z {
     width: auto;
     overflow-x: scroll;
 }
+
+
+.goods_boxkfg {
+    width: 82vw;
+    height: 40px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.goods_boxkfg .left {
+    font-family: "Gmarket Sans";
+}
+
+.goods_boxkfg .title {
+    margin-right: 20px;
+    text-wrap: nowrap;
+}
+
+.goods_boxkfg .count {
+    margin-right: 10px;
+    font-size: 22px;
+    color: var(--color3);
+    font-weight: bold;
+}
+
+.goods_boxa1b {
+    /*border:1px solid #ccc;*/
+    margin: 0 20px;
+    overflow: hidden;
+}
+
+/*orderList_View start*/
 
 .order_box28f .area4.order_boxfxp {
     /*border:1px solid red;*/
@@ -1800,14 +1803,6 @@ input[type="radio"] {
     width: 160px;
 }
 
-/*460*/
-/*.order_box28f .order_boxfxp .order_tabledj1 td.fixedCol:nth-child(5) {*/
-/*    left: 340px;*/
-/*    width: 160px; */
-/*}*/
-
-
-/* 스크롤 가능한 컬럼 - 너비 줄임 */
 .order_box28f .order_boxfxp .order_tabledj1 tbody td.scrollableCol {
     /*padding: 0 10px;*/
     /*min-width: 100px;*/
@@ -1815,7 +1810,6 @@ input[type="radio"] {
 
 
 
-/* 리사이즈 핸들 */
 .resize-handle {
     position: absolute;
     top: 0;
@@ -1836,19 +1830,6 @@ input[type="radio"] {
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
-}
-
-/* 테이블 전체 왼쪽 보더 */
-.order_tabledj1 td:first-child {
-    /*border-left: 1px solid #ddd;*/
-}
-
-.order_box28f .order_boxfxp .order_tabledj1 td.td40 {
-    font-weight: normal;
-    /*border:1px solid #ccc;*/
-    min-width: 40px;
-    max-width: 40px;
-    width: 40px;
 }
 
 
@@ -1891,43 +1872,66 @@ input[type="radio"] {
     width: 81vw;
 }
 
-
 .order_boxe4z .ltThead {
     text-wrap: nowrap;
     padding: 0 10px;
 }
 
-.goods_boxkfg {
-    width: 82vw;
-    height: 40px;
-    /*border:1px solid red;*/
-    margin-left: 20px;
-    /*padding-bottom: 20px;*/
-    margin-bottom: 10px;
+.order_list_tbl_wrap {
+    border:1px solid #ccc;
+    max-height: 600px;
+    overflow-y: scroll;
 }
 
-.goods_boxkfg .left {
-    font-family: "Gmarket Sans";
+.order_list_tbl_wrap .order_list_tbl {
+    border-collapse: collapse;
+    width: 80vw;
 }
 
-.goods_boxkfg .title {
-    margin-right: 20px;
-    text-wrap: nowrap;
+.order_list_tbl tr.cxled_order {
+    background-color: #ececec60;
+    color: #a9a9a9;
+    cursor: default;
 }
 
-.goods_boxkfg .count {
-    margin-right: 10px;
-    font-size: 22px;
-    color: var(--color3);
-    font-weight: bold;
+.order_list_tbl_wrap .order_list_tbl th,
+.order_list_tbl_wrap .order_list_tbl td {
+    border-bottom:1px solid #ccc;
+    border-right:1px solid #ccc;
+    height: 32px;
+    text-align: center;
 }
 
-.goods_boxa1b {
-    /*border:1px solid #ccc;*/
-    margin: 0 20px;
-    overflow: hidden;
+.order_list_tbl_wrap .order_list_tbl th {
+    background-color: #ececec;
+    font-weight: normal;
+    position: sticky;
+    top:0;
 }
 
+.order_box28f .order_list_tbl_wrap .order_list_tbl td.td40 {
+    min-width: 40px;
+    max-width: 40px;
+    width: 40px;
+}
+
+.order_list_tbl_wrap .order_list_tbl .btnType3 {
+    border:1px solid #ccc;
+    border-radius: 5px;
+    padding: 0 10px;
+    min-width: 40px;
+    width: auto;
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+}
+
+.order_list_tbl_wrap .order_list_tbl .btn_gray {
+    border:none;
+    background-image: var(--gradient4);
+
+}
+/*orderList_View end*/
 
 /*linkMallsLog start*/
 
@@ -2735,13 +2739,12 @@ input[type="radio"] {
 }
 
 /* goods editor > add cover end  -------------------------------- */
-
-/* goods List -------------------------------- */
+/* goodsList_View start -------------------------------- */
 
 
 .area_boxmxh {
     /*margin-top: 20px;*/
-    padding-bottom: 100px;
+    padding-bottom: 40px;
 }
 
 .goods_boxfv6 .area_boxmxh {
@@ -2757,6 +2760,59 @@ input[type="radio"] {
     color:#5c5c5c;
 }
 
+.good_list_tbl_wrap {
+    border: 1px solid #ccc;
+    height: 600px;
+    max-height: 600px;
+    overflow-x:hidden;
+    overflow-y: auto;
+    width: 81vw;
+}
+
+.good_list_tbl {
+    border-collapse: collapse;
+    width: 80vw;
+}
+
+.good_list_tbl th,
+.good_list_tbl td{
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    text-align: center;
+    height: 32px;
+}
+
+.good_list_tbl th {
+    font-weight: normal;
+    background-color: #ececec;
+    position: sticky;
+    top:0;
+}
+
+.good_list_tbl .btnType3{
+    padding: 2px 10px;
+    color:#5c5c5c;
+    font-size: 14px;
+}
+
+.good_list_tbl .detail_fo1 {
+    border-radius: 50%;
+    /*border:2px groove #ccc;*/
+    background-image: var(--gradient4);
+    /*border: 2px outset;*/
+    /*border: 1px */
+    width: 22px;
+    height: 22px;
+
+}
+
+.good_list_tbl .detail_fo1 i {
+    color: #5c5c5c;
+    /*color:#fff;*/
+    font-size: 12px;
+}
+
+/* goodsList_View end -------------------------------- */
 /* production detail > statusLabel start -------------------------------- */
 
 .status_boxr5j .statusLabel {
@@ -3192,7 +3248,6 @@ input[type="radio"] {
 }
 
 .thum_arange img {
-    border:1px solid #ccc;
     border-radius: 5px;
     width: 60px;
     height: 60px;
@@ -3313,7 +3368,7 @@ input[type="radio"] {
 .matetiallist_box {
     width: 81vw;
     overflow: auto;
-    max-height: 760px;
+    max-height: 600px;
     position: relative;
     border:1px solid #ccc;
 
@@ -3465,7 +3520,7 @@ input[type="radio"] {
 
 .products_list_box {
     border:1px solid #ccc;
-    max-height: 760px;
+    max-height: 600px;
     overflow-y: scroll;
 }
 
@@ -5798,6 +5853,12 @@ input[type="radio"] {
     width: 80vw;
 }
 
+.bar_mat_table th {
+    font-weight: normal;
+    width: 30%;
+}
+
+.bar_mat_table th,
 .bar_mat_table td {
     padding: 0 10px;
     text-align: center;
@@ -6265,11 +6326,6 @@ input[type="radio"] {
 
 @media print {
 
-    /*@page {*/
-    /*    size: A4 portrait; !* 또는 landscape *!*/
-    /*    margin: 10mm;*/
-    /*}*/
-
     /*pop_InstructionForm_View start*/
 
     .odRoast_boxfxp {
@@ -6367,6 +6423,47 @@ input[type="radio"] {
 
     /*pop_InstructionForm_View end */
 
+
+    /*pop_PrintBarcode_Material_View start*/
+
+    .bar_mat_table {
+        border-collapse: collapse;
+        width: 76mm;
+        height: 36mm;
+        /*border:1px solid red;*/
+        font-size: 14px;
+    }
+
+    .bar_mat_table thead td .barcodeArea {
+        margin: 0;
+        padding: 0;
+    }
+
+    .bar_mat_table thead td .barcodeArea svg{
+        width: 50mm;
+        height: 11mm;
+        /*scale: 80%;*/
+    }
+
+    .bar_mat_table th {
+        width: 20mm;
+    }
+
+    .bar_mat_table th,
+    .bar_mat_table td {
+        padding:1mm;
+        border:1px solid #000;
+        text-wrap: nowrap;
+        height: 7mm;
+
+    }
+
+    /*.bar_mat_table thead tr {*/
+    /*    height: 15mm;*/
+    /*}*/
+
+
+    /*pop_PrintBarcode_Material_View end*/
 
     /*pop_QualityReport_View print start */
 

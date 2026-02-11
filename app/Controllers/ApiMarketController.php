@@ -19,48 +19,6 @@ class ApiMarketController extends BaseController
 {
     use ResponseTrait;
 
-    public function getInIInfo()
-    {
-        $lotte = new LotteDeliveryApi();
-        $arr = $lotte->getInIInfo();
-        print_r($arr);
-    }
-
-
-    public function ESM_Order_Period()
-    {
-        $sessinarr = $this->GetSessionData();
-        $siteinfo = ($this->request->getPost('site') == '') ? '' : $this->request->getPost('site');
-        if ($sessinarr['islogin'] == false) {
-            $result = 'NoLogin';
-            $data = [];
-            $message = '로그인이 필요합니다.';
-        } else if (!Check_Token($sessinarr)) {
-            $result = 'Error002';
-            $data = [];
-            $message = '잘못된 토큰입니다.';
-        } else if ($siteinfo == '') {
-            $result = 'Error003';
-            $data = [];
-            $message = '검색하실 사이트를 선택하세요.';
-        } else {
-
-
-            $result = 'ok';
-            $message = '';
-        }
-
-        $return = [
-            'result' => $result,
-            'info' => $data,
-            'message' => $message
-        ];
-        return $this->respond($return);
-
-
-    }
-
-
     /**
      * 롯데택배 송장번호 생성
      */
@@ -280,9 +238,9 @@ class ApiMarketController extends BaseController
             $enddate = fn_NowDateFormat(3, $e_date);
             $ssg = new SsgAPI();
             $order = $ssg->getShppDirectionList($startdate, $enddate);
-            if ((!empty($order)) && ($order['result']['resultCode'] == '00')) {
-                $data = $order['result']['shppDirections'];
-                if (fn_ArrayCnt($data) > 0) {
+            if (is_array($order) && isset($order['result']) && $order['result']['resultCode'] == '00') {
+                $data = $order['result']['shppDirections'] ?? [];
+                if (!empty($data) && is_array($data[0])) {
                     $groupedOrders = [];
                     foreach ($data as $d) {
                         $items = $d['shppDirection'];
@@ -411,11 +369,6 @@ class ApiMarketController extends BaseController
                     $result = 'nothing';
                     $message = '';
                 }
-
-                return [
-                    'result' => $result,
-                    'message' => $message
-                ];
             } else {
                 $result = 'error';
                 $message = "SSG API 통신실패 : [{$order['result']['resultMessage']}]";
@@ -425,6 +378,7 @@ class ApiMarketController extends BaseController
             $result = 'error';
             $message = "SSG API 통신실패 : [{$e->getMessage()}]";
         }
+
         return [
             'result' => $result,
             'message' => $message
@@ -664,7 +618,7 @@ class ApiMarketController extends BaseController
             }
         } else {
             $result = 'error';
-            $message = (!empty($order)) ? $order['message'] : '통신오류';
+            $message = '해당 쇼핑몰의 주문정보 없음';
         }
         return [
             'result' => $result,
@@ -793,7 +747,7 @@ class ApiMarketController extends BaseController
             }
         } else {
             $result = 'error';
-            $message = (!empty($order)) ? $order['message'] : '통신오류';
+            $message = '해당 쇼핑몰의 주문정보 없음';
         }
 
         return [

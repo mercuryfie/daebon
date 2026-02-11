@@ -37,19 +37,19 @@
                 </div>
             </div>
             <div class="area4 goods_boxa1b flexType2">
-                <div class="order_boxfxp">
-                    <table class="orderInfoTable orderInfoTable1 goods_tablexo1 ">
+                <div class="good_list_tbl_wrap">
+                    <table class="good_list_tbl">
                         <thead>
                         <tr>
-                            <td class="ltThead">상품코드</td>
-                            <td class="ltThead">상품명</td>
-                            <td class="ltThead">카테고리</td>
-                            <td class="ltThead ">중량</td>
-                            <td class="ltThead">가격</td>
-                            <td class="ltThead">매칭수</td>
-                            <td class="ltThead">구성품</td>
-                            <td class="ltThead">등록일</td>
-                            <td class="ltThead">삭제</td>
+                            <th class="ltThead">상품코드</th>
+                            <th class="ltThead">상품명</th>
+                            <th class="ltThead">카테고리</th>
+                            <th class="ltThead ">중량</th>
+                            <th class="ltThead">가격</th>
+                            <th class="ltThead">매칭수</th>
+                            <th class="ltThead">구성품</th>
+                            <th class="ltThead">등록일</th>
+                            <th class="ltThead">삭제</th>
                         </tr>
                         </thead>
                         <tbody id="tList">

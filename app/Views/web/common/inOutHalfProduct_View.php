@@ -38,7 +38,7 @@
                     <div class="right3">
 <!--                        <button type="button" class="btnType1">로그표시</button>-->
                         <button type="button" class="btnType1 mr20">엑셀다운로드</button>
-                        <button type="button" class="btnType2 mr20" id="chulgoBtn" onclick="pop_chulgoView();">출고하기</button>
+<!--                        <button type="button" class="btnType2 mr20" id="chulgoBtn" onclick="pop_chulgoView();">출고하기</button>-->
                     </div>
                 </div>
             </div>
@@ -47,10 +47,9 @@
                     <table class="orderInfoTable orderInfoTable1 ">
                         <thead>
                         <tr>
-                            <td class="ltThead productNo checkCol">순번</td>
                             <td class="ltThead">반제품코드</td>
                             <td class="ltThead">BOM코드</td>
-                            <td class="ltThead">제품이름</td>
+                            <td class="ltThead">공정이름</td>
                             <td class="ltThead">입고량</td>
                             <td class="ltThead">출고량</td>
                             <td class="ltThead">출입고일자</td>

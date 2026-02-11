@@ -248,7 +248,7 @@ async function Make_Html(skey){
         $.each(arr, function (index, el) {
             html += `
                 <tr id="list_${el.pdcode}">
-                    <td class="ltTbody detailTd"><div class="flexType2  "><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdcode}</a><a href="javascript:;" class="detail_fo1 flexType1 ml10" onclick="pop_GoodsDetail('${el.pdcode}','${el.pdname}');"><i class="fa-solid fa-info"></i></a></div></td>
+                    <td class="ltTbody detailTd"><div class="det_box flexType1  "><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdcode}</a><a href="javascript:;" class="detail_fo1 flexType1 ml10" onclick="pop_GoodsDetail('${el.pdcode}','${el.pdname}');"><i class="fa-solid fa-info"></i></a></div></td>
                     <td class="ltTbody"><a href="javascript:void(0);" onclick="go_goodsEdit('${el.pdcode}');">${el.pdname}</a></td>
                     <td class="ltTbody">${el.cname}</td>
                     <td class="ltTbody">${number_format(el.pdWeigth)}g</td>

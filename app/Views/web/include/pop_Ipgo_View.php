@@ -38,7 +38,7 @@
             <div class="area area8 flexType2 fs14">
                 <p class="category">입고량</p>
                 <input type="search" name="txt_pop_income" id="txt_pop_income" placeholder="숫자만 가능합니다." class="inputBorder mr10">
-<!--                <p id="pop_unit" name="pop_unit"></p>-->
+                <p id="pop_unit" name="pop_unit"></p>
             </div>
 <!--            <div class="area area9 flexType2 fs14">-->
 <!--                <p class="category">원자재단위</p>-->

@@ -70,10 +70,6 @@ $(document).ready(function() {
             let pname = $(this).data('pname');
             let indate = $(this).data('indate');
             let url = '/product/prn_label?gi=' + gicode + '&si=' + sicode + '&pn=' + pname + '&in=' + indate;
-            // window.open(url, "_blank");
-
-
-            console.log('dawn1646', gicode,sicode,pname,gicode);
 
             let width = '920';
             let height = '580';

@@ -115,33 +115,21 @@ async function Load_Data(data) {
     let b_arr = {};
     try {
         start_spinner();
-        console.log('dawn1842',data);
         let url = APIURL + '/Load_NoticeInfo';
         let result = await Load_API_Auth(url,data);
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {
             let data = result.get('data');
-            console.log('dawn1856',data);
             let b_content = '';
 
             if (!fn_IsEmpty(data)) {
-                console.log('dawn1901',data.b_content);
                 is_fixed += data.ix_Fix;
                 is_notice += data.is_Notice;
                 b_content += data.b_content;
-                // if (is_fixed == 1) {
-                //     is_fixed_val += `selected`;
-                // } else {
-                //     is_fixed_val += ``;
-                // }
-
-                console.log('dawn1900',b_content);
-                // $('#is_fixed').val(is_fixed);
-                // $('#is_notice').val(is_notice);
                 $('#ir1').val(b_content);
             }else{
-                Make_Toast('22검색된 제품이 없습니다.');
+                Make_Toast('검색된 제품이 없습니다.');
 
             }
         } else {

@@ -647,7 +647,7 @@ class ApiOrderController extends BaseController
 
     public function Load_Order_Data(){
         $sessinarr = $this->GetSessionData();
-        $search = $this->request->getPost('param') ?? [];
+        $search = $this->request->getPost('skey') ?? [];
         if($sessinarr['islogin']==false) {
             $result = 'NoLogin';
             $data = [];
@@ -666,7 +666,6 @@ class ApiOrderController extends BaseController
             }else{
                 $info_arr = [];
                 foreach ($cRs as $d){
-
                     $a_arr = get_Order_Product_short_info($order_m,$d['orcode']);
                     $d_arr = get_Order_Delivery_Info($order_m,$d['orcode']);
                     $t_arr = [
@@ -681,6 +680,9 @@ class ApiOrderController extends BaseController
                         'sell_id' => $d['sell_id'],
                         'buy_id' => $d['buy_id'],
                         'orstep' => $d['orstep'],
+                        'is_del' => $d['is_del'],
+                        'is_cancel' => $d['is_cancel'],
+                        'gdstep' => $d['gdstep'],
                         'p_name' =>$a_arr['name'],
                         'pd_code' =>$a_arr['pdcode'],
                         'sg_code' =>$a_arr['sgcode'],

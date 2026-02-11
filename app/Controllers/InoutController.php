@@ -131,23 +131,36 @@ class InoutController extends BaseController
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
         }else {
-            $metaarr = [
-                'h_title' => '바코드 프린트',
-                'h_type' => 1
-            ];
+            $mtcode = ($this->request->getGet('mt') == '') ? '' : $this->request->getGet('mt');
+            if($mtcode==''){
+                fn_AlertClose('잘못된 접근입니다.');
+            }else {
+                $material_m = model('Material_m');
+                $info = $material_m->Load_Material_Info($mtcode);
+                if(fn_ArrayCnt($info)<=0){
+                    fn_AlertClose('존재하지 않는 원재료 입니다.');
+                }else {
+                    $metaarr = [
+                        'h_title' => '바코드 프린트',
+                        'h_type' => 1
+                    ];
 
-            $main_data = [];
+                    $main_data = [
+                        'data' => $info[0]
+                    ];
 
-            $form = new Form;
-            $main_data = [
-                'meta' => $form->fnMake_Meta($metaarr),
-                'header' => $form->fnMake_Header($sessinarr),
-                'left' => $form->fnMake_Left(),
-                'main' => $main_data,
-                'footer' => $form->fnMake_Fooeter($sessinarr)
-            ];
+                    $form = new Form;
+                    $main_data = [
+                        'meta' => $form->fnMake_Meta($metaarr),
+                        'header' => $form->fnMake_Header($sessinarr),
+                        'left' => $form->fnMake_Left(),
+                        'body' => $main_data,
+                        'footer' => $form->fnMake_Fooeter($sessinarr)
+                    ];
 
-            return view('web/include/pop_PrintBarcode_Material_View',$main_data);
+                    return view('web/include/pop_PrintBarcode_Material_View', $main_data);
+                }
+            }
         }
 
 

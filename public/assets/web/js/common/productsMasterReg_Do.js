@@ -474,7 +474,7 @@ async function Data_Load(skey){
     try {
         start_spinner();
         let dataarr = {"search" : skey};
-        let url = APIURL + '/Load_Product';
+        let url = APIURL + '/Load_Product_List';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();

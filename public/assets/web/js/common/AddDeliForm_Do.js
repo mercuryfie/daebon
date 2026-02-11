@@ -13,7 +13,7 @@ $(document).ready(function() {
                 $(window.opener.document).find('#da_' + orcode).html(arr.indate);
 
                 printWindow('add_deli_box');
-                $(this).data('orstep',1);fs
+                $(this).data('orstep',1);
             }
         }else{
             printWindow('add_deli_box');

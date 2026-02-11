@@ -30,6 +30,7 @@ class ApiProduceController extends BaseController
                 $info = [];
                 foreach ($Rs as $d){
                     $t_arr = [
+                        'seq' => $d['seq'],
                         'pscode' => $d['pscode'],
                         'fk_gicode' => $d['fk_gicode'],
                         'gname' => $d['gname'],
@@ -44,7 +45,7 @@ class ApiProduceController extends BaseController
 
                 $i_arr = [
                     'list' => $info,
-                    'cnt' => fn_ArrayCnt($info)
+                    'tcnt' => fn_ArrayCnt($info)
                 ];
 
 

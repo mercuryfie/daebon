@@ -2,15 +2,17 @@
 <?= $this->section("content") ?>
 
 <link rel="stylesheet" href="/assets/web/css/style_dashBoard.css?rnd=<?echo(rand()); ?>">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+<script src="<?= URL_DASHBOARD_ASSETS?>/GaugeMeter.js"></script>
+<script src="<?= URL_DASHBOARD_ASSETS?>/gaugeandchart.js?rnd=<?echo(rand()); ?>"></script>
+<!--<script src="--><?php //= URL_DASHBOARD_ASSETS?><!--/flipcard_main.js"></script>-->
+<script src="<?= URL_DASHBOARD_ASSETS?>/flipcard_dark.js"></script>
+<!--<script src="--><?php //= URL_DASHBOARD_ASSETS?><!--/animation.js"></script>-->
 <script src="<?=URL_COMMON_ASSETS?>/dashBoard_Do.js?rnd=<?rand();?>"> </script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="<?= URL_DASHBOARD_ASSETS?>/GaugeMeter.js"></script>
-<script src="<?= URL_DASHBOARD_ASSETS?>/gaugeandchart.js"></script>
-<script src="<?= URL_DASHBOARD_ASSETS?>/flipcard_main.js"></script>
-<script src="<?= URL_DASHBOARD_ASSETS?>/flipcard_dark.js"></script>
-<script src="<?= URL_DASHBOARD_ASSETS?>/animation.js"></script>
-<script src="<?= URL_DASHBOARD_ASSETS?>/weather.js"></script>
 
 <script>
 </script>
@@ -23,8 +25,15 @@
             <div class="hbox hbox1">
                 <p>logo</p>
             </div>
-            <div class="hbox hbox2">
-                <p>EMERGENCY MESSAGE</p>
+            <!--                <p>EMERGENCY MESSAGE</p>-->
+            <div class="hbox hbox2" id="" >
+                <div class="msg_wrap " id="">
+                    <div class="msg_box">
+                        <p class="data data1" id="msg_data">d1</p>
+                        <p class="data data2" id="">d2d</p>
+                        <p class="data data3" id="">d3d</p>
+                    </div>
+                </div>
             </div>
             <div class="hbox hbox3">
                 <p>2025/01/01 THU</p>
@@ -41,7 +50,7 @@
                         <div
                             class="GaugeMeter no-scroll"
                             id="gm_tem"
-                            data-percent="26"
+                            data-percent="0"
                             data-size="100"
                             data-back="rgba(174,174,174,0.5)"
                             data-animate_gauge_colors="true"
@@ -55,7 +64,7 @@
                         <div
                             class="GaugeMeter2"
                             id="gm_hum"
-                            data-percent="58"
+                            data-percent="0"
                             data-size="100"
                             data-theme="cyonblue"
                             data-back="rgba(174,174,174,0.5)"
@@ -73,12 +82,12 @@
                     <p>택배 마감까지 남은 시간</p>
                     <ul class="flipul">
                         <li>롯데</li>
-                        <li>기타</li>
+<!--                        <li>기타</li>-->
                     </ul>
-                    <div class="pagebox">
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                    </div>
+<!--                    <div class="pagebox">-->
+<!--                        <div class="pages"></div>-->
+<!--                        <div class="pages"></div>-->
+<!--                    </div>-->
                     <div class="clock">
                         <div class="flipper hours card">
                             <div class="gear"></div>
@@ -124,7 +133,7 @@
                             <div class="leftbox">
                                 <div
                                     class="GaugeMeter3 gaugapapa"
-                                    id="gm_market_1"
+                                    id="type1"
                                     data-back="rgba(174,174,174,0.5)"
                                     data-label="쿠팡"
                                     data-label_color="#FFF"
@@ -135,15 +144,15 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
-                                    id="gm_market_2"
+                                    id="type3"
                                     data-back="rgba(174,174,174,0.5)"
                                     data-label="지마켓"
                                     data-label_color="#FFF"
@@ -154,15 +163,15 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
-                                    id="gm_market_3"
+                                    id="type2"
                                     data-back="rgba(174,174,174,0.5)"
                                     data-label="옥션"
                                     data-label_color="#FFF"
@@ -173,15 +182,15 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
-                                    id="gm_market_4"
+                                    id="type4"
                                     data-back="rgba(174,174,174,0.5)"
                                     data-label="11번가"
                                     data-label_color="#FFF"
@@ -192,15 +201,15 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
-                                    id="gm_market_5"
+                                    id="type5"
                                     data-back="rgba(174,174,174,0.5)"
                                     data-label="카카오"
                                     data-label_color="#FFF"
@@ -211,15 +220,15 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
-                                    id="gm_market_6"
+                                    id="type6"
                                     data-back="rgba(174,174,174,0.5)"
                                     data-label="카페24"
                                     data-label_color="#FFF"
@@ -230,11 +239,11 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                             </div>
                         </div>
@@ -243,9 +252,9 @@
                             <div class="rightbox">
                                 <div
                                     class="GaugeMeter3 gaugapapa"
-                                    id="gm_market_7"
+                                    id="type8"
                                     data-back="rgba(174,174,174,0.5)"
-                                    data-label="네이버"
+                                    data-label="스마트스토어"
                                     data-label_color="#FFF"
                                     data-size="60"
                                     data-style="Arch"
@@ -254,34 +263,15 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
-                                    id="gm_market_8"
-                                    data-back="rgba(174,174,174,0.5)"
-                                    data-label="스마트스"
-                                    data-label_color="#FFF"
-                                    data-size="60"
-                                    data-style="Arch"
-                                    data-width="8"
-                                    data-showvalue="true"
-                                    data-min="0"
-                                    data-total="100"
-                                    data-stripe="3"
-                                    data-used="80"
-                                    data-theme="White"
-                                    data-append=""
-                                >
-                                    <p class="line1-1">200</p>
-                                </div>
-                                <div
-                                    class="GaugeMeter3 gaugapapa"
-                                    id="gm_market_9"
+                                    id="type13"
                                     data-back="rgba(174,174,174,0.5)"
                                     data-label="롯데On"
                                     data-label_color="#FFF"
@@ -292,17 +282,17 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
-                                    id="gm_market_10"
+                                    id="type14"
                                     data-back="rgba(174,174,174,0.5)"
-                                    data-label="SSG"
+                                    data-label="신세계몰"
                                     data-label_color="#FFF"
                                     data-size="60"
                                     data-style="Arch"
@@ -311,17 +301,17 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                         class="GaugeMeter3 gaugapapa"
-                                        id="gm_market_11"
+                                        id="type0"
                                         data-back="rgba(174,174,174,0.5)"
-                                        data-label="오아시스"
+                                        data-label="수기주문"
                                         data-label_color="#FFF"
                                         data-size="60"
                                         data-style="Arch"
@@ -330,11 +320,11 @@
                                         data-min="0"
                                         data-total="100"
                                         data-stripe="3"
-                                        data-used="80"
+                                        data-used="0"
                                         data-theme="White"
                                         data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                             </div>
                         </div>
@@ -503,7 +493,7 @@
                             </div>
                         </div>
                         <ul class="counterul">
-                            <li id="counter">200</li>
+                            <li id="total_order" ></li>
                         </ul>
                     </div>
                     <div class="weekbox">
@@ -516,7 +506,7 @@
             <div class="fbox fbox1">
                 <p>원자재 재고 현황</p>
                 <div class="fbox1-1">
-                    <div class="fcbox fcbox1 flexCol3">
+                    <div class="fcbox fcbox1 flexType5-1">
                         <div class="labelBox labelBox1 flexType5-1">
                             <p class="amount mr10">적정재고량</p>
                             <div class="fcircle fcircle1"></div>
@@ -551,14 +541,14 @@
             <div class="fbox fbox2">
                 <p>제품 재고 현황</p>
                 <div class="fbox2-1">
-                    <div class="fcbox fcbox1 flexCol3">
+                    <div class="fcbox fcbox1 flexType5-1">
                         <div class="labelBox labelBox1 flexType5-1">
-                            <p class="amount mr10">적정재고량</p>
                             <div class="fcircle fcircle1"></div>
+                            <p class="amount mr10">적정재고량</p>
                         </div>
                         <div class="labelBox labelBox2 flexType5-1">
-                            <p class="amount mr10">현 재고량</p>
                             <div class="fcircle fcircle3"></div>
+                            <p class="amount mr10">현 재고량</p>
                         </div>
                         <p class="unit">(단위:%)</p>
                     </div>

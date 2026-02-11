@@ -24,6 +24,7 @@
                             <td class="ltThead">입고량</td>
                             <td class="ltThead">출고량</td>
                             <td class="ltThead">입출고사유</td>
+                            <td class="ltThead">작업자</td>
                             <td class="ltThead">입출고메모</td>
                             <td class="ltThead">일시</td>
                         </tr>

@@ -19,8 +19,11 @@ class Order_m extends Model
     }
 
 
-
-
+    public function Load_dashboardOrder_Info($fields=['ALL']){
+        $sql = "SELECT shoptyp,COUNT(*) as Cnt from vw_order_info a WHERE DATE_FORMAT(indate, '%Y-%m-%d') = CURDATE() GROUP BY shoptyp ORDER BY 1 ASC;";
+        $query = $this->db->query($sql);
+        return $query->getResultArray();
+    }
 
     public function Load_Packing_All($keyword,$searchType,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
@@ -56,15 +59,28 @@ class Order_m extends Model
         return $query->getResultArray();
     }
 
-
-
-    public function Load_Order_All($search,$fields=['ALL']){
+    public function Load_Order_All($search, $fields=['ALL'])
+    {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM vw_order_info where is_del=:ISDEL: ORDER BY seq ASC";
+
+        $sql = "SELECT {$separated_val} 
+            FROM vw_order_info 
+            WHERE is_del = :ISDEL:
+            AND (
+                orcode LIKE :SKEY: 
+                OR buy_name LIKE :SKEY:
+                OR buy_phone LIKE :SKEY:
+                OR receive_name LIKE :SKEY:
+                OR receive_phone LIKE :SKEY:
+            )
+            ORDER BY indate DESC";
+
         $bindparam = [
-            'ISDEL'=> 0
+            'SKEY' => "%{$search}%",
+            'ISDEL' => 0
         ];
-        $query = $this->db->query($sql,$bindparam);
+
+        $query = $this->db->query($sql, $bindparam);
         return $query->getResultArray();
     }
 

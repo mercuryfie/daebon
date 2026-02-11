@@ -357,15 +357,17 @@ function stop_spinner(){
     $('#spinner').removeClass('active');
 }
 
+
+
 function printWindow(id) {
     let printContent = document.getElementById(id).innerHTML;
     let printWindow = window.open('', '', 'width=800,height=600');
     let rnd = Math.floor(Math.random() * 10000);
     printWindow.document.write('<html><head><title>Print</title>');
+    printWindow.document.write("<link rel='stylesheet' href='/assets/web/css/style.css?rnd=" + rnd + "' />");
     printWindow.document.write("<link rel='stylesheet' href='/assets/web/css/style_staff.css?rnd=" + rnd + "' />");
     printWindow.document.write('</head><body>');
     printWindow.document.write(printContent);
-    console.log('dawn1307',printContent);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.onload = function() {
@@ -645,4 +647,10 @@ function fnMake_Process_Type(cval) {
     });
 
     return html;
+}
+
+function getPercentage(current, total) {
+    if (total === 0) return 0;
+    var percent = (current / total) * 100;
+    return parseFloat(percent.toFixed(1)); // 숫자로 다시 변환
 }

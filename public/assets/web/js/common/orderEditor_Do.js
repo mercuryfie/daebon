@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
     $('#txt_product').on('focus',function(){
         console.log('cc');
         $(this).val('');

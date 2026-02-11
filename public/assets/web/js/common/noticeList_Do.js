@@ -37,7 +37,6 @@ async function Load_Data() {
             let data = result.get('data');
             // let tCnt = data.tCnt;
             let arr = (data && data.list) ? data.list : [];
-            console.log('dawn1703',arr);
             let Cnt = arr.length;
             let num = 0;
             let fixCount = 0;

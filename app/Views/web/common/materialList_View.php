@@ -42,7 +42,6 @@
                     <table class="materialListTable " id="mTable">
                         <thead>
                         <tr>
-                            <th class="ltThead" data-col="0"><div class="flexType1"><p class="cname mr10">순번</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                             <th class="ltThead" data-col="0"><div class="flexType1"><p class="cname mr10">종류</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                             <th class="ltThead" data-col="1"><div class="flexType1"><p class="cname mr10">원자재코드</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                             <th class="ltThead" data-col="2"  ><div class="flexType1"><p class="cname mr10">이름</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>

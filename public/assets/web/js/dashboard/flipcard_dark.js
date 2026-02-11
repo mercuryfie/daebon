@@ -14,7 +14,6 @@ function flipNumber(el, newnumber) {
     el.find(".bottom:not(.new)").find(".text").text(newnumber);
   }, 500);
 
-
 }
 
 function setTime() {

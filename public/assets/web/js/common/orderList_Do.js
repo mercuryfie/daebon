@@ -1,7 +1,42 @@
 
 $(document).ready(function() {
     let param = '';
-    Make_Html(param);
+    let search = $('#skey').val();
+    console.log('dawn',search);
+    const data = {
+        skey : search
+    };
+    Make_Html(data);
+
+    $('#skey').on('keypress',async function(e){
+        if (e.which === 13) {
+            let skey = $(this).val();
+            if(skey==''){
+                Make_Toast('검색하실 상품명을 입력하세요.');
+                $(this).focus();
+            }else{
+                const data = {
+                    skey : skey
+                };
+                Make_Html(data);
+            }
+        }
+    });
+
+    $('#btn_sch').on('click',function(){
+        if (e.which === 13) {
+            let skey = $('#skey').val();
+            if(skey==''){
+                Make_Toast('검색하실 상품명을 입력하세요.');
+                skey.focus();
+            }else{
+                const data = {
+                    skey : skey
+                };
+                Make_Html(data);
+            }
+        }
+    });
 
     $('#uploadExcel #Xbtn, #uploadExcel #Xbtn2').click(function () {
         $('#uploadExcel').css('display','none');
@@ -196,33 +231,50 @@ async function Put_Order_Confirm(orcode){
     return data;
 }
 
-
-
-async function Make_Html(param){
-    let arr = await Load_Data(param);
-    console.log('dawn1805',arr);
+async function Make_Html(data){
+    let arr = await Load_Data(data);
     let html = '';
+    console.log('dawn',arr);
     if(!fn_IsEmpty(arr)) {
         $.each(arr, function (index, el) {
             let subhtml1 = '';
             let subhtml2 = '';
+            let cnxl_status = '';
+            let cnxl_css = '';
+            let cnxl_fn1 = '';
             if(el.orstep==0) {
-                subhtml1 = `<input type="checkbox" name="chkorder" value="${el.orcode}" data-method="${el.shopmethod}">`;
-                subhtml2 = `<button type="button" class="btnType3" data-rttype="1" onclick="add_packingQueue('${el.orcode}');">지시대기</button>`;
+                subhtml1 = `<input type="checkbox" name="chkorder" value="" data-method="${el.shopmethod}">`;
+                subhtml2 = `<button type="button" class="btnType3 btn_gray" data-rttype="1" onclick="add_packingQueue('${el.orcode}');">지시대기</button>`;
             }else{
-                subhtml1 = '';
-                subhtml2 = `<button type="button" class="btnType3" data-rttype="2" onclick="add_packingQueue('${el.orcode}');">지시완료</button>`;
+                subhtml1 = '-';
+                subhtml2 = `<button type="button" class="btnType3 " data-rttype="2" onclick="add_packingQueue('${el.orcode}');">지시완료</button>`;
+            }
+
+            if(el.gdstep == 2) {
+                cnxl_status = `<p class="data fs14">취소불가</p>`;
+            }else {
+                cnxl_status = `<button type="button" class="btnType3 fs14" value="${el.orcode}" onclick="Del_ThisOrder('${el.orcode}');">주문취소</button>`;
+            }
+
+            if(el.is_cancel == 0) {
+                cnxl_css = ``;
+                cnxl_fn1 = `onclick="go_orderEditor('${el.orcode}','${el.shopmethod}');"`;
+            }else{
+                cnxl_css = `cxled_order`;
+                cnxl_status = `<p class="data fs14">취소됨</p>`
+                subhtml2 = `-`;
+                cnxl_fn1 = ``;
             }
 
             html +=`
-                <tr class="" id="list_${el.orcode}">
+                <tr class="${cnxl_css}" id="list_${el.orcode}">
                     <td class="ltTbody td40 fixedCol" >
                         <div class="inner40 flexCol2" id="ck_${el.orcode}">${subhtml1}</div>
                     </td>
                     <td class="ltTbody productNo fixedCol" name="packingStep"><div class="inner1 flexCol2"><p class="text" id="bu_${el.orcode}">${subhtml2}</p></div></td> 
                     <td class="ltTbody fixedCol underline2" data-copy="copy"><div class="inner2 flexCol2"><p class="text">${el.orcode}</p><p class="text">${el.spcode}</p></div></td>
                     <td class="ltTbody fixedCol underline2"><div class="inner2 flexCol2 last_inner"><p class="text">${el.pd_code}</p><p class="text">${el.sg_code}</p></div></td>
-                    <td class="ltTbody scrollableCol"><div class="inner4 flexType1 g_name"><a href="javascript:;" class="text mr10 ">${el.p_name}</a></div></td>
+                    <td class="ltTbody scrollableCol" ${cnxl_fn1}><div class="inner4 flexType1 g_name"><a href="javascript:;" class="text mr10" >${el.p_name}</a></div></td>
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2 fs14"><p class="text">${el.buy_name}</p><p class="text">${el.buy_phone}</p><p class="text">${el.receive_name}</p><p class="text">${el.receive_phone}</p></div></td>
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.tcnt}개</p><p class="text">${number_format(el.tprice)}원</p></div></td> 
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.orderdate}</p></div></td>
@@ -230,6 +282,9 @@ async function Make_Html(param){
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text" id="da_${el.orcode}">${el.deli_info['indate']}</p></div></td>    
                     <td class="ltTbody scrollableCol "><div class="inner4 flexCol2 "><p class="text">${el.input_str}</p></div></td>
                     <td class="ltTbody scrollableCol "><div class="inner4 flexCol2 "><p class="text">${el.shopstr}</p><p class="text">${el.sell_id}</p></div></div></td> 
+                    <td class="ltTbody scrollableCol ">${cnxl_status}
+                        
+                    </td> 
                 </tr>
             `;
         });
@@ -244,12 +299,8 @@ function upload_Xlx() {
 }
 
 function template_Download(e) {
-    console.log('dawn1626');
-
     e.preventDefault();  // 기본 onclick 막기
-    window.location.href = '/path/to/your/template.xlsx';  // 실제 Excel 파일 경로로 변경
-    // $this->load->helper('download');
-    // force_download('templates/template.xlsx', NULL);
+    window.location.href = '/path/to/your/template.xlsx';
 }
 
 async function add_packingQueue(orcode,typ) {
@@ -282,13 +333,13 @@ function Packing_ini(){
 }
 
 
-async function Load_Data(param){
-    let data = {};
+async function Load_Data(data){
+    // let data = {};
     try {
         start_spinner();
-        let dataarr = {"search" : param};
+        // let dataarr = {"search" : param};
         let url = APIURL + '/Load_Order_Data';
-        let result = await Load_API_Auth(url,dataarr);
+        let result = await Load_API_Auth(url,data);
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {

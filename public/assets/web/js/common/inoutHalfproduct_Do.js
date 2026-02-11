@@ -5,12 +5,14 @@ $(document).ready(function() {
 
     $('#txt_search').on('keyup', function(e) {
         if (e.keyCode === 13) { // 13은 엔터 키 코드
+            $('#clist').empty();
             let search = $(this).val();
             Make_html(search)
         }
     });
 
     $('#btn_search').on('click',function(){
+        $('#clist').empty();
         let search = $('#txt_search').val();
         Make_html(search)
     });
@@ -45,20 +47,18 @@ $(document).ready(function() {
 
 async function Make_html(search){
     let arr = await Load_Data(search);
+    console.log(arr);
     let html = '';
     if(arr.total > 0){
         $.each(arr.list, function (index, el) {
             html += `
                 <tr>
-                    <td class="ltTbody"><input type="checkbox" name="" id=""></td>
-                    <td class="ltTbody">2025.01.01</td>
-                    <td class="ltTbody">12341234</td>
-                    <td class="ltTbody">12341234</td>
-                    <td class="ltTbody">우엉 혼합물</td>
-                    <td class="ltTbody">우엉 원료입고</td>
-                    <td class="ltTbody">허브(농산물)</td>
-                    <td class="ltTbody">45.000g</td>
-                    <td class="ltTbody">-</td>
+                    <td class="ltTbody">${el.pscode}</td>
+                    <td class="ltTbody">${el.fk_gicode}</td>
+                    <td class="ltTbody">${el.step_name}</td>
+                    <td class="ltTbody">${el.total_input}g</td>
+                    <td class="ltTbody">${el.total_output}g</td>
+                    <td class="ltTbody">${el.indate}</td>
                 </tr>
             `;
 
@@ -76,7 +76,7 @@ async function Load_Data(skey){
     let r_arr = {};
     try {
         start_spinner();
-        let dataarr = {"search" : skey};
+        let dataarr = {"skey" : skey};
         let url = APIURL + '/Load_SemiProduct_Info';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {

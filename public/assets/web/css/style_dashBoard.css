@@ -65,6 +65,58 @@ header {
     justify-content: center;
     margin-right: 10px;
 }
+
+.msg_wrap {
+    width: 920px;
+    height: 40px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid blue;
+}
+
+.msg_box {
+    display: flex;
+    flex-direction: column;  /* 세로 방향으로 변경 */
+    width: 920px;
+    height: 40px;
+    position: absolute;  /* relative → absolute로 변경 */
+    top: 0;
+    left: 0;
+    border: 1px solid blue;
+}
+
+.msg_box .data {
+    width: 920px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: 1px solid greenyellow;
+}
+
+/*.hbox2 .msg_box {*/
+/*    border:1px solid red;*/
+/*    width: 920px;*/
+/*    height: 40px;*/
+/*    overflow: hidden;*/
+/*    position: relative;*/
+/*}*/
+
+/*.hbox2 .msg_box .data{*/
+/*    border:1px solid yellow;*/
+/*    font-size: 16px;*/
+/*    text-wrap: nowrap;*/
+/*    width: 920px;*/
+/*    height: 40px;*/
+/*    line-height: 40px;*/
+/*    padding: 0 10px;*/
+/*    position: absolute;*/
+/*    top:0;*/
+/*    left:0;*/
+/*    !*text-align: *!*/
+/*}*/
+
 .hbox3 {
     display: flex;
     justify-content: center;
@@ -1378,7 +1430,7 @@ main {
     border: 1px solid #ececec81;
     color:white;
     width:925px;
-    height: 620px;
+    height: 520px;
     border-radius: 5px;
 }
 
@@ -1402,7 +1454,7 @@ main {
 .fbox1-1,
 .fbox2-1 {
     width:925px;
-    height: 560px;
+    height: 460px;
     position: relative;
 
 }
@@ -1414,10 +1466,10 @@ main {
 }
 
 .fcbox1 {
-    width: 220px;
-    height: 60px;
+    width: 420px;
+    height: 30px;
     position: absolute;
-    top:-20Px;
+    top: -20px;
     right:60px;
 }
 
@@ -1440,26 +1492,39 @@ main {
     margin-right: 10px;
 
 }
+
 .fcircle1 {
     background-color: #ececec;
 }
+
 .fcircle2 {
     background-color: var(--color15);
 }
+
 .fcircle3 {
     background-color: var(--color15);
     /*background-color: #C322FB;*/
 }
 
 /* 원자재재고현황 Chart, 제품재고현황 Chart */
-
 .fcbox2  {
+    padding:10px;
     width: 800px;
     height: 400px;
     position: absolute ;
-    top:40px;
+    top:10px;
     left:50%;
     transform: translateX(-50%);
+    overflow:hidden;
+}
+
+.fcbox2 canvas {
+    /*width:100%;*/
+    /*border:1px solid red;*/
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*left:50%;*/
+    /*transform: translateX(-50%);*/
 }
 
     /* mode 1,2,3,4 */

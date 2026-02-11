@@ -179,6 +179,12 @@ function go_orderRegister() {
     $(location).attr("href", url);
 }
 
+function go_orderEditor(orcode,spmethod) {
+    var url = "/order/ordereditor?od=" + orcode;
+    console.log('dawn1546',orcode,spmethod)
+    $(location).attr("href", url);
+}
+
 function go_deliList() {
     var url = "/order/deliverylist";
     $(location).attr("href", url);

@@ -484,7 +484,6 @@ async function Load_Data(data) {
             let arr = (data && data.list) ? data.list : [];
             let Cnt = arr.length;
             let num = 0;
-            console.log('dawn',arr,Cnt);
             let stock_css = '';
             if (Cnt > 0) {
                 $.each(arr, function (index, el) {
@@ -496,8 +495,7 @@ async function Load_Data(data) {
                     num++;
 
                     html +=`
-                    <tr id="tr_${el.mtcode}" class="${stock_css}">
-                        <td class="ltTbody col1">${num}</td>
+                    <tr id="tr_${el.mtcode}" class="${stock_css}"> 
                         <td class="ltTbody col1">${el.typ_str}</td>
                         <td class="ltTbody col2">
                             <a href="javascript:;" class="materialName" onclick="mod_Material('${el.mtcode}');">${el.mtcode}</a>
@@ -534,10 +532,10 @@ async function Load_Data(data) {
             $('#cpage').data('page',data.page);
 
             if (page === 1) {
-                $('#mlist').html(html);   // 🔥 리셋
+                $('#mlist').html(html);
                 tcnt = Cnt;
             } else {
-                $('#mlist').append(html); // 🔥 추가
+                $('#mlist').append(html);
                 tcnt += Cnt;
             }
 

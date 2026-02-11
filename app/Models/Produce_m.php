@@ -20,7 +20,7 @@ class Produce_m extends Model
 
     public function Load_SemiProduct_Info($search){
 
-        $sql = "SELECT pscode,a.fk_gicode,b.gname,c.step_name,a.indate, ";
+        $sql = "SELECT a.seq,pscode,a.fk_gicode,b.gname,c.step_name,a.indate, ";
         $sql .= "SUM(m_input) AS total_input, SUM(m_output) AS total_output, (SUM(m_input) - SUM(m_output)) AS stock_amount ";
         $sql .= "FROM tbl_semiproduct_inout a JOIN tbl_instructions b ON a.fk_gicode=b.gicode JOIN tbl_instructions_process c ON a.fk_gicode=c.fk_gicode AND  c.fk_prcode=a.fk_prcode ";
         if($search!=''){

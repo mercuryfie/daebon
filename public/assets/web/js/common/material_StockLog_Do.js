@@ -21,6 +21,7 @@ async function Make_Html(code){
                         <td class="ltTbody">${el.m_input} ${el.unit}</td>
                         <td class="ltTbody">${el.m_output} ${el.unit}</td>
                         <td class="ltTbody">${el.reason}</td>
+                        <td class="ltTbody">${el.uname}</td>
                         <td class="ltTbody">${el.memo}</td>
                         <td class="ltTbody">${el.indate}</td>
                     </tr>

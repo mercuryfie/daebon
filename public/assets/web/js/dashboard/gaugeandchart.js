@@ -3,7 +3,11 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
+
     function setData(){
+
+
+
         //작업실 온/습도 tempbox
         $("#GaugeMeter_101").attr("data-percent",36);
         $("#GaugeMeter_102").attr("data-percent",36);
@@ -34,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
         $("#GaugeMeter_119").attr("data-used",36);
     }
     setData();
-
     //작업실 온/습도 tempbox
     $(".GaugeMeter").gaugeMeter({
         theme: 'pink',

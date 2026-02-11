@@ -215,6 +215,41 @@ class OrderController extends BaseController
         }
     }
 
+    public function orderEditor()
+    {
+        $sessinarr = $this->GetSessionData();
+        $orcode  = ($this->request->getGet('od') == '') ? '' : $this->request->getGet('od');
+//        var_dump($orcode);
+//        exit();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '주문목록',
+                'h_type' => 1
+            ];
+
+            $order_m = model('Order_m');
+            $Rs = $order_m->Load_Order_Info($orcode);
+
+            $main_data = [
+                'info' => $Rs,
+                'excode' => opt_Excode('')
+            ];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'body' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/orderEditor_View',$main_data);
+        }
+    }
+
     public function deliveryList()
     {
 

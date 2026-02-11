@@ -20,42 +20,42 @@ function getTimeRemaining() {
   };
 }
 
-function updateFlipCard(selector, newValue, oldValue) {
-  const flipper = document.querySelector(selector);
-  const card = flipper.querySelector('.card');
-  const topText = card.querySelector('.top .text');
-  const bottomText = card.querySelector('.bottom .text');
+// function updateFlipCard(selector, newValue, oldValue) {
+//   const flipper = document.querySelector(selector);
+//   const card = flipper.querySelector('.card');
+//   const topText = card.querySelector('.top .text');
+//   const bottomText = card.querySelector('.bottom .text');
+//
+//   if (newValue !== oldValue) {
+//       bottomText.textContent = newValue;
+//       card.classList.add('flip');
+//
+//       setTimeout(() => {
+//           topText.textContent = newValue;
+//           card.classList.remove('flip');
+//       }, 300);
+//   }
+// }
 
-  if (newValue !== oldValue) {
-      bottomText.textContent = newValue;
-      card.classList.add('flip');
-
-      setTimeout(() => {
-          topText.textContent = newValue;
-          card.classList.remove('flip');
-      }, 300);
-  }
-}
-
-function initializeClock() {
-  let oldTime = { hours: '', minutes: '', seconds: '' };
-
-  function updateClock() {
-      const t = getTimeRemaining();
-
-      updateFlipCard('.flipper.hours', t.hours, oldTime.hours);
-      updateFlipCard('.flipper.minutes', t.minutes, oldTime.minutes);
-      updateFlipCard('.flipper.seconds', t.seconds, oldTime.seconds);
-
-      oldTime = { hours: t.hours, minutes: t.minutes, seconds: t.seconds };
-
-      if (t.total <= 0) {
-          clearInterval(timeinterval);
-      }
-  }
-
-  updateClock();
-  const timeinterval = setInterval(updateClock, 1000);
-}
-
-initializeClock();
+// function initializeClock() {
+//   let oldTime = { hours: '', minutes: '', seconds: '' };
+//
+//   function updateClock() {
+//       const t = getTimeRemaining();
+//
+//       updateFlipCard('.flipper.hours', t.hours, oldTime.hours);
+//       updateFlipCard('.flipper.minutes', t.minutes, oldTime.minutes);
+//       updateFlipCard('.flipper.seconds', t.seconds, oldTime.seconds);
+//
+//       oldTime = { hours: t.hours, minutes: t.minutes, seconds: t.seconds };
+//
+//       if (t.total <= 0) {
+//           clearInterval(timeinterval);
+//       }
+//   }
+//
+//   updateClock();
+//   const timeinterval = setInterval(updateClock, 1000);
+// }
+//
+// initializeClock();

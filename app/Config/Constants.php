@@ -123,7 +123,7 @@ define("COMPANY_MOBILE",'010-5180-4490');
 define("COMPANY_TEL",'070-4250-1052');
 
 define("ASSETS_URL","/assets/web");
-define("H_TITLE","DAEBON ESM");
+define("H_TITLE","DAEBON MES");
 
 define("AUTH_MASTER",1101);
 define("AUTH_PACKING",1102);

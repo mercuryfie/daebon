@@ -2,16 +2,18 @@
 <?= $this->section("content") ?>
 
 <!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/orderRegister_Do.js?rnd=<?=rand();?>"> </script>
+<script src="<?=URL_COMMON_ASSETS?>/orderEditor_Do.js?rnd=<?=rand();?>"> </script>
 
 <script>
 </script>
-
+<?php print_r($body)?>
+<?=$body['info'][0]['orcode'];?>
 <section class="merright">
+    <input type="hidden" id="orcode" name="orcode" value="<?=$body['info'][0]['orcode'];?>">
     <div class="orderReg_boxx7x">
         <div class="titleBox">
             <p class="headTitle">
-                주문등록
+                주문수정
             </p>
         </div>
         <div class="areaBox areaBox2 area_boxm9k ">
@@ -25,24 +27,23 @@
                             <p class="must"></p>
                             <p class="title">마켓</p>
                         </div>
-                        <select name="shoptyp" id="shoptyp" class="inputType360 mkSelect ">
-                            <option value="">선택하세요.</option>
-                            <?=$body['excode'];?>
-                        </select>
+                        <p class="data" >자체</p>
                     </div>
                     <div class="element element1 flexType4">
                         <div class="flexType2">
                             <p class="must"></p>
                             <p class="title">주문코드</p>
                         </div>
-                        <input type="search" name="spcode" id="spcode" placeholder="주문코드 입력" class="inputType360 odCodeIn " >
+                        <p class="data" ><?=$body['info'][0]['orcode'];?></p>
+<!--                        <input type="search" name="spcode" id="spcode" placeholder="주문코드 입력" class="inputType360 odCodeIn " value="--><?php //=$body['info'][0]['orcode'];?><!--" readonly>-->
                     </div>
                     <div class="element element1 flexType4">
                         <div class="flexType2">
                             <p class="must"></p>
                             <p class="title">구매자ID</p>
                         </div>
-                        <input type="search" name="buyid" id="buyid" placeholder="구매자 ID 입력" class="inputType360 odCodeIn" >
+                        <p class="data" ><?=$body['info'][0]['buy_id'];?></p>
+<!--                        <input type="search" name="buyid" id="buyid" placeholder="구매자 ID 입력" class="inputType360 odCodeIn"  value="--><?php //=$body['info'][0]['buy_id'];?><!--" readonly>-->
                     </div>
                     <div class="element element1 flexType4">
                         <div class="flexType2">
@@ -73,33 +74,33 @@
                         </div>
                         <div class="flexCol ">
                             <div class="flexType2 mb10">
-                                <input type="search" name="zipcode" id="zipcode" placeholder="" class="inputType2 postIn" readonly>
+                                <input type="search" name="zipcode" id="zipcode" placeholder="" class="inputType2 postIn" value="<?=$body['info'][0]['receive_zipcode'];?>" readonly>
                                 <button type="button" class="btnType3 schBtn" onclick="execDaumPostcode();">검색</button>
                             </div>
-                            <input type="search" name="address1" id="address1" placeholder="" class="inputType360 add1In  mr10" readonly>
+                            <input type="search" name="address1" id="address1" placeholder="" class="inputType360 add1In  mr10" value="<?=$body['info'][0]['buy_address1'];?>" readonly>
                         </div>
                     </div>
                     <div class="element flexType2">
                         <p class="must"></p>
                         <p class="title">상세주소</p>
-                        <input type="search" name="address2" id="address2" placeholder="" class="inputType360 mr10">
+                        <input type="search" name="address2" id="address2" placeholder="" class="inputType360 mr10" value="<?=$body['info'][0]['buy_address2'];?>">
                     </div>
                     <div class="element flexType2">
                         <p class="must"></p>
                         <p class="title">수령인</p>
-                        <input type="search" class="inputType360" placeholder="" id="bname" name="bname" >
+                        <input type="search" class="inputType360" placeholder="" id="bname" name="bname" value="<?=$body['info'][0]['receive_name'];?>" >
                     </div>
                     <div class="element flexType2">
                         <p class="must"></p>
                         <p class="title">연락처</p>
-                        <input type="search" class="inputType360" placeholder=" - 없이 숫자만 입력" id="bphone" name="bphone" >
+                        <input type="search" class="inputType360" placeholder=" - 없이 숫자만 입력" id="bphone" name="bphone" value="<?=$body['info'][0]['receive_phone'];?>" >
                     </div>
                 </div>
             </div>
         </div>
         <div class="lastBox flexType5">
-            <button type="button" class="btnType1 mr10" onclick="go_orderList();">이전</button>
-            <button type="button" id="submitBtn" name="submitBtn" class="btnType2" >주문등록</button>
+            <button type="button" class="btnType1 mr10" onclick="go_orderList();">목록</button>
+            <button type="button" id="submitBtn" name="submitBtn" class="btnType2" >수정</button>
         </div>
         </div>
 

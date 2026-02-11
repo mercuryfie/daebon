@@ -29,7 +29,9 @@ class Material_m extends Model
 
     public function Load_Material_Log($mtcode,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_material_inout WHERE fk_mtcode=:MTCODE: ORDER BY seq DESC;";
+        $sql = "SELECT {$separated_val},";
+        $sql .= "(select name from tbl_member where uid=a.act_uid) as uname ";
+        $sql .= " FROM tbl_material_inout a WHERE fk_mtcode=:MTCODE: ORDER BY seq DESC;";
         $bindparam = [
             'MTCODE' => $mtcode,
         ];
@@ -169,6 +171,26 @@ class Material_m extends Model
         return $query->getResultArray();
     }
 
+    public function Load_MaterialList($param, $fields=['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+
+        $skey = $param['skey'] ?? '';
+        $fkey = $param['fkey'] ?? '';
+
+        $sql = "SELECT {$separated_val} FROM vw_material_info WHERE is_del=0";
+
+        if ($skey || $fkey) {
+            $sql .= ' AND ';
+            if ($skey) $sql .= "(mtcode LIKE '%{$skey}%' OR mtname LIKE '%{$skey}%')";
+            if ($fkey) $sql .= ($skey ? ' AND ' : '') . "typ = '{$fkey}'";
+        }
+
+        $sql .= ' ORDER BY mtname ASC';
+
+        return $this->db->query($sql)->getResultArray();
+    }
+
     public function Load_MaterialList_Type($typ,$fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
@@ -181,27 +203,27 @@ class Material_m extends Model
     }
 
 
-    public function Load_MaterialList($param, $fields=['ALL'])
-    {
-        $separated_val = fn_Make_Fields($fields);
-        $builder = $this->db->table('vw_material_info');
-        $builder->where('is_del', 0);
-
-        if (!empty($param['skey'])) {
-            $builder->groupStart()
-                ->like('mtcode', $param['skey'])
-                ->orLike('mtname', $param['skey'])
-                ->groupEnd();
-        }
-
-        if (!empty($param['fkey'])) {
-            $builder->where('typ', $param['fkey']);
-        }
-
-        $builder->orderBy('mtname', 'ASC');  // 정렬 추가
-
-        return $builder->get($param['limit'], $param['offset'])->getResultArray();
-    }
+//    public function Load_MaterialList($param, $fields=['ALL'])
+//    {
+//        $separated_val = fn_Make_Fields($fields);
+//        $builder = $this->db->table('vw_material_info');
+//        $builder->where('is_del', 0);
+//
+//        if (!empty($param['skey'])) {
+//            $builder->groupStart()
+//                ->like('mtcode', $param['skey'])
+//                ->orLike('mtname', $param['skey'])
+//                ->groupEnd();
+//        }
+//
+//        if (!empty($param['fkey'])) {
+//            $builder->where('typ', $param['fkey']);
+//        }
+//
+//        $builder->orderBy('mtname', 'ASC');
+//        $result = $builder->getResultArray();
+//        return $result;
+//    }
 
     public function Load_Material_Info($code,$fields=['ALL'])
     {

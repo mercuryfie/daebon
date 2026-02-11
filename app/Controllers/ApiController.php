@@ -57,7 +57,8 @@ class ApiController extends BaseController
                         'memo' => $d['memo'],
                         'reason' => fnMake_Material_Log_Reason($d['reason']),
                         'indate' => $d['indate'],
-                        'unit' => $unit
+                        'unit' => $unit,
+                        'uname' => $d['uname']
                     ];
                     $list[] = $t_arr;
                 }
@@ -117,7 +118,8 @@ class ApiController extends BaseController
                         'm_output' => 0,
                         'memo' => $memo,
                         'reason' => $reason,
-                        'indate' => $indate
+                        'indate' => $indate,
+                        'act_uid' => $sessinarr['user']['uid']
                     ];
                     $Cnt = $material_m->Insert_Material_Income($data);
                     if($Cnt >0){
@@ -144,7 +146,8 @@ class ApiController extends BaseController
                             'm_output' => $income,
                             'memo' => $memo,
                             'reason' => $reason,
-                            'indate' => $indate
+                            'indate' => $indate,
+                            'act_uid' => $sessinarr['user']['uid']
                         ];
                         $Cnt = $material_m->Insert_Material_Income($data);
                         if($Cnt >0){
@@ -1102,7 +1105,58 @@ class ApiController extends BaseController
         return $this->respond($return);
     }
 
-    public function Load_Goods_List()
+    public function Load_Goods_List(){
+        $sessinarr = $this->GetSessionData();
+        $search = ($this->request->getPost('search')==='') ? '' : $this->request->getPost('search');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $product_m = model('Product_m');
+            $pRs = $product_m->Load_Product_All($search);
+            $p_arr = [];
+            if(fn_ArrayCnt($pRs)>0){
+                foreach ($pRs as $d){
+                    $t_arr = [
+                        'seq' => $d['seq'],
+                        'pdcode' => $d['pdcode'],
+                        'pdname' => $d['pdname'],
+                        'pdWeigth' => $d['pdweigth'],
+                        'cname' => fnGetProductNameByCode($d['pdcategory']),
+                        'pdprice' => $d['pdprice'],
+                        'indate' => fn_Short_Date($d['indate']),
+                        'mCnt' => $d['mCnt'],
+                        'gCnt' => $d['gCnt']
+                    ];
+                    array_push($p_arr,$t_arr);
+                }
+            }
+
+            $i_arr = [
+                'list' => $p_arr,
+                'total' => fn_ArrayCnt($pRs)
+            ];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+
+    }
+
+    public function Load_Goods_Bom()
     {
         $sessinarr = $this->GetSessionData();
         $search  = ($this->request->getPost('search') == '') ? '' : $this->request->getPost('search');
@@ -1175,121 +1229,6 @@ class ApiController extends BaseController
         ];
         return $this->respond($return);
     }
-//
-//    public function Load_Product()
-//    {
-//        $sessinarr = $this->GetSessionData();
-//        $search  = ($this->request->getPost('search') == '') ? '' : $this->request->getPost('search');
-//        if($sessinarr['islogin']==false) {
-//            $result = 'NoLogin';
-//            $data = [];
-//            $message = '로그인이 필요합니다.';
-//        }else if(!Check_Token($sessinarr)) {
-//            $result = 'Error002';
-//            $data = [];
-//            $message = '잘못된 토큰입니다.';
-//        }else{
-//            $good_m = model('Goods_m');
-//            $mRs = $good_m->Load_Goods_Default($search);
-//            if(fn_ArrayCnt($mRs)>0){
-//                $material_m = model('Material_m');
-//                $m_arr = [];
-//                foreach ($mRs as $d) {
-//
-//                    $cRs = $material_m->Load_Goods_statistics($d['gscode'],'');
-//                    if(fn_ArrayCnt($cRs)>0){
-//                        $c_arr = [
-//                            'total' => ($cRs[0]['tg_input'] - $cRs[0]['tg_output']),
-//                            'input' => $cRs[0]['tg_input'],
-//                            'output' => $cRs[0]['tg_output'],
-//                            'avg'=>  $cRs[0]['avg_g_output']
-//                        ];
-//                    }else{
-//                        $c_arr = [
-//                            'input' => 0,
-//                            'output' => 0,
-//                            'avg'=>  0
-//                        ];
-//                    }
-//
-//                    $t_arr = [
-//                        'seq' => $d['seq'],
-//                        'gscode' => $d['gscode'],
-//                        'gsname' => $d['gsname'],
-//                        'category' => $d['category'],
-//                        'c_str' => fnGetProductNameByCode($d['category']),
-//                        'unit_type' => $d['unit_type'],
-//                        'gcode' => $d['gcode'],
-//                        'inventory' => $d['inventory'],
-//                        'unit_weight' => $d['unit_weight'],
-//                        't_cnt' => $d['t_cnt'],
-//                        'avg' => $c_arr
-//
-//                    ];
-//                    array_push($m_arr,$t_arr);
-//                }
-//                $i_arr = [
-//                    'list' => $m_arr,
-//                    'tcnt' => fn_ArrayCnt($m_arr)
-//                ];
-//
-//                $result = 'ok';
-//                $data = $i_arr;
-//                $message = '';
-//            }else{
-//                $result = 'ok';
-//                $data = [];
-//                $message = '';
-//            }
-//        }
-//
-//        $return = [
-//            'result' => $result,
-//            'info' => $data,
-//            'message' => $message
-//        ];
-//        return $this->respond($return);
-//    }
-
-
-
-//    public function Delete_Products(){
-//        $sessinarr = $this->GetSessionData();
-//        $code = ($this->request->getPost('code')=='') ?'':$this->request->getPost('code');
-//        if($sessinarr['islogin']==false) {
-//            $result = 'NoLogin';
-//            $data = [];
-//            $message = '로그인이 필요합니다.';
-//        }else if(!Check_Token($sessinarr)) {
-//            $result = 'Error002';
-//            $data = [];
-//            $message = '잘못된 토큰입니다.';
-//        }else if($code===''){
-//            $result = 'Error003';
-//            $data = [];
-//            $message = '잘못된 접근입니다.';
-//        }else{
-//            $goods_m = model('Goods_m');
-//            $Cnt = $goods_m->Delete_ProductDefault_Info($code);
-//            if($Cnt > 0){
-//                $result = 'ok';
-//                $data = [];
-//                $message = '';
-//            }else{
-//                $result = 'Error004';
-//                $data = [];
-//                $message = '등록에 실패 하였습니다.';
-//            }
-//        }
-//
-//        $return = [
-//            'result' => $result,
-//            'info' => $data,
-//            'message' => $message
-//        ];
-//        return $this->respond($return);
-//    }
-
 
     public function Load_Category_Info()
     {
@@ -1476,93 +1415,10 @@ class ApiController extends BaseController
         return $this->respond($return);
 
     }
-//
-//    public function Load_MaterialList(){
-//
-//        $data = $this->request->getPost('data') ?? [];
-//        $page = (int)($data['page'] ?? 1);
-//        $limit = PAGES30;
-//        $offset = $limit * ($page - 1);
-//
-//        $sessinarr = $this->GetSessionData();
-//        if($sessinarr['islogin']==false) {
-//            $result = 'NoLogin';
-//            $data = [];
-//            $message = '로그인이 필요합니다.';
-//        }else if(!Check_Token($sessinarr)){
-//            $result = 'Error002';
-//            $data = [];
-//            $message = '잘못된 토큰입니다.';
-//        }else{
-//            $skey = $data['skey'] ?? '';
-//            $fkey = $data['fkey'] ?? 0;
-//
-//            $material_m = model('Material_m');
-//            if ($skey == '' && $fkey == 0) {
-//                $mRs = $material_m->Load_MaterialList_All();
-//            } else if ($skey != '') {
-//                $mRs = $material_m->Load_Material_Search($skey);
-//            } else if ($fkey != '') {
-//                $mRs = $material_m->Load_Material_Filter($fkey);
-//            }
-//
-//            $m_arr = [];
-//
-//            foreach ($mRs as $d){
-//                $t_arr['seq'] = $d['seq'];
-//                $t_arr['mtcode'] = $d['mtcode'];
-//                $t_arr['typ'] = $d['typ'];
-//                $t_arr['typ_str'] = ($d['typ']==1) ? '원재료' : '부자재';
-//                $t_arr['mtname'] = $d['mtname'];
-//                $t_arr['fk_sucode'] = $d['fk_sucode'];
-//                $t_arr['fk_mkcode'] = $d['fk_mkcode'];
-//                $t_arr['inventory'] = $d['inventory'];
-//                $t_arr['uname'] = $d['unit_name'];
-//                $t_arr['fk_mkname'] = $d['fk_mkname'];
-//                $t_arr['fk_suname'] = $d['fk_suname'];
-//
-//                $cRs = $material_m->Load_Material_Statistics($d['mtcode']);
-//                if(fn_ArrayCnt($cRs)>0){
-//                    $nowstock = $cRs[0]['t_input'] - $cRs[0]['t_output'];
-//                    $t_arr['t_in'] = $cRs[0]['t_input'];
-//                    $t_arr['t_out'] = $cRs[0]['t_output'];
-//                    $t_arr['stock'] = $nowstock;
-//                    $t_arr['avg'] = $cRs[0]['avg_m_output'];
-//                    $t_arr['s_status'] = ($nowstock < $d['inventory']) ? 1 : 0;
-//                }else{
-//                    $t_arr['t_in'] = 0;
-//                    $t_arr['t_out'] = 0;
-//                    $t_arr['stock'] = 0;
-//                    $t_arr['avg'] = 0 ;
-//                    $t_arr['s_status'] = 0;
-//                }
-//                array_push($m_arr,$t_arr);
-//            }
-//
-//            $i_arr = [
-//                'list' => $m_arr,
-//                'tCnt' => fn_ArrayCnt($mRs)
-//            ];
-//
-//            $result = 'ok';
-//            $data = $i_arr;
-//            $message = '';
-//        }
-//
-//        $return = [
-//            'result' => $result,
-//            'info' => $data,
-//            'message' => $message
-//        ];
-//        return $this->respond($return);
-//    }
 
     public function Load_MaterialList(){
 
         $data = $this->request->getPost('data') ?? [];
-        $page = (int)($data['page'] ?? 1);
-        $limit = PAGES30;
-        $offset = $limit * ($page - 1);
 
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
@@ -1577,25 +1433,13 @@ class ApiController extends BaseController
             $skey = $data['skey'] ?? '';
             $fkey = $data['fkey'] ?? 0;
 
-
             $material_m = model('Material_m');
             $param = [
                 'skey' => $skey,
-                'fkey' => $fkey,
-                'limit' => $limit,
-                'offset' => $offset
+                'fkey' => $fkey
             ];
 
             $mRs = $material_m->Load_MaterialList($param);
-
-//            $material_m = model('Material_m');
-//            if ($skey == '' && $fkey == 0) {
-//                $mRs = $material_m->Load_MaterialList_All();
-//            } else if ($skey != '') {
-//                $mRs = $material_m->Load_Material_Search($skey);
-//            } else if ($fkey != '') {
-//                $mRs = $material_m->Load_Material_Filter($fkey);
-//            }
 
             $m_arr = [];
 
@@ -1630,8 +1474,7 @@ class ApiController extends BaseController
                 array_push($m_arr,$t_arr);
             }
 
-            $i_arr = [
-                'page' => $page,
+            $i_arr = [ 
                 'list' => $m_arr,
                 'tCnt' => fn_ArrayCnt($mRs)
             ];

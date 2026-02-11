@@ -145,7 +145,7 @@ $(document).ready(function() {
         let mkname= $(this).data('mkname');
         let suname= $(this).data('suname');
         let typ = $(this).data('typ');
-        let unit = (typ==1) ? 'g' : '개';
+        let unit = $(this).data('uname');
 
         $('#o_mtcode').text(mtcode);
         $('#o_mtname').text(mtname);
@@ -171,7 +171,7 @@ $(document).ready(function() {
         let mkname= $(this).data('mkname');
         let suname= $(this).data('suname');
         let typ = $(this).data('typ');
-        let unit = (typ==1) ? 'g' : '개';
+        let unit = $(this).data('uname');
 
         $('#mtcode').text(mtcode);
         $('#mtname').text(mtname);
@@ -362,7 +362,7 @@ async function Load_Material(stocktyp,param){
                     listname = 'outputlist';
                 }
                 $.each(arr, function (index, el) {
-                    html += `<button class="copyOption active" type="button" name="${sname}" data-typ="${el.typ}" data-mtcode="${el.mtcode}" data-mtname="${el.mtname}" data-typstr="${el.typ_str}" data-mkname="${el.fk_mkname}" data-suname="${el.fk_suname}">${el.mtname}</button>`;
+                    html += `<button class="copyOption active" type="button" name="${sname}" data-typ="${el.typ}" data-mtcode="${el.mtcode}" data-mtname="${el.mtname}" data-typstr="${el.typ_str}" data-mkname="${el.fk_mkname}" data-suname="${el.fk_suname}" data-uname="${el.uname}">${el.mtname}</button>`;
                 });
                 $('#' + listname).append(html);
                 $('#' + listname).addClass('active');

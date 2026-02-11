@@ -25,6 +25,7 @@ $routes->GET('order/missinglist', 'OrderController::missingList');
 $routes->GET('order/linkmallslogs', 'OrderController::linkMallsLogs');
 $routes->GET('order/orderlist', 'OrderController::orderList');
 $routes->GET('order/orderregister', 'OrderController::orderRegister');
+$routes->GET('order/ordereditor', 'OrderController::orderEditor');
 $routes->GET('order/deliverylist', 'OrderController::deliveryList');
 $routes->GET('order/packinglist', 'OrderController::packingList');
 $routes->GET('order/packingstatus', 'OrderController::packingStatus');

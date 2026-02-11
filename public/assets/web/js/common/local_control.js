@@ -179,10 +179,15 @@ function go_orderRegister() {
     $(location).attr("href", url);
 }
 
-function go_orderEditor(orcode,spmethod) {
-    var url = "/order/ordereditor?od=" + orcode;
-    console.log('dawn1546',orcode,spmethod)
-    $(location).attr("href", url);
+function go_orderEditor(orcode,spmethod,cnxl) {
+    console.log('dawn',orcode,spmethod,cnxl);
+    if (cnxl == 1) {
+        Make_Toast('취소된 주문 건입니다.');
+    } else {
+        var url = "/order/ordereditor?od=" + orcode;
+        console.log('dawn1546',orcode,spmethod)
+        $(location).attr("href", url);
+    }
 }
 
 function go_deliList() {

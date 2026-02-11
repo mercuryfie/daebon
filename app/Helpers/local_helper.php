@@ -173,26 +173,27 @@ function get_Order_Product_short_info($model,$orcode){
     $short_name = '';
     $short_sub = '';
     $short_pdcode = '';
-    $short_pdsub = '';
     $short_sgcode = '';
-    $short_sgsub = '';
     $pcnt = 0;
+
+//    $short_pdsub = '';
+//    $short_sgsub = '';
     $info = $model->Load_Order_Product($orcode);
     $info_cnt = fn_ArrayCnt($info);
     if($info_cnt>0){
         if($info_cnt >= 2){
             $short_sub = "외 (". ($info_cnt-1).")건";
-            $short_pdsub = "(". ($info_cnt-1).")";
-            $short_sgsub = "(". ($info_cnt-1).")";
+//            $short_pdsub = "(". ($info_cnt-1).")";
+//            $short_sgsub = "(". ($info_cnt-1).")";
         }
         $short_name = $info[0]['pdname'];
         $short_pdcode = $info[0]['fk_pdcode'];
         $short_sgcode = $info[0]['sgcode'];
     }
     if($short_sub!=''){
-        $short_name = $short_name . ' ' . $short_sub;
-        $short_pdcode = $short_pdcode .$short_pdsub;
-        $short_sgcode = $short_sgcode . $short_sgsub;
+        $short_name = $short_name;
+        $short_pdcode = $short_pdcode ;
+        $short_sgcode = $short_sgcode ;
     }
 
     $t_arr = [

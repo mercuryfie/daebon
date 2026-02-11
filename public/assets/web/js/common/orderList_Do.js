@@ -258,12 +258,12 @@ async function Make_Html(data){
 
             if(el.is_cancel == 0) {
                 cnxl_css = ``;
-                cnxl_fn1 = `onclick="go_orderEditor('${el.orcode}','${el.shopmethod}');"`;
+                cnxl_fn1 = `onclick="go_orderEditor('${el.orcode}','${el.shopmethod}','${el.is_cancel}');"`;
             }else{
                 cnxl_css = `cxled_order`;
                 cnxl_status = `<p class="data fs14">취소됨</p>`
                 subhtml2 = `-`;
-                cnxl_fn1 = ``;
+                cnxl_fn1 = `onclick="go_orderEditor('${el.orcode}','${el.shopmethod}','${el.is_cancel}');"`;
             }
 
             html +=`

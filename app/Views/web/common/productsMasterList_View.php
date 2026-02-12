@@ -33,17 +33,17 @@
                     </div>
                 </div>
                 <div class="area4 products_boxa1b flexType2 ">
-                    <div class="products_boxfxp  ">
-                        <table class="orderInfoTable orderInfoTable1 prodMas_tabledo1 ">
+                    <div class="common_tbl_wrap  ">
+                        <table class="common_tbl">
                             <thead>
                             <tr>
-                                <td class="ltThead">BOM코드</td>
-                                <td class="ltThead">제품명</td>
-                                <td class="ltThead">지시수량</td>
-                                <td class="ltThead">작업 중 수량</td>
-                                <td class="ltThead">공정단계수</td>
-                                <td class="ltThead ">출력</td>
-                                <td class="ltThead">삭제</td>
+                                <th class="ltThead">BOM코드</th>
+                                <th class="ltThead">제품명</th>
+                                <th class="ltThead">지시수량</th>
+                                <th class="ltThead">작업 중 수량</th>
+                                <th class="ltThead">공정단계수</th>
+                                <th class="ltThead ">출력</th>
+                                <th class="ltThead">삭제</th>
                             </tr>
                             </thead>
                             <tbody id="clist" name="clist">

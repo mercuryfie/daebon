@@ -179,7 +179,7 @@ $routes->match(['GET', 'POST'], 'Api/ESM_Order_Period', 'ApiMarketController::ES
 $routes->match(['GET', 'POST'], 'Api/getInIInfo', 'ApiMarketController::getInIInfo');
 
 $routes->match(['GET', 'POST'], 'Api/Load_DashBoard_Info', 'ApiDashBoardController::Load_DashBoard_Info');
-
+$routes->match(['GET', 'POST'], 'Api/Load_DashBoard_Material', 'ApiDashBoardController::Load_DashBoard_Material');
 
 
 $routes->match(['GET', 'POST'], 'Api/coupong_api_no1', 'ApiShopController::coupong_api_GetOrderPeriod');

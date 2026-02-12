@@ -46,16 +46,16 @@
                 </div>
             </div>
             <div class="area4 goods_boxa1b flexType2 ">
-                <div class="produce_boxfxp">
-                    <table class="orderInfoTable orderInfoTable1 ">
+                <div class="common_tbl_wrap">
+                    <table class="common_tbl">
                         <thead>
                         <tr>
-                            <td class="ltThead">구분</td>
-                            <td class="ltThead">이름</td>
-                            <td class="ltThead">전체재고</td>
-                            <td class="ltThead">최종일자</td>
-                            <td class="ltThead">입고바코드</td>
-                            <td class="ltThead">로그</td>
+                            <th class="ltThead">구분</th>
+                            <th class="ltThead">이름</th>
+                            <th class="ltThead">전체재고</th>
+                            <th class="ltThead">최종일자</th>
+                            <th class="ltThead">입고바코드</th>
+                            <th class="ltThead">로그</th>
                         </tr>
                         </thead>
                         <tbody id="tList">

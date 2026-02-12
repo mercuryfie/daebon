@@ -18,6 +18,17 @@ class Delivery_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Load_dashboardDelivery_Info(){
+        $sql = "SELECT COUNT(CASE WHEN p_status = 0 THEN 1 END) AS package_ready,COUNT(CASE WHEN p_status = 1 THEN 1 END) AS package_start,COUNT(CASE WHEN p_status = 2 THEN 1 END) AS package_complete ";
+        $sql .= " FROM tbl_delivery_info WHERE is_del = 0 AND DATE_FORMAT(indate, '%Y-%m-%d') = CURDATE() ;";
+        $bindparam = [
+            'ISDEL'=> 0
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+
     public function get_Delivery_List_All($param,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
         $sql = "SELECT {$separated_val} FROM tbl_delivery_info a ";

@@ -64,25 +64,25 @@
                     <p class="unit">건</p>
                 </div>
                 <div class="right">
-                    <button type="button" class="btnType1 mr20">엑셀다운로드</button>
+                    <button type="button" class="btnType1 mr40">엑셀다운로드</button>
                 </div>
             </div>
             <div class="area4 goods_boxa1b flexType2">
-                <div class="produce_boxfxp">
-                    <table class="orderInfoTable orderInfoTable1 pro_tablefz7c">
+                <div class="common_tbl_wrap">
+                    <table class="common_tbl">
                         <thead>
                         <tr name="view_detail" data-code="${el.gicode}">
-                            <td class="ltThead productNo checkCol"></td>
-                            <td class="ltThead">지시날짜</td>
-                            <td class="ltThead">지시코드</td>
-                            <td class="ltThead">제품BOM명</td>
-                            <td class="ltThead">현재공정위치</td>
+                            <th class="ltThead productNo checkCol"></th>
+                            <th class="ltThead">지시날짜</th>
+                            <th class="ltThead">지시코드</th>
+                            <th class="ltThead">제품BOM명</th>
+                            <th class="ltThead">현재공정위치</th>
 
-                            <td class="ltThead">생산수량</td>
-                            <td class="ltThead">상태</td>
-                            <td class="ltThead">생산자</td>
-                            <td class="ltThead">생산현황</td>
-                            <td class="ltThead">출력</td>
+                            <th class="ltThead">생산수량</th>
+                            <th class="ltThead">상태</th>
+                            <th class="ltThead">생산자</th>
+                            <th class="ltThead">생산현황</th>
+                            <th class="ltThead">출력</th>
                         </tr>
                         </thead>
                         <tbody name="clist" id="clist">

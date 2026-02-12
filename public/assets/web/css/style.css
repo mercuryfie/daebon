@@ -3554,7 +3554,10 @@ input[type="radio"] {
     width: auto;
     height: 24px;
     line-height: 24px;
+    font-size: 14px;
+    color:#5c5c5c;
 }
+
 .products_list_box .countInput {
     border:1px solid #ccc;
     border-radius: 2px;
@@ -6071,6 +6074,10 @@ input[type="radio"] {
     margin-right: 40px;
 }
 
+.mr60 {
+    margin-right: 60px;
+}
+
 .p20 {
     padding: 20px;
 }
@@ -6159,6 +6166,44 @@ input[type="radio"] {
     border:1px solid red;
 }
 
+.common_tbl_wrap {
+    border:1px solid #ccc;
+    width: 80vw;
+    height: auto;
+    max-height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.common_tbl_wrap .common_tbl {
+    width: 80vw;
+    border-collapse: collapse;
+}
+
+
+.common_tbl_wrap .common_tbl th,
+.common_tbl_wrap .common_tbl td {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    height: 32px;
+    text-wrap: nowrap;
+    text-align: center;
+}
+
+.common_tbl_wrap .common_tbl th {
+    background-color: #ececec;
+    position: sticky;
+    top:0;
+    font-weight: normal;
+
+}
+.common_tbl_wrap .common_tbl .btnType3 {
+    color:#5c5c5c;
+    padding: 2px 10px;
+    font-size: 14px;
+    /*height: 24px;*/
+    /*line-height: 24px;*/
+}
 .btnType1 {
     border: 1px solid #ccc;
     background-color: #fff;

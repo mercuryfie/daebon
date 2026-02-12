@@ -43,8 +43,8 @@
             </div>
             <div class="area3 area_box2qd ">
                 <div class="elBox">
-                    <div class="element element2">
-                        <table class="fac_tablexx9" >
+                    <div class="common_tbl_wrap">
+                        <table class="common_tbl" >
                             <thead>
                             <tr>
                                 <th>제조사코드</th>

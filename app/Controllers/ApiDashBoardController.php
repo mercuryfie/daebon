@@ -14,6 +14,12 @@ class ApiDashBoardController extends BaseController
 {
     use ResponseTrait;
 
+
+    public function Load_DashBoard_Material(){
+
+    }
+
+
     public function Load_DashBoard_Info(){
         $sessinarr = $this->GetSessionData();
         if ($sessinarr['islogin'] == false) {
@@ -52,17 +58,72 @@ class ApiDashBoardController extends BaseController
                     $totarOrder += $d['Cnt'];
                 }
             }
-
             $o_arr = [
                 'o_list' => $order,
                 'o_tcnt' => $totarOrder
             ];
 
+            $produce = [
+                'p_ready' => 0,
+                'p_ing' => 0,
+                'p_complete' => 0
+            ];
+
+            $totalproduce = 0;
+            $produce_m = model('Produce_m');
+            $pRs = $produce_m->Load_dashboardProduce_Info();
+            if(fn_ArrayCnt($pRs)>0){
+                $produce['p_ready'] = $pRs[0]['count_ready'];
+                $produce['p_ing'] = $pRs[0]['count_ing'];
+                $produce['p_complete'] = $pRs[0]['count_complete'];
+                $totalproduce += $pRs[0]['count_ready'] + $pRs[0]['count_ing'] + $pRs[0]['count_complete'];
+            }
+
+            $p_arr = [
+                'p_list' => $produce,
+                'p_tcnt' => $totalproduce
+            ];
+
+            $delivery = [
+                'd_ready' => 0,
+                'd_ing' => 0,
+                'd_complete' =>0
+            ];
+
+            $totaldelivery = 0;
+            $delivery_m = model('Delivery_m');
+            $dRs = $delivery_m->Load_dashboardDelivery_Info();
+            if(fn_ArrayCnt($dRs) > 0){
+                $delivery['d_ready'] = $dRs[0]['package_ready'];
+                $delivery['d_ing'] = $dRs[0]['package_start'];
+                $delivery['d_complete'] = $dRs[0]['package_complete'];
+                $totaldelivery = $dRs[0]['package_ready'] + $dRs[0]['package_start'] + $dRs[0]['package_complete'];
+            }
+
+            $d_arr = [
+                'd_list' => $delivery,
+                'd_tcnt' => $totaldelivery
+            ];
+
+            $notice = [];
+            $common_m = model('Common_m');
+            $cRs = $common_m->Load_NoticeType_List(2);
+            if(fn_ArrayCnt($cRs)>0){
+
+                foreach ($cRs as $d){
+                    $notice[] = $d['bTitle'];
+                }
+            }
+
+
             $i_arr = [
                 'list' => [
                     'temperature' => $temperature,
                     'humidity'    => $humidity,
-                    'order' => $o_arr
+                    'order' => $o_arr,
+                    'produce' => $p_arr,
+                    'delivery' =>$d_arr,
+                    'notice' => $notice
                 ]
             ];
 

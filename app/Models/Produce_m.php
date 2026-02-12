@@ -18,6 +18,18 @@ class Produce_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Load_dashboardProduce_Info(){
+        $sql = "SELECT COUNT(CASE WHEN is_complete = 0 THEN 1 END) AS count_ready,COUNT(CASE WHEN is_complete = 1 THEN 1 END) AS count_ing,COUNT(CASE WHEN is_complete = 2 THEN 1 END) AS count_complete ";
+        $sql .= "FROM tbl_instructions WHERE is_del = :ISDEL: AND DATE_FORMAT(indate, '%Y-%m-%d') = CURDATE() ";
+        $bindparam = [
+            'ISDEL'=> 0
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+
+
     public function Load_SemiProduct_Info($search){
 
         $sql = "SELECT a.seq,pscode,a.fk_gicode,b.gname,c.step_name,a.indate, ";

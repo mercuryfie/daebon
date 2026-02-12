@@ -28,16 +28,13 @@
             <!--                <p>EMERGENCY MESSAGE</p>-->
             <div class="hbox hbox2" id="" >
                 <div class="msg_wrap " id="">
-                    <div class="msg_box">
-                        <p class="data data1" id="msg_data">d1</p>
-                        <p class="data data2" id="">d2d</p>
-                        <p class="data data3" id="">d3d</p>
+                    <div class="msg_box" id="notice">
                     </div>
                 </div>
             </div>
-            <div class="hbox hbox3">
-                <p>2025/01/01 THU</p>
-                <p>09:00</p>
+            <div class="hbox hbox3" id="nowclock" name="nowclock">
+                <p id="nowdate" name="nowdate"></p>
+                <p id="nowtime" name="nowtime"></p>
                 <p>🌞</p>
             </div>
         </header>
@@ -331,13 +328,13 @@
                     </div>
                     <div class="downside flexType2">
                         <div class="mbox2-1-1">
-                            <p>진행 현황</p>
+                            <p>생산 현황 (200)</p>
                             <div class="leftbox">
                                 <div
                                     class="GaugeMeter4 gaugapapa"
-                                    id="GaugeMeter_113"
+                                    id="p_ready"
                                     data-back="rgba(174,174,174,0.5)"
-                                    data-label="생산현황"
+                                    data-label="지시"
                                     data-label_color="#FFF"
                                     data-size="70"
                                     data-style="Arch"
@@ -346,17 +343,17 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-color="rgb(119 90 248)"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_produce">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter4 gaugapapa"
-                                    id="GaugeMeter_114"
+                                    id="p_ing"
                                     data-back="rgba(174,174,174,0.5)"
-                                    data-label="발송완료"
+                                    data-label="진행중"
                                     data-label_color="#FFF"
                                     data-size="70"
                                     data-style="Arch"
@@ -365,17 +362,17 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-color="rgb(119 90 248)"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1"  name="t_produce">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter4 gaugapapa"
-                                    id="GaugeMeter_115"
+                                    id="p_complete"
                                     data-back="rgba(174,174,174,0.5)"
-                                    data-label="발송지연"
+                                    data-label="완료"
                                     data-label_color="#FFF"
                                     data-size="70"
                                     data-style="Arch"
@@ -384,22 +381,22 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-color="rgb(119 90 248)"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1"  name="t_produce">0</p>
                                 </div>
                             </div>
                         </div>
                         <div class="mbox2-1-2">
-                            <p>클레임</p>
+                            <p>포장 현황 (200)</p>
                             <div class="rightbox">
                                 <div
                                     class="GaugeMeter4 gaugapapa"
-                                    id="GaugeMeter_116"
+                                    id="d_ready"
                                     data-back="rgba(174,174,174,0.5)"
-                                    data-label="취소"
+                                    data-label="지시"
                                     data-label_color="#FFF"
                                     data-size="70"
                                     data-style="Arch"
@@ -408,17 +405,17 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-color="#23FFC8"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_delivery">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter4 gaugapapa"
-                                    id="GaugeMeter_117"
+                                    id="d_ing"
                                     data-back="rgba(174,174,174,0.5)"
-                                    data-label="반품"
+                                    data-label="진행중"
                                     data-label_color="#FFF"
                                     data-size="70"
                                     data-style="Arch"
@@ -427,17 +424,17 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-color="#23FFC8"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_delivery">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter4 gaugapapa"
-                                    id="GaugeMeter_118"
+                                    id="d_compelete"
                                     data-back="rgba(174,174,174,0.5)"
-                                    data-label="교환"
+                                    data-label="배송시작"
                                     data-label_color="#FFF"
                                     data-size="70"
                                     data-style="Arch"
@@ -446,31 +443,13 @@
                                     data-min="0"
                                     data-total="100"
                                     data-stripe="3"
-                                    data-used="80"
+                                    data-used="0"
                                     data-color="#95FF23"
                                     data-append=""
                                 >
-                                    <p class="line1-1">200</p>
+                                    <p class="line1-1" name="t_delivery">0</p>
                                 </div>
-                                <div
-                                    class="GaugeMeter4 gaugapapa"
-                                    id="gm_117"
-                                    data-back="rgba(174,174,174,0.5)"
-                                    data-label="미수령"
-                                    data-label_color="#FFF"
-                                    data-size="70"
-                                    data-style="Arch"
-                                    data-width="8"
-                                    data-showvalue="true"
-                                    data-min="0"
-                                    data-total="100"
-                                    data-stripe="3"
-                                    data-used="80"
-                                    data-color="#95FF23"
-                                    data-append=""
-                                >
-                                    <p class="line1-1">200</p>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -522,18 +501,17 @@
     <!--                    <canvas id="barChart"></canvas>-->
                         <canvas id="m_barChart"></canvas>
                     </div>
-                    <div class="pagebox">
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                        <div class="pages"></div>
+                    <div class="pagebox" id="material">
+                        <div class="pages" data-page="1"></div>
+                        <div class="pages" data-page="2"></div>
+                        <div class="pages" data-page="3"></div>
+                        <div class="pages" data-page="4"></div>
+                        <div class="pages" data-page="5"></div>
+                        <div class="pages" data-page="6"></div>
+                        <div class="pages" data-page="7"></div>
+                        <div class="pages" data-page="8"></div>
+                        <div class="pages" data-page="9"></div>
+                        <div class="pages" data-page="10"></div>
                     </div>
                 </div>
             </div>
@@ -555,18 +533,17 @@
                     <div class="fcbox fcbox2">
                         <canvas id="p_barChart"></canvas>
                     </div>
-                    <div class="pagebox">
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                        <div class="pages"></div>
-                        <div class="pages"></div>
+                    <div class="pagebox" id="goods">
+                        <div class="pages" data-page="1"></div>
+                        <div class="pages" data-page="2"></div>
+                        <div class="pages" data-page="3"></div>
+                        <div class="pages" data-page="4"></div>
+                        <div class="pages" data-page="5"></div>
+                        <div class="pages" data-page="6"></div>
+                        <div class="pages" data-page="7"></div>
+                        <div class="pages" data-page="8"></div>
+                        <div class="pages" data-page="9"></div>
+                        <div class="pages" data-page="10"></div>
                     </div>
             </div>
         </section>

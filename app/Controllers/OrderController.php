@@ -273,7 +273,7 @@ class OrderController extends BaseController
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/common/deliList_View',$main_data);
+            return view('web/common/deliveryList_View',$main_data);
         }
     }
 

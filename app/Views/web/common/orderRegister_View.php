@@ -98,7 +98,7 @@
             </div>
         </div>
         <div class="lastBox flexType5">
-            <button type="button" class="btnType1 mr10" onclick="go_orderList();">이전</button>
+            <button type="button" class="btnType1 mr10" onclick="go_orderList();">목록</button>
             <button type="button" id="submitBtn" name="submitBtn" class="btnType2" >주문등록</button>
         </div>
         </div>

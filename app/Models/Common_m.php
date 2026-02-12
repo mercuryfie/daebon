@@ -106,6 +106,25 @@ class Common_m extends Model
         return $affected;
     }
 
+    public function Load_NoticeType_List($typ,$fields=['ALL']){
+        $subsql = '';
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_board WHERE is_Del=:IS_DEL: ";
+        if($typ==1){
+            $subsql .= " AND is_Fix=:ISVALUE:";
+        }else if($typ==2){
+            $subsql .= " AND is_Notice=:ISVALUE:";
+        }
+        $sql = $sql . $subsql . " order by regidate DESC;";
+        $bindparam = [
+            'IS_DEL' => 0,
+            'ISVALUE' => 1
+        ];
+
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
 
     public function Load_NoticeList($bcode,$fields=['ALL'])
     {

@@ -2,7 +2,7 @@
 <?= $this->section("content") ?>
 
 <!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/deliveryList.js?rnd=<?= rand(); ?>"></script>
+<script src="<?=URL_COMMON_ASSETS?>/deliveryList_Do.js?rnd=<?= rand(); ?>"></script>
 
 <script>
 </script>
@@ -56,25 +56,24 @@
 <!--                    <p class="status">전체 주문 : 100 건 | 발송 : 10 건 | 발송완료 : 10 건</p>-->
                 </div>
                 <div class="right">
-                    <button type="button" class="btnType1 mr10">엑셀다운로드</button>
-                    <button type="button" class="btnType1 mr40" id="btn_reload" name="btn_reload">초기화</button>
+                    <button type="button" class="btnType1 mr60">엑셀다운로드</button>
                 </div>
             </div>
             <div class="area4 ">
-                <div class="deli_box1od">
-                    <table class="deliInfoTable ml20 ">
+                <div class="common_tbl_wrap ml20 mt20">
+                    <table class="common_tbl  ">
                         <thead>
                         <tr>
-                            <td class="ltThead productNo">쇼핑몰</td>
-                            <td class="ltThead productNo">쇼핑몰주문번호</td>
-                            <td class="ltThead productNo">송장번호</td>
-                            <td class="ltThead productNo">송장등록일</td>
-                            <td class="ltThead productNo">주문일</td>
-                            <td class="ltThead productNo">상품명</td>
-                            <td class="ltThead productNo">수량</td>
-                            <td class="ltThead productNo">수령인</td>
-                            <td class="ltThead productNo">수령인 전화번호</td>
-                            <td class="ltThead productNo">수령인 주소</td>
+                            <th class="ltThead productNo">쇼핑몰</th>
+                            <th class="ltThead productNo">쇼핑몰주문번호</th>
+                            <th class="ltThead productNo">송장번호</th>
+                            <th class="ltThead productNo">송장등록일</th>
+                            <th class="ltThead productNo">주문일</th>
+                            <th class="ltThead productNo">상품명</th>
+                            <th class="ltThead productNo">수량</th>
+                            <th class="ltThead productNo">수령인</th>
+                            <th class="ltThead productNo">수령인 전화번호</th>
+                            <th class="ltThead productNo">수령인 주소</th>
                         </tr>
                         </thead>
                         <tbody id="cList">

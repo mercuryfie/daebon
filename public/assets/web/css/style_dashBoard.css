@@ -71,18 +71,16 @@ header {
     height: 40px;
     overflow: hidden;
     position: relative;
-    border: 1px solid blue;
 }
 
 .msg_box {
     display: flex;
-    flex-direction: column;  /* 세로 방향으로 변경 */
+    flex-direction: column;
     width: 920px;
     height: 40px;
-    position: absolute;  /* relative → absolute로 변경 */
+    position: absolute;
     top: 0;
     left: 0;
-    border: 1px solid blue;
 }
 
 .msg_box .data {
@@ -92,30 +90,9 @@ header {
     padding: 0 10px;
     white-space: nowrap;
     flex-shrink: 0;
-    border: 1px solid greenyellow;
+    font-size: 22px;
 }
 
-/*.hbox2 .msg_box {*/
-/*    border:1px solid red;*/
-/*    width: 920px;*/
-/*    height: 40px;*/
-/*    overflow: hidden;*/
-/*    position: relative;*/
-/*}*/
-
-/*.hbox2 .msg_box .data{*/
-/*    border:1px solid yellow;*/
-/*    font-size: 16px;*/
-/*    text-wrap: nowrap;*/
-/*    width: 920px;*/
-/*    height: 40px;*/
-/*    line-height: 40px;*/
-/*    padding: 0 10px;*/
-/*    position: absolute;*/
-/*    top:0;*/
-/*    left:0;*/
-/*    !*text-align: *!*/
-/*}*/
 
 .hbox3 {
     display: flex;
@@ -313,7 +290,6 @@ main {
     font-size: 18px;
 }
 
-/* 탕전기 동작현황의 pagebox */
 /* 탕전기 동작 현황 */
 .mbox1-2-1 {
     width: 400px;
@@ -330,20 +306,6 @@ main {
     border-radius: 5px;
     display: flex;
     justify-content: space-evenly;
-}
-.mbox1-2 .pagebox {
-    position: absolute;
-    bottom:20px;
-    left:60%;
-    transform: translateX(-60%);
-    display: flex;
-}
-.mbox1-4 .pagebox {
-    position: absolute;
-    bottom:20px;
-    left:50%;
-    transform: translateX(-50%);
-    display: flex;
 }
 
 /* pownow 탕동현의 상태값 */
@@ -1105,26 +1067,6 @@ main {
 .mbox3-2 {
     position: relative;
 }
-.mbox3-2 .pagebox {
-    position: absolute;
-    bottom:10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-}
-
-.pages {
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    border: 1px solid #ececec81;
-    margin-right: 15px;
-}
-
-.pages:nth-child(1) {
-    background-color: #ececec;
-    border: 1px solid #A698FF;
-}
 
 /* 택배 마감 시간, flipcard*/
 .clockbox {
@@ -1354,71 +1296,6 @@ main {
     background:linear-gradient(to left,rgb(249, 74, 249), rgb(80, 42, 248));
 }
 
-/* 택배발송현황 */
-/*.mbox3-3 {*/
-/*    overflow: hidden;*/
-/*    position: relative;*/
-/*}*/
-/*.mbox3-3>p:nth-child(2) {*/
-/*    font-weight: normal;*/
-/*    font-size: 14px;*/
-/*    position: absolute;*/
-/*    top:20px;*/
-/*    right: 20px;*/
-/*}*/
-/*.parbox {*/
-/*    margin-top: 20px;*/
-/*    margin-left: 40px;*/
-/*    width: 360px;*/
-/*    height: 120px;*/
-/*    display: flex;*/
-/*    position: relative;*/
-/*    justify-content: space-evenly;*/
-/*    overflow: hidden;*/
-/*}*/
-
-/*.GaugeMeter5,*/
-/*.GaugeMeter6 {*/
-/*    height: 110px;*/
-/*    margin-right: 10px;*/
-/*    position: Relative;*/
-/*    text-align: Center;*/
-/*    overflow: Hidden;*/
-
-/*}*/
-
-/*.GaugeMeter5 span,*/
-/*.GaugeMeter6 span {*/
-/*    background-color: transparent;*/
-/*    font-family:'Chakra Petch' !important;*/
-/*    font-size: 22px !important;*/
-/*    font-weight: 500;*/
-/*}*/
-
-/*.GaugeMeter5 B,*/
-/*.GaugeMeter6 B {*/
-/*    position: absolute;*/
-/*    top:20px;*/
-/*    left:0px;*/
-/*    background-color: transparent;*/
-/*    color:#fff !important;*/
-/*    font-size: 16px;*/
-/*    font-weight: normal;*/
-/*}*/
-/*.GaugeMeter5 SPAN,*/
-/*.GaugeMeter5 B,*/
-/*.GaugeMeter6 SPAN,*/
-/*.GaugeMeter6 B  {*/
-/*    margin: 0 10%;*/
-/*    width: 78%;*/
-/*    font-family:'Chakra Petch';*/
-/*    position: Absolute;*/
-/*    text-align: Center;*/
-/*    display: Inline-Block;*/
-/*    overflow: Hidden;*/
-/*    white-space: NoWrap;*/
-/*    z-index: 1;*/
-/*}*/
 
 /* footer box --------------------------------- */
 .fbox-con {
@@ -1543,4 +1420,16 @@ main {
     bottom:20px;
     left:53%;
     transform: translateX(-53%);
+}
+
+.pages {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    border: 1px solid #ececec81;
+    margin-right: 15px;
+}
+
+.pages.active {
+    background-color: #A698FF;
 }

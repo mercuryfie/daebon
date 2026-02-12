@@ -28,20 +28,6 @@
                         </tr>
                     </thead>
                     <tbody id="nList" name="nList">
-<!--                        <tr class="fixed">-->
-<!--                            <td class="num">-->
-<!--                                <p class="type">공지</p>-->
-<!--                            </td>-->
-<!--                            <td>제목</td>-->
-<!--                            <td>이름</td>-->
-<!--                            <td>날짜</td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td class="num">번호</td>-->
-<!--                            <td>제목</td>-->
-<!--                            <td>이름</td>-->
-<!--                            <td>날짜</td>-->
-<!--                        </tr>-->
                     </tbody>
                 </table>
             </div>

@@ -43,16 +43,16 @@
                 </div>
             </div>
             <div class="area4 goods_boxa1b flexType2">
-                <div class="produce_boxfxp">
-                    <table class="orderInfoTable orderInfoTable1 ">
+                <div class="common_tbl_wrap">
+                    <table class="common_tbl ">
                         <thead>
                         <tr>
-                            <td class="ltThead">반제품코드</td>
-                            <td class="ltThead">BOM코드</td>
-                            <td class="ltThead">공정이름</td>
-                            <td class="ltThead">입고량</td>
-                            <td class="ltThead">출고량</td>
-                            <td class="ltThead">출입고일자</td>
+                            <th class="ltThead">반제품코드</th>
+                            <th class="ltThead">BOM코드</th>
+                            <th class="ltThead">공정이름</th>
+                            <th class="ltThead">입고량</th>
+                            <th class="ltThead">출고량</th>
+                            <th class="ltThead">출입고일자</th>
                         </tr>
                         </thead>
                         <tbody id="clist">

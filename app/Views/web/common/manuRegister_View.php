@@ -169,7 +169,7 @@
             
         </div>
         <div class="lastBox flexType6">
-            <button type="button" class="btnType1 mr10" onclick="go_productsReg();">이전</button>
+            <button type="button" class="btnType1 mr10" onclick="go_productsReg();">목록</button>
             <button type="button" id="nextBtn" name="nextBtn" class="btnType2">확인</button>
         </div>
     </div>

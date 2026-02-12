@@ -125,6 +125,16 @@ class Order_m extends Model
         return $query->getResultArray();
     }
 
+    public function Load_Order_ByOrcode($orcode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_order_products where fk_orcode=:FKORCODE:";
+        $bindparam = [
+            'FKORCODE' => $orcode,
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
     public function Load_Order_InfoBySgcode($orcode,$sgcode,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
         $sql = "SELECT {$separated_val} FROM tbl_order_products where fk_orcode=:FKORCODE: AND sgcode=:SGCODE:";
@@ -274,6 +284,7 @@ class Order_m extends Model
         return $affected;
     }
 
+
     public function Insert_Order_delivery_Info($param){
         $this->db->transStart();
         $builder = $this->db->table('tbl_delivery_info');
@@ -325,6 +336,39 @@ class Order_m extends Model
     public function Update_Order_Info($codes,$param){
         $this->db->transStart();
         $builder = $this->db->table('tbl_order');
+        $builder->whereIn('orcode', $codes);
+        $builder->update($param);
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+
+    public function Load_Order_User_Info($code,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_order_buyer_info where fk_orcode=:ORCODE:";
+        $bindparam = [
+            'ORCODE'=> $code
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Update_Order_User_Info($orcode,$u_info){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_order_buyer_info');
+        $builder->where('fk_orcode', $orcode);
+        $builder->update($u_info);
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+
+        return $affected_rows;
+    }
+
+    public function Update_Order_Products_Info($codes,$param){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_order_products');
         $builder->whereIn('orcode', $codes);
         $builder->update($param);
         $affected_rows = $this->db->affectedRows();

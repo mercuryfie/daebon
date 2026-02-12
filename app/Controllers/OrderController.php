@@ -231,9 +231,11 @@ class OrderController extends BaseController
 
             $order_m = model('Order_m');
             $Rs = $order_m->Load_Order_Info($orcode);
+            $p_arr = $order_m->Load_Order_ByOrcode($orcode);
 
             $main_data = [
                 'info' => $Rs,
+                'p_arr' => $p_arr,
                 'excode' => opt_Excode('')
             ];
 

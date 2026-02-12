@@ -94,10 +94,10 @@ $(document).ready(function(){
         let buyid = $('#buyid').val();
         $('#add_list').find('div[name="add_product_info"]').each(function () {
             let pdcode = $(this).data('code');
-            let pdcont = $(this).find('p[name="gcnt"]').data('cnt');
+            let pdcnt = $(this).find('p[name="gcnt"]').data('cnt');
             let t_arr = {
                 pdcode: pdcode,
-                pdcnt: pdcont
+                pdcnt: pdcnt
             }
             product_arr.push(t_arr);
         });
@@ -140,9 +140,10 @@ $(document).ready(function(){
                 orderdate : ''
             };
 
+            console.log('dawn',data);
             let bool = await Reg_Order(data);
             if(bool===true){
-                go_orderList();
+                // go_orderList();
             }else{
                 Make_Toast('주문등록에 실패 하였습니다.');
             }
@@ -192,6 +193,7 @@ async function Reg_Order(param){
     let bool = false;
     try {
         start_spinner();
+        console.log('dawn',param);
         let dataarr = {"param" : param};
         let url = APIURL + '/Insert_Order';
         let result = await Load_API_Auth(url,dataarr);

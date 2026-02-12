@@ -786,7 +786,8 @@ class ApiOrderController extends BaseController
                             $t_arr = [
                                 'fk_orcode' => $orcode,
                                 'fk_pdcode' => $d['pdcode'],
-                                'sgcode' => '',
+                                'sgcode' =>  $d['pdcode'],
+                                'sgname' => $cRs[0]['pdname'],
                                 'gprice' => $cRs[0]['pdprice'],
                                 'gcnt' => $d['pdcnt'],
                                 'gtprice' => ($cRs[0]['pdprice'] * $d['pdcnt'])
@@ -830,6 +831,62 @@ class ApiOrderController extends BaseController
             'info' => $data,
             'message' => $message
         ];
+        return $this->respond($return);
+    }
+
+
+    public function Mod_Order(){
+        $sessinarr = $this->GetSessionData();
+        $param = $this->request->getPost('param') ?? [];
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(fn_ArrayCnt($param)===0){
+            $result = 'Error001';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $orcode = $param['orcode'];
+            $order_m = model('Order_m');
+            $iRs = $order_m->Load_Order_User_Info($orcode);
+            if (empty($iRs)) {
+                $result = 'Error003';
+                $data = [];
+                $message = '해당 주문이 없습니다.';
+
+            } else {
+                $u_info = [
+                    'receive_zipcode' => $param['zipcode'],
+                    'receive_address1' => $param['address1'],
+                    'receive_address2' => $param['address2'],
+                    'receive_name' => $param['rname'],
+                    'receive_phone' => $param['rphone'],
+                ];
+                $u_arr = $order_m->Update_Order_User_Info($orcode,$u_info);
+                $uRs = $order_m->Load_Order_User_Info($orcode);
+
+                $LogMsg = 'update order info';
+                $Log = 'order code::'.$orcode.implode('::', $u_info);
+                fn_InsertSystemLog($sessinarr['user']['uid'],$LogMsg,$Log,);
+
+                $result = 'ok';
+                $data = $uRs;
+                $message = '';
+            }
+
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+
         return $this->respond($return);
     }
 

@@ -2237,7 +2237,7 @@ class ApiController extends BaseController
                     $LogMsg = 'delete material';
                     $Log = $mcode;
                     $Log2 = implode('::', $param).$mcode;
-                    fn_InsertSystemLog($sessinarr['user']['uid'],$LogMsg,$Log);
+                    fn_InsertSystemLog($sessinarr['user']['uid'],$LogMsg,$Log2);
 
                     $result = 'ok';
                     $data = [];

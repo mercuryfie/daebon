@@ -19,8 +19,45 @@ class ApiDashBoardController extends BaseController
 
     }
 
+    public function Load_DashBoard_Notice(){
+        $sessinarr = $this->GetSessionData();
+        if ($sessinarr['islogin'] == false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        } else {
 
-    public function Load_DashBoard_Info(){
+            $notice = [];
+            $common_m = model('Common_m');
+            $cRs = $common_m->Load_NoticeType_List(2);
+            if(fn_ArrayCnt($cRs)>0){
+                foreach ($cRs as $d){
+                    $notice[] = $d['bTitle'];
+                }
+            }
+
+            $i_arr = [
+                'list' => $notice
+            ];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Load_DashBoard_Weather(){
         $sessinarr = $this->GetSessionData();
         if ($sessinarr['islogin'] == false) {
             $result = 'NoLogin';
@@ -36,6 +73,40 @@ class ApiDashBoardController extends BaseController
             $wResult = $weather->getAsosData($locationStn);
             $temperature = ($wResult) ? ($wResult['TA'] ?? '10') : '10';
             $humidity    = ($wResult) ? ($wResult['HM'] ?? '50') : '50';
+
+            $i_arr = [
+                'list' => [
+                    'temperature' => $temperature,
+                    'humidity'    => $humidity
+                ]
+            ];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
+
+    public function Load_DashBoard_Info(){
+        $sessinarr = $this->GetSessionData();
+        if ($sessinarr['islogin'] == false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        } else {
             $order = [
                 'type0' => 0,
                 'type1' => 0,
@@ -105,25 +176,11 @@ class ApiDashBoardController extends BaseController
                 'd_tcnt' => $totaldelivery
             ];
 
-            $notice = [];
-            $common_m = model('Common_m');
-            $cRs = $common_m->Load_NoticeType_List(2);
-            if(fn_ArrayCnt($cRs)>0){
-
-                foreach ($cRs as $d){
-                    $notice[] = $d['bTitle'];
-                }
-            }
-
-
             $i_arr = [
                 'list' => [
-                    'temperature' => $temperature,
-                    'humidity'    => $humidity,
                     'order' => $o_arr,
                     'produce' => $p_arr,
-                    'delivery' =>$d_arr,
-                    'notice' => $notice
+                    'delivery' =>$d_arr
                 ]
             ];
 

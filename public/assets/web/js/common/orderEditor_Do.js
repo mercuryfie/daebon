@@ -82,65 +82,38 @@ $(document).ready(function(){
     });
 
     $('#submitBtn').on('click',async function(){
-        let shoptyp = $('#shoptyp').val();
-        let spcode = $('#spcode').val();
+        let orcode = $('#orcode').val();
         let zipcode = $('#zipcode').val();
         let address1 = $('#address1').val();
         let address2 = $('#address2').val();
-        let bname = $('#bname').val();
-        let bphone = $('#bphone').val();
-        let product_arr = [];
-        let buyid = $('#buyid').val();
-        $('#add_list').find('div[name="add_product_info"]').each(function () {
-            let pdcode = $(this).data('code');
-            let pdcont = $(this).find('p[name="gcnt"]').data('cnt');
-            let t_arr = {
-                pdcode: pdcode,
-                pdcnt: pdcont
-            }
-            product_arr.push(t_arr);
-        });
+        let rname = $('#rname').val();
+        let rphone = $('#rphone').val();
+        console.log('dawn1653',orcode);
 
-        if(shoptyp=='') {
-            Make_Toast('주문 마켓을 선택하세요.');
-        }else if(spcode==''){
-            Make_Toast('마켓 주문 번호를 입력하세요.');
-        }else if((zipcode=='') || (address1=='')){
+        if((zipcode=='') || (address1=='')){
             Make_Toast('주소 검색을 다시 하여주세요.');
         }else if(address2==''){
             Make_Toast('상세주소를 입력하세요.');
             $('#address2').focus();
-        }else if(bname==''){
-            Make_Toast('수령인 입력하세요.');
+        }else if(rname==''){
+            Make_Toast('수령인을 입력하세요.');
             $('#bname').focus();
-        }else if(bphone==''){
-            Make_Toast('연락처 입력하세요.');
+        }else if(rphone==''){
+            Make_Toast('연락처을 입력하세요.');
             $('#bphone').focus();
-        }else if(product_arr.length===0){
-            Make_Toast('상품을 추가하세요.');
-            $('#txt_product').focus();
-        }else{
+        } else{
             let data ={
-                shoptyp : shoptyp,
-                spcode : spcode,
-                sell_id : '',
-                buy_id : buyid,
+                orcode : orcode,
                 zipcode : zipcode,
                 address1 : address1,
                 address2 : address2,
-                bname : bname,
-                bphone : bphone,
-                r_zipcode : zipcode,
-                r_address1 : address1,
-                r_address2 : address2,
-                r_bname : bname,
-                r_bphone : bphone,
-                product : product_arr,
-                orderdate : ''
+                rname : rname,
+                rphone : rphone,
+                moddate : ''
             };
 
-            let bool = await Reg_Order(data);
-            if(bool===true){
+            let bool = await Mod_Order(data); 
+            if(bool==true){
                 go_orderList();
             }else{
                 Make_Toast('주문등록에 실패 하였습니다.');
@@ -187,13 +160,15 @@ function addProduct(gcode,gname,cnt){
 }
 
 
-async function Reg_Order(param){
+async function Mod_Order(param){
     let bool = false;
+    console.log('dawn1',param);
     try {
         start_spinner();
         let dataarr = {"param" : param};
-        let url = APIURL + '/Insert_Order';
+        let url = APIURL + '/Mod_Order';
         let result = await Load_API_Auth(url,dataarr);
+        console.log(result);
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {

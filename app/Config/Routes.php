@@ -161,6 +161,7 @@ $routes->match(['GET', 'POST'], 'Api/Load_Product_Detail', 'ApiProductController
 $routes->match(['GET', 'POST'], 'Api/Delete_Products', 'ApiProductController::Delete_Products');
 
 $routes->match(['GET', 'POST'], 'Api/Insert_Order', 'ApiOrderController::Insert_Order');
+$routes->match(['GET', 'POST'], 'Api/Mod_Order', 'ApiOrderController::Mod_Order');
 $routes->match(['GET', 'POST'], 'Api/Load_Order_Data', 'ApiOrderController::Load_Order_Data');
 $routes->match(['GET', 'POST'], 'Api/Load_Order_Info', 'ApiOrderController::Load_Order_Info');
 $routes->match(['GET', 'POST'], 'Api/Put_Delivery_Info', 'ApiOrderController::Put_Delivery_Info');
@@ -178,6 +179,9 @@ $routes->match(['GET', 'POST'], 'Api/Make_Delivery_Code', 'ApiMarketController::
 $routes->match(['GET', 'POST'], 'Api/ESM_Order_Period', 'ApiMarketController::ESM_Order_Period');
 $routes->match(['GET', 'POST'], 'Api/getInIInfo', 'ApiMarketController::getInIInfo');
 
+$routes->match(['GET', 'POST'], 'Api/Load_DashBoard_Notice', 'ApiDashBoardController::Load_DashBoard_Notice');
+$routes->match(['GET', 'POST'], 'Api/Load_DashBoard_Material', 'ApiDashBoardController::Load_DashBoard_Material');
+$routes->match(['GET', 'POST'], 'Api/Load_DashBoard_Weather', 'ApiDashBoardController::Load_DashBoard_Weather');
 $routes->match(['GET', 'POST'], 'Api/Load_DashBoard_Info', 'ApiDashBoardController::Load_DashBoard_Info');
 $routes->match(['GET', 'POST'], 'Api/Load_DashBoard_Material', 'ApiDashBoardController::Load_DashBoard_Material');
 

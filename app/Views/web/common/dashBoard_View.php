@@ -4,18 +4,8 @@
 <link rel="stylesheet" href="/assets/web/css/style_dashBoard.css?rnd=<?echo(rand()); ?>">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
-
 <script src="<?= URL_DASHBOARD_ASSETS?>/GaugeMeter.js"></script>
-<script src="<?= URL_DASHBOARD_ASSETS?>/gaugeandchart.js?rnd=<?echo(rand()); ?>"></script>
-<!--<script src="--><?php //= URL_DASHBOARD_ASSETS?><!--/flipcard_main.js"></script>-->
-<script src="<?= URL_DASHBOARD_ASSETS?>/flipcard_dark.js"></script>
-<!--<script src="--><?php //= URL_DASHBOARD_ASSETS?><!--/animation.js"></script>-->
 <script src="<?=URL_COMMON_ASSETS?>/dashBoard_Do.js?rnd=<?rand();?>"> </script>
-
-
-<script>
-</script>
 
 <section class="merright">
 
@@ -75,7 +65,7 @@
                         ></div>
                     </div>
                 </div>
-                <div class="mboxb mbox3-2">
+                <div class="mboxb mbox3-2" id="cooldown" name="cooldown">
                     <p>택배 마감까지 남은 시간</p>
                     <ul class="flipul">
                         <li>롯데</li>
@@ -90,10 +80,10 @@
                             <div class="gear"></div>
                             <div class="gear"></div>
                             <div class="top">
-                                <div class="text">15</div>
+                                <div class="text"></div>
                             </div>
                             <div class="bottom">
-                                <div class="text">15</div>
+                                <div class="text"></div>
                             </div>
                         </div>
 
@@ -101,10 +91,10 @@
                             <div class="gear"></div>
                             <div class="gear"></div>
                             <div class="top">
-                                <div class="text">00</div>
+                                <div class="text"></div>
                             </div>
                             <div class="bottom">
-                                <div class="text">00</div>
+                                <div class="text"></div>
                             </div>
                         </div>
 
@@ -112,10 +102,10 @@
                             <div class="gear"></div>
                             <div class="gear"></div>
                             <div class="top">
-                                <div class="text">00</div>
+                                <div class="text"></div>
                             </div>
                             <div class="bottom">
-                                <div class="text">00</div>
+                                <div class="text"></div>
                             </div>
                         </div>
                     </div>

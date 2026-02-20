@@ -89,7 +89,7 @@ async function Load_Shop_Order_List(styp){
     try {
         start_spinner();
         let dataarr = {styp:styp};
-        let url = APIURL + '/Shop_Opder_List';
+        let url = APIURL + '/Shop_Order_List';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             message = '로그인하세요.';

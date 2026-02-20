@@ -112,7 +112,7 @@ $(document).ready(function(){
                 moddate : ''
             };
 
-            let bool = await Mod_Order(data); 
+            let bool = await Mod_Order(data);
             if(bool==true){
                 go_orderList();
             }else{

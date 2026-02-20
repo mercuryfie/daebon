@@ -1,8 +1,7 @@
 $(document).ready(function() {
 
     let mtcode = $('#mtcode').val();
-    JsBarcode("#prnbarcode", mtcode, {format: "CODE128",displayValue: true, width:2, height:50, fontSize: 14});
-
+    JsBarcode("#prnbarcode", mtcode, {format: "CODE128",displayValue: true, width:2, height:50, fontSize: 16});
 
     $(document).on('click','#btn_print',function(){
         printWindow('frnbody');

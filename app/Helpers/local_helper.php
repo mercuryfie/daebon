@@ -62,7 +62,8 @@ function get_Order_Delivery_Info($model,$orcode)
         'indate'  => '',
         'enddate'  => ''
     ];
-    $info = $model->Load_Order_Package_Info($orcode);
+    $fields = ['a.*','b.addInfo'];
+    $info = $model->Load_Order_Package_Info2($orcode,$fields);
     if(fn_ArrayCnt($info)>0) {
         $opcode = $info[0]['fk_opcode'];
         $Rs = $model->Load_Order_Delivery_Info($opcode);
@@ -338,7 +339,8 @@ function fn_Input_SemiProduct($model,$gicode,$prcode,$weight){
 }
 
 function fn_OutPut_SemiProduct($model,$gicode,$prcode,$pscode){
-    $cRs = $model->Load_SemiProduct_Info($pscode,1);
+    $cRs = $model->Load_SemiProduct_Info2($pscode,1);
+
     if(fn_ArrayCnt($cRs)<=0){
         $Cnt = 0;
         $pscode = '';
@@ -1022,6 +1024,7 @@ function fnMake_Menu_name() {
     ];
 
     static $menus6 = [
+        ['url' => '/order/dashboard','name' => '대시보드', 'link' => 'go_dashBoard();'],
         ['url' => '/monitor/workstatus','name' => '작업진행현황', 'link' => 'go_workStatus();'],
         ['url' => '/monitor/processstatus','name' => '공정별진행현황', 'link' => 'go_processStatus();'],
     ];

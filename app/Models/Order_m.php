@@ -210,6 +210,16 @@ class Order_m extends Model
         return $query->getResultArray();
     }
 
+    public function Load_Order_Package_Info2($orcode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_delivery_package a join tbl_order b on a.fk_orcode=b.orcode where a.fk_orcode=:ORCODE:";
+        $bindparam = [
+            'ORCODE'=> $orcode
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
 
 
 

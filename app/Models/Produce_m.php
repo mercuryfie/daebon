@@ -19,7 +19,7 @@ class Produce_m extends Model
     }
 
     public function Load_dashboardProduce_Info(){
-        $sql = "SELECT COUNT(CASE WHEN is_complete = 0 THEN 1 END) AS count_ready,COUNT(CASE WHEN is_complete = 1 THEN 1 END) AS count_ing,COUNT(CASE WHEN is_complete = 2 THEN 1 END) AS count_complete ";
+        $sql = "SELECT COUNT(CASE WHEN is_complete = 0 AND step_now=0 THEN 1 END) AS count_ready,COUNT(CASE WHEN is_complete < 2 AND step_now > 0 THEN 1 END) AS count_ing,COUNT(CASE WHEN is_complete = 2 THEN 1 END) AS count_complete ";
         $sql .= "FROM tbl_instructions WHERE is_del = :ISDEL: AND DATE_FORMAT(indate, '%Y-%m-%d') = CURDATE() ";
         $bindparam = [
             'ISDEL'=> 0
@@ -52,6 +52,17 @@ class Produce_m extends Model
         return $query->getResultArray();
     }
 
+    public function Load_SemiProduct_Info2($gscode,$typ,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        if($typ==1) {
+            $sql = "SELECT {$separated_val} from tbl_semiproduct_inout WHERE pscode=:PSCODE: AND m_input>0 order by seq DESC limit 1";
+        }else{
+            $sql = "SELECT {$separated_val} from tbl_semiproduct_inout WHERE pscode=:PSCODE: AND m_output>0 order by seq DESC limit 1";
+        }
+        $bindparam = ['PSCODE' => $gscode];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
 
     public function Cnt_Instructions_Process($typ,$gicode){
         if($typ==1) {

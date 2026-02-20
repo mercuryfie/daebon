@@ -545,18 +545,17 @@ function pop_qualityReportForm(url) {
 
 
 function pop_OrderRoastForm(url) {
-    let width = 720;
 
-    let newWindow = window.open(url, "_blank",
-        `width=800,height=600,resizable=yes,scrollbars=no`
-    );
+    let width = 900;
+    let height = 780;
+
+    let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+
 
     newWindow.onload = function() {
         setTimeout(() => {
             try {
                 let docHeight = Math.max(
-                    // newWindow.document.body.scrollHeight,
-                    // newWindow.document.documentElement.scrollHeight,
                     newWindow.document.body.offsetHeight
                 );
 

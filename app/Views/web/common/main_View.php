@@ -14,9 +14,6 @@
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js"></script>
 <!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/main_Do.jss?rnd=<?= rand(); ?>"></script>
-<script>
-</script>
 
 <section class="merright">
     <div class="main_boxowy mt20">

@@ -13,7 +13,8 @@
     <div id="wrap">
         <header>
             <div class="hbox hbox1">
-                <p>logo</p>
+<!--                <p>logo</p>-->
+                <img src="/assets/web/src/djlogo_white.png" alt="img" class="logo_img">
             </div>
             <!--                <p>EMERGENCY MESSAGE</p>-->
             <div class="hbox hbox2" id="" >
@@ -116,7 +117,7 @@
                 <div class="boxtwo mbox2-1 flexCol">
                     <div class="upside flexType4">
                         <div class="mbox2-1-1">
-                            <p>주문 현황</p>
+                            <p>주문 현황  (<span id="t_order" name="t_order">0</span>건)</p>
                             <div class="leftbox">
                                 <div
                                     class="GaugeMeter3 gaugapapa"
@@ -135,7 +136,6 @@
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
@@ -154,7 +154,6 @@
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
@@ -173,7 +172,6 @@
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
@@ -192,7 +190,6 @@
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
@@ -211,7 +208,6 @@
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
@@ -230,7 +226,6 @@
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                             </div>
                         </div>
@@ -254,7 +249,6 @@
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
@@ -273,7 +267,6 @@
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter3 gaugapapa"
@@ -292,7 +285,6 @@
                                     data-theme="White"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                                 <div
                                         class="GaugeMeter3 gaugapapa"
@@ -311,14 +303,13 @@
                                         data-theme="White"
                                         data-append=""
                                 >
-                                    <p class="line1-1" name="t_order">0</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="downside flexType2">
                         <div class="mbox2-1-1">
-                            <p>생산 현황 (200)</p>
+                            <p>생산 현황  (<span id="t_produce" name="t_produce">0</span>건)</p>
                             <div class="leftbox">
                                 <div
                                     class="GaugeMeter4 gaugapapa"
@@ -337,7 +328,6 @@
                                     data-color="rgb(119 90 248)"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_produce">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter4 gaugapapa"
@@ -356,7 +346,6 @@
                                     data-color="rgb(119 90 248)"
                                     data-append=""
                                 >
-                                    <p class="line1-1"  name="t_produce">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter4 gaugapapa"
@@ -375,12 +364,11 @@
                                     data-color="rgb(119 90 248)"
                                     data-append=""
                                 >
-                                    <p class="line1-1"  name="t_produce">0</p>
                                 </div>
                             </div>
                         </div>
                         <div class="mbox2-1-2">
-                            <p>포장 현황 (200)</p>
+                            <p>배송 현황 (<span id="t_delivery" name="t_delivery">0</span>건)</p>
                             <div class="rightbox">
                                 <div
                                     class="GaugeMeter4 gaugapapa"
@@ -399,7 +387,6 @@
                                     data-color="#23FFC8"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_delivery">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter4 gaugapapa"
@@ -418,7 +405,6 @@
                                     data-color="#23FFC8"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_delivery">0</p>
                                 </div>
                                 <div
                                     class="GaugeMeter4 gaugapapa"
@@ -437,7 +423,6 @@
                                     data-color="#95FF23"
                                     data-append=""
                                 >
-                                    <p class="line1-1" name="t_delivery">0</p>
                                 </div>
 
                             </div>

@@ -22,6 +22,30 @@ class CoupangApi
         $this->httpClient = Services::curlrequest();
     }
 
+    public function Patch_Delivery_Info($invoices = [])
+    {
+        if (empty($invoices)) {
+            return ['result' => 'error', 'message' => '송장업로드 데이터가 없습니다.'];
+        }
+
+        $path = "/v2/providers/openapi/apis/api/v4/vendors/{$this->vendorid}/orders/invoices";
+        $method = "POST";
+        $data = [
+            'vendorId' => $this->vendorid,
+            'orderSheetInvoiceApplyDtos'=>$invoices
+        ];
+
+        try{
+            $result = $this->callApi($method, $path, '', $data);
+            return $result;
+        } catch (\Exception $e) {
+            return [
+                'code' => 'ERROR',
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
     public function Put_Order_Confirm($shipmentBoxIds = [])
     {
         $path = "/v2/providers/openapi/apis/api/v4/vendors/{$this->vendorid}/ordersheets/acknowledgement";

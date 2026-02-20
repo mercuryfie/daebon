@@ -12,7 +12,7 @@
         <table class="bar_mat_table">
             <thead>
             <tr class="">
-                <td class="keyCol barcode" colspan="2" rowspan="">
+                <td class="keyCol barcode" colspan="3" rowspan="">
                     <div class="barcodeArea">
                         <svg id="prnbarcode" name="prnbarcode" class="barcodeArea"  style=""></svg>
                     </div>
@@ -25,15 +25,15 @@
 <!--                <td class="keyCol data1" colspan="1">2025.01.01 12:00am</td>-->
 <!--            </tr>-->
             <tr>
-                <th class="keyCol" colspan="1">품목명</th>
+                <th class="keyCol" colspan="2">품목명</th>
                 <td class="keyCol" colspan="1" ><?=$body['data']['mtname'];?></td>
             </tr>
             <tr>
-                <th class="keyCol" colspan="1">제조/공급사</th>
+                <th class="keyCol" colspan="2">제조/공급사</th>
                 <td class="keyCol" colspan="1" ><?=$body['data']['fk_mkname'];?>/<?=$body['data']['fk_suname'];?></td>
             </tr> 
             <tr>
-                <th class="keyCol" >적정재고량</th>
+                <th class="keyCol" colspan="2">적정재고량</th>
                 <td class="keyCol" colspan="1" ><?=$body['data']['inventory'];?><?=$body['data']['unit_name'];?></td>
             </tr>
             </tbody>

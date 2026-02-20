@@ -2,7 +2,6 @@
 <?= $this->section("content") ?>
 <script src="<?=URL_COMMON_ASSETS?>/jquery-barcode.js"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/instructionForm_Do.js?rnd=<?=rand();?>"> </script>
-<?php //print_r($body['info_arr'])?>
 <section class="merright ins_form_contents ">
     <div class="odRoast_boxfxp" id="frnbody">
         <table class="odRoast_Table ins_form_table" >
@@ -37,7 +36,6 @@
                     <td class="row row2 ttl " colspan="" rowspan="2">원재료명</td>
                     <td class="row row2 m_name" colspan="3" rowspan="2">
                         <div class="dd flexCol2">
-<!--                            --><?php //=$body['material_arr'][0]['mtname']?>
                             <?php
                             if ($body['material_arr'] == 1 ) {
                                 $mtNames = [$body['material_arr']['mtname'].' '.$body['material_arr']['capacity'].'g'];
@@ -74,24 +72,15 @@
                     <td class="row </>subTitle" colspan="7"></td>
                 </tr>
                 <tr>
-                    <td class="row row1 ttl stepName" colspan="2">공정명</td>
-                    <td class="row row2 ttl">투입/산출량(g)</td>
-<!--                    <td class="row row3 ttl" colspan="2">공정방법</td>-->
-                    <td class="row row4 ttl" colspan="3">부자재</td>
-
-                    <td class="row row6 ttl">담당자</td>
+                    <td class="row row1 ttl stepName" colspan="4">공정명</td>
+                    <td class="row row2 ttl" colspan="3">투입/산출량(g)</td>
                 </tr>
            <?foreach ($body['step_arr'] as $d){?>
                 <tr>
-                    <td class="row row1 stepName" colspan="2"><?=$d['step_name'];?></td>
-                    <td class="row row2"><?=number_format($d['input_material']);?>/<?=number_format($d['output_material']);?></td>
-                    <td class="row row2" colspan="3"><?=$d['material'];?></td>
-                    <td class="row row2" rowspan=""><?=$d['worker'][0]['name'] ?? '-'?></td>
+                    <td class="row row1 stepName" colspan="4"><?=$d['step_name'];?></td>
+                    <td class="row row2" colspan="3"><?=number_format($d['input_material']);?>/<?=number_format($d['output_material']);?></td>
                 </tr>
            <?}?>
-<!--                <tr>-->
-<!--                    <td class="row row1" colspan="7"></td>-->
-<!--                </tr>-->
             </tbody>
         </table>
     </div>

@@ -8,6 +8,10 @@ $(document).ready(function() {
     };
     Make_Html(data);
 
+    $('#btn_back').on('click',function(){
+        go_productsList();
+    });
+
 
     $(document).on('click','button[name="btn_process"]',async function(){
         let quantity = $(this).closest('.flexType1').find('input[name="quantity"]').val();

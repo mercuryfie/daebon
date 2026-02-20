@@ -13,11 +13,12 @@
             </p>
         </div>
         <div class="area area1 flexType3">
-            <div class="left">
-                <input type="search" name="txt_search" id="txt_search" class="searchArea" placeholder="제품코드 혹은 지시서코드 검색">
-                <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>
-            </div>
-            <button type="button" class="btnType1" id="excel_down" name="excel_down">엑셀다운로드</button>
+<!--            <div class="left">-->
+<!--                <input type="search" name="txt_search" id="txt_search" class="searchArea" placeholder="제품코드 혹은 지시서코드 검색">-->
+<!--                <button type="button" class="btnType1" id="btn_search" name="btn_search">검색</button>-->
+<!--            </div>-->
+<!--            <button type="button" class="btnType1" id="excel_down" name="excel_down">엑셀다운로드</button>-->
+            <button type="button" class="btnType1" id="btn_back" name="btn_back">목록보기</button>
 
         </div>
         <div class="area area2">

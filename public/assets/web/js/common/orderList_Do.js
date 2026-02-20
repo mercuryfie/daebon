@@ -207,6 +207,11 @@ $(document).ready(function() {
     });
 
 
+    $(document).on('click','button[name="shop_orderconfirm"]',function(){
+
+    });
+
+
 });
 
 async function Put_Order_Confirm(orcode){
@@ -242,6 +247,7 @@ async function Make_Html(data){
             let cnxl_status = '';
             let cnxl_css = '';
             let cnxl_fn1 = '';
+            let confirmorder = '';
             if(el.orstep==0) {
                 subhtml1 = `<input type="checkbox" name="chkorder" value="" data-method="${el.shopmethod}">`;
                 subhtml2 = `<button type="button" class="btnType3 btn_gray" data-rttype="1" onclick="add_packingQueue('${el.orcode}');">지시대기</button>`;
@@ -250,10 +256,15 @@ async function Make_Html(data){
                 subhtml2 = `<button type="button" class="btnType3 " data-rttype="2" onclick="add_packingQueue('${el.orcode}');">지시완료</button>`;
             }
 
-            if(el.gdstep == 2) {
-                cnxl_status = `<p class="data fs14">취소불가</p>`;
-            }else {
+            if(el.gdstep == 0) {
+                if(el.shopmethod=='API'){
+                    confirmorder = `<button type="button" class="btnType3 fs14" name="shop_orderconfirm" data-code="${el.orcode}");">확인처리</button>`;
+                }
                 cnxl_status = `<button type="button" class="btnType3 fs14" value="${el.orcode}" onclick="Del_ThisOrder('${el.orcode}');">주문취소</button>`;
+            }else if(el.gdstep == 1) {
+                cnxl_status = `<button type="button" class="btnType3 fs14" value="${el.orcode}" onclick="Del_ThisOrder('${el.orcode}');">주문취소</button>`;
+            }else if(el.gdstep > 2) {
+                cnxl_status = `<p class="data fs14">취소불가</p>`;
             }
 
             if(el.is_cancel == 0) {
@@ -282,9 +293,8 @@ async function Make_Html(data){
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text" id="da_${el.orcode}">${el.deli_info['indate']}</p></div></td>    
                     <td class="ltTbody scrollableCol "><div class="inner4 flexCol2 "><p class="text">${el.input_str}</p></div></td>
                     <td class="ltTbody scrollableCol "><div class="inner4 flexCol2 "><p class="text">${el.shopstr}</p><p class="text">${el.sell_id}</p></div></div></td> 
-                    <td class="ltTbody scrollableCol ">${cnxl_status}
-                        
-                    </td> 
+                    <td class="ltTbody scrollableCol ">${confirmorder}</td> 
+                    <td class="ltTbody scrollableCol ">${cnxl_status}</td>
                 </tr>
             `;
         });

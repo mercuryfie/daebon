@@ -28,6 +28,15 @@ function fn_PrnUnitType(params){
     }
 }
 
+function fn_RemainingWeightInt(currentWeight, lossRate) {
+    const weight = parseFloat(currentWeight) || 0;
+    const loss = parseFloat(lossRate) || 0;
+    if (loss >= 100) return 0;
+    if (loss <= 0) return Math.round(weight);
+    const remaining = weight * (1 - (loss / 100));
+    return Math.round(remaining);
+}
+
 
 function fn_calculateNetWeight(weightStr, lossRateStr) {
     let weight = parseFloat(weightStr) || 0;
@@ -35,7 +44,6 @@ function fn_calculateNetWeight(weightStr, lossRateStr) {
     let remainingRate = 1 - (lossRate / 100);
     let netWeight = weight * remainingRate;
 
-    // 숫자만 리턴 (g 제거)
     return netWeight % 1 === 0 ?
         Math.round(netWeight) :
         parseFloat(netWeight.toFixed(1));

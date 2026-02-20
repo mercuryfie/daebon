@@ -34,6 +34,72 @@ class ApiMarketController extends BaseController
 
     }
 
+    public function Shop_Order_Delivery(){
+        try {
+            $sessinarr = $this->GetSessionData();
+            $orcode = ($this->request->getPost('oid') == '') ? '' : $this->request->getPost('oid');
+            if ($sessinarr['islogin'] == false) {
+                $result = 'NoLogin';
+                $data = [];
+                $message = '로그인이 필요합니다.';
+            } else if (!Check_Token($sessinarr)) {
+                $result = 'Error002';
+                $data = [];
+                $message = '잘못된 토큰입니다.';
+            } else if ($orcode == '') {
+                $result = 'Error003';
+                $data = [];
+                $message = '필수 입력값이 누락되었습니다.';
+            } else {
+                $order_m = model('Order_m');
+                $Rs = $order_m->Load_Order_Info($orcode);
+                if (fn_ArrayCnt($Rs) <= 0) {
+                    $result = 'error';
+                    $data = [];
+                    $message = '잘못된 접근입니다.';
+                }else if($Rs[0]['gdstep']>1){
+                    $result = 'error';
+                    $data = [];
+                    $message = '이미 배송 처리된 주문입니다.';
+                }else{
+                    $shoptyp = $Rs[0]['shoptyp'];
+                    if ($shoptyp == 'type1') {
+                        $pRs = $order_m->Load_Order_Product($orcode);
+                        if(fn_ArrayCnt($pRs)<=0){
+                            $result = 'error';
+                            $data = [];
+                            $message = '주문 상폼이 존재 하지 않습니다';
+                        }else{
+                            $addInfo = $pRs[0]['addInfo'];
+                            $arr = $this->Change_Coupan_AddInfo($addInfo);
+
+                            print_r($arr);
+
+                            $result = 'error';
+                            $data = [];
+                            $message = '주문 상폼이 존재 하지 않습니다';
+
+
+                        }
+                    }
+                }
+            }
+        }catch(\Exception $e){
+            log_message('error', '[송장업로드 처리 실패 API Error] ' . $e->getMessage());
+            $result = 'error';
+            $data = [];
+            $message = "주문확인 처리 실패 [ERROR={$e->getMessage()}";
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+
+    }
+
     public function Shop_Order_Confirm(){
         try {
             $sessinarr = $this->GetSessionData();
@@ -110,7 +176,7 @@ class ApiMarketController extends BaseController
 
     }
 
-    public function Shop_Opder_List()
+    public function Shop_Order_List()
     {
         $sessinarr = $this->GetSessionData();
         $shoptyp = ($this->request->getPost('styp') == '') ? '' : $this->request->getPost('styp');
@@ -412,7 +478,7 @@ class ApiMarketController extends BaseController
             }
 
             foreach ($data as $d) {
-                if (($d['place_status'] ?? '') !== 'NOT_YET') {
+                if (($d['status'] ?? '') !== 'PAYED') {
                     continue;
                 }
 
@@ -905,6 +971,7 @@ class ApiMarketController extends BaseController
 
         $lotte = new LotteOnApi();
         $data = $lotte->getOrderList($startdate, $enddate);
+        print_r($data);
         if (isset($data['returnCode']) && $data['returnCode'] === '0000') {
             $deliveryList = $data['data']['deliveryOrderList'] ?? [];
             if (!empty($deliveryList) && count($deliveryList) > 0) {
@@ -1022,7 +1089,7 @@ class ApiMarketController extends BaseController
             }
         } else {
             $result = 'error';
-            $message = $response['message'] ?? '알 수 없는 오류';
+            $message = $response['message'] ?? 'Error';
         }
 
         return [
@@ -1031,5 +1098,27 @@ class ApiMarketController extends BaseController
         ];
     }
 
+    private function Change_Coupan_AddInfo($value){
+        $data = json_decode($value, true);
+        $resultIds = [];
+
+        if (isset($data['shipmentBoxIds'])) {
+            $ids = $data['shipmentBoxIds'];
+            if (is_array($ids)) {
+                foreach ($ids as $id) {
+                    $resultIds[] = $id;
+                }
+            } else {
+                $resultIds[] = $ids;
+            }
+        }
+        return $resultIds;
+    }
+
+
 }
+
+
+
+
 ?>

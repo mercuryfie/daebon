@@ -319,9 +319,8 @@ $(document).ready(function() {
             e.preventDefault(); // 폼 submit 등 기본 동작 방지
             let mtcode = $('#addproduct').data('mtcode');
             let mtname = $('#addproduct').data('mtname');
-            let mtcnt = $('#txt_product_num').val();
             Set_Material(mtcode,mtname);
-            Set_Method_Weight(mtcnt);
+            Set_Method_Weight();
 
 
         }
@@ -345,6 +344,7 @@ $(document).ready(function() {
 
     $(document).on('click','i[name="add_product_del"]',function(){
         $(this).closest('div[name="add_product_info"]').remove();
+        Set_Method_Weight();
     });
 
 });
@@ -595,9 +595,7 @@ function Set_BomProcess(ct, gname) {
         $template.find('input[name="stepNum"]').val(i);
         i++;
 
-        console.log(idx);
         if (idx === 0) {
-            console.log('bello1817');
             $template.find('.removeRoasting').hide();
         } else {
             $template.find('.removeRoasting').show();
@@ -610,29 +608,30 @@ function Set_BomProcess(ct, gname) {
 
 }
 
-function Set_Method_Weight(master_weight){
-    const container = $('#roastBox');
-
+function Set_Method_Weight(){
+    const $container = $('#roastBox');
     let loss = 0;
     let material_input = 0;
     let material_output = 0;
     let now_weight = 0;
-    let calc_weight1  = 0;
-    let calc_weight2  = 0;
+    let master_weight = 0;
+    const $elements = $('div[name="add_product_info"] [name="mtcnt"]');
+    if ($elements.length > 0) {
+        $elements.each(function() {
+            const val = $(this).data('cnt') || 0;
+            master_weight += parseInt(val, 10);
+        });
+    }
     now_weight = parseInt(master_weight);
-    container.find('div[name="oneRoast"]').each(function () {
+    $container.find('div[name="oneRoast"]').each(function () {
         loss = $(this).find('select[name="ptype"]').data('loss');
         if(loss!=''){
-            material_input = $(this).find('input[name="material_input"]').val();
-            material_input = material_input ? parseInt(material_input) : 0;
-            material_output = $(this).find('input[name="material_output"]').val();
-            material_output = material_output ? parseInt(material_output) : 0;
-            calc_weight1 = material_input + now_weight;
-            calc_weight2 = material_input + fn_calculateNetWeight(now_weight,loss);
-
-            $(this).find('input[name="material_input"]').val(parseInt(calc_weight1));
-            $(this).find('input[name="material_output"]').val(parseInt(calc_weight2));
-            now_weight = calc_weight2;
+            material_input = now_weight;
+            now_weight =fn_RemainingWeightInt(now_weight,loss);
+            material_output = now_weight;
+            $(this).find('input[name="material_input"]').val(parseInt(material_input));
+            $(this).find('input[name="material_output"]').val(parseInt(material_output));
         }
     });
 }
+

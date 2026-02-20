@@ -5156,9 +5156,15 @@ input[type="radio"] {
 
 .ins_form_contents .ins_form_table {
     overflow: hidden;
+
 }
 
 
+.ins_form_contents .ins_form_table th {
+    font-weight: normal;
+    font-size: 12px !important;
+    /*color: red;*/
+}
 
 .ins_form_contents .ins_form_table .ttl{
     font-size: 14px;
@@ -5866,7 +5872,8 @@ input[type="radio"] {
     padding: 0 10px;
     text-align: center;
     border:1px solid #ccc;
-    height: 32px;
+    height: 60px;
+    font-size: 18px;
 }
 
 /* pop_PrintBarcode_Material_View end -------------------------------- */
@@ -6473,8 +6480,8 @@ input[type="radio"] {
 
     .bar_mat_table {
         border-collapse: collapse;
-        width: 76mm;
-        height: 36mm;
+        width: 190mm;
+        height: 90mm;
         /*border:1px solid red;*/
         font-size: 14px;
     }
@@ -6485,12 +6492,12 @@ input[type="radio"] {
     }
 
     .bar_mat_table thead td .barcodeArea svg{
-        width: 50mm;
-        height: 11mm;
+        /*width: 50mm;*/
+        /*height: 11mm;*/
         /*scale: 80%;*/
     }
 
-    .bar_mat_table th {
+    .bar_mat_table tr {
         width: 20mm;
     }
 
@@ -6499,7 +6506,8 @@ input[type="radio"] {
         padding:1mm;
         border:1px solid #000;
         text-wrap: nowrap;
-        height: 7mm;
+        font-size: 2em;
+        /*height: 7mm;*/
 
     }
 

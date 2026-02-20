@@ -72,6 +72,14 @@
                         <p class="title">BOM출고량</p>
                         <p class="data inputType220"><?=$body['material']['output_material'];?>g</p>
                     </div>
+<!--                    <div class="element flexType2">-->
+<!--                        <p class="title">입고량</p>-->
+<!--                        <p class="data inputType220">--><?php //=$body['info']['inputweight'];?><!--</p>-->
+<!--                    </div>-->
+<!--                    <div class="element flexType2">-->
+<!--                        <p class="title">출고량</p>-->
+<!--                        <p class="data inputType220">--><?php //=$body['info']['outputweight'];?><!--</p>-->
+<!--                    </div>-->
                     <div class="table_boxqqq flexType4">
                         <div class="leftArea">
                             <p class="title ">무게</p>

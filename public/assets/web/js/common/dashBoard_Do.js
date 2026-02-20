@@ -231,21 +231,23 @@ function Set_Data(){
         $('#type14').data('used', type14);
         $('#type0').data('used', type0);
 
-        $('p[name="t_order"]').text(totalOrder);
+        $('#t_order').text(totalOrder);
         $('#total_order').text(totalOrder);
 
         $('#p_ready').data('used', p_ready);
         $('#p_ing').data('used', p_ing);
         $('#p_complete').data('used', p_complete);
-        $('p[name="t_produce"]').text(totalProduce);
+        $('#t_produce').text(totalProduce);
 
         $('#d_ready').data('used', d_ready);
         $('#d_ing').data('used', d_ing);
         $('#d_complete').data('used', d_complete);
-        $('p[name="t_delivery"]').text(totalDelivery);
+        $('#t_delivery').text(totalDelivery);
 
         $(".GaugeMeter3").gaugeMeter({theme: 'green', color: '#6AF288'});
         $(".GaugeMeter4").gaugeMeter({theme: 'red', color: 'red'});
+
+        console.log("주문현황 업데이트");
     }
 
 
@@ -275,38 +277,38 @@ function Set_Weather(){
 
         $(".GaugeMeter").gaugeMeter({theme: 'pink', color: '#FF5894'});
         $(".GaugeMeter2").gaugeMeter({theme: 'cyonblue', color: '#41F3F5'});
+        console.log("날씨 업데이트");
     }
 
     update();
     setInterval(update, 600000);
 }
 
-function Start_Notice(){
+async function Start_Notice() {
     let rollingIndex = 0;
+    const rowHeight = 40;
+    let totalItems = await Load_Notice();
 
-    function update() {
+    const rollingInterval = setInterval(function () {
+        rollingIndex++;
+            if (rollingIndex >= totalItems) {
+            $('.msg_box').css('top', '0px');
+            rollingIndex = 1;
+
+            $('.msg_box').animate({
+                top: -(rollingIndex * rowHeight) + 'px'
+            }, 500);
+        } else {
+            $('.msg_box').animate({
+                top: -(rollingIndex * rowHeight) + 'px'
+            }, 500);
+        }
+    }, 5000);
+
+    console.log("공지 업데이트");
+    setInterval(function() {
         Load_Notice();
-        setInterval(function () {
-            rollingIndex++;
-            if (rollingIndex > 2) {
-                rollingIndex = 0;
-                $('.msg_box').css('top', '0px');
-                setTimeout(function () {
-                    rollingIndex = 1;
-                    $('.msg_box').animate({
-                        top: '-40px'
-                    }, 500);
-                }, 50);
-            } else {
-                $('.msg_box').animate({
-                    top: -(rollingIndex * 40) + 'px'
-                }, 500);
-            }
-        }, 5000);
-    }
-
-    update();
-    setInterval(update, 100000);
+    }, 100000);
 }
 
 async function refreshWeekChart() {
@@ -319,7 +321,7 @@ async function refreshWeekChart() {
             weekChart.update();
 
             weekChart.update();
-            console.log("주간 현황 차트 업데이트 완료");
+            console.log("주간 현황 차트 업데이트");
         }
     }
 
@@ -345,7 +347,6 @@ async function refreshMaterialChart() {
         $target.addClass('active').css('background-color', '#6af288');
 
         let pageNum = $target.data('page');
-        console.log("nowmaterialpage : ", pageNum);
 
         if (materialChart) {
             //let arr = await Load_Material(pageNum,m_totalPages);
@@ -361,6 +362,7 @@ async function refreshMaterialChart() {
             materialChart.update();
         }
         m_currentPage++;
+        console.log("원자재현황 차트 업데이트");
     }
 
     update();
@@ -380,19 +382,13 @@ async function refreshGoodsChart() {
             g_currentPage = 0;
         }
 
-        console.log("current=" + g_currentPage);
-
         $g_pages.removeClass('active').css('background-color', 'transparent');
         const $target = $g_pages.eq(g_currentPage);
         $target.addClass('active').css('background-color', '#6af288');
 
         let pageNum = $target.data('page');
-        console.log("nowgoodspage : ", pageNum);
-
         if (goodsChart) {
             //let arr = await Load_Material(pageNum,m_totalPages);
-
-
             const newLabels = ['전체', '결명자', '계피', '구기자', '노니', '당귀', '대추', '도꼬마리', '도라지', '돼지감자'];
             goodsChart.data.labels = newLabels;
 
@@ -403,6 +399,7 @@ async function refreshGoodsChart() {
             goodsChart.update();
         }
         g_currentPage++;
+        console.log("재품재고 차트 업데이트");
     }
     update();
     setInterval(update, 10000);
@@ -426,10 +423,6 @@ async function Load_Material(page,total){
     }
     return data;
 }
-
-
-
-
 
 
 async function Load_Data(){
@@ -471,7 +464,7 @@ async function Load_Weather(){
 }
 
 async function Load_Notice(){
-    let bool = false;
+    let n_Cnt = 0;
     try {
         let dataarr = {};
         let url = APIURL + '/Load_DashBoard_Notice';
@@ -480,7 +473,7 @@ async function Load_Notice(){
             go_login();
         } else if(result.get('status') == 'ok') {
             let notice = result.get('data').list;
-            let n_Cnt = notice.length;
+            n_Cnt = notice.length;
             let n_html = '';
             if (n_Cnt > 0) {
                 $.each(notice, function (index, el) {
@@ -495,7 +488,7 @@ async function Load_Notice(){
     } catch (error) {
         Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
     }
-    return bool;
+    return n_Cnt;
 }
 
 function start_realtime_clock() {

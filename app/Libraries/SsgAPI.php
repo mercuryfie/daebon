@@ -18,7 +18,6 @@ class SsgAPI
 
     public function __construct()
     {
-        // 보안을 위해 API 키는 .env 파일 등에 관리하는 것을 추천합니다.
         $this->apiKey = '9e2fee85-529e-4483-ba12-ed6b57aa46d1';
         $this->baseUrl = 'https://eapi.ssgadm.com';
 
@@ -53,7 +52,7 @@ class SsgAPI
             $result = json_decode($body, true);
 
             if (isset($result['resultCode']) && $result['resultCode'] !== 'SUCCESS') {
-                $errorMsg = $result['resultDesc'] ?? $result['resultMessage'] ?? '알 수 없는 오류';
+                $errorMsg = $result['resultDesc'] ?? $result['resultMessage'] ?? 'Error';
 
                 put_Shop_Api_Log($this->shopType, 'Error', $this->baseUrl, $path, $params, $method, json_encode($errorMsg));
 

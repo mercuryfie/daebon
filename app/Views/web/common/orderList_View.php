@@ -75,6 +75,7 @@
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">배송지시일</p></div></th>
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">등록</p></div></th>
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">연동정보</p></div></th>
+                            <th class="ltThead scrollableCol">주문확인처리</th>
                             <th class="ltThead scrollableCol">주문취소</th>
                         </tr>
                         </thead>

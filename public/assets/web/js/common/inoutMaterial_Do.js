@@ -31,8 +31,8 @@ $(document).ready(function() {
     $(document).on('click','button[name="btn_barcode"]',function(){
         let mtcode = $(this).data('mtcode');
         let url = "/inout/prn_barcode_material?mt=" + mtcode;
-        let width = 430;
-        let height = 320;
+        let width = 800;
+        let height = 400;
 
         let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
 
@@ -348,7 +348,6 @@ async function Load_Material(stocktyp,param){
         }else if(result.get('status') == 'ok') {
             let data = result.get('data');
             let arr = (data && data.list) ? data.list : [];
-            console.log(arr);
             let Cnt = arr.length;
             if(Cnt > 0){
                 let html = '';

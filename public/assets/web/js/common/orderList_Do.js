@@ -258,7 +258,7 @@ async function Make_Html(data){
 
             if(el.gdstep == 0) {
                 if(el.shopmethod=='API'){
-                    confirmorder = `<button type="button" class="btnType3 fs14" name="shop_orderconfirm" data-code="${el.orcode}");">확인처리</button>`;
+                    confirmorder = `<button type="button" class="btnType3 fs14" name="shop_orderconfirm" data-code="${el.orcode}");">확인</button>`;
                 }
                 cnxl_status = `<button type="button" class="btnType3 fs14" value="${el.orcode}" onclick="Del_ThisOrder('${el.orcode}');">주문취소</button>`;
             }else if(el.gdstep == 1) {

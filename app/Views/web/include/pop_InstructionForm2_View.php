@@ -8,7 +8,7 @@
         <table class="odRoast_Table ins_form_table">
             <thead>
                 <tr class="headCol">
-                    <td class="keyCol " colspan="8">생산작업지시서2</td>
+                    <td class="keyCol " colspan="8">생산작업지시서</td>
                 </tr>
                 <tr class="">
                     <td class="keyCol barcodeBox" colspan="5" rowspan="2">
@@ -33,7 +33,7 @@
                     <td class="keyCol" colspan="2" ><?=number_format($body['info_arr']['inventory'])?>개</td>
                 </tr>
                 <tr>
-                    <th class="row row2 ttl " colspan="2" rowspan="2">원재료명</th>
+                    <th class="row row2 ttl mt_name_ttl " colspan="2" rowspan="2">원재료명</th>
                     <td class="row row2 m_name" colspan="3" rowspan="2">
                         <div class="dd flexCol2">
                             <?php
@@ -73,10 +73,10 @@
                 <td class="row subTitle bn" colspan="8"></td>
             </tr>
             <tr>
-                <td class="row row1 ttl  " colspan="5" >공정명</td>
-                <td class="row row2 ttl" colspan="3" >
+                <th class="row row1 ttl  " colspan="5" >공정명</th>
+                <th class="row row2 ttl" colspan="3" >
                     <p class="downside">투입/산출량(g)</p>
-                </td>
+                </th>
             </tr>
         <?foreach ($body['step_arr'] as $d){?>
             <tr>
@@ -84,7 +84,7 @@
 
                 <td class="row row2 " colspan="3">
                     <div class="flexCol2">
-                        <p class="downside"><?=number_format($d['input_material'] * (int)$body['info_arr']['quantity'] * (int)$body['info_arr']['icnt'])?> / <?=number_format($d['output_material'] * (int)$body['info_arr']['quantity'] * (int)$body['info_arr']['icnt'])?></p>
+                        <p class="downside"><?=number_format($d['input_material'] * (int)$body['info_arr']['icnt'])?> / <?=number_format($d['output_material'] * (int)$body['info_arr']['icnt'])?></p>
                     </div>
                 </td>
 <!--                <td class="row row2 tww" colspan="">--><?php //=$d['material'];?><!--</td>-->
@@ -92,17 +92,17 @@
             </tr>
             <tr>
                 <td class="row row1" colspan="4">-</td>
-                <td class="row row3 twnw" colspan="2">기본수량</td>
+                <th class="row row3 twnw" colspan="2">기본수량</th>
                 <td class="row row2" colspan="2"><?=$body['info_arr']['quantity']?> 개</td>
             </tr>
             <tr>
                 <td class="row row1" colspan="4">-</td>
-                <td class="row row3 twnw" colspan="2">지시수량</td>
+                <th class="row row3 twnw" colspan="2">지시수량</th>
                 <td class="row row2" colspan="2"><?=$body['info_arr']['icnt']?> 개</td>
             </tr>
             <tr>
                 <td class="row row1" colspan="4">-</td>
-                <td class="row row3 twnw" colspan="2">실제완성량</td>
+                <th class="row row3 twnw" colspan="2">실제완성량</th>
                 <td class="row row4" colspan="2">
                 <?php
                     $qty  = (int) $body['info_arr']['quantity'];

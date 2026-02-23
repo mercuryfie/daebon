@@ -7,23 +7,6 @@ $(document).ready(function() {
     };
     Make_Html(search);
 
-
-    $(document).on('click','button[name="btn_process"]',async function(){
-        let quantity = $(this).closest('.flexType1').find('input[name="quantity"]').val();
-        let code = $(this).closest('.flexType1').find('input[name="quantity"]').data('code');
-
-        // let bool = await Make_instructions(code,quantity);
-        // console.log(bool);
-        // if(bool==true){
-        //     if(window.confirm('작업지시를 발급하였습니다\n생산목록으로 이동하시겠습니까?')==true){
-        //         go_productionList();
-        //     }else{
-        //         $(this).closest('.flexType1').find('input[name="quantity"]').val('');
-        //         location.reload();
-        //     }
-        // }
-    });
-
     $(document).on('keydown','input[name="quantity"]',function(e){
         if (e.key === "Enter") {
             e.preventDefault(); // 폼 전송 방지
@@ -390,8 +373,6 @@ async function Data_Add(param){
                 };
 
                 let t_arr = fn_PrnUnitType(params);
-
-
 
                 let html = `
                     <tr id="list_${arr.gscode}">

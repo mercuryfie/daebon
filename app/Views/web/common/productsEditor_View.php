@@ -3,7 +3,6 @@
     <!-- js ----------------------------  -->
 <!--    <script src="--><?php //=URL_COMMON_ASSETS?><!--/productsEditor.js?rnd=--><?php //=rand();?><!--"> </script>-->
 <script src="<?=URL_COMMON_ASSETS?>/productsEditor_Do.js?rnd=<?=rand();?>"> </script>
-<?php //print_r($body)?>
 <section class="merright">
     <input type="hidden" id="gcode" name="gcode" value="<?=$body['code'];?>" />
     <div class="masModi_box23f">
@@ -113,7 +112,7 @@
                             <div class="bomType_boxh1t flexType2" name="">
                                 <p class="must mr10"></p>
                                 <p class="title">공정타입</p>
-                                <select name="ptype" class="inputType typeIn" data-code="" data-loss="">
+                                <select name="ptype" class="inputType typeIn" data-code="<?=$body['process_arr'][$i]['gcode'];?>" data-loss="<?=$body['process_arr'][$i]['step_loss'];?>">
                                     <option value="">선택하세요.</option>
                                     <?= fnMake_Process_Type($body['process_arr'][$i]['step_typ']);?>
                                 </select>
@@ -210,7 +209,7 @@
             </div>
         </div>
         <div class="lastBox flexType5">
-            <button type="button" class="btnType1 mr10" id="btn_cancel" name="btn_cancel">취소</button>
+            <button type="button" class="btnType1 mr10" id="btn_cancel" name="btn_cancel" onclick="go_productsList();">목록</button>
             <button type="button" id="btn_confirm" name="btn_confirm" class="btnType2" >확인</button>
         </div>
     </div>

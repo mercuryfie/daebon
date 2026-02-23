@@ -1,5 +1,9 @@
 <?php
 
+
+
+
+
 function put_Shop_Api_Log($shotype,$request_status,$request_url,$request_endpoint,$request_query,$request_method,$response_json){
     $api = model('Api_m');
 
@@ -445,6 +449,43 @@ function fn_LoadInstructionsWorker($model,$gicode,$prcode,$status){
 }
 
 
+function fn_Instruction_Material_Inout($model,$gicode,$icnt){
+    $bool = false;
+    $material_m = model('Material_m');
+    $pRs = $model->Load_Instructions_Material($gicode);
+    if(fn_ArrayCnt($pRs)>0){
+        $params = [];
+        foreach ($pRs as $d){
+            $mtcode = $d['fk_mtcode'];
+            $output = $d['capacity'] * $icnt;
+            $sRs =$material_m->Load_Material_stock($mtcode);
+            $total = (fn_ArrayCnt($sRs)>0) ? $sRs[0]['total'] : 0;
+            $t_output = $total -  $output;
+            $memo = '생산 출고 지시서 : ' . $gicode;
+
+
+            $t_arr = [
+                'fk_mtcode' => $mtcode,
+                'total' => $t_output,
+                'm_input' => 0,
+                'm_output' => $output,
+                'memo' => $memo,
+                'reason' => 4
+            ];
+
+            $params[] = $t_arr;
+        }
+
+        if(fn_ArrayCnt($params)>0){
+            $Cnt = $material_m->Insert_Material_Inout($params);
+            $bool = true;
+        }
+    }
+
+    return $bool;
+}
+
+
 function fn_LoadInstructionsSingleProcess($model,$gicode,$prcode){
     $retarr = [];
     $pRs = $model->Load_Instructions_Process_Info($gicode,$prcode);
@@ -672,6 +713,7 @@ function fn_LoadInstructionsInfo($model,$gicode){
             'quantity' => $d['quantity'],
             'inventory' => $d['inventory'],
             'unit_weight' => $d['unit_weight'],
+            'unit_type' => $d['unit_type'],
             'step_cnt' => $d['Cnt'],
             'step_now' => $d['step_now'],
             'step_sub_now' => $d['step_sub_now'],
@@ -899,7 +941,8 @@ function fnMake_Material_Log_Reason($typ){
         '1'       => '판매',
         '2'       => '폐기',
         '3'       => '반품',
-        '4'       => '기타',
+        '4'       => '출고',
+        '5'       => '기타',
         default => '-'
     };
 }

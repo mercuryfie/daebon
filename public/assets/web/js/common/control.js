@@ -528,7 +528,7 @@ function pop_waybillFormStaff() {
 
 function pop_qualityReportForm(url) {
 
-    let width = 1400;
+    let width = 900;
     let height = 780;
 
     let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);

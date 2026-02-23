@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
-    let search = $('#txt_mtinfo').val();
-    Make_Html(search);
+
 
     $('#txt_before').on('focus',function(){
         $(this).val('');
@@ -210,9 +209,32 @@ $(document).ready(function() {
         $('#outWrap').css('display','none');
     });
 
+    $('#cpage').on('click',function(){
+        $('#p_wrap').css('width','81vw');
+        Make_Html(Make_Search_Param());
+    });
+
     input_Form_ini();
     output_Form_ini();
+
+
+    Make_Html(Make_Search_Param());
+
+
 });
+
+function Make_Search_Param(){
+    let skey = $('#txt_mtinfo').val();
+    let page = $('#cpage').data('page');
+
+    let param = {
+        skey : skey,
+        page : page
+    }
+    return param;
+}
+
+
 
 async function Patch_Material_Income(code,params){
     let bool = false;
@@ -277,8 +299,8 @@ function input_Form_ini(){
 
 }
 
-async function Make_Html(search){
-    let arr = await Load_data(search);
+async function Make_Html(data){
+    let arr = await Load_data(data);
     let html = '';
     if(arr.tcnt > 0) {
         $.each(arr.list, function (index, el) {
@@ -299,29 +321,33 @@ async function Make_Html(search){
                     </tr>
                 `;
         });
-        $('#tList').empty();
-        $('#tcnt').text('');
-        $('#tcnt').text(arr.tcnt);
-        $('#tList').append(html);
+        $('#inout_m_wrap').css('height','600px');
+        $('#cpage').data('page',(data.page+1))
     }else{
-        html = '<tr><td class="ltThead" colspan="9">검색된 데이터가 없습니다.</td></tr>';
-        $('#tList').empty();
-        $('#tcnt').text('0');
-        $('#tList').append(html);
+        Make_Toast('검색된 데이터가 없습니다.');
+        // html = '<tr><td class="ltThead" colspan="9">검색된 데이터가 없습니다.</td></tr>';
     }
+
+    $('#tList').append(html);
+    let nowcnt = $('#tcnt').html();
+    if(nowcnt==='') nowcnt = 0;
+    let newcnt = Number(nowcnt) + Number(arr.total);
+    $('#tcnt').html(newcnt);
+
+
 }
 
-async function Load_data(search) {
-    let data = {};
+async function Load_data(data) {
+    let r_arr = {};
     try {
         start_spinner();
-        let dataarr = {"search": search};
+        let dataarr = {"params": data};
         let url = APIURL + '/Load_Material_Inout';
         let result = await Load_API_Auth(url, dataarr);
        if (result.get('status') == 'NoLogin') {
             go_login();
         } else if(result.get('status') == 'ok') {
-            data = {
+           r_arr = {
                 list : result.get('data').list,
                 tcnt : result.get('data').tcnt
             };
@@ -333,7 +359,7 @@ async function Load_data(search) {
     }finally {
         stop_spinner();
     }
-    return data;
+    return r_arr;
 }
 
 async function Load_Material(stocktyp,param){

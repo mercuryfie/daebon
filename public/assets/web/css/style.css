@@ -1896,10 +1896,12 @@ input[type="radio"] {
 
 .order_list_tbl_wrap .order_list_tbl th,
 .order_list_tbl_wrap .order_list_tbl td {
+    padding: 0 10px;
     border-bottom:1px solid #ccc;
     border-right:1px solid #ccc;
     height: 32px;
     text-align: center;
+    text-wrap: nowrap;
 }
 
 .order_list_tbl_wrap .order_list_tbl th {
@@ -5086,13 +5088,13 @@ input[type="radio"] {
 
 .q_report_box22 .btnBox {
     /*margin-left: ;*/
-    width:1200px;
+    width: 780px;
     height:100px;
 }
 
 .q_report_box23d {
 
-    width: 1200px;
+    width: 780px;
     overflow: hidden;
     margin-left: 20px;
     margin-top: 20px;
@@ -5118,6 +5120,11 @@ input[type="radio"] {
     font-weight: 500;
 }
 
+.q_report_box23d .q_report_table th {
+    font-size: 14px;
+    padding: 5px 0;
+    border: 1px solid #000;
+}
 .q_report_box23d .q_report_table td{
     border:1px solid #000;
     text-align: center;
@@ -5144,7 +5151,7 @@ input[type="radio"] {
 }
 
 /* pop_QualityReport_View end   --------------------------- */
-/* pop order roast form start   --------------------------- */
+/* pop_InstructionForm_View start   --------------------------- */
 
 .ins_form_contents .btnBox,
 .ins_form_contents .btnBox {
@@ -5159,9 +5166,8 @@ input[type="radio"] {
 
 }
 
-
 .ins_form_contents .ins_form_table th {
-    font-weight: normal;
+    /*font-weight: normal;*/
     font-size: 12px !important;
     /*color: red;*/
 }
@@ -5170,12 +5176,18 @@ input[type="radio"] {
     font-size: 14px;
 }
 
+.ins_form_contents .ins_form_table .productName,
+.ins_form_contents .ins_form_table .m_name{
+    font-size: 18px;
+    font-weight: 600;
+}
+
 .ins_form_contents .ins_form_table .ma_data {
     overflow: hidden;
 
 }
 
-/* pop order roast form end   --------------------------- */
+/* pop_InstructionForm_View end   --------------------------- */
 /* waybill form start -------------------------------- */
 
 .waybill_boxfxp {
@@ -6173,6 +6185,10 @@ input[type="radio"] {
     border:1px solid red;
 }
 
+#cpage {
+    cursor: pointer;
+}
+
 .common_tbl_wrap {
     border:1px solid #ccc;
     width: 80vw;
@@ -6468,12 +6484,21 @@ input[type="radio"] {
         padding-left: 10px;
     }
 
-    .odRoast_Table .productName {
+    .odRoast_Table .productName,
+    .odRoast_Table .m_name {
         font-size: 18px;
-        font-weight: bold;
+        font-weight: 600;
     }
 
     /*pop_InstructionForm_View end */
+    /*pop_InstructionForm2_View start */
+
+    .ins_form_table th {
+        font-size: 12px;
+        /*font-weight: normal;*/
+    }
+
+    /*pop_InstructionForm2_View end */
 
 
     /*pop_PrintBarcode_Material_View start*/
@@ -6540,6 +6565,11 @@ input[type="radio"] {
 
     }
 
+    .q_report_table th {
+        padding:5px 0;
+        font-size: 12px;
+        border:1px solid #000;
+    }
     .q_report_table td {
         border:1px solid #000;
         height: 32px;

@@ -306,12 +306,9 @@ $(document).ready(function() {
     $('#addproduct').on('click',function(){
         let mtcode = $(this).data('mtcode');
         let mtname = $(this).data('mtname');
-        let m_wgt = $('#txt_product_num').val();
-
-        console.log('무게:', m_wgt);
 
         Set_Material(mtcode,mtname);
-        Set_Method_Weight(m_wgt);
+        Set_Method_Weight();
     });
 
     $('#txt_product_num').on('keydown', function (e) {
@@ -321,8 +318,6 @@ $(document).ready(function() {
             let mtname = $('#addproduct').data('mtname');
             Set_Material(mtcode,mtname);
             Set_Method_Weight();
-
-
         }
     });
 

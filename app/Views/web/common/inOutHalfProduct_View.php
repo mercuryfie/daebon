@@ -37,16 +37,17 @@
                     </div>
                     <div class="right3">
 <!--                        <button type="button" class="btnType1">로그표시</button>-->
-                        <button type="button" class="btnType1 mr20">엑셀다운로드</button>
+<!--                        <button type="button" class="btnType1 mr20">엑셀다운로드</button>-->
 <!--                        <button type="button" class="btnType2 mr20" id="chulgoBtn" onclick="pop_chulgoView();">출고하기</button>-->
                     </div>
                 </div>
             </div>
             <div class="area4 goods_boxa1b flexType2">
-                <div class="common_tbl_wrap">
+                <div class="common_tbl_wrap" id="inout_half_wrap">
                     <table class="common_tbl ">
                         <thead>
                         <tr>
+                            <th class="ltThead">제품명</th>
                             <th class="ltThead">반제품코드</th>
                             <th class="ltThead">BOM코드</th>
                             <th class="ltThead">공정이름</th>
@@ -60,10 +61,10 @@
                     </table>
                 </div>
             </div>
-<!--            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">-->
-<!--                <p class="more mr10">더보기</p>-->
-<!--                <i class="fa-solid fa-angle-down"></i>-->
-<!--            </div>-->
+            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </div>
 

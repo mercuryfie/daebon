@@ -146,6 +146,7 @@ $routes->match(['GET', 'POST'], 'Api/Del_NoticeInfo', 'ApiController::Del_Notice
 
 $routes->match(['GET', 'POST'], 'Api/Load_Instructions_Process', 'ApiProduceController::Load_Instructions_Process');
 $routes->match(['GET', 'POST'], 'Api/Load_Instructions_Info', 'ApiProduceController::Load_Instructions_Info');
+$routes->match(['GET', 'POST'], 'Api/Load_Instructions_Info2', 'ApiProduceController::Load_Instructions_Info2');
 $routes->match(['GET', 'POST'], 'Api/Load_Instructions_NowStep', 'ApiProduceController::Load_Instructions_NowStep');
 $routes->match(['GET', 'POST'], 'Api/Process_Confirm', 'ApiProduceController::Process_Confirm');
 $routes->match(['GET', 'POST'], 'Api/Search_Goods', 'ApiProduceController::Search_Goods');

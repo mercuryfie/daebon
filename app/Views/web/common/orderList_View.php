@@ -49,7 +49,7 @@
                     <button type="button" class="btnType1" id="btn_sch" name="btn_sch">검색</button>
                 </div>
                 <div class="right">
-                    <button type="button" class="btnType1 mr10" id="btn_orderconfirm">주문확인처리</button>
+<!--                    <button type="button" class="btnType1 mr10" id="btn_orderconfirm">주문확인</button>-->
                     <button type="button" class="btnType1 mr10" id="btn_ininstruct">개별포장지시</button>
                     <button type="button" class="btnType1 mr10" id="btn_package">묶음포장지시</button>
                     <button type="button" class="btnType1 mr10" onclick="upload_Xlx();">엑셀업로드</button>
@@ -75,7 +75,7 @@
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">배송지시일</p></div></th>
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">등록</p></div></th>
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">연동정보</p></div></th>
-                            <th class="ltThead scrollableCol">주문확인처리</th>
+                            <th class="ltThead scrollableCol">주문확인</th>
                             <th class="ltThead scrollableCol">주문취소</th>
                         </tr>
                         </thead>

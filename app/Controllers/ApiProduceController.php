@@ -14,7 +14,8 @@ class ApiProduceController extends BaseController
 
     public function Load_SemiProduct_Info(){
         $sessinarr = $this->GetSessionData();
-        $search = ($this->request->getPost('skey')=='') ?'':$this->request->getPost('skey');
+        //$search = ($this->request->getPost('skey')=='') ?'':$this->request->getPost('skey');
+        $params  = ($this->request->getPost('params') == '') ? [] : $this->request->getPost('params');
         if($sessinarr['islogin']==false) {
             $result = 'NoLogin';
             $data = [];
@@ -23,9 +24,18 @@ class ApiProduceController extends BaseController
             $result = 'Error002';
             $data = [];
             $message = '잘못된 토큰입니다.';
+
         }else{
+            $page = max(1, (int)($params['page'] ?? 1));
+            $limit = 20;
+            $offset = ($page - 1) * $limit;
+            $paging = [
+                'limit' => $limit,
+                'offset' => $offset,
+            ];
+
             $produce_m = model('Produce_m');
-            $Rs = $produce_m->Load_SemiProduct_Info($search);
+            $Rs = $produce_m->Load_SemiProduct_Info3($params,$paging);
             if(fn_ArrayCnt($Rs)>0){
                 $info = [];
                 foreach ($Rs as $d){
@@ -136,6 +146,8 @@ class ApiProduceController extends BaseController
             $message = '필수 입력값이 누락되었습니다.';
         }else{
             $produce_m=model('Produce_m');
+            $iRs = $produce_m->Load_Instructions_Info($gicode);
+            $iCnt = (fn_ArrayCnt($iRs)>0) ? $iRs[0]['icnt'] : 1;
             $pRs = $produce_m->Load_Instructions_Process($gicode);
             $step_info = [];
             if(fn_ArrayCnt($pRs)>0){
@@ -187,7 +199,8 @@ class ApiProduceController extends BaseController
 
             $i_arr = [
                 'tcnt' => fn_ArrayCnt($step_info),
-                'list' => $step_info
+                'list' => $step_info,
+                'icnt' => $iCnt
             ];
 
             $result = 'ok';
@@ -272,6 +285,7 @@ class ApiProduceController extends BaseController
                 $stepsub = $cRs[0]['step_sub_now'];
                 $iscomplete = $cRs[0]['is_complete'];
                 $gscode = $cRs[0]['nowgscode'];
+                $icnt = $cRs[0]['icnt'];
 
 
                 $process = fn_LoadInstructionsSingleProcess($produce_m,$gicode,$prcode);
@@ -293,6 +307,10 @@ class ApiProduceController extends BaseController
                             $data = [];
                             $message = '공정 완료처리에 실패하였습니다.';
                         }else{
+                            if($process['step_typ']=='P001'){
+                                fn_Instruction_Material_Inout($produce_m,$gicode,$icnt);
+                            }
+
                             if($pscode!=''){
                                 //사용반제품출고
                                 fn_OutPut_SemiProduct($produce_m,$gicode,$prcode,$pscode);
@@ -350,6 +368,10 @@ class ApiProduceController extends BaseController
                                 $message = '';
                             }
                         } else if (($stepsub == 1) && ($iscomplete==1)) {//복합공정 완료처리
+
+                            //
+
+
                             $param = ['end_weight' => $weight, 'status' => 2];
                             $Cnt = $produce_m->Update_Instructions_Process($gicode, $prcode, $param);
                             if ($Cnt <= 0) {
@@ -442,7 +464,6 @@ class ApiProduceController extends BaseController
 
     }
 
-
     public function Load_Instructions_Info()
     {
         $sessinarr = $this->GetSessionData();
@@ -495,6 +516,92 @@ class ApiProduceController extends BaseController
                         'category' => $d['category'],
                         'catestr' => fnGetProductNameByCode($d['category']),
                         'quantity' => $d['quantity'],
+                        'inventory' => $d['inventory'],
+                        'iscomplete' => $d['is_complete'],
+                        'indate' => $d['indate'],
+                        'shortdate' => fn_Short_Date($d['indate']),
+                        'processcnt' => $d['Cnt'],
+                        'processname' => $p_arr['step'],
+                        'processstr' => $p_arr['str'],
+                        'worker' => $p_arr['worker'],
+                        'stepnow' => $d['step_now'],
+                        'stepNum' => $p_arr['stepNum'],
+                        'semicode' => $p_arr['semicode'],
+                        'indate' =>  $p_arr['indate']
+                    ];
+
+                    array_push($info_arr,$t_arr);
+                }
+
+                $i_arr = [
+                    'tcnt' => fn_ArrayCnt($info_arr),
+                    'list' => $info_arr
+                ];
+            }
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Load_Instructions_Info2()
+    {
+        $sessinarr = $this->GetSessionData();
+        $params  = ($this->request->getPost('params') == '') ? [] : $this->request->getPost('params');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $page = max(1, (int)($params['page'] ?? 1));
+            $limit = 20;
+            $offset = ($page - 1) * $limit;
+            $paging = [
+                'limit' => $limit,
+                'offset' => $offset,
+            ];
+
+            $produce_m=model('Produce_m');
+            $iRs = $produce_m->Load_Instructions_List_All2($params,$paging);
+            $info_arr = [];
+            if(fn_ArrayCnt($iRs)<=0){
+                $i_arr = [
+                    'tcnt' => 0,
+                    'list' => ''
+                ];
+            }else{
+                foreach ($iRs as $d){
+                    $param = [
+                        'gicode' => $d['gicode'],
+                        'prcode' => $d['nowprcode'],
+                        'step_now' => $d['step_now'],
+                        'step_sub_now' => $d['step_sub_now'],
+                        'is_complete' => $d['is_complete'],
+                        'nowprcode' => $d['nowprcode']
+                    ];
+                    $p_arr = fn_Load_NowStep($produce_m,$param);
+
+                    $t_arr = [
+                        'gicode' => $d['gicode'],
+                        'gcode' => $d['fk_gcode'],
+                        'icnt' => $d['icnt'],
+                        'gname' => $d['gname'],
+                        'category' => $d['category'],
+                        'catestr' => fnGetProductNameByCode($d['category']),
+                        'quantity' => $d['quantity'],
+                        'unit_type' => $d['unit_type'],
                         'inventory' => $d['inventory'],
                         'iscomplete' => $d['is_complete'],
                         'indate' => $d['indate'],

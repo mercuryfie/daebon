@@ -1,20 +1,17 @@
 $(document).ready(function() {
 
-    let search = $('#txt_search').val();
-    Make_html(search)
-
     $('#txt_search').on('keyup', function(e) {
         if (e.keyCode === 13) { // 13은 엔터 키 코드
             $('#clist').empty();
-            let search = $(this).val();
-            Make_html(search)
+            $('#cpage').data('page',1);
+            Make_Html(Make_Search_Param())
         }
     });
 
     $('#btn_search').on('click',function(){
         $('#clist').empty();
-        let search = $('#txt_search').val();
-        Make_html(search)
+        $('#cpage').data('page',1);
+        Make_Html(Make_Search_Param())
     });
 
 
@@ -39,20 +36,38 @@ $(document).ready(function() {
         }
     });
 
+    $('#cpage').on('click',function(){
+        $('#p_wrap').css('width','81vw');
+        Make_Html(Make_Search_Param());
+    });
+
+
+    Make_Html(Make_Search_Param())
 
 });
 
+function Make_Search_Param(){
+    let skey = $('#txt_search').val();
+    let page = $('#cpage').data('page');
+
+    let param = {
+        skey : skey,
+        page : page
+    }
+    return param;
+}
 
 
 
-async function Make_html(search){
-    let arr = await Load_Data(search);
+async function Make_Html(data){
+    let arr = await Load_Data(data);
     console.log(arr);
     let html = '';
     if(arr.total > 0){
         $.each(arr.list, function (index, el) {
             html += `
                 <tr>
+                    <td class="ltTbody">${el.gname}</td>
                     <td class="ltTbody">${el.pscode}</td>
                     <td class="ltTbody">${el.fk_gicode}</td>
                     <td class="ltTbody">${el.step_name}</td>
@@ -63,20 +78,26 @@ async function Make_html(search){
             `;
 
         });
+        $('#inout_half_wrap').css('height','600px');
+        $('#cpage').data('page',(data.page+1));
     }else{
-        html = '<tr><td class="ltThead" colspan="10">검색된 데이터가 없습니다.</td></tr>';
+        Make_Toast('검색된 데이터가 없습니다.');
     }
     $('#clist').append(html);
-    $('#tcnt').html(arr.total);
+
+    let nowcnt = $('#tcnt').html();
+    if(nowcnt==='') nowcnt = 0;
+    let newcnt = Number(nowcnt) + Number(arr.total);
+    $('#tcnt').html(newcnt);
 
 }
 
 
-async function Load_Data(skey){
+async function Load_Data(data){
     let r_arr = {};
     try {
         start_spinner();
-        let dataarr = {"skey" : skey};
+        let dataarr = {"params" : data};
         let url = APIURL + '/Load_SemiProduct_Info';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {

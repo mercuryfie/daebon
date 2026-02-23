@@ -177,7 +177,8 @@ class ApiController extends BaseController
 
     public function Load_Material_Inout(){
         $sessinarr = $this->GetSessionData();
-        $search  = ($this->request->getPost('search') == '') ? '' : $this->request->getPost('search');
+        //$search  = ($this->request->getPost('search') == '') ? '' : $this->request->getPost('search');
+        $params  = ($this->request->getPost('params') == '') ? [] : $this->request->getPost('params');
         if($sessinarr['islogin']==false) {
             $result = 'NoLogin';
             $data = [];
@@ -187,8 +188,17 @@ class ApiController extends BaseController
             $data = [];
             $message = '잘못된 토큰입니다.';
         }else {
+            $page = max(1, (int)($params['page'] ?? 1));
+            $limit = 20;
+            $offset = ($page - 1) * $limit;
+            $paging = [
+                'limit' => $limit,
+                'offset' => $offset,
+            ];
+
+
             $material_m = model('Material_m');
-            $Rs = $material_m->Load_Material_inout($search);
+            $Rs = $material_m->Load_Material_inout2($params,$paging);
             if(fn_ArrayCnt($Rs)>0){
                 $data = [];
                 foreach ($Rs as $d){
@@ -672,7 +682,8 @@ class ApiController extends BaseController
                     'category' => $d['category'],
                     'quantity' => $d['quantity'],
                     'inventory' => $d['inventory'],
-                    'unit_weight' => $d['unit_weight']
+                    'unit_weight' => $d['unit_weight'],
+                    'unit_type' => $d['unit_type']
                 ];
             }
 

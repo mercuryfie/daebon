@@ -57,6 +57,29 @@ class Material_m extends Model
         return $query->getResultArray();
     }
 
+    public function Load_Material_inout2($params,$paging){
+        $search = array_key_exists('skey', $params) ? $params['skey'] : '';
+        $limit =  $paging['limit'];
+        $offset = $paging['offset'];
+
+        $sql = "SELECT m1.*, CONCAT(mt.mtname, '||', mt.typ) AS mtstr FROM tbl_material_inout m1 ";
+        $sql .="INNER JOIN (SELECT MAX(seq) AS max_seq FROM tbl_material_inout GROUP BY fk_mtcode ) m2 ON m1.seq = m2.max_seq ";
+        $sql .="INNER JOIN tbl_material mt ON m1.fk_mtcode = mt.mtcode ";
+        $like = '';
+        if($search!=''){
+            $sql .= "WHERE (m1.fk_mtcode LIKE :LIKESTR: OR mt.mtname LIKE :LIKESTR:)";
+            $like = "%{$search}%";
+        }
+        $sql .= ' order by m1.seq DESC limit :LIMIT: offset :OFFSET:';
+        $bindparam = [
+            'LIKESTR' => $like,
+            'LIMIT' => $limit,
+            'OFFSET' => $offset
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
 
     public function Cnt_Maker_All()
     {
@@ -352,6 +375,15 @@ class Material_m extends Model
         $this->db->transStart();
         $builder = $this->db->table('tbl_material');
         $affected = $builder->insertBatch($param);
+        $this->db->transComplete();
+
+        return $affected;
+    }
+
+    public function Insert_Material_Inout($params){
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_material_inout');
+        $affected = $builder->insertBatch($params);
         $this->db->transComplete();
 
         return $affected;

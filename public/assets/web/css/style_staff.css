@@ -992,14 +992,32 @@ input[type="radio"] {
 
 }
 
-.prod_label_wrap .prod_label_table th,
+.prod_label_wrap .prod_label_table svg {
+    width: 220px;
+    height: 60px;
+}
+.prod_label_wrap .prod_label_table .title {
+    font-weight: 600;
+}
+.prod_label_wrap .prod_label_table th {
+    border:1px solid #000;
+    text-wrap: nowrap;
+    font-size: 12px;
+    padding: 0 10px;
+}
 .prod_label_wrap .prod_label_table td{
+    padding: 0 10px;
     font-weight: normal;
     border:1px solid #000;
     height: 40px;
+    overflow: hidden;
 
 }
 
+.prod_label_wrap .prod_label_table td.b_area{
+    padding: 0;
+    height: 80px;
+}
 
 .prod_label_wrap .prod_label_table th.title {
     width: 40%;
@@ -1626,34 +1644,58 @@ input[type="radio"] {
 @media print {
 
     .prod_label_table {
-        margin: 5mm;
-        border-radius: 1em;
         width: 190mm;
         height: 90mm;
         border-collapse: collapse;
         text-align: center;
-        font-size: 22px;
+        font-size: 18px;
+        overflow: hidden;
 
     }
 
-    .prod_label_table th,
+    .prod_label_table .bar_box {
+        overflow: hidden;
+    }
+
+    .prod_label_table svg {
+        width: 40mm;
+        height: 12mm;
+    }
+
+    .prod_label_table .bar_box {
+        padding: 0;
+        margin: 0;
+        /*height: 30mm;*/
+
+    }
+    .prod_label_table .bar_box .title {
+        /*font-size: 14px;*/
+        padding: 0;
+        margin: 0;
+        font-weight: 600;
+        /*height: 10mm;*/
+    }
+    .prod_label_table th {
+        border:1px solid #000;
+        text-wrap: nowrap;
+        font-size: 12px;
+        padding: 0 10px;
+        border: 1px solid red;
+
+    }
+
     .prod_label_table td {
+        padding: 0 10px;
         border:1px solid #000;
         overflow: hidden;
+        border: 1px solid blue;
         /*height: ;*/
     }
 
-    .prod_label_table td.data1,
-    .prod_label_table td.data2 {
-        height: 25mm;
-
-    }
-
-    .prod_label_table td svg {
-        margin: 0 auto;
-        /*width: 120mm;*/
-        height: 22mm;
+    .prod_label_table td.b_area  {
+        padding: 2mm 0;
     }
 
 
-}
+
+    }

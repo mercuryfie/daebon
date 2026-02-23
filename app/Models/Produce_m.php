@@ -18,6 +18,20 @@ class Produce_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Load_SemiProduct_Company($pscode){
+        $sql = "SELECT c.* FROM tbl_semiproduct_inout a ";
+        $sql .="JOIN tbl_instructions_material b ON a.fk_gicode=b.fk_gicode ";
+        $sql .="JOIN vw_material_info c ON b.fk_mtcode=c.mtcode ";
+        $sql .="WHERE a.pscode=:PSCODE: AND m_input>0";
+        $bindparam = [
+            'PSCODE'=> $pscode
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+
+    }
+
+
     public function Load_dashboardProduce_Info(){
         $sql = "SELECT COUNT(CASE WHEN is_complete = 0 AND step_now=0 THEN 1 END) AS count_ready,COUNT(CASE WHEN is_complete < 2 AND step_now > 0 THEN 1 END) AS count_ing,COUNT(CASE WHEN is_complete = 2 THEN 1 END) AS count_complete ";
         $sql .= "FROM tbl_instructions WHERE is_del = :ISDEL: AND DATE_FORMAT(indate, '%Y-%m-%d') = CURDATE() ";
@@ -52,6 +66,34 @@ class Produce_m extends Model
         return $query->getResultArray();
     }
 
+    public function Load_SemiProduct_Info3($params,$paging){
+
+        $search = array_key_exists('skey', $params) ? $params['skey'] : '';
+        $limit =  $paging['limit'];
+        $offset = $paging['offset'];
+
+        $sql = "SELECT a.seq,pscode,a.fk_gicode,b.gname,c.step_name,a.indate, ";
+        $sql .= "SUM(m_input) AS total_input, SUM(m_output) AS total_output, (SUM(m_input) - SUM(m_output)) AS stock_amount ";
+        $sql .= "FROM tbl_semiproduct_inout a JOIN tbl_instructions b ON a.fk_gicode=b.gicode JOIN tbl_instructions_process c ON a.fk_gicode=c.fk_gicode AND  c.fk_prcode=a.fk_prcode ";
+        if($search!=''){
+            $searchword = "%{$search}%";
+            $wheresql = "WHERE (b.gname LIKE :SEARCH: OR c.step_name LIKE :SEARCH: OR a.fk_gicode LIKE :SEARCH: OR a.pscode LIKE :SEARCH:)";
+        }else{
+            $searchword = '';
+            $wheresql = '';
+        }
+
+        $sql = $sql . $wheresql . "GROUP BY pscode ORDER BY indate DESC limit :LIMIT: offset :OFFSET: ";
+
+        $bindparam = [
+            'SEARCH'=> $searchword,
+            'LIMIT' => $limit,
+            'OFFSET'=> $offset
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
     public function Load_SemiProduct_Info2($gscode,$typ,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
         if($typ==1) {
@@ -79,6 +121,40 @@ class Produce_m extends Model
         $row = $Query->getRow();
         $Cnt = ($row) ? $row->Cnt : 0;
         return $Cnt;
+    }
+
+    public function Load_Instructions_List_All2($params,$paging,$fields=['ALL'])
+    {
+        $sdate = array_key_exists('sdata', $params) ? $params['sdata'].' 00:00:00' : date("Y-m-d").' 00:00:00';
+        $edate = array_key_exists('edata', $params) ? $params['edata'].' 23:59:59' : date("Y-m-d").' 23:59:59';
+        $word = array_key_exists('skey', $params) ? $params['skey'] : '';
+        $filter = array_key_exists('filter', $params) ? $params['filter'] : '';
+
+
+        $limit =  $paging['limit'];
+        $offset = $paging['offset'];
+
+        $searchword = "%{$word}%";
+        $wsql = "AND (indate >=:SDATE: AND indate <= :EDATE:) ";
+        if($word!='') $wsql .= "AND (gicode LIKE :WORD: OR gname LIKE :WORD:) ";
+        if($filter!='') $wsql .= "AND (a.is_complete = :FILTER:)";
+
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val},";
+        $sql .= "IFNULL((SELECT fk_prcode from tbl_instructions_process WHERE fk_gicode=a.gicode AND stepNum=a.step_now),'') AS nowprcode";
+        $sql .= " from vw_produce a";
+        $sql .= " WHERE is_del=:ISDEL: {$wsql} order by seq DESC  limit :LIMIT: offset :OFFSET:";
+        $bindparam = [
+            'SDATE' => $sdate,
+            'EDATE' => $edate,
+            'WORD' => $searchword,
+            'FILTER' => $filter,
+            'ISDEL' => 0,
+            'LIMIT' => $limit,
+            'OFFSET' => $offset
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
     }
 
     public function Load_Instructions_List_All($param,$fields=['ALL'])

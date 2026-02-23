@@ -67,11 +67,38 @@ class ProductController extends BaseController
                 'session' => $sessinarr,
                 'gicode' => ''
             ];
+
+
+            $suname = '';
+            $mkname = '';
+            $mtname = '';
+            $produce_m = model('Produce_m');
+            $cRs = $produce_m->Load_SemiProduct_Company($sicode);
+            if(fn_ArrayCnt($cRs)>0){
+                $suarr= [];
+                $mkarr = [];
+                $mtarr = [];
+                foreach ($cRs as $d){
+                    $suarr[] = $d['fk_suname'];
+                    $mkarr[] = $d['fk_mkname'];
+                    $mtarr[] = $d['mtname'];
+                }
+
+                $suname = implode(' / ', $suarr);
+                $mkname = implode(' / ', $mkarr);
+                $mtname = implode(' / ', $mtarr);
+            }
+
+
+
             $main_data = [
                 'gicode' => $gicode,
                 'sicode' => $sicode,
                 'pname' => $pname,
-                'indate' => $indate
+                'indate' => $indate,
+                'su_name' => $suname,
+                'mk_name' => $mkname,
+                'mt_name' => $mtname
             ];
 
             $form = new Form;
@@ -203,6 +230,8 @@ class ProductController extends BaseController
                     'step_now' => $info['step_now'],
                     'step_sub_now' => $info['step_sub_now'],
                     'unit_weight' => $info['unit_weight'],
+                    'unit_type' => $info['unit_type'],
+                    'icnt' => $info['icnt'],
                     'p_name' => $process['step_name'],
                     'step_typ' => $process['step_typ'],
                     'input' => $process['input_material'],

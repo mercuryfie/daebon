@@ -1,11 +1,5 @@
 $(document).ready(function() {
 
-    let search = '';
-    const data = {
-        skey : search
-    };
-    Make_Html(data);
-
     $('#order_wrapdek #Xbtn, #order_wrapdek #Xbtn2').click(function () {
         $('#order_wrapdek').css('display','none');
     });
@@ -85,7 +79,58 @@ $(document).ready(function() {
 
     });
 
+    $('.dateBox .period').eq(2).trigger('click');
+
+
+    $('#btn_search').on('click',function(){
+        $('#clist').empty();
+        $('#cpage').data('page',1);
+        Make_Html(Make_Search_Param());
+    });
+
+    $('#skey').on('keydown', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            e.preventDefault();
+            $('#clist').empty();
+            $('#cpage').data('page',1);
+            Make_Html(Make_Search_Param());
+        }
+    });
+
+    $('input[name="filter"]').on('change',function(){
+        if ($(this).is(':checked')) {
+            $('input[name="filter"]').not(this).prop('checked', false);
+        }
+        $('#clist').empty();
+        Make_Html(Make_Search_Param());
+    });
+
+    $('#cpage').on('click',function(){
+        $('#p_wrap').css('width','81vw');
+        Make_Html(Make_Search_Param());
+    });
+
+    Make_Html(Make_Search_Param());
+
 });
+
+function Make_Search_Param(){
+    let sdata = $('#s_date').val();
+    let edata = $('#e_date').val();
+    let skey = $('#skey').val();
+    let filterVal = $('input[name="filter"]:checked').val() || '';
+    let page = $('#cpage').data('page');
+
+    let param = {
+        sdata : sdata,
+        edata : edata,
+        skey : skey,
+        filter : filterVal,
+        page : page
+    }
+    return param;
+}
+
 
 async function Make_Html(data){
     let arr = await Data_Load(data);
@@ -97,17 +142,16 @@ async function Make_Html(data){
             if (!fn_IsEmpty(el.stepNum)) {
                 prog = `(` + el.stepNum + `/` + el.processcnt + `)`;
             }
+
+            let totalCnt = Number(el.quantity) * Number(el.icnt);
             html += `
                 <tr>
-                    <td class="ltTbody">
-                        <input type="checkbox" name="chk_seq" value="${el.seq}">
-                    </td>
                     <td class="ltTbody">${el.shortdate}</td>
                     <td class="ltTbody">${el.gicode}</td>
-                    <td class="ltTbody">${el.gname}</td>  
+                    <td class="ltTbody">${el.gname}</td>
+                    <td class="ltTbody">${number_format(totalCnt)} ${el.unit_type}</td>  
                     <td class="ltTbody">${el.processname} ${prog}</td>  
-                    <td class="ltTbody">${number_format(el.quantity)} 개</td>  
-                    <td class="ltTbody">${el.processstr}</td>  
+                    <td class="ltTbody">${el.processstr}</td>
                     <td class="ltTbody">${el.worker}</td> 
                     <td class="ltTbody">
                         <button type="button" class="btnType3 statusBtn" name="view_production" data-code="${el.gicode}" data-nd="${el.prcode}" >현황보기</button>
@@ -120,20 +164,26 @@ async function Make_Html(data){
                 </tr>
             `;
         });
+        $('#p_wrap').css('height','560px');
+        $('#cpage').data('page',(data.page+1))
     }else{
-        html = '<tr><td class="ltThead" colspan="10">검색된 데이터가 없습니다.</td></tr>';
+        //html = '<tr><td class="ltThead" colspan="10">검색된 데이터가 없습니다.</td></tr>';
+        Make_Toast('검색된 데이터가 없습니다.');
     }
-    $('#cpage').hide();
     $('#clist').append(html);
-    $('#tcnt').html(arr.total);
+
+    let nowcnt = $('#tcnt').html();
+    if(nowcnt==='') nowcnt = 0;
+    let newcnt = Number(nowcnt) + Number(arr.total);
+    $('#tcnt').html(newcnt);
 }
 
 async function Data_Load(data){
     let r_arr = {};
     try {
         start_spinner();
-        let dataarr = {"skey" : data};
-        let url = APIURL + '/Load_Instructions_Info';
+        let dataarr = {"params" : data};
+        let url = APIURL + '/Load_Instructions_Info2';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();
@@ -148,9 +198,9 @@ async function Data_Load(data){
         }else{
             Make_Toast(result.get('message') + "[" + result.get('status') + "]");
         }
-        stop_spinner();
     } catch (error) {
         Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+    }finally {
         stop_spinner();
     }
     return r_arr;

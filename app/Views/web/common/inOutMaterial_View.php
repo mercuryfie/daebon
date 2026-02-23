@@ -38,7 +38,7 @@
 
                     </div>
                     <div class="right3">
-                        <button type="button" class="btnType1">엑셀다운로드</button>
+<!--                        <button type="button" class="btnType1">엑셀다운로드</button>-->
                         <button type="button" class="btnType2 mr10" id="bnt_input">입고하기</button>
                         <button type="button" class="btnType2 mr20" id="btn_output">출고하기</button>
 
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="area4 goods_boxa1b flexType2 ">
-                <div class="common_tbl_wrap">
+                <div class="common_tbl_wrap" id="inout_m_wrap">
                     <table class="common_tbl">
                         <thead>
                         <tr>
@@ -64,10 +64,10 @@
                     </table>
                 </div>
             </div>
-<!--            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">-->
-<!--                <p class="more mr10">더보기</p>-->
-<!--                <i class="fa-solid fa-angle-down"></i>-->
-<!--            </div>-->
+            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </div>
 

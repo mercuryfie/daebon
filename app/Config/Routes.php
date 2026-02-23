@@ -96,6 +96,7 @@ $routes->match(['GET', 'POST'], 'Api/Naver_Get_Order_Period', 'ApiMarketControll
 
 $routes->match(['GET', 'POST'], 'Api/login_do', 'ApiController::Login_Do');
 $routes->match(['GET', 'POST'], 'Api/Load_MaterialList', 'ApiController::Load_MaterialList');
+$routes->match(['GET', 'POST'], 'Api/Load_MaterialList2', 'ApiController::Load_MaterialList2');
 $routes->match(['GET', 'POST'], 'Api/Load_Material_Info', 'ApiController::Load_Material_Info');
 $routes->match(['GET', 'POST'], 'Api/Add_Material_Info', 'ApiController::Add_Material_Info');
 $routes->match(['GET', 'POST'], 'Api/Mod_Material_Info', 'ApiController::Mod_Material_Info');
@@ -130,6 +131,7 @@ $routes->match(['GET', 'POST'], 'Api/Load_Mall_Log_List', 'ApiController::Load_M
 $routes->match(['GET', 'POST'], 'Api/Load_Material_Inout', 'ApiController::Load_Material_Inout');
 $routes->match(['GET', 'POST'], 'Api/Patch_Meterial_Income', 'ApiController::Patch_Meterial_Income');
 $routes->match(['GET', 'POST'], 'Api/get_Material_Stock_Log', 'ApiController::get_Material_Stock_Log');
+$routes->match(['GET', 'POST'], 'Api/Load_Statistics_Month', 'ApiController::Load_Statistics_Month');
 
 $routes->match(['GET', 'POST'], 'Api/Load_UserList', 'ApiController::Load_UserList');
 $routes->match(['GET', 'POST'], 'Api/Add_UserInfo', 'ApiController::Add_UserInfo');

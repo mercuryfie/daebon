@@ -13,6 +13,58 @@ class ApiController extends BaseController
 {
     use ResponseTrait;
 
+    public function Load_Statistics_Month(){
+        $sessinarr = $this->GetSessionData();
+        $sdate = ($this->request->getPost('sdate') == '') ? '' : $this->request->getPost('sdate');
+        $edate = ($this->request->getPost('edate') == '') ? '' : $this->request->getPost('edate');
+        if ($sessinarr['islogin'] == false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else if(($sdate=='') || ($edate=='')){
+            $result = 'Error003';
+            $data = [];
+            $message = '잘못된 접근입니다.';
+        } else {
+            $common_m = model('Common_m');
+            $order = [];
+            $oRs = $common_m->Month_Order_Statistics($sdate,$edate);
+            if(fn_ArrayCnt($oRs)>0){
+                foreach ($oRs as $d){
+                    $order[$d['sDate']] = $d['Cnt'];
+                }
+            }
+            $delivery = [];
+            $dRs = $common_m->Month_Delivery_Statistics($sdate,$edate);
+            if(fn_ArrayCnt($dRs)>0){
+                foreach ($dRs as $d){
+                    $delivery[$d['sDate']] = $d['Cnt'];
+                }
+            }
+            $i_arr=[
+                'order' => $order,
+                'delivery' => $delivery
+            ];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
+
     public function get_Material_Stock_Log()
     {
         $sessinarr = $this->GetSessionData();
@@ -46,7 +98,7 @@ class ApiController extends BaseController
                 $data = $i_arr;
                 $message = '';
             } else {
-                $unit = ($mttyp == 1) ? 'g' : '개';
+                $unit = ($mttyp == 1) ? 'g' : '봉';
 
                 $list = [];
                 foreach ($log as $d) {
@@ -209,7 +261,7 @@ class ApiController extends BaseController
                         $mtunit = 'g';
                     }else{
                         $mttype = '부자재';
-                        $mtunit = '개';
+                        $mtunit = '봉';
                     }
                     $t_arr = [
                         'mtcode' => $d['fk_mtcode'],
@@ -1211,6 +1263,7 @@ class ApiController extends BaseController
                         'c_str' => fnGetProductNameByCode($d['category']),
                         'quantity' => $d['quantity'],
                         'inventory' => $d['inventory'],
+                        'unit_type' => $d['unit_type'],
                         'completecnt' => $material_m->Cnt_Goods_InstructionsBygCode($d['gcode'],0),
                         'stepCnt' => $d['Cnt'],
                         'avg' => $c_arr
@@ -1486,6 +1539,72 @@ class ApiController extends BaseController
             }
 
             $i_arr = [ 
+                'list' => $m_arr,
+                'tCnt' => fn_ArrayCnt($mRs)
+            ];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Load_MaterialList2(){
+        $sessinarr = $this->GetSessionData();
+        $params = $this->request->getPost('params') ?? [];
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)){
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $material_m = model('Material_m');
+            $mRs = $material_m->Load_MaterialList2($params);
+
+            $m_arr = [];
+
+            foreach ($mRs as $d){
+                $t_arr['seq'] = $d['seq'];
+                $t_arr['mtcode'] = $d['mtcode'];
+                $t_arr['typ'] = $d['typ'];
+                $t_arr['typ_str'] = ($d['typ']==1) ? '원재료' : '부자재';
+                $t_arr['mtname'] = $d['mtname'];
+                $t_arr['fk_sucode'] = $d['fk_sucode'];
+                $t_arr['fk_mkcode'] = $d['fk_mkcode'];
+                $t_arr['inventory'] = $d['inventory'];
+                $t_arr['uname'] = $d['unit_name'];
+                $t_arr['fk_mkname'] = $d['fk_mkname'];
+                $t_arr['fk_suname'] = $d['fk_suname'];
+
+                $cRs = $material_m->Load_Material_Statistics($d['mtcode']);
+                if(fn_ArrayCnt($cRs)>0){
+                    $nowstock = $cRs[0]['t_input'] - $cRs[0]['t_output'];
+                    $t_arr['t_in'] = $cRs[0]['t_input'];
+                    $t_arr['t_out'] = $cRs[0]['t_output'];
+                    $t_arr['stock'] = $nowstock;
+                    $t_arr['avg'] = $cRs[0]['avg_m_output'];
+                    $t_arr['s_status'] = ($nowstock < $d['inventory']) ? 1 : 0;
+                }else{
+                    $t_arr['t_in'] = 0;
+                    $t_arr['t_out'] = 0;
+                    $t_arr['stock'] = 0;
+                    $t_arr['avg'] = 0 ;
+                    $t_arr['s_status'] = 0;
+                }
+                array_push($m_arr,$t_arr);
+            }
+
+            $i_arr = [
                 'list' => $m_arr,
                 'tCnt' => fn_ArrayCnt($mRs)
             ];

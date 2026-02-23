@@ -36,7 +36,7 @@
                     <div class="element element3 flexType2">
                         <p class="notmust"></p>
                         <p class="title">적정 재고량</p>
-                        <span class="data" name="txt_inventory" id="txt_inventory"><?=$body['goods_arr']['inventory'];?>개</span>
+                        <span class="data" name="txt_inventory" id="txt_inventory"><?=$body['goods_arr']['inventory'];?>봉</span>
                     </div>
                     <div class="element element4 flexType2">
                         <p class="notmust"></p>

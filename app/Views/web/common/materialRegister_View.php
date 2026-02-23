@@ -58,7 +58,7 @@
                         <p class="title">입출고 단위</p>
                         <select name="" id="" class="inputType360">
                             <option value="">g</option>
-                            <option value="">개</option>
+                            <option value="">봉</option>
                             <option value="">Box</option>
                         </select>
                     </div>

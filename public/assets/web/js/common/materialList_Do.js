@@ -1,24 +1,6 @@
 let tcnt = 0;
-let c_page = 1;
 
 $(document).ready(function() {
-
-    // let tcnt =  $('#tcnt').val('0');
-        // tcnt = 0;
-
-    let search = '';
-    let filter = 0;
-    let page = $('#cpage').data('page') || 1;
-
-    const data = {
-        skey : search,
-        fkey : filter,
-        page : page
-    };
-
-    Load_Data(data);
-
-
 
     $('#addMate').click(function () {
         $('#addMateWrap').css('display','block');
@@ -28,39 +10,6 @@ $(document).ready(function() {
         $('#addMateWrap').css('display','none');
     });
 
-    // $('#more-btn').on('click', function() {
-    //     page++; // 1 → 2 → 3...
-    //     $('#cpage').data('page', page);
-    //     Load_Data({page: page, skey: search, fkey: filter});
-    // });
-
-
-    // $('#cpage').on('click', function() {
-    //     currentPage++;  // 1→2→3 (data() 안 씀!)
-    //     console.log('요청 page:', currentPage);  // 디버그
-    //
-    //     const data = { page: currentPage, skey: '', fkey: 0 };
-    //     Load_Data(data);
-    // });
-
-
-    $('#cpage').on('click', function() {
-        c_page++;  // 1→2→3
-        console.log('클릭 → page:', c_page);
-        Load_Data({page: c_page, skey: '', fkey: 0});
-    });
-
-    // $("#cpage").on("click", function (key) {
-    //     // let page = $('#cpage_box').data('page');
-    //     page++;
-    //     console.log('page:', page);
-    //     const data = {
-    //         page : page,
-    //         skey : '',
-    //         fkey : 0
-    //     };
-    //     Load_Data(data);
-    // });
 
     $("#maker").on("change", function() {
         if ($(this).val() === "bySelf") {
@@ -159,36 +108,20 @@ $(document).ready(function() {
 
     });
 
-    // selectAll: 체크박스 전체 선택
-    $(document).on('change', '#mate_filter', function() {
-        let search = '';
-        let fkey = $('#mate_filter option:selected').val();
-        const data = {
-            skey : search,
-            fkey : fkey
-        };
-        Load_Data(data);
+    $('#mate_filter').on('change', function() {
+        $('#mlist').empty();
+        Make_Html(Make_Search_Param());
     });
 
-    $(document).on('click','button[name="btn_search"]',function(){
-        const data = {
-            skey : $('#mkey').val(),
-            fkey : ''
-        };
-
-        form_Ini();
-        Load_Data(data);
+    $('#btn_search').on('click',function(){
+        $('#mlist').empty();
+        Make_Html(Make_Search_Param());
     });
 
     $('#mkey').on("keypress", function (key) {
         if (key.keyCode == 13) {
-            const data = {
-                skey : $(this).val(),
-                fkey : ''
-            };
-
-            form_Ini();
-            Load_Data(data);
+            $('#mlist').empty();
+            Make_Html(Make_Search_Param());
         }
     });
 
@@ -232,6 +165,7 @@ $(document).ready(function() {
                 };
                 let html = '';
                 let el = await Add_Data(data);
+                console.log(el);
                 if(!fn_IsEmpty(el)){
                     html =`
                         <tr id="tr_${el.code}">
@@ -326,10 +260,6 @@ $(document).ready(function() {
         }
     });
 
-    // $('#execlUp').on('click',function(){
-    //     $('#attachExcel').click(); // 숨겨진 파일 선택창 열기
-    // });
-
     $('#excelPop').click(function () {
         $('#uploadExcel').css('display','block');
     });
@@ -351,7 +281,20 @@ $(document).ready(function() {
         }
     });
 
+    Make_Html(Make_Search_Param());
+
 });
+
+function Make_Search_Param(){
+    let skey = $('#mkey').val();
+    let mate_filter = $('#mate_filter').val();
+
+    let param = {
+        skey : skey,
+        filter : mate_filter
+    }
+    return param;
+}
 
 function form_Ini(){
     $('#mlist').empty();
@@ -364,6 +307,7 @@ function add_Material(mcode) {
 
     $('#p_title').html(title);
     $('#division').val('');
+    $('#mname').val('');
     $('#maker').val('');
     $('#supply').val('');
     $('#unit').val('');
@@ -466,108 +410,76 @@ async function Mod_Data(data){
     return arr;
 }
 
-async function Load_Data(data) {
+
+async function Make_Html(data){
+    let arr = await Load_Data(data);
+    console.log(arr);
+    let html = '';
+    if(!fn_IsEmpty(arr.list)){
+        $.each(arr.list, function (index, el) {
+
+            if (el.stock < el.inventory) {
+                stock_css = 'low_stock active';
+            } else {
+                stock_css = '';
+            }
+
+            html +=`
+                <tr id="tr_${el.mtcode}" class="${stock_css}"> 
+                    <td class="ltTbody col1">${el.typ_str}</td>
+                    <td class="ltTbody col2">
+                        <a href="javascript:;" class="materialName" onclick="mod_Material('${el.mtcode}');">${el.mtcode}</a>
+                    </td>
+                    <td class="ltTbody col2">
+                        <a href="javascript:;" class="materialName" onclick="mod_Material('${el.mtcode}');">${el.mtname}</a>
+                    </td>
+                    <td class="ltTbody col5">${number_format(el.inventory)} ${el.uname}</td>
+                    <td class="ltTbody col4">${el.avg}</td>
+                    <td class="ltTbody col5">${number_format(el.stock)} ${el.uname}</td>
+                    <td class="ltTbody col6">
+                        <button type="button" class="btnType3 trashBtn" id="del_${el.seq}" name="btn_del"  data-code="${el.mtcode}">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+        $('#p_wrap').css('height','560px');
+    }else{
+        Make_Toast('검색된 데이터가 없습니다.');
+    }
+    $('#mlist').append(html);
+    $('#tcnt').html(arr.total);
+}
+
+async function Load_Data(data){
+    let r_arr = {};
     try {
         start_spinner();
-        let dataarr = {data};
-        let fkey = data.fkey;
-        let url = APIURL + '/Load_MaterialList';
+        let dataarr = {"params" : data};
+        let url = APIURL + '/Load_MaterialList2';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {
-            let html = '';
             let data = result.get('data');
-            let page = data.page;
-            let tCnt = data.tCnt;
-            // let totalCnt = 0;
-            let arr = (data && data.list) ? data.list : [];
-            let Cnt = arr.length;
-            let num = 0;
-            let stock_css = '';
-            if (Cnt > 0) {
-                $.each(arr, function (index, el) {
-                    if (el.stock < el.inventory) {
-                        stock_css = 'low_stock active';
-                    } else {
-                        stock_css = '';
-                    }
-                    num++;
-
-                    html +=`
-                    <tr id="tr_${el.mtcode}" class="${stock_css}"> 
-                        <td class="ltTbody col1">${el.typ_str}</td>
-                        <td class="ltTbody col2">
-                            <a href="javascript:;" class="materialName" onclick="mod_Material('${el.mtcode}');">${el.mtcode}</a>
-                        </td>
-                        <td class="ltTbody col2">
-                            <a href="javascript:;" class="materialName" onclick="mod_Material('${el.mtcode}');">${el.mtname}</a>
-                        </td>
-                        <td class="ltTbody col5">${number_format(el.inventory)} ${el.uname}</td>
-                        <td class="ltTbody col4">${el.avg}</td>
-                        <td class="ltTbody col5">${number_format(el.stock)} ${el.uname}</td>
-                        <td class="ltTbody col6">
-                            <button type="button" class="btnType3 trashBtn" id="del_${el.seq}" name="btn_del"  data-code="${el.mtcode}">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    `;
-                });
-            }else{
-                html = `
-                    <tr>
-                        <td class="ltTbody">-</td>
-                        <td class="ltTbody">-</td>
-                        <td class="ltTbody">-</td>
-                        <td class="ltTbody">-</td>
-                        <td class="ltTbody">-</td>
-
-                        <td class="ltTbody">-</td>
-                        <td class="ltTbody">-</td> 
-                    </tr>
-                `;
-            }
-
-            $('#cpage').data('page',data.page);
-
-            if (page === 1) {
-                $('#mlist').html(html);
-                tcnt = Cnt;
-            } else {
-                $('#mlist').append(html);
-                tcnt += Cnt;
-            }
-
-            $('#tcnt').html(number_format(tcnt));
-            $('#cpage').data('page', page);
-
-            console.log(
-                '서버 page:', page,
-                'Cnt:', Cnt,
-                '현재 totalCnt:', tcnt
-            );
-
-            if (Cnt  < 30) {
-                $('#cpage_box').hide();
-                $('#tcnt').html(Cnt);
-                Make_Toast('더 이상 데이터가 없습니다.');
-            } else {
-                $('#cpage_box').show();
-            }
-
-            // $('#mlist').empty();
-            // $('#mlist').append(html);
-            // $('#tcnt').html(number_format(data.tCnt));
-        } else {
-            Make_Toast(result.get('message'));
+            arr = (data && data.list) ? data.list : [];
+            tcnt = (data && data.tCnt) ? data.tCnt : 0;
+            r_arr = {
+                list : arr,
+                total : tcnt
+            };
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
         }
         stop_spinner();
     } catch (error) {
         Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
         stop_spinner();
     }
+    return r_arr;
 }
+
 
 async function Load_Pop(mcode){
     let arr = [];

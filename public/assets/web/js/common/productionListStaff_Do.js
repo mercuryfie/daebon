@@ -100,7 +100,7 @@ async function Make_Html(data){
             if (!fn_IsEmpty(el.stepNum)) {
                 prog = `(` + el.stepNum + `/` + el.processcnt + `)`;
             }
-            if(el.semicode!=''){
+            if(el.semicode!='' && el.status=='0'){
                 prn = `<button type="button" class="btn60Type3 " name="prn_label" data-gicode="${el.gicode}" data-sicode="${el.semicode}" data-pname="${el.processname}" data-indate="${el.indate}">출력</button>`;
             }
             if(el.iscomplete<2){
@@ -113,7 +113,7 @@ async function Make_Html(data){
                     <td class="ltTbody" ${iscomplete}>${el.gicode}</td>
                     <td class="ltTbody gname" ${iscomplete}>${el.gname}</td>
                     <td class="ltTbody pname" ${iscomplete}>${el.processname} ${prog}</td> 
-                    <td class="ltTbody">${number_format(el.quantity)}개</td>
+                    <td class="ltTbody">${number_format(el.quantity)} 봉</td>
                       
                     <td class="ltTbody">${el.processstr}</td> 
                     <td class="ltTbody">${el.worker}</td>  
@@ -145,7 +145,8 @@ async function Make_Html2(data){
             if (!fn_IsEmpty(el.stepNum)) {
                 prog = `(` + el.stepNum + `/` + el.processcnt + `)`;
             }
-            if(el.semicode!=''){
+
+            if(el.semicode!='' && el.status=='0'){
                 prn = `<button type="button" class="btn60Type3 " name="prn_label" data-gicode="${el.gicode}" data-sicode="${el.semicode}" data-pname="${el.processname}" data-indate="${el.indate}">출력</button>`;
             }
             if(el.iscomplete<2){
@@ -159,7 +160,7 @@ async function Make_Html2(data){
                     <td class="ltTbody" ${iscomplete}>${el.gicode}</td>
                     <td class="ltTbody" ${iscomplete}>${el.gname}</td>
                     <td class="ltTbody" ${iscomplete}>${el.processname} ${prog}</td> 
-                    <td class="ltTbody">${number_format(el.quantity)}개</td>
+                    <td class="ltTbody">${number_format(el.quantity)} 봉</td>
                       
                     <td class="ltTbody">${el.processstr}</td> 
                     <td class="ltTbody">${el.worker}</td> 

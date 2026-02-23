@@ -134,11 +134,11 @@ async function Make_Html(skey){
         $.each(arr.list, function (index, el) {
             html += `
                 <tr id="list_${el.gcode}">
-                    <td class="ltTbody"> <a href="javascript:;" onclick="go_productsEditor('${el.gcode}');" class="goodsName underline2">${el.gcode}</a></td> 
+                    <td class="ltTbody"> <a href="javascript:;" onclick="go_productsEditor('${el.gcode}');" class="goodsName ">${el.gcode}</a></td> 
                     <td class="ltTbody ">
                         <a href="javascript:;" onclick="go_productsEditor('${el.gcode}');" class="goodsName underline2 ">${el.gname}</a>
                     </td>
-                    <td class="ltTbody">${number_format(el.quantity)}개</td>
+                    <td class="ltTbody">${number_format(el.quantity)} ${el.unit_type}</td>
                     <td class="ltTbody">${number_format(el.completecnt)}건</td>  
                     <td class="ltTbody">${number_format(el.stepCnt)}단계</td>  
                     <td class="ltTbody">

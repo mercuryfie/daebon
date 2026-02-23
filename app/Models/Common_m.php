@@ -18,6 +18,29 @@ class Common_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Month_Order_Statistics($sdate,$edate){
+        $sql = "SELECT DATE_FORMAT(orderdate,'%Y-%m-%d') AS sDate,COUNT(*) as Cnt FROM tbl_order WHERE orderdate >=:SDATE: ";
+        $sql .= "AND orderdate< :EDATE: GROUP BY DATE_FORMAT(orderdate,'%Y-%m-%d')  ORDER BY 1 ASC";
+        $bindparam = [
+            'SDATE' => $sdate,
+            'EDATE' => $edate
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Month_Delivery_Statistics($sdate,$edate){
+        $sql = "SELECT DATE_FORMAT(indate,'%Y-%m-%d') AS sDate,COUNT(*) as Cnt FROM tbl_delivery_info WHERE indate >=:SDATE: ";
+        $sql .= "AND indate< :EDATE: GROUP BY DATE_FORMAT(indate,'%Y-%m-%d')  ORDER BY 1 ASC";
+        $bindparam = [
+            'SDATE' => $sdate,
+            'EDATE' => $edate
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+
     public function Insert_Log($param){
         $this->db->transStart();
         $builder = $this->db->table('tbl_system_log');

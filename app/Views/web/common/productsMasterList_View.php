@@ -39,8 +39,8 @@
                             <tr>
                                 <th class="ltThead">BOM코드</th>
                                 <th class="ltThead">제품명</th>
-                                <th class="ltThead">지시수량</th>
-                                <th class="ltThead">작업 중 수량</th>
+                                <th class="ltThead">기본생산수량</th>
+                                <th class="ltThead">작업중</th>
                                 <th class="ltThead">공정단계수</th>
                                 <th class="ltThead ">출력</th>
                                 <th class="ltThead">삭제</th>

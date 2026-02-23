@@ -15,7 +15,7 @@
             </div>
             <div class="area area3 flexType2">
                 <p class="category">수량</p>
-                <p class="data">10 개</p>
+                <p class="data">10 봉</p>
 <!--                <input type="search" name="" id="" placeholder="10" class="inputType220 mr10" readonly>-->
 <!--                <p class="unit">개</p>-->
             </div>

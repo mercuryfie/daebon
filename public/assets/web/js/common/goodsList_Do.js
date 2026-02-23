@@ -158,7 +158,7 @@ async function pop_GoodsDetail(pdcode,pdname) {
                 html += ` 
                     <tr>
                         <td class="">${el.gsname}</td>
-                        <td class="">${el.cnt}개</td>
+                        <td class="">${el.cnt} 봉</td>
                     </tr> 
                 `;
             });
@@ -172,7 +172,7 @@ async function pop_GoodsDetail(pdcode,pdname) {
                 html += ` 
                     <tr>
                         <td class="">${el.mtname}</td>
-                        <td class="">${el.cnt}개</td>
+                        <td class="">${el.cnt} 봉</td>
                     </tr>
                 `;
             });
@@ -253,8 +253,8 @@ async function Make_Html(skey){
                     <td class="ltTbody">${el.cname}</td>
                     <td class="ltTbody">${number_format(el.pdWeigth)}g</td>
                     <td class="ltTbody">${number_format(el.pdprice)}원</td>
-                    <td class="ltTbody">${el.mCnt}개</td>
-                    <td class="ltTbody">${el.gCnt}개</td>
+                    <td class="ltTbody">${el.mCnt} 봉</td>
+                    <td class="ltTbody">${el.gCnt} 봉</td>
                     <td class="ltTbody">${el.indate}</td>
                     <td class="ltTbody">
                         <button type="button" class="btnType3 removeBtn" data-code="${el.pdcode}" name="remove_btn">

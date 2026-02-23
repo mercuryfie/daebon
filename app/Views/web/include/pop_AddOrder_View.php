@@ -20,7 +20,7 @@
             <div class="area area3 flexType2">
                 <p class="category">수량</p>
                 <input type="search" name="" id="" placeholder="예:10" class="inputType220 mr10">
-                <p class="unit">개/kg</p>
+                <p class="unit">봉/kg</p>
             </div>
             <div class="area area4 flexType2">
                 <p class="category">수령인</p>

@@ -54,6 +54,7 @@
                             <th class="ltThead">입고량</th>
                             <th class="ltThead">출고량</th>
                             <th class="ltThead">출입고일자</th>
+                            <th class="ltThead">라벨</th>
                         </tr>
                         </thead>
                         <tbody id="clist">

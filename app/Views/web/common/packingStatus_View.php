@@ -131,7 +131,7 @@
                         <p class="ttl">우엉차 20%우엉차 20%우엉차 20%</p>
                     </div>
                     <div class="countBox">
-                        <p class="count">2개</p>
+                        <p class="count">2봉</p>
 
                     </div>
                     <div class="btnBox">

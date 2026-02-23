@@ -98,16 +98,17 @@ async function Make_Html(data){
     let html = '';
     if(!fn_IsEmpty(arr.list)){
         $.each(arr.list, function (index, el) {
-            html += `
+            if (el.stepnow == el.processcnt) {
+                html += `
                 <tr>
                     <td class="ltTbody">
                         <input type="checkbox" name="chk_seq" value="${el.seq}">
                     </td>
-                    <td class="ltTbody">${el.indate}</td>
-                    <td class="ltTbody">${el.indate}</td>
+                    <td class="ltTbody">${el.shortdate}</td>
+                    <td class="ltTbody">${el.shortdate}</td>
                     <td class="ltTbody">${el.gname}</td>
                     <td class="ltTbody">${el.gicode}</td>
-                    <td class="ltTbody">${number_format(el.quantity)}개</td>
+                    <td class="ltTbody">${number_format(el.quantity)} 봉</td>
                     <td class="ltTbody">(${el.stepnow}/${el.processcnt})</td>  
                     <td class="ltTbody">
                         <button type="button" class="btnType3 statusBtn statusStandby" name="vwReport" data-code="${el.gicode}" >
@@ -116,6 +117,8 @@ async function Make_Html(data){
                     </td>
                 </tr>
             `;
+
+            }
         });
     }else{
         Make_Toast('마지막입니다.');

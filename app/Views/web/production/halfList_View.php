@@ -46,7 +46,7 @@
                     <tr>
                         <td class="ltThead">12342134</>
                         <td class="ltThead">우엉 티백</td>
-                        <td class="ltThead">100개</td>
+                        <td class="ltThead">100 봉</td>
 
                         <td class="ltThead">김생산</td>
                         <td class="ltThead">

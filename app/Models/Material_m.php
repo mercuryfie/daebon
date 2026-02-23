@@ -214,6 +214,33 @@ class Material_m extends Model
         return $this->db->query($sql)->getResultArray();
     }
 
+    public function Load_MaterialList2($params, $fields=['ALL'])
+    {
+        $search = array_key_exists('skey', $params) ? $params['skey'] : '';
+        $filter = array_key_exists('filter', $params) ? $params['filter'] : '';
+        $searchword = '';
+
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM vw_material_info WHERE is_del=0 ";
+        if($search!=''){
+            $searchword = "%{$search}%";
+            $sql .= ' AND (mtcode LIKE :SEARCH: OR mtname LIKE :SEARCH:)';
+        }
+
+        IF($filter>0){
+            $sql .= ' AND typ=:FILTER:';
+        }
+        $sql .= ' ORDER BY mtname ASC';
+
+        $bindparam = [
+            'SEARCH' => $searchword,
+            'FILTER' => $filter
+        ];
+
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
     public function Load_MaterialList_Type($typ,$fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);

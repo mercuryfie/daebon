@@ -26,7 +26,6 @@
                     <a href="javascript:;" class="period">1주일</a>
                     <a href="javascript:;" class="period">1개월</a>
                     <a href="javascript:;" class="period">3개월</a>
-
                 </div>
                 <div class="date_boxtc6 flexType2">
                     <label for="date1" class="dateLabel1">

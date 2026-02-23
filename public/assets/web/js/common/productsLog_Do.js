@@ -174,8 +174,8 @@ $(document).ready(function() {
         }else if(typ=='g'){
             $('span[name="u_type1"]').text('g');
             $('span[name="u_type2"]').text('g');
-        }else if(typ=='개'){
-            $('span[name="u_type1"]').text('개');
+        }else if(typ=='봉'){
+            $('span[name="u_type1"]').text('봉');
             $('span[name="u_type2"]').text('g');
         }
 

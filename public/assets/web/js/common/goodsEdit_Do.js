@@ -127,7 +127,7 @@ $(document).ready(function(){
             let html = `
                 <div class="productTag flexType3" name="add_product_info" data-code="${gcode}">
                     <p class="pname" name="gname">${gname}</p>
-                    <p class="count" name="gcnt" data-cnt="${cnt}">${cnt}개</p>
+                    <p class="count" name="gcnt" data-cnt="${cnt}">${cnt} 봉</p>
                     <i class="fa-solid fa-xmark" name="add_product_del"></i>
                 </div>
             `;
@@ -154,7 +154,7 @@ $(document).ready(function(){
             let html = `
                 <div class="pouchTag flexType3" name="add_pouch_info" id="" data-code="${p_code}">
                     <p class="pname" name="p_name">${p_name}</p>
-                    <p class="count" name="p_cnt" data-cnt="${p_cnt}">${p_cnt}개</p>
+                    <p class="count" name="p_cnt" data-cnt="${p_cnt}">${p_cnt} 봉</p>
                     <i class="fa-solid fa-xmark" name="add_pouch_del"></i>
                 </div>
             `;
@@ -428,7 +428,7 @@ async function Make_Html() {
             html += `
                 <div class="productTag flexType3" name="add_product_info" data-code="${el.fk_gcode}">
                     <p class="pname" name="gname">${el.gsname}</p>
-                    <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt}개</p>
+                    <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt} 봉</p>
                     <i class="fa-solid fa-xmark" name="add_product_del"></i>
                 </div>
             `;
@@ -448,7 +448,7 @@ async function Make_Html() {
             html += `
                <div class="pouchTag flexType3" name="add_pouch_info" id="" data-code="${p_code}">
                     <p class="pname" name="p_name">${p_name}</p>
-                    <p class="count" name="p_cnt" data-cnt="${p_cnt}">${p_cnt}개</p>
+                    <p class="count" name="p_cnt" data-cnt="${p_cnt}">${p_cnt} 봉</p>
                     <i class="fa-solid fa-xmark" name="add_pouch_del"></i>
                </div>
             `;

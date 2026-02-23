@@ -47,7 +47,7 @@
                             <?foreach ($body['p_arr'] as $d){?>
                                 <div class="flexType2 mb10 ">
                                     <p class="data mr10"><?=$d['sgname'];?></p>
-                                    <p class="data"><?=$d['gcnt'];?>개</p>
+                                    <p class="data"><?=$d['gcnt'];?>봉</p>
                                 </div>
                             <?}?>
 <!--                            <p class="data">-->

@@ -152,8 +152,8 @@ $(document).ready(function() {
         }else if(typ=='g'){
             $('span[name="u_type1"]').text('g');
             $('span[name="u_type2"]').text('g');
-        }else if(typ=='개'){
-            $('span[name="u_type1"]').text('개');
+        }else if(typ=='봉'){
+            $('span[name="u_type1"]').text('봉');
             $('span[name="u_type2"]').text('g');
         }
 
@@ -326,7 +326,8 @@ async function Data_Edit(param){
                 unit_type : param['unit_typ'],
                 inventory : param['inventory'],
                 t_cnt : param['t_cnt'],
-                unit_weight : param['unit_weight']
+                unit_weight : param['unit_weight'],
+
             };
 
             let t_arr = fn_PrnUnitType(params);
@@ -491,6 +492,7 @@ function Edit_Products(code,name,cat,inven,unit_weight,t_cnt,unit_type){
 
 async function Make_Html(skey){
     let arr = await Data_Load(skey);
+    console.log(arr);
     let html = '';
     if(!fn_IsEmpty(arr.list)){
         $.each(arr.list, function (index, el) {
@@ -535,10 +537,13 @@ async function Make_Html(skey){
                 unit_type : el.unit_type,
                 inventory : el.inventory,
                 t_cnt : el.t_cnt,
-                unit_weight : el.unit_weight
+                unit_weight : el.unit_weight,
+                totalStock : el.avg.total,
+                periodAvg : el.avg.avg
             };
 
             let t_arr = fn_PrnUnitType(params);
+
 
             html += `
                 <tr id="list_${el.gscode}" class="${stock_css}">
@@ -550,8 +555,8 @@ async function Make_Html(skey){
                     <td class="ltTbody" name="inventory">${t_arr['cnt_str1']}</td>
                     <td class="ltTbody" name="t_cnt">${t_arr['cnt_str2']}</td>
                     <td class="ltTbody" name="unit_weight">${t_arr['cnt_str3']}</td>
-                    <td class="ltTbody ">${el.avg.total} ${el.unit_type}</td> 
-                    <td class="ltTbody">${el.avg.avg} ${el.unit_type}</td> 
+                    <td class="ltTbody ">${t_arr['cnt_str4']}</td> 
+                    <td class="ltTbody">${t_arr['cnt_str5']}</td> 
                     <td class="ltTbody">${bomstr}</td> 
                     <td class="ltTbody orderProduct">${bominput}</td> 
                     <td class="ltTbody">${bomprn}</td>

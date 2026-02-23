@@ -52,7 +52,7 @@ $(document).ready(function() {
                     }else if(ptyp==2) {
                         let gCnt = (gram/unit_weight);
                         gCnt = Math.round(gCnt);
-                        gstr = gram + 'g / ' + gCnt + 'ea';
+                        gstr = gram + 'g / ' + gCnt + '개';
                     }
                     $('#afterweight').data('val', gram);
                     $('#afterweight').text(gstr);

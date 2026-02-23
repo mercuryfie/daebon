@@ -34,7 +34,7 @@
                     </select>
 <!--                    <input type="file" id="attachExcel" name="attachExcel" accept=".xlsx,.xls" style="display:none;">-->
                     <button type="button" class="btnType1 mr10" id="excelPop" name="excelPop" onclick="">엑셀업로드</button>
-                    <button type="button" class="btnType1 mr20">양식 다운</button>
+<!--                    <button type="button" class="btnType1 mr20">양식 다운</button>-->
                 </div>
             </div>
             <div class="area4 atom_boxa1b flexType2">

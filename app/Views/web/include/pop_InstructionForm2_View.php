@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <th class="keyCol twnw ttl" >적정재고량</th>
-                    <td class="keyCol" colspan="2" ><?=number_format($body['info_arr']['inventory'])?>개</td>
+                    <td class="keyCol" colspan="2" ><?=number_format($body['info_arr']['inventory'])?>봉</td>
                 </tr>
                 <tr>
                     <th class="row row2 ttl mt_name_ttl " colspan="2" rowspan="2">원재료명</th>
@@ -53,7 +53,7 @@
                         </div>
                     </td>
                     <th class="row row3 twnw ttl" colspan="">기본수량</th>
-                    <td class="row row3" colspan="2"><?=$body['info_arr']['quantity']?> 개</td>
+                    <td class="row row3" colspan="2"><?=$body['info_arr']['quantity']?> 봉</td>
                 </tr>
                 <tr>
                     <th class="row row3 twnw ttl" colspan="">제조/공급사</th>
@@ -93,12 +93,12 @@
             <tr>
                 <td class="row row1" colspan="4">-</td>
                 <th class="row row3 twnw" colspan="2">기본수량</th>
-                <td class="row row2" colspan="2"><?=$body['info_arr']['quantity']?> 개</td>
+                <td class="row row2" colspan="2"><?=$body['info_arr']['quantity']?> 봉</td>
             </tr>
             <tr>
                 <td class="row row1" colspan="4">-</td>
                 <th class="row row3 twnw" colspan="2">지시수량</th>
-                <td class="row row2" colspan="2"><?=$body['info_arr']['icnt']?> 개</td>
+                <td class="row row2" colspan="2"><?=$body['info_arr']['icnt']?> 봉</td>
             </tr>
             <tr>
                 <td class="row row1" colspan="4">-</td>
@@ -108,7 +108,7 @@
                     $qty  = (int) $body['info_arr']['quantity'];
                     $icnt = (int) $body['info_arr']['icnt'];
                     $result = $qty * $icnt;
-                    ?><?=$result?> 개
+                    ?><?=$result?> 봉
                 </td>
             </tr>
             <tr class="signArea">

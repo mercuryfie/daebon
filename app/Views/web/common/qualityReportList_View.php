@@ -58,7 +58,7 @@
                 <div class="produce_boxfxp">
                     <table class="orderInfoTable orderInfoTable1 pro_tablefz7c">
                         <thead>
-                        <tr name="view_detail" data-code="${el.gicode}">
+                        <tr name="view_detail" data-code="">
                             <td class="ltThead productNo checkCol"></td>
                             <td class="ltThead">지시날짜</td>
                             <td class="ltThead">완료날짜</td>

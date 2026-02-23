@@ -26,7 +26,7 @@
             <div class="area area4 flexType2">
                 <p class="category">입고수량</p>
                 <input type="search" name="" id="" placeholder="예:10" class="inputType220 mr10">
-                <p class="unit">개</p>
+                <p class="unit">봉</p>
 
             </div>
             <div class="area area6 flexType4">

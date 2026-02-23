@@ -40,6 +40,10 @@
                         <p class="title">공정명</p>
                         <p class="data inputType220"><?=$body['info']['p_name'];?></p>
                     </div>
+                    <div class="element flexType2 ">
+                        <p class="title">단위무게</p>
+                        <p class="data inputType220"><?=$body['info']['unit_weight'];?>g</p>
+                    </div>
                     <div class="element flexType4 ">
                         <p class="title">부자재</p>
                         <div class="coverBox">
@@ -66,15 +70,16 @@
                     </div>
                     <div class="element flexType2">
                         <p class="title">생산수량</p>
-                        <p class="data inputType220"><?=number_format($body['info']['icnt']);?>개</p>
+                        <p class="data inputType220"><?=number_format($body['info']['icnt']);?>개 </p>
                     </div>
                     <div class="element flexType2">
                         <p class="title">BOM입고량</p>
                         <p class="data inputType220"><?=number_format($body['material']['input_material'] * $body['info']['icnt']);?>g</p>
                     </div>
                     <div class="element flexType2">
-                        <p class="title">BOM출고량</p>
-                        <p class="data inputType220"><?=number_format($body['material']['output_material'] * $body['info']['icnt']);?>g</p>
+                        <p class="title">예상출고량</p>
+<!--                        <p class="data inputType220">--><?php //=number_format($body['material']['output_material'] * $body['info']['icnt']);?><!--g</p>-->
+                        <p class="data inputType220"><?=$body['info']['outputweight'];?></p>
                     </div>
 <!--                    <div class="element flexType2">-->
 <!--                        <p class="title">입고량</p>-->

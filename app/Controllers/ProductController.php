@@ -223,8 +223,8 @@ class ProductController extends BaseController
                     }
                 }
 
-                $inputweight = number_format($info['icnt'] * $process['input_material']).'g (BOM : '. $process['input_material']. ' x 생산량 : ' . $info['icnt'] .'개)';
-                $outputweight = number_format($info['icnt'] * $process['output_material']).'g (BOM : '. $process['output_material']. ' x 생산량 : ' . $info['icnt'] .'개)';
+                $inputweight = number_format($info['icnt'] * $process['input_material']).'g (BOM : '. $process['input_material']. 'g x 생산량 : ' . $info['icnt'] .'개)';
+                $outputweight = number_format($info['icnt'] * $process['output_material']).'g (BOM : '. $process['output_material']. 'g x 생산량 : ' . $info['icnt'] .'개)';
                 $data = [
                     'g_name' => $info['gname'],
                     'step_now' => $info['step_now'],

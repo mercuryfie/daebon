@@ -159,9 +159,9 @@ class ApiProduceController extends BaseController
                     if(fn_ArrayCnt($cRs)>0){
                         foreach($cRs as $f){
                             if($step_material==''){
-                                $step_material = $f['mtname'] . ':'. $f['capacity'].'개<br>';
+                                $step_material = $f['mtname'] . ':'. $f['capacity'].'봉<br>';
                             }else{
-                                $step_material .= $f['mtname'] . ':'. $f['capacity'].'개<br>';
+                                $step_material .= $f['mtname'] . ':'. $f['capacity'].'봉<br>';
                             }
                         }
                     }
@@ -527,6 +527,7 @@ class ApiProduceController extends BaseController
                         'stepnow' => $d['step_now'],
                         'stepNum' => $p_arr['stepNum'],
                         'semicode' => $p_arr['semicode'],
+                        'status' => $p_arr['status'],
                         'indate' =>  $p_arr['indate']
                     ];
 
@@ -602,6 +603,7 @@ class ApiProduceController extends BaseController
                         'catestr' => fnGetProductNameByCode($d['category']),
                         'quantity' => $d['quantity'],
                         'unit_type' => $d['unit_type'],
+                        'unit_weight' => $d['unit_weight'],
                         'inventory' => $d['inventory'],
                         'iscomplete' => $d['is_complete'],
                         'indate' => $d['indate'],

@@ -136,7 +136,7 @@ $(document).ready(function() {
         if (checked.length == 0) {
             Make_Toast('묶음포장 지시 하실 주문을 선택하세요');
         }else if (checked.length == 1) {
-            Make_Toast('묶음포장 지시는 한개이상 선택하세요');
+            Make_Toast('묶음포장 지시는 한 봉 이상 선택하세요');
         }else if(window.confirm('선택하신 주문을 묶음배송 하시겠습니까?')){
             let codes = $("input[name='chkorder']:checked").map(function() {
                 return this.value;
@@ -283,11 +283,11 @@ async function Make_Html(data){
                         <div class="inner40 flexCol2" id="ck_${el.orcode}">${subhtml1}</div>
                     </td>
                     <td class="ltTbody productNo fixedCol" name="packingStep"><div class="inner1 flexCol2"><p class="text" id="bu_${el.orcode}">${subhtml2}</p></div></td> 
-                    <td class="ltTbody fixedCol underline2" data-copy="copy"><div class="inner2 flexCol2"><p class="text">${el.orcode}</p><p class="text">${el.spcode}</p></div></td>
-                    <td class="ltTbody fixedCol underline2"><div class="inner2 flexCol2 last_inner"><p class="text">${el.pd_code}</p><p class="text">${el.sg_code}</p></div></td>
+                    <td class="ltTbody fixedCol " data-copy="copy"><div class="inner2 flexCol2"><p class="text">${el.orcode}</p><p class="text">${el.spcode}</p></div></td>
+                    <td class="ltTbody fixedCol "><div class="inner2 flexCol2 last_inner"><p class="text">${el.pd_code}</p><p class="text">${el.sg_code}</p></div></td>
                     <td class="ltTbody scrollableCol" ${cnxl_fn1}><div class="inner4 flexType1 g_name"><a href="javascript:;" class="text mr10" >${el.p_name}</a></div></td>
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2 fs14"><p class="text">${el.buy_name}</p><p class="text">${el.buy_phone}</p><p class="text">${el.receive_name}</p><p class="text">${el.receive_phone}</p></div></td>
-                    <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.tcnt}개</p><p class="text">${number_format(el.tprice)}원</p></div></td> 
+                    <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.tcnt} 봉</p><p class="text">${number_format(el.tprice)}원</p></div></td> 
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.orderdate}</p></div></td>
                     
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text" id="da_${el.orcode}">${el.deli_info['indate']}</p></div></td>    

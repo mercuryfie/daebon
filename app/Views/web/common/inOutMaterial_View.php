@@ -40,7 +40,7 @@
                     <div class="right3">
 <!--                        <button type="button" class="btnType1">엑셀다운로드</button>-->
                         <button type="button" class="btnType2 mr10" id="bnt_input">입고하기</button>
-                        <button type="button" class="btnType2 mr20" id="btn_output">출고하기</button>
+                        <button type="button" class="btnType2 mr40" id="btn_output">출고하기</button>
 
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                         <tr>
                             <th class="ltThead">구분</th>
                             <th class="ltThead">이름</th>
-                            <th class="ltThead">전체재고</th>
+                            <th class="ltThead">총재고</th>
                             <th class="ltThead">최종일자</th>
                             <th class="ltThead">입고바코드</th>
                             <th class="ltThead">로그</th>

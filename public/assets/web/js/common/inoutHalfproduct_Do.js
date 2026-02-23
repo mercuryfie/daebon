@@ -74,6 +74,11 @@ async function Make_Html(data){
                     <td class="ltTbody">${el.total_input}g</td>
                     <td class="ltTbody">${el.total_output}g</td>
                     <td class="ltTbody">${el.indate}</td>
+                    <td class="ltTbody"> 
+                        <button type="button" class="btnType3 printBtn" name="btn_label" data-code="${el.fk_gicode}" onclick="">
+                            <i class="fa-solid fa-print"></i>
+                        </button>
+                    </td>
                 </tr>
             `;
 

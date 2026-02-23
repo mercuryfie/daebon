@@ -1,30 +1,59 @@
 
+
+function fn_GetCalcProductUnit(total,unit_weight,unit_cnt){
+    let unit_cCnt = 0;
+    if (unit_weight > 0 && unit_cnt > 0) {
+        unit_cCnt = Math.round(total / (unit_weight * unit_cnt));
+    } else {
+        unit_cCnt = 0;
+    }
+    return number_format(unit_cCnt);
+}
+
+
+
+
 function fn_PrnUnitType(params){
     let unit_typ = params['unit_type'];
     let inventory = params['inventory'];
-    let t_cnt = params['t_cnt'];
+    let unit_cnt = params['t_cnt'];
     let unit_weight = params['unit_weight'];
+    let totalStock = params['totalStock'];
+    let periodAvg = params['periodAvg'];
+    let cnt_str1 = '';
+    let cnt_str2 = '';
+    let cnt_str3 = '';
+    let cnt_str4 = '';
+    let cnt_str5 = '';
 
     if(unit_typ=='kg'){
         let gtokg1 = inventory/1000;
         cnt_str1 = `${gtokg1} kg`;
-        cnt_str2 = `${t_cnt} 개`
+        cnt_str2 = `${unit_cnt} 개`
         let gtokg2 = unit_weight/1000;
         cnt_str3 = `${gtokg2} kg`;
+        cnt_str4 = (totalStock/1000)+'kg';
+        cnt_str5 = (periodAvg/1000)+'kg';
     }else if(unit_typ=='g'){
-        cnt_str1 = `${inventory} g`;
-        cnt_str2 = `${t_cnt} 개`
+        cnt_str1 = `${inventory} 봉`;
+        cnt_str2 = `${unit_cnt} 봉`
         cnt_str3 = `${unit_weight} g`;
+        cnt_str4 = fn_GetCalcProductUnit(totalStock,unit_weight,unit_cnt)+'봉';
+        cnt_str5 = fn_GetCalcProductUnit(periodAvg,unit_weight,unit_cnt)+'봉';
     }else if(unit_typ=='개'){
         cnt_str1 = `${inventory} 개`;
-        cnt_str2 = `${t_cnt} 개`
+        cnt_str2 = `${unit_cnt} 개`
         cnt_str3 = `${unit_weight} g`;
+        cnt_str4 = fn_GetCalcProductUnit(totalStock,unit_weight,unit_cnt)+'봉';
+        cnt_str5 = fn_GetCalcProductUnit(periodAvg,unit_weight,unit_cnt)+'봉';
     }
 
     return {
         cnt_str1 : cnt_str1,
         cnt_str2 : cnt_str2,
-        cnt_str3 : cnt_str3
+        cnt_str3 : cnt_str3,
+        cnt_str4 : cnt_str4,
+        cnt_str5 : cnt_str5
     }
 }
 

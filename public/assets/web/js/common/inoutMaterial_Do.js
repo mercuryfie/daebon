@@ -11,8 +11,10 @@ $(document).ready(function() {
 
     $('#txt_mtinfo').on('keypress',function(e){
         if (e.which === 13) {
-            let search = $('#txt_mtinfo').val();
-            Make_Html(search);
+            $('#tList').empty();
+            $('#cpage').data('page',1);
+            $('#tcnt').text('0');
+            Make_Html(Make_Search_Param());
         }
     });
 
@@ -47,6 +49,7 @@ $(document).ready(function() {
 
     $('#txt_pop_input').on('keypress',function(e){
         if (e.which === 13) {
+            $('#inputlist').empty();
             let search = $('#txt_pop_input').val();
             let data = {skey:search};
             Load_Material(1,data);
@@ -301,8 +304,9 @@ function input_Form_ini(){
 
 async function Make_Html(data){
     let arr = await Load_data(data);
+    console.log(arr);
     let html = '';
-    if(arr.tcnt > 0) {
+    if(arr.total > 0) {
         $.each(arr.list, function (index, el) {
             html += `
                     <tr id="tr_${el.mtcode}">
@@ -332,6 +336,7 @@ async function Make_Html(data){
     let nowcnt = $('#tcnt').html();
     if(nowcnt==='') nowcnt = 0;
     let newcnt = Number(nowcnt) + Number(arr.total);
+    console.log(arr.total);
     $('#tcnt').html(newcnt);
 
 
@@ -349,7 +354,7 @@ async function Load_data(data) {
         } else if(result.get('status') == 'ok') {
            r_arr = {
                 list : result.get('data').list,
-                tcnt : result.get('data').tcnt
+                total : result.get('data').tcnt
             };
         }else{
             Make_Toast(result.get('message') + "[" + result.get('status') + "]");
@@ -366,8 +371,8 @@ async function Load_Material(stocktyp,param){
     try {
         start_spinner();
         let fkey = 0;
-        let dataarr = {'data' : param};
-        let url = APIURL + '/Load_MaterialList';
+        let dataarr = {'params' : param};
+        let url = APIURL + '/Load_MaterialList2';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();

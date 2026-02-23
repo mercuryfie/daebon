@@ -2,8 +2,6 @@
 
 
 
-
-
 function put_Shop_Api_Log($shotype,$request_status,$request_url,$request_endpoint,$request_query,$request_method,$response_json){
     $api = model('Api_m');
 
@@ -470,7 +468,8 @@ function fn_Instruction_Material_Inout($model,$gicode,$icnt){
                 'm_input' => 0,
                 'm_output' => $output,
                 'memo' => $memo,
-                'reason' => 4
+                'reason' => 4,
+                'act_uid' => 1
             ];
 
             $params[] = $t_arr;
@@ -538,9 +537,9 @@ function fn_LoadInstructionsProcess($model,$gicode){
             if(fn_ArrayCnt($cRs)>0){
                 foreach($cRs as $f){
                     if($step_material==''){
-                        $step_material = $f['mtname'] . ':'. $f['capacity'].'개<br>';
+                        $step_material = $f['mtname'] . ':'. $f['capacity'].'봉<br>';
                     }else{
-                        $step_material .= $f['mtname'] . ':'. $f['capacity'].'개<br>';
+                        $step_material .= $f['mtname'] . ':'. $f['capacity'].'봉<br>';
                     }
                 }
             }
@@ -585,6 +584,7 @@ function fn_Load_NowStep($model,$param){
     $worker = '';
     $indate= '';
     $semicode = '';
+    $status = '';
 
 
     if($is_complete==0) {
@@ -600,6 +600,7 @@ function fn_Load_NowStep($model,$param){
             $worker = '';
             $semicode = '';
             $indate= '';
+            $status = '';
         }
     }else if($is_complete==1){
         $gubun = Return_Prodcess_Gubun($model,$gicode,$stepnow);
@@ -616,6 +617,7 @@ function fn_Load_NowStep($model,$param){
                 $p_str = ($gubun==1) ? '작업대기중' : '작업시작등록대기중';
                 $semicode = '';
                 $indate= '';
+                $status = '';
             }
         }else if($gubun==2){
             if (($step_sub_now == 0) && ($is_complete == 0)) {
@@ -640,6 +642,7 @@ function fn_Load_NowStep($model,$param){
                 $worker = $a['worker'];
                 $semicode = $a['semi_code'];
                 $indate = $a['indate'];
+                $status = $a['status'];
             }
 
         }
@@ -650,6 +653,7 @@ function fn_Load_NowStep($model,$param){
         $p_str = '완료';
         $worker = '';
         $semicode = '';
+        $status = '';
         $indate= '';
     }
     $r_arr = [
@@ -659,6 +663,7 @@ function fn_Load_NowStep($model,$param){
         'str' => $p_str,
         'worker' => $worker,
         'semicode' => $semicode,
+        'status' => $status,
         'indate' => $indate
 
     ];
@@ -969,8 +974,7 @@ function fnMake_Material_Unit($ctyp=''){
     $t_arr = [
         ['typ' => 'g', 'name' => 'g'],
         ['typ' => 'kg', 'name' => 'kg'],
-        ['typ' => 'box', 'name' => 'box'],
-        ['typ' => 'ea', 'name' => 'ea']
+        ['typ' => '개', 'name' => '개']
     ];
 
     foreach ($t_arr as $d) {

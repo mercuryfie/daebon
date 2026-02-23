@@ -99,7 +99,7 @@
                            </div>
                        </div>
                         <p class="ttl mr10"><?=$d['pdname'];?></p>
-                        <p class="count"><?=$d['gcnt'];?>개</p>
+                        <p class="count"><?=$d['gcnt'];?> 봉</p>
                     </div>
                 <?}?>
                 </div>

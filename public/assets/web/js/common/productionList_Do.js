@@ -143,13 +143,15 @@ async function Make_Html(data){
                 prog = `(` + el.stepNum + `/` + el.processcnt + `)`;
             }
 
-            let totalCnt = Number(el.quantity) * Number(el.icnt);
+            let showcnt = (Number(el.quantity) * Number(el.icnt));
+
             html += `
                 <tr>
                     <td class="ltTbody">${el.shortdate}</td>
                     <td class="ltTbody">${el.gicode}</td>
                     <td class="ltTbody">${el.gname}</td>
-                    <td class="ltTbody">${number_format(totalCnt)} ${el.unit_type}</td>  
+                    <td class="ltTbody">${el.icnt}</td>
+                    <td class="ltTbody">${number_format(showcnt)} ${el.unit_type}</td>  
                     <td class="ltTbody">${el.processname} ${prog}</td>  
                     <td class="ltTbody">${el.processstr}</td>
                     <td class="ltTbody">${el.worker}</td> 

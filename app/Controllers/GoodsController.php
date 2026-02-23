@@ -79,9 +79,9 @@ class GoodsController extends BaseController
                         if (fn_ArrayCnt($cRs) > 0) {
                             foreach ($cRs as $f) {
                                 if ($step_material == '') {
-                                    $step_material = $f['mtname'] . ':' . $f['capacity'] . '개<br>';
+                                    $step_material = $f['mtname'] . ':' . $f['capacity'] . '봉<br>';
                                 } else {
-                                    $step_material .= $f['mtname'] . ':' . $f['capacity'] . '개<br>';
+                                    $step_material .= $f['mtname'] . ':' . $f['capacity'] . '봉<br>';
                                 }
                             }
                         }
@@ -388,7 +388,7 @@ class GoodsController extends BaseController
                     'unit_weight' => $d['unit_weight'],
                     'unit_str' => number_format($d['unit_weight']) . 'g',
                     'inventory' => $d['inventory'],
-                    'inv_str' => number_format($d['inventory']) . '개',
+                    'inv_str' => number_format($d['inventory']) . '봉',
                     'is_del' => $d['is_del'],
                     'moddate' => $d['moddate'],
                     'indate' => $d['indate'],

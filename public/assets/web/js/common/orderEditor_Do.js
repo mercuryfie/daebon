@@ -148,7 +148,7 @@ function addProduct(gcode,gname,cnt){
         let html = `
                 <div class="productTag flexType3" name="add_product_info" data-code="${gcode}">
                     <p class="gname mr10" name="gname">${gname}</p>
-                    <p class="count" name="gcnt" data-cnt="${cnt}">${cnt}개</p>
+                    <p class="count" name="gcnt" data-cnt="${cnt}">${cnt} 봉</p>
                     <i class="fa-solid fa-xmark" name="add_product_del"></i>
                 </div>
             `;

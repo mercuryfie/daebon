@@ -44,12 +44,12 @@
                             <thead>
                             <tr>
                                 <th class="ltThead" data-col="0"><div class="flexType1"><p class="cname mr10">제품코드</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
-                                <th class="ltThead" data-col="1"><div class="flexType1"><p class="cname mr10">제품명</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                                 <th class="ltThead" data-col="2"><div class="flexType1"><p class="cname mr10">구분</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
-                                <th class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">적정재고량</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
+                                <th class="ltThead" data-col="1"><div class="flexType1"><p class="cname mr10">제품명</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                                 <th class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">제품용량</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                                 <th class="ltThead" data-col="4">단위용량</th>
 
+                                <th class="ltThead" data-col="3"><div class="flexType1"><p class="cname mr10">적정재고량</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                                 <th class="ltThead" data-col="5"><div class="flexType1"><p class="cname mr10">총재고량</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                                 <th class="ltThead" data-col="6"><div class="flexType1"><p class="cname mr10">평균사용량</p><i class="fa-solid fa-angle-down dIcon"></i></div></th>
                                 <th class="ltThead" data-col="7">BOM</th>

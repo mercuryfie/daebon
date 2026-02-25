@@ -40,7 +40,8 @@
                         <th class="ltThead">지시서코드</th>
                         <th class="ltThead">제품명</th>
                         <th class="ltThead ">공정명</th>
-                        <th class="ltThead">수량</th>
+                        <th class="ltThead">지시수량</th>
+                        <th class="ltThead">생산수량</th>
 
                         <th class="ltThead">상태</th>
                         <th class="ltThead">작업자</th>

@@ -35,17 +35,17 @@ function fn_PrnUnitType(params){
         cnt_str4 = (totalStock/1000)+'kg';
         cnt_str5 = (periodAvg/1000)+'kg';
     }else if(unit_typ=='g'){
-        cnt_str1 = `${inventory} 봉`;
-        cnt_str2 = `${unit_cnt} 봉`
+        cnt_str1 = `${inventory} g`;
+        cnt_str2 = `${unit_cnt} g`
         cnt_str3 = `${unit_weight} g`;
-        cnt_str4 = fn_GetCalcProductUnit(totalStock,unit_weight,unit_cnt)+'봉';
-        cnt_str5 = fn_GetCalcProductUnit(periodAvg,unit_weight,unit_cnt)+'봉';
+        cnt_str4 = fn_GetCalcProductUnit(totalStock,unit_weight,unit_cnt)+'팩';
+        cnt_str5 = fn_GetCalcProductUnit(periodAvg,unit_weight,unit_cnt)+'팩';
     }else if(unit_typ=='개'){
         cnt_str1 = `${inventory} 개`;
         cnt_str2 = `${unit_cnt} 개`
         cnt_str3 = `${unit_weight} g`;
-        cnt_str4 = fn_GetCalcProductUnit(totalStock,unit_weight,unit_cnt)+'봉';
-        cnt_str5 = fn_GetCalcProductUnit(periodAvg,unit_weight,unit_cnt)+'봉';
+        cnt_str4 = fn_GetCalcProductUnit(totalStock,unit_weight,unit_cnt)+'팩';
+        cnt_str5 = fn_GetCalcProductUnit(periodAvg,unit_weight,unit_cnt)+'팩';
     }
 
     return {
@@ -447,6 +447,16 @@ function go_noticeRegister(){
 
 function go_noticeEditor(bcode){
     let url = "/info/noticeeditor?cd="+bcode;
+    $(location).attr("href", url);
+}
+
+function go_termsInfo(){
+    let url = "/info/termsinfo";
+    $(location).attr("href", url);
+}
+
+function go_privacy(){
+    let url = "/info/privacy";
     $(location).attr("href", url);
 }
 

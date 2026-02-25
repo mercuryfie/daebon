@@ -512,6 +512,7 @@ class ApiProduceController extends BaseController
                         'gicode' => $d['gicode'],
                         'gcode' => $d['fk_gcode'],
                         'icnt' => $d['icnt'],
+                        'unit_type' => $d['unit_type'],
                         'gname' => $d['gname'],
                         'category' => $d['category'],
                         'catestr' => fnGetProductNameByCode($d['category']),

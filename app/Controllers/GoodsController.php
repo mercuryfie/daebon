@@ -79,9 +79,9 @@ class GoodsController extends BaseController
                         if (fn_ArrayCnt($cRs) > 0) {
                             foreach ($cRs as $f) {
                                 if ($step_material == '') {
-                                    $step_material = $f['mtname'] . ':' . $f['capacity'] . '봉<br>';
+                                    $step_material = $f['mtname'] . ':' . $f['capacity'] . '팩<br>';
                                 } else {
-                                    $step_material .= $f['mtname'] . ':' . $f['capacity'] . '봉<br>';
+                                    $step_material .= $f['mtname'] . ':' . $f['capacity'] . '팩<br>';
                                 }
                             }
                         }

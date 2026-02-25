@@ -26,7 +26,7 @@
 <!--            </tr>-->
             <tr>
                 <th class="keyCol" colspan="2">품목명</th>
-                <td class="keyCol" colspan="1" ><?=$body['data']['mtname'];?></td>
+                <td class="keyCol fwbold" colspan="1" ><?=$body['data']['mtname'];?></td>
             </tr>
             <tr>
                 <th class="keyCol" colspan="2">제조/공급사</th>
@@ -34,7 +34,7 @@
             </tr> 
             <tr>
                 <th class="keyCol" colspan="2">적정재고량</th>
-                <td class="keyCol" colspan="1" ><?=$body['data']['inventory'];?><?=$body['data']['unit_name'];?></td>
+                <td class="keyCol fwbold" colspan="1" ><?=$body['data']['inventory'];?><?=$body['data']['unit_name'];?></td>
             </tr>
             </tbody>
         </table>

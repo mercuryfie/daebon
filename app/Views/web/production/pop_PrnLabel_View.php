@@ -11,18 +11,23 @@
         <div class="prn_inner">
             <table class="prod_label_table">
                 <tr class="b_tr">
-                    <td class="b_area" colspan="2">
-                        <div class="bar_wrap flexType2">
-                            <div class="bar_box left ">
-                                <p class="title">지시서 코드</p>
-                                <svg id="gicode" name="gicode" class="barcodeArea" data-gicode="<?=$body['gicode']?>" style=""></svg>
+                    <th>반제품 코드</th>
+                    <td class="b_area" colspan="1">
+<!--                        <p class="title">지시서 코드</p>-->
+                        <svg id="sicode" name="sicode" class="barcodeArea" data-sicode="<?=$body['sicode']?>" style=""></svg>
+<!--                        <svg id="gicode" name="gicode" class="barcodeArea" data-gicode="--><?php //=$body['gicode']?><!--" style=""></svg>-->
 
-                            </div>
-                            <div class="bar_box right">
-                                <p class="title">반제품 코드</p>
-                                <svg id="sicode" name="sicode" class="barcodeArea" data-sicode="<?=$body['sicode']?>" style=""></svg>
-                            </div>
-                        </div>
+                        <!--                        <div class="bar_wrap flexType2">-->
+<!--                            <div class="bar_box left ">-->
+<!--                                <p class="title">지시서 코드</p>-->
+<!--                                <svg id="gicode" name="gicode" class="barcodeArea" data-gicode="--><?php //=$body['gicode']?><!--" style=""></svg>-->
+<!---->
+<!--                            </div>-->
+<!--                            <div class="bar_box right">-->
+<!--                                <p class="title">반제품 코드</p>-->
+<!--                                <svg id="sicode" name="sicode" class="barcodeArea" data-sicode="--><?php //=$body['sicode']?><!--" style=""></svg>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </td>
                 </tr>
                 <tr>
@@ -41,7 +46,7 @@
                 </tr>
                 <tr>
                     <th>공정명</th>
-                    <td class="data data3"><?=$body['pname'];?></td>
+                    <td class="data data3"><?=$body['step_name'];?></td>
                 </tr>
                 <tr>
                     <th>공정완료일</th>

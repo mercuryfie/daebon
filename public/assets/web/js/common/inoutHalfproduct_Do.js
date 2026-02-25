@@ -41,6 +41,28 @@ $(document).ready(function() {
         Make_Html(Make_Search_Param());
     });
 
+    $(document).on('click','button[name="prn_label"]',function(e){
+        let gicode = $(this).data('gicode');
+        let sicode = $(this).data('sicode');
+        let pname = $(this).data('pname');
+        let indate = $(this).data('indate');
+        let url = '/product/prn_label?gi=' + gicode + '&si=' + sicode + '&pn=' + pname + '&in=' + indate;
+
+        let width = '920';
+        let height = '580';
+
+        let newWindow = window.open(url, "_blank", `width=${width},height=${height},resizable=yes,scrollbars=yes`);
+
+        newWindow.onload = function() {
+            try {
+                let docHeight = newWindow.document.body.scrollHeight;
+                newWindow.resizeTo(width, docHeight + 100);
+            } catch(e) {
+                console.log("새 창 높이 조절 불가", e);
+            }
+        };
+    });
+
 
     Make_Html(Make_Search_Param())
 
@@ -65,6 +87,7 @@ async function Make_Html(data){
     let html = '';
     if(arr.total > 0){
         $.each(arr.list, function (index, el) {
+            let prn = `<button type="button" class="btnType3 printBtn" name="prn_label" data-gicode="${el.fk_gicode}" data-sicode="${el.pscode}" data-pname="${el.step_name}" data-indate="${el.indate}" ><i class="fa-solid fa-print"></i></button>`;
             html += `
                 <tr>
                     <td class="ltTbody">${el.gname}</td>
@@ -75,9 +98,7 @@ async function Make_Html(data){
                     <td class="ltTbody">${el.total_output}g</td>
                     <td class="ltTbody">${el.indate}</td>
                     <td class="ltTbody"> 
-                        <button type="button" class="btnType3 printBtn" name="btn_label" data-code="${el.fk_gicode}" onclick="">
-                            <i class="fa-solid fa-print"></i>
-                        </button>
+                        ${prn}
                     </td>
                 </tr>
             `;

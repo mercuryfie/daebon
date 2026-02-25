@@ -325,6 +325,8 @@ async function Make_Html(data){
                     </tr>
                 `;
         });
+        $('#inout_m_wrap').css('width','80vw');
+        $('#inout_m_wrap table').css('width','79vw');
         $('#inout_m_wrap').css('height','600px');
         $('#cpage').data('page',(data.page+1))
     }else{

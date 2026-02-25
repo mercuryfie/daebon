@@ -2851,8 +2851,8 @@ input[type="radio"] {
 }
 
 /* production list > filterBox end -------------------------------- */
-/* sangDetail start -------------------------------- */
 
+/* sangDetail start -------------------------------- */
 /*progress brackground */
 
 .prog_boxo7r {
@@ -2957,7 +2957,60 @@ input[type="radio"] {
 
 /* -- prog_now > prog1 end */
 /* sangDetail end -------------------------------- */
+/*pInfo_View start */
 
+.p_info_wrap {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 50vw;
+    color: #5c5c5c;
+}
+
+.p_info_inner h3 {
+    font-size: 22px;
+    margin-bottom: 40px;
+}
+
+.p_info_inner .title {
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.p_info_inner .desc {
+    font-size: 14px;
+
+}
+
+
+/*pInfo_View end */
+/*termsInfo_View start */
+
+.terms_info_wrap {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 50vw;
+    color: #5c5c5c;
+}
+
+.terms_info_inner h3 {
+    font-size: 22px;
+    margin-bottom: 40px;
+}
+
+.terms_info_inner .title {
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.terms_info_inner .desc {
+    font-size: 14px;
+
+}
+
+
+/*termsInfo_View end */
 /* goods Register start -------------------------------- */
 
 .area_boxm9k {
@@ -6185,8 +6238,18 @@ input[type="radio"] {
     border:1px solid red;
 }
 
+
+
 #cpage {
     cursor: pointer;
+}
+
+.fwbold {
+    font-weight: bold;
+}
+
+.fw600 {
+    font-weight: 600;
 }
 
 .common_tbl_wrap {
@@ -6504,6 +6567,8 @@ input[type="radio"] {
     /*pop_PrintBarcode_Material_View start*/
 
     .bar_mat_table {
+        margin-top: 5mm;
+        margin-left: 7mm;
         border-collapse: collapse;
         width: 190mm;
         height: 90mm;
@@ -6891,8 +6956,6 @@ input[type="radio"] {
     }
 
     /* waybill form end -------------------------------- */
-
-
     /*pop_QualityReport_View print end */
     /*pop_AddDeliForm_View print start */
 

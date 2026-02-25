@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <th class="keyCol ttl" >적정재고량</th>
-                    <td class="keyCol" colspan="2" ><?=number_format($body['info_arr']['inventory'])?>봉</td>
+                    <td class="keyCol" colspan="2" ><?=number_format($body['info_arr']['inventory'])?>팩</td>
                 </tr>
                 <tr>
                     <th class="row row2 ttl " colspan="" rowspan="2">원재료명</th>
@@ -53,7 +53,7 @@
                         </div>
                     </td>
                     <th class="row row3 twnw ttl" colspan="">기본수량</th>
-                    <td class="row row3" colspan="2"><?=$body['info_arr']['quantity']?> 봉</td>
+                    <td class="row row3" colspan="2"><?=$body['info_arr']['quantity']?> 개</td>
                 </tr>
                 <tr>
                     <th class="row row3 twnw ttl" colspan="">제조/공급사</th>

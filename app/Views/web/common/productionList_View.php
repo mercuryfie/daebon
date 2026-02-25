@@ -65,8 +65,8 @@
                             <th class="ltThead">지시날짜</th>
                             <th class="ltThead">지시코드</th>
                             <th class="ltThead">제품BOM명</th>
-                            <th class="ltThead">지시생산</th>
-                            <th class="ltThead">생산량</th>
+                            <th class="ltThead">지시생산량</th>
+                            <th class="ltThead">단위생산량</th>
                             <th class="ltThead">현재공정위치</th>
                             <th class="ltThead">상태</th>
                             <th class="ltThead">생산자</th>

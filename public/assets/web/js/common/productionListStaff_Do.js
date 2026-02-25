@@ -107,13 +107,16 @@ async function Make_Html(data){
                 iscomplete = `name="view_detail" data-code="${el.gicode}"`;
             }
 
+            let showcnt = (Number(el.quantity) * Number(el.icnt));
+
             html += `
                 <tr class="" data-code="${el.gicode}" data-iscomplete="${el.iscomplete}"> 
                     <td class="ltTbody" ${iscomplete}>${el.shortdate}</td>
                     <td class="ltTbody" ${iscomplete}>${el.gicode}</td>
                     <td class="ltTbody gname" ${iscomplete}>${el.gname}</td>
-                    <td class="ltTbody pname" ${iscomplete}>${el.processname} ${prog}</td> 
-                    <td class="ltTbody">${number_format(el.quantity)} 봉</td>
+                    <td class="ltTbody pname" ${iscomplete}>${el.processname} ${prog}</td>
+                    <td class="ltTbody" >${el.icnt}</td> 
+                    <td class="ltTbody">${number_format(showcnt)} ${el.unit_type}</td>
                       
                     <td class="ltTbody">${el.processstr}</td> 
                     <td class="ltTbody">${el.worker}</td>  
@@ -147,20 +150,21 @@ async function Make_Html2(data){
             }
 
             if(el.semicode!='' && el.status=='0'){
-                prn = `<button type="button" class="btn60Type3 " name="prn_label" data-gicode="${el.gicode}" data-sicode="${el.semicode}" data-pname="${el.processname}" data-indate="${el.indate}">출력</button>`;
+                prn = `<button type="button" class="btn60Type3 " name="prn_label" data-gicode="${el.gicode}" data-sicode="${el.semicode}" data-pname="${el.processname}" data-indate="${el.indate}" >출력</button>`;
             }
             if(el.iscomplete<2){
                 iscomplete = `name="view_detail" data-code="${el.gicode}"`;
             }
-
+            let showcnt = (Number(el.quantity) * Number(el.icnt));
 
             html += `
                 <tr class="" data-code="${el.gicode}" data-iscomplete="${el.iscomplete}"> 
                     <td class="ltTbody" ${iscomplete}>${el.shortdate}</td>
                     <td class="ltTbody" ${iscomplete}>${el.gicode}</td>
                     <td class="ltTbody" ${iscomplete}>${el.gname}</td>
-                    <td class="ltTbody" ${iscomplete}>${el.processname} ${prog}</td> 
-                    <td class="ltTbody">${number_format(el.quantity)} 봉</td>
+                    <td class="ltTbody" ${iscomplete}>${el.processname} ${prog}</td>
+                    <td class="ltTbody" >${el.icnt}</td> 
+                    <td class="ltTbody">${number_format(showcnt)} ${el.unit_type}</td>
                       
                     <td class="ltTbody">${el.processstr}</td> 
                     <td class="ltTbody">${el.worker}</td> 

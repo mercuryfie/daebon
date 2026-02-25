@@ -18,6 +18,19 @@ class Produce_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Load_SemiProduct_Process($pscode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} from tbl_semiproduct_inout a JOIN tbl_instructions_process b ON a.fk_prcode=b.fk_prcode ";
+        $sql .= " WHERE a.pscode=:PSCODE: ;";
+        $bindparam = [
+            'PSCODE'=> $pscode
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+
+    }
+
+
     public function Load_SemiProduct_Company($pscode){
         $sql = "SELECT c.* FROM tbl_semiproduct_inout a ";
         $sql .="JOIN tbl_instructions_material b ON a.fk_gicode=b.fk_gicode ";

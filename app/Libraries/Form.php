@@ -47,6 +47,7 @@ class Form
         return $header;
     }
 
+
     public function fnMake_Left($inputinfo=[])
     {
         $currentUrl = fn_Get_URL(1);

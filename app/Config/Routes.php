@@ -70,6 +70,8 @@ $routes->GET('info/userlist', 'UserController::userList');
 $routes->GET('info/noticelist', 'CommonController::noticeList');
 $routes->GET('info/noticeregister', 'CommonController::noticeRegister');
 $routes->GET('info/noticeeditor', 'CommonController::noticeEditor');
+$routes->GET('info/privacy', 'CommonController::privacy');
+$routes->GET('info/termsinfo', 'CommonController::termsInfo');
 
 /* Packing */
 $routes->GET('packing/', 'PackingController::main');

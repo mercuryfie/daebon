@@ -69,10 +69,6 @@
                         </div>
                     </div>
                     <div class="element flexType2">
-                        <p class="title">생산수량</p>
-                        <p class="data inputType220"><?=number_format($body['info']['icnt']);?>개 </p>
-                    </div>
-                    <div class="element flexType2">
                         <p class="title">BOM입고량</p>
                         <p class="data inputType220"><?=number_format($body['material']['input_material'] * $body['info']['icnt']);?>g</p>
                     </div>

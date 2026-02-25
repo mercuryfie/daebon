@@ -1039,7 +1039,7 @@ input[type="radio"] {
 }
 
 .prod_label_table .bar_box {
-    width: 50%;
+    width: 100%;
 }
 
 .prod_label_table .bar_box.left{
@@ -1649,16 +1649,13 @@ input[type="radio"] {
     }
     .prn_inner {
         /*padding-top: 3mm;*/
-        margin-top: 3mm;
+        margin-top: 5mm;
+        margin-left: 7mm;
         width: 190mm;
         height: 90mm;
         overflow: hidden;
         text-wrap: nowrap;
-        /*border-right:1px solid #000;*/
-        /*border:1px solid #000;*/
-        /*border: 1px 1px 0 1px solid #000;*/
         border-top: 1px solid #000;
-        border-right: 2px solid #000;
         border-left: 1px solid #000;
 
     }
@@ -1712,10 +1709,12 @@ input[type="radio"] {
         /*margin: 0 !important;*/
         height: 30mm !important;
         position: relative;
+        /*border-right: none;*/
 
     }
 
     .prod_label_table td {
+        border-right: 1px solid black;
     }
 
     .prod_label_table .b_area .bar_wrap {
@@ -1733,7 +1732,7 @@ input[type="radio"] {
         /*height: 30mm;*/
         padding: 0;
         margin: 0;
-        width: 50%;
+        /*width: 50%;*/
         height: 34mm;
         position: relative;
         overflow: hidden;

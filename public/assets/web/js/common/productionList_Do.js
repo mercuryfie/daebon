@@ -150,7 +150,7 @@ async function Make_Html(data){
                     <td class="ltTbody">${el.shortdate}</td>
                     <td class="ltTbody">${el.gicode}</td>
                     <td class="ltTbody">${el.gname}</td>
-                    <td class="ltTbody">${el.icnt}</td>
+                    <td class="ltTbody">${el.icnt}팩</td>
                     <td class="ltTbody">${number_format(showcnt)} ${el.unit_type}</td>  
                     <td class="ltTbody">${el.processname} ${prog}</td>  
                     <td class="ltTbody">${el.processstr}</td>

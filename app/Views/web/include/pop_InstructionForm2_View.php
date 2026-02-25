@@ -30,30 +30,21 @@
                 </tr>
                 <tr>
                     <th class="keyCol twnw ttl" >적정재고량</th>
-                    <td class="keyCol" colspan="2" ><?=number_format($body['info_arr']['inventory'])?>봉</td>
+                    <td class="keyCol" colspan="2" ><?=number_format($body['info_arr']['inventory'])?>팩</td>
                 </tr>
                 <tr>
-                    <th class="row row2 ttl mt_name_ttl " colspan="2" rowspan="2">원재료명</th>
+                    <th class="row row2 ttl mt_name_ttl " colspan="2" rowspan="2">원재료명(용량)</th>
                     <td class="row row2 m_name" colspan="3" rowspan="2">
                         <div class="dd flexCol2">
-                            <?php
-                            if ($body['material_arr'] == 1 ) {
-                                $mtNames = [$body['material_arr']['mtname'].' '.$body['material_arr']['capacity'].'g'];
-                            } else {
-                                $mtNames = array_map(function($item) {
-                                    return $item['mtname'].' '.$item['capacity'].'g';
-                                }, $body['material_arr']);
-                            }
-                            ?>
-                            <p class="mtname">
-                                <?php foreach($mtNames as $name): ?>
-                                    <?=$name?><br>
-                                <?php endforeach; ?>
-                            </p>
+                    <?if(fn_ArrayCnt($body['material_arr'])>0){?>
+                        <?foreach ($body['material_arr'] as $d){?>
+                            <?=$d['mtname'];?>(<?=($d['capacity'] * $body['info_arr']['icnt']);?>g)<br>
+                        <?}?>
+                    <?}?>
                         </div>
                     </td>
                     <th class="row row3 twnw ttl" colspan="">기본수량</th>
-                    <td class="row row3" colspan="2"><?=$body['info_arr']['quantity']?> 봉</td>
+                    <td class="row row3" colspan="2"><?=$body['info_arr']['quantity']?> 개</td>
                 </tr>
                 <tr>
                     <th class="row row3 twnw ttl" colspan="">제조/공급사</th>
@@ -93,22 +84,22 @@
             <tr>
                 <td class="row row1" colspan="4">-</td>
                 <th class="row row3 twnw" colspan="2">기본수량</th>
-                <td class="row row2" colspan="2"><?=$body['info_arr']['quantity']?> 봉</td>
+                <td class="row row2" colspan="2"><?=$body['info_arr']['quantity']?> 개</td>
             </tr>
             <tr>
                 <td class="row row1" colspan="4">-</td>
                 <th class="row row3 twnw" colspan="2">지시수량</th>
-                <td class="row row2" colspan="2"><?=$body['info_arr']['icnt']?> 봉</td>
+                <td class="row row2" colspan="2"><?=$body['info_arr']['icnt']?> 팩</td>
             </tr>
             <tr>
                 <td class="row row1" colspan="4">-</td>
-                <th class="row row3 twnw" colspan="2">실제완성량</th>
+                <th class="row row3 twnw" colspan="2">예상완성량</th>
                 <td class="row row4" colspan="2">
                 <?php
                     $qty  = (int) $body['info_arr']['quantity'];
                     $icnt = (int) $body['info_arr']['icnt'];
                     $result = $qty * $icnt;
-                    ?><?=$result?> 봉
+                    ?><?=number_format($result)?> 개
                 </td>
             </tr>
             <tr class="signArea">

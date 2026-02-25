@@ -119,6 +119,45 @@ class CommonController extends BaseController
         }
     }
 
+    public function privacy()
+    {
+        $sessinarr = $this->GetSessionData();
+
+        $metaarr = [
+            'h_title' => '개인정보',
+            'h_type' => 1
+        ];
+
+        $form = new Form;
+        $main_data = [
+            'meta' => $form->fnMake_Meta($metaarr),
+            'header' => $form->fnMake_Header($sessinarr),
+            'left' => $form->fnMake_Left(),
+            'footer' => $form->fnMake_Fooeter($sessinarr)
+        ];
+
+        return view('web/common/pInfo_View',$main_data);
+    }
+
+    public function termsInfo()
+    {
+        $sessinarr = $this->GetSessionData();
+
+        $metaarr = [
+            'h_title' => '개인정보',
+            'h_type' => 1
+        ];
+
+        $form = new Form;
+        $main_data = [
+            'meta' => $form->fnMake_Meta($metaarr),
+            'header' => $form->fnMake_Header($sessinarr),
+            'left' => $form->fnMake_Left(),
+            'footer' => $form->fnMake_Fooeter($sessinarr)
+        ];
+
+        return view('web/common/termsInfo_View',$main_data);
+    }
 
 
 }

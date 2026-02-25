@@ -23,7 +23,7 @@
                 </div>
                 <div class="right">
                     <button type="button" class="btnType1 mr10" name="vwReport" data-cd="">품질보고서</button>
-                    <button type="button" class="btnType2" onclick="go_productionList();">목록</button>
+                    <button type="button" class="btnType2 mr20" onclick="go_productionList();">목록</button>
                 </div>
             </div>
             <div class="area4 goods_boxa1b flexType2">

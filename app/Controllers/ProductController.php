@@ -89,6 +89,10 @@ class ProductController extends BaseController
                 $mtname = implode(' / ', $mtarr);
             }
 
+            $fields = ['b.step_name'];
+            $iRs = $produce_m->Load_SemiProduct_Process($sicode,$fields);
+            $step_name = (fn_ArrayCnt($iRs)>0) ? $iRs[0]['step_name'] : '';
+
 
 
             $main_data = [
@@ -98,7 +102,8 @@ class ProductController extends BaseController
                 'indate' => $indate,
                 'su_name' => $suname,
                 'mk_name' => $mkname,
-                'mt_name' => $mtname
+                'mt_name' => $mtname,
+                'step_name' => $step_name
             ];
 
             $form = new Form;

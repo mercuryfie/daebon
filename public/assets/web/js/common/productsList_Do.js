@@ -152,7 +152,7 @@ $(document).ready(function() {
         }else if(typ=='g'){
             $('span[name="u_type1"]').text('g');
             $('span[name="u_type2"]').text('g');
-        }else if(typ=='봉'){
+        }else if(typ=='개'){
             $('span[name="u_type1"]').text('봉');
             $('span[name="u_type2"]').text('g');
         }
@@ -548,13 +548,15 @@ async function Make_Html(skey){
             html += `
                 <tr id="list_${el.gscode}" class="${stock_css}">
                     <td class="ltTbody ">${el.gscode}</td>
+                    <td class="ltTbody" name="c_str">${el.c_str}</td>
                     <td class="ltTbody " name="gnode">
                         <a href="javascript:;" onclick="Edit_Products('${el.gscode}','${el.gsname}','${el.category}','${el.inventory}','${el.unit_weight}','${el.t_cnt}','${el.unit_type}');" class="goodsName" name="gname">${el.gsname}</a>
                     </td>
-                    <td class="ltTbody" name="c_str">${el.c_str}</td>                    
-                    <td class="ltTbody" name="inventory">${t_arr['cnt_str1']}</td>
+                                        
+                    
                     <td class="ltTbody" name="t_cnt">${t_arr['cnt_str2']}</td>
                     <td class="ltTbody" name="unit_weight">${t_arr['cnt_str3']}</td>
+                    <td class="ltTbody" name="inventory">${t_arr['cnt_str1']}</td>
                     <td class="ltTbody ">${t_arr['cnt_str4']}</td> 
                     <td class="ltTbody">${t_arr['cnt_str5']}</td> 
                     <td class="ltTbody">${bomstr}</td> 

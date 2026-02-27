@@ -792,7 +792,7 @@ input[type="radio"] {
 /* pop_AddHalfProduct_View start -------------------------------- */
 
 .add_half_wrap1 {
-    display: none;
+    /*display: none;*/
     width: 100vw;
     height: 100vh;
     background-color: #00000080;
@@ -868,7 +868,7 @@ input[type="radio"] {
 .add_half_con .area .area_mini1 {
     width: 70%;
     height: 344px;
-    overflow-y:scroll;
+    overflow-y:hidden;
     overflow-x: hidden;
     max-height: 300px;
 }
@@ -881,41 +881,39 @@ input[type="radio"] {
 
 }
 
-
 .half_tbl_xk1 {
     margin-left: 2%;
     /*padding-left: 20px;*/
     border-collapse: collapse;
     width: 98%;
     overflow:hidden;
+    height: 112px;
 }
-
 
 .half_tbl_xk1 th,
 .half_tbl_xk1 td{
     font-weight: normal;
-    /*border: 1px solid #ccc;*/
-    /*border-bottom: 1px solid #ccc;*/
     border-bottom: 1px solid #5c5c5c;
     text-align: center;
-    height: 60px;
     font-size: 18px;
-    padding: 5px 20px;
-    /*line-height: 40px;*/
 }
 
 
 .half_tbl_xk1 th {
     background-color: #1a1a1a;
-    height: 40px;
+    height: 32px;
     position: sticky;
     top: 0;
     z-index: 10;
 }
 
+.half_tbl_xk1 td {
+    padding: 10px 0;
+    height: 60px;
+}
+
 .half_tbl_xk1 td .inputBorder {
     padding:5px;
-    /*margin: 0;*/
     border: 1px solid #5c5c5c;
     background-color: transparent;
     width: 120px;
@@ -924,6 +922,51 @@ input[type="radio"] {
     font-size: 32px;
     text-align: center;
 
+}
+
+
+.tbl_acc {
+    margin-top: 20px;
+    margin-left: 2%;
+    /*padding-left: 20px;*/
+    border-collapse: collapse;
+    width: 98%;
+    overflow:hidden;
+}
+
+
+.tbl_acc th,
+.tbl_acc td{
+    font-weight: normal;
+    border-bottom: 1px solid #5c5c5c;
+    text-align: center;
+    font-size: 18px;
+}
+
+
+.tbl_acc th {
+    background-color: #00000040;
+    height: 32px;
+}
+
+.tbl_acc td {
+    height: 80px;
+    padding: 10px;
+
+}
+
+.tbl_acc .inputBorder {
+    border:1px solid #5c5c5c;
+    background-color: transparent;
+    width: 140px;
+    height: 40px;
+    font-size: 32px;
+    color: #fff;
+
+}
+
+.tbl_acc button {
+    /*font-size: 14px;*/
 }
 
 .add_half_con .area .area_mini2 .keypad {
@@ -1244,6 +1287,7 @@ input[type="radio"] {
 
 }
 
+.btn_gray.active,
 .btn_green,
 .mainContentStaff .btn_green {
     border: 1px solid var(--color1);

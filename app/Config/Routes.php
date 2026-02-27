@@ -75,6 +75,7 @@ $routes->GET('info/termsinfo', 'CommonController::termsInfo');
 
 /* Packing */
 $routes->GET('packing/', 'PackingController::main');
+$routes->GET('packing/productslist', 'PackingController::productsList');
 $routes->GET('packing/process', 'PackingController::packingProcess');
 $routes->GET('packing/waybill', 'PackingController::waybill');
 

@@ -34,9 +34,10 @@
                 <table class="prod_list_table">
                     <thead>
                     <tr>
+                        <th class="ltThead">지시서 코드</th>
                         <th class="ltThead">반제품 코드</th>
                         <th class="ltThead">반제품명</th>
-                        <th class="ltThead">지시서 코드</th>
+                        <th class="ltThead">팩</th>
                         <th class="ltThead">공정명</th>
 
                         <th class="ltThead">수량</th>
@@ -47,8 +48,9 @@
                     <tbody name="clist" id="clist">
                     <tr>
                         <td class="ltThead">123421341234</td>
-                        <td class="ltThead">우엉차 원물</td>
                         <td class="ltThead">123421341234</td>
+                        <td class="ltThead">우엉차 원물</td>
+                        <td class="ltThead">25</td>
                         <td class="ltThead">우엉차 원물 - 파쇄</td>
 
                         <td class="ltThead">20</td>
@@ -57,8 +59,9 @@
                     </tr>
                     <tr>
                         <td class="ltThead">123421341234</td>
-                        <td class="ltThead">우엉차 원물</td>
                         <td class="ltThead">123421341234</td>
+                        <td class="ltThead">우엉차 원물</td>
+                        <td class="ltThead">25</td>
                         <td class="ltThead">우엉차 원물 - 파쇄</td>
 
                         <td class="ltThead">20</td>

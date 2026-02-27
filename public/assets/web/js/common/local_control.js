@@ -237,15 +237,21 @@ function go_packingList() {
     $(location).attr("href", url);
 }
 
+function go_packingStatus() {
+    var url = "/order/packingstatus";
+    $(location).attr("href", url);
+}
+
 function go_packingListStaff() {
     var url = "/packing";
     $(location).attr("href", url);
 }
 
-function go_packingStatus() {
-    var url = "/order/packingstatus";
+function go_todayProductsLists() {
+    var url = "/packing/productslist";
     $(location).attr("href", url);
 }
+
 
 function go_packingStatusStaff(opcode) {
     var url = "/packing/process?op=" + opcode;

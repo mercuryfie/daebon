@@ -5,8 +5,7 @@ $(document).ready(function() {
 
     $(document).on('click','#btn_print',function(){
         printWindow('frnbody');
-    });
-
+    }); 
 
     // $(document).on('click','button[name="btn_print"]',function(){
     //     let code = $(this).data('code');

@@ -4,7 +4,6 @@
 <!--<link rel="stylesheet" href="/assets/web/css/style_staff.css">-->
 <script src="<?=URL_COMMON_ASSETS?>/packingListStaff_Do.js?rnd=<?=rand();?>"> </script>
 
-
 <section class="mainContentStaff ">
     <div class=" packing_wrapghj">
         <div class="titleBox">
@@ -22,6 +21,7 @@
                     <input type="search" name="incode" id="incode" class="searchArea" autofocus placeholder="바코드를 스캔하십시오">
                 </div>
                 <div class="right flexType2">
+                    <button type="button" class="btn60Type3 " name="searchType" data-val="0" onclick="go_todayProductsLists()">오늘<br>제품</button>
                     <button type="button" class="btn60Type3 " name="searchType" data-val="0">포장전</button>
                     <button type="button" class="btn60Type3 " name="searchType" data-val="1">포장중</button>
                     <button type="button" class="btn60Type3 " name="searchType" data-val="2">송장<br>출력</button>

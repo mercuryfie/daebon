@@ -185,6 +185,7 @@ class PackingController extends BaseController
                 $retyp = ($delicode=='') ? 1 : 2;
             }
 
+
             $lotte = new LotteDeliveryApi();
             $data = $lotte->Get_Delivery_Info($orcode, $retyp);
             if ($data['result'] != 'ok') {

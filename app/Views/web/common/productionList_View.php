@@ -2,7 +2,6 @@
 <?= $this->section("content") ?>
 
 <script src="<?=URL_COMMON_ASSETS?>/productionList_Do.js?rnd=<?=rand();?>"> </script>
-<?php //print_r($body)?>
 <section class="merright">
     <div class="goods_boxfv6">
         <div class="titleBox">

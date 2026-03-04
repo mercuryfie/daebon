@@ -6,7 +6,6 @@
                  class="logoImg">
         </a>
         <div class="loginBox flexType5 ">
-<!--            --><?php //print_r($)?>
         <?if($header['islogin']==false){?>
             <a href="javascript://" class="text text1" onclick="go_login();">로그인</a>
         <?}else{?>

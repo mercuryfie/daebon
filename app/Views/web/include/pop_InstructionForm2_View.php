@@ -3,7 +3,6 @@
 <script src="<?=URL_COMMON_ASSETS?>/jquery-barcode.js"> </script>
 <script src="<?=URL_COMMON_ASSETS?>/instructionForm_Do.js?rnd=<?=rand();?>"> </script>
 <section class="merright ins_form_contents">
-<!--    --><?php //print_r($body)?>
     <div class="odRoast_boxfxp"  id="frnbody">
         <table class="odRoast_Table ins_form_table">
             <thead>

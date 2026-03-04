@@ -11,31 +11,19 @@ $(document).ready(function() {
     $('#skey').on('keypress',async function(e){
         if (e.which === 13) {
             let skey = $(this).val();
-            if(skey==''){
-                Make_Toast('검색하실 상품명을 입력하세요.');
-                $(this).focus();
-            }else{
-                const data = {
-                    skey : skey
-                };
-                Make_Html(data);
-            }
+            const data = {
+                skey : skey
+            };
+            Make_Html(data);
         }
     });
 
     $('#btn_sch').on('click',function(){
-        if (e.which === 13) {
-            let skey = $('#skey').val();
-            if(skey==''){
-                Make_Toast('검색하실 상품명을 입력하세요.');
-                skey.focus();
-            }else{
-                const data = {
-                    skey : skey
-                };
-                Make_Html(data);
-            }
-        }
+        let skey = $('#skey').val();
+        const data = {
+            skey : skey
+        };
+        Make_Html(data);
     });
 
     $('#uploadExcel #Xbtn, #uploadExcel #Xbtn2').click(function () {
@@ -121,11 +109,17 @@ $(document).ready(function() {
             let tcnt = codes.length;
             if(tcnt > 0){
                 let arr = await Put_Delivery(codes);
+                let gdstep_str = '';
                 console.log(arr);
-                $.each(arr, function(index, item) {
-                    $('#ck_' + item.orcode).html('');
-                    $('#bu_' + item.orcode).html('<button type="button" class="btnType3">지시완료</button>');
-                    $('#da_' + item.orcode).text(item.indate);
+                $.each(arr, function(index, el) {
+                    if(el.gdstep==1){
+                        $('#ck_' + el.orcode).data('orstep',el.orstep);
+                    }else{
+                        $('#ck_' + el.orcode).remove();
+                    }
+                    $('#st_' + el.orcode).html(Return_gdstepName(el.gdstep));
+                    $('#bu_' + el.orcode).html('<button type="button" class="btnType3">지시완료</button>');
+                    $('#da_' + el.orcode).text(el.moddate);
                 });
             }
         }
@@ -146,7 +140,7 @@ $(document).ready(function() {
                 let arr = await Put_Package(codes);
                 console.log(arr);
                 $.each(arr, function(index, item) {
-                    $('#ck_' + item.orcode).html('');
+                    $('#ck_' + item.orcode).data('orstep',1);
                     $('#bu_' + item.orcode).html(`<button type="button" class="btnType3" data-rttype="2"  onclick="add_packingQueue('${item.orcode}');">지시완료</button>`);
                     $('#da_' + item.orcode).text(item.indate);
                 });
@@ -165,7 +159,7 @@ $(document).ready(function() {
             if(tcnt > 0){
                 let arr = await Put_Delivery2(codes);
                 $.each(arr, function(index, item) {
-                    $('#ck_' + item.orcode).html('');
+                    $('#ck_' + item.orcode).data('orstep',1);
                     $('#bu_' + item.orcode).html('<button type="button" class="btnType3">지시완료</button>');
                     $('#da_' + item.orcode).text(item.indate);
                 });
@@ -178,32 +172,51 @@ $(document).ready(function() {
         let checked = $('input[name="chkorder"]:checked');
         if (checked.length == 0) {
             Make_Toast('쇼핑몰 주문확인 처리 하실 주문을 선택하세요.');
-            return
-        }
-        let isCheck = true;
-        let datas = [];
-        checked.each(function (){
-            let method = $(this).data('method');
-            if (method !== 'API') {
-                isCheck = false;
-                datas = [];
-                return false;
-            }else{
-                let row = {
-                    orcode: $(this).val()
-                };
-                datas.push(row);
+        }else {
+            let datas = [];
+            let orstepSCount = 0;
+            let orstepFCount = 0;
+            checked.each(function () {
+                let method = $(this).data('method');
+                let orstep = $(this).data('orstep');
+                if ((method !== 'API') || (orstep != 1)) {
+                    orstepFCount++;
+                } else {
+                    let row = {
+                        orcode: $(this).val()
+                    };
+                    datas.push(row);
+                    orstepSCount++;
+                }
+            });
+
+            if (orstepFCount > 0) {
+                Make_Toast('선택하신 항목중에 주문확인처리가 불가능한 주문이 존재합니다.<br>[쇼핑몰 주문만 주문확인이 필요합니다.]')
+            } else {
+                let successCount = 0;
+                let failCount = 0;
+
+                for (const item of datas) {
+                    let confirmedCode = await Put_Order_Confirm(item.orcode);
+                    if (confirmedCode) {
+                        $('#st_' + confirmedCode).text('주문확인');
+                        successCount++;
+                    } else {
+                        failCount++;
+                    }
+                }
+                if (failCount > 0) {
+                    console.log(`${failCount}건의 처리에 실패했습니다.`);
+                } else {
+                    Make_Toast('주문 확인처리 완료 하였습니다.');
+                    $('#cList').empty();
+                    const data = {
+                        skey: skey
+                    };
+                    Make_Html(data);
+                }
             }
-        });
-        if(!isCheck) return;
-        for (const item of datas) {
-            console.log(`${item.orcode} 처리 시작...`);
-            //let resultData = await Put_Order_Confirm(item.orcode);
-            //if (resultData && Object.keys(resultData).length > 0) {
-            //    console.log(`${item.orcode} 처리 완료`);
-            //}
         }
-        Make_Toast('모든 주문 처리가 완료되었습니다.');
     });
 
 
@@ -211,22 +224,27 @@ $(document).ready(function() {
 
     });
 
+    $("#total_check").on("click", function() {
+        $("input[name='chkorder']").prop("checked", $(this).is(":checked"));
+    });
+
 
 });
 
 async function Put_Order_Confirm(orcode){
-    let data = {};
+    let data = '';
     try {
         start_spinner();
         let dataarr = {"orcode" : orcode};
-        let url = APIURL + '/Load_Order_Data';
+        let url = APIURL + '/Shop_Order_Confirm';
         let result = await Load_API_Auth(url,dataarr);
+        console.log(result);
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {
-            data = result.get('data').list;
+            data = result.get('data').orcode;
         }else{
-            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+            Make_Toast( "주문확인 처리에 실패하였습니다.<br>[" + result.get('message') + "]");
         }
         stop_spinner();
     } catch (error) {
@@ -247,25 +265,26 @@ async function Make_Html(data){
             let cnxl_status = '';
             let cnxl_css = '';
             let cnxl_fn1 = '';
-            let confirmorder = '';
+            let status_str = '';
             if(el.orstep==0) {
-                subhtml1 = `<input type="checkbox" name="chkorder" value="" data-method="${el.shopmethod}">`;
                 subhtml2 = `<button type="button" class="btnType3 btn_gray" data-rttype="1" onclick="add_packingQueue('${el.orcode}');">지시대기</button>`;
             }else{
-                subhtml1 = '-';
                 subhtml2 = `<button type="button" class="btnType3 " data-rttype="2" onclick="add_packingQueue('${el.orcode}');">지시완료</button>`;
             }
 
             if(el.gdstep == 0) {
-                if(el.shopmethod=='API'){
-                    confirmorder = `<button type="button" class="btnType3 fs14" name="shop_orderconfirm" data-code="${el.orcode}");">확인</button>`;
-                }
+                subhtml1 = `<input type="checkbox" id="ck_${el.orcode}" name="chkorder" value="${el.orcode}" data-method="${el.shopmethod}" data-orstep="${el.orstep}">`;
                 cnxl_status = `<button type="button" class="btnType3 fs14" value="${el.orcode}" onclick="Del_ThisOrder('${el.orcode}');">주문취소</button>`;
             }else if(el.gdstep == 1) {
+                subhtml1 = `<input type="checkbox" id="ck_${el.orcode}" name="chkorder" value="${el.orcode}" data-method="${el.shopmethod}" data-orstep="${el.orstep}">`;
                 cnxl_status = `<button type="button" class="btnType3 fs14" value="${el.orcode}" onclick="Del_ThisOrder('${el.orcode}');">주문취소</button>`;
-            }else if(el.gdstep > 2) {
-                cnxl_status = `<p class="data fs14">취소불가</p>`;
+            }else if(el.gdstep == 2) {
+                cnxl_status = ``;
+                subhtml1 = ``;
+            }else if(el.gdstep == 3) {
+                cnxl_status = ``;
             }
+
 
             if(el.is_cancel == 0) {
                 cnxl_css = ``;
@@ -280,24 +299,25 @@ async function Make_Html(data){
             html +=`
                 <tr class="${cnxl_css}" id="list_${el.orcode}">
                     <td class="ltTbody td40 fixedCol" >
-                        <div class="inner40 flexCol2" id="ck_${el.orcode}">${subhtml1}</div>
+                        <div class="inner40 flexCol2" >${subhtml1}</div>
                     </td>
                     <td class="ltTbody productNo fixedCol" name="packingStep"><div class="inner1 flexCol2"><p class="text" id="bu_${el.orcode}">${subhtml2}</p></div></td> 
                     <td class="ltTbody fixedCol " data-copy="copy"><div class="inner2 flexCol2"><p class="text">${el.orcode}</p><p class="text">${el.spcode}</p></div></td>
+                    <td class="ltTbody scrollableCol "><div class="inner4 flexCol2 "><p class="text" id="st_${el.orcode}">${Return_gdstepName(el.gdstep)}</p></div></td>
                     <td class="ltTbody fixedCol "><div class="inner2 flexCol2 last_inner"><p class="text">${el.pd_code}</p><p class="text">${el.sg_code}</p></div></td>
                     <td class="ltTbody scrollableCol" ${cnxl_fn1}><div class="inner4 flexType1 g_name"><a href="javascript:;" class="text mr10" >${el.p_name}</a></div></td>
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2 fs14"><p class="text">${el.buy_name}</p><p class="text">${el.buy_phone}</p><p class="text">${el.receive_name}</p><p class="text">${el.receive_phone}</p></div></td>
-                    <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.tcnt} 봉</p><p class="text">${number_format(el.tprice)}원</p></div></td> 
+                    <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.tcnt} 팩</p><p class="text">${number_format(el.tprice)}원</p></div></td> 
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.orderdate}</p></div></td>
                     
-                    <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text" id="da_${el.orcode}">${el.deli_info['indate']}</p></div></td>    
-                    <td class="ltTbody scrollableCol "><div class="inner4 flexCol2 "><p class="text">${el.input_str}</p></div></td>
+                    <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text" id="da_${el.orcode}">${el.moddate}</p></div></td>    
                     <td class="ltTbody scrollableCol "><div class="inner4 flexCol2 "><p class="text">${el.shopstr}</p><p class="text">${el.sell_id}</p></div></div></td> 
-                    <td class="ltTbody scrollableCol ">${confirmorder}</td> 
                     <td class="ltTbody scrollableCol ">${cnxl_status}</td>
                 </tr>
             `;
         });
+        $('.order_list_tbl_wrap').css('width','81vw');
+        $('.order_list_tbl').css('width','80vw');
         $('#cList').empty();
         $('#cList').append(html);
     }
@@ -398,16 +418,15 @@ async function Put_Delivery(codes){
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'Error003') {
-            alert(result.get('message'));
-            location.reload();
+            Make_Toast(result.get('message'));
         }else if(result.get('status') == 'ok') {
             data = result.get('data').list;
         }else{
             Make_Toast(result.get('message') + "[" + result.get('status') + "]");
         }
-        stop_spinner();
     } catch (error) {
         Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+    }finally {
         stop_spinner();
     }
     return data;
@@ -456,3 +475,18 @@ async function Put_Package(codes){
     return data;
 }
 
+function Return_gdstepName(gdstep){
+    let gdstep_str = '';
+    if(gdstep == 0) {
+        gdstep_str = '등록완료';
+    }else if(gdstep == 1) {
+        gdstep_str = '지시완료';
+    }else if(gdstep == 2) {
+        gdstep_str = '확인완료';
+    }else if(gdstep == 3) {
+        gdstep_str = '배송시작';
+    }
+
+    return gdstep_str;
+
+}

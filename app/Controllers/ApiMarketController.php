@@ -73,7 +73,6 @@ class ApiMarketController extends BaseController
                             $addInfo = $pRs[0]['addInfo'];
                             $arr = $this->Change_Coupan_AddInfo($addInfo);
 
-                            print_r($arr);
 
                             $result = 'error';
                             $data = [];
@@ -103,7 +102,7 @@ class ApiMarketController extends BaseController
     public function Shop_Order_Confirm(){
         try {
             $sessinarr = $this->GetSessionData();
-            $orcode = ($this->request->getPost('oid') == '') ? '' : $this->request->getPost('oid');
+            $orcode = ($this->request->getPost('orcode') == '') ? '' : $this->request->getPost('orcode');
             if ($sessinarr['islogin'] == false) {
                 $result = 'NoLogin';
                 $data = [];
@@ -128,11 +127,44 @@ class ApiMarketController extends BaseController
                     $data = [];
                     $message = '이미 확인 처리된 주문입니다.';
                 }else {
+//                    $delivery_m = model('Delivery_m');
+//                    $fields = ['a.fk_opcode'];
+//                    $sRs = $delivery_m->Load_DeliveryPackageByOrCode($orcode,$fields);
+//                    $opcode = (fn_ArrayCnt($sRs) > 0 ) ? $sRs['fk_opcode'] : '';
+
                     $shoptyp = $Rs[0]['shoptyp'];
                     if ($shoptyp == 'type1') {
-                        $order_arr[] = $orcode;
+                        $addInfoJson = $Rs[0]['addInfo'];
+                        $addInfoArray = json_decode($addInfoJson, true);
+                        $shipmentBoxIds = isset($addInfoArray['shipmentBoxIds']) ? [$addInfoArray['shipmentBoxIds']] : [];
                         $coupang = new CoupangApi();
-                        $arr = $coupang->Put_Order_Confirm($order_arr);
+                        $arr = $coupang->Put_Order_Confirm($shipmentBoxIds);
+                        if($arr['code']==200){
+                            if($arr['data']['responseCode']==1) {
+                                $param = [
+                                    'gdstep' => 2
+                                ];
+                                $Cnt = $order_m->Update_Order_Info($orcode, $param);
+
+                                $result = 'ok';
+                                $data = ['orcode' => $orcode];
+                                $message = '';
+                            }else{
+                                $result = 'error';
+                                $data = [
+                                    'code'=> $arr['data']['responseCode'],
+                                    'message' => $arr['data']['responseMessage']
+                                ];
+                                $message = $arr['data']['responseMessage'];
+                            }
+                        }else{
+                            $result = 'error';
+                            $data = [
+                                'code' => $arr['code'],
+                                'message' => $arr['message']
+                            ];
+                            $message = $arr['message'];
+                        }
                     } else if (($shoptyp == 'type2') || ($shoptyp == 'type3')) {
                         $esm = new EsmApi();
                         $arr = $esm->putOrderConfirm($orcode);
@@ -154,10 +186,6 @@ class ApiMarketController extends BaseController
                         $ssg = new SsgAPI();
                         $arr = $ssg->putOrderConfirm($orcode);
                     }
-
-                    $result = 'ok';
-                    $data = [];
-                    $message = '';
                 }
             }
         }catch(\Exception $e){
@@ -592,7 +620,6 @@ class ApiMarketController extends BaseController
         $startdate = $s_date . '%2B09:00';
         $enddate = $e_date . '%2B09:00';
         $order = $coupang->Get_Order_Period($startdate, $enddate, 'ACCEPT', $NextToken);
-
         if ((!empty($order)) && ($order['code'] == 200)) {
             $order_m = model('Order_m');
             foreach ($order['data'] as $d) {
@@ -1098,7 +1125,11 @@ class ApiMarketController extends BaseController
         ];
     }
 
-    private function Change_Coupan_AddInfo($value){
+    private function Change_Coupan_AddInfo($orcode){
+
+
+
+
         $data = json_decode($value, true);
         $resultIds = [];
 

@@ -1,6 +1,57 @@
 <?php
 
 
+function fn_Put_Delivery_Info($data,$orcode){
+    $result = false;
+    if($data[0]['shopmethod']=='API'){
+        if($data[0]['shoptyp']=='type1'){
+            $params = [];
+            if($data[0]['deli_step']<4){
+                foreach ($data as $d){
+                    $addInfoArray = json_decode($d['addInfo'], true);
+                    $shipmentBoxIds = isset($addInfoArray['shipmentBoxIds']) ? $addInfoArray['shipmentBoxIds'] : '';
+
+                    $t_arr = [
+                        'shipmentBoxId' => $shipmentBoxIds,
+                        'orderId' => $d['spcode'],
+                        'deliveryCompanyCode' => 'HYUNDAI',
+                        'invoiceNumber' => $d['deli_code'],
+                        'splitShipping' => false,
+                        'preSplitShipped' => false,
+                        'estimatedShippingDate' => ''
+                    ];
+                    $params[] = $t_arr;
+
+                    $op_arr[] = $d['opcode'];
+
+
+                }
+                if(!empty($params)){
+                    $coupang = new \App\Libraries\CoupangApi();
+                    $arr = $coupang->Patch_Delivery_Info($params);
+                    if($arr['code']==200) {
+                        if ($arr['data']['responseCode'] == 0) {
+                            $delivery_m = model('Delivery_m');
+                            $order_m = model('Order_m');
+                            foreach ($op_arr as $opcode){
+                                $p_arr = [
+                                    'deli_step' => 4
+                                ];
+                                $Cnt = $delivery_m->Update_Delivery_Info($opcode,$p_arr);
+                            }
+                            $param = ['gdstep' => 3,'orstep' => 2];
+                            $Cnt = $order_m->Update_Order_Info($orcode, $param);
+                            $result = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return $result;
+}
+
+
 
 function put_Shop_Api_Log($shotype,$request_status,$request_url,$request_endpoint,$request_query,$request_method,$response_json){
     $api = model('Api_m');

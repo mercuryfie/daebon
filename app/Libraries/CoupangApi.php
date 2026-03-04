@@ -3,6 +3,7 @@
 namespace App\Libraries;
 
 use Config\Services;
+use Exception;
 
 class CoupangApi
 {
@@ -16,23 +17,24 @@ class CoupangApi
     public function __construct()
     {
         $this->accessKey = 'a9adfe13-f559-42cf-bd61-48eef9af6028';
-        $this->secretKey = 'eaf19f45a0a79d964044c52368c88005e18a17e9';
+        //$this->secretKey = 'eaf19f45a0a79d964044c52368c88005e18a17e9';
+        $this->secretKey = 'f6ebc4ce844d43fa472e17f414e25599ff553f92';
         $this->vendorid = 'A00061018';
 
         $this->httpClient = Services::curlrequest();
     }
 
-    public function Patch_Delivery_Info($invoices = [])
+    public function Patch_Delivery_Info($params)
     {
-        if (empty($invoices)) {
-            return ['result' => 'error', 'message' => '송장업로드 데이터가 없습니다.'];
+        if (empty($params)) {
+            return ['result' => 'error', 'message' => '주문 정보가 없습니다.'];
         }
 
         $path = "/v2/providers/openapi/apis/api/v4/vendors/{$this->vendorid}/orders/invoices";
         $method = "POST";
         $data = [
             'vendorId' => $this->vendorid,
-            'orderSheetInvoiceApplyDtos'=>$invoices
+            'orderSheetInvoiceApplyDtos'=>$params
         ];
 
         try{
@@ -46,31 +48,36 @@ class CoupangApi
         }
     }
 
+
     public function Put_Order_Confirm($shipmentBoxIds = [])
     {
         $path = "/v2/providers/openapi/apis/api/v4/vendors/{$this->vendorid}/ordersheets/acknowledgement";
         $method = "PUT";
+
         if (empty($shipmentBoxIds)) {
             return ['result' => 'error', 'message' => '배송번호(shipmentBoxIds)가 없습니다.'];
         }
 
+        $ids = is_array($shipmentBoxIds) ? $shipmentBoxIds : [$shipmentBoxIds];
+        $ids = array_values(array_map('intval', $ids));
+
         $data = [
-            "vendorId" => $this->vendorid,
-            "shipmentBoxIds" => is_array($shipmentBoxIds) ? $shipmentBoxIds : [$shipmentBoxIds]
+            "vendorId"       => $this->vendorid,
+            "shipmentBoxIds" => $ids
         ];
+
         $query = "";
         try {
             $result = $this->callApi($method, $path, $query, $data);
             return $result;
         } catch (\Exception $e) {
             return [
-                'code' => 'ERROR',
+                'result'  => 'error',
+                'code'    => 'ERROR',
                 'message' => $e->getMessage()
             ];
         }
     }
-
-
 
     public function Get_Order_Period($sdate,$edate,$status,$nextToken)
     {
@@ -105,31 +112,42 @@ class CoupangApi
                 'headers' => $headers,
                 'timeout' => 90,
                 'connect_timeout' => 30,
-                'http_errors' => false
+                'http_errors' => false,
+                'decode_content'  => true
             ];
             if ($data && in_array($method, ['POST', 'PUT', 'PATCH'])) {
                 $options['json'] = $data;
+                $logs = json_encode($options, JSON_UNESCAPED_UNICODE);
+            }else{
+                $logs = $query;
             }
-
             $response = $this->httpClient->request($method, $apiurl, $options);
-
             $body = $response->getBody();
-            $Cnt = put_Shop_Api_Log($this->shopType, 'Success', $this->baseapi, $path, $query, $method, $body);
+            //log_message('error', '[COUPANG API Error] ' . $body);
+            $Cnt = put_Shop_Api_Log($this->shopType, 'Success', $this->baseapi, $path, $logs, $method, $body);
             //$body =  $this->Sample_order();
             return json_decode($body, true);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+            if ($data && in_array($method, ['POST', 'PUT', 'PATCH'])) {
+                $options['json'] = $data;
+                $logs = json_encode($options, JSON_UNESCAPED_UNICODE);
+            }else{
+                $logs = $query;
+            }
+
+            $errorLog = json_encode(['error' => true,'message' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+
             log_message('error', '[COUPANG API Error] ' . $e->getMessage());
-            $Cnt = put_Shop_Api_Log($this->shopType, 'Error', $this->baseapi, $path, $query, $method, $e->getMessage());
+            $Cnt = put_Shop_Api_Log($this->shopType, 'Error', $this->baseapi, $path, $logs, $method, $errorLog);
             throw new Exception("Coupan Request Failed: " . $e->getMessage());
             return'';
         }
     }
 
-
     private function Make_Authorization($method, $path, $query){
         date_default_timezone_set("GMT+0");
         $datetime = date("ymd").'T'.date("His").'Z';
-        if($method=='POST'){
+        if (in_array($method, ['POST', 'PUT', 'PATCH'])) {
             $message = $datetime . $method . $path;
         }else if($method=='GET'){
             $message = $datetime . $method . $path . $query;

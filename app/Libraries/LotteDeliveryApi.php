@@ -83,6 +83,7 @@ class LotteDeliveryApi
 
                             $deli_m= model('Delivery_m');
                             $param = [
+                                'deli_step' => 3,
                                 'deli_code' => $deli_code,
                                 'fk_confirm' => $confirm_num,
                                 'deli_prn_date' => fn_NowDateFormat(1),

@@ -6,9 +6,6 @@
 
 <script>
 </script>
-<?php print_r($body['info'])?>
-<?php print_r($body['p_arr'])?>
-<?=$body['info'][0]['orcode'];?>
 <section class="merright">
     <input type="hidden" id="orcode" name="orcode" value="<?=$body['info'][0]['orcode'];?>">
     <div class="orderReg_boxx7x">

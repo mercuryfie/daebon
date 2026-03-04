@@ -48,10 +48,10 @@
                     <button type="button" class="btnType1" id="btn_sch" name="btn_sch">검색</button>
                 </div>
                 <div class="right">
-<!--                    <button type="button" class="btnType1 mr10" id="btn_orderconfirm">주문확인</button>-->
-                    <button type="button" class="btnType1 mr10" id="btn_ininstruct">개별포장지시</button>
-                    <button type="button" class="btnType1 mr10" id="btn_package">묶음포장지시</button>
-                    <button type="button" class="btnType1 mr10" onclick="upload_Xlx();">엑셀업로드</button>
+                    <button type="button" class="btnType1 mr10" id="btn_ininstruct">포장지시</button>
+                    <button type="button" class="btnType1 mr10" id="btn_orderconfirm">주문확인처리</button>
+<!--                    <button type="button" class="btnType1 mr10" id="btn_package">묶음포장지시</button>-->
+<!--                    <button type="button" class="btnType1 mr10" onclick="upload_Xlx();">엑셀업로드</button>-->
                     <button type="button" class="btnType1 mr10">엑셀 다운</button>
                     <button type="button" class="btnType1 " onclick="template_Download();">양식 다운</button>
                 </div>
@@ -61,9 +61,14 @@
                     <table class="order_list_tbl ">
                         <thead class="tbl_head">
                         <tr>
-                            <th class="ltThead fixedCol checkCol td40"><div class="inner40 flexCol2"><p class="text">-</p></div></th>
-                            <th class="ltThead fixedCol" onclick=""><div class="inner1 flexCol2"><p class="text">진행상태</p></div></th>
+                            <th class="ltThead fixedCol checkCol td40">
+                                <div class="inner40 flexCol2" id="ck_${el.orcode}">
+                                    <input type="checkbox" name="total_check" id="total_check" />
+                                </div>
+                            </th>
+                            <th class="ltThead fixedCol" onclick=""><div class="inner1 flexCol2"><p class="text">포장단계</p></div></th>
                             <th class="ltThead fixedCol"><div class="inner2 flexCol2"><p class="text">MES 주문번호</p><p class="text">마켓 주문번호</p></div></th>
+                            <th class="ltThead scrollableCol"><div class="inner4 flexCol2 "><p class="text">주문상태</p></div></th>
                             <th class="ltThead fixedCol"><div class="inner2 flexCol2 last_inner"><p class="text">MES 상품번호</p><p class="text">마켓 상품번호</p></div></th>
 
                             <th class="ltThead scrollableCol"><div class="inner4 g_name flexCol2"><p class="text">상품명</p></div></th>
@@ -71,10 +76,8 @@
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2 "><p class="text">수량</p><p class="text">총액</p></div></th>
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2 "><p class="text">주문일자</p></div></th>
 
-                            <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">배송지시일</p></div></th>
-                            <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">등록</p></div></th>
+                            <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">상태변경일</p></div></th>
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">연동정보</p></div></th>
-                            <th class="ltThead scrollableCol">주문확인</th>
                             <th class="ltThead scrollableCol">주문취소</th>
                         </tr>
                         </thead>

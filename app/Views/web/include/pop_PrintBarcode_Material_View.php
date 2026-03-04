@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="/assets/web/css/style.css?rnd=<?echo(rand()); ?>">
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 <script src="<?=URL_COMMON_ASSETS?>/inoutMaterialPrn_Do.js?rnd=<?=rand();?>"> </script>
-<?php //=print_r($body['data']);?>
 <section class="merright bar_mat_contents">
     <input type="hidden" id="mtcode" name="mtcode" value="<?=$body['data']['mtcode'];?>" />
     <div class="bar_mat_box " id="frnbody" name="frnbody">

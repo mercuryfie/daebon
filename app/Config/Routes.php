@@ -181,6 +181,7 @@ $routes->match(['GET', 'POST'], 'Api/Load_Order_Miss', 'ApiOrderController::Load
 $routes->match(['GET', 'POST'], 'Api/Put_Packing_Info', 'ApiPackingController::Put_Packing_Info');
 
 $routes->match(['GET', 'POST'], 'Api/Shop_Order_List', 'ApiMarketController::Shop_Order_List');
+$routes->match(['GET', 'POST'], 'Api/Shop_Order_Confirm', 'ApiMarketController::Shop_Order_Confirm');
 $routes->match(['GET', 'POST'], 'Api/Make_Delivery_Code', 'ApiMarketController::Make_Delivery_Code');
 $routes->match(['GET', 'POST'], 'Api/ESM_Order_Period', 'ApiMarketController::ESM_Order_Period');
 $routes->match(['GET', 'POST'], 'Api/getInIInfo', 'ApiMarketController::getInIInfo');

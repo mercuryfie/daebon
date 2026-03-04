@@ -438,25 +438,33 @@ class ApiOrderController extends BaseController
             $data = [];
             $message = '잘못된 토큰입니다.';
         }else{
-            $bool = false;
+            $successCnt = 0;
+            $failCnt = 0;
+            $params = [];
             $order_m = model('Order_m');
             $Rs = $order_m->Load_Order_In_Info($codes);
             if(fn_ArrayCnt($Rs)>0){
                 foreach ($Rs as $d){
-                    if($d['orstep']==1){
-                        $bool = true;
-                        break;
+                    if($d['orstep']==0){
+                        $t_arr = [
+                            'orcode' => $d['orcode'],
+                            'method' => $d['shopmethod']
+                        ];
+                        $params[] = $t_arr;
+                        $successCnt++;
+                    }else{
+                        $failCnt++;
                     }
                 }
             }
-            if($bool){
+            if($failCnt > 0){
                 $result = 'Error003';
                 $data = [];
                 $message = '이미 처리된 주문이 있습니다.';
             }else{
                 $deli_info=[];
                 $package_info = [];
-                foreach ($codes as $code){
+                foreach ($params as $f){
                     $newcode = fnMake_Code(14);
                     $t_arr = [
                         'opcode' =>$newcode,
@@ -467,7 +475,7 @@ class ApiOrderController extends BaseController
 
                     $d_arr = [
                         'fk_opcode' => $newcode,
-                        'fk_orcode' => $code
+                        'fk_orcode' => $f['orcode']
                     ];
 
                     $deli_info[] = $t_arr;
@@ -481,19 +489,29 @@ class ApiOrderController extends BaseController
                 if(fn_ArrayCnt($package_info) > 0){
                     $Cnt = $order_m->Insert_Order_Package_Info($package_info);
                 }
-                $param = ['orstep' =>1];
-                $Cnt = $order_m->Update_Order_Info($codes,$param);
+
+
 
                 $retval = [];
-                foreach ($codes as $code){
-                    $p_arr = get_Order_Delivery_Info($order_m,$code);
-                    $r_arr = [
-                        'orcode' => $code,
-                        'indate' => $p_arr['indate']
-                    ];
-                    $retval[] = $r_arr;
-                }
+                $rRs = $order_m->Load_Order_In_Info($codes);
+                if(fn_ArrayCnt($rRs)>0){
+                    foreach ($rRs as $d){
+                        $orcode = $d['orcode'];
+                        $nowdate = date("Y-m-d H:i:s");
+                        $gdstep = ($d['shopmethod']=='API') ? 1:2;
+                        $param = ['orstep' => 1, 'gdstep' => $gdstep ,'moddate'=> $nowdate];
+                        $Cnt = $order_m->Update_Order_Info2($orcode, $param);
 
+                        $r_arr = [
+                            'orcode' => $d['orcode'],
+                            'orstep' => 1,
+                            'gdstep' => $gdstep,
+                            'method' => $d['shopmethod'],
+                            'moddate' => fn_Short_Date($nowdate)
+                        ];
+                        $retval[] = $r_arr;
+                    }
+                }
 
                 $i_arr = ['list' => $retval];
                 $result = 'ok';
@@ -668,6 +686,9 @@ class ApiOrderController extends BaseController
                 $info_arr = [];
                 foreach ($cRs as $d){
 
+                    $modate = ($d['moddate']) ? fn_Short_Date($d['moddate']) : '';
+
+
                     $a_arr = get_Order_Product_short_info($order_m,$d['orcode']);
                     $d_arr = get_Order_Delivery_Info($order_m,$d['orcode']);
                     $t_arr = [
@@ -703,7 +724,8 @@ class ApiOrderController extends BaseController
                         'receive_phone' => $d['receive_phone'],
                         'receive_memo' => $d['receive_memo'],
                         'orderdate' => $d['indate'],
-                        'indate' => fn_Short_Date($d['indate'])
+                        'indate' => fn_Short_Date($d['indate']),
+                        'moddate' => $modate
                     ];
 
                     array_push($info_arr,$t_arr);

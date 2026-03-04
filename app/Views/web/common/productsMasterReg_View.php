@@ -1,7 +1,6 @@
 <?= $this->extend("/web/template/layout_workpage") ?>
 <?= $this->section("content") ?>
 <!-- js ----------------------------  -->
-<?php //print_r($body)?>
 <script src="<?=URL_COMMON_ASSETS?>/productsMasterReg_Do.js?rnd=<?=rand();?>"> </script>
 <section class="merright">
     <input type="hidden" name="stepCnt" id="stepCnt" value="1"/>

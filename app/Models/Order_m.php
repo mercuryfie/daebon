@@ -343,10 +343,10 @@ class Order_m extends Model
         return $insertID;
     }
 
-    public function Update_Order_Info($codes,$param){
+    public function Update_Order_Info($code,$param){
         $this->db->transStart();
         $builder = $this->db->table('tbl_order');
-        $builder->whereIn('orcode', $codes);
+        $builder->whereIn('orcode', $code);
         $builder->update($param);
         $affected_rows = $this->db->affectedRows();
         $this->db->transComplete();

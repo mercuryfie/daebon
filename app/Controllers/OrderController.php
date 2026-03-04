@@ -454,25 +454,57 @@ class OrderController extends BaseController
             if ($data['result'] != 'ok') {
                 fn_AlertClose('Error : ' . $data['message']);
             } else {
-                $metaarr = [
-                    'h_title' => H_TITLE,
-                    'h_type' => 1
-                ];
+                $delivery_m = model('Delivery_m');
+                $fields =['a.fk_opcode as opcode','b.deli_step','b.deli_code','b.deli_prn_date','b.deli_end_date','c.addInfo','c.shoptyp','c.shopmethod','c.spcode'];
+                $dRs = $delivery_m->Load_DeliveryPackageByOrCode($orcode,$fields);
+                if(fn_ArrayCnt($dRs)<=0){
+                    fn_AlertClose('잘못된 송장정보 입니다.');
+                }else{
+                    $result = fn_Put_Delivery_Info($dRs,$orcode);
+                    $metaarr = [
+                        'h_title' => H_TITLE,
+                        'h_type' => 1
+                    ];
+
+                    $product = [];
+                    $totalCnt = 0;
+                    $fields=['fk_pdcode','sgcode','sgname','gprice','gcnt','shop_name'];
+                    $sRs = $delivery_m->Load_Delivery_Product_Info($orcode,$fields);
+                    if(fn_ArrayCnt($sRs)>0){
+                        $i = 1;
+                        foreach ($sRs as $f){
+                            $t_arr = [
+                                'num' => $i,
+                                'sgname' => $f['sgname'],
+                                'gcnt' => $f['gcnt'],
+                                'spname' => $f['shop_name']
+                            ];
+                            $totalCnt = $totalCnt + $f['gcnt'];
+                            $product[] = $t_arr;
+                            $i++;
+                        }
+                    }
 
 
+                    $main_data = [
+                        'info' => $data['info'],
+                        'product' =>$product,
+                        'totalCnt' => $totalCnt
+                    ];
 
+                    print_r($main_data);
 
+                    $form = new Form;
+                    $main_data = [
+                        'meta' => $form->fnMake_Meta($metaarr),
+                        'header' => $form->fnMake_Header($sessinarr),
+                        'left' => $form->fnMake_Left(),
+                        'body' => $main_data,
+                        'footer' => $form->fnMake_Fooeter($sessinarr)
+                    ];
 
-                $form = new Form;
-                $main_data = [
-                    'meta' => $form->fnMake_Meta($metaarr),
-                    'header' => $form->fnMake_Header($sessinarr),
-                    'left' => $form->fnMake_Left(),
-                    'body' => $data['info'],
-                    'footer' => $form->fnMake_Fooeter($sessinarr)
-                ];
-
-                return view('web/include/pop_WaybillForm_View', $main_data);
+                    return view('web/include/pop_WaybillForm_View', $main_data);
+                }
             }
         }
     }

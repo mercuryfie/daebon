@@ -5,8 +5,6 @@
 
 <script>
 </script>
-<!--    *$body['info_arr']['icnt'] info_arr-->
-<?php //print_r($body)?>
 
 <section class="merright q_report_box22 ">
     <div class=" q_report_box23d" id="frnbody" >

@@ -143,7 +143,7 @@ $(document).ready(function(){
             console.log('dawn',data);
             let bool = await Reg_Order(data);
             if(bool===true){
-                // go_orderList();
+                go_orderList();
             }else{
                 Make_Toast('주문등록에 실패 하였습니다.');
             }

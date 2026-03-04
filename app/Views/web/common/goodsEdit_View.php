@@ -10,7 +10,6 @@
 
 <script>
 </script>
-<?php //print_r($body)?>
 
 <section class="merright">
     <input type="hidden" id="pdcode" name="pdcode" value="<?=$body['pdcode'];?>" />

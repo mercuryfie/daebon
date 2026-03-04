@@ -3897,7 +3897,6 @@ input[type="radio"] {
 /* productsRegister end -------------------------------- */
 /* productsAfterRegister start -------------------------------- */
 
-
 .proc_boxf9n .roasting_boxp9x {
     width: auto;
     height: auto;
@@ -5241,7 +5240,7 @@ input[type="radio"] {
 }
 
 /* pop_InstructionForm_View end   --------------------------- */
-/* waybill form start -------------------------------- */
+/* pop_WaybillForm_View start -------------------------------- */
 
 .waybill_boxfxp {
     width: 700px;
@@ -5269,7 +5268,7 @@ input[type="radio"] {
     position: relative;
     width: 52%;
     z-index: 33;
-    margin-left: 24px;
+    margin-left: 14px;
     height: 340px;
     overflow: hidden;
 }
@@ -5330,13 +5329,11 @@ input[type="radio"] {
 .waybill_boxfxp .paddingBox .left1 .text1 {
     font-size: 20px;
     font-weight: bold;
-
 }
 
-.waybill_boxfxp .paddingBox .left1 .text2 {
+.waybill_inner .area1 .text2 {
     font-size: 16px;
-    font-weight: bold;
-
+    text-wrap: wrap;
 }
 
 .waybill_boxfxp .paddingBox .left .area1 .barBox {
@@ -5354,19 +5351,18 @@ input[type="radio"] {
 }
 
 .waybill_boxfxp .paddingBox .left .area2 {
-    margin: 30px 0 0px 10px;
+    margin: 25px 0 0px 10px;
     height:100px;
-    /*max-height: 120px;*/
 
 }
 
 .waybill_boxfxp .paddingBox .left .area2 .text {
-    width: 96%;
-    overflow: hidden;
-    font-weight: 600;
-    height: 100px;
-    line-height: 20px;
+    height: auto;
+    line-height: normal;
     text-wrap: wrap;
+    font-size: 12px ;
+    font-weight: normal;
+    /*color: red;*/
 
 }
 
@@ -5507,7 +5503,7 @@ input[type="radio"] {
 
 .waybill_boxfxp .right .area5 .text1 {
     margin-top: 40px;
-    margin-left: 20px;
+    margin-left: 10px;
     font-size: 14px;
     line-height: 14px;
     z-index: 30;
@@ -5517,7 +5513,7 @@ input[type="radio"] {
 }
 
 .waybill_boxfxp .right .area6 .text2{
-    margin-left: 40px;
+    /*margin-left: 20px;*/
 }
 
 .waybill_boxfxp .right .area6 .area6bb{
@@ -5558,7 +5554,7 @@ input[type="radio"] {
     font-weight: 900;
 }
 
-/* waybill form end -------------------------------- */
+/* pop_WaybillForm_View end -------------------------------- */
 /* userRegister_View start -------------------------------- */
 
 .user_reg_wrap {
@@ -6023,6 +6019,14 @@ input[type="radio"] {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+
+.flexType3-2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     flex-wrap: nowrap;
 }
 
@@ -6700,8 +6704,8 @@ input[type="radio"] {
     }
 
     .waybill_inner .paddingBox .left1 .text2 {
-        font-size: 18px;
-        font-weight: 800;
+        font-size: 16px;
+        /*font-weight: 800;*/
     }
 
     .waybill_inner .paddingBox .left2 {
@@ -6755,9 +6759,10 @@ input[type="radio"] {
         width: 96%;
         overflow: hidden;
         font-weight: 600;
-        height: 100px;
-        line-height: 20px;
+        height: 24px;
+        line-height: 24px;
         text-wrap: wrap;
+        border: 1px solid red;
     }
 
     .waybill_inner .paddingBox .left .area3 {

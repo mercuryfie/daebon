@@ -18,6 +18,20 @@ class Delivery_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Load_DeliveryPackageByOrCode($orcode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_delivery_package a ";
+        $sql .= "JOIN tbl_delivery_info b ON a.fk_opcode=b.opcode ";
+        $sql .= "JOIN vw_order_info c ON a.fk_orcode=c.orcode ";
+        $sql .= "join vw_order_products_info d ON a.fk_orcode=d.fk_orcode ";
+        $sql .= "WHERE a.fk_orcode=:ORCODE:;";
+        $bindparam = [
+            'ORCODE' => $orcode
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
     public function Load_dashboardDelivery_Info(){
         $sql = "SELECT COUNT(CASE WHEN p_status = 0 THEN 1 END) AS package_ready,COUNT(CASE WHEN p_status = 1 THEN 1 END) AS package_start,COUNT(CASE WHEN p_status = 2 THEN 1 END) AS package_complete ";
         $sql .= " FROM tbl_delivery_info WHERE is_del = 0 AND DATE_FORMAT(indate, '%Y-%m-%d') = CURDATE() ;";
@@ -57,6 +71,15 @@ class Delivery_m extends Model
         return $query->getResultArray();
     }
 
+    public function Load_Delivery_Product_Info($orcode,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM vw_order_products_info WHERE fk_orcode=:ORCODE:";
+        $bindparam = [
+            'ORCODE' => $orcode
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
 
     public function get_Delivery_code($fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);

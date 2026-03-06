@@ -15,6 +15,131 @@ class ReportController extends BaseController
         $this->Check_Auth($Auth);
     }
 
+    public function managerEquipment(){
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '장비 관리',
+                'h_type' => 1
+            ];
+
+            $main_data = [];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'main' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/equipment_View', $main_data);
+        }
+    }
+
+    public function regEquipment(){
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '장비 추가',
+                'h_type' => 1
+            ];
+
+            $main_data = [];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'main' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/equipment_View', $main_data);
+        }
+    }
+
+    public function locationEquipment(){
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '설비 위치 관리도',
+                'h_type' => 1
+            ];
+
+            $main_data = [];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'main' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/equipment_View', $main_data);
+        }
+    }
+
+    public function energyActRate(){
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '압축기가동현황',
+                'h_type' => 1
+            ];
+
+            $main_data = [];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'main' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/energyElUse_View', $main_data);
+        }
+    }
+
+    public function energyElUse(){
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            return redirect()->to('/member/login');
+        }else {
+            $metaarr = [
+                'h_title' => '압축전기사용량',
+                'h_type' => 1
+            ];
+
+            $main_data = [];
+
+            $form = new Form;
+            $main_data = [
+                'meta' => $form->fnMake_Meta($metaarr),
+                'header' => $form->fnMake_Header($sessinarr),
+                'left' => $form->fnMake_Left(),
+                'main' => $main_data,
+                'footer' => $form->fnMake_Fooeter($sessinarr)
+            ];
+
+            return view('web/common/energyElUse_View', $main_data);
+        }
+    }
+
 
     public function qualityReport()
     {

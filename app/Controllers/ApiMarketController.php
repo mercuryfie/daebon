@@ -33,71 +33,71 @@ class ApiMarketController extends BaseController
         echo($Cnt);
 
     }
-
-    public function Shop_Order_Delivery(){
-        try {
-            $sessinarr = $this->GetSessionData();
-            $orcode = ($this->request->getPost('oid') == '') ? '' : $this->request->getPost('oid');
-            if ($sessinarr['islogin'] == false) {
-                $result = 'NoLogin';
-                $data = [];
-                $message = '로그인이 필요합니다.';
-            } else if (!Check_Token($sessinarr)) {
-                $result = 'Error002';
-                $data = [];
-                $message = '잘못된 토큰입니다.';
-            } else if ($orcode == '') {
-                $result = 'Error003';
-                $data = [];
-                $message = '필수 입력값이 누락되었습니다.';
-            } else {
-                $order_m = model('Order_m');
-                $Rs = $order_m->Load_Order_Info($orcode);
-                if (fn_ArrayCnt($Rs) <= 0) {
-                    $result = 'error';
-                    $data = [];
-                    $message = '잘못된 접근입니다.';
-                }else if($Rs[0]['gdstep']>1){
-                    $result = 'error';
-                    $data = [];
-                    $message = '이미 배송 처리된 주문입니다.';
-                }else{
-                    $shoptyp = $Rs[0]['shoptyp'];
-                    if ($shoptyp == 'type1') {
-                        $pRs = $order_m->Load_Order_Product($orcode);
-                        if(fn_ArrayCnt($pRs)<=0){
-                            $result = 'error';
-                            $data = [];
-                            $message = '주문 상폼이 존재 하지 않습니다';
-                        }else{
-                            $addInfo = $pRs[0]['addInfo'];
-                            $arr = $this->Change_Coupan_AddInfo($addInfo);
-
-
-                            $result = 'error';
-                            $data = [];
-                            $message = '주문 상폼이 존재 하지 않습니다';
-
-
-                        }
-                    }
-                }
-            }
-        }catch(\Exception $e){
-            log_message('error', '[송장업로드 처리 실패 API Error] ' . $e->getMessage());
-            $result = 'error';
-            $data = [];
-            $message = "주문확인 처리 실패 [ERROR={$e->getMessage()}";
-        }
-
-        $return = [
-            'result' => $result,
-            'info' => $data,
-            'message' => $message
-        ];
-        return $this->respond($return);
-
-    }
+//
+//    public function Shop_Order_Delivery(){
+//        try {
+//            $sessinarr = $this->GetSessionData();
+//            $orcode = ($this->request->getPost('oid') == '') ? '' : $this->request->getPost('oid');
+//            if ($sessinarr['islogin'] == false) {
+//                $result = 'NoLogin';
+//                $data = [];
+//                $message = '로그인이 필요합니다.';
+//            } else if (!Check_Token($sessinarr)) {
+//                $result = 'Error002';
+//                $data = [];
+//                $message = '잘못된 토큰입니다.';
+//            } else if ($orcode == '') {
+//                $result = 'Error003';
+//                $data = [];
+//                $message = '필수 입력값이 누락되었습니다.';
+//            } else {
+//                $order_m = model('Order_m');
+//                $Rs = $order_m->Load_Order_Info($orcode);
+//                if (fn_ArrayCnt($Rs) <= 0) {
+//                    $result = 'error';
+//                    $data = [];
+//                    $message = '잘못된 접근입니다.';
+//                }else if($Rs[0]['gdstep']>1){
+//                    $result = 'error';
+//                    $data = [];
+//                    $message = '이미 배송 처리된 주문입니다.';
+//                }else{
+//                    $shoptyp = $Rs[0]['shoptyp'];
+//                    if ($shoptyp == 'type1') {
+//                        $pRs = $order_m->Load_Order_Product($orcode);
+//                        if(fn_ArrayCnt($pRs)<=0){
+//                            $result = 'error';
+//                            $data = [];
+//                            $message = '주문 상폼이 존재 하지 않습니다';
+//                        }else{
+//                            $addInfo = $pRs[0]['addInfo'];
+//                            $arr = $this->Change_Coupan_AddInfo($addInfo);
+//
+//
+//                            $result = 'error';
+//                            $data = [];
+//                            $message = '주문 상폼이 존재 하지 않습니다';
+//                        }
+//                    } else if ($shoptyp == 'type8') {
+//
+//                    }
+//                }
+//            }
+//        }catch(\Exception $e){
+//            log_message('error', '[송장업로드 처리 실패 API Error] ' . $e->getMessage());
+//            $result = 'error';
+//            $data = [];
+//            $message = "주문확인 처리 실패 [ERROR={$e->getMessage()}";
+//        }
+//
+//        $return = [
+//            'result' => $result,
+//            'info' => $data,
+//            'message' => $message
+//        ];
+//        return $this->respond($return);
+//
+//    }
 
     public function Shop_Order_Confirm(){
         try {
@@ -122,7 +122,7 @@ class ApiMarketController extends BaseController
                     $result = 'error';
                     $data = [];
                     $message = '잘못된 접근입니다.';
-                }else if($Rs[0]['gdstep']>0){
+                }else if($Rs[0]['gdstep']>1){
                     $result = 'error';
                     $data = [];
                     $message = '이미 확인 처리된 주문입니다.';
@@ -133,6 +133,7 @@ class ApiMarketController extends BaseController
 //                    $opcode = (fn_ArrayCnt($sRs) > 0 ) ? $sRs['fk_opcode'] : '';
 
                     $shoptyp = $Rs[0]['shoptyp'];
+                    $spcode = $Rs[0]['spcode'];
                     if ($shoptyp == 'type1') {
                         $addInfoJson = $Rs[0]['addInfo'];
                         $addInfoArray = json_decode($addInfoJson, true);
@@ -176,9 +177,22 @@ class ApiMarketController extends BaseController
                     } else if ($shoptyp == 'type6') {
                         $arr = [];
                     } else if ($shoptyp == 'type8') {
-                        $naver = new NaverApi();
-                        $t_arr[] = $orcode;
-                        $arr = $naver->putOrderConfirm($t_arr);
+                        $fields = ['addProductInfo'];
+                        $cRs = $order_m->Load_Order_Product($orcode);
+                        if(fn_ArrayCnt($cRs)<=0){
+                            $result = 'error';
+                            $data = [];
+                            $message = '존재하지 않는 주문정보입니다.';
+                        }else{
+                            foreach ($cRs as $r){
+                                $t_arr[] = $r['addProductInfo'];
+                            }
+                            $naver = new NaverApi();
+                            $arr = $naver->putOrderConfirm($t_arr);
+                            $result = 'ok';
+                            $data = [];
+                            $message = '';
+                        }
                     } else if ($shoptyp == 'type13') {
                         $lotte = new LotteOnApi();
                         $arr = $lotte->putOrderConfirm($orcode);
@@ -498,6 +512,7 @@ class ApiMarketController extends BaseController
                 }
                 $goods = [
                     'prdNo' => $item['productId'],
+                    'pOrderId' => $item['productOrderId'],
                     'price' => $item['price'],
                     'pname' => $item['product_name'],
                     'cnt' => $item['quantity']
@@ -531,7 +546,7 @@ class ApiMarketController extends BaseController
                         'receive_name' => $d['buyer_name'],
                         'receive_zipcode' => $d['zipcode'],
                         'receive_address1' => $d['address1'],
-                        'receive_address2' => $d['address1'],
+                        'receive_address2' => $d['address2'],
                         'receive_phone' => $d['buyer_phone'],
                         'receive_memo' => $d['shippingMemo']
                     ];
@@ -541,6 +556,7 @@ class ApiMarketController extends BaseController
                     if (isset($groupedOrders[$spcode]) && is_array($groupedOrders[$spcode])) {
                         foreach ($groupedOrders[$spcode] as $f) {
                             $productid = $f['prdNo'];
+                            $productOrderId = $f['pOrderId'];
                             $nRs = $order_m->Load_Order_ProductByMatch($productid);
                             if (fn_ArrayCnt($nRs) <= 0) {
                                 if ($is_miss == 0) $is_miss = 1;
@@ -558,6 +574,7 @@ class ApiMarketController extends BaseController
                                 'fk_pdcode' => $fk_pdcode,
                                 'sgcode' => $productid,
                                 'sgname' => $f['pname'],
+                                'addProductInfo' => $productOrderId,
                                 'gprice' => $gprice,
                                 'gcnt' => $gcnt,
                                 'gtprice' => $gtprice,

@@ -339,6 +339,32 @@ function go_productionStatusStaff(code) {
 //     $('#addCat2_wrap').css('display','block');
 // }
 
+
+function go_equipment1(){
+    let url = "/report/managerequipment";
+    $(location).attr("href", url);
+}
+
+function go_equipment2(){
+    let url = "/report/regequipment";
+    $(location).attr("href", url);
+}
+
+function go_equipment3(){
+    let url = "/report/locationequipment";
+    $(location).attr("href", url);
+}
+
+function go_energymenu1(){
+    let url = "/report/energyeluse";
+    $(location).attr("href", url);
+}
+
+function go_energymenu2(){
+    let url = "/report/energyactrate";
+    $(location).attr("href", url);
+}
+
 function go_productionDetail(code) {
     let url = "/produce/productiondetail?cd=" + code;
     $(location).attr("href", url);

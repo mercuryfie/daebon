@@ -460,7 +460,7 @@ class ApiOrderController extends BaseController
             if($failCnt > 0){
                 $result = 'Error003';
                 $data = [];
-                $message = '이미 처리된 주문이 있습니다.';
+                $message = '송장처리에 실패 하였습니다. ';
             }else{
                 $deli_info=[];
                 $package_info = [];

@@ -170,6 +170,7 @@ class NaverApi
                 'address2'        => $delivery['detailedAddress'] ?? '',
                 'zipcode'        => $delivery['zipCode'] ?? '',
                 'productId'   => $pOrder['productId'] ?? '',
+                'productOrderId' => $pOrder['productOrderId'] ?? '',
                 'product_name'   => $pOrder['productName'] ?? '',
                 'product_option' => $pOrder['productOption'] ?? '',
                 'quantity'       => $pOrder['quantity'] ?? 0,
@@ -215,7 +216,26 @@ class NaverApi
         return $response['data'] ?? [];
     }
 
+    public function putDeliveryInfo(array $orInfo): array
+    {
+        if (empty($orInfo)) {
+            return [];
+        }
 
-
-
+        $uri = "/v1/pay-order/seller/product-orders/dispatch";
+        $params = [
+            'dispatchProductOrders' => $orInfo
+        ];
+        $result = $this->sendRequest('POST', $uri, $params);
+        if (is_array($result) && !empty($result)) {
+            return [
+                'status' => 'success',
+                'data'   => $result
+            ];
+        }
+        return [
+            'status' => 'error',
+            'data'   => $result
+        ];
+    }
 }

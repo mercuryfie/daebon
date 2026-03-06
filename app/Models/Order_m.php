@@ -354,7 +354,6 @@ class Order_m extends Model
         return $affected_rows;
     }
 
-
     public function Load_Order_User_Info($code,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
         $sql = "SELECT {$separated_val} FROM tbl_order_buyer_info where fk_orcode=:ORCODE:";

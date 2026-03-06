@@ -60,6 +60,11 @@ $routes->GET('report/quality', 'ReportController::qualityReport');
 $routes->GET('report/q_form', 'ReportController::qualityReportForm');
 $routes->GET('report/order', 'ReportController::orderReport');
 $routes->GET('report/o_form', 'ReportController::orderReportForm');
+$routes->GET('report/energyeluse', 'ReportController::energyElUse');
+$routes->GET('report/energyactrate', 'ReportController::energyActRate');
+$routes->GET('report/managerequipment', 'ReportController::managerEquipment');
+$routes->GET('report/regequipment', 'ReportController::regEquipment');
+$routes->GET('report/locationequipment', 'ReportController::locationEquipment');
 
 $routes->GET('monitor/workstatus', 'MonitorController::workStatus');
 $routes->GET('monitor/processstatus', 'MonitorController::processStatus');

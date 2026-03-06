@@ -54,6 +54,7 @@ class Form
         $m_arr = fnMake_Menu_name();
         $mCnt = fn_ArrayCnt($m_arr);
         $html='';
+        $h_css = '';
         for($i=1;$i<=$mCnt;$i++){
             $high = fnMake_HignMenu_name($i);
             $menuKey = 'menu'.$i;
@@ -61,11 +62,18 @@ class Form
             $chkbool = fn_IsValueInArray($currentUrl,$data,'url');
             $angle = $chkbool ? 'fa-angle-up' : 'fa-angle-down';
 
+            if ($i == 8) {
+                $h_css = 'top_text_8';
+
+            } else {
+                $h_css = '';
+            }
+
             $html .= "<div class='menuBox' name='menuBox'>
-                        <div class='topmenu flexType3' name='topmenu'>
-                            <a href='javascript:void(0);' class='topText'>" . $high . "</a>
-                            <i class='fa-solid " . $angle . "'></i>
-                        </div>";
+            <div class='topmenu flexType3' name='topmenu'>
+                <a href='javascript:void(0);' class='topText {$h_css} {$i}'> {$high} </a>
+                <i class='fa-solid {$angle}'></i>
+            </div>";
 
             if($chkbool){
                 $html .= "<div class='submenu submenu1-1 flexCol' name='submenu'>";

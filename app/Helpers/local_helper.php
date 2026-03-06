@@ -39,11 +39,47 @@ function fn_Put_Delivery_Info($data,$orcode){
                                 ];
                                 $Cnt = $delivery_m->Update_Delivery_Info($opcode,$p_arr);
                             }
+                            
                             $param = ['gdstep' => 3,'orstep' => 2];
-                            $Cnt = $order_m->Update_Order_Info($orcode, $param);
+                            $Cnt = $order_m->Update_Order_Info2($orcode, $param);
                             $result = true;
                         }
                     }
+                }
+            }
+        }else if($data[0]['shoptyp']=='type8'){
+            $params = [];
+            if($data[0]['deli_step']<4){
+                foreach ($data as $d){
+                    $date = new DateTime($d['deli_prn_date']);
+                    $t_arr = [
+                        'productOrderId' => $d['addProductInfo'],
+                        'deliveryMethod' => 'DELIVERY',
+                        'deliveryCompanyCode' => 'HYUNDAI',
+                        'trackingNumber' => $d['deli_code'],
+                        'dispatchDate' => $date->format('Y-m-d\TH:i:s.000P')
+                    ];
+
+                    $params[] = $t_arr;
+                    $op_arr[] = $d['opcode'];
+                }
+            }
+            if(!empty($params)){
+                $naver = new \App\Libraries\NaverApi();
+                $arr = $naver->putDeliveryInfo($params);
+                if (isset($arr['status']) && $arr['status'] === 'success') {
+                    $delivery_m = model('Delivery_m');
+                    $order_m = model('Order_m');
+                    foreach ($op_arr as $opcode){
+                        $p_arr = [
+                            'deli_step' => 4
+                        ];
+                        $Cnt = $delivery_m->Update_Delivery_Info($opcode,$p_arr);
+                    }
+
+                    $param = ['gdstep' => 3,'orstep' => 2];
+                    $Cnt = $order_m->Update_Order_Info2($orcode, $param);
+                    $result = true;
                 }
             }
         }
@@ -222,33 +258,24 @@ function get_OrderProductShortInfoByOpcode($model,$opcode){
 }
 
 
-
 function get_Order_Product_short_info($model,$orcode){
     $short_name = '';
     $short_sub = '';
     $short_pdcode = '';
     $short_sgcode = '';
-    $pcnt = 0;
 
-//    $short_pdsub = '';
-//    $short_sgsub = '';
     $info = $model->Load_Order_Product($orcode);
     $info_cnt = fn_ArrayCnt($info);
     if($info_cnt>0){
         if($info_cnt >= 2){
-            $short_sub = "외 (". ($info_cnt-1).")건";
-//            $short_pdsub = "(". ($info_cnt-1).")";
-//            $short_sgsub = "(". ($info_cnt-1).")";
+            $short_sub = " 외(". ($info_cnt-1)."건)";
         }
-        $short_name = $info[0]['pdname'];
+        $short_name = $info[0]['sgname'];
         $short_pdcode = $info[0]['fk_pdcode'];
         $short_sgcode = $info[0]['sgcode'];
     }
-    if($short_sub!=''){
-        $short_name = $short_name;
-        $short_pdcode = $short_pdcode ;
-        $short_sgcode = $short_sgcode ;
-    }
+
+    $short_name = ($short_sub!='') ? $short_name . $short_sub : $short_name;
 
     $t_arr = [
         'name' => $short_name,
@@ -1082,9 +1109,11 @@ function fnMake_HignMenu_name($location) {
         '2' => '기준정보관리',
         '3' => '생산 관리',
         '4' => '입출고관리',
-        '5' => '품질 관리',
-        '6' => '모니터링',
-        '7' => '사용자관리'
+        '5' => '설비 관리',
+        '6' => '품질 관리',
+        '7' => '모니터링',
+        '8' => '전기에너지관리',
+        '9' => '시스템관리'
     ];
 
     return $menuMap[$location] ?? '';
@@ -1117,17 +1146,28 @@ function fnMake_Menu_name() {
     ];
 
     static $menus5 = [
+        ['url' => '/report/managerequipment','name' => '장비관리', 'link' => 'go_equipment1();'],
+        ['url' => '/report/regequipment','name' => '장비추가', 'link' => 'go_equipment2();'],
+        ['url' => '/report/locationequipment','name' => '설비위치관리도', 'link' => 'go_equipment3();']
+    ];
+
+    static $menus6 = [
         ['url' => '/report/quality','name' => '품질보고서', 'link' => 'go_qualityReport();'],
         ['url' => '/report/order','name' => '주문보고서', 'link' => 'go_orderReport();'],
     ];
 
-    static $menus6 = [
+    static $menus7 = [
         ['url' => '/order/dashboard','name' => '대시보드', 'link' => 'go_dashBoard();'],
         ['url' => '/monitor/workstatus','name' => '작업진행현황', 'link' => 'go_workStatus();'],
         ['url' => '/monitor/processstatus','name' => '공정별진행현황', 'link' => 'go_processStatus();'],
     ];
 
-    static $menus7 = [
+    static $menus8 = [
+        ['url' => '/report/energyeluse','name' => '압축기전기사용량', 'link' => 'go_energymenu1();'],
+        ['url' => '/report/energyactrate','name' => '압축기가동현황', 'link' => 'go_energymenu2();']
+    ];
+
+    static $menus9 = [
         ['url' => '/info/userregister','name' => '사용자등록', 'link' => 'go_userRegister();'],
         ['url' => '/info/userlist','name' => '사용자목록', 'link' => 'go_userList();'],
         ['url' => '/info/notice','name' => '공지사항', 'link' => 'go_noticeList();']
@@ -1140,7 +1180,9 @@ function fnMake_Menu_name() {
         'menu4' => $menus4,
         'menu5' => $menus5,
         'menu6' => $menus6,
-        'menu7' => $menus7
+        'menu7' => $menus7,
+        'menu8' => $menus8,
+        'menu9' => $menus9
     ];
 
     return $menu;

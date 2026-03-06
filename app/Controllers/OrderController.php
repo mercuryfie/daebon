@@ -455,7 +455,7 @@ class OrderController extends BaseController
                 fn_AlertClose('Error : ' . $data['message']);
             } else {
                 $delivery_m = model('Delivery_m');
-                $fields =['a.fk_opcode as opcode','b.deli_step','b.deli_code','b.deli_prn_date','b.deli_end_date','c.addInfo','c.shoptyp','c.shopmethod','c.spcode'];
+                $fields =['a.fk_opcode as opcode','b.deli_step','b.deli_code','b.deli_prn_date','b.deli_end_date','c.addInfo','c.shoptyp','c.shopmethod','c.spcode','d.addProductInfo'];
                 $dRs = $delivery_m->Load_DeliveryPackageByOrCode($orcode,$fields);
                 if(fn_ArrayCnt($dRs)<=0){
                     fn_AlertClose('잘못된 송장정보 입니다.');
@@ -491,8 +491,6 @@ class OrderController extends BaseController
                         'product' =>$product,
                         'totalCnt' => $totalCnt
                     ];
-
-                    print_r($main_data);
 
                     $form = new Form;
                     $main_data = [

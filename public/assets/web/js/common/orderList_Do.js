@@ -118,7 +118,7 @@ $(document).ready(function() {
                         $('#ck_' + el.orcode).remove();
                     }
                     $('#st_' + el.orcode).html(Return_gdstepName(el.gdstep));
-                    $('#bu_' + el.orcode).html('<button type="button" class="btnType3">지시완료</button>');
+                    $('#bu_' + el.orcode).html(`<button type="button" class="btnType3 " data-rttype="2" onclick="add_packingQueue('${el.orcode}');">지시완료</button>`);
                     $('#da_' + el.orcode).text(el.moddate);
                 });
             }
@@ -160,7 +160,7 @@ $(document).ready(function() {
                 let arr = await Put_Delivery2(codes);
                 $.each(arr, function(index, item) {
                     $('#ck_' + item.orcode).data('orstep',1);
-                    $('#bu_' + item.orcode).html('<button type="button" class="btnType3">지시완료</button>');
+                    $('#bu_' + item.orcode).html(`<button type="button" class="btnType3" data-rttype="3"  onclick="add_packingQueue('${item.orcode}');">지시완료</button>`);
                     $('#da_' + item.orcode).text(item.indate);
                 });
                 pop_waybillForm();

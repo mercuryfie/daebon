@@ -1,6 +1,6 @@
 $(document).ready(function() {
     let filtcd = $('#filtcd').data('code');
-    JsBarcode("#filtcd", filtcd, {format: "CODE39",displayValue: false});
+    JsBarcode("#filtcd", filtcd, {format: "CODE39",width: 1.8,height:40, displayValue: false});
 
     let delicode = $('#delicode1').data('code');
     JsBarcode("#delicode1", delicode, {format: "ITF",  width: 1.2,height:40,displayValue: false});

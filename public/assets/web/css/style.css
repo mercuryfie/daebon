@@ -6712,7 +6712,7 @@ input[type="radio"] {
         width: 42%;
         z-index: 33;
         overflow: hidden;
-        left: 2mm;
+        left: 4mm;
     }
 
     .waybill_inner .paddingBox .right {
@@ -6733,13 +6733,16 @@ input[type="radio"] {
         height: 20mm;
     }
 
+    .waybill_inner .paddingBox .left .area1 .text {
+        font-weight: bold;
+    }
     .waybill_inner .paddingBox .left .area1 .text1 {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 800;
     }
 
     .waybill_inner .paddingBox .left .area1 .text2 {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .waybill_inner .paddingBox .left .area1 .barBox {
@@ -6757,14 +6760,16 @@ input[type="radio"] {
     .waybill_inner .paddingBox .left .area2 .text {
         width: 96%;
         overflow: hidden;
-        font-weight: normal;
+        font-weight: bold;
         height: auto;
         text-wrap: wrap;
         font-size: 14px;
+        font-family: "HY견고딕", "HanyangGothic", HGGGT, "맑은 고딕", sans-serif;
     }
 
     .waybill_inner .paddingBox .left .area3 {
         margin-right: 20px;
+        font-weight: bold;
     }
 
 
@@ -6803,20 +6808,21 @@ input[type="radio"] {
         margin-top: 0mm;
         margin-left: 10mm;
     }
+    .waybill_inner .right .area2 {
+        height: 19mm;
+    }
 
     .waybill_inner .right .area2 .text1{
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 900;
     }
 
     .waybill_inner .right .area2 .text4 {
-        font-size: 14px;
+        font-size: 12px;
+        line-height: 12px;
         text-wrap: auto;
     }
-    .waybill_inner .right .area3 {
-        margin-top: 0;
-        margin-left: 0;
-    }
+
 
     .waybill_inner .right .area3 .text1 {
         font-size: 14px;
@@ -6824,7 +6830,7 @@ input[type="radio"] {
     }
 
     .waybill_inner .right .area4 {
-        margin-top: 2mm;
+        height: 5mm;
     }
 
     .waybill_inner .right .area4 .flexType2 .text {
@@ -6835,31 +6841,7 @@ input[type="radio"] {
     }
 
     .waybill_inner .right .area5 {
-        /*overflow: hidden;*/
-        position: relative;
-        width: 100mm;
-        height: 12mm;
-        margin-top: 5mm;
-    }
-
-    .waybill_inner .right .area5 .text1 {
-        margin-top: 8mm;
-
-    }
-
-    .waybill_inner .right .area5 .barBox5 {
-        position: absolute;
-        top: -5mm;
-        right:0;
-        width: 45mm;
-        height: 20mm;
-        padding: 1mm;
-    }
-
-    .waybill_inner .right .area5 .barBox5 svg {
-        width: 45mm;
-        height: 20mm;
-
+        height: 17mm;
     }
     .waybill_inner .right .area5 .text1 {
         /*margin-top: 40px;*/
@@ -6868,10 +6850,14 @@ input[type="radio"] {
         line-height: 14px;
         z-index: 30;
         margin-left: 8mm;
+        margin-top: 10mm;
+        /*position: absolute;*/
+        /*bottom: 0;*/
     }
 
 
     .waybill_inner .right .area6 {
+        height: 7mm;
     }
 
     .waybill_inner .right .area6 .text2{
@@ -6890,21 +6876,20 @@ input[type="radio"] {
     }
 
     .waybill_inner .right .area7 {
-        padding-top: 2mm;
-        height: 20mm;
+        height: 25mm;
     }
 
     .waybill_inner .right .area7 .text3{
-        margin-top: 2mm;
+        margin-top: 1mm;
         font-size: 14px;
         line-height: 14px;
         text-wrap: auto;
     }
 
     .waybill_inner .right .area9 {
-        margin-top: 5mm;
+        /*margin-top: 5mm;*/
         font-weight: normal;
-        height: 25mm;
+        height: 8mm;
     }
 
     .waybill_inner .right .area9 .text1 {
@@ -6920,10 +6905,7 @@ input[type="radio"] {
     }
     .waybill_inner .right .area11 {
         /*margin-top: 0mm;*/
-        position: absolute;
-        /*top:0;*/
-        bottom: 11mm;
-        left:0;
+        height: 5mm;
     }
 
     /* waybill form end -------------------------------- */

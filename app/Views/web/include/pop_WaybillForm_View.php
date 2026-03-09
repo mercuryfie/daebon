@@ -19,7 +19,10 @@
                             <p class="text text1"><?=$body['info']['r_tml_nm']?></p>
                             <p class="text text2"><?=$body['info']['r_city_gun_gu']?>
                                 <br>
-                                <?=$body['info']['r_dong']?> </p>
+                                <?=$body['info']['r_dong']?>
+
+                            </p>
+
                         </div>
                         <div class="left2 barBox flexType2">
                             <svg id="filtcd" name="filtcd" class="barcodeArea" data-code="<?=$body['info']['r_filt_cd']?>" style=""></svg>

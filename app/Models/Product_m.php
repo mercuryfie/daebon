@@ -18,6 +18,32 @@ class Product_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Cnt_Product_All()
+    {
+        $sql = "SELECT count(*) as Cnt FROM tbl_goods_info where is_del=:ISDEL:;";
+        $bindparam = [ 'ISDEL' => 0 ];
+        $Query = $this->db->query($sql,$bindparam);
+        $row = $Query->getRow();
+        $MCode = ($row) ? $row->Cnt : '';
+        return $MCode;
+    }
+
+
+
+    public function Load_DashBoard_Product($limit,$offset,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_goods_info AS info ";
+        $sql .= "LEFT JOIN (SELECT gscode, SUM(g_input) AS total_in, SUM(g_output) AS total_out FROM tbl_goods_inout GROUP BY gscode) AS inout_sum ON info.gscode = inout_sum.gscode ";
+        $sql .= "WHERE info.is_del = 0 ORDER BY current_stock DESC limit :LIMIT: offset :OFFSET:";
+        $bindparam = [
+            'LIMIT' => $limit,
+            'OFFSET' => $offset
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+
     public function Load_Product_Inout($gscode,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
         $sql = "SELECT {$separated_val},b.gsname,b.category,b.unit_weight,b.unit_type from tbl_goods_inout a  join vw_goods b ON a.gscode = b.gscode WHERE a.gscode=:GSCODE: ORDER BY a.seq DESC;";

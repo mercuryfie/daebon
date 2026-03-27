@@ -1549,9 +1549,6 @@ input[type="radio"] {
 }
 
 .link_wrap5r6 .area3 {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
     width: 82vw;
 }
 
@@ -2235,9 +2232,7 @@ input[type="radio"] {
     margin-right: 20px;
 }
 
-
-.date_boxtc6 {
-    margin-left: 20px;
+.date_boxtc6 .ttl {
 
 }
 
@@ -5034,11 +5029,37 @@ input[type="radio"] {
 
 
 /* pop_AddDeliForm_View end -------------------------------- */
-/* dashBoard_View start -------------------------------- */
+/* orderReport_View start -------------------------------- */
+
+.order_report_box {
+    border-radius: 10px;
+    border:1px solid #ccc;
+    background-color: #fff;
+    padding: 20px;
+    margin-left: 20px;
+    width:84vw;
+    height: 600px;
+}
 
 
+.order_report_box .common_tbl {
+    width:80vw;
 
-/* dashBoard_View end -------------------------------- */
+}
+
+/* orderReport_View end -------------------------------- */
+/* workStatus_View start -------------------------------- */
+
+
+.work_status_box {
+    border-radius: 10px;
+    border:1px solid #ccc;
+    background-color: #fff;
+    padding: 20px;
+    margin-left: 20px;
+}
+
+/* workStatus_View end -------------------------------- */
 /* pop_InstructionForm_View start -------------------------------- */
 
 .odRoast_boxfxp {

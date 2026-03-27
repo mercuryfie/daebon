@@ -29,7 +29,6 @@ $(document).ready(function(){
         }
     });
 
-
     $('#btn_product').on('click',async function(e){
         let skey = $(this).val();
         if(skey==''){

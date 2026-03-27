@@ -33,71 +33,6 @@ class ApiMarketController extends BaseController
         echo($Cnt);
 
     }
-//
-//    public function Shop_Order_Delivery(){
-//        try {
-//            $sessinarr = $this->GetSessionData();
-//            $orcode = ($this->request->getPost('oid') == '') ? '' : $this->request->getPost('oid');
-//            if ($sessinarr['islogin'] == false) {
-//                $result = 'NoLogin';
-//                $data = [];
-//                $message = '로그인이 필요합니다.';
-//            } else if (!Check_Token($sessinarr)) {
-//                $result = 'Error002';
-//                $data = [];
-//                $message = '잘못된 토큰입니다.';
-//            } else if ($orcode == '') {
-//                $result = 'Error003';
-//                $data = [];
-//                $message = '필수 입력값이 누락되었습니다.';
-//            } else {
-//                $order_m = model('Order_m');
-//                $Rs = $order_m->Load_Order_Info($orcode);
-//                if (fn_ArrayCnt($Rs) <= 0) {
-//                    $result = 'error';
-//                    $data = [];
-//                    $message = '잘못된 접근입니다.';
-//                }else if($Rs[0]['gdstep']>1){
-//                    $result = 'error';
-//                    $data = [];
-//                    $message = '이미 배송 처리된 주문입니다.';
-//                }else{
-//                    $shoptyp = $Rs[0]['shoptyp'];
-//                    if ($shoptyp == 'type1') {
-//                        $pRs = $order_m->Load_Order_Product($orcode);
-//                        if(fn_ArrayCnt($pRs)<=0){
-//                            $result = 'error';
-//                            $data = [];
-//                            $message = '주문 상폼이 존재 하지 않습니다';
-//                        }else{
-//                            $addInfo = $pRs[0]['addInfo'];
-//                            $arr = $this->Change_Coupan_AddInfo($addInfo);
-//
-//
-//                            $result = 'error';
-//                            $data = [];
-//                            $message = '주문 상폼이 존재 하지 않습니다';
-//                        }
-//                    } else if ($shoptyp == 'type8') {
-//
-//                    }
-//                }
-//            }
-//        }catch(\Exception $e){
-//            log_message('error', '[송장업로드 처리 실패 API Error] ' . $e->getMessage());
-//            $result = 'error';
-//            $data = [];
-//            $message = "주문확인 처리 실패 [ERROR={$e->getMessage()}";
-//        }
-//
-//        $return = [
-//            'result' => $result,
-//            'info' => $data,
-//            'message' => $message
-//        ];
-//        return $this->respond($return);
-//
-//    }
 
     public function Shop_Order_Confirm(){
         try {
@@ -127,11 +62,6 @@ class ApiMarketController extends BaseController
                     $data = [];
                     $message = '이미 확인 처리된 주문입니다.';
                 }else {
-//                    $delivery_m = model('Delivery_m');
-//                    $fields = ['a.fk_opcode'];
-//                    $sRs = $delivery_m->Load_DeliveryPackageByOrCode($orcode,$fields);
-//                    $opcode = (fn_ArrayCnt($sRs) > 0 ) ? $sRs['fk_opcode'] : '';
-
                     $shoptyp = $Rs[0]['shoptyp'];
                     $spcode = $Rs[0]['spcode'];
                     if ($shoptyp == 'type1') {
@@ -167,11 +97,61 @@ class ApiMarketController extends BaseController
                             $message = $arr['message'];
                         }
                     } else if (($shoptyp == 'type2') || ($shoptyp == 'type3')) {
-                        $esm = new EsmApi();
-                        $arr = $esm->putOrderConfirm($orcode);
+                        $site = ($shoptyp == 'type2') ? 'au' : 'gm';
+                        $esm = new EsmApi($site);
+                        $arr = $esm->putOrderConfirm($spcode);
+                        if (isset($arr['ResultCode']) && $arr['ResultCode'] === 0) {
+                            $result = 'ok';
+                            $data = [];
+                            $message = '';
+                        }else{
+                            $result = 'error';
+                            $data = [];
+                            $message = $arr['Message'];
+                        }
+
                     } else if ($shoptyp == 'type4') {
                         $eleven = new ElevenStreetApi();
                         $arr = $eleven->confirmOrder($orcode);
+                        $data  = [];
+                        if (is_array($arr) && isset($arr['result']) && $arr['result'] === 'error') {
+                            $result = 'error';
+                            $message = "11번가 API 시스템/통신 실패: " . $arr['message'];
+                            log_message('error', $message);
+                        }
+                        else {
+                            $successCount = 0;
+                            $errorCount = 0;
+                            $errorMessages = [];
+
+                            foreach ($arr as $sgcode => $response) {
+                                if (isset($response['status']) && $response['status'] === 'error') {
+                                    $errorCount++;
+                                    $errorMessages[] = "[{$sgcode}] 파싱 실패: " . $response['message'];
+                                    continue;
+                                }
+
+                                if (isset($response['result_code']) && (string)$response['result_code'] === '0') {
+                                    $successCount++;
+                                } else {
+                                    $errorCount++;
+                                    $errorCode = $response['result_code'] ?? '알수없음';
+                                    $errorText = $response['result_text'] ?? '발주 처리 실패';
+                                    $errorMessages[] = "[{$sgcode}] 발주 실패({$errorCode}): {$errorText}";
+                                }
+                            }
+                            if ($errorCount > 0) {
+                                $result = 'error';
+                                $message = "11번가 발주 처리 중 일부/전체 실패:\n" . implode("\n", $errorMessages);
+                            } else {
+                                $param = ['gdstep' => 2];
+                                $order_m->Update_Order_Info($orcode, $param);
+
+                                $result = 'ok';
+                                $data = ['orcode' => $orcode];
+                                $message = "총 {$successCount}건이 정상적으로 발주 처리되었습니다.";
+                            }
+                        }
                     } else if ($shoptyp == 'type5') {
                         $arr = [];
                     } else if ($shoptyp == 'type6') {
@@ -196,9 +176,63 @@ class ApiMarketController extends BaseController
                     } else if ($shoptyp == 'type13') {
                         $lotte = new LotteOnApi();
                         $arr = $lotte->putOrderConfirm($orcode);
+                        $data  = [];
+                        if (!is_array($arr) || empty($arr)) {
+                            $result = 'error';
+                            $message = "LotteOn API 통신 실패 또는 응답이 올바르지 않습니다.";
+                        } else {
+                            $returnCode = $arr['returnCode'] ?? '';
+                            $rsltCd = $arr['data']['rsltCd'] ?? '';
+                            if ($returnCode === '0000' && $rsltCd === '0000') {
+                                $param = ['gdstep' => 2];
+                                $order_m->Update_Order_Info($orcode, $param);
+
+                                $result = 'ok';
+                                $data = ['orcode' => $orcode];
+                                $message = '주문 확인 처리가 완료되었습니다.';
+                            } else {
+                                $fail_message = $arr['data']['rsltMsg'] ?? $arr['message'] ?? '알 수 없는 에러';
+                                $result = 'error';
+                                $message = "LotteOn 처리 실패: [{$returnCode}] " . $fail_message;
+                            }
+                        }
                     } else if ($shoptyp == 'type14') {
                         $ssg = new SsgAPI();
                         $arr = $ssg->putOrderConfirm($orcode);
+                        $data  = [];
+
+                        if (is_array($arr) && isset($arr['result']) && $arr['result'] === 'error') {
+                            $result = 'error';
+                            $message = "SSG API 통신 실패: " . $arr['message'];
+                        }
+                        else if (is_array($arr) && !empty($arr)) {
+                            $is_all_success = true;
+                            $fail_message = "";
+
+                            foreach ($arr as $sgcode => $res) {
+                                if (!isset($res['result']['resultCode']) || $res['result']['resultCode'] !== '00') {
+                                    $is_all_success = false;
+                                    $fail_message = $res['result']['resultDesc'] ?? "알 수 없는 에러";
+                                    break;
+                                }
+                            }
+                            if ($is_all_success) {
+                                $param = ['gdstep' => 2];
+                                $order_m->Update_Order_Info($orcode, $param);
+
+                                $result = 'ok';
+                                $data = ['orcode' => $orcode];
+                                $message = '주문 확인 처리가 완료되었습니다.';
+                            } else {
+                                $result = 'error';
+                                $message = "SSG 처리 실패: " . $fail_message;
+                            }
+                        }
+                        else {
+                            $result = 'error';
+                            $message = "처리할 상품 정보가 없거나 API 응답이 올바르지 않습니다.";
+                        }
+
                     }
                 }
             }
@@ -222,6 +256,7 @@ class ApiMarketController extends BaseController
     {
         $sessinarr = $this->GetSessionData();
         $shoptyp = ($this->request->getPost('styp') == '') ? '' : $this->request->getPost('styp');
+        $selectDate = ($this->request->getPost('selectdate') == '') ? date('Y-m-d') : $this->request->getPost('selectdate');
         $NextToken = ($this->request->getPost('token') == '') ? '' : $this->request->getPost('token');
         if ($sessinarr['islogin'] == false) {
             $result = 'NoLogin';
@@ -243,89 +278,84 @@ class ApiMarketController extends BaseController
                 $data = [];
                 $message = "주문등록에서 누락된 주문건이 존재합니다.<br>누락건 처리후 다시 동기화해주세요.";
             } else {
-                $maker_m = model('Market_m');
-                $param = ['shoptyp' => $shoptyp];
-                $Rs = $maker_m->getMallLog($param);
-
-                if (fn_ArrayCnt($Rs) > 0) {
-                    $s_date = fn_NowDateFormat(2,$Rs[0]['enddate']);
-                } else {
-                    $s_date = fn_PrevDateFormat(2,1);
-                }
-                $e_date = fn_NextDateFormat(2,1,$s_date);
-                $c_date = fn_NowDateFormat(2);
-
-                if ($e_date > $c_date) {
-                    $result = 'OverFlow';
-                    $data = [];
-                    $message = '마지막 동기화 날짜가 오늘을 넘을수 없습니다.';
-                }else {
-                    $arr = [];
-                    if ($shoptyp == 'type1') {
-                        $arr = $this->Coupang_Order_List($shoptyp, $s_date, $e_date, $NextToken);
-                    } else if (($shoptyp == 'type2') || ($shoptyp == 'type3')) {
-                        $arr = $this->ESM_Order_List($shoptyp, $s_date, $e_date);
-                    } else if ($shoptyp == 'type4') {
-                        $arr = $this->Eleven_Order_List($shoptyp, $s_date,$e_date);
-                    } else if ($shoptyp == 'type5') {
+                $arr = [];
+                $s_date  = fn_PrevDateFormat(2,1,$selectDate);
+                $e_date = $selectDate;
+                if ($shoptyp == 'type1') {
+                    //쿠팡은 전날 00시 부터 금일 00시 까지만 가지고온다.
+                    $arr = $this->Coupang_Order_List($shoptyp, $s_date, $e_date, $NextToken);
+                } else if (($shoptyp == 'type2') || ($shoptyp == 'type3')) {
+                    //옥션 지마켓은 전날 16시 부터 금일 16시 까지만 가지고온다.
+                    $s_date = $s_date . ' 16:00';
+                    $e_date = $e_date . ' 16:00';
+                    $arr = $this->ESM_Order_List($shoptyp, $s_date, $e_date);
+                } else if ($shoptyp == 'type4') {
+                    $s_date = fn_NowDateFormat(3,$s_date) . '1600';
+                    $e_date = fn_NowDateFormat(3,$e_date) . '1600';
+                    $arr = $this->Eleven_Order_List($shoptyp, $s_date,$e_date);
+                } else if ($shoptyp == 'type5') {
 //                        $kakao = new KakaoApi();
 //                        $arr = $kakao->getOrderList();
-                        $result = 'NotUse';
-                        $message = '현재 API 수정으로 인해 사용불가 입니다.';
-                    } else if ($shoptyp == 'type6') {
+                    $result = 'NotUse';
+                    $message = '현재 API 수정으로 인해 사용불가 입니다.';
+                } else if ($shoptyp == 'type6') {
 //                        $startdate = date('Y-m-d', strtotime('-7 days', strtotime($s_date)));
 //                        $enddate = fn_NowDateFormat(2);
 //                        $cafe = new Cafe24Api();
 //                        $data = $cafe->getOrders($startdate, $enddate);
 //                        $result = 'ok';
 //                        $message = '';
-                        $result = 'NotUse';
-                        $message = '현재 API 수정으로 인해 사용불가 입니다.';
-                    } else if ($shoptyp == 'type8') {
-                        $arr = $this->Naver_Order_List($shoptyp, $s_date,$e_date);
-                    } else if ($shoptyp == 'type13') {
-                        $arr = $this->LotteOn_Order_List($shoptyp, $s_date,$e_date);
-                    } else if ($shoptyp == 'type14') {
-                        $arr = $this->SSG_Order_List($shoptyp,$s_date,$e_date);
+                    $result = 'NotUse';
+                    $message = '현재 API 수정으로 인해 사용불가 입니다.';
+                } else if ($shoptyp == 'type8') {
+                    //네이버는 전날 16시 부터 금일 16시 까지만 가지고온다.
+                    $s_timestamp = strtotime($selectDate . " 16:00:00 -1 day");
+                    $s_date = date("Y-m-d\TH:i:s.000+09:00", $s_timestamp);
+                    $e_date = date("Y-m-d\TH:i:s.000+09:00", $s_timestamp + 86400);
+                    $arr = $this->Naver_Order_List($shoptyp, $s_date,$e_date);
+                } else if ($shoptyp == 'type13') {
+                    $s_date = fn_NowDateFormat(3,$s_date) . '160000';
+                    $e_date = fn_NowDateFormat(3,$e_date) . '160000';
+                    $arr = $this->LotteOn_Order_List($shoptyp, $s_date,$e_date);
+                } else if ($shoptyp == 'type14') {
+                    $arr = $this->SSG_Order_List($shoptyp,$s_date,$e_date);
+                }
+                $indate = fn_NowDateFormat(1);
+                $data = [
+                    'period' => substr($s_date, 0, 10) . '~' . substr($e_date, 0, 10),
+                    'indate' => $indate
+                ];
+                if (fn_ArrayCnt($arr) > 0) {
+                    $result = $arr['result'];
+                    $message = $arr['message'];
+
+                    if ($result == 'ok') {
+                        $r_status = 1;
+                        $r_msg = '주문등록 완료';
+                    } else if ($result == 'miss') {
+                        $r_status = 2;
+                        $r_msg = '누락주문 존재';
+                    } else if ($result == 'nothing') {
+                        $r_status = 3;
+                        $r_msg = '주문내역없음';
+                    } else if ($result == 'NotUse') {
+                        $r_status = 4;
+                        $r_msg = '현재 API 수정으로 인해 사용불가 입니다.';
+                    } else {
+                        $r_status = 4;
+                        $r_msg = 'UnKnown Error';
                     }
 
-                    $indate = fn_NowDateFormat(1);
-                    $data = [
-                        'period' => $s_date . '~' . $e_date,
+                    $param1 = [
+                        'fk_shoptyp' => $shoptyp,
+                        'typ' => 1,
+                        'content' => $r_msg,
+                        'status' => $r_status,
+                        'startdate' => $s_date,
+                        'enddate' => $e_date,
                         'indate' => $indate
                     ];
-                    if (fn_ArrayCnt($arr) > 0) {
-                        $result = $arr['result'];
-                        $message = $arr['message'];
-
-                        if ($result == 'ok') {
-                            $r_status = 1;
-                            $r_msg = '주문등록 완료';
-                        } else if ($result == 'miss') {
-                            $r_status = 2;
-                            $r_msg = '누락주문 존재';
-                        } else if ($result == 'nothing') {
-                            $r_status = 3;
-                            $r_msg = '주문내역없음';
-                        } else if ($result == 'NotUse') {
-                            $r_status = 4;
-                            $r_msg = '현재 API 수정으로 인해 사용불가 입니다.';
-                        } else {
-                            $r_status = 4;
-                            $r_msg = 'UnKnown Error';
-                        }
-
-                        $param1 = [
-                            'fk_shoptyp' => $shoptyp,
-                            'typ' => 1,
-                            'content' => $r_msg,
-                            'status' => $r_status,
-                            'startdate' => $s_date,
-                            'enddate' => $e_date,
-                            'indate' => $indate
-                        ];
-                        $order_m->Insert_Order_API_MallLog($param1);
-                    }
+                    $order_m->Insert_Order_API_MallLog($param1);
                 }
             }
         }
@@ -351,54 +381,56 @@ class ApiMarketController extends BaseController
                 if (!empty($data) && is_array($data[0])) {
                     $groupedOrders = [];
                     foreach ($data as $d) {
-                        $items = $d['shppDirection'];
-                        foreach ($items as $item) {
-                            $orderNo = $item['ordNo'];
-                            if (!isset($groupedOrders[$orderNo])) {
-                                $groupedOrders[$orderNo] = [];
-                            }
-                            $goods = [
-                                'prdNo' => $item['itemId'],
-                                'price' => $item['sellprc'],
-                                'pname' => $item['itemNm'],
-                                'cnt' => $item['ordQty'],
-                                'shppNo' => $item['shppNo'],
-                                'shppSeq' => $item['shppSeq']
-                            ];
-                            $groupedOrders[$orderNo][] = $goods;
+                        $item = $d['shppDirection'];
+                        $orderNo = $item['ordNo'];
+                        if (!isset($groupedOrders[$orderNo])) {
+                            $groupedOrders[$orderNo] = [];
                         }
+                        $goods = [
+                            'prdNo' => $item['itemId'],
+                            'price' => $item['sellprc'],
+                            'pname' => $item['itemNm'],
+                            'cnt'   => $item['ordQty'],
+                            'shppNo'=> $item['shppNo'],
+                            'shppSeq'=> $item['shppSeq']
+                        ];
+                        $groupedOrders[$orderNo][] = $goods;
                     }
 
-                    $ssglist = $data[0]['shppDirection'];
-                    foreach ($ssglist as $d) {
-                        if (($d['shppProgStatDtlCd'] ?? '') != '11') {
+                    foreach ($data as $d) {
+                        $item = $d['shppDirection'];
+
+                        if (($item['shppProgStatDtlCd'] ?? '') != '11') {
                             continue;
                         }
 
                         $order_m = model('Order_m');
-                        $spcode = $d['ordNo'];
-                        $orderdate = $d['ordCmplDts'];
-                        $PayDate = $d['ordCmplDts'];
+                        $spcode = $item['ordNo']; // 주문번호
+                        $orderdate = $item['ordRcpDts']; // 주문접수일시
+                        $PayDate = $item['ordCmplDts'];  // 결제완료일시
+
                         $iRs = $order_m->Load_Order_InfoBySpcode($spcode);
                         $cRs = $order_m->Load_Order_InfoByMiss($spcode);
+
                         if ((fn_ArrayCnt($iRs) == 0) && (fn_ArrayCnt($cRs) == 0)) {
                             $tcnt = 0;
                             $tprice = 0;
                             $orcode = fnMake_Code(10);
+
                             $order_buyer_info = [
-                                'fk_orcode' => $orcode,
-                                'buy_name' => $d['ordpeNm'],
-                                'buy_zipcode' => '',
-                                'buy_address1' => '',
-                                'buy_address2' => '',
-                                'buy_phone' => $d['ordpeHpno'],
-                                'buy_memo' => '',
-                                'receive_name' => $d['rcptpeNm'],
-                                'receive_zipcode' => $d['shpplocZipcd'],
-                                'receive_address1' => $d['shpplocAddr'],
-                                'receive_address2' => '',
-                                'receive_phone' => $d['ordpeHpno'],
-                                'receive_memo' => $d['ordMemoCntt']
+                                'fk_orcode'        => $orcode,
+                                'buy_name'         => $item['ordpeNm'], // 주문자명
+                                'buy_zipcode'      => '',
+                                'buy_address1'     => $item['ordpeRoadAddr'] ?? '', // 주문자 주소
+                                'buy_address2'     => '',
+                                'buy_phone'        => $item['ordpeHpno'], // 주문자 휴대전화
+                                'buy_memo'         => '',
+                                'receive_name'     => $item['rcptpeNm'], // 수령자명
+                                'receive_zipcode'  => $item['shpplocZipcd'], // 수령자 우편번호
+                                'receive_address1' => $item['shpplocBascAddr'], // 수령자 기본주소
+                                'receive_address2' => $item['shpplocDtlAddr'],  // 수령자 상세주소
+                                'receive_phone'    => $item['rcptpeHpno'], // 수령자 휴대전화
+                                'receive_memo'     => $item['ordMemoCntt'] ?? '' // 배송메모
                             ];
                             $order_m->Insert_Order_Buyer($order_buyer_info);
 
@@ -406,6 +438,7 @@ class ApiMarketController extends BaseController
                             if (isset($groupedOrders[$spcode]) && is_array($groupedOrders[$spcode])) {
                                 foreach ($groupedOrders[$spcode] as $f) {
                                     $productid = $f['prdNo'];
+
                                     $nRs = $order_m->Load_Order_ProductByMatch($productid);
                                     if (fn_ArrayCnt($nRs) <= 0) {
                                         if ($is_miss == 0) $is_miss = 1;
@@ -421,36 +454,37 @@ class ApiMarketController extends BaseController
                                     $addProductInfo = json_encode([
                                         'shppNo' => $f['shppNo'],
                                         'shppSeq' => $f['shppSeq']
-                                    ],JSON_THROW_ON_ERROR);
+                                    ], JSON_THROW_ON_ERROR);
 
                                     $t_arr = [
-                                        'fk_orcode' => $orcode,
-                                        'fk_pdcode' => $fk_pdcode,
-                                        'sgcode' => $productid,
-                                        'sgname' => $f['pname'],
-                                        'gprice' => $gprice,
-                                        'gcnt' => $gcnt,
+                                        'fk_orcode'      => $orcode,
+                                        'fk_pdcode'      => $fk_pdcode,
+                                        'sgcode'         => $productid,
+                                        'sgname'         => $f['pname'],
+                                        'gprice'         => $gprice,
+                                        'gcnt'           => $gcnt,
                                         'addProductInfo' => $addProductInfo,
-                                        'gtprice' => $gtprice,
-                                        'paydate' => $PayDate
+                                        'gtprice'        => $gtprice,
+                                        'paydate'        => $PayDate
                                     ];
 
-                                    $tprice = $tprice + $gtprice;
-                                    $tcnt = $tcnt + $gcnt;
+                                    $tprice += $gtprice;
+                                    $tcnt += $gcnt;
 
                                     $order_products[] = $t_arr;
                                 }
                             }
+
                             if (fn_ArrayCnt($order_products) > 0) {
                                 $order_m->Insert_Order_Product($order_products);
                             }
 
                             $t_info = [
-                                'orcode' => $orcode,
-                                'spcode' => $spcode,
-                                'shoptyp' => $shoptyp,
-                                'tprice' => $tprice,
-                                'tcnt' => $tcnt,
+                                'orcode'    => $orcode,
+                                'spcode'    => $spcode,
+                                'shoptyp'   => $shoptyp,
+                                'tprice'    => $tprice,
+                                'tcnt'      => $tcnt,
                                 'input_typ' => 1,
                                 'orderdate' => $orderdate
                             ];
@@ -630,6 +664,7 @@ class ApiMarketController extends BaseController
         ];
     }
 
+    //쿠팡은 하루치만 로딩됨
     private function Coupang_Order_List($shoptyp,$s_date,$e_date,$NextToken){
         $Cnt = 0;
         $is_miss = 0;
@@ -741,9 +776,7 @@ class ApiMarketController extends BaseController
         $is_miss = 0;
         $site = ($shoptyp == 'type2') ? 'au' : 'gm';
         $esm = new EsmApi($site);
-        $startdate = $s_date . ' 09:00';
-        $enddate = $e_date . ' 09:00';
-        $order = $esm->getOrderList($startdate, $enddate);
+        $order = $esm->getOrderList($s_date, $e_date);
         if ((!empty($order)) && ($order['ResultCode'] == 0)) {
             $groupedOrders = [];
             foreach ($order['Data']['RequestOrders'] as $item) {
@@ -870,10 +903,8 @@ class ApiMarketController extends BaseController
         $Cnt = 0;
         $is_miss = 0;
 
-        $startdate = fn_NowDateFormat(3,$s_date) . '0900';
-        $enddate = fn_NowDateFormat(3,$e_date) . '0900';
         $eleven = new ElevenStreetApi();
-        $data = $eleven->getNewOrders($startdate, $enddate);
+        $data = $eleven->getNewOrders($s_date, $e_date);
         if (fn_ArrayCnt($data['order']) > 0) {
             $groupedOrders = [];
             foreach ($data['order'] as $item) {
@@ -1010,12 +1041,9 @@ class ApiMarketController extends BaseController
     private function LotteOn_Order_List($shoptyp,$s_date,$e_date){
         $Cnt = 0;
         $is_miss = 0;
-        $startdate = fn_NowDateFormat(3,$s_date) . '090000';
-        $enddate = fn_NowDateFormat(3,$e_date) . '090000';
 
         $lotte = new LotteOnApi();
-        $data = $lotte->getOrderList($startdate, $enddate);
-        print_r($data);
+        $data = $lotte->getOrderList($s_date, $e_date);
         if (isset($data['returnCode']) && $data['returnCode'] === '0000') {
             $deliveryList = $data['data']['deliveryOrderList'] ?? [];
             if (!empty($deliveryList) && count($deliveryList) > 0) {
@@ -1029,7 +1057,9 @@ class ApiMarketController extends BaseController
                         'prdNo' => $item['spdNo'],
                         'price' => $item['slPrc'],
                         'pname' => $item['spdNm'],
-                        'cnt' => $item['odQty']
+                        'cnt' => $item['odQty'],
+                        'odSeq' => $item['odSeq'],
+                        'procSeq' => $item['procSeq']
                     ];
                     $groupedOrders[$orderNo][] = $goods;
                 }
@@ -1078,6 +1108,13 @@ class ApiMarketController extends BaseController
                                 $gcnt = $f['cnt'];
                                 $gtprice = $gprice * $gcnt;
 
+                                $addProductInfo = json_encode([
+                                    'odSeq' => $f['odSeq'],
+                                    'procSeq' => $f['procSeq'],
+                                    'sitmNo' => $f['sitmNo']
+                                ], JSON_THROW_ON_ERROR);
+
+
                                 $t_arr = [
                                     'fk_orcode' => $orcode,
                                     'fk_pdcode' => $fk_pdcode,
@@ -1086,7 +1123,8 @@ class ApiMarketController extends BaseController
                                     'gprice' => $gprice,
                                     'gcnt' => $gcnt,
                                     'gtprice' => $gtprice,
-                                    'paydate' => $PayDate
+                                    'paydate' => $PayDate,
+                                    'addProductInfo' => $addProductInfo
                                 ];
 
                                 $tprice = $tprice + $gtprice;

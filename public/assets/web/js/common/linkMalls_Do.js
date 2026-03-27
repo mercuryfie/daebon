@@ -3,51 +3,10 @@ $(document).ready(function() {
 
     Make_Html('API');
 
-    $('.period').click(function(e) {
-        e.preventDefault();
-        $('.period').removeClass('active');
-        $(this).addClass('active');
-
-        const today = new Date();
-        let startDate = new Date();
-        let endDate = new Date();
-
-        const periodText = $(this).text();
-
-        switch (periodText) {
-            case '오늘':
-                startDate = today;
-                endDate = today;
-                break;
-            case '1주일':
-                startDate = new Date(today);
-                startDate.setDate(today.getDate() - 6);
-                endDate = today;
-                break;
-            case '1개월':
-                startDate = new Date(today);
-                startDate.setMonth(today.getMonth() - 1);
-                startDate.setDate(startDate.getDate() + 1);
-                endDate = today;
-                break;
-            case '3개월':
-                startDate = new Date(today);
-                startDate.setMonth(today.getMonth() - 3);
-                startDate.setDate(startDate.getDate() + 1);
-                endDate = today;
-                break;
-            default:
-                startDate = today;
-                endDate = today;
-        } 
-
-        $('#s_date').val(formatDate(startDate));
-        $('#e_date').val(formatDate(endDate));
-    });
-
     $('.datepicker').each(function(index, elem) {
         const fp = flatpickr(elem, {
             dateFormat: "Y-m-d",
+            defaultDate: new Date(),
             minDate: "2024-01-01",
             static: true,
             appendTo: elem.parentNode,
@@ -73,9 +32,10 @@ $(document).ready(function() {
     });
 
     $(document).on('click','button[name="btn_loadshop"]',async function(){
+        let selectdate = $('#s_date').val();
         let shoptype = $(this).data('typ');
         console.log(shoptype);
-        let message = await Load_Shop_Order_List(shoptype);
+        let message = await Load_Shop_Order_List(shoptype,selectdate);
         if(message!='') {
             Make_Toast(message);
         }
@@ -84,13 +44,14 @@ $(document).ready(function() {
 
 });
 
-async function Load_Shop_Order_List(styp){
+async function Load_Shop_Order_List(styp,selectdate){
     let message = '';
     try {
         start_spinner();
-        let dataarr = {styp:styp};
+        let dataarr = {styp:styp,selectdate:selectdate};
         let url = APIURL + '/Shop_Order_List';
         let result = await Load_API_Auth(url,dataarr);
+        console.log(result);
         if (result.get('status') == 'NoLogin') {
             message = '로그인하세요.';
         }else if(result.get('status') == 'ok') {
@@ -142,6 +103,7 @@ async function Make_Html(skey){
                         <td class="ltTbody" id="id1_${el.shoptyp}">${status1}</td>
                         <td class="ltTbody" id="id2_${el.shoptyp}">${el.period}</td>
                         <td class="ltTbody" id="id3_${el.shoptyp}">${el.indate}</td>
+                        <td class="ltTbody" >${el.memo}</td>
                         <td class="ltTbody">
                             <button type="button" class="btnType3" name="btn_showlog" data-typ="${el.shoptyp}">
                                 <i class="fa-solid fa-ellipsis-vertical"></i>

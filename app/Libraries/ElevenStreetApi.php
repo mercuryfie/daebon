@@ -63,12 +63,28 @@ class ElevenStreetApi
 
 
     /**
+     * 발송 처리 (배송중 처리)
+     */
+    public function putDeliveryInfo(array $params){
+        try {
+            $path = "/ordservices/reqdelivery/{$params['senddate']}/{$params['deli_method']}/{$params['deli_com_code']}/{$params['deli_num']}/{$params['dlvNo']}";
+            $results = $this->callApi('GET', $path);
+            return $results;
+        } catch (\Exception $e) {
+            log_message('error', '[confirmOrder 전체 에러] ' . $e->getMessage());
+            return ['result' => 'error', 'message' => $e->getMessage()];
+        }
+    }
+
+    /**
      * 발주 확인 처리 (상품 준비중 처리)
      */
     public function confirmOrder(string $orcode)
     {
         try {
             $order_m = model('Order_m');
+            $iRs = $order_m->Load_Order_Info($orcode);
+            $spcode = (fn_ArrayCnt($iRs)>0) ? $iRs[0]['spcode'] : '';
             $Rs = $order_m->Load_Order_Product($orcode);
             if (fn_ArrayCnt($Rs) <= 0) return '';
 
@@ -77,8 +93,8 @@ class ElevenStreetApi
                 $sgcode = $d['sgcode'];
                 if (empty($d['addProductInfo'])) continue;
                 $Info = json_decode($d['addProductInfo'], true, 512, JSON_THROW_ON_ERROR);
-                $path = "/ordservices/reqpackaging/{$sgcode}/{$Info['ordPrdSeq']}/{$Info['addPrdYn']}/{$Info['addPrdNo']}/{$Info['dlvNo']}";
-                $results[$sgcode] = $this->callApi('GET', $path, "");
+                $path = "/ordservices/reqpackaging/{$spcode}/{$Info['ordPrdSeq']}/{$Info['addPrdYn']}/{$Info['addPrdNo']}/{$Info['dlvNo']}";
+                $results[$sgcode] = $this->callApi('GET', $path);
             }
             return $results;
         } catch (\Exception $e) {

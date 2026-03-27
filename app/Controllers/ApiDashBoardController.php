@@ -14,9 +14,105 @@ class ApiDashBoardController extends BaseController
 {
     use ResponseTrait;
 
+    public function Load_DashBoard_Product(){
+        $sessinarr = $this->GetSessionData();
+        $page = ($this->request->getPost('page')=='') ?'':$this->request->getPost('page');
+        if ($sessinarr['islogin'] == false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        } else {
+            $page = max(1, (int)($page ?? 1));
+            $limit = 10;
+            $offset = ($page - 1) * $limit;
+
+            $name_arr = [];
+            $stock_arr =[];
+            $inven_arr = [];
+            $product_m =model('Product_m');
+            $fields = ['info.gscode','info.gsname','info.inventory','IFNULL(inout_sum.total_in, 0) AS total_input','IFNULL(inout_sum.total_out, 0) AS total_output','(IFNULL(inout_sum.total_in, 0) - IFNULL(inout_sum.total_out, 0)) AS current_stock'];
+
+            $mRs = $product_m->Load_DashBoard_Product($limit,$offset,$fields);
+            if(fn_ArrayCnt($mRs)>0){
+                foreach ($mRs as $d){
+                    $name_arr[] = $d['gsname'];
+                    $stock_arr[] = $d['current_stock'];
+                    $inven_arr[] = $d['inventory'];
+                }
+            }
+
+            $i_arr = [
+                'name' => $name_arr,
+                'stock' => $stock_arr,
+                'inven' => $inven_arr
+            ];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
 
     public function Load_DashBoard_Material(){
+        $sessinarr = $this->GetSessionData();
+        $page = ($this->request->getPost('page')=='') ?'':$this->request->getPost('page');
+        if ($sessinarr['islogin'] == false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        } else {
+            $page = max(1, (int)($page ?? 1));
+            $limit = 10;
+            $offset = ($page - 1) * $limit;
 
+            $name_arr = [];
+            $stock_arr =[];
+            $inven_arr = [];
+            $material_m =model('Material_m');
+            $fields = ['m.mtcode','m.mtname','m.inventory','IFNULL((SELECT total FROM tbl_material_inout WHERE fk_mtcode = m.mtcode ORDER BY seq DESC LIMIT 1), 0) AS last_total'];
+            $mRs = $material_m->Load_DashBoard_Material($limit,$offset,$fields);
+            if(fn_ArrayCnt($mRs)>0){
+                foreach ($mRs as $d){
+                    $name_arr[] = $d['mtname'];
+                    $stock_arr[] = $d['last_total'];
+                    $inven_arr[] = $d['inventory'];
+                }
+            }
+
+            $i_arr = [
+                'name' => $name_arr,
+                'stock' => $stock_arr,
+                'inven' => $inven_arr
+            ];
+
+            $result = 'ok';
+
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
     }
 
     public function Load_DashBoard_Notice(){
@@ -79,6 +175,52 @@ class ApiDashBoardController extends BaseController
                     'temperature' => $temperature,
                     'humidity'    => $humidity
                 ]
+            ];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+    public function Load_DashBoard_WeekOrder()
+    {
+        $sessinarr = $this->GetSessionData();
+        if ($sessinarr['islogin'] == false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        } else {
+            $order_data = [
+                'Sunday' => 0,
+                'Monday' => 0,
+                'Tuesday' => 0,
+                'Wednesday' => 0,
+                'Thursday' => 0,
+                'Friday' => 0,
+                'Saturday' => 0
+            ];
+            $order_m = model('Order_m');
+            $oRs = $order_m->Load_dashboard_WeekOrder();
+            if(fn_ArrayCnt($oRs)>0){
+                foreach ($oRs as $d){
+                    $order_data[$d['day_name']] = (int)$d['order_count'];
+                }
+            }
+
+            $i_arr = [
+                'list' => $order_data
             ];
 
             $result = 'ok';

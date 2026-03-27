@@ -8,7 +8,6 @@ use Exception;
 
 class EsmApi
 {
-    // baseUrl 끝에 '/'가 없도록 설정
     private string $baseUrl = 'https://sa2.esmplus.com';
     private string $masterId;
     private string $secretKey;
@@ -39,8 +38,6 @@ class EsmApi
             throw new Exception('ESM API 설정 값이 누락되었습니다.');
         }
 
-        // CI4 HTTP Client 초기화
-        // base_uri 설정을 빼고, request시 직접 결합하는 방식을 사용합니다.
         $this->client = Services::curlrequest([
             'timeout'     => 30,
             'verify'      => false,
@@ -49,10 +46,18 @@ class EsmApi
     }
 
     /**
+     * 배송정보 등록
+     */
+    public function putDeliveryInfo(array $orInfo): array{
+        $endpoint = "/shipping/v1/Delivery/ShippingInfo";
+        return $this->request('POST', $endpoint, $orInfo);
+    }
+
+    /**
      * 주문 확인
      */
-    public function putOrderConfirm(string $orcode){
-        $endpoint = "/shipping/v1/Order/OrderCheck/{$orcode}";
+    public function putOrderConfirm(string $orderNo){
+        $endpoint = "/shipping/v1/Order/OrderCheck/{$orderNo}";
         $param = [
             'SellerOrderNo' => '',
             'SellerItemNo' => ''

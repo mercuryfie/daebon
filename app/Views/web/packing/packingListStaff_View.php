@@ -24,7 +24,7 @@
                     <button type="button" class="btn60Type3 " name="searchType" data-val="0" onclick="go_todayProductsLists()">오늘<br>제품</button>
                     <button type="button" class="btn60Type3 " name="searchType" data-val="0">포장전</button>
                     <button type="button" class="btn60Type3 " name="searchType" data-val="1">포장중</button>
-                    <button type="button" class="btn60Type3 " name="searchType" data-val="2">송장<br>출력</button>
+<!--                    <button type="button" class="btn60Type3 " name="searchType" data-val="2">송장<br>출력</button>-->
                     <button type="button" class="btn60Type3 " name="searchType" data-val="3">완료</button>
                     <button type="button" class="btnType60 " id="btn_reload" name="btn_reload">
                         <i class="fa-solid fa-rotate-right"></i>

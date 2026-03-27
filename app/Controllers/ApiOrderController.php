@@ -666,7 +666,8 @@ class ApiOrderController extends BaseController
 
     public function Load_Order_Data(){
         $sessinarr = $this->GetSessionData();
-        $search = $this->request->getPost('skey') ?? [];
+        //$search = $this->request->getPost('skey') ?? [];
+        $search  = ($this->request->getPost('skey') == '') ? '' : $this->request->getPost('skey');
         if($sessinarr['islogin']==false) {
             $result = 'NoLogin';
             $data = [];

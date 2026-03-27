@@ -109,6 +109,8 @@ async function Make_Html(data){
     }else{
         Make_Toast('검색된 데이터가 없습니다.');
     }
+    $('#inout_half_wrap').css('width','81vw');
+    $('#inout_half_wrap table').css('width','80vw');
     $('#clist').append(html);
 
     let nowcnt = $('#tcnt').html();

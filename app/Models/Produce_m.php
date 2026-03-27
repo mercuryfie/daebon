@@ -136,6 +136,9 @@ class Produce_m extends Model
         return $Cnt;
     }
 
+
+
+
     public function Load_Instructions_List_All2($params,$paging,$fields=['ALL'])
     {
         $sdate = array_key_exists('sdata', $params) ? $params['sdata'].' 00:00:00' : date("Y-m-d").' 00:00:00';
@@ -208,6 +211,15 @@ class Produce_m extends Model
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
     }
+
+    public function Load_Instructions_List_All3($fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} from tbl_instructions_process GROUP BY step_typ  ORDER BY 1 ASC";
+        $bindparam = [];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
 
     public function Load_Instructions_Material($code,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);

@@ -17,6 +17,17 @@ class Material_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Load_DashBoard_Material($limit,$offset,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_material m WHERE m.typ=1 ORDER BY m.mtname ASC limit :LIMIT: offset :OFFSET:;";
+        $bindparam = [
+            'LIMIT' => $limit,
+            'OFFSET' => $offset
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
     public function Load_Material_stock($mtcode,$fields=['ALL']){
         $separated_val = fn_Make_Fields($fields);
         $sql = "SELECT {$separated_val} FROM tbl_material_inout WHERE fk_mtcode=:MTCODE: ORDER BY seq DESC LIMIT 1;";
@@ -85,6 +96,16 @@ class Material_m extends Model
     {
         $sql = "SELECT count(*) as Cnt FROM tbl_maker where is_del=:ISDEL:;";
         $bindparam = [ 'ISDEL' => 0 ];
+        $Query = $this->db->query($sql,$bindparam);
+        $row = $Query->getRow();
+        $MCode = ($row) ? $row->Cnt : '';
+        return $MCode;
+    }
+
+    public function Cnt_Material_All($typ)
+    {
+        $sql = "SELECT count(*) as Cnt FROM tbl_material where typ=:TYPE:;";
+        $bindparam = [ 'TYPE' => $typ ];
         $Query = $this->db->query($sql,$bindparam);
         $row = $Query->getRow();
         $MCode = ($row) ? $row->Cnt : '';

@@ -55,14 +55,34 @@ class OrderController extends BaseController
                 'h_type' => 1
             ];
 
-            $main_data = [];
+            $limit = 10;
+            $material_html = '';
+            $material_m =model('Material_m');
+            $mCnt = $material_m->Cnt_Material_All(1);
+            $mMax = ($mCnt > 0) ? ceil($mCnt / $limit) : 1;
+            for ($i = 1; $i <= $mMax; $i++) {
+                $material_html .= "<div class='pages' data-page='{$i}'></div>";
+            }
+
+            $product_html = '';
+            $product_m = model('Product_m');
+            $pCnt = $product_m->Cnt_Product_All();
+            $pMax = ($pCnt > 0) ? ceil($pCnt / $limit) : 1;
+            for ($i = 1; $i <= $pMax; $i++) {
+                $product_html .= "<div class='pages' data-page='{$i}'></div>";
+            }
+
+            $main_data = [
+                'material_html' => $material_html,
+                'product_html' => $product_html
+            ];
 
             $form = new Form;
             $main_data = [
                 'meta' => $form->fnMake_Meta($metaarr),
                 'header' => $form->fnMake_Header($sessinarr),
                 'left' => $form->fnMake_Left(),
-                'main' => $main_data,
+                'body' => $main_data,
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
@@ -455,7 +475,7 @@ class OrderController extends BaseController
                 fn_AlertClose('Error : ' . $data['message']);
             } else {
                 $delivery_m = model('Delivery_m');
-                $fields =['a.fk_opcode as opcode','b.deli_step','b.deli_code','b.deli_prn_date','b.deli_end_date','c.addInfo','c.shoptyp','c.shopmethod','c.spcode','d.addProductInfo'];
+                $fields =['a.fk_opcode as opcode','b.deli_step','b.deli_code','b.deli_prn_date','b.deli_end_date','c.addInfo','c.tcnt','c.shoptyp','c.shopmethod','c.spcode','d.addProductInfo','d.sgcode'];
                 $dRs = $delivery_m->Load_DeliveryPackageByOrCode($orcode,$fields);
                 if(fn_ArrayCnt($dRs)<=0){
                     fn_AlertClose('잘못된 송장정보 입니다.');

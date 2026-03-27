@@ -95,6 +95,14 @@ class Common_m extends Model
         return $query->getResultArray();
     }
 
+    public function Load_Mall_List_All($fields=['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_mall_info Order By seq ASC";
+        $query = $this->db->query($sql);
+        return $query->getResultArray();
+    }
+
     public function Load_Mall_Log($code,$typ,$fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
@@ -106,6 +114,20 @@ class Common_m extends Model
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
     }
+
+    public function Del_Mall_Log($seq,$typ){
+        $param = [
+            'seq' => $seq,
+            'fk_shoptyp' => $typ
+        ];
+        $this->db->transStart();
+        $builder = $this->db->table('tbl_mall_log');
+        $builder->where($param)->delete();
+        $affected_rows = $this->db->affectedRows();
+        $this->db->transComplete();
+        return $affected_rows;
+    }
+
 
     public function Load_Mall_Log_All($code,$fields=['ALL'])
     {

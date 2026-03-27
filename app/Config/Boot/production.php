@@ -23,3 +23,13 @@ ini_set('display_errors', '0');
  | release of the framework.
  */
 defined('CI_DEBUG') || define('CI_DEBUG', false);
+
+
+
+defined('ENVIRONMENT') || define('ENVIRONMENT', 'production');
+defined('CK_DOMAIN') || define('CK_DOMAIN', '.djmedi.net');
+defined('CK_DBIP')   || define('CK_DBIP', '172.27.0.21');
+defined('CK_DBNAME')   || define('CK_DBNAME', 'daebon');
+defined('CK_DBUSER')   || define('CK_DBUSER', 'daebon');
+defined('CK_DBPWD')   || define('CK_DBPWD', 'djMedi!!999');
+define("H_TITLE","DAEBON MES");

@@ -18,6 +18,30 @@ class Order_m extends Model
         $this->db = \Config\Database::connect('default');
     }
 
+    public function Load_Repoert_OrderData($shoptyp,$fields=['ALL']){
+        $separated_val = fn_Make_Fields($fields);
+        $sql = "SELECT {$separated_val} FROM tbl_order AS A ";
+        $sql .= "LEFT JOIN tbl_mall_info AS B ON A.shoptyp = B.shoptyp WHERE B.shoptyp=:SHOPTYPE: AND A.is_del = :ISDEL: AND A.indate >= :START: and  A.indate <= :END: ";
+        $sql .= "GROUP BY B.shoptyp, order_month ORDER BY order_month DESC;";
+        $bindparam = [
+            'SHOPTYPE' => $shoptyp,
+            'ISDEL'=> 0,
+            'START' =>'2026-01-01 00:00:00',
+            'END' =>'2026-12-31 23:59:59'
+        ];
+        $query = $this->db->query($sql,$bindparam);
+        return $query->getResultArray();
+    }
+
+
+    public function Load_dashboard_WeekOrder(){
+        $sql = "SELECT DAYNAME(indate) AS day_name,COUNT(*) AS order_count FROM tbl_order ";
+        $sql .= "WHERE indate >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY) AND indate < DATE_ADD(CURDATE(), INTERVAL 1 DAY) ";
+        $sql .= "GROUP BY day_name, WEEKDAY(indate) ORDER BY WEEKDAY(indate);";
+        $query = $this->db->query($sql);
+        return $query->getResultArray();
+    }
+
 
     public function Load_dashboardOrder_Info($fields=['ALL']){
         $sql = "SELECT shoptyp,COUNT(*) as Cnt from vw_order_info a WHERE DATE_FORMAT(indate, '%Y-%m-%d') = CURDATE() GROUP BY shoptyp ORDER BY 1 ASC;";
@@ -346,7 +370,7 @@ class Order_m extends Model
     public function Update_Order_Info($code,$param){
         $this->db->transStart();
         $builder = $this->db->table('tbl_order');
-        $builder->whereIn('orcode', $code);
+        $builder->whereIn('orcode', (array)$code);
         $builder->update($param);
         $affected_rows = $this->db->affectedRows();
         $this->db->transComplete();

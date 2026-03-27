@@ -10,7 +10,6 @@ function fn_Put_Delivery_Info($data,$orcode){
                 foreach ($data as $d){
                     $addInfoArray = json_decode($d['addInfo'], true);
                     $shipmentBoxIds = isset($addInfoArray['shipmentBoxIds']) ? $addInfoArray['shipmentBoxIds'] : '';
-
                     $t_arr = [
                         'shipmentBoxId' => $shipmentBoxIds,
                         'orderId' => $d['spcode'],
@@ -21,10 +20,7 @@ function fn_Put_Delivery_Info($data,$orcode){
                         'estimatedShippingDate' => ''
                     ];
                     $params[] = $t_arr;
-
                     $op_arr[] = $d['opcode'];
-
-
                 }
                 if(!empty($params)){
                     $coupang = new \App\Libraries\CoupangApi();
@@ -47,6 +43,40 @@ function fn_Put_Delivery_Info($data,$orcode){
                     }
                 }
             }
+        } else if (($data[0]['shoptyp'] == 'type2') || ($data[0]['shoptyp'] == 'type3')) {
+            $failSpcode = [];
+            if($data[0]['deli_step']<4){
+                $delivery_m = model('Delivery_m');
+                $order_m = model('Order_m');
+                foreach ($data as $d){
+                    $date = new DateTime($d['deli_prn_date']);
+                    $t_arr = [
+                        'OrderNo' => $d['spcode'],
+                        'ShippingDate' => $date->format('Y-m-d\TH:i:s'),
+                        'DeliveryCompanyCode' =>10008,
+                        'InvoiceNo' => $d['deli_code'],
+                        "SellerOrderNo" => "",
+                        "SellerItemNo" => ""
+                    ];
+                    $opcode = $d['opcode'];
+                    try{
+                        $site = ($data[0]['shoptyp'] == 'type2') ? 'au' : 'gm';
+                        $esm = new \App\Libraries\EsmApi($site);
+                        $arr = $esm->putDeliveryInfo($t_arr);
+                        if (isset($arr['ResultCode']) && $arr['ResultCode'] === 0) {
+                            $p_arr = ['deli_step' => 4];
+                            $Cnt = $delivery_m->Update_Delivery_Info($opcode,$p_arr);
+                            $param = ['gdstep' => 3,'orstep' => 2];
+                            $Cnt = $order_m->Update_Order_Info2($orcode, $param);
+                        }
+                    } catch (\Exception $e) {
+                        log_message('error', "주문번호 : {$d['spcode']} / 사유: " . $e->getMessage());
+                        $failSpcode[] = $d['spcode'];
+                        continue;
+                    }
+                }
+            }
+            $result = (fn_ArrayCnt($failSpcode) > 0) ? false : true;
         }else if($data[0]['shoptyp']=='type8'){
             $params = [];
             if($data[0]['deli_step']<4){
@@ -64,21 +94,141 @@ function fn_Put_Delivery_Info($data,$orcode){
                     $op_arr[] = $d['opcode'];
                 }
             }
-            if(!empty($params)){
+            if(!empty($params)) {
                 $naver = new \App\Libraries\NaverApi();
                 $arr = $naver->putDeliveryInfo($params);
                 if (isset($arr['status']) && $arr['status'] === 'success') {
                     $delivery_m = model('Delivery_m');
                     $order_m = model('Order_m');
-                    foreach ($op_arr as $opcode){
+                    foreach ($op_arr as $opcode) {
                         $p_arr = [
                             'deli_step' => 4
                         ];
-                        $Cnt = $delivery_m->Update_Delivery_Info($opcode,$p_arr);
+                        $Cnt = $delivery_m->Update_Delivery_Info($opcode, $p_arr);
                     }
 
-                    $param = ['gdstep' => 3,'orstep' => 2];
+                    $param = ['gdstep' => 3, 'orstep' => 2];
                     $Cnt = $order_m->Update_Order_Info2($orcode, $param);
+                    $result = true;
+                }
+            }
+        }else if($data[0]['shoptyp']=='type14') {
+            if ($data[0]['deli_step'] < 4) {
+                $ssg = new \App\Libraries\SsgAPI();
+                $delivery_m = model('Delivery_m');
+                $success_count = 0;
+
+                foreach ($data as $d) {
+                    $Info = json_decode($d['addProductInfo'], true, 512, JSON_THROW_ON_ERROR);
+
+                    $sendParams = [
+                        'requestWhOutCompleteProcess' => [
+                            'shppNo' => (string)$Info['shppNo'],
+                            'shppSeq' => (string)$Info['shppSeq'],
+                            'wblNo' => (string)$d['deli_code'],
+                            'delicoVenId' => '0000033073', // 롯데택배 등 해당 코드
+                            'shppTypeCd' => '20',
+                            'shppTypeDtlCd' => '22'
+                        ]
+                    ];
+
+                    $arr = $ssg->putDeliveryInfo($sendParams);
+                    if (isset($arr['result']['resultCode']) && ($arr['result']['resultCode'] == '00' || $arr['result']['resultCode'] == 'SUCCESS')) {
+                        $p_arr = ['deli_step' => 4];
+                        $delivery_m->Update_Delivery_Info($d['opcode'], $p_arr);
+                        $success_count++;
+                    } else {
+                        log_message('error', "[SSG 송장입력 실패] opcode: " . ($d['opcode'] ?? 'Unknown') . ", Response: " . json_encode($arr, JSON_UNESCAPED_UNICODE));
+                    }
+                }
+
+                if ($success_count > 0) {
+                    $order_m = model('Order_m');
+                    $param = ['gdstep' => 3, 'orstep' => 2];
+                    $order_m->Update_Order_Info2($orcode, $param);
+                    $result = true;
+                }
+            }
+        } else if ($data[0]['shoptyp'] == 'type4') {
+            if ($data[0]['deli_step'] < 4) {
+                $eleven = new \App\Libraries\ElevenStreetApi();
+                $delivery_m = model('Delivery_m');
+                $success_count = 0;
+
+                foreach ($data as $d) {
+                    $Info = json_decode($d['addProductInfo'], true, 512, JSON_THROW_ON_ERROR);
+
+                    $date = new DateTime($d['deli_prn_date']);
+                    $sendParams = [
+                        'senddate' => $date->format('YmdHi'),
+                        'deli_method' => '01',
+                        'deli_com_code' => '00012',
+                        'deli_num' => $d['deli_code'],
+                        'dlvNo' => $Info['dlvNo']
+                    ];
+
+                    $arr = $eleven->putDeliveryInfo($sendParams);
+                    if (isset($response['result_code']) && (string)$response['result_code'] === '0') {
+                        $p_arr = ['deli_step' => 4];
+                        $delivery_m->Update_Delivery_Info($d['opcode'], $p_arr);
+                        $success_count++;
+                    } else {
+                        log_message('error', "[SSG 송장입력 실패] opcode: " . ($d['opcode'] ?? 'Unknown') . ", Response: " . json_encode($arr, JSON_UNESCAPED_UNICODE));
+                    }
+                }
+
+                if ($success_count > 0) {
+                    $order_m = model('Order_m');
+                    $param = ['gdstep' => 3, 'orstep' => 2];
+                    $order_m->Update_Order_Info2($orcode, $param);
+                    $result = true;
+                }
+            }
+        } else if ($data[0]['shoptyp'] == 'type13') {
+            if ($data[0]['deli_step'] < 4) {
+                $lotte = new \App\Libraries\LotteOnApi();
+                $delivery_m = model('Delivery_m');
+                $success_count = 0;
+
+                foreach ($data as $d) {
+                    $Info = json_decode($d['addProductInfo'], true, 512, JSON_THROW_ON_ERROR);
+
+                    $date = new DateTime($d['deli_prn_date']);
+                    $sendParams = [
+                        'deliveryProgressStateList' => [
+                            [
+                                'dvRtrvDvsCd' => 'DV',
+                                'odNo' => $d['spcode'],
+                                'odSeq' => $Info['odSeq'],
+                                'procSeq' => $Info['procSeq'],
+                                'odPrgsStepCd' => '13',
+                                'dvTrcStatDttm' => $date->format('YmdHis'),
+                                'invcNbr' => 1,
+                                'dvCoCd' => '0001',
+                                'invcNo' => $d['deli_code'],
+                                'spdNo' => $d['sgcode'],
+                                'sitmNo' => $Info['sitmNo'],
+                                'slQty' => $d['tcnt']
+                            ]
+                        ]
+                    ];
+                    $arr = $lotte->putDeliveryInfo($sendParams);
+                    if (!is_array($arr) || empty($arr)) {
+                        log_message('error', "[Lotteon 송장입력 실패] opcode: " . ($d['opcode'] ?? 'Unknown') . ", Response: " . json_encode($arr, JSON_UNESCAPED_UNICODE));
+                    } else {
+                        $returnCode = $arr['returnCode'] ?? '';
+                        $rsltCd = $arr['data']['rsltCd'] ?? '';
+                        if ($returnCode === '0000' && $rsltCd === '0000') {
+                            $p_arr = ['deli_step' => 4];
+                            $delivery_m->Update_Delivery_Info($d['opcode'], $p_arr);
+                            $success_count++;
+                        }
+                    }
+                }
+                if ($success_count > 0) {
+                    $order_m = model('Order_m');
+                    $param = ['gdstep' => 3, 'orstep' => 2];
+                    $order_m->Update_Order_Info2($orcode, $param);
                     $result = true;
                 }
             }

@@ -2,7 +2,6 @@
 $(document).ready(function() {
     let param = '';
     let search = $('#skey').val();
-    console.log('dawn',search);
     const data = {
         skey : search
     };
@@ -30,7 +29,7 @@ $(document).ready(function() {
         $('#uploadExcel').css('display','none');
     });
 
-    $('#addPQueue #Xbtn, #addPQueue #Xbtn2').click(function () {
+    $('#addPQueue #Xbtn, #addPQueue #Xbtn2 #btn_delivery_close').click(function () {
         $('#addPQueue').css('display','none');
     });
 
@@ -121,6 +120,7 @@ $(document).ready(function() {
                     $('#bu_' + el.orcode).html(`<button type="button" class="btnType3 " data-rttype="2" onclick="add_packingQueue('${el.orcode}');">지시완료</button>`);
                     $('#da_' + el.orcode).text(el.moddate);
                 });
+                Make_Toast('선택하신 주문의 포장지시를 완료 하였습니다.');
             }
         }
     });
@@ -191,7 +191,7 @@ $(document).ready(function() {
             });
 
             if (orstepFCount > 0) {
-                Make_Toast('선택하신 항목중에 주문확인처리가 불가능한 주문이 존재합니다.<br>[쇼핑몰 주문만 주문확인이 필요합니다.]')
+                Make_Toast('선택하신 항목중에 주문확인처리가 불가능한 주문이 존재합니다.<br>[포장지시가 안되었거나, 쇼핑몰주문만 가능합니다.]')
             } else {
                 let successCount = 0;
                 let failCount = 0;
@@ -210,10 +210,11 @@ $(document).ready(function() {
                 } else {
                     Make_Toast('주문 확인처리 완료 하였습니다.');
                     $('#cList').empty();
-                    const data = {
-                        skey: skey
+                    let search = $('#skey').val();
+                    const params = {
+                        skey: search
                     };
-                    Make_Html(data);
+                    Make_Html(params);
                 }
             }
         }
@@ -254,10 +255,10 @@ async function Put_Order_Confirm(orcode){
     return data;
 }
 
-async function Make_Html(data){
-    let arr = await Load_Data(data);
+async function Make_Html(params){
+    let arr = await Load_Data(params);
     let html = '';
-    console.log('dawn',arr);
+    console.log(arr);
     if(!fn_IsEmpty(arr)) {
         $.each(arr, function (index, el) {
             let subhtml1 = '';
@@ -363,13 +364,13 @@ function Packing_ini(){
 }
 
 
-async function Load_Data(data){
-    // let data = {};
+async function Load_Data(params){
+    let data = {};
     try {
         start_spinner();
-        // let dataarr = {"search" : param};
+        let dataarr = {"skey" : params.skey};
         let url = APIURL + '/Load_Order_Data';
-        let result = await Load_API_Auth(url,data);
+        let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {

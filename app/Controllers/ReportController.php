@@ -343,14 +343,25 @@ class ReportController extends BaseController
                 'h_type' => 1
             ];
 
-            $main_data = [];
+            $shopname = [];
+            $common_m = model('Common_m');
+            $aRs = $common_m->Load_Mall_List_All();
+            if (fn_ArrayCnt($aRs) > 0){
+                foreach ($aRs as $a) {
+                    $shopname[] = $a['shop_name'];
+                }
+            }
+
+            $main_data = [
+                'name' => $shopname
+            ];
 
             $form = new Form;
             $main_data = [
                 'meta' => $form->fnMake_Meta($metaarr),
                 'header' => $form->fnMake_Header($sessinarr),
                 'left' => $form->fnMake_Left(),
-                'main' => $main_data,
+                'body' => $main_data,
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 

@@ -1,131 +1,42 @@
 <?= $this->extend("/web/template/layout_workpage") ?>
 <?= $this->section("content") ?>
 
-<!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/qualityReport_Do.js?rnd=<?=rand();?>"> </script>
-<script>
-</script>
+    <script src="<?=URL_COMMON_ASSETS?>/processStatus_Do.js?rnd=<?=rand();?>"> </script>
+    <section class="merright">
+        <div class="goods_boxfv6">
+            <div class="titleBox">
+                <p class="headTitle">
+                    공정별 진행현황
+                </p>
+            </div>
 
-<section class="merright">
-    <div class="goods_boxx7z">
-        <div class="titleBox">
-            <p class="headTitle">
-                공정별 진행현황
-            </p>
+            <div class="areaBox area_boxmxh min70vh">
+                <div class="goods_boxkfg flexType3">
+                    <div class="left flexType2">
+                    </div>
+                </div>
+                <div class="area4 goods_boxa1b flexType2">
+                    <div class="common_tbl_wrap" id="p_wrap">
+                        <table class="common_tbl">
+                            <thead>
+                            <tr name="view_detail" data-code="${el.gicode}">
+                                <th class="ltThead">공정코드</th>
+                                <th class="ltThead">공정명</th>
+                                <th class="ltThead">공정구분</th>
+                                <th class="ltThead">공정로스율</th>
+                                <th class="ltThead">공정진행수</th>
+                            </tr>
+                            </thead>
+                            <tbody name="clist" id="clist">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div style="height: 600px;">
+    </section>
 
-        </div>
-<!--        <div class="areaBox area_boxm9k ">-->
-<!--            <div class="outerBox flexType3">-->
-<!--                <p class="title">제품정보</p>-->
-<!--                <div class="right flexType1">-->
-<!--                    <i class="fa-solid fa-angle-down"></i>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="area5 area_box2qd ">-->
-<!--                <div class="elementBox ">-->
-<!--                    <div class="element flexType2">-->
-<!--                        <p class="must"></p>-->
-<!--                        <p class="title">대분류</p>-->
-<!--                        <select name="" id="" class="inputType360">-->
-<!--                            <option value="">원물볶음차</option>-->
-<!--                            <option value="">원물볶음차</option>-->
-<!--                            <option value="">원물볶음차</option>-->
-<!--                        </select>-->
-<!--                    </div>-->
-<!--                    <div class="element flexType2">-->
-<!--                        <p class="must"></p>-->
-<!--                        <p class="title">중분류</p>-->
-<!--                        <select name="" id="" class="inputType360">-->
-<!--                            <option value="">생강</option>-->
-<!--                            <option value="">생강</option>-->
-<!--                            <option value="">생강</option>-->
-<!--                        </select>-->
-<!--                    </div>-->
-<!--                    <div class="element flexType2">-->
-<!--                        <p class="must"></p>-->
-<!--                        <p class="title">상품명</p>-->
-<!--                        <input type="search" class="inputType360" placeholder="상품명을 입력하세요." >-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="areaBox area_boxm9k ">-->
-<!--            <div class="outerBox flexType3">-->
-<!--                <div class="left flexType2">-->
-<!--                    <p class="title mr10">제품 BOM</p>-->
-<!--                    <p class="title2">재료 입력</p>-->
-<!--                </div>-->
-<!--                <div class="right flexType1">-->
-<!--                    <i class="fa-solid fa-angle-down"></i>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="area5 area_box2qd ">-->
-<!--                <div class="elementBox products_boxc6m">-->
-<!--                    <div class="element flexType2">-->
-<!--                        <p class="must"></p>-->
-<!--                        <p class="title">재료 결과명</p>-->
-<!--                        <input type="search" class="inputType360" placeholder="숫자만 입력 (예:10000)" name="metirialName" >-->
-<!--                    </div>-->
-<!--                    <div class="hi" name="matiBox">-->
-<!--                        <div class="element flexType3 selectMetirialBox" name="oneMati">-->
-<!--                            <div class="left flexType2">-->
-<!--                                <p class="must"></p>-->
-<!--                                <p class="title">재료 선택</p>-->
-<!--                                <select name="" id="" class="inputBorder mr10">-->
-<!--                                    <option value="">우엉</option>-->
-<!--                                    <option value="">우엉</option>-->
-<!--                                    <option value="">우엉</option>-->
-<!--                                </select>-->
-<!--                                <input type="search" class="inputBorder inputBorder2 mr10" placeholder="예:10000" >-->
-<!--                                <p class="unit mr10">g</p>-->
-<!--                            </div>-->
-<!--                            <button type="button" class="inputBorder removeBtn" name="removeMati" onclick="removeMati(this);">제거</button>-->
-<!--                        </div>-->
-<!--                        <div class="element flexType3 selectMetirialBox" name="oneMati">-->
-<!--                            <div class="left flexType2">-->
-<!--                                <p class="notmust"></p>-->
-<!--                                <p class="title">재료 선택</p>-->
-<!--                                <select name="" id="" class="inputBorder mr10">-->
-<!--                                    <option value="">우엉</option>-->
-<!--                                    <option value="">우엉</option>-->
-<!--                                    <option value="">우엉</option>-->
-<!--                                </select>-->
-<!--                                <input type="search" class="inputBorder inputBorder2 mr10" placeholder="예:10000" >-->
-<!--                                <p class="unit mr10">g</p>-->
-<!--                            </div>-->
-<!--                            <button type="button" class="inputBorder removeBtn" name="removeMati" onclick="removeMati(this);">제거</button>-->
-<!--                        </div>-->
-<!--                        <div class="element flexType3 selectMetirialBox" name="oneMati">-->
-<!--                            <div class="left flexType2">-->
-<!--                                <p class="notmust"></p>-->
-<!--                                <p class="title">재료 선택</p>-->
-<!--                                <select name="" id="" class="inputBorder mr10">-->
-<!--                                    <option value="">우엉</option>-->
-<!--                                    <option value="">우엉</option>-->
-<!--                                    <option value="">우엉</option>-->
-<!--                                </select>-->
-<!--                                <input type="search" class="inputBorder inputBorder2 mr10" placeholder="예:10000" >-->
-<!--                                <p class="unit mr10">g</p>-->
-<!--                            </div>-->
-<!--                            <button type="button" class="inputBorder removeBtn" name="removeMati" onclick="removeMati(this);">제거</button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="element addBox">-->
-<!--                        <button type="button" class="btnType1" name="addMati" onclick="add_matiBox(this);">재료추가</button>-->
-<!---->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            -->
-<!--        </div>-->
-<!--        <div class="lastBox flexType6">-->
-<!--            <button type="button" class="btnType1 mr10" onclick="go_productsList();">이전</button>-->
-<!--            <button type="button" id="nextBtn" name="nextBtn" class="btnType2" onclick="go_manuEditor();">다음</button>-->
-<!--        </div>-->
-    </div>
-
-</section>
-
+<?= $this->include('/web/include/pop_UploadXlx_View'); ?>
+<?= $this->include('/web/include/pop_OrderForm_View'); ?>
 <?= $this->endSection() ?>

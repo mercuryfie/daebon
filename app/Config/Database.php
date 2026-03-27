@@ -28,9 +28,9 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => CK_DBIP,
-        'username'     => 'daebon',
-        'password'     => 'djMedi!!999',
-        'database'     => 'daebon',
+        'username'     => CK_DBUSER,
+        'password'     => CK_DBPWD,
+        'database'     => CK_DBNAME,
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,

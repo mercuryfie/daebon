@@ -32,7 +32,8 @@ function fn_NowDateFormat(int $typ, ?string $baseDate = null): string
     return match ($typ) {
         1       => $now->toDateTimeString(), // 2025-11-01 00:00:00
         2       => $now->toDateString(),     // 2025-11-01
-        3       => $now->format('Ymd'), // 20251111
+        3       => $now->format('Ymd'), // 20251111,
+        4       => $now->format('Y-m-d\TH:i:sP'),
         default => $now->toDateTimeString(),
     };
 }
@@ -48,6 +49,7 @@ function fn_PrevDateFormat(int $typ, int $days = 0, ?string $baseDate = null): s
         1       => $time->toDateTimeString(), // 2025-11-01 00:00:00
         2       => $time->toDateString(),     // 2025-11-01
         3       => $time->format('Ymd'), // 20251101
+        4       => $time->format('Y-m-d\TH:i:sP'),
         default => $time->toDateTimeString(),
     };
 }
@@ -64,6 +66,7 @@ function fn_NextDateFormat(int $typ, int $days = 0, ?string $baseDate = null): s
         1       => $time->toDateTimeString(), // 2025-11-01 00:00:00
         2       => $time->toDateString(),     // 2025-11-01
         3       => $time->format('Ymd'), // 20251101
+        4       => $time->format('Y-m-d\TH:i:sP'),
         default => $time->toDateTimeString(),
     };
 }

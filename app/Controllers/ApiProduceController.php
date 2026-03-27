@@ -641,4 +641,54 @@ class ApiProduceController extends BaseController
         return $this->respond($return);
     }
 
+
+    public function Load_Instructions_Info3()
+    {
+        $sessinarr = $this->GetSessionData();
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $produce_m=model('Produce_m');
+            $fields = ['step_typ','COUNT(*) as Cnt'];
+            $iRs = $produce_m->Load_Instructions_List_All3($fields);
+            if(fn_ArrayCnt($iRs)<=0){
+                $i_arr = ['list' => ''];
+            }else{
+                $info_arr = [];
+                foreach ($iRs as $d){
+                    $r_arr = fnGetProcessNameByCode($d['step_typ']);
+                    $gubun = ($r_arr['gubun']==1) ? '단일공정' : '복합공정';
+                    $t_arr = [
+                        'code' =>  $d['step_typ'],
+                        'sname' => $r_arr['name'],
+                        'gubun' => $gubun,
+                        'loss' => $r_arr['loss'],
+                        'cnt' =>$d['Cnt']
+                     ];
+
+                    $info_arr[] = $t_arr;
+                }
+
+                $i_arr = ['list' => $info_arr];
+            }
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
 }

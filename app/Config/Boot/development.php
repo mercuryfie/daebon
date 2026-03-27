@@ -32,3 +32,12 @@ defined('SHOW_DEBUG_BACKTRACE') || define('SHOW_DEBUG_BACKTRACE', true);
  | items. It can always be used within your own application too.
  */
 defined('CI_DEBUG') || define('CI_DEBUG', true);
+
+
+defined('ENVIRONMENT') || define('ENVIRONMENT', 'development');
+defined('CK_DOMAIN') || define('CK_DOMAIN', '.daebon.com');
+defined('CK_DBIP')   || define('CK_DBIP', '211.251.239.37');
+defined('CK_DBNAME')   || define('CK_DBNAME', 'daebondev');
+defined('CK_DBUSER')   || define('CK_DBUSER', 'daebon');
+defined('CK_DBPWD')   || define('CK_DBPWD', 'djMedi!!999');
+define("H_TITLE","DAEBON MES TEST");

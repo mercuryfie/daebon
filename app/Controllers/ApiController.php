@@ -13,6 +13,60 @@ class ApiController extends BaseController
 {
     use ResponseTrait;
 
+    public function Load_Report_Order()
+    {
+        $sessinarr = $this->GetSessionData();
+        if ($sessinarr['islogin'] == false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $common_m = model('Common_m');
+            $aRs = $common_m->Load_Mall_List_All();
+            if(fn_ArrayCnt($aRs)<=0){
+                $result = 'Error003';
+                $data = [];
+                $message = '주문처 정보가 없습니다.';
+            }else{
+                $matrix = [];
+                $currentMonth = 12;
+                $currentYear = date('Y');
+                for ($i = 1; $i <= $currentMonth; $i++) {
+                    $monthStr = $currentYear . '-' . str_pad($i, 2, '0', STR_PAD_LEFT);
+                    foreach ($aRs as $a) {
+                        $matrix[$monthStr][$a['shoptyp']] = 0;
+                    }
+                }
+                $order_m = model('Order_m');
+                foreach ($aRs as $a) {
+                    $shopname[] = $a['shop_name'];
+                    $shoptyp = $a['shoptyp'];
+                    $fields = ['B.shoptyp', 'DATE_FORMAT(A.orderdate, "%Y-%m") AS order_month', 'COUNT(A.seq) AS order_count', 'SUM(A.tprice) AS total_sales'];
+                    $oRs = $order_m->Load_Repoert_OrderData($shoptyp, $fields);
+                    if (fn_ArrayCnt($oRs) > 0) {
+                        foreach ($oRs as $d) {
+                            $matrix[$d['order_month']][$d['shoptyp']] = $d['order_count'];
+                        }
+                    }
+                }
+                $result = 'ok';
+                $data = ['list' => $matrix];
+                $message = '';
+            }
+        }
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
     public function Load_Statistics_Month(){
         $sessinarr = $this->GetSessionData();
         $sdate = ($this->request->getPost('sdate') == '') ? '' : $this->request->getPost('sdate');
@@ -300,6 +354,38 @@ class ApiController extends BaseController
 
     }
 
+    public function Del_Mall_Log(){
+        $sessinarr = $this->GetSessionData();
+        $seq  = ($this->request->getPost('seq') == '') ? '' : $this->request->getPost('seq');
+        $typ  = ($this->request->getPost('styp') == '') ? '' : $this->request->getPost('styp');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $message = '잘못된 토큰입니다.';
+        }else if(($seq=='') || ($typ=='')){
+            $result = 'Error003';
+            $message = '잘못된 접근입니다.';
+        }else{
+            $common_m = model('Common_m');
+            $Cnt = $common_m->Del_Mall_Log($seq,$typ);
+            if($Cnt>0){
+                $result = 'ok';
+                $message = '';
+            }else{
+                $result = 'fail';
+                $message = '삭제에 실패 하였습니다.';
+            }
+        }
+        $return = [
+            'result' => $result,
+            'message' => $message
+        ];
+        return $this->respond($return);
+    }
+
+
     public function Load_Mall_Log_List()
     {
         $code  = ($this->request->getPost('code') == '') ? '' : $this->request->getPost('code');
@@ -340,9 +426,11 @@ class ApiController extends BaseController
                         default => $sStr = '정상',
                     };
                     $t_arr = [
+                        'seq' => $d['seq'],
                         'shoptyp' => $d['fk_shoptyp'],
                         'shop_name' => $d['sname'],
                         'status' => $sStr,
+                        'period' => $d['startdate'].'~'.$d['enddate'],
                         'indate' =>$d['indate'],
                         'content' => $content
                     ];
@@ -401,6 +489,7 @@ class ApiController extends BaseController
                         'status' => $status,
                         'period' => $dateRange,
                         'indate' => $indate,
+                        'memo' => $d['memo'],
                         'shoptyp' => $d['shoptyp']
                     ];
                     $list[] = $t_arr;

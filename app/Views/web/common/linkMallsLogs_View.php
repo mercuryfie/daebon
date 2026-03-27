@@ -24,7 +24,9 @@
 <!--                                <td class="ltThead">쇼핑몰</td>-->
                             <td class="ltThead">API 상태</td>
                             <td class="ltThead">API 결과</td>
-                            <td class="ltThead">호출 날짜</td>
+                            <td class="ltThead" >기간</td>
+                            <td class="ltThead">날짜</td>
+                            <td class="ltThead">삭제</td>
                         </tr>
                     </thead>
                     <tbody id="tList">

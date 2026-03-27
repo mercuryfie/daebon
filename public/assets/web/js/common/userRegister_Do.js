@@ -2,10 +2,15 @@ $(document).ready(function() {
     $('#btn_dup').on('click',function(){
 
         let userid = $('#userid').val();
-        let pw_2 = $('#pw_2').val();
-        Dup_Id_Check(userid,pw_2);
+        // let pw_2 = $('#pw_2').val();
+        Dup_Id_Check(userid);
 
     })
+
+    // $('#submit_btn').on('click',function(){
+    //     add_Account(userid);
+    //
+    // })
 });
 
 // let isDupChecked = false;
@@ -90,17 +95,12 @@ function validatePw(pw) {
     return reg.test(pw);
 }
 
-async function Dup_Id_Check(userid,pw_2) {
+async function Dup_Id_Check(userid) {
     // let isDupChecked = false;
     let bool = false;
 
     if (!validateId(userid)) {
         Make_Toast('아이디: 영문/숫자 4~12자 이내.');
-        return false;
-    }
-
-    if (!validatePw(pw_2)) {
-        Make_Toast('비밀번호: 영문/숫자 4~12자 이내.');
         return false;
     }
 

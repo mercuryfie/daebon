@@ -328,8 +328,9 @@ async function Make_Html(data){
         $('#inout_m_wrap').css('width','80vw');
         $('#inout_m_wrap table').css('width','79vw');
         $('#inout_m_wrap').css('height','600px');
-        $('#cpage').data('page',(data.page+1))
+        $('#cpage').data('page',(data.page+1));
     }else{
+        $('#tcnt').innerHTML('page',(data.page+1));
         Make_Toast('검색된 데이터가 없습니다.');
         // html = '<tr><td class="ltThead" colspan="9">검색된 데이터가 없습니다.</td></tr>';
     }

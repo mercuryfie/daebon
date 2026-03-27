@@ -8,28 +8,72 @@ $(document).ready(function() {
         $('#add_half_wrap').css('display','none');
     });
 
+    let currentInput = null;
+
+    $(document).on('focus', 'input[name="add_type"], input[name="add_amount"]', function () {
+        currentInput = $(this);
+    });
+
     $(document).on('click', '.btn_key', function () {
+        if (!currentInput) return;
+
         const btnName = $(this).attr('name');
         const btnValue = $(this).val();
-        const $input = $('input[name="add_amount"]');
 
-        let current = $input.val() || '';
+        let current = currentInput.val() || '';
 
-        // 숫자 버튼
         if (btnName == 'btn_num') {
-            $input.val(current + btnValue);
+            currentInput.val(current + btnValue);
         }
 
-        // 전체 초기화
         if (btnName == 'btn_reset') {
-            $input.val('');
+            currentInput.val('');
         }
 
-        // 한 글자 삭제
         if (btnName == 'btn_del') {
-            $input.val(current.slice(0, -1));
+            currentInput.val(current.slice(0, -1));
         }
     });
+
+    // $(document).on('click', '.btn_key', function () {
+    //     const btnName = $(this).attr('name');
+    //     const btnValue = $(this).val();
+    //     const $input = $('input[name="add_type"]');
+    //
+    //     let current = $input.val() || '';
+    //
+    //     if (btnName == 'btn_num') {
+    //         $input.val(current + btnValue);
+    //     }
+    //
+    //     if (btnName == 'btn_reset') {
+    //         $input.val('');
+    //     }
+    //
+    //     if (btnName == 'btn_del') {
+    //         $input.val(current.slice(0, -1));
+    //     }
+    // });
+    //
+    // $(document).on('click', '.btn_key', function () {
+    //     const btnName = $(this).attr('name');
+    //     const btnValue = $(this).val();
+    //     const $input = $('input[name="add_amount"]');
+    //
+    //     let current = $input.val() || '';
+    //
+    //     if (btnName == 'btn_num') {
+    //         $input.val(current + btnValue);
+    //     }
+    //
+    //     if (btnName == 'btn_reset') {
+    //         $input.val('');
+    //     }
+    //
+    //     if (btnName == 'btn_del') {
+    //         $input.val(current.slice(0, -1));
+    //     }
+    // });
 //     const data = {
 //         stype : '',
 //         page : $('#cpage').data('page')

@@ -66,6 +66,13 @@ $(document).ready(function() {
         go_linkMalls();
     });
 
+    $(document).on('click','button[name="btn_delLog"]',async function(){
+        if(window.confirm('삭제하시겠습니까?')==true) {
+            let seq = $(this).data('seq');
+            let typ = $(this).data('type');
+            Del_Log(seq,typ);
+        }
+    });
 
 });
 
@@ -78,11 +85,17 @@ async function Make_Html(){
     if(arr.length > 0) {
         $.each(arr, function (index, el) {
             html += `
-                    <tr>
+                    <tr id="${el.shoptyp}_${el.seq}">
                         <td class="ltTbody">${el.shop_name}</td>
                         <td class="ltTbody">${el.status}</td>
                         <td class="ltTbody">${el.content}</td>
+                        <td class="ltTbody">${el.period}</td>
                         <td class="ltTbody">${el.indate}</td>
+                        <td class="ltTbody">
+                            <button type="button" class="btnType3" name="btn_delLog" data-seq="${el.seq}" data-type="${el.shoptyp}">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
                     </tr>
             `;
         });
@@ -115,5 +128,26 @@ async function Load_Data(code){
         stop_spinner();
     }
     return data;
+}
+
+async function Del_Log(seq,typ){
+    try {
+        start_spinner();
+        let dataarr = {seq : seq,styp:typ};
+        let url = APIURL + '/Del_Mall_Log';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            Make_Toast('삭제 하였습니다.');
+            $('#' + typ + '_' + seq).remove();
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+        stop_spinner();
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+        stop_spinner();
+    }
 }
 

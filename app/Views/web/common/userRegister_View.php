@@ -58,7 +58,7 @@
 <!--            </div>-->
         </div>
         <div class="lastBox flexType5-1">
-            <button type="button" id="submit_btn" name="submit_btn" class="btnType1 mr10" onclick="go_userList();">목록</button>
+            <button type="button" id="list_btn" name="list_btn" class="btnType1 mr10" onclick="go_userList();">목록</button>
             <button type="button" id="submit_btn" name="submit_btn" class="btnType2" onclick="add_Account();">확인</button>
         </div>
     </div>

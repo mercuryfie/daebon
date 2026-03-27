@@ -469,7 +469,7 @@
                             <p class="amount mr10">현 재고량</p>
                             <div class="fcircle fcircle2"></div>
                         </div>
-                        <p class="unit">(단위:%)</p>
+                        <p class="unit">(단위:g)</p>
                     </div>
                     <div class="fcbox fcbox2">
     <!--                    <p class="label">(단위:건)</p>-->
@@ -477,16 +477,7 @@
                         <canvas id="m_barChart"></canvas>
                     </div>
                     <div class="pagebox" id="material">
-                        <div class="pages" data-page="1"></div>
-                        <div class="pages" data-page="2"></div>
-                        <div class="pages" data-page="3"></div>
-                        <div class="pages" data-page="4"></div>
-                        <div class="pages" data-page="5"></div>
-                        <div class="pages" data-page="6"></div>
-                        <div class="pages" data-page="7"></div>
-                        <div class="pages" data-page="8"></div>
-                        <div class="pages" data-page="9"></div>
-                        <div class="pages" data-page="10"></div>
+                    <?=$body['material_html'];?>
                     </div>
                 </div>
             </div>
@@ -503,22 +494,13 @@
                             <div class="fcircle fcircle3"></div>
                             <p class="amount mr10">현 재고량</p>
                         </div>
-                        <p class="unit">(단위:%)</p>
+                        <p class="unit">(단위:개 or g)</p>
                     </div>
                     <div class="fcbox fcbox2">
                         <canvas id="p_barChart"></canvas>
                     </div>
                     <div class="pagebox" id="goods">
-                        <div class="pages" data-page="1"></div>
-                        <div class="pages" data-page="2"></div>
-                        <div class="pages" data-page="3"></div>
-                        <div class="pages" data-page="4"></div>
-                        <div class="pages" data-page="5"></div>
-                        <div class="pages" data-page="6"></div>
-                        <div class="pages" data-page="7"></div>
-                        <div class="pages" data-page="8"></div>
-                        <div class="pages" data-page="9"></div>
-                        <div class="pages" data-page="10"></div>
+                    <?=$body['product_html'];?>
                     </div>
             </div>
         </section>

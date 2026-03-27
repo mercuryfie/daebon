@@ -41,7 +41,6 @@ class SsgAPI
             if ($method === 'GET') {
                 $options['query'] = $params;
             } else {
-                // CI4의 'json' 옵션은 내부적으로 json_encode 및 Content-Type 설정을 수행합니다.
                 $options['json'] = $params;
             }
         }
@@ -53,18 +52,14 @@ class SsgAPI
 
             if (isset($result['resultCode']) && $result['resultCode'] !== 'SUCCESS') {
                 $errorMsg = $result['resultDesc'] ?? $result['resultMessage'] ?? 'Error';
-
                 put_Shop_Api_Log($this->shopType, 'Error', $this->baseUrl, $path, $params, $method, json_encode($errorMsg));
-
                 throw new Exception("SSG API 응답 실패: " . $errorMsg);
             }
-
             put_Shop_Api_Log($this->shopType, 'Success', $this->baseUrl, $path, $params, $method, $body);
-
             return $result;
-
         } catch (Exception $e) {
-            put_Shop_Api_Log($this->shopType, 'Error', $this->baseUrl, $path, $params, $method,$e->getMessage());
+            $errorData = json_encode(['error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+            put_Shop_Api_Log($this->shopType, 'Error', $this->baseUrl, $path, $params, $method, $errorData);
             log_message('error', '[SsgAPI] Request Failed: ' . $e->getMessage());
             throw $e;
         }
@@ -99,7 +94,7 @@ class SsgAPI
                 if (empty($d['addProductInfo'])) continue;
                 $Info = json_decode($d['addProductInfo'], true, 512, JSON_THROW_ON_ERROR);
 
-                $path = "/api/pd/{$this->apiVersion}/updateOrderSubjectManage.ssg";
+                $path = $this->baseUrl . "/api/pd/{$this->apiVersion}/saveWblNo.ssg";
                 $params = [
                     'requestOrderSubjectManage' => [
                         'shppNo' => $Info['shppNo'],
@@ -111,6 +106,20 @@ class SsgAPI
             return $results;
         } catch (\Exception $e) {
             log_message('error', '[confirmOrder 전체 에러] ' . $e->getMessage());
+            return ['result' => 'error', 'message' => $e->getMessage()];
+        }
+    }
+
+    public function putDeliveryInfo($params)
+    {
+        try {
+            print('start');
+            print_r($params);
+            $path = $this->baseUrl . "/api/pd/{$this->apiVersion}/saveWblNo.ssg";
+            $results = $this->sendRequest('POST', $path, $params);
+            return $results;
+        } catch (\Exception $e) {
+            log_message('error', '[DeliveryInput 에러] ' . $e->getMessage());
             return ['result' => 'error', 'message' => $e->getMessage()];
         }
     }

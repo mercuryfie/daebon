@@ -9,112 +9,118 @@ use Exception;
 class LotteOnApi
 {
     protected CURLRequest $client;
-    // 롯데온 OpenAPI 실제 호출 도메인
+
     protected string $baseUrl = "https://openapi.lotteon.com/v1/openapi";
-
-    // 롯데온 판매자센터에서 발급받은 OpenAPI 인증키 (유효기간 1년)
     protected string $apiKey;
-
     protected string $shopType = 'type13';
 
     public function __construct()
     {
-        // .env 등에서 키 관리 권장
         $this->apiKey = '5d5b2cb498f3d20001665f4eea2006a8989244d7b49e6afc8117d981';
 
         $this->client = Services::curlrequest([
-            'timeout'     => 30,
-            'http_errors' => false,
-            'headers'     => [
-                'Authorization' => 'Bearer ' . $this->apiKey,
-                'Accept' => "application/json",
-                'Accept-Language' =>'ko',
-                'X-Timezone' => 'GMT+09:00',
-                'Content-Type' => 'application/json'
-            ],
+            'timeout'     => 30
         ]);
     }
 
-    /**
-     * API 호출 공통 함수 (NaverApi 구조 유지)
-     */
+
     protected function sendRequest(string $method, string $path, array $params = []): array
     {
         $url = $this->baseUrl . (str_starts_with($path, '/') ? $path : '/' . $path);
 
-        $options = [];
+        $options = [
+            'http_errors' => false,
+            'headers'     => [
+                'Authorization'   => 'Bearer ' . $this->apiKey,
+                'Accept'          => 'application/json',
+                'Accept-Language' => 'ko',
+                'X-Timezone'      => 'GMT+09:00',
+                'Content-Type'    => 'application/json',
+                'User-Agent'      => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) LotteOn-Client/1.0',
+                'Expect'          => ''
+            ]
+        ];
 
         if (strtoupper($method) === 'GET') {
             $options['query'] = $params;
         } else {
-            $options['json'] = $params;
-
-            // x-www-form-urlencoded가 필요한 특수 상황 대비
-            if (isset($params['grant_type'])) {
-                unset($options['json']);
-                $options['form_params'] = $params;
-            }
+            $options['body'] = json_encode($params, JSON_UNESCAPED_UNICODE);
         }
 
         try {
             $response = $this->client->request($method, $url, $options);
         } catch (Exception $e) {
             log_message('error', "[LotteOnAPI] Request Failed: " . $e->getMessage());
-            throw new Exception("API 호출 중 통신 오류가 발생했습니다.");
+            throw new Exception("API 호출 중 통신 오류가 발생했습니다. : " . $e->getMessage());
         }
 
         $statusCode = $response->getStatusCode();
         $body = (string)$response->getBody();
         $decoded = json_decode($body, true);
 
-        // 롯데온 성공 기준: HTTP 200 이면서 returnCode가 '0000'
         $returnCode = $decoded['returnCode'] ?? 'Unknown';
 
         if ($statusCode == 200 && $returnCode === '0000') {
             put_Shop_Api_Log($this->shopType, 'Success', $this->baseUrl, $path, $params, $method, $body);
         } else {
-            $errorMsg = $decoded['message'] ?? $decoded['returnMessage'] ?? 'Unknown_Error';
-            $t_msg = ['response' => "[LotteOnAPI] Error ({$statusCode}): {$returnCode} - {$errorMsg}"];
+            if (json_last_error() !== JSON_ERROR_NONE || empty($decoded)) {
+                $errorMsg = "Raw Body: " . ($body ?: '응답 본문이 비어있음(Empty Response)');
+            } else {
+                $msg = $decoded['message'] ?? $decoded['returnMessage'] ?? '';
+                $errorMsg = $msg ?: json_encode($decoded, JSON_UNESCAPED_UNICODE);
+            }
 
-            put_Shop_Api_Log($this->shopType, 'Error', $this->baseUrl, $path, $params, $method, json_encode($t_msg));
+            $t_msg = ['response' => "[LotteOnAPI] Error ({$statusCode}): {$returnCode} - {$errorMsg}"];
+            put_Shop_Api_Log($this->shopType, 'Error', $this->baseUrl, $path, $params, $method, json_encode($t_msg, JSON_UNESCAPED_UNICODE));
             log_message('error', "[LotteOnAPI] Error ($statusCode): $returnCode - $errorMsg");
 
-            $decoded = []; // 에러 시 빈 배열 반환
+            $decoded = [];
         }
 
         return $decoded ?? [];
     }
 
+    public function putDeliveryInfo(array $orInfo): array
+    {
+        $uri = "/delivery/v1/SellerDeliveryProgressStateInform";
+        return $this->sendRequest('POST', $uri, $orInfo);
+    }
 
     public function putOrderConfirm(string $orcode){
         $uri = "/delivery/v1/SellerIfCompleteInform";
 
-        $params = [
-            'dvRtrvDvsCd' => 'DV',
-            'odNo' => $orcode,
-            'procSeq' => 1,
-            'ifCplYN' => 'Y'
-        ];
+        $order_m = model('Order_m');
+        $iRs = $order_m->Load_Order_Info($orcode);
+        $spcode = (fn_ArrayCnt($iRs)>0) ? $iRs[0]['spcode'] : '';
+        $Rs = $order_m->Load_Order_Product($orcode);
+        if (fn_ArrayCnt($Rs) <= 0) return '';
+        $params = [];
+        foreach ($Rs as $d) {
+            $Info = json_decode($d['addProductInfo'], true, 512, JSON_THROW_ON_ERROR);
+            $t_arr = [
+                'dvRtrvDvsCd' => 'DV',
+                'odNo' => $spcode,
+                'odSeq' => $Info['odSeq'],
+                'procSeq' => $Info['procSeq'],
+                'ifCplYN'=> 'Y'
+            ];
+            $params['ifCompleteList'][] = $t_arr;
+        }
+
         return $this->sendRequest('POST', $uri, $params);
     }
 
 
-    /**
-     * [API No. 209] 출고/회수지시(주문정보) 조회
-     * 문서: https://api.lotteon.com/apiService/?apiNo=209
-     */
     public function getOrderList(string $startDate, string $endDate): array
     {
-        // 209번 API의 실제 경로
         $uri = "/delivery/v1/SellerDeliveryOrdersSearch";
 
         $params = [
             'srchStrtDt' => $startDate,
             'srchEndDt'  => $endDate,
-            'odPrgsStepCd'    => 11,
-            'odTypCd'         => 10
+            'odPrgsStepCd' => '11',
+            'odTypCd' => '10'
         ];
-
         return $this->sendRequest('POST', $uri, $params);
     }
 

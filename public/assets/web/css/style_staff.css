@@ -792,7 +792,7 @@ input[type="radio"] {
 /* pop_AddHalfProduct_View start -------------------------------- */
 
 .add_half_wrap1 {
-    /*display: none;*/
+    display: none;
     width: 100vw;
     height: 100vh;
     background-color: #00000080;

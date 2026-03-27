@@ -165,50 +165,82 @@ class PackingController extends BaseController
     public function waybill()
     {
         $sessinarr = $this->GetSessionData();
-        $orcode  = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
+        $orcode = ($this->request->getGet('cd') == '') ? '' : $this->request->getGet('cd');
         $chkPrint = ($this->request->getGet('cp') == '') ? '' : $this->request->getGet('cp');
-        if($sessinarr['islogin']==false) {
+        if ($sessinarr['islogin'] == false) {
             return redirect()->to('/member/login');
-        }else if($orcode==''){
+        } else if ($orcode == '') {
             fn_AlertClose('잘못된 접근입니다.');
-        }else {
-            if($chkPrint=='New'){
+        } else {
+            if ($chkPrint == 'New') {
                 $retyp = 1;
-            }else{
+            } else {
                 $order_m = model('Order_m');
-                $retval = get_Delivery_ConfirmByOrcode($order_m,$orcode);
-                if(fn_ArrayCnt($retval)<=0){
+                $retval = get_Delivery_ConfirmByOrcode($order_m, $orcode);
+                if (fn_ArrayCnt($retval) <= 0) {
 
-                }else {
+                } else {
                     $delicode = $retval['deli_code'];
                 }
-                $retyp = ($delicode=='') ? 1 : 2;
+                $retyp = ($delicode == '') ? 1 : 2;
             }
-
 
             $lotte = new LotteDeliveryApi();
             $data = $lotte->Get_Delivery_Info($orcode, $retyp);
             if ($data['result'] != 'ok') {
                 fn_AlertClose('Error : ' . $data['message']);
             } else {
-                $metaarr = [
-                    'h_title' => H_TITLE,
-                    'h_type' => 1
-                ];
+                $delivery_m = model('Delivery_m');
+                $fields = ['a.fk_opcode as opcode', 'b.deli_step', 'b.deli_code', 'b.deli_prn_date', 'b.deli_end_date', 'c.addInfo', 'c.tcnt', 'c.shoptyp', 'c.shopmethod', 'c.spcode', 'd.addProductInfo', 'd.sgcode'];
+                $dRs = $delivery_m->Load_DeliveryPackageByOrCode($orcode, $fields);
+                if (fn_ArrayCnt($dRs) <= 0) {
+                    fn_AlertClose('잘못된 송장정보 입니다.');
+                } else {
+                    $result = fn_Put_Delivery_Info($dRs, $orcode);
+                    $metaarr = [
+                        'h_title' => H_TITLE,
+                        'h_type' => 1
+                    ];
 
-                $form = new Form;
-                $main_data = [
-                    'meta' => $form->fnMake_Meta($metaarr),
-                    'header' => $form->fnMake_Header($sessinarr),
-                    'left' => $form->fnMake_Left(),
-                    'body' => $data['info'],
-                    'footer' => $form->fnMake_Fooeter($sessinarr)
-                ];
+                    $product = [];
+                    $totalCnt = 0;
+                    $fields = ['fk_pdcode', 'sgcode', 'sgname', 'gprice', 'gcnt', 'shop_name'];
+                    $sRs = $delivery_m->Load_Delivery_Product_Info($orcode, $fields);
+                    if (fn_ArrayCnt($sRs) > 0) {
+                        $i = 1;
+                        foreach ($sRs as $f) {
+                            $t_arr = [
+                                'num' => $i,
+                                'sgname' => $f['sgname'],
+                                'gcnt' => $f['gcnt'],
+                                'spname' => $f['shop_name']
+                            ];
+                            $totalCnt = $totalCnt + $f['gcnt'];
+                            $product[] = $t_arr;
+                            $i++;
+                        }
+                    }
 
-                return view('web/include/pop_WaybillForm_View', $main_data);
+
+                    $main_data = [
+                        'info' => $data['info'],
+                        'product' => $product,
+                        'totalCnt' => $totalCnt
+                    ];
+
+                    $form = new Form;
+                    $main_data = [
+                        'meta' => $form->fnMake_Meta($metaarr),
+                        'header' => $form->fnMake_Header($sessinarr),
+                        'left' => $form->fnMake_Left(),
+                        'body' => $main_data,
+                        'footer' => $form->fnMake_Fooeter($sessinarr)
+                    ];
+
+                    return view('web/include/pop_WaybillForm_View', $main_data);
+                }
             }
         }
     }
-
 
 }

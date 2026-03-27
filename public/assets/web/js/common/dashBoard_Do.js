@@ -8,6 +8,13 @@ let $g_pages;
 let g_totalPages;
 let g_currentPage = 0;
 
+const interval_Weather = 600000;
+const interval_Notice =  1000000;
+const interval_Week =  100000;
+const interval_MainData =  100000;
+const interval_Material =  30000;
+const interval_Product =  30000;
+
 $(document).ready(function() {
     start_realtime_clock();
     start_delivery_cooldown();
@@ -73,8 +80,8 @@ function initChart() {
                 },
                 y: {
                     beginAtZero: false,
-                    min:100,
-                    max:700,
+                    min:0,
+                    max:100,
                     ticks: {color:'#ececec'},
                     grid: {color: '#5c5c5c'}
                 }
@@ -122,7 +129,7 @@ function initChart() {
             responsive: true,
             indexAxis: 'y',
             scales: {
-                x: { ticks: { color: '#ececec' }, grid: { color: '#5c5c5c' }, max: 450 },
+                x: { ticks: { color: '#ececec' }, grid: { color: '#5c5c5c' }, max: 20000 },
                 y: { ticks: { color: '#ececec' }, grid: { color: '#5c5c5c' } }
             },
             plugins: { legend: { display: false } }
@@ -156,7 +163,7 @@ function initChart() {
             responsive: true,
             indexAxis: 'y',
             scales: {
-                x: { ticks: { color: '#ececec' }, grid: { color: '#5c5c5c' }, max: 450 },
+                x: { ticks: { color: '#ececec' }, grid: { color: '#5c5c5c' }, max: 5000 },
                 y: { ticks: { color: '#ececec' }, grid: { color: '#5c5c5c' } }
             },
             plugins: { legend: { display: false } }
@@ -252,7 +259,7 @@ function Set_Data(){
 
 
     update();
-    setInterval(update, 10000);
+    setInterval(update, interval_MainData);
 
 }
 
@@ -281,7 +288,7 @@ function Set_Weather(){
     }
 
     update();
-    setInterval(update, 600000);
+    setInterval(update, interval_Weather);
 }
 
 async function Start_Notice() {
@@ -308,25 +315,34 @@ async function Start_Notice() {
     console.log("공지 업데이트");
     setInterval(function() {
         Load_Notice();
-    }, 100000);
+    }, interval_Notice);
 }
 
 async function refreshWeekChart() {
-    function update() {
+    async function update() {
+        let arr = await Load_Week_Order();
+        console.log(arr);
         if (weekChart) {
-            weekChart.data.labels = ['월', '화', '수', '목', '금', '토', '일'];
+            let chartValues = [
+                arr.Sunday || 0,
+                arr.Monday || 0,
+                arr.Tuesday || 0,
+                arr.Wednesday || 0,
+                arr.Thursday || 0,
+                arr.Friday || 0,
+                arr.Saturday || 0
+            ];
 
-            weekChart.data.datasets[0].data = Array.from({length: 7}, () => Math.floor(Math.random() * 300) + 300);
-            weekChart.data.datasets[1].data = Array.from({length: 7}, () => Math.floor(Math.random() * 300) + 200);
+            weekChart.data.labels = ['일','월', '화', '수', '목', '금', '토'];
+            weekChart.data.datasets[0].data = chartValues;
             weekChart.update();
 
             weekChart.update();
             console.log("주간 현황 차트 업데이트");
         }
     }
-
     update();
-    setInterval(update, 10000);
+    setInterval(update, interval_Week);
 }
 
 
@@ -334,7 +350,7 @@ async function refreshMaterialChart() {
     $m_pages = $('#material .pages');
     m_totalPages = $m_pages.length;
 
-    function update() {
+    async function update() {
         if (!$m_pages || m_totalPages === 0) {
             $m_pages = $('#material .pages');
             m_totalPages = $m_pages.length;
@@ -349,16 +365,12 @@ async function refreshMaterialChart() {
         let pageNum = $target.data('page');
 
         if (materialChart) {
-            //let arr = await Load_Material(pageNum,m_totalPages);
-
-
-            const newLabels = ['전체', '결명자', '계피', '구기자', '노니', '당귀', '대추', '도꼬마리', '도라지', '돼지감자'];
+            let arr = await Load_Material_Stock(pageNum,m_totalPages);
+            console.log(arr);
+            const newLabels = arr.namearr;
             materialChart.data.labels = newLabels;
-
-            // 랜덤 데이터 주입 (테스트용)
-            materialChart.data.datasets[0].data = Array.from({length: 10}, () => Math.floor(Math.random() * 100) + 150);
-            materialChart.data.datasets[1].data = Array.from({length: 10}, () => Math.floor(Math.random() * 200));
-
+            materialChart.data.datasets[0].data = arr.invenarr;
+            materialChart.data.datasets[1].data = arr.stockarr;
             materialChart.update();
         }
         m_currentPage++;
@@ -366,14 +378,14 @@ async function refreshMaterialChart() {
     }
 
     update();
-    setInterval(update, 10000);
+    setInterval(update, interval_Material);
 }
 
 async function refreshGoodsChart() {
     $g_pages = $('#goods .pages');
     g_totalPages = $g_pages.length;
 
-    function update() {
+    async function update() {
         if (!$g_pages || g_totalPages === 0) {
             $g_pages = $('#goods .pages');
             g_totalPages = $g_pages.length;
@@ -388,28 +400,79 @@ async function refreshGoodsChart() {
 
         let pageNum = $target.data('page');
         if (goodsChart) {
-            //let arr = await Load_Material(pageNum,m_totalPages);
-            const newLabels = ['전체', '결명자', '계피', '구기자', '노니', '당귀', '대추', '도꼬마리', '도라지', '돼지감자'];
+            let arr = await Load_Product_Stock(pageNum,g_totalPages);
+            const newLabels = arr.namearr;
             goodsChart.data.labels = newLabels;
-
-            // 랜덤 데이터 주입 (테스트용)
-            goodsChart.data.datasets[0].data = Array.from({length: 10}, () => Math.floor(Math.random() * 100) + 150);
-            goodsChart.data.datasets[1].data = Array.from({length: 10}, () => Math.floor(Math.random() * 200));
-
+            goodsChart.data.datasets[0].data = arr.invenarr;
+            goodsChart.data.datasets[1].data = arr.stockarr;
             goodsChart.update();
         }
         g_currentPage++;
         console.log("재품재고 차트 업데이트");
     }
     update();
-    setInterval(update, 10000);
+    setInterval(update, interval_Product);
 }
 
-async function Load_Material(page,total){
-    let data = {};
+async function Load_Material_Stock(page,total){
+    let r_arr = {};
     try {
         let dataarr = {page:page,total:total};
         let url = APIURL + '/Load_DashBoard_Material';
+        let result = await Load_API_Auth(url, dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        } else if(result.get('status') == 'ok') {
+            let data = result.get('data');
+            narr = (data && data.name) ? data.name : [];
+            sarr = (data && data.stock) ? data.stock : [];
+            iarr = (data && data.inven) ? data.inven : [];
+            r_arr = {
+                namearr : narr,
+                stockarr : sarr,
+                invenarr : iarr
+            };
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+    }
+    return r_arr;
+}
+
+async function Load_Product_Stock(page,total){
+    let r_arr = {};
+    try {
+        let dataarr = {page:page,total:total};
+        let url = APIURL + '/Load_DashBoard_Product';
+        let result = await Load_API_Auth(url, dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        } else if(result.get('status') == 'ok') {
+            let data = result.get('data');
+            narr = (data && data.name) ? data.name : [];
+            sarr = (data && data.stock) ? data.stock : [];
+            iarr = (data && data.inven) ? data.inven : [];
+            r_arr = {
+                namearr : narr,
+                stockarr : sarr,
+                invenarr : iarr
+            };
+        }else{
+            Make_Toast(result.get('message') + "[" + result.get('status') + "]");
+        }
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+    }
+    return r_arr;
+}
+
+async function Load_Week_Order(){
+    let data = {};
+    try {
+        let dataarr = {};
+        let url = APIURL + '/Load_DashBoard_WeekOrder';
         let result = await Load_API_Auth(url, dataarr);
         if (result.get('status') == 'NoLogin') {
             go_login();
@@ -423,6 +486,7 @@ async function Load_Material(page,total){
     }
     return data;
 }
+
 
 
 async function Load_Data(){

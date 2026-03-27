@@ -33,8 +33,8 @@
                         <tr class="" name="this_item">
                             <th>반제품코드</th>
                             <th>반제품명</th>
-                            <th>갯수/무게</th>
-                            <th>갯수/무게</th>
+                            <th>생산무게</th>
+                            <th>개입/무게</th>
                             <th>입력</th>
                         </tr>
                         <tr class="" name="this_item">
@@ -46,15 +46,11 @@
                             </td>
                             <td>1150g</td>
                             <td>
-                                <button type="button" class="btn_gray active mr10 " value="1" name="">25</button>
-                                <button type="button" class="btn_gray mr10" value="1" name="">50</button>
-                                <button type="button" class="btn_gray mr10" value="1" name="">100</button>
-                                <button type="button" class="btn_gray mr10" value="1" name="">100</button>
-                                <button type="button" class="btn_gray mr10" value="1" name="">100</button>
+                                <input type="text" class="inputBorder mr10" name="add_type" id="add_type" >
 
                             </td>
                             <td>
-                                <input type="text" class="inputBorder mr10" name="add_amount" id="">팩
+                                <input type="text" class="inputBorder mr10" name="add_amount" id="add_amount">팩
                             </td>
                         </tr>
                     </table>

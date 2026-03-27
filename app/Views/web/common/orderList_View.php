@@ -27,7 +27,7 @@
                     <a href="javascript:;" class="period">1개월</a>
                     <a href="javascript:;" class="period">3개월</a>
                 </div>
-                <div class="date_boxtc6 flexType2">
+                <div class="date_boxtc6 ml20 flexType2">
                     <label for="date1" class="dateLabel1">
                         <input type="text" id="s_date" name="date1" class="inputType160 date1 datepicker" placeholder="2025/01/01" >
                         <i class="fa-regular fa-calendar calicon" id="calicon1-1"></i>
@@ -51,7 +51,7 @@
                     <button type="button" class="btnType1 mr10" id="btn_ininstruct">포장지시</button>
                     <button type="button" class="btnType1 mr10" id="btn_orderconfirm">주문확인처리</button>
 <!--                    <button type="button" class="btnType1 mr10" id="btn_package">묶음포장지시</button>-->
-<!--                    <button type="button" class="btnType1 mr10" onclick="upload_Xlx();">엑셀업로드</button>-->
+                    <button type="button" class="btnType1 mr10" onclick="upload_Xlx();">엑셀주문등록</button>
                     <button type="button" class="btnType1 mr10">엑셀 다운</button>
                     <button type="button" class="btnType1 " onclick="template_Download();">양식 다운</button>
                 </div>

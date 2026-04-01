@@ -45,7 +45,7 @@ class ApiProduceController extends BaseController
                         'fk_gicode' => $d['fk_gicode'],
                         'gname' => $d['gname'],
                         'step_name' => $d['step_name'],
-                        'indate' => $d['indate'],
+                        'indate' => fn_Short_Date($d['indate']),
                         'total_input' => $d['total_input'],
                         'total_output' => $d['total_output'],
                         'stock_amount' => $d['stock_amount']
@@ -480,7 +480,7 @@ class ApiProduceController extends BaseController
         }else{
             $stype = array_key_exists('stype', $search) ? $search['stype'] : '';
             $page = array_key_exists('page', $search) ? $search['page'] : 1;
-            $limit = 10;
+            $limit = 15;
             $offset = ($page - 1) * $limit;
             $param = [
                 'limit' => $limit,

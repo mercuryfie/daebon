@@ -26,7 +26,7 @@
             <div class="area area3 flexType2">
                 <p class="must"></p>
                 <p class="title">현재 비밀번호</p>
-                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_now" name="pw_now" value="<?=$body['user']['passwd'];?>">
+                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_now" name="pw_now" value="">
             </div>
             <div class="area area3 flexType2">
                 <p class="notmust"></p>

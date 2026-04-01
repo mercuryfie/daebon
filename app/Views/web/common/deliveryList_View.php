@@ -18,12 +18,12 @@
             <div class="area1 flexType3">
                 <div class="left flexType2">
 <!--                        <p class="title">기간</p>-->
-                    <a href="javascript:;" class="period">오늘</a>
+                    <a href="javascript:;" class="period active">오늘</a>
                     <a href="javascript:;" class="period">1주일</a>
                     <a href="javascript:;" class="period">1개월</a>
                     <a href="javascript:;" class="period">3개월</a>
-                    <a href="javascript:;" class="period">전체</a>
-                    <div class="date_boxtc6 flexType2">
+<!--                    <a href="javascript:;" class="period">전체</a>-->
+                    <div class="date_boxtc6 flexType2 ml10">
                         <label for="date1" class="dateLabel1">
                             <input type="text" id="s_date" name="date1" class="inputType160 date1 datepicker" >
                             <i class="fa-regular fa-calendar calicon" id="calicon1-1"></i>

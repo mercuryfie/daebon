@@ -19,6 +19,11 @@
                         <input type="text" id="s_date" name="date1" class="inputType160 date1 datepicker"  >
                         <i class="fa-regular fa-calendar calicon" id="calicon1-1"></i>
                     </label>
+                    <p class="dd">~</p>
+                    <label for="date1" class="dateLabel1">
+                        <input type="text" id="e_date" name="date2" class="inputType160 date1 datepicker"  >
+                        <i class="fa-regular fa-calendar calicon" id="calicon1-1"></i>
+                    </label>
                 </div>
 <!--                <button type="button" class="btnType1 mr10" id="btn_showlog">로그보기</button>-->
 <!--                <button type="button" class="btnType2" id="btn_mall">주문수집</button>-->

@@ -66,6 +66,7 @@ $(document).ready(function() {
         const fp = flatpickr(elem, {
             dateFormat: "Y-m-d",
             minDate: "2024-01-01",
+            defaultDate: new Date(),
             static: true,
             appendTo: elem.parentNode,
             onClose: function(selectedDates, dateStr, instance) {

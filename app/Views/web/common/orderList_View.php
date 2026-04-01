@@ -22,7 +22,7 @@
         <div class="areaBox areaBox1 flexType3">
             <div class="area1 flexType2">
                 <div class="left2 flexType2">
-                    <a href="javascript:;" class="period">오늘</a>
+                    <a href="javascript:;" class="period active">오늘</a>
                     <a href="javascript:;" class="period">1주일</a>
                     <a href="javascript:;" class="period">1개월</a>
                     <a href="javascript:;" class="period">3개월</a>

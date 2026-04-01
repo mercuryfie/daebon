@@ -15,7 +15,7 @@ class ReportController extends BaseController
         $this->Check_Auth($Auth);
     }
 
-    public function managerEquipment(){
+    public function equipmentControl(){
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
@@ -36,11 +36,11 @@ class ReportController extends BaseController
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/common/equipment_View', $main_data);
+            return view('web/common/equipmentControl_View', $main_data);
         }
     }
 
-    public function regEquipment(){
+    public function equipmentReg(){
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
@@ -61,11 +61,11 @@ class ReportController extends BaseController
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/common/equipment_View', $main_data);
+            return view('web/common/equipmentReg_View', $main_data);
         }
     }
 
-    public function locationEquipment(){
+    public function equipmentLoca(){
         $sessinarr = $this->GetSessionData();
         if($sessinarr['islogin']==false) {
             return redirect()->to('/member/login');
@@ -86,7 +86,7 @@ class ReportController extends BaseController
                 'footer' => $form->fnMake_Fooeter($sessinarr)
             ];
 
-            return view('web/common/equipment_View', $main_data);
+            return view('web/common/equipmentLoca_View', $main_data);
         }
     }
 

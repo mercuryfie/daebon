@@ -30,11 +30,23 @@ class Member_m extends Model
         return $Cnt;
     }
 
+    public function Cur_Pw_Check($uid,$pw_now)
+    {
+        $sql = "SELECT COUNT(*) AS Cnt FROM tbl_member WHERE is_use= 1 AND uid = :UID: AND passwd = PASSWORD(:PASSWD:);";
+        $bindparam = [
+            'UID' => (int)$uid,
+            'PASSWD' => $pw_now
+        ];
+        $Query = $this->db->query($sql, $bindparam);
+        $row = $Query->getRow();
+        $Cnt = ($row) ? $row->Cnt : 0;
+        return $Cnt;
+    }
 
     public function Load_UserIDAPWD_Info($Param,$fields=['ALL'])
     {
         $separated_val = fn_Make_Fields($fields);
-        $sql = "SELECT {$separated_val} FROM tbl_member WHERE is_use=:ISUSE: and userid = :USERID:  AND passwd = PASSWORD(:PWD:);";
+        $sql = "SELECT {$separated_val} FROM tbl_member WHERE is_use=:ISUSE: and userid = :USERID: AND passwd = PASSWORD(:PWD:);";
 
         $bindparam = [
             'USERID' => $Param['userid'],

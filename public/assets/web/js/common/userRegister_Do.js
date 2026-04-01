@@ -24,13 +24,12 @@ async function add_Account() {
     let userid = $('#userid').val();
     let pw_2 = $('#pw_2').val();
 
-
-    let dupResult = await Dup_Id_Check(userid, pw_2);
+    let dupResult = await Dup_Id_Check(userid);
     if (dupResult == false ) {
         Make_Toast('아이디 중복확인을 먼저 해주세요.');
         return;
     } else if (userid != lastCheckedUserId) {
-        Make_Toast('아이디 중복확인 다시 해주세요.');
+        Make_Toast('아이디 중복확인을 다시 해주세요.');
         return;
     } else if (dupResult == true){
         try {

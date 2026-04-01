@@ -171,8 +171,8 @@ async function Mod_Content() {
             };
             let bool = await Mod_NoticeInfo(dataarr);
             if (bool == true) {
-                Make_Toast('등록하였습니다');
-                // go_noticeList();
+                Make_Toast('수정하였습니다');
+                go_noticeList();
             } else {
                 Make_Toast('등록에 실패했습니다.');
             }

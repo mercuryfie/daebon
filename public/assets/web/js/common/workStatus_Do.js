@@ -16,7 +16,6 @@ $(document).ready(function() {
         pop_OrderRoastForm(url);
     });
 
-
     $('.period').click(function(e) {
         e.preventDefault();
         $('.period').removeClass('active');

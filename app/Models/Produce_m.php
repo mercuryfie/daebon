@@ -47,7 +47,7 @@ class Produce_m extends Model
 
     public function Load_dashboardProduce_Info(){
         $sql = "SELECT COUNT(CASE WHEN is_complete = 0 AND step_now=0 THEN 1 END) AS count_ready,COUNT(CASE WHEN is_complete < 2 AND step_now > 0 THEN 1 END) AS count_ing,COUNT(CASE WHEN is_complete = 2 THEN 1 END) AS count_complete ";
-        $sql .= "FROM tbl_instructions WHERE is_del = :ISDEL: AND DATE_FORMAT(indate, '%Y-%m-%d') = CURDATE() ";
+        $sql .= "FROM tbl_instructions WHERE is_del = :ISDEL: AND regidate >= CURDATE() AND regidate < CURDATE() + INTERVAL 1 DAY ";
         $bindparam = [
             'ISDEL'=> 0
         ];

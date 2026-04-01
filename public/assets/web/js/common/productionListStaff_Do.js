@@ -168,6 +168,7 @@ async function Make_Html2(data){
                       
                     <td class="ltTbody">${el.processstr}</td> 
                     <td class="ltTbody">${el.worker}</td> 
+                    <td class="ltTbody">${prn}</td>
                 </tr>
             `;
         });

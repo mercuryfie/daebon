@@ -53,6 +53,7 @@
                             <th class="ltThead">공정이름</th>
                             <th class="ltThead">입고량</th>
                             <th class="ltThead">출고량</th>
+                            <th class="ltThead">재고량</th>
                             <th class="ltThead">출입고일자</th>
                             <th class="ltThead">라벨</th>
                         </tr>

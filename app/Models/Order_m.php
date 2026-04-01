@@ -44,7 +44,7 @@ class Order_m extends Model
 
 
     public function Load_dashboardOrder_Info($fields=['ALL']){
-        $sql = "SELECT shoptyp,COUNT(*) as Cnt from vw_order_info a WHERE DATE_FORMAT(indate, '%Y-%m-%d') = CURDATE() GROUP BY shoptyp ORDER BY 1 ASC;";
+        $sql = "SELECT shoptyp,COUNT(*) as Cnt from vw_order_info a WHERE regidate >= CURDATE() AND regidate < CURDATE() + INTERVAL 1 DAY GROUP BY shoptyp ORDER BY 1 ASC;";
         $query = $this->db->query($sql);
         return $query->getResultArray();
     }

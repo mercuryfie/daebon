@@ -34,7 +34,7 @@ class Delivery_m extends Model
 
     public function Load_dashboardDelivery_Info(){
         $sql = "SELECT COUNT(CASE WHEN p_status = 0 THEN 1 END) AS package_ready,COUNT(CASE WHEN p_status = 1 THEN 1 END) AS package_start,COUNT(CASE WHEN p_status = 2 THEN 1 END) AS package_complete ";
-        $sql .= " FROM tbl_delivery_info WHERE is_del = 0 AND DATE_FORMAT(indate, '%Y-%m-%d') = CURDATE() ;";
+        $sql .= " FROM tbl_delivery_info WHERE is_del = 0 AND regidate >= CURDATE() AND regidate < CURDATE() + INTERVAL 1 DAY ;";
         $bindparam = [
             'ISDEL'=> 0
         ];
@@ -60,13 +60,13 @@ class Delivery_m extends Model
             $sql .= "AND d.spcode=:SEARCHKEY: ";
         }
         $sql .= " order by a.seq DESC";
+
         $bindparam = [
             'STATUS'=> 1,
             'SDATE' => $param['sdate'],
             'EDATE' => $param['edate'],
             'SEARCHKEY' => $param['searchkey']
         ];
-
         $query = $this->db->query($sql,$bindparam);
         return $query->getResultArray();
     }

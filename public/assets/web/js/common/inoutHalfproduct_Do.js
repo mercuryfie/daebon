@@ -96,6 +96,7 @@ async function Make_Html(data){
                     <td class="ltTbody">${el.step_name}</td>
                     <td class="ltTbody">${el.total_input}g</td>
                     <td class="ltTbody">${el.total_output}g</td>
+                    <td class="ltTbody">${el.stock_amount}g</td>
                     <td class="ltTbody">${el.indate}</td>
                     <td class="ltTbody"> 
                         ${prn}

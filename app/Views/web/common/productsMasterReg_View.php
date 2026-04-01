@@ -141,26 +141,26 @@
                                 <p class="unit ml10" name="unit_output"></p>
                             </div>
                         </div>
-<!--                        <div class=" goods_boxt66" name="coverBox">-->
-<!--                            <div class="cover_boxz7y  flexType4" name="oneCover">-->
-<!--                                <p class="ttl">부자재</p>-->
-<!--                                <div class="tBagBox" name="tBagBox">-->
-<!--                                    <div class="oneTBag flexType2" name="oneTBag">-->
-<!--                                        <select name="accessory" class="option option1">-->
-<!--                                            <option value="">선택하세요.</option>-->
-<!--                                            --><?php //=$body['material'];?>
-<!--                                        </select>-->
-<!--                                        <input type="search" class="inputBorder inputBorder2 mr10" placeholder="예:10000" name="accessory_cnt">-->
-<!--                                        <button type="button" class="btnType3 addBtn mr10" name="addCover">-->
-<!--                                            <i class="fa-solid fa-plus"></i>-->
-<!--                                        </button>-->
-<!--                                        <button type="button" class="btnType3 removeBtn" name="removeCover">-->
-<!--                                            <i class="fa-solid fa-trash"></i>-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <div class=" goods_boxt66" name="coverBox">
+                            <div class="cover_boxz7y  flexType4" name="oneCover">
+                                <p class="ttl">부자재</p>
+                                <div class="tBagBox" name="tBagBox">
+                                    <div class="oneTBag flexType2" name="oneTBag">
+                                        <select name="accessory" class="option option1">
+                                            <option value="">선택하세요.</option>
+                                            <?=$body['material'];?>
+                                        </select>
+                                        <input type="search" class="inputBorder inputBorder2 mr10" placeholder="예:10000" name="accessory_cnt">
+                                        <button type="button" class="btnType3 addBtn mr10" name="addCover">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </button>
+                                        <button type="button" class="btnType3 removeBtn" name="removeCover">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="element flexType4 roasting_boxe3x">
                             <p class="ttl">공정방법</p>
                             <textarea class="mr10" name="step_memo"cols="" rows="" placeholder="내용을 입력하십시오. "></textarea>

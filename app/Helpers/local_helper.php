@@ -1296,9 +1296,9 @@ function fnMake_Menu_name() {
     ];
 
     static $menus5 = [
-        ['url' => '/report/managerequipment','name' => '장비관리', 'link' => 'go_equipment1();'],
-        ['url' => '/report/regequipment','name' => '장비추가', 'link' => 'go_equipment2();'],
-        ['url' => '/report/locationequipment','name' => '설비위치관리도', 'link' => 'go_equipment3();']
+        ['url' => '/report/equipmentcontrol','name' => '장비관리', 'link' => 'go_equipmentControl();'],
+        ['url' => '/report/equipmentreg','name' => '장비추가', 'link' => 'go_equipmentReg();'],
+        ['url' => '/report/equipmentloca','name' => '설비위치관리도', 'link' => 'go_equipmentLoca();']
     ];
 
     static $menus6 = [

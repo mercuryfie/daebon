@@ -1474,6 +1474,53 @@ class ApiController extends BaseController
     }
 
 
+    public function Check_CurPw() {
+
+        $sessinarr = $this->GetSessionData();
+        $uid = $this->request->getPost('uid');
+        $pw_now = $this->request->getPost('pw_now');
+//        var_dump($uid);
+//        var_dump($pw_now);
+//        exit();
+//        $uid  = ($this->request->getPost('uid') == '') ? [] : $this->request->getPost('uid');
+//        $pw_now  = ($this->request->getPost('pw_now') == '') ? [] : $this->request->getPost('pw_now');
+//        $userid = $data['userid'];
+
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $message = '로그인이 필요합니다.';
+        } else if ($pw_now == '') {
+            $result = 'type101';
+            $message = '필수항목 입력이 안되어 있습니다. ';
+        } else if (!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $message = '잘못된 토큰입니다.';
+        } else {
+            $Member_m = model('Member_m');
+            $u_info = $Member_m->Load_UserInfo_Uid($uid);
+            $pw_check = $Member_m->Cur_Pw_Check($uid,$pw_now);
+//            var_dump($uid);
+//            var_dump($pw_check);
+//            exit();
+
+            if ($pw_check == 0) {
+                $result = 'type103';
+                $message = '현재 비밀번호가 틀렸습니다. ';
+            } else {
+                $result = 'ok';
+                $message = 'pw passed';
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'message' => $message
+        ];
+        return $this->respond($return);
+
+    }
+
+
     public function Login_Do()
     {
         $userid = ($this->request->getPost('userid') == '') ? '' : $this->request->getPost('userid');
@@ -3204,11 +3251,12 @@ class ApiController extends BaseController
         return $this->respond($return);
     }
 
-
     public function Reset_Password(){
         $sessinarr = $this->GetSessionData();
         $uid  = ($this->request->getPost('uid') == '') ? [] : $this->request->getPost('uid');
-//        $uid  = $dataarr['uid'];
+//        var_dump($uid);
+//        exit();
+        //        $uid  = $dataarr['uid'];
         if(fn_ArrayCnt($uid)==''){
             $result = 'Error001';
             $message = '잘못된 접근입니다.';
@@ -3227,7 +3275,7 @@ class ApiController extends BaseController
             $userinfo = $Member_m->Load_UserInfo($uid);
             if(fn_ArrayCnt($userinfo)>0){
                 $passwd = 123123;
-                $Cnt = $common_m->Update_User_Passwd($uid,$passwd);
+                $Cnt = $Member_m->Update_User_Passwd($uid,$passwd);
                 if($Cnt > 0){
                     $result = 'ok';
                     $message = '';

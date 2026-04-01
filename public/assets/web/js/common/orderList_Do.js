@@ -79,6 +79,7 @@ $(document).ready(function() {
     $('.datepicker').each(function(index, elem) {
         const fp = flatpickr(elem, {
             dateFormat: "Y-m-d",
+            defaultDate: new Date(),
             minDate: "2024-01-01",
             static: true,
             appendTo: elem.parentNode,

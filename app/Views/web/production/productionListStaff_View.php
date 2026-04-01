@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="right flexType2 filter_boxa6m">
-                    <button type="button" class="btn_long " name="searchType" data-val="0" onclick="go_halfList();">반제품 목록</button>
+<!--                    <button type="button" class="btn_long " name="searchType" data-val="0" onclick="go_halfList();">반제품 목록</button>-->
                     <button type="button" class="btn60Type3 " name="searchType" data-val="0">대기중</button>
                     <button type="button" class="btn60Type3 " name="searchType" data-val="1">진행중</button>
                     <button type="button" class="btn60Type3 mr10" name="searchType" data-val="2">완료</button>
@@ -53,10 +53,10 @@
                     </tbody>
                 </table>
             </div>
-<!--            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">-->
-<!--                <p class="more mr10">더보기</p>-->
-<!--                <i class="fa-solid fa-angle-down"></i>-->
-<!--            </div>-->
+            <div class="area lastArea flexType1" id="cpage" name="cpage" data-page="1">
+                <p class="more mr10">더보기</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </div>
 </section>

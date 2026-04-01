@@ -62,9 +62,9 @@ $routes->GET('report/order', 'ReportController::orderReport');
 $routes->GET('report/o_form', 'ReportController::orderReportForm');
 $routes->GET('report/energyeluse', 'ReportController::energyElUse');
 $routes->GET('report/energyactrate', 'ReportController::energyActRate');
-$routes->GET('report/managerequipment', 'ReportController::managerEquipment');
-$routes->GET('report/regequipment', 'ReportController::regEquipment');
-$routes->GET('report/locationequipment', 'ReportController::locationEquipment');
+$routes->GET('report/equipmentcontrol', 'ReportController::equipmentControl');
+$routes->GET('report/equipmentreg', 'ReportController::equipmentReg');
+$routes->GET('report/equipmentloca', 'ReportController::equipmentLoca');
 
 $routes->GET('monitor/workstatus', 'MonitorController::workStatus');
 $routes->GET('monitor/processstatus', 'MonitorController::processStatus');
@@ -148,6 +148,7 @@ $routes->match(['GET', 'POST'], 'Api/Add_UserInfo', 'ApiController::Add_UserInfo
 $routes->match(['GET', 'POST'], 'Api/Mod_UserInfo', 'ApiController::Mod_UserInfo');
 $routes->match(['GET', 'POST'], 'Api/Del_UserInfo', 'ApiController::Del_UserInfo');
 $routes->match(['GET', 'POST'], 'Api/Check_UserId', 'ApiController::Check_UserId');
+$routes->match(['GET', 'POST'], 'Api/Check_CurPw', 'ApiController::Check_CurPw');
 $routes->match(['GET', 'POST'], 'Api/Reset_Password', 'ApiController::Reset_Password');
 
 

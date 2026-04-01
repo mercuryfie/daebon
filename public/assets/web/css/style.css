@@ -568,6 +568,30 @@ input[type="radio"] {
 }
 
 /* leftBoxStaff end -------------------------------- */
+/* locaEquipment_View start -------------------------------- */
+
+.loca_equiptment_wrap {
+    /*background-color: #fff;*/
+    min-height: 1080px;
+}
+
+.loca_equiptment_wrap .content_box {
+    border:1px solid #ccc;
+    border-radius: 10px;
+    width: 81vw;
+    height: 820px;
+    margin-left: 20px;
+    background-color: #fff;
+}
+.loca_equiptment_wrap .content_box img {
+    /*margin: 20px 0 0 40px;*/
+    margin: 10px;
+    margin-left: 40px;
+    /*width: 820px;*/
+    object-fit: cover;
+}
+
+/* locaEquipment_View end -------------------------------- */
 
 /* 로그인 페이지 -------------------------------- */
 
@@ -1538,7 +1562,7 @@ input[type="radio"] {
 }
 
 .deli_wrapghj .areaBox .area1 .period:nth-child(4) {
-    border-right: none;
+    /*border-right: none;*/
 }
 .areaBox .area2 .right,
 .areaBox .area1 .right {

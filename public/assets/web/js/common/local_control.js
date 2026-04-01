@@ -340,18 +340,18 @@ function go_productionStatusStaff(code) {
 // }
 
 
-function go_equipment1(){
-    let url = "/report/managerequipment";
+function go_equipmentControl(){
+    let url = "/report/equipmentcontrol";
     $(location).attr("href", url);
 }
 
-function go_equipment2(){
-    let url = "/report/regequipment";
+function go_equipmentReg(){
+    let url = "/report/equipmentreg";
     $(location).attr("href", url);
 }
 
-function go_equipment3(){
-    let url = "/report/locationequipment";
+function go_equipmentLoca(){
+    let url = "/report/equipmentloca";
     $(location).attr("href", url);
 }
 

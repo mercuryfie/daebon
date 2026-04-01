@@ -28,7 +28,6 @@ async function Reset_Password(uid){
     return bool;
 }
 
-
 async function Mod_Account() {
     // let title = '제조사등록';
     // let poptype = '1';
@@ -63,12 +62,16 @@ async function Mod_Account() {
                 pw_2: pw_2,
                 grade: grade
             };
+
+            let pw_check = await Cur_Pw_Check(uid,pw_now);
             let bool = await Mod_UserInfo(dataarr);
-            if (bool == true) {
+            if (pw_check == false) {
+                Make_Toast('현재 비밀번호가 틀렸습니다.');
+            } else if (bool == true) {
                 Make_Toast('등록하였습니다');
-                // go_userList();
+                go_userList();
             } else {
-                Make_Toast('22등록에 실패했습니다.');
+                Make_Toast('등록에 실패했습니다.');
             }
         }
     } catch (error) {
@@ -76,6 +79,30 @@ async function Mod_Account() {
     }
 }
 
+async function Cur_Pw_Check(uid,pw_now) {
+    let bool = false;
+
+    try {
+        start_spinner();
+        let dataarr = {"uid" : uid, "pw_now" : pw_now};
+        let url = APIURL + '/Check_CurPw';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'ok') {
+            stop_spinner();
+            bool = true;
+        } else {
+            stop_spinner();
+            Make_Toast('현재 비밀번호가 틀렸습니다.');
+            return false;
+        }
+    } catch (error) {
+        stop_spinner();
+        Make_Toast('현재 비밀번호가 틀렸습니다.');
+        return false;
+    }
+    return bool;
+
+}
 
 async function Mod_UserInfo(data){
     let bool = false;

@@ -1,10 +1,6 @@
 <?= $this->extend("/web/template/layout_workpage") ?>
 <?= $this->section("content") ?>
 
-<!-- js ----------------------------  -->
-<script src="<?=URL_COMMON_ASSETS?>/workStatus_Do.js?rnd=<?=rand();?>"> </script>
-<script>
-</script>
 
 <section class="merright">
     <div class="goods_boxx7z">

@@ -94,7 +94,7 @@ class SsgAPI
                 if (empty($d['addProductInfo'])) continue;
                 $Info = json_decode($d['addProductInfo'], true, 512, JSON_THROW_ON_ERROR);
 
-                $path = $this->baseUrl . "/api/pd/{$this->apiVersion}/saveWblNo.ssg";
+                $path = $this->baseUrl . "/api/pd/{$this->apiVersion}/updateOrderSubjectManage.ssg";
                 $params = [
                     'requestOrderSubjectManage' => [
                         'shppNo' => $Info['shppNo'],
@@ -114,7 +114,6 @@ class SsgAPI
     {
         try {
             print('start');
-            print_r($params);
             $path = $this->baseUrl . "/api/pd/{$this->apiVersion}/saveWblNo.ssg";
             $results = $this->sendRequest('POST', $path, $params);
             return $results;

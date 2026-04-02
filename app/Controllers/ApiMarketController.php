@@ -368,7 +368,185 @@ class ApiMarketController extends BaseController
         return $this->respond($return);
     }
 
-    private function SSG_Order_List($shoptyp,$s_date,$e_date){
+    private function SSG_Order_List($shoptyp, $s_date, $e_date)
+    {
+        try {
+            $Cnt = 0;
+            $is_miss = 0;
+            $result = 'nothing';
+            $message = '';
+
+            $startdate = fn_NowDateFormat(3, $s_date);
+            $enddate = fn_NowDateFormat(3, $e_date);
+
+            $ssg = new SsgAPI();
+            $order = $ssg->getShppDirectionList($startdate, $enddate);
+
+            // 1. API 응답 체크
+            if (is_array($order) && isset($order['result']) && $order['result']['resultCode'] == '00') {
+
+                $data = $order['result']['shppDirections'] ?? [];
+
+                if (!empty($data) && is_array($data)) {
+                    $groupedOrders = [];
+                    $order_m = model('Order_m');
+
+                    // 2. 주문번호별 품목 그룹화 (shppDirection이 배열임을 고려)
+                    foreach ($data as $d) {
+                        $items = $d['shppDirection'] ?? [];
+                        foreach ($items as $item) {
+                            $orderNo = $item['ordNo'];
+                            if (!isset($groupedOrders[$orderNo])) {
+                                $groupedOrders[$orderNo] = [];
+                            }
+                            $groupedOrders[$orderNo][] = [
+                                'prdNo'  => $item['itemId'],
+                                'price'  => $item['sellprc'],
+                                'pname'  => $item['itemNm'],
+                                'cnt'    => $item['ordQty'],
+                                'shppNo' => $item['shppNo'],
+                                'shppSeq'=> $item['shppSeq'],
+                                'raw'    => $item // 원본 데이터 참조용
+                            ];
+                        }
+                    }
+
+                    // 3. 그룹화된 주문 처리
+                    foreach ($groupedOrders as $spcode => $products) {
+                        // 대표 아이템 정보 (첫 번째 품목 기준)
+                        $firstItem = $products[0]['raw'];
+
+                        // 출고지시 상태(11)가 아니면 건너뜀
+                        if (($firstItem['shppProgStatDtlCd'] ?? '') != '11') {
+                            continue;
+                        }
+
+                        // 중복 체크
+                        $iRs = $order_m->Load_Order_InfoBySpcode($spcode);
+                        $cRs = $order_m->Load_Order_InfoByMiss($spcode);
+
+                        if ((fn_ArrayCnt($iRs) == 0) && (fn_ArrayCnt($cRs) == 0)) {
+                            $tcnt = 0;
+                            $tprice = 0;
+                            $orcode = fnMake_Code(10);
+                            $current_order_miss = 0;
+
+                            // 주문자/수령자 정보 등록
+                            $order_buyer_info = [
+                                'fk_orcode'        => $orcode,
+                                'buy_name'         => $firstItem['ordpeNm'],
+                                'buy_zipcode'      => '',
+                                'buy_address1'     => $firstItem['ordpeRoadAddr'] ?? '',
+                                'buy_address2'     => '',
+                                'buy_phone'        => $firstItem['ordpeHpno'],
+                                'buy_memo'         => '',
+                                'receive_name'     => $firstItem['rcptpeNm'],
+                                'receive_zipcode'  => $firstItem['shpplocZipcd'],
+                                'receive_address1' => $firstItem['shpplocBascAddr'],
+                                'receive_address2' => $firstItem['shpplocDtlAddr'],
+                                'receive_phone'    => $firstItem['rcptpeHpno'],
+                                'receive_memo'     => $firstItem['ordMemoCntt'] ?? ''
+                            ];
+                            $order_m->Insert_Order_Buyer($order_buyer_info);
+
+                            // 품목별 루프
+                            $order_products = [];
+                            foreach ($products as $f) {
+                                $productid = $f['prdNo'];
+
+                                // 매칭 상품 확인
+                                $nRs = $order_m->Load_Order_ProductByMatch($productid);
+                                if (fn_ArrayCnt($nRs) <= 0) {
+                                    $current_order_miss = 1;
+                                    $is_miss = 1; // 전체 리턴값용
+                                    $fk_pdcode = '';
+                                } else {
+                                    $fk_pdcode = $nRs[0]['fk_pdcode'];
+                                }
+
+                                $gprice = $f['price'];
+                                $gcnt = $f['cnt'];
+                                $gtprice = $gprice * $gcnt;
+
+                                $addProductInfo = json_encode([
+                                    'shppNo' => $f['shppNo'],
+                                    'shppSeq' => $f['shppSeq']
+                                ], JSON_UNESCAPED_UNICODE);
+
+                                $order_products[] = [
+                                    'fk_orcode'      => $orcode,
+                                    'fk_pdcode'      => $fk_pdcode,
+                                    'sgcode'         => $productid,
+                                    'sgname'         => $f['pname'],
+                                    'gprice'         => $gprice,
+                                    'gcnt'           => $gcnt,
+                                    'addProductInfo' => $addProductInfo,
+                                    'gtprice'        => $gtprice,
+                                    'paydate'        => $firstItem['ordCmplDts']
+                                ];
+
+                                $tprice += $gtprice;
+                                $tcnt += $gcnt;
+                            }
+
+                            if (!empty($order_products)) {
+                                $order_m->Insert_Order_Product($order_products);
+                            }
+
+                            // 메인 주문 정보 등록
+                            $t_info = [
+                                'orcode'    => $orcode,
+                                'spcode'    => $spcode,
+                                'shoptyp'   => $shoptyp,
+                                'tprice'    => $tprice,
+                                'tcnt'      => $tcnt,
+                                'input_typ' => 1,
+                                'orderdate' => $firstItem['ordRcpDts']
+                            ];
+
+                            if ($current_order_miss == 1) {
+                                $order_m->Insert_Order_Info_Miss($t_info);
+                            } else {
+                                $order_m->Insert_Order_Info($t_info);
+                            }
+                            $Cnt++;
+                        }
+                    }
+
+                    // 결과 메시지 설정
+                    if ($is_miss == 1) {
+                        $result = 'miss';
+                        $message = '누락된 매칭 상품이 존재하는 주문이 있습니다.';
+                    } else if ($Cnt > 0) {
+                        $result = 'ok';
+                        $message = "총 {$Cnt}건의 주문을 가져왔습니다.";
+                    } else {
+                        $result = 'nothing';
+                        $message = '새로 가져올 주문이 없습니다.';
+                    }
+
+                } else {
+                    $result = 'nothing';
+                    $message = '조회된 주문 데이터가 없습니다.';
+                }
+            } else {
+                $err_msg = $order['result']['resultMessage'] ?? '알 수 없는 오류';
+                $result = 'error';
+                $message = "SSG API 통신실패 : [{$err_msg}]";
+            }
+        } catch (\Exception $e) {
+            log_message('error', '[SSG API Error] ' . $e->getMessage());
+            $result = 'error';
+            $message = "시스템 오류 : [{$e->getMessage()}]";
+        }
+
+        return [
+            'result' => $result,
+            'message' => $message
+        ];
+    }
+
+    private function SSG_Order_List11($shoptyp,$s_date,$e_date){
         try {
             $Cnt = 0;
             $is_miss = 0;

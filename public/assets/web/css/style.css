@@ -1651,6 +1651,27 @@ input[type="radio"] {
     position: relative;
 }
 
+.order_box28f .search_box input {
+    border:1px solid #ccc;
+    padding-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    width: 220px;
+    height: 32px;
+
+}
+
+.order_box28f .dd {
+
+}
+
+.order_box28f .cnt_box .cnt {
+    padding: 0 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color3);
+}
+
 .order_box28f .order_boxfxp .table_scroll {
     overflow-x: auto;
     overflow-y: auto;

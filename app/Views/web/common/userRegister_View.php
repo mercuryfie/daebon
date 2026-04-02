@@ -17,23 +17,23 @@
             <div class="area area1 flexType2">
                 <p class="must"></p>
                 <p class="title">아이디</p>
-                <input type="search" class="inputBorder mr10" placeholder="영문,숫자 4-12자리" id="userid" name="userid">
+                <input type="search" class="inputBorder mr10" placeholder="영문,숫자 4-12자리" id="userid" name="userid" autocomplete="new-password">
                 <button type="button" class="btnType3" id="btn_dup" name="btn_dup">중복확인</button>
             </div>
             <div class="area area2 flexType2">
                 <p class="must"></p>
                 <p class="title">이름</p>
-                <input type="search" class="inputBorder " placeholder="" id="u_name" name="u_name">
+                <input type="search" class="inputBorder " placeholder="" id="u_name" name="u_name" >
             </div>
             <div class="area area3 flexType2">
                 <p class="must"></p>
                 <p class="title">비밀번호</p>
-                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_1" name="pw_1">
+                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_1" name="pw_1" autocomplete="new-password">
             </div>
             <div class="area area4 flexType2">
                 <p class="must"></p>
                 <p class="title">비밀번호 확인</p>
-                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_2" name="pw_2">
+                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_2" name="pw_2" autocomplete="new-password">
             </div>
             <div class="area area4 flexType2">
                 <p class="must"></p>

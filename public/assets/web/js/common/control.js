@@ -104,6 +104,30 @@ function fn_IsEmpty(arr){
     return bool;
 }
 
+async  function Upload_Order(upload_key,upload_type){
+    let data = '';
+    try {
+        start_spinner();
+        let url = APIURL + '/Upload_file';
+        let param = {
+            upload_key : upload_key,
+            upload_type: upload_type
+        };
+        let result = await Load_FileUpload(url,upload_key,param);
+        if (result.get('status') == 'ok') {
+            data = result.get('data');
+
+        }else{
+            Make_Toast(result.get('message'));
+        }
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+    }finally {
+        stop_spinner();
+    }
+    return data;
+}
+
 
 async  function Upload_Excel(upload_key,upload_type,excel_typ){
     let fname = '';

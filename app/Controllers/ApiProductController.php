@@ -341,56 +341,56 @@ class ApiProductController extends BaseController
         return $this->respond($return);
     }
 
-//    public function Load_Product_List(){
-//        $sessinarr = $this->GetSessionData();
-//        $search = ($this->request->getPost('search')==='') ? '' : $this->request->getPost('search');
-//        if($sessinarr['islogin']==false) {
-//            $result = 'NoLogin';
-//            $data = [];
-//            $message = '로그인이 필요합니다.';
-//        }else if(!Check_Token($sessinarr)) {
-//            $result = 'Error002';
-//            $data = [];
-//            $message = '잘못된 토큰입니다.';
-//        }else{
-//            $product_m = model('Product_m');
-//            $pRs = $product_m->Load_Product_All($search);
-//            $p_arr = [];
-//            if(fn_ArrayCnt($pRs)>0){
-//                foreach ($pRs as $d){
-//                    $t_arr = [
-//                        'seq' => $d['seq'],
-//                        'pdcode' => $d['pdcode'],
-//                        'pdname' => $d['pdname'],
-//                        'pdWeigth' => $d['pdweigth'],
-//                        'cname' => fnGetProductNameByCode($d['pdcategory']),
-//                        'pdprice' => $d['pdprice'],
-//                        'indate' => fn_Short_Date($d['indate']),
-//                        'mCnt' => $d['mCnt'],
-//                        'gCnt' => $d['gCnt']
-//                    ];
-//                    array_push($p_arr,$t_arr);
-//                }
-//            }
-//
-//            $i_arr = [
-//                'list' => $p_arr,
-//                'total' => fn_ArrayCnt($pRs)
-//            ];
-//
-//            $result = 'ok';
-//            $data = $i_arr;
-//            $message = '';
-//        }
-//
-//        $return = [
-//            'result' => $result,
-//            'info' => $data,
-//            'message' => $message
-//        ];
-//        return $this->respond($return);
-//
-//    }
+    public function Load_Product_List2(){
+        $sessinarr = $this->GetSessionData();
+        $search = ($this->request->getPost('search')==='') ? '' : $this->request->getPost('search');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else{
+            $product_m = model('Product_m');
+            $pRs = $product_m->Load_Product_All($search);
+            $p_arr = [];
+            if(fn_ArrayCnt($pRs)>0){
+                foreach ($pRs as $d){
+                    $t_arr = [
+                        'seq' => $d['seq'],
+                        'pdcode' => $d['pdcode'],
+                        'pdname' => $d['pdname'],
+                        'pdWeigth' => $d['pdweigth'],
+                        'cname' => fnGetProductNameByCode($d['pdcategory']),
+                        'pdprice' => $d['pdprice'],
+                        'indate' => fn_Short_Date($d['indate']),
+                        'mCnt' => $d['mCnt'],
+                        'gCnt' => $d['gCnt']
+                    ];
+                    array_push($p_arr,$t_arr);
+                }
+            }
+
+            $i_arr = [
+                'list' => $p_arr,
+                'tcnt' => fn_ArrayCnt($pRs)
+            ];
+
+            $result = 'ok';
+            $data = $i_arr;
+            $message = '';
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => $data,
+            'message' => $message
+        ];
+        return $this->respond($return);
+
+    }
 
 
     public function Load_Product_Inout(){

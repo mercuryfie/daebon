@@ -76,7 +76,7 @@ $(document).ready(function() {
                     Make_Toast('제품지지서에는 최소한 1개이상의 공정이 필요합니다.');
                 } else {
                     let arr = await  Input_product(goods_info,goods_step);
-                    //go_productsMasterList();
+                    go_productsMasterList();
                 }
             }
         }

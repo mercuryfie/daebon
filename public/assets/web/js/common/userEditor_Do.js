@@ -68,10 +68,10 @@ async function Mod_Account() {
             if (pw_check == false) {
                 Make_Toast('현재 비밀번호가 틀렸습니다.');
             } else if (bool == true) {
-                Make_Toast('등록하였습니다');
+                Make_Toast('수정하였습니다');
                 go_userList();
             } else {
-                Make_Toast('등록에 실패했습니다.');
+                Make_Toast('수정에 실패했습니다.');
             }
         }
     } catch (error) {

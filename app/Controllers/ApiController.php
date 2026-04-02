@@ -2644,16 +2644,20 @@ class ApiController extends BaseController
     public function Upload_File()
     {
 
-        $u_type  = ($this->request->getPost('upload_type') == '') ? '1' : $this->request->getPost('upload_type'); //1이면 img 3이면 exel파일
+        $u_type  = ($this->request->getPost('upload_type') == '') ? '1' : $this->request->getPost('upload_type'); //1:img 3:exel 4:order_excel
         $u_key  = ($this->request->getPost('upload_key') == '') ? '1' : $this->request->getPost('upload_key'); // input type
         $timeNow = date("Ymd");
         if($u_type==1) {//상품등록시 대표이미지
             $dir = FCPATH."uploads/goods/$timeNow";
             $dir2 = FCPATH."uploads/goods/$timeNow";
             $key = $u_key;
-        }else if($u_type==3) {//상품등록시 대표이미지
+        }else if($u_type==3) {//
             $dir = FCPATH."uploads/excel/$timeNow";
             $dir2 = FCPATH."uploads/excel/$timeNow";
+            $key = $u_key;
+        }else if($u_type==4) {//
+            $dir = FCPATH."uploads/order/$timeNow";
+            $dir2 = FCPATH."uploads/order/$timeNow";
             $key = $u_key;
         }
 
@@ -2797,6 +2801,535 @@ class ApiController extends BaseController
         return $this->respond($return);
 
     }
+
+    public function Insert_Order_Excel(){
+        $sessinarr = $this->GetSessionData();
+        $fname = ($this->request->getPost('fname') == '') ? '1' : $this->request->getPost('fname');
+        $shoptyp  = ($this->request->getPost('s_typ') == '') ? '' : $this->request->getPost('s_typ');
+        if($sessinarr['islogin']==false) {
+            $result = 'NoLogin';
+            $data = [];
+            $message = '로그인이 필요합니다.';
+        }else if(!Check_Token($sessinarr)) {
+            $result = 'Error002';
+            $data = [];
+            $message = '잘못된 토큰입니다.';
+        }else if(($fname=='') || ($shoptyp=='')) {
+            $result = 'Error003';
+            $data = [];
+            $message = '필수 입력값이 누락되었습니다.';
+        }else{
+            $Cnt = 0;
+            $is_miss = 0;
+            $orderCnt = 0;
+
+            $folder = date("Ymd");
+            $filePath = FCPATH."uploads/order/{$folder}/{$fname}";
+            if (!is_file($filePath)) {
+                $result = 'Error004';
+                $data = [];
+                $message = '파일이 존재하지 않습니다.';
+            }else {
+                $spreadsheet = IOFactory::load($filePath);
+                $sheet = $spreadsheet->getActiveSheet();
+                $data = $sheet->toArray();
+                if (fn_ArrayCnt($data) > 0) {
+                    if ($shoptyp == 'type12') {
+                        $groupedOrders = [];
+                        $startID = 2;
+                        $loop = 1;
+                        foreach ($data as $item) {
+                            if ($loop < $startID) {
+                                $loop++;
+                                continue;
+                            }
+                            $orderNo = $item[2];
+                            if (!isset($groupedOrders[$orderNo])) {
+                                $groupedOrders[$orderNo] = [];
+                            }
+                            $goods = [
+                                'prdNo' => $item[48],
+                                'pOrderId' => '',
+                                'price' => $item[15],
+                                'pname' => $item[10],
+                                'cnt' => $item[14]
+                            ];
+                            $groupedOrders[$orderNo][] = $goods;
+                            $loop++;
+                        }
+                        $loop = 1;
+                        foreach ($data as $d) {
+                            if ($loop < $startID) {
+                                $loop++;
+                                continue;
+                            }
+                            if ($d[12] != '') {
+                                continue;
+                            }
+
+                            $order_m = model('Order_m');
+                            $spcode = $d[2];
+                            $orderdate = $d[1];
+                            $iRs = $order_m->Load_Order_InfoBySpcode($spcode);
+                            $cRs = $order_m->Load_Order_InfoByMiss($spcode);
+                            if ((fn_ArrayCnt($iRs) == 0) && (fn_ArrayCnt($cRs) == 0)) {
+                                $tcnt = 0;
+                                $tprice = 0;
+                                $orcode = fnMake_Code(10);
+                                $order_buyer_info = [
+                                    'fk_orcode' => $orcode,
+                                    'buy_name' => $d[4],
+                                    'buy_zipcode' => '',
+                                    'buy_address1' => '',
+                                    'buy_address2' => '',
+                                    'buy_phone' => $d[6],
+                                    'buy_memo' => '',
+                                    'receive_name' => $d[31],
+                                    'receive_zipcode' => $d[33],
+                                    'receive_address1' => $d[34],
+                                    'receive_address2' => '',
+                                    'receive_phone' => $d[32],
+                                    'receive_memo' => $d[37]
+                                ];
+
+                                $order_m->Insert_Order_Buyer($order_buyer_info);
+
+                                $order_products = [];
+                                if (isset($groupedOrders[$spcode]) && is_array($groupedOrders[$spcode])) {
+                                    foreach ($groupedOrders[$spcode] as $f) {
+                                        $productid = $f['prdNo'];
+                                        $productOrderId = $f['pOrderId'];
+                                        $nRs = $order_m->Load_Order_ProductByMatch($productid);
+                                        if (fn_ArrayCnt($nRs) <= 0) {
+                                            if ($is_miss == 0) $is_miss = 1;
+                                            $fk_pdcode = '';
+                                        } else {
+                                            $fk_pdcode = $nRs[0]['fk_pdcode'];
+                                        }
+
+                                        $gprice = $f['price'];
+                                        $gcnt = $f['cnt'];
+                                        $gtprice = $gprice * $gcnt;
+
+                                        $t_arr = [
+                                            'fk_orcode' => $orcode,
+                                            'fk_pdcode' => $fk_pdcode,
+                                            'sgcode' => $productid,
+                                            'sgname' => $f['pname'],
+                                            'addProductInfo' => $productOrderId,
+                                            'gprice' => $gprice,
+                                            'gcnt' => $gcnt,
+                                            'gtprice' => $gtprice
+                                        ];
+
+                                        $tprice = $tprice + $gtprice;
+                                        $tcnt = $tcnt + $gcnt;
+
+                                        $order_products[] = $t_arr;
+                                    }
+                                }
+
+                                if (fn_ArrayCnt($order_products) > 0) {
+                                    $Cnt = $order_m->Insert_Order_Product($order_products);
+                                    if($Cnt > 0) $orderCnt++;
+                                }
+
+                                $t_info = [
+                                    'orcode' => $orcode,
+                                    'spcode' => $spcode,
+                                    'shoptyp' => $shoptyp,
+                                    'tprice' => $tprice,
+                                    'tcnt' => $tcnt,
+                                    'input_typ' => 1,
+                                    'orderdate' => $orderdate
+                                ];
+                                if ($is_miss == 1) {
+                                    $Cnt = $order_m->Insert_Order_Info_Miss($t_info);
+                                } else {
+                                    $Cnt = $order_m->Insert_Order_Info($t_info);
+                                }
+                            }
+                            $loop++;
+                        }
+                    }else if ($shoptyp == 'type10') {
+                        $groupedOrders = [];
+                        $startID = 3;
+                        $loop = 1;
+                        foreach ($data as $item) {
+                            if ($loop < $startID) {
+                                $loop++;
+                                continue;
+                            }
+                            $orderNo = $item[2];
+                            if (!isset($groupedOrders[$orderNo])) {
+                                $groupedOrders[$orderNo] = [];
+                            }
+                            $goods = [
+                                'prdNo' => $item[4],
+                                'pOrderId' => '',
+                                'price' => $item[9],
+                                'pname' => $item[6],
+                                'cnt' => $item[20]
+                            ];
+                            $groupedOrders[$orderNo][] = $goods;
+                            $loop++;
+                        }
+                        $loop = 1;
+                        foreach ($data as $d) {
+                            if ($loop < $startID) {
+                                $loop++;
+                                continue;
+                            }
+                            if ($d[38] != '') {
+                                continue;
+                            }
+
+                            $order_m = model('Order_m');
+                            $spcode = $d[2];
+                            $orderdate = $d[1];
+                            $iRs = $order_m->Load_Order_InfoBySpcode($spcode);
+                            $cRs = $order_m->Load_Order_InfoByMiss($spcode);
+                            if ((fn_ArrayCnt($iRs) == 0) && (fn_ArrayCnt($cRs) == 0)) {
+                                $tcnt = 0;
+                                $tprice = 0;
+                                $orcode = fnMake_Code(10);
+                                $order_buyer_info = [
+                                    'fk_orcode' => $orcode,
+                                    'buy_name' => $d[30] ?? '',
+                                    'buy_zipcode' => '',
+                                    'buy_address1' => '',
+                                    'buy_address2' => '',
+                                    'buy_phone' => $d[31] ?? '',
+                                    'buy_memo' => '',
+                                    'receive_name' => $d[25] ?? '',
+                                    'receive_zipcode' => $d[23] ?? '',
+                                    'receive_address1' => $d[24] ?? '',
+                                    'receive_address2' => '',
+                                    'receive_phone' => $d[26] ?? '',
+                                    'receive_memo' => $d[29] ?? ''
+                                ];
+
+                                $order_m->Insert_Order_Buyer($order_buyer_info);
+
+                                $order_products = [];
+                                if (isset($groupedOrders[$spcode]) && is_array($groupedOrders[$spcode])) {
+                                    foreach ($groupedOrders[$spcode] as $f) {
+                                        $productid = $f['prdNo'];
+                                        $productOrderId = $f['pOrderId'];
+                                        $nRs = $order_m->Load_Order_ProductByMatch($productid);
+                                        if (fn_ArrayCnt($nRs) <= 0) {
+                                            if ($is_miss == 0) $is_miss = 1;
+                                            $fk_pdcode = '';
+                                        } else {
+                                            $fk_pdcode = $nRs[0]['fk_pdcode'];
+                                        }
+
+                                        $gprice = $f['price'];
+                                        $gcnt = $f['cnt'];
+                                        $gtprice = $gprice * $gcnt;
+
+                                        $t_arr = [
+                                            'fk_orcode' => $orcode,
+                                            'fk_pdcode' => $fk_pdcode,
+                                            'sgcode' => $productid,
+                                            'sgname' => $f['pname'],
+                                            'addProductInfo' => $productOrderId,
+                                            'gprice' => $gprice,
+                                            'gcnt' => $gcnt,
+                                            'gtprice' => $gtprice
+                                        ];
+
+                                        $tprice = $tprice + $gtprice;
+                                        $tcnt = $tcnt + $gcnt;
+
+                                        $order_products[] = $t_arr;
+                                    }
+                                }
+
+                                if (fn_ArrayCnt($order_products) > 0) {
+                                    $Cnt = $order_m->Insert_Order_Product($order_products);
+                                    if($Cnt > 0) $orderCnt++;
+                                }
+
+                                $t_info = [
+                                    'orcode' => $orcode,
+                                    'spcode' => $spcode,
+                                    'shoptyp' => $shoptyp,
+                                    'tprice' => $tprice,
+                                    'tcnt' => $tcnt,
+                                    'input_typ' => 1,
+                                    'orderdate' => $orderdate
+                                ];
+                                if ($is_miss == 1) {
+                                    $Cnt = $order_m->Insert_Order_Info_Miss($t_info);
+                                } else {
+                                    $Cnt = $order_m->Insert_Order_Info($t_info);
+                                }
+                            }
+                            $loop++;
+                        }
+                    }else if ($shoptyp == 'type11') {
+                        $groupedOrders = [];
+                        $startID = 3;
+                        $loop = 1;
+                        foreach ($data as $item) {
+                            if ($loop < $startID) {
+                                $loop++;
+                                continue;
+                            }
+                            $orderNo = $item[1];
+                            if (!isset($groupedOrders[$orderNo])) {
+                                $groupedOrders[$orderNo] = [];
+                            }
+                            $goods = [
+                                'prdNo' => $item[11],
+                                'pOrderId' => '',
+                                'price' => $item[17],
+                                'pname' => $item[10],
+                                'cnt' => $item[16]
+                            ];
+                            $groupedOrders[$orderNo][] = $goods;
+                            $loop++;
+                        }
+                        $loop = 1;
+                        foreach ($data as $d) {
+                            if ($loop < $startID) {
+                                $loop++;
+                                continue;
+                            }
+                            if ($d[22] != '') {
+                                continue;
+                            }
+
+                            $order_m = model('Order_m');
+                            $spcode = $d[1];
+                            $orderdate = $d[0];
+                            $iRs = $order_m->Load_Order_InfoBySpcode($spcode);
+                            $cRs = $order_m->Load_Order_InfoByMiss($spcode);
+                            if ((fn_ArrayCnt($iRs) == 0) && (fn_ArrayCnt($cRs) == 0)) {
+                                $tcnt = 0;
+                                $tprice = 0;
+                                $orcode = fnMake_Code(10);
+                                $order_buyer_info = [
+                                    'fk_orcode' => $orcode,
+                                    'buy_name' => $d[3] ?? '',
+                                    'buy_zipcode' => '',
+                                    'buy_address1' => '',
+                                    'buy_address2' => '',
+                                    'buy_phone' => $d[4] ?? '',
+                                    'buy_memo' => '',
+                                    'receive_name' => $d[5] ?? '',
+                                    'receive_zipcode' => $d[7] ?? '',
+                                    'receive_address1' => $d[6] ?? '',
+                                    'receive_address2' => '',
+                                    'receive_phone' => $d[8] ?? '',
+                                    'receive_memo' => $d[9] ?? ''
+                                ];
+
+                                $order_m->Insert_Order_Buyer($order_buyer_info);
+
+                                $order_products = [];
+                                if (isset($groupedOrders[$spcode]) && is_array($groupedOrders[$spcode])) {
+                                    foreach ($groupedOrders[$spcode] as $f) {
+                                        $productid = $f['prdNo'];
+                                        $productOrderId = $f['pOrderId'];
+                                        $nRs = $order_m->Load_Order_ProductByMatch($productid);
+                                        if (fn_ArrayCnt($nRs) <= 0) {
+                                            if ($is_miss == 0) $is_miss = 1;
+                                            $fk_pdcode = '';
+                                        } else {
+                                            $fk_pdcode = $nRs[0]['fk_pdcode'];
+                                        }
+
+                                        $gprice = $f['price'];
+                                        $gcnt = $f['cnt'];
+                                        $gtprice = $gprice * $gcnt;
+
+                                        $t_arr = [
+                                            'fk_orcode' => $orcode,
+                                            'fk_pdcode' => $fk_pdcode,
+                                            'sgcode' => $productid,
+                                            'sgname' => $f['pname'],
+                                            'addProductInfo' => $productOrderId,
+                                            'gprice' => $gprice,
+                                            'gcnt' => $gcnt,
+                                            'gtprice' => $gtprice
+                                        ];
+
+                                        $tprice = $tprice + $gtprice;
+                                        $tcnt = $tcnt + $gcnt;
+
+                                        $order_products[] = $t_arr;
+                                    }
+                                }
+
+                                if (fn_ArrayCnt($order_products) > 0) {
+                                    $Cnt = $order_m->Insert_Order_Product($order_products);
+                                    if($Cnt > 0) $orderCnt++;
+                                }
+
+                                $t_info = [
+                                    'orcode' => $orcode,
+                                    'spcode' => $spcode,
+                                    'shoptyp' => $shoptyp,
+                                    'tprice' => $tprice,
+                                    'tcnt' => $tcnt,
+                                    'input_typ' => 1,
+                                    'orderdate' => $orderdate
+                                ];
+                                if ($is_miss == 1) {
+                                    $Cnt = $order_m->Insert_Order_Info_Miss($t_info);
+                                } else {
+                                    $Cnt = $order_m->Insert_Order_Info($t_info);
+                                }
+                            }
+                            $loop++;
+                        }
+                    }else if ($shoptyp == 'type9') {
+                        $groupedOrders = [];
+                        $startID = 2;
+                        $loop = 1;
+                        foreach ($data as $item) {
+                            if ($loop < $startID) {
+                                $loop++;
+                                continue;
+                            }
+                            $orderNo = $item[0];
+                            if (!isset($groupedOrders[$orderNo])) {
+                                $groupedOrders[$orderNo] = [];
+                            }
+                            $goods = [
+                                'prdNo' => $item[4],
+                                'pOrderId' => '',
+                                'price' => $item[11],
+                                'pname' => $item[5],
+                                'cnt' => $item[6]
+                            ];
+                            $groupedOrders[$orderNo][] = $goods;
+                            $loop++;
+                        }
+                        $loop = 1;
+                        foreach ($data as $d) {
+                            if ($loop < $startID) {
+                                $loop++;
+                                continue;
+                            }
+                            if ($d[30] != '') {
+                                continue;
+                            }
+
+                            $order_m = model('Order_m');
+                            $spcode = $d[0];
+                            $orderdate = $d[2];
+                            $iRs = $order_m->Load_Order_InfoBySpcode($spcode);
+                            $cRs = $order_m->Load_Order_InfoByMiss($spcode);
+                            if ((fn_ArrayCnt($iRs) == 0) && (fn_ArrayCnt($cRs) == 0)) {
+                                $tcnt = 0;
+                                $tprice = 0;
+                                $orcode = fnMake_Code(10);
+                                $order_buyer_info = [
+                                    'fk_orcode' => $orcode,
+                                    'buy_name' => $d[13] ?? '',
+                                    'buy_zipcode' => '',
+                                    'buy_address1' => '',
+                                    'buy_address2' => '',
+                                    'buy_phone' => $d[17] ?? '',
+                                    'buy_memo' => '',
+                                    'receive_name' => $d[18] ?? '',
+                                    'receive_zipcode' => $d[19] ?? '',
+                                    'receive_address1' => $d[20] ?? '',
+                                    'receive_address2' => '',
+                                    'receive_phone' => $d[22] ?? '',
+                                    'receive_memo' => $d[23] ?? ''
+                                ];
+
+                                $order_m->Insert_Order_Buyer($order_buyer_info);
+
+                                $order_products = [];
+                                if (isset($groupedOrders[$spcode]) && is_array($groupedOrders[$spcode])) {
+                                    foreach ($groupedOrders[$spcode] as $f) {
+                                        $productid = $f['prdNo'];
+                                        $productOrderId = $f['pOrderId'];
+                                        $nRs = $order_m->Load_Order_ProductByMatch($productid);
+                                        if (fn_ArrayCnt($nRs) <= 0) {
+                                            if ($is_miss == 0) $is_miss = 1;
+                                            $fk_pdcode = '';
+                                        } else {
+                                            $fk_pdcode = $nRs[0]['fk_pdcode'];
+                                        }
+
+                                        $gprice = $f['price'];
+                                        $gcnt = $f['cnt'];
+                                        $gtprice = $gprice * $gcnt;
+
+                                        $t_arr = [
+                                            'fk_orcode' => $orcode,
+                                            'fk_pdcode' => $fk_pdcode,
+                                            'sgcode' => $productid,
+                                            'sgname' => $f['pname'],
+                                            'addProductInfo' => $productOrderId,
+                                            'gprice' => $gprice,
+                                            'gcnt' => $gcnt,
+                                            'gtprice' => $gtprice
+                                        ];
+
+                                        $tprice = $tprice + $gtprice;
+                                        $tcnt = $tcnt + $gcnt;
+
+                                        $order_products[] = $t_arr;
+                                    }
+                                }
+
+                                if (fn_ArrayCnt($order_products) > 0) {
+                                    $Cnt = $order_m->Insert_Order_Product($order_products);
+                                    if($Cnt > 0) $orderCnt++;
+                                }
+
+                                $t_info = [
+                                    'orcode' => $orcode,
+                                    'spcode' => $spcode,
+                                    'shoptyp' => $shoptyp,
+                                    'tprice' => $tprice,
+                                    'tcnt' => $tcnt,
+                                    'input_typ' => 1,
+                                    'orderdate' => $orderdate
+                                ];
+                                if ($is_miss == 1) {
+                                    $Cnt = $order_m->Insert_Order_Info_Miss($t_info);
+                                } else {
+                                    $Cnt = $order_m->Insert_Order_Info($t_info);
+                                }
+                            }
+                            $loop++;
+                        }
+                    }
+
+                    if ($is_miss == 1) {
+                        $result = 'miss';
+                        $message = '누락된 주문이 존재합니다.';
+                    } else if ($Cnt <= 0) {
+                        $result = 'nothing';
+                        $message = '';
+                    } else {
+                        $result = 'ok';
+                        $message = '';
+                    }
+                } else {
+                    $result = 'nothing';
+                    $message = '';
+                }
+            }
+        }
+
+        $return = [
+            'result' => $result,
+            'info' => ['order' => $orderCnt],
+            'message' => $message
+        ];
+
+        return $this->respond($return);
+    }
+
 
     public function Insert_Excel(){
         $sessinarr = $this->GetSessionData();

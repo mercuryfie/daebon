@@ -1,26 +1,24 @@
 
 $(document).ready(function() {
-    let param = '';
-    let search = $('#skey').val();
-    const data = {
-        skey : search
-    };
-    Make_Html(data);
+
 
     $('#skey').on('keypress',async function(e){
         if (e.which === 13) {
-            let skey = $(this).val();
             const data = {
-                skey : skey
+                skey : $('#skey').val(),
+                sdate : $('#s_date').val(),
+                edate : $('#e_date').val()
             };
             Make_Html(data);
         }
     });
 
     $('#btn_sch').on('click',function(){
-        let skey = $('#skey').val();
+        $('#cList').empty();
         const data = {
-            skey : skey
+            skey : $('#skey').val(),
+            sdate : $('#s_date').val(),
+            edate : $('#e_date').val()
         };
         Make_Html(data);
     });
@@ -94,8 +92,32 @@ $(document).ready(function() {
         });
     });
 
-    $('#btn_orderUpload').on('click',function(){
-        Make_Toast('매칭된 상품코드가 없습니다. ');
+    $('#btn_orderUpload').on('click',async function(){
+        const fileInput = $('#attachExcel')[0]; // jQuery 객체를 일반 DOM 객체로 변환
+        const shoptyp = $('#shoptyp').val();
+        if (fileInput.files.length > 0) {
+            let data = await Upload_Order('attachExcel',4);
+             if (data && data.url) {
+                 console.log(data);
+                 const fname = data.fileName;
+                 let Cnt = await Insert_Order_Excel(fname, shoptyp);
+                 if(Cnt > 0){
+                     let msg = `총 ${Cnt}개의 주문을 등록하였습니다.`;
+                     alert(msg);
+                     const data = {
+                         skey : $('#skey').val(),
+                         sdate : $('#s_date').val(),
+                         edate : $('#e_date').val()
+                     };
+                     Make_Html(data);
+                     $('#uploadExcel').css('display','none');
+                 }
+             } else {
+                Make_Toast('엑셀파일 로드에 실패하였습니다.\n다시 시도하여주세요.');
+            }
+        } else {
+            alert("파일을 선택해주세요.");
+        }
     });
 
     $('#btn_ininstruct').on('click',async function(){
@@ -211,9 +233,10 @@ $(document).ready(function() {
                 } else {
                     Make_Toast('주문 확인처리 완료 하였습니다.');
                     $('#cList').empty();
-                    let search = $('#skey').val();
                     const params = {
-                        skey: search
+                        skey : $('#skey').val(),
+                        sdate : $('#s_date').val(),
+                        edate : $('#e_date').val()
                     };
                     Make_Html(params);
                 }
@@ -221,17 +244,43 @@ $(document).ready(function() {
         }
     });
 
-
-    $(document).on('click','button[name="shop_orderconfirm"]',function(){
-
-    });
-
     $("#total_check").on("click", function() {
         $("input[name='chkorder']").prop("checked", $(this).is(":checked"));
     });
 
-
+    const data = {
+        skey : $('#skey').val(),
+        sdate : $('#s_date').val(),
+        edate : $('#e_date').val()
+    };
+    Make_Html(data);
 });
+
+async function Insert_Order_Excel(fname,shoptype){
+    let Cnt = 0;
+    try {
+        start_spinner();
+        let dataarr = {"fname" : fname,"s_typ":shoptype};
+        let url = APIURL + '/Insert_Order_Excel';
+        let result = await Load_API_Auth(url,dataarr);
+        if (result.get('status') == 'NoLogin') {
+            go_login();
+        }else if(result.get('status') == 'ok') {
+            Cnt = result.get('data').order;
+        }else if(result.get('status') == 'miss') {
+            alert('누락된 주문이 존재합니다.');
+        }else if(result.get('status') == 'nothing') {
+            Make_Toast( "업로드 하신 엑셀 파일에서 등록이 가능한 주문이 없습니다.");
+        }else{
+            Make_Toast( "업로드 하신 엑셀 파일 로드에 실패하였습니다.\n다시 시도하여 주세요.");
+        }
+    } catch (error) {
+        Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+    }finally {
+        stop_spinner();
+    }
+    return Cnt;
+}
 
 async function Put_Order_Confirm(orcode){
     let data = '';
@@ -248,9 +297,9 @@ async function Put_Order_Confirm(orcode){
         }else{
             Make_Toast( "주문확인 처리에 실패하였습니다.<br>[" + result.get('message') + "]");
         }
-        stop_spinner();
     } catch (error) {
         Make_Toast('오류가 발생하였습니다. 다시 시도하여주세요.\n[ERROR : ' + error + '}');
+    }finally {
         stop_spinner();
     }
     return data;
@@ -311,6 +360,7 @@ async function Make_Html(params){
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2 fs14"><p class="text">${el.buy_name}</p><p class="text">${el.buy_phone}</p><p class="text">${el.receive_name}</p><p class="text">${el.receive_phone}</p></div></td>
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.tcnt} 팩</p><p class="text">${number_format(el.tprice)}원</p></div></td> 
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.orderdate}</p></div></td>
+                    <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text">${el.orderindate}</p></div></td>
                     
                     <td class="ltTbody scrollableCol"><div class="inner4 flexCol2"><p class="text" id="da_${el.orcode}">${el.moddate}</p></div></td>    
                     <td class="ltTbody scrollableCol "><div class="inner4 flexCol2 "><p class="text">${el.shopstr}</p><p class="text">${el.sell_id}</p></div></div></td> 
@@ -326,6 +376,10 @@ async function Make_Html(params){
 }
 
 function upload_Xlx() {
+
+    $('#shoptyp').val('');
+    $('#attachExcel').val('')
+
     $('#uploadExcel .area3').css('display','flex');
     $('#uploadExcel').css('display','block');
 }
@@ -369,7 +423,7 @@ async function Load_Data(params){
     let data = {};
     try {
         start_spinner();
-        let dataarr = {"skey" : params.skey};
+        let dataarr = {"skey" : params.skey,"sdate" : params.sdate,"edate":params.edate};
         let url = APIURL + '/Load_Order_Data';
         let result = await Load_API_Auth(url,dataarr);
         if (result.get('status') == 'NoLogin') {
@@ -492,3 +546,5 @@ function Return_gdstepName(gdstep){
     return gdstep_str;
 
 }
+
+

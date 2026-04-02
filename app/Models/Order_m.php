@@ -44,7 +44,7 @@ class Order_m extends Model
 
 
     public function Load_dashboardOrder_Info($fields=['ALL']){
-        $sql = "SELECT shoptyp,COUNT(*) as Cnt from vw_order_info a WHERE regidate >= CURDATE() AND regidate < CURDATE() + INTERVAL 1 DAY GROUP BY shoptyp ORDER BY 1 ASC;";
+        $sql = "SELECT shoptyp,COUNT(*) as Cnt from vw_order_info a WHERE indate >= CURDATE() AND indate < CURDATE() + INTERVAL 1 DAY GROUP BY shoptyp ORDER BY 1 ASC;";
         $query = $this->db->query($sql);
         return $query->getResultArray();
     }
@@ -104,6 +104,23 @@ class Order_m extends Model
             'ISDEL' => 0
         ];
 
+        $query = $this->db->query($sql, $bindparam);
+        return $query->getResultArray();
+    }
+
+    public function Load_Order_Search($search,$sdate,$edate, $fields=['ALL'])
+    {
+        $separated_val = fn_Make_Fields($fields);
+
+        $sql = "SELECT {$separated_val} FROM vw_order_info WHERE is_del = :ISDEL: ";
+        $sql .= "AND ( orcode LIKE :SKEY: OR buy_name LIKE :SKEY: OR buy_phone LIKE :SKEY: OR receive_name LIKE :SKEY: OR receive_phone LIKE :SKEY:) ";
+        $sql .= "AND indate>=:SDATE: AND indate <= :EDATE: ORDER BY indate DESC";
+        $bindparam = [
+            'SKEY' => "%{$search}%",
+            'SDATE' => $sdate,
+            'EDATE' => $edate,
+            'ISDEL' => 0
+        ];
         $query = $this->db->query($sql, $bindparam);
         return $query->getResultArray();
     }
@@ -285,7 +302,6 @@ class Order_m extends Model
         $builder->insert($param);
         $insertID = $this->db->insertID();
         $this->db->transComplete();
-
         return $insertID;
     }
 
@@ -305,7 +321,8 @@ class Order_m extends Model
         $builder->insert($param);
         $insertID = $this->db->insertID();
         $this->db->transComplete();
-
+//        $lastQuery = (string)$this->db->getLastQuery();
+//        echo $lastQuery;
         return $insertID;
     }
 
@@ -440,9 +457,4 @@ class Order_m extends Model
 
         return $insertID;
     }
-
-
-
-
-
 }

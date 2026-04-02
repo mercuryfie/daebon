@@ -668,6 +668,8 @@ class ApiOrderController extends BaseController
         $sessinarr = $this->GetSessionData();
         //$search = $this->request->getPost('skey') ?? [];
         $search  = ($this->request->getPost('skey') == '') ? '' : $this->request->getPost('skey');
+        $sdate =  ($this->request->getPost('sdate') == '') ? '' : $this->request->getPost('sdate');
+        $edate =  ($this->request->getPost('edate') == '') ? '' : $this->request->getPost('edate');
         if($sessinarr['islogin']==false) {
             $result = 'NoLogin';
             $data = [];
@@ -678,7 +680,7 @@ class ApiOrderController extends BaseController
             $message = '잘못된 토큰입니다.';
         }else {
             $order_m = model('Order_m');
-            $cRs = $order_m->Load_Order_All($search);
+            $cRs = $order_m->Load_Order_Search($search,$sdate,$edate);
             if(fn_ArrayCnt($cRs)===0){
                 $result = 'ok';
                 $data = [];
@@ -724,7 +726,8 @@ class ApiOrderController extends BaseController
                         'receive_address2' => $d['receive_address2'],
                         'receive_phone' => $d['receive_phone'],
                         'receive_memo' => $d['receive_memo'],
-                        'orderdate' => $d['indate'],
+                        'orderindate' => $d['indate'],
+                        'orderdate' => $d['orderdate'],
                         'indate' => fn_Short_Date($d['indate']),
                         'moddate' => $modate
                     ];

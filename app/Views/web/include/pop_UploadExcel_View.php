@@ -1,3 +1,4 @@
+<?php /** @var array $body */ ?>
 <!--db 에서 마켓값 읽어오는 버전-->
 <div class="upXlx_wrapiaj" id="uploadExcel" name="" style="">
     <div class="upXlx_conrlo">
@@ -7,7 +8,7 @@
 
             <div class="area area3 flexType2">
                 <p class="category">마켓</p>
-                <select name="" id="" class="inputBorder">
+                <select name="shoptyp" id="shoptyp" class="inputBorder">
                     <option value="">선택</option>
                     <?=$body['optcode'];?>
                 </select>

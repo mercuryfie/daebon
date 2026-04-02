@@ -383,18 +383,19 @@ async function Load_Before(skey){
     try {
         start_spinner();
         let dataarr = {"search" : skey};
-        let url = APIURL + '/Load_Product_List';
+        let url = APIURL + '/Load_Product_List2';
         let result = await Load_API_Auth(url,dataarr);
+        console.log(result);
         if (result.get('status') == 'NoLogin') {
             go_login();
         }else if(result.get('status') == 'ok') {
             let data = result.get('data');
             let arr = (data && data.list) ? data.list : [];
-            let Cnt = arr.length;
+            let Cnt = data.tcnt;
             if(Cnt > 0){
                 let html = '';
                 $.each(arr, function (index, el) {
-                    html = `<button class="copyOption active" type="button" name="option_Before" data-code="${el.pdcode}">${el.pdname}</button>`;
+                    html += `<button class="copyOption active" type="button" name="option_Before" data-code="${el.pdcode}">${el.pdname}</button>`;
                 });
 
                 $('#beforelist').append(html);
@@ -518,7 +519,7 @@ async function set_Data(pdcode) {
             html += `
                 <div class="mached flexType2" data-extype="${el.ex_type}" name="mached">
                     <p class="code" name="m_code">${el.fk_excode}</p>
-                    <p class="market" name="m_market">${getNameByCode(el.ex_type)}</p>
+                    <p class="market" name="m_market">${el.shopname}</p>
                     <i class="fa-solid fa-xmark" name="mached_del"></i>
                 </div>
             `;
@@ -533,7 +534,7 @@ async function set_Data(pdcode) {
             html += `
                 <div class="productTag  flexType3" name="add_product_info" data-code="${el.fk_gcode}">
                     <p class="pname" name="gname">${el.gsname}</p>
-                    <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt}봉</p>
+                    <p class="count" name="gcnt" data-cnt="${el.cnt}">${el.cnt}팩</p>
                     <i class="fa-solid fa-xmark" name="add_product_del"></i>
                 </div>
             `;

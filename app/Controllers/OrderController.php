@@ -189,7 +189,7 @@ class OrderController extends BaseController
             ];
 
             $main_data = [
-                'optcode' => opt_Excode('')
+                'optcode' => opt_Excode('','EXCEL')
             ];
 
             $form = new Form;

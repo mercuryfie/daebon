@@ -500,10 +500,10 @@ function getExCodeName($type) {
 }
 
 
-function List_ExCode() {
+function List_ExCode($option='') {
     $exCode = [];
     $common_m = model('Common_m');
-    $Rs = $common_m->Load_Mall_List('');
+    $Rs = $common_m->Load_Mall_List($option);
     if(fn_ArrayCnt($Rs)>0) {
         foreach ($Rs as $d) {
             $exCode[$d['shoptyp']] = $d['shop_name'];
@@ -513,8 +513,8 @@ function List_ExCode() {
     return $exCode;
 }
 
-function opt_Excode($select) {
-    $arr = List_ExCode();
+function opt_Excode($select,$option='') {
+    $arr = List_ExCode($option);
     $str = '';
     foreach ($arr as $key => $value) {
         $selected = ($select === $key) ? ' selected' : '';

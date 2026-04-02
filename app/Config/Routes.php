@@ -142,6 +142,7 @@ $routes->match(['GET', 'POST'], 'Api/Patch_Meterial_Income', 'ApiController::Pat
 $routes->match(['GET', 'POST'], 'Api/get_Material_Stock_Log', 'ApiController::get_Material_Stock_Log');
 $routes->match(['GET', 'POST'], 'Api/Load_Statistics_Month', 'ApiController::Load_Statistics_Month');
 $routes->match(['GET', 'POST'], 'Api/Load_Report_Order', 'ApiController::Load_Report_Order');
+$routes->match(['GET', 'POST'], 'Api/Insert_Order_Excel', 'ApiController::Insert_Order_Excel');
 
 $routes->match(['GET', 'POST'], 'Api/Load_UserList', 'ApiController::Load_UserList');
 $routes->match(['GET', 'POST'], 'Api/Add_UserInfo', 'ApiController::Add_UserInfo');
@@ -170,6 +171,7 @@ $routes->match(['GET', 'POST'], 'Api/Load_SemiProduct_Info', 'ApiProduceControll
 
 $routes->match(['GET', 'POST'], 'Api/Insert_Product', 'ApiProductController::Insert_Product');
 $routes->match(['GET', 'POST'], 'Api/Load_Product_List', 'ApiProductController::Load_Product_List');
+$routes->match(['GET', 'POST'], 'Api/Load_Product_List2', 'ApiProductController::Load_Product_List2');
 $routes->match(['GET', 'POST'], 'Api/Load_Product_Info', 'ApiProductController::Load_Product_Info');
 $routes->match(['GET', 'POST'], 'Api/Load_Product_Inout', 'ApiProductController::Load_Product_Inout');
 $routes->match(['GET', 'POST'], 'Api/Edit_Product', 'ApiProductController::Edit_Product');

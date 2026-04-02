@@ -108,7 +108,7 @@ async function Make_Html(data){
                     <td class="ltTbody">${el.shortdate}</td>
                     <td class="ltTbody">${el.gname}</td>
                     <td class="ltTbody">${el.gicode}</td>
-                    <td class="ltTbody">${number_format(el.quantity)} 봉</td>
+                    <td class="ltTbody">${number_format(el.quantity)} 팩</td>
                     <td class="ltTbody">(${el.stepnow}/${el.processcnt})</td>  
                     <td class="ltTbody">
                         <button type="button" class="btnType3 statusBtn statusStandby" name="vwReport" data-code="${el.gicode}" >

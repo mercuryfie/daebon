@@ -16,7 +16,7 @@
             <div class="area area1 flexType2">
                 <p class="must"></p>
                 <p class="title">아이디</p>
-                <input type="search" class="inputBorder mr10" placeholder="" id="userid" name="userid" data-uid="<?=$body['user']['uid'];?>" value="<?=$body['user']['userid'];?>" disabled>
+                <input type="search" class="inputBorder mr10" placeholder="" id="userid" name="userid" data-uid="<?=$body['user']['uid'];?>" value="<?=$body['user']['userid'];?>" disabled autocomplete="off">
             </div>
             <div class="area area2 flexType2">
                 <p class="must"></p>
@@ -26,17 +26,17 @@
             <div class="area area3 flexType2">
                 <p class="must"></p>
                 <p class="title">현재 비밀번호</p>
-                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_now" name="pw_now" value="">
+                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_now" name="pw_now" value="" autocomplete="new-password">
             </div>
             <div class="area area3 flexType2">
                 <p class="notmust"></p>
                 <p class="title">새 비밀번호</p>
-                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_1" name="pw_1" value="">
+                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_1" name="pw_1" value="" autocomplete="new-password">
             </div>
             <div class="area area4 flexType2">
                 <p class="notmust"></p>
                 <p class="title">새 비밀번호 확인</p>
-                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_2" name="pw_2" value="">
+                <input type="password" class="inputBorder " placeholder="영문,숫자 4-12자리" id="pw_2" name="pw_2" value="" autocomplete="new-password">
             </div>
             <div class="area area4 flexType2">
                 <p class="must"></p>

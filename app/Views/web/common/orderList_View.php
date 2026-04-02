@@ -39,13 +39,17 @@
                     </label>
                 </div>
             </div>
-            <button type="button" class="btnType2 mr20" onclick="go_orderRegister();">주문등록</button>
+            <div class="search_box flexType2">
+                <input type="search" name="skey" id="skey" class="searchArea" placeholder="주문번호,이름,연락처로 검색">
+                <button type="button" class="btnType1 mr20" id="btn_sch" name="btn_sch">검색</button>
+            </div>
         </div>
         <div class="areaBox areaBox2 pb100 min70vh">
             <div class="area2 flexType3  mt10 ">
-                <div class="left flexType2">
-                    <input type="search" name="skey" id="skey" class="searchArea" placeholder="주문번호,이름,연락처로 검색">
-                    <button type="button" class="btnType1" id="btn_sch" name="btn_sch">검색</button>
+                <div class="cnt_box left flexType2">
+                    <p class="text ">총 </p>
+                    <p class="text cnt ">1</p>
+                    <p class="text">건</p>
                 </div>
                 <div class="right">
                     <button type="button" class="btnType1 mr10" id="btn_ininstruct">포장지시</button>
@@ -53,7 +57,8 @@
 <!--                    <button type="button" class="btnType1 mr10" id="btn_package">묶음포장지시</button>-->
                     <button type="button" class="btnType1 mr10" onclick="upload_Xlx();">엑셀주문등록</button>
                     <button type="button" class="btnType1 mr10">엑셀 다운</button>
-                    <button type="button" class="btnType1 " onclick="template_Download();">양식 다운</button>
+                    <button type="button" class="btnType1 mr10" onclick="template_Download();">양식 다운</button>
+                    <button type="button" class="btnType2 " onclick="go_orderRegister();">주문등록</button>
                 </div>
             </div>
             <div class="area2 ">
@@ -75,6 +80,7 @@
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2 fs14"><p class="text">구매자명</p><p class="text">연락처</p><p class="text">수취인명</p><p class="text">연락처</p></div></th>
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2 "><p class="text">수량</p><p class="text">총액</p></div></th>
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2 "><p class="text">주문일자</p></div></th>
+                            <th class="ltThead scrollableCol"><div class="inner4 flexCol2 "><p class="text">주문등록일자</p></div></th>
 
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">상태변경일</p></div></th>
                             <th class="ltThead scrollableCol"><div class="inner4 flexCol2"><p class="text">연동정보</p></div></th>
